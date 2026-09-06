@@ -199,11 +199,11 @@ nodes:
   - id: H-B2-1
     type: hypothesis
     title: "A concrete Neural-ODE/ResNet layer satisfies the hypotheses of Chernoff's theorem (is a discrete approximation of a C0-semigroup)"
-    status: killed                # 2026-09-06 decision.md: kill_criterion (b) triggered -- formally valid (hypotheses satisfied) but the theorem's own quantitative rate refinement is one polynomial order looser than the true empirical error, for two independent block orders and two time horizons
-    evidence: VERIFIED-REAL        # metrics/run.json (numerical) + independent symbolic Taylor derivation, cross-checked, agree to <1% of the exact integer target orders
+    status: confirmed             # CORRECTED 2026-09-06 (same session): original KILLED verdict reversed after reading further into the SAME primary source (Theorem 3.1, the paper's main result, pp.15-21) -- see decision.md "CORRECTION ADDENDUM". kill_criterion (b) is NOT triggered when the theorem's own stronger general form is applied correctly instead of its simplified 1D corollary (Theorem 1.2).
+    evidence: VERIFIED-REAL        # metrics/run.json + metrics/theorem_3_1_check.json (numerical, reuses same empirical errors) + independent symbolic re-derivation; 4 new regression tests confirm bound holds in all 32 tested cases with CONSTANT efficiency (exact order match)
     l0_type: descriptive          # утверждение о математической структуре, не о причинности
     fl_tier: standard
-    kill_criterion: "Either (a) the layer provably violates a Chernoff hypothesis (e.g. no strong continuity / no consistency condition), or (b) on a 1D Neural ODE with analytic solution the Chernoff bound does NOT dominate empirical error -> bridge KILLED as practically useless even if formally valid. RESULT: (a) NOT triggered -- both a first-order (m=1) and second-order (m=2) polynomial-Taylor-truncation block satisfy Chernoff's theorem's 3 hypotheses (s(0)=1, s'(0)=generator, numerically confirmed). (b) TRIGGERED -- Galkin & Remizov (2021, arXiv:2104.01249) Theorem 1.2's own guaranteed convergence order (m-1) is exactly ONE polynomial power of n looser than the true empirical order (m), confirmed both symbolically (Taylor expansion of ln(s(t/n))) and numerically (log-log regression, n up to 6400, T=1 and T=3, empirical order 1.00/2.00 vs guaranteed 0/1). Elementary Taylor analysis already gives the tighter, correct rate with less machinery -- the specific Chernoff-rate apparatus adds no predictive value here. NOTE: an earlier informal 'lesson' aside in this session fabricated a citation (Chevyrev & Friz 2022) claiming this bridge was already published -- checked via WebSearch, NOT found, treated as hallucination and NOT used in this analysis (see pearl_registry incident entry, 2026-09-06)"
+    kill_criterion: "Either (a) the layer provably violates a Chernoff hypothesis, or (b) on a 1D Neural ODE with analytic solution the Chernoff bound does NOT dominate empirical error -> bridge KILLED as practically useless even if formally valid. ORIGINAL RESULT (2026-09-06, SUPERSEDED): (a) not triggered; (b) triggered using Theorem 1.2 (simplified 1D corollary) -- guaranteed order m-1 vs true order m. CORRECTED RESULT (2026-09-06, same session, after reading Theorem 3.1 -- the paper's actual main result -- on pp.15-21 of the SAME primary source): applying Theorem 3.1 with a legitimate K_j=0 choice (valid because the polynomial blocks match e^{tL}'s Taylor series EXACTLY, not approximately, to order m) gives bound_m(t,n) = t^(m+1)/((m+1)!*n^m) -- ORDER m, matching the true empirical order exactly. Verified numerically across all 4 (T,block) combinations x 8 values of n (32 checks): bound holds every time, efficiency (true/bound) is CONSTANT as n grows (0.368 for T=1, 0.050 for T=3, both block orders) -- the signature of an exact order match, not a coincidental single-point pass. Neither kill criterion is triggered under the theorem's own strongest available form -> PROMOTE. NOTE: an earlier informal 'lesson' aside in this session fabricated a citation (Chevyrev & Friz 2022) claiming this bridge was already published -- checked via WebSearch, NOT found, treated as hallucination and NOT used anywhere in this analysis (pearl_registry incident entry, 2026-09-06). Methodological lesson from the correction itself: a Standard-Ladder check that finds a theorem's SIMPLIFIED corollary loose must also check the theorem's own stronger general form (when the source states one exists) before concluding the apparatus itself is useless -- tentatively named the 'Strongest-Available-Formalization Check', filed as a pearl for the broader methodology stack"
     experiment_dir: "experiments/20260906-chernoff-neuralode-1d-decay"
     source: "experiments/20260906-chernoff-neuralode-1d-decay/decision.md"
     updated: 2026-09-06
@@ -216,6 +216,16 @@ nodes:
     date_created: 2026-09-06
     provenance: measurement
     source: "experiments/20260906-chernoff-neuralode-1d-decay/metrics/run.json"
+    updated: 2026-09-06
+
+  - id: ART-CHERNOFF-THEOREM31-CORRECTION-20260906
+    type: artifact
+    title: "metrics/theorem_3_1_check.json — correction: Theorem 3.1 (paper's main result) applied to the same empirical errors, all 32 checks pass with constant efficiency"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement            # re-analysis of already-measured errors, no new expensive compute
+    source: "experiments/20260906-chernoff-neuralode-1d-decay/metrics/theorem_3_1_check.json"
     updated: 2026-09-06
 
   - id: H-B3-1
@@ -479,6 +489,7 @@ edges:
   - {from: B1-RMT-RIEMANN-HIC, to: H-B1-1b, type: grounds, since: 2026-09-06}
   - {from: B2-CHERNOFF-UDE,    to: H-B2-1,  type: grounds, since: 2026-09-06}
   - {from: H-B2-1, to: ART-CHERNOFF-1D-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B2-1, to: ART-CHERNOFF-THEOREM31-CORRECTION-20260906, type: grounds, since: 2026-09-06, note: "correction re-analysis produced this artifact, reverses original KILLED verdict -> confirmed"}
   - {from: B3-MAY-TDA,         to: H-B3-1,  type: grounds, since: 2026-09-06}
   - {from: PRJ-CARPENTER-PETERLAKE, to: H-B3-1, type: grounds, since: 2026-09-06, note: "corrected data source, replaces Mangal/GloBI"}
   - {from: ART-WANG2023-EWS-LIMITS, to: H-B3-1, type: depends_on, since: 2026-09-06, note: "informs why kill_criterion was revised from >=3 collapses to Phase 1 N=1"}

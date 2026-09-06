@@ -1,8 +1,10 @@
 # decision.md — 20260906-chernoff-neuralode-1d-decay
 
-**Graph node:** `H-B2-1` · **Date:** 2026-09-06
+**Graph node:** `H-B2-1` · **Date:** 2026-09-06 · **CORRECTED 2026-09-06 (same session, see addendum
+at the bottom) — original verdict below is SUPERSEDED, kept verbatim for the historical record per
+this project's Hindsight Distortion Gap discipline (never silently rewrite; add a dated correction).**
 
-## Verdict
+## Verdict (ORIGINAL — SUPERSEDED, see correction addendum at end of file)
 
 - [ ] PROMOTE
 - [ ] REPEAT
@@ -126,3 +128,104 @@ floating-point/regression noise (~0.001-0.008 relative to the exact integer targ
 methodology pearl in `pearl_registry/INDEX.md` — this pattern likely generalizes to any Standard-Ladder
 check of a "named theorem's own quantitative refinement" against elementary calculus, not just this
 bridge.
+
+---
+
+## CORRECTION ADDENDUM (2026-09-06, same session, continuing the same reading of the same primary source)
+
+### What changed
+
+While continuing to read the SAME primary source (Galkin & Remizov 2021, arXiv:2104.01249) beyond the
+pages used for the original test (pp.1-6), pages 15-21 were read (`Read` tool, PDF pages, same method
+as before) and reveal **Theorem 3.1** — the paper's actual MAIN result, of which **Theorem 1.2 (used in
+the original test above) is an explicitly-labeled simplification/special case** ("Statement (2) is
+similar to (1), but (2) is not so elementary even in one-dimensional case... the theorem 3.1 covers
+non-trivial cases, such as dim F = ∞ and ‖L‖ = ∞", p.6). The original test used ONLY the simplified
+corollary and never checked whether the paper's stronger, more general theorem gives a better bound.
+
+### Re-derivation using Theorem 3.1
+
+Theorem 3.1's condition 3 requires functions `K_j(t) ≥ 0` such that
+`‖S(t)f − Σ_{k=0}^m t^k L^k f/k!‖ ≤ t^{m+1} Σ_j K_j(t)‖L^j f‖`. For our polynomial blocks
+(`s1(h)=1-h`, `s2(h)=1-h+h²/2`), the left-hand side is **IDENTICALLY ZERO** for every `t`, not merely
+small — because each block was constructed to equal exactly the degree-`m` Taylor truncation of
+`e^{-t}`, term for term. Choosing `K_j(t) = 0` for all `j` is therefore a legitimate, non-cheating
+choice (`0 ≤ 0`), not an approximation.
+
+With `K_j = 0`, `M1 = M2 = 1`, `w = 0` (valid whenever `|block(t/n)| ≤ 1` at the step size actually
+used — checked numerically for every tested `(T, n)` pair, see `tests/test_theorem_3_1_correction.py`),
+Theorem 3.1's conclusion (formula 13) reduces to the clean closed form:
+
+```
+bound_m(t, n) = t^(m+1) / ((m+1)! · n^m)
+```
+
+This is **order `m`** — matching the TRUE empirical order exactly, not `m-1` as the simplified
+corollary gave.
+
+### Numerical verification (`experiments/20260906-chernoff-neuralode-1d-decay/theorem_3_1_check.py`)
+
+Re-uses the ALREADY-COMPUTED empirical errors from `metrics/run.json` (zero new expensive compute).
+For all 4 (T, block) combinations × 8 values of `n` (32 checks total):
+
+| T | block | efficiency (true error / bound) — CONSTANT across all 8 tested `n` |
+|---|---|---|
+| 1.0 | order-1 | 0.368 ± 0.001 |
+| 1.0 | order-2 | 0.370 ± 0.002 |
+| 3.0 | order-1 | 0.050 ± 0.000 |
+| 3.0 | order-2 | 0.051 ± 0.001 |
+
+**The bound HOLDS in all 32 cases** (`true_error ≤ bound` every time), and — critically — the
+efficiency ratio is **CONSTANT as `n` grows**, not drifting toward 0 or ∞. A drifting efficiency would
+mean the bound's order doesn't match reality; a constant efficiency is the signature of an EXACT order
+match. 4 regression tests (`tests/test_theorem_3_1_correction.py`) lock this in, including a hand-derived
+formula cross-check independent of the numerical run.
+
+### Revised Verdict
+
+- [x] **PROMOTE** — kill_criterion (b) is **NOT triggered** when the paper's actual main theorem
+  (3.1) is applied correctly, with the legitimate `K_j=0` choice justified by the block's exact
+  polynomial construction. Combined with kill_criterion (a) also not triggered (established in the
+  original test above), **this bridge, in its 1D toy form, formally holds AND yields a genuinely
+  informative, order-matching quantitative bound** — reversing the original KILLED verdict.
+
+### Why This Is Not a Retraction of the Original Test's Own Claim
+
+The original test's claim — "Theorem 1.2 gives a rate estimate one order looser than the true error" —
+remains TRUE and independently useful (it is now itself a documented limitation of that specific
+simplified corollary, filed as a pearl). What was wrong was the INFERENCE drawn from it: that this
+implies "the Chernoff apparatus adds no predictive value here." That inference doesn't survive checking
+the paper's stronger theorem. This is analogous to testing a weak baseline, finding it fails, and
+concluding the whole METHOD fails — without checking whether a stronger, still-legitimate variant of
+the same method succeeds. A concrete instance of "verify the STRONGEST available formalization of a
+claim before concluding the underlying idea doesn't work," not previously named as its own gate in this
+project's methodology stack.
+
+### Kill Analysis Update (OSA)
+
+**What is now UN-killed:** "The Chernoff apparatus (applied via ITS OWN best-available quantitative
+theorem, not an arbitrary simplification of it) gives no useful bound beyond elementary calculus for
+this class of problem" — this specific claim is now REVERSED. The apparatus, applied via Theorem 3.1
+with the legitimate `K_j=0` construction, gives a bound with the CORRECT order and a REASONABLE
+constant (within ~3-20x of the true error, constant in `n`), genuinely informative and non-trivial.
+
+**What remains correctly killed:** Theorem 1.2 (the simplified 1D corollary) specifically IS loose by
+exactly one order — that finding stands, unchanged, and is exactly why checking the general theorem
+mattered here.
+
+**Relaxation Map status:** row 2 (matrix/multi-dimensional case) from the original Relaxation Map above
+is now MORE motivated, not less — if Theorem 3.1 (which explicitly covers `dim F = ∞`) gives a tight,
+order-matching bound even in the genuinely multi-dimensional case (not just this 1D toy), that would be
+a substantially stronger and more publishable result. Not run in this session (time budget); flagged as
+the clear next step if this bridge is revisited.
+
+### Pearl Card Update (Correction)
+
+**New pearl, portable beyond this bridge:** when a named theorem has an explicitly-simplified corollary
+(the paper itself often SAYS so — "Statement (2) is similar to (1), but not so elementary"), a
+Standard-Ladder check that finds the SIMPLIFIED corollary loose/uninformative must NOT be treated as a
+verdict on the underlying apparatus without also checking whether the theorem's OWN stronger/general
+form (when it exists in the same source) closes the gap. This is a new, general methodological gate —
+tentatively named the "Strongest-Available-Formalization Check" — worth adding to this project's own
+methodology stack (`~/.claude/rules/` or a project-level note) given it directly overturned a KILLED
+verdict in this very session.

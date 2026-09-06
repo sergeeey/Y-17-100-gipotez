@@ -69,6 +69,14 @@
 - Pearl impact 7: агрегатный счётчик ложных срабатываний может скрывать более резкую картину; такое ранжирование стоит строить РАНЬШЕ в цепочке (после 2-го REJECT, не 3-го).
 - Граф: `H-B3-1f → lead`, L0 переклассифицирован в descriptive. Рекомендация: текущий пайплайн детекции исчерпан для этой популяции — нужен принципиально новый подход, не очередной параметрический вариант.
 
+**[WS: H-B2-1 correction] CLOSED 2026-09-06 (ADR-016, автономно, `/loop`, продолжение установленной работы).** `[VERIFIED]`:
+- После `/loop` вернулся к самому свежему открытому треду и продолжил читать ТОТ ЖЕ первоисточник (arXiv:2104.01249) дальше — нашёл Theorem 3.1 (главный результат, стр.15-21), из которого Theorem 1.2 (использованная изначально) — explicitly названное автором упрощение.
+- Применил Theorem 3.1 к тем же полиномиальным блокам: K_j=0 легитимен (блоки ТОЧНО совпадают с усечённым рядом Тейлора), даёт `bound_m(t,n)=t^{m+1}/((m+1)!·n^m)` — порядок m, совпадающий с истинной эмпирической ошибкой (не m-1).
+- **Проверено на всех 32 уже посчитанных комбинациях без нового дорогого вычисления**: граница выполняется всегда, КПД ПОСТОЯНЕН при росте n (0.368/0.050) — сигнатура точного совпадения порядка.
+- Коррекция оформлена честно: старый вердикт не переписан, помечен SUPERSEDED с датированным addendum (Hindsight Distortion Gap discipline). Та же дисциплина применена к `null_results/`.
+- Граф: `H-B2-1 → confirmed` (было `killed`). Pearl impact 8: новый методологический гейт «Strongest-Available-Formalization Check» — не убивать вывод об аппарате целиком, если протестировано только explicitly упрощённое следствие теоремы.
+- B2 Relaxation Map row 2 (многомерный случай) — приоритет повышен.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -109,6 +117,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 14:58] `f428e99`: chore: auto-log commit history entry
 - [2026-09-06 14:57] `09269f1` (local, branch `feature/consistency-review-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(null_results): timestamp the stale retroscan claim for H-B3-1c/1d
 - [2026-09-06 14:51] `6e1bc7a`: chore: auto-log commit history entry
 - [2026-09-06 14:50] `0ec53c5`: chore: auto-log commit history entry
@@ -123,4 +132,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 13:33] `34304c3`: feat(H-B3-1c): V1 surrogate-null implemented and re-run on both datasets -> REJECT (first real one)
 - [2026-09-06 13:12] `ea27a8a`: chore: auto-log commit history entry
 - [2026-09-06 13:12] `acd8184`: feat(H-B3-1): unblocked by user-provided data -> CRITERION_INVALID, 2nd independent confirmation
-- [2026-09-06 12:57] `c166b46`: feat(H-B3-1b): re-scoped to a reachable dataset, ran end-to-end -> CRITERION_INVALID (LEAD)
