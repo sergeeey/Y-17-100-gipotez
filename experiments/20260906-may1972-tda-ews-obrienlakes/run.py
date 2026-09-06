@@ -21,6 +21,7 @@ Design pre-registered in claim.md BEFORE inspecting how well it "works":
 from __future__ import annotations
 
 import json
+import warnings
 from pathlib import Path
 
 import numpy as np
@@ -185,6 +186,49 @@ def floor_false_positive_rate(x: np.ndarray, window: int, reps: int, seed: int) 
         if first_crossing(tau_var) is not None or first_crossing(tau_ac1) is not None:
             hits += 1
     return hits / reps
+
+
+# ───────────────────── V1: per-series surrogate-null detection rule ─────────────────────
+# WHY (Relaxation Map, both sibling decision.md files, 2026-09-06): a single fixed tau>=0.5
+# threshold sits AT FLOOR (45-90% false-positive rate under a mechanism-free AR(1) null) on
+# every real series tested so far. V1 replaces the fixed threshold with a PER-SERIES,
+# PER-TIMEPOINT significance test: at each time index, "crossing" means the real tau exceeds
+# the (1-alpha) percentile of the SAME AR(1)-surrogate null used for the floor check -- so the
+# bar a series must clear is calibrated to its own length and autocorrelation structure, not a
+# borrowed literature constant. This is the ONLY assumption changed from H-B3-1/H-B3-1b
+# (Minimal Relaxation Rule) -- window, embedding, and statistics are all unchanged.
+SURROGATE_ALPHA = 0.05  # one-sided significance level, standard convention (Dakos et al. 2012)
+
+
+def surrogate_null_curve(
+    x: np.ndarray, window: int, kind: str, reps: int, seed: int, alpha: float = SURROGATE_ALPHA
+) -> np.ndarray:
+    """Per-timepoint (1-alpha) percentile of the expanding-tau curve under `reps` AR(1)
+    surrogates of `x` (kind in {"ac1","var","betti"}). Same length as the real tau series."""
+    rng = np.random.default_rng(seed)
+    n_out = len(x) - window + 1
+    curves = np.full((reps, n_out), np.nan)
+    for r in range(reps):
+        surrogate = ar1_surrogate(x, rng)
+        if kind == "betti":
+            stat = betti1_entropy_series(surrogate, window)
+        else:
+            stat = rolling_stat(surrogate, window, kind)
+        curves[r] = expanding_kendall_tau(stat)
+    # WHY: early time indices (before min_points is reached in EVERY surrogate) are legitimately
+    # all-NaN across the reps axis -- nanpercentile warns about this by design, not a bug; the
+    # resulting NaN correctly propagates into surrogate_crossing's valid-mask exclusion.
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", message="All-NaN slice encountered")
+        return np.nanpercentile(curves, 100 * (1 - alpha), axis=0)
+
+
+def surrogate_crossing(real_tau: np.ndarray, null_curve: np.ndarray) -> int | None:
+    """First index where the real series' tau exceeds ITS OWN per-timepoint surrogate-null
+    percentile -- replaces `first_crossing`'s fixed threshold with a self-calibrated one."""
+    valid = ~np.isnan(real_tau) & ~np.isnan(null_curve)
+    hit = np.where(valid & (real_tau > null_curve))[0]
+    return int(hit[0]) if hit.size else None
 
 
 # ───────────────────────────── EXPERIMENT ─────────────────────────────

@@ -47,6 +47,14 @@
 - **Результат:** AR(1)-пол = 45–85% на всех 6 рядов → **CRITERION_INVALID**, ВТОРОЕ независимое подтверждение находки H-B3-1b на совершенно другом датасете (контролируемый эксперимент, высокая частота vs наблюдательные данные, месячные). Peter doSat: TDA +1 день (тривиально); chl/pH — TDA не сработал вовсе; Paul (контроль) — ложное срабатывание на всех 3 переменных.
 - Граф: `H-B3-1 → lead`. Pearl impact 8→**9** (кросс-датасетное подтверждение).
 
+**[WS: H-B3-1c V1] 2026-09-06 (ADR-011, прямой запрос пользователя «реализуй V1 и перезапусти оба датасета»).** `[VERIFIED]`:
+- Реализовал per-series per-timepoint AR(1)-суррогатный null (95-й перцентиль, α=0.05) взамен фиксированного tau≥0.5 — единственное изменённое допущение (Minimal Relaxation Rule). Новый узел `H-B3-1c`, родители `H-B3-1`/`H-B3-1b` не тронуты.
+- **Перед полным прогоном** написал self-consistency тест (`tests/test_surrogate_null_v1.py`) — подтвердил, что правило само по себе корректно (срабатывает <50% на настоящем AR(1)-шуме, далеко от floor 45-90%).
+- **Результат прогона на всех 9 рядах: 5/5 негативных контролей всё равно ложно сработали.** НЕ CRITERION_INVALID (правило работает) — **настоящий REJECT**: AR(1) слишком бедная нулевая модель для реальных «тихих» экологических рядов (внутрисезонные тренды, гетероскедастичность). Первый настоящий REJECT в проекте — записан в `null_results/H-B3-1c-lakes-tda-ews-surrogate-null-v1.md` с полным Kill Analysis.
+- `ceiling-gate` хук дал ложное срабатывание (искал строку «CRITERION_INVALID» без понимания отрицания в моей же формулировке) — задокументировано как ещё один keyword-шум.
+- Rescue Review: `weak_alive`, следующий кандидат — V1' (IAAFT phase-randomized surrogate), не запущен.
+- Pearl (impact 7): реальные негативные контроли не описываются AR(1) — общий методологический урок для будущих surrogate-based тестов.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -83,6 +91,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 *Создан: 2026-09-06 при переносе из Obsidian vault.*
 
 ## Auto-commit log
+- [2026-09-06 13:12] `ea27a8a`: chore: auto-log commit history entry
 - [2026-09-06 13:12] `acd8184`: feat(H-B3-1): unblocked by user-provided data -> CRITERION_INVALID, 2nd independent confirmation
 - [2026-09-06 12:57] `c166b46`: feat(H-B3-1b): re-scoped to a reachable dataset, ran end-to-end -> CRITERION_INVALID (LEAD)
 - [2026-09-06 12:32] `3d011c2`: chore(D:)+feat(H-B3-1): merge/push pilot-pains fix; H-B3-1 substrate gate BLOCKED-INFRASTRUCTURE

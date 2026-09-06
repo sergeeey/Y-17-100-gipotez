@@ -12,6 +12,7 @@
 **/.claude/state/
 .claude/worktrees/
 .claude/agent-memory-local/
+.claude/scheduled_tasks.lock
 
 # --- Python ---
 __pycache__/

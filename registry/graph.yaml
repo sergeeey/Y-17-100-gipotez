@@ -232,6 +232,18 @@ nodes:
     source: "experiments/20260906-may1972-tda-ews-obrienlakes/decision.md"
     updated: 2026-09-06
 
+  - id: H-B3-1c
+    type: hypothesis
+    title: "V1: per-series per-timepoint AR(1)-surrogate-null (alpha=0.05) replaces the fixed tau>=0.5 threshold, re-run on all 9 series from both H-B3-1 and H-B3-1b"
+    status: killed                # 2026-09-06 decision.md: genuine REJECT (not CRITERION_INVALID -- the rule itself validated as sound by a self-consistency unit test; AR(1) specifically is too simple a null model for these real series). null_results/H-B3-1c-lakes-tda-ews-surrogate-null-v1.md
+    evidence: VERIFIED-REAL       # metrics/run.json; self-consistency of the rule independently verified by tests/test_surrogate_null_v1.py
+    l0_type: predictive
+    fl_tier: full
+    kill_criterion: "False-positive rate on the 4 negative-control series (Windermere, Loch Leven, Paul pH/doSat/chl -- 5 series total incl. all 3 Paul variables) must be < 4/5 (better than the fixed-threshold rule) AND >=1 positive case (Lower Zurich, Peter x3) must show a TDA lead>0, for PASS. RESULT: 5/5 negative controls false-positived (identical outcome in kind to the fixed threshold, different mechanism); only Peter doSat showed a directional TDA lead (+13 days), uninterpretable given the false positives -> REJECT. Relaxation Map: V1' (IAAFT phase-randomized surrogate, richer null capturing full power spectrum not just lag-1 autocorrelation) is the least-circular next candidate, not yet run -- new experiment ID required (Minimal Relaxation Rule)"
+    experiment_dir: "experiments/20260906-lakes-tda-ews-surrogate-null-v1"
+    source: "experiments/20260906-lakes-tda-ews-surrogate-null-v1/decision.md"
+    updated: 2026-09-06
+
   # ───────────────────────── projects (added during H-B3-1 scoping, 2026-09-06) ─────────────────────────
   - id: PRJ-CARPENTER-PETERLAKE
     type: project
@@ -302,6 +314,16 @@ nodes:
     date_created: 2026-09-06
     provenance: measurement
     source: "experiments/20260906-may1972-tda-ews-peterlake/metrics/run.json"
+    updated: 2026-09-06
+
+  - id: ART-V1-SURROGATE-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — V1 per-series AR(1)-surrogate-null re-run on all 9 series from H-B3-1 + H-B3-1b"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-lakes-tda-ews-surrogate-null-v1/metrics/run.json"
     updated: 2026-09-06
 
   # ───────────────────────── artifacts ─────────────────────────
@@ -396,6 +418,11 @@ edges:
   - {from: ART-CASCADE-SONDES-08TO11, to: H-B3-1, type: grounds, since: 2026-09-06, note: "resolved BLOCKED-INFRASTRUCTURE via manual user download"}
   - {from: H-B3-1, to: ART-PETERLAKE-TDA-EWS-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
   - {from: H-B3-1b, to: H-B3-1, type: links_to, since: 2026-09-06, note: "H-B3-1b's floor finding (80-83% FP rate) independently reproduced here (45-85% FP rate) on a completely different dataset -- cross-dataset confirmation of the same methodology pearl"}
+
+  # H-B3-1c (2026-09-06): V1 surrogate-null fix, re-runs all 9 series from both parents -> REJECT
+  - {from: H-B3-1, to: H-B3-1c, type: grounds, since: 2026-09-06, note: "H-B3-1's Relaxation Map + 6 series (Peter/Paul x chl/pH/doSat) are the basis for H-B3-1c"}
+  - {from: H-B3-1b, to: H-B3-1c, type: grounds, since: 2026-09-06, note: "H-B3-1b's Relaxation Map + 3 series (Lower Zurich, Windermere, Loch Leven) are the basis for H-B3-1c"}
+  - {from: H-B3-1c, to: ART-V1-SURROGATE-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
 
   # dependency chain that caused the stale-reference incident
   - {from: ART-TAD-R-HONEST,  to: ART-TAD-AUC-0.99998,     type: invalidates, since: 2026-05-16, note: "label circularity exposed; honest Δ=+0.0018"}
