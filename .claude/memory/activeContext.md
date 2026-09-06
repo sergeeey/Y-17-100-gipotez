@@ -98,6 +98,23 @@ explicit source-level OR gate).
   кросс-ветка генерализация в серии B7. Следующий шаг: транзиентная версия на этой ветке.
 **[WS: H-B7-11 remy_tumorigenesis cross-branch] CLOSED.**
 
+**[WS: H-B7-12 remy_tumorigenesis cross-branch transient] CLOSED 2026-09-07 (ADR-039, продолжение
+очереди по запросу пользователя «продолжай выполнять все по очереди»).** `[VERIFIED]`:
+- Транзиентный `do(p21CIP=0, RBL2=0)` на второй ветке → k*=5 воспроизвёлся ТОЧНО (тот же
+  one-step race, что H-B7-10).
+- **НО skeptic отнёсся к «подозрительно удобному» совпадению как к сигналу для БОЛЬШЕЙ проверки** —
+  нашёл, что обе ветки динамически ЭКВИВАЛЕНТНЫ: `EGFR` заблокирован `FGFR3=1` (правило требует
+  `!FGFR3` в обоих дизъюнктах), `EGFR_stimulus` никогда не распространяется.
+- **Дополнительно:** только 2 из 7 мультистабильных веток вообще имеют Proliferation attractor, обе
+  требуют идентичной `(DNA=0,FGFR3=1,GI=1)` — пространство кросс-веточной генерализации для этой
+  цели побега ИСЧЕРПАНО.
+- **Вердикт: WEAKENED** (per Response Matrix, Accepted) — технический kill criterion выполнен, но
+  рамка скорректирована. Dated addendum добавлен в H-B7-11's decision.md (не тихая правка,
+  технический CONFIRMED H-B7-11 не изменён).
+- Граф: `H-B7-12 → confirmed` (WEAKENED). Мост остаётся `evidence: CONFLICT`. **Pearl impact 8** —
+  методологическая находка о ТОМ, как проверять claims о генерализации.
+**[WS: H-B7-12 remy_tumorigenesis cross-branch transient] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -146,6 +163,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 01:33] `8ce0ff7`: chore: auto-log commit history entry
 - [2026-09-07 01:32] `6343a11` (local, branch `feature/h-b7-11-crossbranch` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-11: cross-branch generalization CONFIRMED, incidentally caught H-B7-4's branch-count error
 - [2026-09-07 01:01] `6788722`: chore: auto-log commit history entry
 - [2026-09-07 01:00] `c24b243` (local, branch `feature/h-b7-10-transient-sweep` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-10: fine duration sweep pins exact threshold k*=5, fully traced to a 1-step race condition
@@ -160,4 +178,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 23:12] `23fd3a2`: chore: auto-log commit history entry (2)
 - [2026-09-06 23:12] `5fbe68f` (local, branch `feature/auto-log-e9ce2d2` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-06 23:11] `e9ce2d2` (local, branch `feature/h-b7-5-twohit-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-5: two-hit do(RAS=1, TP53=0) REJECTED again, but the failure mechanism is traced and named
-- [2026-09-06 22:54] `8fbb6a3`: chore: auto-log commit history entry

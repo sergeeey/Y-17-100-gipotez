@@ -93,6 +93,24 @@ on the second branch). That script was then actually RUN by the main session:
 
 Not applicable — deterministic simulation on a fully specified, `pyboolnet`-cross-checked mechanism.
 
+## CORRECTION ADDENDUM (2026-09-07, H-B7-12 scoping — Hindsight Distortion Gap discipline, not a
+silent rewrite)
+
+`H-B7-12`'s own FL Step 8a skeptic pass found, and this session independently verified against the
+`.bnet` source, that `EGFR`'s rule (`SPRY&!GRB2&!FGFR3 | !GRB2&!FGFR3&EGFR_stimulus`) requires
+`!FGFR3` in BOTH disjuncts — and since `FGFR3_stimulus=1` is fixed identically in BOTH this
+experiment's branch and `H-B7-4`'s original branch, `EGFR` is forced to `0` regardless of
+`EGFR_stimulus`'s value. **The two branches tested here are dynamically equivalent** — the one input
+bit that differs between them (`EGFR_stimulus`) never actually propagates to anything. This does NOT
+change the CONFIRMED verdict above (the clamp genuinely reaches `Proliferation` on this second
+branch, independently `pyboolnet`-verified) — but it corrects the "first confirmed cross-branch
+generalization" framing: this experiment demonstrates robustness to one specific INERT input
+difference, not a test against a genuinely different dynamical regime. `H-B7-12` additionally found
+that this network offers NO OTHER branch with a `Proliferation` attractor to test against — the
+cross-branch generalization question for this specific escape target is now EXHAUSTED, not merely
+answered once. See `experiments/20260906-remy-tumorigenesis-crossbranch-transient-h12/decision.md`
+for the full analysis.
+
 ## Pearl Card Update
 
 **New information:** the first confirmed cross-branch generalization in this bridge — and one that

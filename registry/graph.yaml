@@ -893,6 +893,22 @@ nodes:
       cross-branch generalization in this bridge. Skeptic pass (Step 8a) verdict CONFIRMED-REAL,
       including exhaustive attractor enumeration on the second branch (exactly 3, matching all
       claimed states) -- the one check the skeptic could not close by hand, then executed.
+      CORRECTION (H-B7-12 scoping): the two branches tested (H-B7-4's original and H-B7-11's
+      second) turned out to be dynamically EQUIVALENT -- EGFR's rule requires !FGFR3 in both
+      disjuncts, and FGFR3_stimulus=1 is fixed identically in both, so EGFR_stimulus (the one
+      differing input) never propagates to anything. H-B7-11's technical CONFIRMED result stands,
+      but the "cross-branch generalization" framing is corrected: this network offers no branch
+      with a Proliferation attractor that differs in a dynamically-live input, so the
+      generalization question is EXHAUSTED for this escape target, not merely answered once.
+      H-B7-12 (transient version on the second branch): tested the SAME transient do(p21CIP=0,
+      RBL2=0) sweep (k=1,3,4,5,6,9,10,30) on H-B7-11's branch. CONFIRMED-GENERALIZES-SAME-
+      THRESHOLD (kill criterion met literally) but WEAKENED in interpretation per the correction
+      above: k*=5 reproduces EXACTLY, same one-step CyclinE1 race mechanism H-B7-10 traced --
+      robustness to one inert input difference, not evidence of generalization across a
+      genuinely different dynamical regime. Skeptic pass (Step 8a) flagged the "suspiciously
+      convenient" exact match as reason for MORE scrutiny and found the EGFR/FGFR3 gating
+      directly from the .bnet source. Verdict CONFIRMED-REAL with the WEAKENED caveat accepted,
+      not dismissed.
 
   - id: H-B7-1
     type: hypothesis
@@ -1117,7 +1133,7 @@ nodes:
   - id: H-B7-11
     type: hypothesis
     title: "Cross-branch generalization test of the permanent do(p21CIP=0, RBL2=0) clamp on the SECOND (and only other) phenotype-divergent branch of the Remy et al. 2015 network -- differs from the branch used throughout H-B7-4..10 by exactly one input bit (EGFR_stimulus 0->1)"
-    status: confirmed             # 2026-09-07 decision.md: CONFIRMED -- pattern generalizes, byte-identical to independently pyboolnet-verified PROLIFERATION_STATE_2; skeptic pass (Step 8a) CONFIRMED-REAL including exhaustive attractor enumeration
+    status: confirmed             # 2026-09-07 decision.md: CONFIRMED (technical result stands) -- byte-identical to independently pyboolnet-verified PROLIFERATION_STATE_2; skeptic pass (Step 8a) CONFIRMED-REAL including exhaustive attractor enumeration. CORRECTED by H-B7-12 (dated addendum, not silent rewrite): the two branches are dynamically EQUIVALENT (EGFR gated by FGFR3=1, EGFR_stimulus never propagates) -- "generalization" framing softened, this network's generalization space for this escape target is EXHAUSTED, not merely confirmed once
     evidence: VERIFIED-REAL       # metrics/run.json; 3 pre-registered tests; independently re-confirmed via exhaustive pyboolnet.compute_attractors() enumeration on this second branch (exactly 3 attractors, matching all 3 claimed states); Compute-First scoping ALSO caught and corrected a minor factual error in H-B7-4's original branch-count claim
     l0_type: causal
     fl_tier: standard
@@ -1134,6 +1150,28 @@ nodes:
     date_created: 2026-09-07
     provenance: measurement
     source: "experiments/20260906-remy-tumorigenesis-crossbranch-h11/metrics/run.json"
+    updated: 2026-09-07
+
+  - id: H-B7-12
+    type: hypothesis
+    title: "Transient do(p21CIP=0, RBL2=0) duration sweep on the SECOND branch (H-B7-11), testing whether H-B7-10's exact threshold k*=5 generalizes -- and, per its own skeptic pass, discovering the two branches are dynamically equivalent (EGFR gated out by FGFR3=1)"
+    status: confirmed             # 2026-09-07 decision.md: CONFIRMED-GENERALIZES-SAME-THRESHOLD (kill criterion met literally), WEAKENED in interpretation (Response Matrix: Accepted) -- k*=5 reproduces exactly, but the two branches are dynamically equivalent, not a genuine cross-regime test
+    evidence: VERIFIED-REAL       # metrics/run.json; 2 pre-registered tests; independently verified against the .bnet source that EGFR's rule requires !FGFR3 in both disjuncts, making EGFR_stimulus inert given FGFR3_stimulus=1 fixed in both branches
+    l0_type: causal
+    fl_tier: standard
+    kill_criterion: "Three possible outcomes pre-registered: CONFIRMED-GENERALIZES-SAME-THRESHOLD (escape happens, k*=5 exactly, matching H-B7-10); CONFIRMED-GENERALIZES-DIFFERENT-THRESHOLD (escape happens, different k*); REJECTED (no escape). RESULT: CONFIRMED-GENERALIZES-SAME-THRESHOLD met literally -- k=1,3,4 relapse to this branch's second Growth_arrest fixed point, k=5,6,9,10,30 all reach the exact Proliferation attractor for this branch, k*=5 exactly matching H-B7-10. FL Step 8a skeptic pass treated the exact match as reason for MORE scrutiny, not less, and found (independently verified against the .bnet source: grep confirms EGFR = SPRY&!GRB2&!FGFR3 | !GRB2&!FGFR3&EGFR_stimulus, both disjuncts requiring !FGFR3) that FGFR3_stimulus=1 fixed identically in both branches forces EGFR=0 regardless of EGFR_stimulus -- the two branches are DYNAMICALLY EQUIVALENT, the one differing input bit never propagates. Verdict WEAKENED per FL Response Matrix (Accepted, not dismissed): the technical kill criterion is met, but the interpretive framing is corrected -- this demonstrates robustness to one inert input difference, not generalization across a genuinely different dynamical regime. Further conclusive finding: re-checking the full branch scoping shows only 2 of 7 multistable branches have a Proliferation attractor at all, and both require the identical (DNA_damage=0, FGFR3_stimulus=1, Growth_inhibitors=1) combination -- this network's cross-branch generalization space for this specific escape target is EXHAUSTED, not merely tested once more"
+    experiment_dir: "experiments/20260906-remy-tumorigenesis-crossbranch-transient-h12"
+    source: "experiments/20260906-remy-tumorigenesis-crossbranch-transient-h12/decision.md"
+    updated: 2026-09-07
+
+  - id: ART-REMY-CROSSBRANCH-TRANSIENT-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — transient do(p21CIP=0, RBL2=0) sweep k=1,3,4,5,6,9,10,30 on the second Remy 2015 branch; k*=5 exactly, later shown to be an arithmetic consequence of branch equivalence, not independent generalization evidence"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-07
+    provenance: measurement
+    source: "experiments/20260906-remy-tumorigenesis-crossbranch-transient-h12/metrics/run.json"
     updated: 2026-09-07
 
   # ───────────────────────── questions ─────────────────────────
@@ -1278,4 +1316,8 @@ edges:
   - {from: H-B7-9, to: H-B7-11, type: grounds, since: 2026-09-07, note: "H-B7-9's Relaxation Map named this exact follow-up: test the p21CIP/RBL2 pattern on one of the other multistable branches"}
   - {from: H-B7-8, to: H-B7-11, type: grounds, since: 2026-09-07, note: "H-B7-11 tests the same permanent do(p21CIP=0, RBL2=0) clamp H-B7-8 established as sufficient on the first branch"}
   - {from: H-B7-11, to: ART-REMY-CROSSBRANCH-RUN-20260906, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
+  - {from: H-B7-11, to: H-B7-12, type: grounds, since: 2026-09-07, note: "H-B7-11's own Relaxation Map named this exact follow-up: transient version of the same clamp on this second branch, mirroring H-B7-9's test on the first"}
+  - {from: H-B7-9, to: H-B7-12, type: grounds, since: 2026-09-07, note: "H-B7-12 tests whether H-B7-10's exact k*=5 threshold generalizes to a second branch"}
+  - {from: H-B7-12, to: H-B7-11, type: depends_on, since: 2026-09-07, note: "H-B7-12's own skeptic pass found the two branches tested in H-B7-11/H-B7-12 are dynamically equivalent (EGFR gated by FGFR3=1) -- corrects H-B7-11's 'generalization' framing via a dated addendum in H-B7-11's own decision.md, does not change H-B7-11's technical CONFIRMED verdict"}
+  - {from: H-B7-12, to: ART-REMY-CROSSBRANCH-TRANSIENT-RUN-20260906, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
   - {from: H-B7-11, to: H-B7-4, type: depends_on, since: 2026-09-07, note: "H-B7-11's Compute-First scoping found and corrected a minor factual error in H-B7-4's own original branch-count claim (7, not 8, of 16 branches multistable) -- documented as a dated correction addendum in H-B7-4's Data_README.md, H-B7-4's own verdict/status unaffected"}
