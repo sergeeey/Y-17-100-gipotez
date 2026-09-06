@@ -1,0 +1,25 @@
+{
+  "branch": "second (EGFR_stimulus=1)",
+  "clamps": {
+    "p21CIP": false,
+    "RBL2": false
+  },
+  "branch_inputs": {
+    "DNA_damage": false,
+    "EGFR_stimulus": true,
+    "FGFR3_stimulus": true,
+    "Growth_inhibitors": true
+  },
+  "growth_arrest_state_2": "00000000000000000111011000011110001",
+  "proliferation_state_2": "00000100101001010111001000110010110",
+  "final_attractor_period": 1,
+  "final_attractor_type": "point",
+  "final_state_pyboolnet_order": "00000100101001010111001000110010110",
+  "growth_arrest_phenotype_node": false,
+  "proliferation_phenotype_node": true,
+  "final_attractor_identity": "PROLIFERATION (pattern GENERALIZES to second branch)",
+  "branch_inputs_preserved": true,
+  "flipped_to_proliferation": true,
+  "matches_proliferation_state_2": true,
+  "comparison_to_h_b7_8_first_branch": "H-B7-8 (first branch, same clamp): CONFIRMED, reached Proliferation"
+}

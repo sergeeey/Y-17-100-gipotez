@@ -83,6 +83,21 @@ explicit source-level OR gate).
   шаг: тот же скан с другой стартовой точки; кросс-ветка проверка.
 **[WS: H-B7-10 remy_tumorigenesis transient sweep] CLOSED.**
 
+**[WS: H-B7-11 remy_tumorigenesis cross-branch] CLOSED 2026-09-07 (ADR-038, прямой запрос
+пользователя «проверь другую мультистабильную ветку итд продолжай выполнять все по очереди»).**
+`[VERIFIED]`:
+- Compute-First пересчёт всех 16 веток ДО дизайна → **побочно поймал ошибку счёта H-B7-4** (7, не
+  8, мультистабильных веток; «2 фенотипически разных» — верно). Dated correction addendum, не
+  тихая правка.
+- `do(p21CIP=0, RBL2=0)` на ЕДИНСТВЕННОЙ другой фенотипически-дивергентной ветке (отличается на 1
+  бит, EGFR_stimulus) → **CONFIRMED** — точный Proliferation attractor этой ветки, механизм
+  структурно идентичен (те же escape-route узлы активны).
+- **FL Step 8a skeptic pass выполнен и пройден** (шестой CONFIRMED подряд): CONFIRMED-REAL;
+  исчерпывающее перечисление аттракторов второй ветки — ровно 3, все совпали.
+- Граф: `H-B7-11 → confirmed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 8.** Первая
+  кросс-ветка генерализация в серии B7. Следующий шаг: транзиентная версия на этой ветке.
+**[WS: H-B7-11 remy_tumorigenesis cross-branch] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -131,6 +146,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 01:01] `6788722`: chore: auto-log commit history entry
 - [2026-09-07 01:00] `c24b243` (local, branch `feature/h-b7-10-transient-sweep` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-10: fine duration sweep pins exact threshold k*=5, fully traced to a 1-step race condition
 - [2026-09-07 00:44] `b1d13a6`: chore: auto-log commit history entry
 - [2026-09-07 00:43] `a9a159a` (local, branch `feature/h-b7-9-transient-necessity` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-9: transient do(p21CIP=0, RBL2=0) CONFIRMED for k=10,30, first strict-Kauffman confirmation
@@ -145,4 +161,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 23:11] `e9ce2d2` (local, branch `feature/h-b7-5-twohit-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-5: two-hit do(RAS=1, TP53=0) REJECTED again, but the failure mechanism is traced and named
 - [2026-09-06 22:54] `8fbb6a3`: chore: auto-log commit history entry
 - [2026-09-06 22:54] `962403a` (local, branch `feature/active-context-archive-trim` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: archive B1/B2/B3 arc from activeContext.md, trim to under the 200-line ceiling
-- [2026-09-06 22:49] `167605b` (local, branch `feature/h-b7-4-remy-tumorigenesis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-4: installed pyboolnet, found a genuinely bistable cancer model, first structurally-capable test of Kauffman's hypothesis

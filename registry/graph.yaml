@@ -879,6 +879,20 @@ nodes:
       rules and adversarially tested the monotonicity-detection logic against 5 non-monotone
       shapes, all correctly rejected. Reused H-B7-9's simulate_transient_clamp_multi UNCHANGED
       (Minimal Relaxation Rule: only duration granularity changed).
+      H-B7-11 (cross-branch generalization test): Compute-First re-enumeration of all 16 input
+      branches (before designing this experiment) found exactly ONE other branch besides the one
+      used throughout H-B7-4..10 with genuine phenotype divergence -- also caught and corrected a
+      minor factual error in H-B7-4's original count (7, not 8, of 16 branches are multistable;
+      documented as a dated correction addendum in H-B7-4's Data_README.md, not a silent rewrite;
+      the "2 phenotype-divergent branches" claim was already correct). Tested the same permanent
+      do(p21CIP=0, RBL2=0) clamp on this SECOND branch (differs by exactly one input bit,
+      EGFR_stimulus 0->1). CONFIRMED -- reaches the exact Proliferation attractor for this branch,
+      byte-identical to independently pyboolnet-verified PROLIFERATION_STATE_2; same escape-route
+      nodes (CyclinE1, CyclinA, CDC25A, E2F1_medium, E2F3_medium, p16INK4a) active as in branch 1,
+      confirming a structurally identical mechanism, not a coincidental byte match. First confirmed
+      cross-branch generalization in this bridge. Skeptic pass (Step 8a) verdict CONFIRMED-REAL,
+      including exhaustive attractor enumeration on the second branch (exactly 3, matching all
+      claimed states) -- the one check the skeptic could not close by hand, then executed.
 
   - id: H-B7-1
     type: hypothesis
@@ -1100,6 +1114,28 @@ nodes:
     source: "experiments/20260906-remy-tumorigenesis-transient-sweep-h10/metrics/run.json"
     updated: 2026-09-07
 
+  - id: H-B7-11
+    type: hypothesis
+    title: "Cross-branch generalization test of the permanent do(p21CIP=0, RBL2=0) clamp on the SECOND (and only other) phenotype-divergent branch of the Remy et al. 2015 network -- differs from the branch used throughout H-B7-4..10 by exactly one input bit (EGFR_stimulus 0->1)"
+    status: confirmed             # 2026-09-07 decision.md: CONFIRMED -- pattern generalizes, byte-identical to independently pyboolnet-verified PROLIFERATION_STATE_2; skeptic pass (Step 8a) CONFIRMED-REAL including exhaustive attractor enumeration
+    evidence: VERIFIED-REAL       # metrics/run.json; 3 pre-registered tests; independently re-confirmed via exhaustive pyboolnet.compute_attractors() enumeration on this second branch (exactly 3 attractors, matching all 3 claimed states); Compute-First scoping ALSO caught and corrected a minor factual error in H-B7-4's original branch-count claim
+    l0_type: causal
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if the clamp reaches an attractor with this branch's own Proliferation phenotype node = 1; REJECTED if it relapses to Growth_arrest. RESULT: CONFIRMED -- final_state_pyboolnet_order byte-identical to PROLIFERATION_STATE_2 (00000100101001010111001000110010110). Branch-1 vs branch-2 Proliferation states differ at EXACTLY one bit (EGFR_stimulus, position 17) -- every escape-route node (CyclinE1, CyclinA, CDC25A, E2F1_medium, E2F3_medium, p16INK4a) identical between branches, confirming structurally identical mechanism, not coincidental match. Compute-First re-enumeration of all 16 branches (before designing this experiment) found this is the ONLY other branch with genuine phenotype divergence, and also caught/corrected a minor factual error in H-B7-4's original count (7, not 8, of 16 branches multistable -- documented as a dated correction addendum, not a silent rewrite; the '2 phenotype-divergent branches' claim was already correct). FL Step 8a skeptic pass (context-asymmetric) verdict CONFIRMED-REAL: hand-verified fixed points + honest-derivation check for both branches' clamped nodes, then the main session executed the one check the skeptic could not close by hand -- exhaustive attractor enumeration on the second branch, finding exactly 3 attractors matching all 3 claimed states precisely. First confirmed cross-branch generalization in this bridge"
+    experiment_dir: "experiments/20260906-remy-tumorigenesis-crossbranch-h11"
+    source: "experiments/20260906-remy-tumorigenesis-crossbranch-h11/decision.md"
+    updated: 2026-09-07
+
+  - id: ART-REMY-CROSSBRANCH-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — permanent do(p21CIP=0, RBL2=0) on the SECOND phenotype-divergent branch of the Remy 2015 network; reaches the exact Proliferation attractor for that branch"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-07
+    provenance: measurement
+    source: "experiments/20260906-remy-tumorigenesis-crossbranch-h11/metrics/run.json"
+    updated: 2026-09-07
+
   # ───────────────────────── questions ─────────────────────────
   - id: Q-GOE-vs-GUE
     type: question
@@ -1239,3 +1275,7 @@ edges:
   - {from: H-B7-9, to: ART-REMY-TRANSIENT-NECESSITY-RUN-20260906, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
   - {from: H-B7-9, to: H-B7-10, type: grounds, since: 2026-09-07, note: "H-B7-9's own Relaxation Map named this exact follow-up: a finer sweep k=4..9 to pin down the exact threshold left open between k=3 relapse and k=10 escape"}
   - {from: H-B7-10, to: ART-REMY-TRANSIENT-SWEEP-RUN-20260906, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
+  - {from: H-B7-9, to: H-B7-11, type: grounds, since: 2026-09-07, note: "H-B7-9's Relaxation Map named this exact follow-up: test the p21CIP/RBL2 pattern on one of the other multistable branches"}
+  - {from: H-B7-8, to: H-B7-11, type: grounds, since: 2026-09-07, note: "H-B7-11 tests the same permanent do(p21CIP=0, RBL2=0) clamp H-B7-8 established as sufficient on the first branch"}
+  - {from: H-B7-11, to: ART-REMY-CROSSBRANCH-RUN-20260906, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
+  - {from: H-B7-11, to: H-B7-4, type: depends_on, since: 2026-09-07, note: "H-B7-11's Compute-First scoping found and corrected a minor factual error in H-B7-4's own original branch-count claim (7, not 8, of 16 branches multistable) -- documented as a dated correction addendum in H-B7-4's Data_README.md, H-B7-4's own verdict/status unaffected"}
