@@ -141,6 +141,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 18:29] `492eea1` (local, branch `feature/h-b2-1e-combined-stress` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1e): combined non-normal + mixed-sign stress test closes the H-B2-1* arc at 5 confirmations
 - [2026-09-06 18:23] `d65eba8`: chore: auto-log commit history entry
 - [2026-09-06 18:23] `7f6fbd3` (local, branch `feature/h-b2-1d-mixed-spectrum` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1d): 4th consecutive confirmation (mixed-sign spectrum, exact M1=M2=1) + fix(H-B2-1c): correct missing M1^2 factor found while deriving this bound
 - [2026-09-06 16:25] `bfb3ef1`: chore: auto-log commit history entry
@@ -155,4 +156,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 14:50] `0ec53c5`: chore: auto-log commit history entry
 - [2026-09-06 14:49] `30a0e63` (local, branch `feature/h-b3-1f-descriptive-v3` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1f): V3 descriptive-only join reveals the sharpest finding in bridge B3 -- with zero new compute
 - [2026-09-06 14:43] `5a8b00b`: chore: auto-log commit history entry
-- [2026-09-06 14:42] `4e7f269` (local, branch `feature/h-b2-1-chernoff-neuralode` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1): Chernoff <-> Neural-ODE bridge formalized and tested -> KILLED (practically useless, formally valid)
