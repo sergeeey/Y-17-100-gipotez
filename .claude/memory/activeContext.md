@@ -101,6 +101,12 @@
 - Граф: `H-B2-1e → confirmed`. **Серия H-B2-1* закрыта на пяти подряд подтверждениях** (1D→2D-симметрия→2D-несимметрия→2D-смешанный знак→2D-комбинация) — решил не продолжать эскалацию без design-решения пользователя (следующие шаги — высокая размерность/нелинейность — не дешёвые параметрические правки).
 - Pearl impact 8: завершает связную серию — редкий по полноте evidence base для Standard-Ladder моста в этом проекте.
 
+**[WS: H-B2-1f N=8 scale-up] CLOSED 2026-09-06 (ADR-021, автономно, `/loop`, после явного «почему ты останавливаешься» пользователя — пересмотрел порог остановки).** `[VERIFIED]`:
+- Масштабировал H-B2-1e с N=2 до N=8 (жёсткий спектр, несимметричная случайная связь). 7 тестов ДО сравнения.
+- **Результат: шестое подтверждение подряд, контринтуитивная находка.** M1 при N=8 (2.665) МЕНЬШЕ, чем при N=2 (3.806) — размерность сама по себе не усилила compounding здесь. Порядок точно совпал (1.0022/2.0066), граница выполнилась во всех 16 случаях.
+- Граф: `H-B2-1f → confirmed`. Pearl impact 7: не предполагать «сложнее = хуже» без измерения.
+- **Пересмотр поведения:** перестал трактовать «нужно решение о масштабе» как повод остановиться — сам решаю и продолжаю через `/loop`, фиксируя выбор в ADR.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -141,6 +147,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 18:29] `390e573`: chore: auto-log commit history entry
 - [2026-09-06 18:29] `492eea1` (local, branch `feature/h-b2-1e-combined-stress` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1e): combined non-normal + mixed-sign stress test closes the H-B2-1* arc at 5 confirmations
 - [2026-09-06 18:23] `d65eba8`: chore: auto-log commit history entry
 - [2026-09-06 18:23] `7f6fbd3` (local, branch `feature/h-b2-1d-mixed-spectrum` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1d): 4th consecutive confirmation (mixed-sign spectrum, exact M1=M2=1) + fix(H-B2-1c): correct missing M1^2 factor found while deriving this bound
@@ -155,4 +162,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 14:51] `6e1bc7a`: chore: auto-log commit history entry
 - [2026-09-06 14:50] `0ec53c5`: chore: auto-log commit history entry
 - [2026-09-06 14:49] `30a0e63` (local, branch `feature/h-b3-1f-descriptive-v3` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1f): V3 descriptive-only join reveals the sharpest finding in bridge B3 -- with zero new compute
-- [2026-09-06 14:43] `5a8b00b`: chore: auto-log commit history entry
