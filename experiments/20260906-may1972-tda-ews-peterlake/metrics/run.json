@@ -1,0 +1,156 @@
+{
+  "ground_truth": {
+    "transition_doy_2010": 230,
+    "transition_decimal_year": 2010.627397260274,
+    "source": "Carpenter et al. 2011 Science preprint p.3, read directly from PDF"
+  },
+  "config": {
+    "window_frac": 0.5,
+    "embed_dim": 3,
+    "embed_delay": 1,
+    "tau_threshold": 0.5,
+    "aggregation": "daily mean (matches Carpenter et al. 2011's own EWS methodology)"
+  },
+  "results": {
+    "Peter_chl": {
+      "lake": "Peter",
+      "variable": "chl",
+      "role": "positive",
+      "n_points": 334,
+      "season_time_range_days": [
+        0.0,
+        331.0054794521345
+      ],
+      "transition_time_days": 314.00547945213293,
+      "window": 167,
+      "classical_ac1_crossing_day": 172.00273972609716,
+      "classical_var_crossing_day": 172.00273972609716,
+      "classical_earliest_crossing_day": 172.00273972609716,
+      "tda_betti_crossing_day": null,
+      "lead_days_tda_minus_classical": null,
+      "lead_before_transition_days": {
+        "classical": 142.00273972603577,
+        "tda": null
+      },
+      "false_positive": false,
+      "floor_ar1_false_positive_rate": 0.45
+    },
+    "Peter_pH": {
+      "lake": "Peter",
+      "variable": "pH",
+      "role": "positive",
+      "n_points": 334,
+      "season_time_range_days": [
+        0.0,
+        331.0054794521345
+      ],
+      "transition_time_days": 314.00547945213293,
+      "window": 167,
+      "classical_ac1_crossing_day": 172.00273972609716,
+      "classical_var_crossing_day": 172.00273972609716,
+      "classical_earliest_crossing_day": 172.00273972609716,
+      "tda_betti_crossing_day": null,
+      "lead_days_tda_minus_classical": null,
+      "lead_before_transition_days": {
+        "classical": 142.00273972603577,
+        "tda": null
+      },
+      "false_positive": false,
+      "floor_ar1_false_positive_rate": 0.65
+    },
+    "Peter_doSat": {
+      "lake": "Peter",
+      "variable": "doSat",
+      "role": "positive",
+      "n_points": 334,
+      "season_time_range_days": [
+        0.0,
+        331.0054794521345
+      ],
+      "transition_time_days": 314.00547945213293,
+      "window": 167,
+      "classical_ac1_crossing_day": 173.0027397260826,
+      "classical_var_crossing_day": 175.0027397260535,
+      "classical_earliest_crossing_day": 173.0027397260826,
+      "tda_betti_crossing_day": 172.00273972609716,
+      "lead_days_tda_minus_classical": 0.9999999999854481,
+      "lead_before_transition_days": {
+        "classical": 141.00273972605032,
+        "tda": 142.00273972603577
+      },
+      "false_positive": false,
+      "floor_ar1_false_positive_rate": 0.45
+    },
+    "Paul_chl": {
+      "lake": "Paul",
+      "variable": "chl",
+      "role": "negative",
+      "n_points": 334,
+      "season_time_range_days": [
+        0.0,
+        331.0054794521345
+      ],
+      "transition_time_days": 314.00547945213293,
+      "window": 167,
+      "classical_ac1_crossing_day": 188.0027397261133,
+      "classical_var_crossing_day": 180.00273972606374,
+      "classical_earliest_crossing_day": 180.00273972606374,
+      "tda_betti_crossing_day": 180.00273972606374,
+      "lead_days_tda_minus_classical": 0.0,
+      "lead_before_transition_days": {
+        "classical": 134.0027397260692,
+        "tda": 134.0027397260692
+      },
+      "false_positive": true,
+      "floor_ar1_false_positive_rate": 0.6
+    },
+    "Paul_pH": {
+      "lake": "Paul",
+      "variable": "pH",
+      "role": "negative",
+      "n_points": 334,
+      "season_time_range_days": [
+        0.0,
+        331.0054794521345
+      ],
+      "transition_time_days": 314.00547945213293,
+      "window": 167,
+      "classical_ac1_crossing_day": 173.0027397260826,
+      "classical_var_crossing_day": 191.00273972606965,
+      "classical_earliest_crossing_day": 173.0027397260826,
+      "tda_betti_crossing_day": null,
+      "lead_days_tda_minus_classical": null,
+      "lead_before_transition_days": {
+        "classical": 141.00273972605032,
+        "tda": null
+      },
+      "false_positive": true,
+      "floor_ar1_false_positive_rate": 0.85
+    },
+    "Paul_doSat": {
+      "lake": "Paul",
+      "variable": "doSat",
+      "role": "negative",
+      "n_points": 334,
+      "season_time_range_days": [
+        0.0,
+        331.0054794521345
+      ],
+      "transition_time_days": 314.00547945213293,
+      "window": 167,
+      "classical_ac1_crossing_day": 194.00273972610898,
+      "classical_var_crossing_day": 230.00547945211042,
+      "classical_earliest_crossing_day": 194.00273972610898,
+      "tda_betti_crossing_day": 177.0027397261074,
+      "lead_days_tda_minus_classical": 17.00000000000159,
+      "lead_before_transition_days": {
+        "classical": 120.00273972602395,
+        "tda": 137.00273972602554
+      },
+      "false_positive": true,
+      "floor_ar1_false_positive_rate": 0.65
+    }
+  },
+  "max_floor_false_positive_rate": 0.85,
+  "verdict": "CRITERION_INVALID"
+}

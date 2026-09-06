@@ -211,13 +211,13 @@ nodes:
   - id: H-B3-1
     type: hypothesis
     title: "Phase 1 (Peter Lake): TDA signals (Betti-1, persistent entropy) lead classical EWS (variance, autocorrelation) on the Carpenter 2011 Peter Lake whole-ecosystem regime-shift experiment"
-    status: blocked              # 2026-09-06 Substrate Gate: BLOCKED-INFRASTRUCTURE (EDI CAPTCHA + PASTA API 403 for public access). NOT evidence against the claim. See substrate_gate.md for the 9 access paths tried and what would unblock it. Superseded in practice by H-B3-1b (O'Brien lakes), same claim family, different reachable population.
-    evidence: HYPOTHESIS
+    status: lead                 # 2026-09-06: unblocked by a user-provided CSV (squealSondesMet_08to11_forOPUS.csv), run to completion -> CRITERION_INVALID (Step 4a, max floor false-positive rate 85%), NOT evidence against the claim. Independently reproduces the SAME floor-invalidity found in H-B3-1b on a completely different dataset. decision.md. CLAUDE.md 3-outcome convention -> LEAD, weak_alive.
+    evidence: VERIFIED-REAL       # metrics/run.json; floor measured, not assumed; data internally consistency-checked (manifest.md)
     l0_type: predictive
     fl_tier: full
-    kill_criterion: "On Peter Lake (manipulated), TDA signal (Betti-1 / persistence entropy via Takens embedding + Vietoris-Rips) does NOT precede classical EWS (rising autocorrelation/variance) on ANY of >=2 tested series (chlorophyll, pH, DO, zooplankton) by a pre-registered lead time -> KILLED for this case. Paul Lake (reference) must show NEITHER signal -> if Paul Lake false-positives on either method, that method is disqualified before comparing lead times. >=3 independent collapses (original criterion) deferred to Phase 2, contingent on Phase 1 not being KILLED -- Wang et al. 2023 (Nat Commun) shows clean documented critical transitions are rare in empirical (non-experimental) lake data, so committing to 3 upfront was infeasible"
+    kill_criterion: "On Peter Lake (manipulated), TDA signal (Betti-1/persistence entropy) does NOT precede classical EWS on ANY of 3 tested series (chl, pH, doSat) by a pre-registered lead time, with Paul Lake (reference) showing neither signal -> KILLED. RESULT: only doSat crossed for TDA (+1 day trivial lead over classical); chl/pH never crossed for TDA at all; Paul (negative control) false-positived on all 3 variables. AR(1) floor check: 45-85% false-positive rate with NO mechanism -> CRITERION_INVALID, not REJECT (FL Step 4a hard rule). Escape Point: first draft mis-applied the sibling experiment's ICE rule and silently analyzed only the 2009 season (114/450 days), missing the 2010 transition entirely -- caught before writing decision.md, fixed via season-time concatenation (2008-2010), locked in by tests/test_peterlake_tda_ews.py"
     experiment_dir: "experiments/20260906-may1972-tda-ews-peterlake"
-    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Bridge 3 (corrected 2026-09-06)"
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Bridge 3 (corrected 2026-09-06); experiments/20260906-may1972-tda-ews-peterlake/decision.md"
     updated: 2026-09-06
 
   - id: H-B3-1b
@@ -282,6 +282,26 @@ nodes:
     date_created: 2026-09-06
     provenance: measurement
     source: "experiments/20260906-may1972-tda-ews-obrienlakes/metrics/run.json"
+    updated: 2026-09-06
+
+  - id: ART-CASCADE-SONDES-08TO11
+    type: artifact
+    title: "squealSondesMet_08to11_forOPUS.csv — user-provided Peter/Paul Lake 5-min sonde data 2008-2011"
+    status: valid
+    evidence: VERIFIED-REAL       # sha256-recorded; internal consistency checked against Carpenter et al. 2011's own description before use (manifest.md); exact EDI package/version not independently re-confirmed (caveat stated explicitly in manifest.md)
+    date_created: 2026-09-06      # date_received (manual delivery by user)
+    provenance: measurement
+    source: "experiments/20260906-may1972-tda-ews-peterlake/manifest.md"
+    updated: 2026-09-06
+
+  - id: ART-PETERLAKE-TDA-EWS-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — Peter/Paul Lake TDA vs classical EWS + AR(1) floor check (season-concatenated 2008-2010)"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-may1972-tda-ews-peterlake/metrics/run.json"
     updated: 2026-09-06
 
   # ───────────────────────── artifacts ─────────────────────────
@@ -371,6 +391,11 @@ edges:
   - {from: ART-OBRIEN2023-LAKE-PLANKTON, to: H-B3-1b, type: grounds, since: 2026-09-06}
   - {from: H-B3-1b, to: ART-LZ-TDA-EWS-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
   - {from: H-B3-1, to: H-B3-1b, type: links_to, since: 2026-09-06, note: "same claim family, different population after H-B3-1's data source hit BLOCKED-INFRASTRUCTURE; not a dependency -- H-B3-1b does not require H-B3-1 to unblock"}
+
+  # H-B3-1 unblocked (2026-09-06): user-provided CSV
+  - {from: ART-CASCADE-SONDES-08TO11, to: H-B3-1, type: grounds, since: 2026-09-06, note: "resolved BLOCKED-INFRASTRUCTURE via manual user download"}
+  - {from: H-B3-1, to: ART-PETERLAKE-TDA-EWS-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B3-1b, to: H-B3-1, type: links_to, since: 2026-09-06, note: "H-B3-1b's floor finding (80-83% FP rate) independently reproduced here (45-85% FP rate) on a completely different dataset -- cross-dataset confirmation of the same methodology pearl"}
 
   # dependency chain that caused the stale-reference incident
   - {from: ART-TAD-R-HONEST,  to: ART-TAD-AUC-0.99998,     type: invalidates, since: 2026-05-16, note: "label circularity exposed; honest Δ=+0.0018"}
