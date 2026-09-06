@@ -285,6 +285,8 @@
 |---|---|---|---|---|---|
 | 2026-09-06 | `case_study_loch_leven_paul_dosat.py` (read-only, использует уже посчитанный `tda_betti_crossing` из V1) | tool | посмотреть на сырые данные вокруг crossing-даты у двух необъяснённых ложных срабатываний | `CAUGHT` | нашёл кандидат-механизм (локальный минимум дисперсии в окне crossing) — Positive-Control Digitization (Gate 3) сразу его опроверг: тот же паттерн у Peter doSat (доверенный истинный сигнал), не различает FP от TP |
 | 2026-09-06 | Ruff (`RUF046`, `RUF059`) на новом скрипте | tool | линт нового диагностического файла | `CAUGHT` | 2 лишних `int()`, 2 неиспользуемых unpacked-переменных — исправлено, вывод скрипта подтверждён идентичным до/после (`diff` пуст) |
+| 2026-09-06 | Прямая проверка своего же черновика по V1's `metrics/run.json` (self-audit spot-check) | practice | убедиться, что `case_study_notes.md` верно описывает, какие ряды пересекают | `CAUGHT` | поймал собственную ошибку: черновик отнёс Paul chl к «никогда не пересекающим», хотя `peterlake_Paul_chl.tda_betti_crossing = 185.0` в уже закоммиченных данных V1 — пересекает под entropy, не под total persistence; исправлено по Hindsight Distortion Gap (не переписано молча, добавлена datedcorrection-строка) |
+| 2026-09-06 | `all_series_variance_ratio_check.py` (тест собственного `falsifiable_prediction` из pearl-записи, без нового compute) | tool | проверить, держится ли паттерн «var_ratio<0.5 при crossing» на ВСЕХ 6 рядах с пересечением, не только на 3 | `CAUGHT` | 6/6 (100%), обе роли (positive mean 0.375, negative mean 0.199) — предсказание подтверждено, pearl → CONFIRMED |
 
 ## Сводка (считать командой ниже, не вручную)
 
@@ -294,7 +296,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 | Исход | Кол-во |
 |---|---|
-| CAUGHT | 58 |
+| CAUGHT | 60 |
 | OK | 63 |
 | MISSED | 3 |
 | NOISE | 18 |

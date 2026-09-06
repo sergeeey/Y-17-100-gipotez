@@ -103,6 +103,32 @@ is unchanged and remains open.
 
 This does not change the LEAD verdict above.
 
+## Addendum 2 (2026-09-06, same session) — pearl's falsifiable_prediction tested and CONFIRMED
+
+Followed the pearl registry entry's own `falsifiable_prediction` (filed in the addendum above):
+checked `local_var_ratio` at the crossing window for ALL series in the B3 population that actually
+have a `tda_betti_crossing` (6 of 9 — Windermere, Peter pH, Paul pH never cross at all, so there is
+no window to check). Script: `all_series_variance_ratio_check.py`; output:
+`metrics/all_series_variance_ratio_check.json`.
+
+**Result: 6/6 (100%) of crossing series show var_ratio < 0.5**, across both positive role (mean
+0.375: Lower Zurich, Peter chl, Peter doSat) and negative role (mean 0.199: Loch Leven, Paul chl,
+Paul doSat). The prediction is fully confirmed — this is a **generic property of the
+expanding-Kendall-tau threshold-crossing rule itself**: the detector systematically fires when a
+series locally quiets down, not when it becomes more unstable, regardless of whether that quiet
+stretch precedes a real transition. It is not specific to Loch Leven/Paul doSat and does not
+discriminate false positives from true positives — closing this line of inquiry as far as it can
+go with existing data. The pearl registry entry's status is updated to CONFIRMED (see
+`pearl_registry/INDEX.md`).
+
+**What this means for the bridge as a whole:** the detection RULE (Kendall-tau ≥ 0.5 on an
+expanding window) itself has a structural bias toward firing during local quiescence, independent
+of the statistic family (classical or TDA) it is applied to. This is a methodological finding about
+the shared detection apparatus across the entire `H-B3-1*` arc, not about any one invariant or
+series — worth flagging in any future revision of the detection rule, separate from the
+still-unresolved question of why Loch Leven/Paul doSat specifically cross under every
+invariant/null-model tried while the other 3 negative-role series do not.
+
 ## Pearl Card Update
 
 **New information:** two specific series (Loch Leven, Paul doSat) have now resisted false-positive

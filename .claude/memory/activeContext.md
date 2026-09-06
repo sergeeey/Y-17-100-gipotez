@@ -46,10 +46,17 @@
   Relaxation Map item 2 (case study Loch Leven/Paul doSat raw data) → нашёл кандидат-механизм
   (локальный минимум дисперсии в окне crossing: var_ratio 0.259/0.151), Positive-Control
   Digitization (Gate 3) сразу опроверг — Peter doSat (доверенный TP) показывает тот же паттерн
-  (var_ratio 0.297), не различает FP/TP. KILLED как объяснение именно этих двух рядов;
-  `[HYPOTHESIS]` вероятно generic-свойство самого правила детекции, не проверено отдельно.
+  (var_ratio 0.297), не различает FP/TP. KILLED как объяснение именно этих двух рядов.
   Открытый вопрос (что отличает Loch Leven/Paul doSat от 3 других негативных рядов) не закрыт.
   См. `case_study_notes.md`.
+- **[WS: H-B3-1h] Addendum 2 (same day):** `[VERIFIED]` проверил собственное `falsifiable_prediction`
+  из pearl-записи на ВСЕХ 6 рядах серии B3, у которых вообще есть `tda_betti_crossing`
+  (Windermere/Peter pH/Paul pH никогда не пересекают ни под каким методом — не из чего считать
+  окно). **6/6 (100%) var_ratio < 0.5**, и у positive-роли (среднее 0.375), и у negative-роли
+  (среднее 0.199) — предсказание подтверждено полностью: это структурное свойство самого правила
+  expanding-Kendall-tau, не специфика Loch Leven/Paul doSat. Pearl обновлён на CONFIRMED. Заодно
+  поймал и исправил собственную ошибку в `case_study_notes.md` (Paul chl ошибочно был отнесён к
+  «никогда не пересекающим» — на самом деле пересекает под entropy, но не под total persistence).
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
@@ -95,6 +102,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 19:18] `ddf4df9`: chore: auto-log commit history entry (3)
 - [2026-09-06 19:17] `6130d03`: chore: auto-log commit history entry (2)
 - [2026-09-06 19:17] `94890ea`: chore: auto-log commit history entry
 - [2026-09-06 19:17] `4c9a795` (local, branch `feature/h-b3-1h-case-study` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1h Relaxation Map item 2: Loch Leven/Paul doSat case study — candidate mechanism KILLED by its own positive control
@@ -109,4 +117,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 18:46] `afa3234` (local, branch `feature/h-b2-1g-strong-coupling` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1g): 7th confirmation resolves the arc's most important finding -- bound validity != practical usefulness
 - [2026-09-06 18:41] `104c300`: chore: auto-log commit history entry
 - [2026-09-06 18:40] `817fb47` (local, branch `feature/h-b2-1f-nd-stiff` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1f): sixth consecutive confirmation, N=8 scale-up, counterintuitive M1 finding
-- [2026-09-06 18:29] `390e573`: chore: auto-log commit history entry

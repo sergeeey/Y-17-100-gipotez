@@ -1,0 +1,48 @@
+{
+  "series": {
+    "obrien_lower_zurich": {
+      "role": "positive",
+      "crossing_time": 2000.0833333333333,
+      "local_var_ratio": 0.4475866494912342,
+      "below_0_5": true
+    },
+    "obrien_loch_leven": {
+      "role": "negative",
+      "crossing_time": 2002.3333333333333,
+      "local_var_ratio": 0.25920099117599077,
+      "below_0_5": true
+    },
+    "peterlake_Peter_chl": {
+      "role": "positive",
+      "crossing_time": 270.0054794521093,
+      "local_var_ratio": 0.3789574667989399,
+      "below_0_5": true
+    },
+    "peterlake_Peter_doSat": {
+      "role": "positive",
+      "crossing_time": 172.00273972609716,
+      "local_var_ratio": 0.2972265243671315,
+      "below_0_5": true
+    },
+    "peterlake_Paul_chl": {
+      "role": "negative",
+      "crossing_time": 185.00273972607397,
+      "local_var_ratio": 0.18498301198716854,
+      "below_0_5": true
+    },
+    "peterlake_Paul_doSat": {
+      "role": "negative",
+      "crossing_time": 182.00273972611762,
+      "local_var_ratio": 0.15132617674376977,
+      "below_0_5": true
+    }
+  },
+  "n_series_with_crossing": 6,
+  "n_below_0_5": 6,
+  "fraction_below_0_5": 1.0,
+  "mean_var_ratio_by_role": {
+    "positive": 0.3745902135524352,
+    "negative": 0.1985033933023097
+  },
+  "prediction_check": "PREDICTION CONFIRMED: fraction below 0.5 is high across BOTH roles"
+}

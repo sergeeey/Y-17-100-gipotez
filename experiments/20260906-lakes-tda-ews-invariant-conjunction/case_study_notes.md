@@ -61,10 +61,30 @@ a coherent tau trend there, regardless of whether that stretch precedes a real t
 property specific to Loch Leven/Paul doSat's data. This is now `[HYPOTHESIS]`, not tested here.
 
 **What remains unexplained:** why Loch Leven and Paul doSat, specifically, produce a TDA crossing
-under every invariant/null-model combination tried, while Windermere/Peter pH/Paul chl/Paul pH
-(also negative-role, also presumably containing similarly-quiet stretches) do not. The local
-variance-dip pattern is necessary-looking (present at every crossing checked) but evidently not
-sufficient to explain which negative-role series cross and which don't.
+under every invariant/null-model combination tried, while Windermere/Peter pH/Paul pH never cross
+under ANY method (`tda_betti_crossing=None` in V1 itself — not merely filtered out by the
+conjunction), and Paul chl crosses under entropy alone (V1) but not under total persistence
+(V1g), which is why the conjunction (`H-B3-1h`) correctly filters it out.
+**Correction (2026-09-06, same session):** an earlier draft of this note incorrectly grouped Paul
+chl with the never-crossing series (Windermere/Peter pH/Paul pH) — checked directly against V1's
+committed `metrics/run.json`: `peterlake_Paul_chl.tda_betti_crossing = 185.0027...`, i.e. it DOES
+cross under entropy. Fixed here per Hindsight Distortion Gap discipline (not silently rewritten —
+this correction sentence stays). The local variance-dip pattern is necessary-looking (present at
+every crossing checked, confirmed 6/6 in the population-wide follow-up below) but evidently not
+sufficient to explain which negative-role series cross under which invariant.
+
+## Follow-up (2026-09-06, same session) — pearl's own falsifiable_prediction tested
+
+The pearl registry entry above named a specific, checkable prediction: does the local-variance-dip
+pattern hold across ALL series that have a crossing, not just the 3 checked here? Ran
+`all_series_variance_ratio_check.py` against all 6 series in the B3 population with a recorded
+`tda_betti_crossing` (Windermere/Peter pH/Paul pH excluded — no crossing, no window to check).
+
+**Result: 6/6 (100%) show var_ratio < 0.5** — positive role mean 0.375 (Lower Zurich, Peter chl,
+Peter doSat), negative role mean 0.199 (Loch Leven, Paul chl, Paul doSat). **Prediction CONFIRMED**:
+this is a structural property of the expanding-Kendall-tau crossing rule itself — it fires when a
+series locally quiets down, independent of role or statistic family. Pearl registry entry status
+updated to CONFIRMED; see `decision.md` Addendum 2 for the full writeup.
 
 ## Relaxation Map status update
 
