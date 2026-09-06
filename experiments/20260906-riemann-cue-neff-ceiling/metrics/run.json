@@ -1,0 +1,29 @@
+{
+  "constants": {
+    "LAMBDA": 1.573151071,
+    "E_R_INF": 0.5997504209,
+    "FIT_COEF": 0.1896,
+    "FIT_EXP": -3.081
+  },
+  "extrapolation_note": "Fig.6 fit calibrated on n=1e8..1e23; this test applies it at n~1e5, 3+ orders of magnitude below the fitted range.",
+  "results": {
+    "cumulative_first_100k": {
+      "r_observed": 0.6109167772757004,
+      "T_reference": 74920.827498994,
+      "N_eff": 2.1603248512641673,
+      "observed_relative_deviation": 0.018618338539794443,
+      "predicted_relative_deviation": 0.017667906989663435,
+      "ratio_observed_to_predicted": 1.0537942355417116,
+      "verdict": "PASS"
+    },
+    "last_50k_window": {
+      "r_observed": 0.6099542226322583,
+      "T_reference": 57964.744034719,
+      "N_eff": 2.1012672686863287,
+      "observed_relative_deviation": 0.01701341320769112,
+      "predicted_relative_deviation": 0.01924303019308822,
+      "ratio_observed_to_predicted": 0.8841337895838285,
+      "verdict": "PASS"
+    }
+  }
+}

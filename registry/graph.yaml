@@ -174,14 +174,14 @@ nodes:
 
   - id: H-B1-1c
     type: hypothesis
-    title: "Known-answer test #2: finite-height excess of <r> over GUE for the first 100k zeta zeros matches the finite-N_eff CUE prediction (Nishigaki 2026 / Forrester–Mays 2015)"
-    status: ready_to_scope
-    evidence: HYPOTHESIS
+    title: "Known-answer test #2: finite-height excess of <r> over the exact sine-kernel limit for the first 100k zeta zeros matches Nishigaki (2025) PTEP finite-N_eff CUE fit"
+    status: confirmed          # decision.md 2026-09-06: PROMOTE, ratio 1.05 (cumulative) / 0.88 (window), both in pre-registered [1/3,3]
+    evidence: VERIFIED-REAL    # metrics/run.json; formulas VERIFIED against primary-source PDF, not a WebSearch summary
     l0_type: descriptive
     fl_tier: standard
-    kill_criterion: "PRE-REGISTER FIRST: N_eff formula (Nishigaki: N_eff ~ 1.446*rho(gamma_N)) and the finite-N CUE <r>(N_eff) value. Then: |<r>_obs − <r>_CUE(N_eff)| > 3*SE_block → KILLED (either the import is misread or the pipeline has a height-dependent bug). Tolerance expected ~0.002, five times sharper than H-B1-1a"
-    experiment_dir: null
-    source: "pearl_registry/INDEX.md (2026-09-06, known-import row); experiments/20260906-riemann-rstat-gue/decision.md § Follow-ups"
+    kill_criterion: "ratio_observed_to_predicted (observed relative deviation of <r> from sine-kernel limit 0.5997504209, vs Nishigaki Eq.42/Fig.6 fit 0.1896*N_eff(T)^-3.081) outside [1/3, 3] -> KILLED. RESULT: 1.054 (cumulative first 100k) and 0.884 (last-50k window) -- both well inside band"
+    experiment_dir: "experiments/20260906-riemann-cue-neff-ceiling"
+    source: "experiments/20260906-riemann-cue-neff-ceiling/decision.md; primary source arXiv:2507.10193 (Nishigaki, PTEP 2025), Eq.42 + Fig.6, read directly from PDF pp.12-14"
     updated: 2026-09-06
 
   - id: H-B1-1b

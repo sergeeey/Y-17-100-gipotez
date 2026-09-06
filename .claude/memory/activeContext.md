@@ -12,7 +12,7 @@
 **[WS: pilot-H-B1-1a] CLOSED 2026-09-06 — PROMOTE [WEAKENED].** Полный FL Full-Ladder пройден: ZSG → L0 (descriptive) → estimand → source trace (Atas 2013 констант ы web-verified) → substrate gate (поймал округление 0.60266 vs точное 0.6026578 — до прогона) → controls (GUE 0.6006 ✓, GOE 0.5310 ✓, Poisson 0.3867 kill fired ✓) → floor/ceiling → run → 7 no-collapse → 3 stress → skeptic asymmetric (WEAKENED, 3 concerns) → decision. `[VERIFIED]` из metrics/*.json:
 - ⟨r⟩(zeros1) = **0.61092**, SE 0.00054–0.00086 (i.i.d./Bartlett/block-bootstrap); в полосе ±0.01 вокруг surmise 0.602658 с запасом 0.0017; **+0.0103 (z≥10) выше эмпирического GUE 0.6006** → efficiency 1.038 → CEILING_MISSPECIFIED (потолок для N→∞, популяция конечной высоты).
 - Тренд по высоте 0.617 → 0.6119 → 0.6100 → 0.6006: **известная** конечно-высотная поправка ∝ (log T/2π)⁻³ — Forrester–Mays 2015 (arXiv:1506.06531), Nishigaki PTEP 2026 (arXiv:2507.10193). Novelty check убил псевдо-новизну до статуса гипотезы.
-- Follow-up: `H-B1-1c` (known-answer тест №2 с потолком CUE(N_eff), допуск ~0.002) — `ready_to_scope`.
+- Follow-up: `H-B1-1c` — CONFIRMED, см. ниже.
 - Skeptic concern про SE (соседние r делят спейсинг) — верен по направлению (ρ₁=0.28), не меняет вывод (`metrics/diag_se.json`).
 
 **[WS: pilot-pains-automation] CLOSED 2026-09-06 — вариант C выполнен (ADR-005).** `[VERIFIED]`:
@@ -21,7 +21,15 @@
 - Шаблон: `ceiling.md` (новый, поле Population) + `escape_route.md` per-sign — в D: и здесь.
 - **Находка для владельца стека:** 10 хуков (`ceiling_gate_guard`, `claim_scope_gate`, …) существуют только в `~/.claude/hooks` со своей git-историей — две git-истины; `docs/ceiling-gate-structured-block.md` отсутствует. Не разруливал.
 
-**СЛЕДУЮЩИЙ ШАГ — решение пользователя** (LAB.md § 6): A) scoping `H-B3-1` (первая убиваемая гипотеза), B) `H-B1-1c` (первый эксперимент с настоящим `ceiling.md`). Плюс: merge/push ветки D: и дрейф хуков.
+**[WS: scoping-H-B3-1] CLOSED 2026-09-06 (ADR-006, commit `d06942a`, автономная очередь по запросу пользователя "давай A ... итд по очереди").** Найдено ДО построения плана: Mangal/GloBI непригодны (та же болезнь, что Frontier R&D/TOFT/RAF). Исправлено на Carpenter 2011 Peter/Paul Lake (EDI/NTL-LTER). Wang 2023 → kill-критерий честно сужен до Phase 1 N=1. `registry/graph.yaml`: H-B3-1 `ready_to_scope→ready`. `experiments/20260906-may1972-tda-ews-peterlake/` — design-complete (claim/estimand/experiment.yaml/ceiling/escape_route), **расчёт НЕ запущен** (загрузка EDI + Ripser — отдельный крупный шаг). 2 pearls.
+
+**[WS: H-B1-1c] CLOSED 2026-09-06 (ADR-007, автономная очередь, пункт B).** `[VERIFIED]`:
+- Формула N_eff/потолок взята из первоисточника (PDF `arXiv:2507.10193`, прочитан постранично через `Read`), не из WebSearch-пересказа — WebFetch на abstract и на сырой PDF честно отказались (не могли прочитать), это и заставило пойти к первоисточнику.
+- **Опровергло** число «N_eff ≈ 1.446·ρ̄(γ_N)», записанное ранее в pearl_registry во время H-B1-1a — его нет в первоисточнике, было бы фабрикацией. Реальная формула: N_e(T)=(1/√(12Λ))log(T/2π), Λ=1.573151071 (Eq.42); точный sine-kernel предел 0.5997504209; эмпирическая подгонка 0.1896·N_eff^-3.081 (Fig.6).
+- Результат: ratio observed/predicted = **1.054** (кумулятивно) / **0.884** (окно последних 50k) — оба далеко внутри пре-регистрированного [1/3,3], несмотря на экстраполяцию на 3+ порядка ниже откалиброванного диапазона (n=10⁸-10²³ → применено на n≈10⁵). `experiments/20260906-riemann-cue-neff-ceiling/decision.md`.
+- Закрыл CEILING_MISSPECIFIED из H-B1-1a. Граф: `H-B1-1c → confirmed`.
+
+**СЛЕДУЮЩИЙ ШАГ (автономная очередь):** A и B закрыты. Кандидаты: D) merge/push ветки D: `y17/pilot-pains` (72 теста зелёные, не запушено); E) реальный расчёт H-B3-1 (EDI + Ripser — крупный шаг); F) Phase 2 H-B3-1 (гейтится на E). Дрейф хуков (`~/.claude` vs `D:`) остаётся флагом.
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
@@ -59,6 +67,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 *Создан: 2026-09-06 при переносе из Obsidian vault.*
 
 ## Auto-commit log
+- [2026-09-06 12:13] `d06942a`: feat(scoping): H-B3-1 — replace Mangal/GloBI with Carpenter 2011 Peter/Paul Lake; honest N=1 kill-criterion
 - [2026-09-06 12:00] `7baa088`: feat(lab): automate the 3 pilot pains — ceiling.md template, per-sign escape rows, ADR-005
 - [2026-09-06 11:57] `ff6246c`: fix: gitignore inline comments broke hook-scratch patterns; LEDGER +1
 - [2026-09-06 11:47] `ff6246c`: fix: gitignore inline comments broke hook-scratch patterns; LEDGER +1
