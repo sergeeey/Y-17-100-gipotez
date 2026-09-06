@@ -100,6 +100,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 14:42] `4e7f269` (local, branch `feature/h-b2-1-chernoff-neuralode` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1): Chernoff <-> Neural-ODE bridge formalized and tested -> KILLED (practically useless, formally valid)
 - [2026-09-06 14:30] `527f6e1` (local, branch `feature/auto-log-b408879` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-06 14:30] `b408879` (local, branch `feature/h-b3-1e-v2prime` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1e): V2' (detrend-then-IAAFT surrogate) implemented and run -> REJECT, identical false-positive set to V1/V1'
 - [2026-09-06 14:07] `3e75d01` (local, branch `feature/auto-log-c8f5e5f` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
@@ -114,4 +115,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 12:13] `d06942a`: feat(scoping): H-B3-1 — replace Mangal/GloBI with Carpenter 2011 Peter/Paul Lake; honest N=1 kill-criterion
 - [2026-09-06 12:00] `7baa088`: feat(lab): automate the 3 pilot pains — ceiling.md template, per-sign escape rows, ADR-005
 - [2026-09-06 11:57] `ff6246c`: fix: gitignore inline comments broke hook-scratch patterns; LEDGER +1
-- [2026-09-06 11:47] `ff6246c`: fix: gitignore inline comments broke hook-scratch patterns; LEDGER +1
