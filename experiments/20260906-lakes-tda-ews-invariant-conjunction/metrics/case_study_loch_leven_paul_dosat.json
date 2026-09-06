@@ -1,0 +1,112 @@
+{
+  "loch_leven": {
+    "label": "Loch Leven (pca1)",
+    "n_total": 152,
+    "crossing_time": 2002.3333333333333,
+    "window_idx": [
+      113,
+      134
+    ],
+    "window_time_range": [
+      2001.5,
+      2003.1666666666667
+    ],
+    "full_series_mean": 0.637780179649213,
+    "full_series_std": 1.043057132091738,
+    "local_window_mean": 0.3682021904042265,
+    "local_window_std": 0.5310390106510333,
+    "local_mean_zshift": -0.25844987867958585,
+    "local_var_ratio": 0.25920099117599077,
+    "local_values_head": [
+      0.0095,
+      0.1902,
+      1.7085,
+      0.5859,
+      0.1025
+    ],
+    "local_values_tail": [
+      0.2236,
+      0.2005,
+      0.1853,
+      0.5533,
+      1.9364
+    ],
+    "series_min": 0.0,
+    "series_max": 6.784286245685266,
+    "n_unique_values": 144
+  },
+  "paul_dosat": {
+    "label": "Paul doSat",
+    "n_total": 334,
+    "crossing_time": 182.00273972611762,
+    "window_idx": [
+      173,
+      194
+    ],
+    "window_time_range": [
+      172.00273972609716,
+      192.0027397260551
+    ],
+    "full_series_mean": 91.47889147988923,
+    "full_series_std": 3.938778955676724,
+    "local_window_mean": 88.38791287663825,
+    "local_window_std": 1.5322112218238428,
+    "local_mean_zshift": -0.7847555392252042,
+    "local_var_ratio": 0.15132617674376977,
+    "local_values_head": [
+      85.8112,
+      88.2809,
+      90.2229,
+      90.2693,
+      91.4686
+    ],
+    "local_values_tail": [
+      88.919,
+      88.3445,
+      88.9193,
+      87.8971,
+      87.2246
+    ],
+    "series_min": 77.7561691857645,
+    "series_max": 104.17959443129187,
+    "n_unique_values": 334,
+    "note": "Paul is the reference (no-manipulation) lake in the Peter-Paul whole-lake experiment -- role=negative by design, so ANY crossing here is by definition a false positive."
+  },
+  "peter_dosat_contrast": {
+    "label": "Peter doSat (contrast)",
+    "n_total": 334,
+    "crossing_time": 172.00273972609716,
+    "window_idx": [
+      163,
+      184
+    ],
+    "window_time_range": [
+      162.0027397260767,
+      182.00273972611762
+    ],
+    "full_series_mean": 96.88579602292937,
+    "full_series_std": 4.29668613567373,
+    "local_window_mean": 93.17922469965285,
+    "local_window_std": 2.3424882009450765,
+    "local_mean_zshift": -0.8626581524078024,
+    "local_var_ratio": 0.2972265243671315,
+    "local_values_head": [
+      96.0079,
+      95.8254,
+      95.3584,
+      94.3634,
+      94.2833
+    ],
+    "local_values_tail": [
+      93.0188,
+      94.352,
+      96.4063,
+      95.9552,
+      95.8723
+    ],
+    "series_min": 85.08552861053482,
+    "series_max": 107.92505112945122,
+    "n_unique_values": 334,
+    "note": "Positive control: Peter doSat is role=positive with an interpretable +13d TDA lead that survives every variant tried (V1/V1'/V2'/V1g/conjunction). Contrast target: does its crossing ALSO sit in a local-variance minimum, or is that pattern specific to the two unexplained false positives?"
+  }
+}

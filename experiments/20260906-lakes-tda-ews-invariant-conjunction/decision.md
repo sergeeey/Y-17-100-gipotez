@@ -84,6 +84,25 @@ Not applicable here, same reasoning as `H-B3-1f` (V3) and `H-B3-1g`: this is a d
 already-collected, already-floor-checked data (both V1 and V1g inherit V1's own validated per-series
 AR(1) self-calibration) — no new compute, no new null model, nothing to re-float a floor/ceiling against.
 
+## Addendum (2026-09-06, same session) — Relaxation Map item 2 addressed
+
+Ran the cheapest-named Relaxation Map item: a focused single-series case study on Loch Leven and
+Paul doSat's raw data around their own already-recorded `tda_betti_crossing` times. Full writeup
+in `case_study_notes.md`; raw diagnostic output in
+`metrics/case_study_loch_leven_paul_dosat.json`.
+
+**Result:** both false positives cross during a local variance MINIMUM (var_ratio 0.259 / 0.151),
+opposite the textbook critical-slowing-down signature. But a contrast check against Peter doSat
+(the one interpretable true positive) shows the SAME signature (var_ratio 0.297) — per Gate 3
+(Positive-Control Digitization, `artifact-provenance-gates.md`: "a test that cannot distinguish
+your control from your target is not a test"), this **falsifies the local-variance-minimum
+mechanism as an explanation specific to the false positives**. Likely a generic property of the
+expanding-Kendall-tau crossing rule itself, not of these two series' data. The core open question
+(what distinguishes Loch Leven/Paul doSat from the 3 other negative-role series that never cross)
+is unchanged and remains open.
+
+This does not change the LEAD verdict above.
+
 ## Pearl Card Update
 
 **New information:** two specific series (Loch Leven, Paul doSat) have now resisted false-positive
