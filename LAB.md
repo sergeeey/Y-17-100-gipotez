@@ -40,6 +40,7 @@
 |---|---|---|---|
 | B1 RMT ↔ Riemann ↔ Hi-C | H-B1-1a репликация r-stat на нулях Римана | **CONFIRMED `[WEAKENED]`** (2026-09-06) | Пилот пройден: пайплайн валиден (Poisson-контроль срабатывает, GOE отделён); ⟨r⟩ = 0.6109 в полосе ±0.01, но на +0.0103 (z≥10) выше эмпирического GUE — известная конечно-высотная поправка. `experiments/20260906-riemann-rstat-gue/decision.md` |
 | B1 | H-B1-1c known-answer тест №2: избыток = предсказанию CUE(N_eff)? | **READY_TO_SCOPE** | Пре-регистрировать N_eff и ⟨r⟩_CUE(N_eff) по Nishigaki 2026 ДО вычисления; допуск ~0.002 |
+| B3 May 1972 ↔ TDA | H-B3-1 Phase 1: TDA лидирует classical EWS на Peter Lake? | **READY** (scoped 2026-09-06, ADR-006) | Источник данных исправлен (Mangal/GloBI → Carpenter 2011 Peter/Paul Lake, EDI/NTL-LTER); kill-критерий честно сужен до N=1 (Wang 2023: чистые коллапсы редки). `experiments/20260906-may1972-tda-ews-peterlake/` — дизайн готов, расчёт не запущен |
 | B1 | H-B1-1b хроматин vs GUE | **BLOCKED** | Два независимых блокера: (1) upstream `ART-TAD-AUC` инвалидирован — ждёт Option A в H-7 TAD; (2) `Q-GOE-vs-GUE` не решён. Снятие одного не разблокирует |
 | B2 Chernoff ↔ Neural ODE/UDE | H-B2-1 слой Neural-ODE удовлетворяет условиям теоремы Чернова | **NEEDS_FORMALIZATION** | Сначала доказательство применимости, потом тест |
 | B3 May 1972 ↔ TDA EWS | H-B3-1 TDA опережает classical EWS на известных коллапсах | **READY_TO_SCOPE** | Найти датасет Mangal/GloBI с известной датой коллапса |

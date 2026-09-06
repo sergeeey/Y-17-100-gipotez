@@ -1,0 +1,32 @@
+# experiment.yaml — EstimandOps canvas (filled during scoping, 2026-09-06)
+# Ref: ~/.claude/rules/estimand-ops.md · graph node: H-B3-1 · Phase 1 of 2
+
+id: 20260906-may1972-tda-ews-peterlake
+ladder: full
+question_type: predictive
+status: planned              # scoped, not yet run — data not downloaded
+
+population: "Daily/high-frequency limnological time series (chlorophyll-a, pH, dissolved oxygen, zooplankton biomass) from Peter Lake (manipulated) and Paul Lake (unmanipulated reference), NTL-LTER Cascade Project, 2008-2011 manipulation window. Inclusion: series with <=2 consecutive missing samples in the analysis window. Exclusion: windows with larger gaps (see ICE below)."
+intervention: "none by us -- retrospective comparison of two DETECTION METHODS applied to an already-recorded historical manipulation (gradual largemouth bass addition to Peter Lake, 2008-2011, per Carpenter et al. 2011)"
+comparator: "classical EWS (rising lag-1 autocorrelation, rising variance) on the same series, using Carpenter et al. 2011's own published lead-time (>1 year) as the reference answer key"
+endpoint: "lead time in days: (date classical-EWS threshold crossed) minus (date TDA threshold crossed), per series; positive = TDA leads"
+summary_measure: "lead time (days), per series; not pooled across series into a single number for N=1 system"
+mcid: "1 day (see claim.md rationale -- loose on purpose, Phase 1 tests existence not effect size)"
+
+ice:
+  - event: "gap of >2 consecutive missing samples in a series"
+    strategy: composite      # excluded from analysis window, not imputed past the cap -- a long gap changes what the embedding measures
+
+sensitivity:
+  - description: "embedding parameter choice (Takens dimension, delay) pre-registered using ONLY Paul Lake data or a held-out pre-manipulation window of Peter Lake -- never tuned on the Peter Lake shift window itself (guards assumption A2 in claim.md, the principal/cut-vertex assumption)"
+  - description: "alternative topological summary: persistence entropy vs Betti-1 count -- both computed, neither chosen post hoc as 'the' result"
+  - description: "alternative classical EWS estimator: lag-1 autocorrelation vs variance, both required to fail before declaring TDA lead on a series"
+  - description: "leave-one-series-out: does the PASS/FAIL verdict survive removing any single series from the >=1-of->=2 requirement"
+
+# Floor-Ceiling (FL Step 4a) -- see ceiling.md; NOT filled with numbers yet (no data downloaded).
+# Population for floor/ceiling MUST be Peter Lake 2008-2011 specifically -- see ceiling.md Population field
+# and the CEILING_MISSPECIFIED lesson from experiments/20260906-riemann-rstat-gue/decision.md.
+floor: null
+ceiling: null
+pass_band: null
+criterion_check: "NOT YET COMPUTED -- Substrate Gate must run before floor/ceiling can be filled honestly"

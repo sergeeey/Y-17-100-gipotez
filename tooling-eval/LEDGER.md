@@ -81,6 +81,16 @@
 | 2026-09-06 | live smoke деплоенного `routing_floor_classifier.py` | tool | payload-уведомление vs реальный запрос | `OK` | уведомление → 0 байт; «проверить гипотезу о причинной связи» → `RESEARCH` |
 | 2026-09-06 | `submission-gate` hook, PostToolUse-путь (×2) | hook | Edit тест-файла и шаблона со словом «ready» в строках | `NOISE` | 4-е и 5-е срабатывание за сессию → порог ≥3 достигнут и у этого хука; UserPromptSubmit-путь исправлен, PostToolUse-путь (file-pattern) — нет, вне scope ADR-005 |
 | 2026-09-06 | `memory-guard` hook после коммита в D-репо | hook | требует обновить activeContext D-репо | `OK` | требование корректно; **не выполнено намеренно** — activeContext D: принадлежит другой сессии (Unclaimed Work Ownership). Хук прав, отказ осознанный |
+
+### Сессия 1d — scoping H-B3-1 (2026-09-06, автономно по запросу пользователя)
+
+| Дата | Инструмент | Тип | Задача | Исход | Что именно / комментарий |
+|---|---|---|---|---|---|
+| 2026-09-06 | `WebSearch` × 8 | tool | проверить Mangal/GloBI как источник данных | `CAUGHT` | оба источника **непригодны**: Mangal — 187 статичных кросс-секционных сетей (разные системы), GloBI — агрегатор записей с версионированием раз в полгода, не временной ряд одной системы. Тот же паттерн правдоподобной, но нефункциональной связки от внешнего LLM, что уже ловили дважды в этой папке |
+| 2026-09-06 | `WebSearch` + `mcp__arxiv__get_abstract` | tool | найти реальный датасет с известной датой коллапса | `OK` | Carpenter et al. 2011 (*Science*) — Peter/Paul Lake, парный дизайн, известная дата, EDI/NTL-LTER публично доступен |
+| 2026-09-06 | `WebSearch` (FL Step -3 novelty check) | tool | TDA уже применялась к этому датасету? | `CAUGHT` | НЕ применялась (нет хитов) — целевой тест не переформулировка; НО общий метод (TDA как EWS) уже установлен в финансах (лаг ~34 дня) и экологии описательно (BioTIME, Bailey 2026) — честно отмечено как «перенос метода», не «изобретение» |
+| 2026-09-06 | `WebSearch` (feasibility check) | tool | достижим ли исходный kill-критерий «≥3 коллапса»? | `CAUGHT` | Wang et al. 2023 (*Nature Communications*): чистые critical transitions редки в реальных данных, classical EWS часто не лучше случайности на наблюдательных данных → исходный критерий был оптимистичен. kill_criterion пересмотрен: Phase 1 = N=1 (Peter Lake + Paul Lake как встроенный негативный контроль), Phase 2 (≥3 случая) — только если Phase 1 не убит |
+| 2026-09-06 | `lab_check.py` после добавления 2 новых узлов (project + artifact) в graph.yaml | tool | валидация графа | `OK` | 28 узлов / 26 рёбер, инварианты 1–3 прошли с первого раза |
 | — | `analyst` / `hypothesis-arbiter` / `cross-domain` skills | skill | мосты B2, B3 | `NOT-YET` | |
 | — | `verifier` agent | agent | source trace (FL Step −4) для каталога 141 задачи | `NOT-YET` | |
 | — | `graphify` meta-graph query | tool | «уже есть в моих репо?» перед расширением `lab_check` | `NOT-YET` | |
@@ -93,8 +103,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 | Исход | Кол-во |
 |---|---|
-| CAUGHT | 15 |
-| OK | 21 |
+| CAUGHT | 18 |
+| OK | 23 |
 | MISSED | 0 |
 | NOISE | 10 |
 | BLOCKED | 1 |
