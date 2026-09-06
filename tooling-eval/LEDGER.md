@@ -71,6 +71,16 @@
 | 2026-09-06 | `run.py` → `ceiling_check` flag | tool | mitigation concern 3 | `OK` | additive поле; r_mean бит-в-бит совпал с прогоном до правки |
 | 2026-09-06 | `routing-floor` hook (3-й раз) | hook | сработал на слово «Falsif» в уведомлении skeptic'а | `NOISE` | **3/3 — порог pearl №1 достигнут** → предложение изменить хук теперь легитимно (n=3, не n=1) |
 | 2026-09-06 | `resource-router` hook (3-й раз) | hook | «T0, explorer/haiku, ≤3 tool calls» для задачи «ответить на 3 concern'а skeptic'а + закрыть FL decision» | `NOISE` | недооценил задачу на два тира; классификатор реагирует на длину текста уведомления, не на содержание |
+
+### Сессия 1c — автоматизация трёх болей пилота (2026-09-06, ADR-005)
+
+| Дата | Инструмент | Тип | Задача | Исход | Что именно / комментарий |
+|---|---|---|---|---|---|
+| 2026-09-06 | `diff` / `comm` census `~/.claude/hooks` vs `D:\Claude-cod-top-2026\hooks` | tool | где источник истины хуков | `CAUGHT` | 5 целевых хуков идентичны по содержимому (cmp ругался на CRLF) → D: — источник; **но 10 хуков существуют только в деплое** (`ceiling_gate_guard`, `claim_scope_gate`, …) со своей git-историей в `~/.claude` → две git-истины; `docs/ceiling-gate-structured-block.md` из docstring хука не существует |
+| 2026-09-06 | `pytest` D-репо (72 теста, 4 suites) | tool | regression 3 хуков + хелпер | `CAUGHT` | упал **мой** позитивный тест: сравнивал первую строку `GATE_MESSAGE` со stdout, а `emit_hook_result` JSON-экранирует emoji. Исправлен тест (маркер `[submission-gate]`), не код |
+| 2026-09-06 | live smoke деплоенного `routing_floor_classifier.py` | tool | payload-уведомление vs реальный запрос | `OK` | уведомление → 0 байт; «проверить гипотезу о причинной связи» → `RESEARCH` |
+| 2026-09-06 | `submission-gate` hook, PostToolUse-путь (×2) | hook | Edit тест-файла и шаблона со словом «ready» в строках | `NOISE` | 4-е и 5-е срабатывание за сессию → порог ≥3 достигнут и у этого хука; UserPromptSubmit-путь исправлен, PostToolUse-путь (file-pattern) — нет, вне scope ADR-005 |
+| 2026-09-06 | `memory-guard` hook после коммита в D-репо | hook | требует обновить activeContext D-репо | `OK` | требование корректно; **не выполнено намеренно** — activeContext D: принадлежит другой сессии (Unclaimed Work Ownership). Хук прав, отказ осознанный |
 | — | `analyst` / `hypothesis-arbiter` / `cross-domain` skills | skill | мосты B2, B3 | `NOT-YET` | |
 | — | `verifier` agent | agent | source trace (FL Step −4) для каталога 141 задачи | `NOT-YET` | |
 | — | `graphify` meta-graph query | tool | «уже есть в моих репо?» перед расширением `lab_check` | `NOT-YET` | |
@@ -83,13 +93,15 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 | Исход | Кол-во |
 |---|---|
-| CAUGHT | 13 |
-| OK | 19 |
+| CAUGHT | 15 |
+| OK | 21 |
 | MISSED | 0 |
-| NOISE | 9 |
+| NOISE | 10 |
 | BLOCKED | 1 |
 | NOT-YET | 3 |
 
 **Наблюдение после сессии 1a:** все `NOISE` — хуки с keyword-эвристикой, не различающие тип задачи (scaffolding vs research) и источник текста (запрос пользователя vs уведомление агента). `routing-floor` — 2/3 до порога действия (pearl №1).
 
-**Наблюдение после сессии 1b:** паттерн из 1a усилился — **state-based** проверки (git-статус, «.py изменён без тестов», harness-тест, grep, эмпирический потолок, поиск литературы, skeptic на артефакте) дали 12/12 `CAUGHT`; **keyword/threshold-based** хуки дали 9/9 `NOISE`. Ноль пересечений. `routing-floor` достиг 3/3 → порог действия по pearl №1. Единственный `BLOCKED` — scope агента (нет Bash у skeptic), не модель. Гипотеза для pearl: «инструменты, читающие СОСТОЯНИЕ, ловят; инструменты, читающие СЛОВА, шумят» — проверять на следующих 20 строках, порог для действия: ≥3 CAUGHT от keyword-хука или ≥3 NOISE от state-хука опровергнут её.
+**Наблюдение после сессии 1b:** паттерн из 1a усилился — **state-based** проверки (git-статус, «.py изменён без тестов», harness-тест, grep, эмпирический потолок, поиск литературы, skeptic на артефакте) дали 12/12 `CAUGHT`; **keyword/threshold-based** хуки дали 9/9 `NOISE`. Ноль пересечений. `routing-floor` достиг 3/3 → порог действия по pearl №1. Единственный `BLOCKED` — scope агента (нет Bash у skeptic), не модель.
+
+**После сессии 1c:** паттерн держится — 15/15 CAUGHT state-based, 10/10 NOISE keyword/threshold-based. **Действие принято (ADR-005):** три UserPromptSubmit-хука теперь игнорируют harness-текст (D: `8c76a73`, задеплоено). Предсказание для проверки на следующих 20 строках: NOISE этих трёх хуков на уведомлениях = 0. Не исправлено: PostToolUse-путь `submission-gate`, `plan-mode-guard`, `locality` (другой механизм — порог/файл-паттерн, не текст). Гипотеза для pearl: «инструменты, читающие СОСТОЯНИЕ, ловят; инструменты, читающие СЛОВА, шумят» — проверять на следующих 20 строках, порог для действия: ≥3 CAUGHT от keyword-хука или ≥3 NOISE от state-хука опровергнут её.

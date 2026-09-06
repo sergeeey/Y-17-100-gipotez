@@ -15,7 +15,13 @@
 - Follow-up: `H-B1-1c` (known-answer тест №2 с потолком CUE(N_eff), допуск ~0.002) — `ready_to_scope`.
 - Skeptic concern про SE (соседние r делят спейсинг) — верен по направлению (ρ₁=0.28), не меняет вывод (`metrics/diag_se.json`).
 
-**СЛЕДУЮЩИЙ ШАГ — решение пользователя** (LAB.md § 6): A) scoping `H-B3-1` (первая убиваемая гипотеза), B) `H-B1-1c`, C) автоматизация 3 болей пилота (keyword-хуки, ceiling-population, escape_route per-sign).
+**[WS: pilot-pains-automation] CLOSED 2026-09-06 — вариант C выполнен (ADR-005).** `[VERIFIED]`:
+- D-репо `D:\Claude-cod-top-2026`, ветка `y17/pilot-pains`, коммит `8c76a73` (10 файлов, только мои; чужая незакоммиченная работа на main не тронута). 72 теста зелёные. **НЕ запушено** — решение владельца.
+- Задеплоено копированием в `~/.claude/hooks` (lib/runtime.py + 3 хука, 0 diff). Live smoke: notification → 0 байт; реальный research-запрос → RESEARCH.
+- Шаблон: `ceiling.md` (новый, поле Population) + `escape_route.md` per-sign — в D: и здесь.
+- **Находка для владельца стека:** 10 хуков (`ceiling_gate_guard`, `claim_scope_gate`, …) существуют только в `~/.claude/hooks` со своей git-историей — две git-истины; `docs/ceiling-gate-structured-block.md` отсутствует. Не разруливал.
+
+**СЛЕДУЮЩИЙ ШАГ — решение пользователя** (LAB.md § 6): A) scoping `H-B3-1` (первая убиваемая гипотеза), B) `H-B1-1c` (первый эксперимент с настоящим `ceiling.md`). Плюс: merge/push ветки D: и дрейф хуков.
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
@@ -53,6 +59,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 *Создан: 2026-09-06 при переносе из Obsidian vault.*
 
 ## Auto-commit log
+- [2026-09-06 11:57] `ff6246c`: fix: gitignore inline comments broke hook-scratch patterns; LEDGER +1
+- [2026-09-06 11:47] `ff6246c`: fix: gitignore inline comments broke hook-scratch patterns; LEDGER +1
 - [2026-09-06 11:46] `c912d70`: chore: untrack hook scratch files, ignore **/.claude/state/
 - [2026-09-06 11:45] `f8057d0`: feat(pilot): H-B1-1a through FL Full-Ladder — PROMOTE [WEAKENED]
 - [2026-09-06 11:18] `f021de1`: feat: lab core — LAB.md entry point, registry graph, FL template, ledgers, lab_check
