@@ -147,6 +147,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 18:40] `817fb47` (local, branch `feature/h-b2-1f-nd-stiff` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1f): sixth consecutive confirmation, N=8 scale-up, counterintuitive M1 finding
 - [2026-09-06 18:29] `390e573`: chore: auto-log commit history entry
 - [2026-09-06 18:29] `492eea1` (local, branch `feature/h-b2-1e-combined-stress` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1e): combined non-normal + mixed-sign stress test closes the H-B2-1* arc at 5 confirmations
 - [2026-09-06 18:23] `d65eba8`: chore: auto-log commit history entry
@@ -161,4 +162,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 14:57] `09269f1` (local, branch `feature/consistency-review-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(null_results): timestamp the stale retroscan claim for H-B3-1c/1d
 - [2026-09-06 14:51] `6e1bc7a`: chore: auto-log commit history entry
 - [2026-09-06 14:50] `0ec53c5`: chore: auto-log commit history entry
-- [2026-09-06 14:49] `30a0e63` (local, branch `feature/h-b3-1f-descriptive-v3` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1f): V3 descriptive-only join reveals the sharpest finding in bridge B3 -- with zero new compute
