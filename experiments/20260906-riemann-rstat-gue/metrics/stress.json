@@ -1,0 +1,15 @@
+{
+  "case1_first_1000_zeros": {
+    "mean_r": 0.6170419575112351,
+    "delta_to_surmise": 0.014384166667650966,
+    "result": "REPORTED"
+  },
+  "case2_duplicate_zero_aborts": {
+    "result": "PASS",
+    "note": "non-positive spacing at index 499: data corrupted/misordered — aborting"
+  },
+  "case3_crlf_parse": {
+    "result": "PASS"
+  },
+  "_written": "2026-09-06T11:31:44"
+}

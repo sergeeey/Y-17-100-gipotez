@@ -161,13 +161,27 @@ nodes:
   - id: H-B1-1a
     type: hypothesis
     title: "Riemann zeros r-statistic replicates GUE prediction (Montgomery–Odlyzko) — infrastructure positive control"
-    status: ready
-    evidence: HYPOTHESIS          # → VERIFIED-REAL после запуска
+    status: confirmed             # decision.md 2026-09-06: PROMOTE [WEAKENED]
+    evidence: VERIFIED-REAL       # metrics/run.json: r_mean 0.61092 (SE 0.0005–0.0009), in band (+0.0083 vs 0.602658)
+    skeptic: WEAKENED             # Step 8a, asymmetric; 3 concerns → 2 accepted, 1 mitigated (decision.md)
+    verdict_note: "pipeline VALIDATED; scientific replication marginal-as-expected at height <= 7.5e4: +0.0103 (z>=10) above matched empirical GUE = known finite-height correction (Forrester–Mays 2015, Nishigaki 2026). efficiency 1.038 -> CEILING_MISSPECIFIED"
     l0_type: descriptive
     fl_tier: full                 # намеренно Full: пилот всего стека, хотя задача — репликация
     kill_criterion: "|r_mean − 0.6027| ≥ 0.01 on Odlyzko zeros1 (first ~100k zeros) → KILLED (pipeline broken, NOT a scientific result)"
-    experiment_dir: null          # заполнится при запуске пилота
+    experiment_dir: "experiments/20260906-riemann-rstat-gue"
     source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Phase 1a"
+    updated: 2026-09-06
+
+  - id: H-B1-1c
+    type: hypothesis
+    title: "Known-answer test #2: finite-height excess of <r> over GUE for the first 100k zeta zeros matches the finite-N_eff CUE prediction (Nishigaki 2026 / Forrester–Mays 2015)"
+    status: ready_to_scope
+    evidence: HYPOTHESIS
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "PRE-REGISTER FIRST: N_eff formula (Nishigaki: N_eff ~ 1.446*rho(gamma_N)) and the finite-N CUE <r>(N_eff) value. Then: |<r>_obs − <r>_CUE(N_eff)| > 3*SE_block → KILLED (either the import is misread or the pipeline has a height-dependent bug). Tolerance expected ~0.002, five times sharper than H-B1-1a"
+    experiment_dir: null
+    source: "pearl_registry/INDEX.md (2026-09-06, known-import row); experiments/20260906-riemann-rstat-gue/decision.md § Follow-ups"
     updated: 2026-09-06
 
   - id: H-B1-1b
@@ -227,6 +241,26 @@ nodes:
     source: "01-cross-domain-bridges/H-7 TAD Spectral Diagnostic.md"
     updated: 2026-09-06
 
+  - id: ART-ODLYZKO-ZEROS1
+    type: artifact
+    title: "Odlyzko table zeros1 — first 100,000 nontrivial zeta zeros, accuracy 3e-9"
+    status: valid
+    evidence: VERIFIED-REAL       # count 100000, gamma_1 = 14.134725142, strictly increasing; sha256 in manifest.md
+    date_created: 2026-09-06      # date_received; publisher's table date not recorded on the page
+    provenance: measurement       # published numerical table, not a fit
+    source: "https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros1 ; experiments/20260906-riemann-rstat-gue/manifest.md"
+    updated: 2026-09-06
+
+  - id: ART-RSTAT-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — <r> = 0.61092 for zeros1; controls.json; diag_se.json"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: replication       # known-answer test of a published result, not a prediction
+    source: "experiments/20260906-riemann-rstat-gue/metrics/"
+    updated: 2026-09-06
+
   - id: ART-PARKED-RIEMANN-NOTE
     type: artifact
     title: "[PARKED] Riemann via RMT — H7 Bridge note (2026-05-28)"
@@ -270,6 +304,13 @@ edges:
   - {from: ART-TAD-AUC-0.99998, to: H-B1-1b,               type: depends_on, since: 2026-09-06, note: "H-B1-1b cannot run until a valid replacement artifact exists (Option A)"}
   - {from: H-B1-1a,            to: H-B1-1b,               type: depends_on, since: 2026-09-06, note: "pipeline must reproduce known GUE result before touching biology"}
   - {from: Q-GOE-vs-GUE,       to: H-B1-1b,               type: blocks,     since: 2026-09-06}
+
+  # pilot H-B1-1a (2026-09-06) and its follow-up
+  - {from: ART-ODLYZKO-ZEROS1,    to: H-B1-1a, type: grounds,    since: 2026-09-06}
+  - {from: H-B1-1a,               to: ART-RSTAT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: ART-RSTAT-RUN-20260906, to: H-B1-1c, type: grounds,  since: 2026-09-06, note: "the +0.0103 excess is the thing H-B1-1c explains"}
+  - {from: H-B1-1a,               to: H-B1-1c, type: depends_on, since: 2026-09-06}
+  - {from: B1-RMT-RIEMANN-HIC,    to: H-B1-1c, type: grounds,    since: 2026-09-06}
 
   # naming collision — never merge
   - {from: PRJ-H7-GEOSPECTRA, to: PRJ-H7-TAD, type: collides_with, since: 2026-09-06, note: "both called 'H-7'; PARKED note links the wrong one"}

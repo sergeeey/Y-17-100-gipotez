@@ -1,0 +1,37 @@
+# experiment.yaml — EstimandOps canvas (filled before building)
+# Ref: ~/.claude/rules/estimand-ops.md · graph node: H-B1-1a
+
+id: 20260906-riemann-rstat-gue
+ladder: full                 # meta-goal: exercise every FL step once
+question_type: descriptive
+status: planned              # planned | running | completed | rejected | archived
+
+# --- EstimandOps L1 attributes ---
+population: "Imaginary parts of the first 100,000 nontrivial zeros of the Riemann zeta function (Odlyzko table zeros1, accuracy 3e-9). Inclusion: all 100,000. Exclusion: none unless a non-positive spacing is found (then abort, not exclude)."
+intervention: "none — descriptive question"
+comparator: "GUE Wigner-like surmise <r> = 0.602658 (Atas et al. 2013); null model Poisson <r> = 0.386294; discriminating alternative GOE surmise 0.535898"
+endpoint: "mean of r_n = min(s_n, s_{n+1}) / max(s_n, s_{n+1}), s_n = consecutive spacings; dimensionless"
+summary_measure: "difference r_mean - 0.602658 (absolute); also efficiency = (r_mean - 0.386294) / (0.602658 - 0.386294)"
+mcid: 0.01                   # = kill tolerance; ~12 SE at N=1e5
+
+# --- Intercurrent Events ---
+ice:
+  - event: "non-positive spacing (duplicate or misordered zero in the file)"
+    strategy: composite      # corruption == pipeline failure; abort, never impute or drop
+  - event: "download failure / truncated file (count != 100000)"
+    strategy: composite      # Substrate Gate BLOCKED-INFRASTRUCTURE, not a result
+
+# --- Causal layer: removed (question_type != causal) ---
+
+# --- Sensitivity analyses (>=2 required for Full) ---
+sensitivity:
+  - description: "data swap: first 50,000 vs last 50,000 zeros (finite-height drift, assumption A3)"
+  - description: "convention flip: raw spacings vs locally-unfolded spacings (window 501) — tests A2, unfolding independence"
+  - description: "noise injection: Gaussian noise sd = 10% of mean spacing added to each zero — pre-specified PASS if r_mean stays > 0.5 (nearer GUE than Poisson)"
+  - description: "alternative implementation: pure-Python loop vs numpy vectorised — must agree to 1e-12"
+
+# --- Floor-Ceiling (FL Step 4a), computed BEFORE the run ---
+floor:   0.386294            # metric with the mechanism (level repulsion) removed: Poisson null
+ceiling: 0.602658            # privileged answer: GUE surmise (also measured empirically via synthetic GUE)
+pass_band: [0.592660, 0.612660]
+criterion_check: "floor 0.386 is outside pass band -> CRITERION_VALID; ceiling 0.6027 inside band -> TASK_FEASIBLE; headroom 0.216 >> MCID 0.01 -> HEADROOM_OK"

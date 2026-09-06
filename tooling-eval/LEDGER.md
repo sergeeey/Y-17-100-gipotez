@@ -20,6 +20,8 @@
 
 ## Реестр
 
+### Сессия 1a — ядро лаборатории (2026-09-06)
+
 | Дата | Инструмент | Тип | Задача | Исход | Что именно / комментарий |
 |---|---|---|---|---|---|
 | 2026-09-06 | `project_classifier` hook | hook | классификация проекта при старте | `OK` | research, margin=6 — верно |
@@ -33,7 +35,7 @@
 | 2026-09-06 | `AskUserQuestion` | tool | выбор варианта структуры + решение о приватности | `OK` | 2 вопроса, 2 ответа, без переспросов |
 | 2026-09-06 | `artifact-provenance-gates` (Gate 1) | rule | идентичность артефактов при построении графа | `CAUGHT` | заставил разделить `ART-TAD-AUC-0.99998` (fit) и `ART-TAD-R-HONEST` (measurement) как разные узлы вместо одного «результата H-7» |
 | 2026-09-06 | FL `experiments/_template` (Claude-cod-top-2026) | template | переиспользование вместо написания своего | `OK` | 14 файлов скопированы; `dependency_graph.yaml` внутри шаблона — independence-профиль, не граф проекта; дублирования с `registry/graph.yaml` нет |
-| 2026-09-06 | `plan-mode-guard` hook | hook | milestones 3/5/10 файлов | `NOISE` | план был утверждён через `AskUserQuestion` (вариант C + таблица компонентов); хук видит только `EnterPlanMode` как канал утверждения |
+| 2026-09-06 | `plan-mode-guard` hook | hook | milestones 3/5/10/20/30 файлов | `NOISE` | план был утверждён через `AskUserQuestion` (вариант C + таблица компонентов); хук видит только `EnterPlanMode` как канал утверждения; 5 срабатываний за сессию |
 | 2026-09-06 | `reviewer` agent (sonnet, read-only) | agent | pre-commit консистентность LAB.md↔SCHEMA↔graph.yaml↔INDEX↔ADR, 8 проверок | `CAUGHT` | 4 находки (2 MEDIUM: off-by-one в сводке LEDGER, обход протокола в parked/INDEX; 2 LOW: неполный блокер H-B1-1b в LAB.md, двусмысленное «3 моста» в ADR-003). Ядро graph.yaml — чистое. MEDIUM перепроверен grep'ом до правки |
 | 2026-09-06 | `commit-test-gate` hook (Stop) | hook | блок завершения хода: `.py` изменён, pytest не запускался | `CAUGHT` | вынудил написать тесты, включая негативный контроль — реплику инцидента 2026-05-28; валидатор доказанно умеет падать |
 | 2026-09-06 | `scripts/lab_check.py` + pytest | tool | валидация graph.yaml, 3 теста (1 позитивный + 2 негативных контроля) | `OK` | 23 узла / 19 рёбер, инварианты 1–3; 3/3 passed |
@@ -41,11 +43,35 @@
 | 2026-09-06 | `submission-gate` hook | hook | сработал на текст уведомления reviewer'а | `NOISE` | «external-facing artifact» — коммит scaffolding'а в публичный репо ≠ submission; триггер по слову «ready» |
 | 2026-09-06 | `routing-floor` hook (2-й раз) | hook | сработал на слово «hypothesis» в уведомлении reviewer'а | `NOISE` | тот же режим отказа, что и в 1-й раз → счётчик pearl №1: 2/3 |
 | 2026-09-06 | `resource-router` hook (2-й раз) | hook | рекомендация explorer→builder→reviewer для fix-прохода | `OK` | на этот раз по делу |
-| — | `skeptic` agent (asymmetric context) | agent | Step 8a пилота H-B1-1a | `NOT-YET` | |
-| — | EstimandOps L0 gate | rule | классификация H-B1-1a | `NOT-YET` | |
-| — | Floor–Ceiling (FL Step 4a) | rule | пилот H-B1-1a | `NOT-YET` | ожидание: floor = r̄ Poisson ≈ 0.386, ceiling = GUE 0.6027; проверить, что метрика вообще различает |
+
+### Сессия 1b — пилот H-B1-1a сквозь FL Full-Ladder (2026-09-06)
+
+| Дата | Инструмент | Тип | Задача | Исход | Что именно / комментарий |
+|---|---|---|---|---|---|
+| 2026-09-06 | `permission-guard` (static deny `python -c`) | hook | вывод версий numpy/requests | `NOISE` | заблокировал невинный `python -c`, оборвал всю `&&`-цепочку (git rm, mkdir, cp не выполнились); обход через `pip show`. By design, но стоил круг |
+| 2026-09-06 | `locality-escalation` hook (×6) | hook | activeContext, run.py, test_rstat.py, graph.yaml, LAB.md, LEDGER.md отредактированы 4× каждый | `NOISE` | все шесть — журналы/реестры/lint-круги, churn by design; хук сам метит порог `[WEAK]`. **Но мета-сигнал в первых трёх был верен:** цикл «написал → линт → правка» → исправлен процесс (lint-fix внутри цепочки ДО тестов). Порог «4 правки» не различает реестр и модуль |
+| 2026-09-06 | `ceiling-gate` hook (PostToolUse на decision.md) | hook | проверка наличия Floor–Ceiling в decision | `OK` | нашёл floor / ceiling / efficiency с числами на строке — state-based проверка содержимого, сработала по делу |
+| 2026-09-06 | Zero-Signal Gate (FL Step −5) | rule | claim.md H-B1-1a | `OK` | entity / predicate / outcome заполнены из входа; PROCEED |
+| 2026-09-06 | EstimandOps L0 gate | rule | классификация H-B1-1a | `OK` | descriptive; causal layer снят; 2 ICE (corruption → abort; download → BLOCKED-INFRA) |
+| 2026-09-06 | FL Step −4 source trace (`WebSearch` + `mcp__arxiv__get_abstract`) | tool | константы ⟨r⟩ + URL данных | `CAUGHT` | вскрыл двусмысленность 0.6027 (surmise 3×3) vs 0.5996 (N→∞) ДО прогона → target назван явно; abstract 1212.5611 подтвердил, что нули ζ там есть как пример |
+| 2026-09-06 | Substrate Gate (FL Step 2a) | rule | pre-run | `CAUGHT` | harness-тест упал: документы писали 0.60266 (округление литературы), код считает точное 0.6026578; расхождение в прозе исправлено до прогона |
+| 2026-09-06 | `tests/test_rstat.py` (5 harness-тестов) | tool | A5 pairing без off-by-one | `OK` | ручные ответы 0.5 и 1/3; parity pure-Python; scale; duplicate abort; константы |
+| 2026-09-06 | `ruff check --fix` + `format` внутри цепочки | tool | run.py, test_rstat.py | `OK` | после переноса линта ДО тестов — ноль лишних кругов |
+| 2026-09-06 | Controls: positive / negative / discriminating (FL Step 3/4) | rule | GUE / Poisson / GOE синтетика | `OK` | Poisson **сработал kill** (критерий умеет падать); GOE отделён на 0.07; GUE в полосе. Побочно: два `[MEMORY]`-значения (0.5307, ≈0.600) → `[VERIFIED-SYNTHETIC]` |
+| 2026-09-06 | Floor–Ceiling (FL Step 4a) | rule | pre-run + post | `CAUGHT` | **efficiency 1.038 > 1** → потолок задан для асимптотической популяции, измерена конечная высота. Без скаляра это прочли бы как «данные лучше теории» |
+| 2026-09-06 | No-collapse tests ×7 (Perelman) | rule | Step 3/4 | `OK` | 6 PASS + 1 REPORTED; ungated shuffled-spacings тест принёс неожиданный сигнал (P(s) низких нулей ≠ GUE P(s)) |
+| 2026-09-06 | Stress tests ×3 (FL Step 7) | rule | низкая высота / дубликат / CRLF | `OK` | case 1 (первые 1000 нулей: 0.617, вне полосы) — самое информативное число эксперимента; не гейтился заранее — и правильно |
+| 2026-09-06 | Pipeline vs Experiment separation (execution rules) | rule | run.py | `OK` | чистые функции тестируются изолированно; pure-Python parity на них и построен |
+| 2026-09-06 | FL Step −3 novelty check (`WebSearch`) | tool | pearl «избыток ⟨r⟩ на низкой высоте» | `CAUGHT` | **уже опубликовано**: Forrester–Mays 2015 (arXiv:1506.06531), Nishigaki PTEP 2026 (arXiv:2507.10193), ∝ (log T/2π)⁻³. Псевдо-новизна убита одним запросом, ДО того как стала «гипотезой» |
+| 2026-09-06 | `escape_route.md` (pre-registered outcome map) | rule | pre-run | `CAUGHT` | побочно: карта не содержала исход «в полосе, но значимо ВЫШЕ эмпирического потолка» — именно он и случился. Escape Point записан в decision.md |
+| 2026-09-06 | `skeptic` agent (sonnet, asymmetric: claim+code+metrics only) | agent | FL Step 8a пилота | `CAUGHT` | вердикт WEAKENED; 3 concern'а: 2 совпали с независимым чтением оркестратора (эмпирический GUE-референс проваливает тот же критерий; escape_route без исхода «выше потолка»), **1 новый** — SE считана как i.i.d., соседние r делят спейсинг. Проверено `diag_se.py`: ρ₁=0.284, направление верно, z≥10 при всех трёх SE — вывод не меняется |
+| 2026-09-06 | `skeptic` agent — tool scope | agent | «RUN the 3 tests» | `BLOCKED` | у агента не было Bash — не смог выполнить тесты; **честно раскрыл**, сделал точную арифметику на записанных JSON, не сфабриковал вывод команд. Ограничение scope агента, не модели |
+| 2026-09-06 | `diag_se.py` (block bootstrap + Bartlett) | tool | проверка concern 1b | `OK` | Bartlett SE ×1.44; block-bootstrap SE ×0.75 (спектральная жёсткость); оба ≥10σ |
+| 2026-09-06 | `run.py` → `ceiling_check` flag | tool | mitigation concern 3 | `OK` | additive поле; r_mean бит-в-бит совпал с прогоном до правки |
+| 2026-09-06 | `routing-floor` hook (3-й раз) | hook | сработал на слово «Falsif» в уведомлении skeptic'а | `NOISE` | **3/3 — порог pearl №1 достигнут** → предложение изменить хук теперь легитимно (n=3, не n=1) |
+| 2026-09-06 | `resource-router` hook (3-й раз) | hook | «T0, explorer/haiku, ≤3 tool calls» для задачи «ответить на 3 concern'а skeptic'а + закрыть FL decision» | `NOISE` | недооценил задачу на два тира; классификатор реагирует на длину текста уведомления, не на содержание |
 | — | `analyst` / `hypothesis-arbiter` / `cross-domain` skills | skill | мосты B2, B3 | `NOT-YET` | |
-| — | `verifier` agent | agent | source trace (FL Step -4) для каталога | `NOT-YET` | |
+| — | `verifier` agent | agent | source trace (FL Step −4) для каталога 141 задачи | `NOT-YET` | |
 | — | `graphify` meta-graph query | tool | «уже есть в моих репо?» перед расширением `lab_check` | `NOT-YET` | |
 
 ## Сводка (считать командой ниже, не вручную)
@@ -56,11 +82,13 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 | Исход | Кол-во |
 |---|---|
-| CAUGHT | 6 |
-| OK | 8 |
+| CAUGHT | 12 |
+| OK | 19 |
 | MISSED | 0 |
-| NOISE | 5 |
-| BLOCKED | 0 |
-| NOT-YET | 6 |
+| NOISE | 9 |
+| BLOCKED | 1 |
+| NOT-YET | 3 |
 
-**Наблюдение после первой сессии:** все 5 `NOISE` — хуки с keyword-эвристикой, не различающие тип задачи (scaffolding vs research) и источник текста (запрос пользователя vs уведомление агента). `routing-floor` — 2/3 до порога действия (pearl №1). Все 6 `CAUGHT` — либо инструменты с реальным входом (grep, reviewer, pytest), либо хуки, проверяющие **состояние** (нет `.git`, `.py` изменён без тестов), а не **слова**. Гипотеза для pearl: state-based хуки ловят, keyword-based шумят — проверять на следующих 20 строках.
+**Наблюдение после сессии 1a:** все `NOISE` — хуки с keyword-эвристикой, не различающие тип задачи (scaffolding vs research) и источник текста (запрос пользователя vs уведомление агента). `routing-floor` — 2/3 до порога действия (pearl №1).
+
+**Наблюдение после сессии 1b:** паттерн из 1a усилился — **state-based** проверки (git-статус, «.py изменён без тестов», harness-тест, grep, эмпирический потолок, поиск литературы, skeptic на артефакте) дали 12/12 `CAUGHT`; **keyword/threshold-based** хуки дали 9/9 `NOISE`. Ноль пересечений. `routing-floor` достиг 3/3 → порог действия по pearl №1. Единственный `BLOCKED` — scope агента (нет Bash у skeptic), не модель. Гипотеза для pearl: «инструменты, читающие СОСТОЯНИЕ, ловят; инструменты, читающие СЛОВА, шумят» — проверять на следующих 20 строках, порог для действия: ≥3 CAUGHT от keyword-хука или ≥3 NOISE от state-хука опровергнут её.

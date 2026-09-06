@@ -1,0 +1,42 @@
+{
+  "seed": 0,
+  "matrix_size": 400,
+  "matrices": 500,
+  "positive_control_gue": {
+    "mean_r": 0.6005982631557256,
+    "se": 0.0007348527732611059,
+    "target_surmise": 0.6026577908435842,
+    "result": "PASS"
+  },
+  "discriminating_control_goe": {
+    "mean_r": 0.5310153271880369,
+    "se": 0.000810745150156698,
+    "surmise": 0.5358983848622456,
+    "separated_from_gue": true,
+    "result": "PASS"
+  },
+  "negative_control_poisson": {
+    "mean_r": 0.3866603356399935,
+    "analytic": 0.3862943611198906,
+    "kill_criterion_fired": true,
+    "result": "PASS"
+  },
+  "shuffled_gue_spacings": {
+    "mean_r": 0.6345970715168946,
+    "note": "P(s) kept, correlations destroyed"
+  },
+  "floor_ceiling": {
+    "floor_poisson": 0.3862943611198906,
+    "ceiling_surmise": 0.6026577908435842,
+    "ceiling_empirical_gue": 0.6005982631557256,
+    "pass_band": [
+      0.5926577908435842,
+      0.6126577908435842
+    ],
+    "criterion_valid": true,
+    "task_feasible": true,
+    "headroom": 0.2163634297236936
+  },
+  "all_controls_pass": true,
+  "_written": "2026-09-06T11:31:37"
+}

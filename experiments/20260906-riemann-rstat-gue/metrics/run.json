@@ -1,0 +1,55 @@
+{
+  "data": {
+    "url": "https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros1",
+    "sha256": "3436c916a7878261ac183fd7b9448c9a4736b8bbccf1356874a6ce1788541632",
+    "count": 100000,
+    "first_zero": 14.134725142
+  },
+  "r_mean": 0.6109167772757004,
+  "se": 0.0007163686072160021,
+  "target_surmise": 0.6026577908435842,
+  "delta_to_surmise": 0.0082589864321162,
+  "delta_to_empirical_gue": 0.010318514119974753,
+  "tolerance": 0.01,
+  "efficiency": 1.038171822487115,
+  "ceiling_check": "CEILING_MISSPECIFIED: efficiency > 1 — observed exceeds the privileged answer; the ceiling's population (N->inf GUE) != measured population (finite height)",
+  "verdict": "PASS",
+  "no_collapse": {
+    "data_swap_halves": {
+      "first_50k": 0.6118798907208411,
+      "last_50k": 0.6099542226322583,
+      "result": "PASS"
+    },
+    "noise_injection_10pct": {
+      "mean_r": 0.5902316943752465,
+      "result": "PASS"
+    },
+    "scale_x0.1_x10": {
+      "values": [
+        0.6109167772757221,
+        0.6109167772757023
+      ],
+      "result": "PASS"
+    },
+    "convention_flip_local_unfold": {
+      "mean_r": 0.6109180045771553,
+      "delta": 1.2273014549091243e-06,
+      "result": "PASS"
+    },
+    "negative_control": {
+      "see": "controls.json",
+      "result": "PASS"
+    },
+    "adversarial_shuffled_spacings": {
+      "mean_r_zeta_shuffled": 0.6432150321398548,
+      "mean_r_gue_shuffled": 0.6345970715168946,
+      "note": "reported, not gated — tests P(s) equality independent of correlations",
+      "result": "REPORTED"
+    },
+    "alternative_tool_pure_python": {
+      "mean_r": 0.6109167772757004,
+      "result": "PASS"
+    }
+  },
+  "_written": "2026-09-06T11:40:06"
+}

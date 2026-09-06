@@ -5,6 +5,7 @@
 .claude/settings.local.json
 .claude/checkpoints/
 .claude/state/
+.claude/memory/state/          # hook scratch (post_commit_nudge.json etc.), not project memory
 .claude/worktrees/
 .claude/agent-memory-local/
 
@@ -16,8 +17,9 @@ venv/
 .pytest_cache/
 .ruff_cache/
 
-# --- Data caches (raw downloads are re-fetchable; keep manifests, not blobs) ---
+# --- Data caches (raw downloads are re-fetchable; keep manifests + sha256, not blobs) ---
 data/raw/
+experiments/*/data/
 *.npy
 *.npz
 *.h5
