@@ -87,6 +87,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 19:10] `7210aad` (local, branch `feature/h-b3-1h-conjunction` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1h: TDA invariant conjunction (entropy AND total-persistence) — best specificity in B3 arc
 - [2026-09-06 19:02] `3751f69`: chore: auto-log commit history entry
 - [2026-09-06 19:01] `6519e03` (local, branch `feature/h-b3-1g-result` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1g): first non-identical-5/5 result in the entire B3 arc -> LEAD
 - [2026-09-06 18:54] `98251ed`: chore: auto-log commit history entry
@@ -101,4 +102,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 18:23] `7f6fbd3` (local, branch `feature/h-b2-1d-mixed-spectrum` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1d): 4th consecutive confirmation (mixed-sign spectrum, exact M1=M2=1) + fix(H-B2-1c): correct missing M1^2 factor found while deriving this bound
 - [2026-09-06 16:25] `bfb3ef1`: chore: auto-log commit history entry
 - [2026-09-06 16:24] `9da2cdc` (local, branch `feature/h-b2-1c-nonnormal` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1c): Theorem-3.1/K_j=0 mechanism survives a non-normal matrix with honestly measured M1/M2
-- [2026-09-06 15:53] `71cb476`: chore: auto-log commit history entry
