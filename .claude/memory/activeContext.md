@@ -95,6 +95,12 @@
 - **Побочно поймал ошибку в собственной формуле H-B2-1c** (M1² вместо M1 — ошибка была скрыта там, где M1=1). Исправил, перезапустил (дёшево), вердикт H-B2-1c не изменился, эффективность честнее (слабее в ~2.56 раза).
 - Граф: `H-B2-1d → confirmed`. Pearl impact 8: четыре подряд успешные генерализации плюс самопойманная ошибка формулы — сигнал и качества коррекции, и дисциплины перепроверки.
 
+**[WS: H-B2-1e combined stress + серия закрыта] CLOSED 2026-09-06 (ADR-020, автономно, `/loop`, пятое и финальное подтверждение серии).** `[VERIFIED]`:
+- Объединил несимметрию (H-B2-1c) и смешанный знак (H-B2-1d) в одном A=[[0.5,10],[0,-2]]. Ни симметричный, ни «M1=1» трюк не работает — M1/M2 численно измерены с w>0. 7 тестов ДО сравнения.
+- **Результат: механизм устоял, эффекты РЕАЛЬНО складываются.** M1=3.806 > 2.563 (одна несимметрия) — настоящий compounding, но не взрывной (~1.5×, не на порядки). Порядок точно совпал (1.0031/2.0040). Граница выполнилась во всех 16 случаях.
+- Граф: `H-B2-1e → confirmed`. **Серия H-B2-1* закрыта на пяти подряд подтверждениях** (1D→2D-симметрия→2D-несимметрия→2D-смешанный знак→2D-комбинация) — решил не продолжать эскалацию без design-решения пользователя (следующие шаги — высокая размерность/нелинейность — не дешёвые параметрические правки).
+- Pearl impact 8: завершает связную серию — редкий по полноте evidence base для Standard-Ladder моста в этом проекте.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -135,6 +141,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 18:23] `d65eba8`: chore: auto-log commit history entry
 - [2026-09-06 18:23] `7f6fbd3` (local, branch `feature/h-b2-1d-mixed-spectrum` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1d): 4th consecutive confirmation (mixed-sign spectrum, exact M1=M2=1) + fix(H-B2-1c): correct missing M1^2 factor found while deriving this bound
 - [2026-09-06 16:25] `bfb3ef1`: chore: auto-log commit history entry
 - [2026-09-06 16:24] `9da2cdc` (local, branch `feature/h-b2-1c-nonnormal` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1c): Theorem-3.1/K_j=0 mechanism survives a non-normal matrix with honestly measured M1/M2
@@ -149,4 +156,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 14:49] `30a0e63` (local, branch `feature/h-b3-1f-descriptive-v3` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1f): V3 descriptive-only join reveals the sharpest finding in bridge B3 -- with zero new compute
 - [2026-09-06 14:43] `5a8b00b`: chore: auto-log commit history entry
 - [2026-09-06 14:42] `4e7f269` (local, branch `feature/h-b2-1-chernoff-neuralode` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1): Chernoff <-> Neural-ODE bridge formalized and tested -> KILLED (practically useless, formally valid)
-- [2026-09-06 14:30] `527f6e1` (local, branch `feature/auto-log-b408879` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
