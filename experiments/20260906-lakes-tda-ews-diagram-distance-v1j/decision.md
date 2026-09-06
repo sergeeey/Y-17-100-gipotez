@@ -112,6 +112,25 @@ statistic's own properties (non-negative, zero at its own reference, numerically
 scalar summaries AND from the bottleneck-metric variant, threads correctly through the existing
 calibration) — the correct analogue here, not a fresh floor/ceiling for unchanged machinery.
 
+## Addendum (2026-09-06, same session) — reviewer-flagged P2 resolved: reference diagram non-degeneracy
+
+Code review (`reviewer` agent) on this commit raised a real, checkable concern: `betti1_diagram_distance_series`
+fixes the reference diagram to the first valid window's H1 diagram, but if that diagram happened to be
+empty or near-empty, "distance from baseline" would collapse toward measuring the raw magnitude of
+each subsequent window alone — numerically close to `betti1_total_persistence_series`, undermining
+this experiment's "genuinely different detection FAMILY" framing (see claim.md's central argument).
+
+Ran the cheap, fully-verifiable check the reviewer recommended: computed the reference diagram's
+cardinality and total persistence for all 9 real series (one `ripser` call per series, no new
+surrogate compute). Script: `check_reference_diagram_nondegeneracy.py`.
+
+**Result: all 9 reference diagrams are non-degenerate** — 12 to 46 finite H1 bars each, total
+persistence 0.17 to 10.06. Peter doSat specifically (the series whose lead is the headline finding of
+this decision.md): 46 bars, total persistence 8.30 — clearly substantial real topological structure,
+not a near-empty diagram. This confirms the diagram-distance statistic is genuinely comparing against
+a meaningful baseline, not degenerating into a total-persistence proxy. The "Sharper Pattern" section's
+claim of independent confirmation across two statistic families stands.
+
 ## Pearl Card Update
 
 **New information:** the Peter doSat sign-flip finding from `H-B3-1i` is narrowed by a second data
