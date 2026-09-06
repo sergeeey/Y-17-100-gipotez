@@ -730,6 +730,16 @@ nodes:
     updated: 2026-09-06
 
   # ───────────────────────── projects (added during R6/B7 scoping, 2026-09-06) ─────────────────────────
+  - id: PRJ-REMY-TUMORIGENESIS
+    type: project
+    title: "Remy, E. et al. 2015 (Cancer Research 75(19):4042-4052): Boolean model of bladder tumorigenesis explaining mutually exclusive and co-occurring genetic alterations across 178 patients; 35 components, 4 stimulus inputs, verified via pyboolnet to have 25 attractors across 16 input branches with genuine multistability in 8 of them"
+    status: active
+    evidence: VERIFIED-REAL
+    path: "experiments/20260906-remy-tumorigenesis-transient-h4/data/remy_tumorigenesis.bnet"
+    owner: external            # Remy et al. 2015, rules redistributed via hklarner/pyboolnet model repository
+    source: "https://aacrjournals.org/cancerres/article/75/19/4042/606430 ; https://github.com/hklarner/pyboolnet/tree/master/pyboolnet/repository/remy_tumorigenesis"
+    updated: 2026-09-06
+
   - id: PRJ-FAURE-CELLCYCLE
     type: project
     title: "Fauré, Naldi, Chaouiya, Thieffry 2006 (Bioinformatics): generic Boolean model of the core mammalian cell cycle control network, 10 components, one point attractor (quiescence) + one complex attractor (cell cycle progression)"
@@ -771,7 +781,19 @@ nodes:
       STRICT, more faithful operationalization (H-B7-3) is untestable in this model; a model with
       genuine multistability per branch (candidates: other pyboolnet repository models, e.g.
       `zhang_tlgl`, `remy_tumorigenesis`) would be needed for a real test of Kauffman's original
-      claim.
+      claim. H-B7-4 (transient perturbation, structurally-capable model): installed `pyboolnet`
+      itself (not just its bundled .bnet files) and verified BEFORE designing the experiment
+      that `remy_tumorigenesis` (Remy et al. 2015, bladder cancer, 35 nodes) has 25 attractors
+      across 16 input branches, 8 of them genuinely multistable, two showing DIFFERENT
+      PHENOTYPES (Growth_arrest vs Proliferation) under IDENTICAL external signaling -- exactly
+      the structure H-B7-3 showed the Fauré model lacked. Tested transient `do(RAS=1)` (1-30
+      steps) from the Growth_arrest fixed point in one such branch: REJECTED for this specific
+      perturbation -- all cases return to Growth_arrest, none reach Proliferation. Unlike H-B7-3,
+      this IS a genuinely informative negative result (the structural precondition for success
+      existed), consistent with multi-hit carcinogenesis theory (single oncogene activation
+      alone is textbook-insufficient). Named next step: a combined do(RAS=1, TP53=0) two-hit
+      perturbation. Net position, `evidence: CONFLICT` unchanged, now with a real (not merely
+      structurally foreclosed) negative data point on the strict hypothesis.
 
   - id: H-B7-1
     type: hypothesis
@@ -837,6 +859,28 @@ nodes:
     date_created: 2026-09-06
     provenance: measurement
     source: "experiments/20260906-kauffman-cellcycle-transient-h3/metrics/run.json"
+    updated: 2026-09-06
+
+  - id: H-B7-4
+    type: hypothesis
+    title: "Transient RAS activation on the Remy et al. 2015 bladder tumorigenesis network's bistable (Growth_arrest / Proliferation) branch -- the first structurally-capable test of Kauffman's strict hypothesis in this bridge (H-B7-3 showed the small Fauré model lacked the required multi-attractor structure; this network was verified via pyboolnet to have it)"
+    status: killed                 # 2026-09-06 decision.md: REJECTED for do(RAS=1) specifically -- a genuine, informative negative result, not TASK_INFEASIBLE
+    evidence: VERIFIED-REAL        # metrics/run.json; 5 pre-registered tests including cross-checks of both known attractor states against this project's own synchronous_step, passed before the real run
+    l0_type: causal
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if >=1 tested (k, starting-state) combination reaches Proliferation (or another attractor) instead of the starting Growth_arrest fixed point. RESULT: REJECTED -- all 4 tested durations (k=1,3,10,30) return to Growth_arrest. Unlike H-B7-3, this is a GENUINE informative negative result: pyboolnet independently confirmed this branch (DNA_damage=0,EGFR_stimulus=0,FGFR3_stimulus=1,Growth_inhibitors=1) has 3 attractors (2 Growth_arrest, 1 Proliferation) under identical external input -- the structural precondition for a positive result existed, and the test could have succeeded. It didn't for this single-node perturbation, consistent with (not contradicting) multi-hit carcinogenesis theory: a single oncogene activation is textbook-insufficient for transformation. Named next step: combined do(RAS=1, TP53=0), a genuine two-hit perturbation"
+    experiment_dir: "experiments/20260906-remy-tumorigenesis-transient-h4"
+    source: "experiments/20260906-remy-tumorigenesis-transient-h4/decision.md"
+    updated: 2026-09-06
+
+  - id: ART-REMY-TRANSIENT-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — 4 transient RAS-clamp simulations on the Remy 2015 network's bistable branch; all return to Growth_arrest, none flip to Proliferation"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-remy-tumorigenesis-transient-h4/metrics/run.json"
     updated: 2026-09-06
 
   # ───────────────────────── questions ─────────────────────────
@@ -962,3 +1006,6 @@ edges:
   - {from: H-B7-1, to: H-B7-3, type: grounds, since: 2026-09-06, note: "H-B7-1's own exhaustive single-attractor finding for the CycD=0 region logically forecloses this experiment's outcome BEFORE any new simulation -- the Compute-First deduction"}
   - {from: H-B7-2, to: H-B7-3, type: grounds, since: 2026-09-06, note: "the STRICT (transient) operationalization of the same hypothesis H-B7-2 tested with a PERMANENT clamp; sharpens H-B7-2's [WEAKENED] qualifier by showing permanence is necessary for the effect"}
   - {from: H-B7-3, to: ART-KAUFFMAN-TRANSIENT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B7-3, to: H-B7-4, type: grounds, since: 2026-09-06, note: "H-B7-3's own Relaxation Map named this exact follow-up: test the same transient-perturbation logic on a network KNOWN to have multiple attractors within one basin"}
+  - {from: PRJ-REMY-TUMORIGENESIS, to: H-B7-4, type: grounds, since: 2026-09-06, note: "Remy et al. 2015 model is the concrete test case chosen because it was verified (via pyboolnet) to have the multi-attractor-per-branch structure H-B7-3 showed the Fauré model lacked"}
+  - {from: H-B7-4, to: ART-REMY-TRANSIENT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}

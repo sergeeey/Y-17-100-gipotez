@@ -165,6 +165,19 @@ perturbation-эксперимент», настоящий тест гипоте�
 - Сужает H-B7-2: эффект do(Rb=0) требует ПЕРМАНЕНТНОЙ фиксации, временная версия не даёт ничего.
 - Граф: `H-B7-3 → confirmed` (дедукция). Мост остаётся `evidence: CONFLICT`. Pearl impact 8.
 
+**[WS: H-B7-4 remy_tumorigenesis] CLOSED 2026-09-06 (ADR-031, автономно, `/loop`, продолжение
+Relaxation Map H-B7-3).** `[VERIFIED]`:
+- Установил `pyboolnet` как активный инструмент (не только .bnet-файлы). Живой прогон на Fauré-сети
+  → точное совпадение с H-B7-1 — апгрейд верификации до «different tool, same task» (addendum в
+  H-B7-1's decision.md).
+- Нашёл через `pyboolnet` реальную модель (Remy et al. 2015, рак мочевого пузыря, 35 узлов) с
+  ГЕНУИННОЙ мультистабильностью — 2 ветки дают РАЗНЫЕ ФЕНОТИПЫ (Growth_arrest vs Proliferation) при
+  одинаковых внешних сигналах — структура, которой не хватало Fauré-модели.
+- **do(RAS=1) → REJECTED**, но ГЕНУИННО информативно (структурная предпосылка успеха существовала,
+  в отличие от H-B7-3) — согласуется с multi-hit теорией канцерогенеза.
+- Граф: `H-B7-4 → killed`. Мост остаётся `evidence: CONFLICT`. Pearl impact 8. Следующий шаг:
+  комбинированное do(RAS=1, TP53=0).
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -209,6 +222,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 22:30] `0f92f1c`: chore: auto-log commit history entry
 - [2026-09-06 22:30] `52fcdb6` (local, branch `feature/h-b7-3-transient-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-3: Compute-First deduction predicts the outcome before simulation -- strict Kauffman test is untestable in this model
 - [2026-09-06 22:19] `7422132`: chore: auto-log commit history entry
 - [2026-09-06 22:18] `db14a3f` (local, branch `feature/h-b7-2-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-2: perturbation (do-operator) test of Kauffman's Cancer Attractor hypothesis -- differentiated result
@@ -223,4 +237,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 20:09] `00a6637`: chore: auto-log commit history entry
 - [2026-09-06 20:08] `610ac08` (local, branch `feature/b3-may-tda-consolidation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3-MAY-TDA: update stale bridge node with consolidated evidence from 10 experiments
 - [2026-09-06 20:05] `045f082`: chore: auto-log commit history entry
-- [2026-09-06 20:04] `31bf217` (local, branch `feature/h-b3-1i-sign-flip-mechanism` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1i: mechanism of Peter doSat's sign flip found via cheap single-series diagnostic
