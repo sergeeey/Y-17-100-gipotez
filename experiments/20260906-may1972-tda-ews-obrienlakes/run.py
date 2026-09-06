@@ -224,6 +224,45 @@ def iaaft_surrogate(x: np.ndarray, rng: np.random.Generator, n_iter: int = 20) -
     return surrogate
 
 
+# ───────────────────── V2': detrend-then-surrogate ─────────────────────
+# WHY (Relaxation Map, H-B3-1d decision.md, 2026-09-06): V1 (AR(1)) and V1' (IAAFT) failed
+# IDENTICALLY (5/5 negative controls false-positive) despite IAAFT being a strictly richer
+# STATIONARY linear null (full spectrum + exact amplitude distribution vs lag-1 only). This
+# rules out "insufficient spectral richness" and points to a within-season deterministic/
+# non-stationary trend that phase-randomization cannot represent (IAAFT's mechanism assumes
+# weak stationarity). V2' removes a smooth trend BEFORE generating the null (on the residual),
+# then adds the trend back -- the ONLY assumption changed from H-B3-1d (Minimal Relaxation
+# Rule): the null-generating PROCEDURE now includes a detrend/retrend step, reusing IAAFT
+# (already validated) as the residual surrogate.
+DETREND_FRAC = 0.25  # trend window as a fraction of series length -- deliberately narrower
+# than WINDOW_FRAC=0.5 (the detection window), so the removed "trend" is slower than any
+# potential regime-shift signal the detection window is meant to catch.
+
+
+def smooth_trend(x: np.ndarray, frac: float = DETREND_FRAC) -> np.ndarray:
+    """Centered moving-average trend, window = frac * n (odd, >=5). No new dependency beyond
+    pandas (already used by the Peter Lake loader)."""
+    import pandas as pd
+
+    n = len(x)
+    window = max(round(frac * n), 5)
+    if window % 2 == 0:
+        window += 1
+    return pd.Series(x).rolling(window, center=True, min_periods=1).mean().to_numpy()
+
+
+def detrend_surrogate(x: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    """V2' null model: subtract a smooth trend, generate an IAAFT surrogate of the RESIDUAL
+    (preserves the residual's own spectrum/amplitude distribution, not the trend's), add the
+    trend back. The surrogate carries the SAME trend as the real series but a randomized
+    residual around it -- if the real series' false-positive rate was driven by the trend
+    itself (H-B3-1d's diagnosis), this null should no longer inherit that false signal."""
+    trend = smooth_trend(x)
+    residual = x - trend
+    surrogate_residual = iaaft_surrogate(residual, rng)
+    return trend + surrogate_residual
+
+
 def surrogate_null_curve(
     x: np.ndarray,
     window: int,

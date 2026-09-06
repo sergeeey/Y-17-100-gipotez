@@ -43,6 +43,14 @@
 - Rescue Review: `weak_alive`, следующий кандидат V2' (detrend-then-surrogate) — теперь мотивирован ДВУМЯ независимо провалившимися стационарными нулями, не запущен.
 - Pearl impact 7→**8** (сузил методологический паттерн: не просто «AR(1) недостаточен», а «любая стационарная линейная модель недостаточна»).
 
+**[WS: H-B3-1e V2'] CLOSED 2026-09-06 (ADR-013, автономно во время отсутствия пользователя, по разрешению «продолжай автономно… ухожу на 5-6 часов»).** `[VERIFIED]`:
+- Реализовал `smooth_trend()` + `detrend_surrogate()` (детренд скользящим средним, окно=25% длины ряда, → IAAFT на остатке → ретренд). Единственное изменённое допущение от V1' (Minimal Relaxation Rule).
+- **Escape-point гейт ДО дорогого прогона** (по собственной рекомендации `H-B3-1d`): синтетический негативный контроль (гладкий сезонный тренд + AR(1)-шум) — чистый IAAFT даёт 87.5% ложных срабатываний, detrend+IAAFT снижает до 37.5% на ТОЙ ЖЕ синтетике. Только после подтверждения механизма запустил реальный прогон.
+- **Результат: 5/5 негативных контролей всё равно ложно сработали — БАЙТ-В-БАЙТ те же 5 рядов**, что у V1 и V1' (Windermere, Loch Leven, Paul chl/pH/doSat). Три структурно разные null-модели (AR(1)/IAAFT/detrend+IAAFT) дали идентичный провал — сильнее любого отдельного REJECT: устойчиво к смене допущений о временной структуре.
+- **Качественный сдвиг:** Peter doSat потерял TDA-лид (был +13 дней), Lower Zurich приобрёл (+23 месяца, близко к исходной находке H-B3-1b +24 месяца до любой null-коррекции).
+- **Синтетика прошла, реальность — нет:** отдельный методологический pearl (impact 7) — пройденный escape-point на синтетике подтверждает фикс только для СМОДЕЛИРОВАННОГО механизма, не гарантирует совпадение с реальным. Третий REJECT в проекте — `null_results/H-B3-1e-lakes-tda-ews-detrend-surrogate-v2prime.md`.
+- Rescue Review: `weak_alive`. Рекомендация decision.md: переходить к V3 (descriptive-only, без нового вычисления) вместо 4-й попытки null-модели — три подряд REJECT с идентичным набором ложных срабатываний указывают на проблему самой бинарной рамки, не конкретной null-модели.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -83,6 +91,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 14:07] `3e75d01` (local, branch `feature/auto-log-c8f5e5f` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-06 14:06] `c8f5e5f` (local, branch `feature/h-b3-1d-v1prime` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1d): V1' (IAAFT surrogate-null) implemented and run -> REJECT, sharper diagnosis than V1
 - [2026-09-06 13:34] `bbd1496`: chore: auto-log commit history entry
 - [2026-09-06 13:33] `34304c3`: feat(H-B3-1c): V1 surrogate-null implemented and re-run on both datasets -> REJECT (first real one)
@@ -97,4 +106,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 11:47] `ff6246c`: fix: gitignore inline comments broke hook-scratch patterns; LEDGER +1
 - [2026-09-06 11:46] `c912d70`: chore: untrack hook scratch files, ignore **/.claude/state/
 - [2026-09-06 11:45] `f8057d0`: feat(pilot): H-B1-1a through FL Full-Ladder — PROMOTE [WEAKENED]
-- [2026-09-06 11:18] `f021de1`: feat: lab core — LAB.md entry point, registry graph, FL template, ledgers, lab_check

@@ -17,5 +17,6 @@ _Перед любой новой гипотезой: `grep -i "<ключево�
 |---|---|---|---|---|---|
 | H-B3-1c | 2026-09-06 | lakes-tda-ews-surrogate-null-v1 | REJECT | AR(1) null too simple — real negative-control lakes have extra structure (5/5 still false-positive) | Да — нет узлов, зависящих от H-B3-1c; H-B3-1/H-B3-1b (родители) не затронуты, их CRITERION_INVALID вердикты остаются в силе |
 | H-B3-1d | 2026-09-06 | lakes-tda-ews-iaaft-null-v1prime | REJECT | IAAFT (full spectrum, richer than AR(1)) still 5/5 false-positive — rules out spectral richness, points to non-stationary trend | Да — нет узлов, зависящих от H-B3-1d; H-B3-1c не затронут, REJECT остаётся в силе |
+| H-B3-1e | 2026-09-06 | lakes-tda-ews-detrend-surrogate-v2prime | REJECT | detrend+IAAFT: та же тройка null-моделей даёт БАЙТ-В-БАЙТ идентичный набор 5/5 ложных срабатываний | Да — нет узлов, зависящих от H-B3-1e; H-B3-1d не затронут, REJECT остаётся в силе |
 
 > Историческая справка (не эксперимент этой лаборатории, но релевантный NULL upstream): `ART-TAD-AUC-0.99998` инвалидирован 2026-05-16 в проекте H-7 TAD — label circularity. Учтён в `registry/graph.yaml` как артефакт со статусом `invalidated`, ребро `invalidates` от `ART-TAD-R-HONEST`.

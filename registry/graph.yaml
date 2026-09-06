@@ -266,6 +266,28 @@ nodes:
     source: "experiments/20260906-lakes-tda-ews-iaaft-null-v1prime/metrics/run.json"
     updated: 2026-09-06
 
+  - id: H-B3-1e
+    type: hypothesis
+    title: "V2': detrend (moving-average, frac=0.25) then IAAFT surrogate on the residual, retrend -- re-run on the same 9 series"
+    status: killed                # 2026-09-06 decision.md: third consecutive REJECT, byte-identical false-positive SET to V1/V1' across 3 structurally different null models
+    evidence: VERIFIED-REAL       # metrics/run.json; synthetic escape-point mechanism check (VERIFIED-SYNTHETIC) run BEFORE real compute, per H-B3-1d's own recommendation
+    l0_type: predictive
+    fl_tier: full
+    kill_criterion: "False-positive rate on the 5 negative-control series must be < 5/5 (better than V1/V1') AND >=1 positive case must show a TDA lead>0, for PASS. RESULT: 5/5 negative controls STILL false-positive -- and critically, the EXACT SAME SET of 5 series as V1 and V1' (Windermere, Loch Leven, Paul chl/pH/doSat), byte-identical across three structurally different null models -> REJECT (NO_IMPROVEMENT). Qualitative shift: Peter doSat LOST its TDA lead (had +13d under V1/V1'), Lower Zurich GAINED one (+1.92y/~23mo, now with a paired classical crossing too, closer to the original pre-surrogate H-B3-1b finding of +24mo). Escape-point gate: synthetic mechanism check (smooth trend + AR(1) noise) showed detrending cuts false-positive rate 87.5%->37.5% BEFORE the real run -- but on real data the count did not move at all, meaning the real negative controls' extra structure is NOT well described by a smooth low-frequency trend. Kill Analysis: kills 'smooth-trend removal fixes real false positives' as a hypothesis; does NOT kill the bridge itself (Lower Zurich's directional signal persisted/strengthened across all 4 real-data experiments). Relaxation Map: V3 (descriptive-only reporting, abandon binary threshold framing -- no new compute needed) is now the recommended next step over a 4th null-model attempt, given 3 consecutive REJECTs with an identical false-positive set"
+    experiment_dir: "experiments/20260906-lakes-tda-ews-detrend-surrogate-v2prime"
+    source: "experiments/20260906-lakes-tda-ews-detrend-surrogate-v2prime/decision.md"
+    updated: 2026-09-06
+
+  - id: ART-V2PRIME-DETREND-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — V2' per-series detrend+IAAFT-surrogate-null re-run on all 9 series"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-lakes-tda-ews-detrend-surrogate-v2prime/metrics/run.json"
+    updated: 2026-09-06
+
   # ───────────────────────── projects (added during H-B3-1 scoping, 2026-09-06) ─────────────────────────
   - id: PRJ-CARPENTER-PETERLAKE
     type: project
@@ -463,6 +485,10 @@ edges:
   # H-B3-1d (2026-09-06): V1' IAAFT null fix, same 9 series as V1 -> REJECT (NO_IMPROVEMENT)
   - {from: H-B3-1c, to: H-B3-1d, type: grounds, since: 2026-09-06, note: "H-B3-1c's Relaxation Map candidate V1' -- ONE assumption changed (null-generating model AR(1) -> IAAFT), per Minimal Relaxation Rule"}
   - {from: H-B3-1d, to: ART-V1PRIME-IAAFT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+
+  # H-B3-1e (2026-09-06): V2' detrend-then-IAAFT null fix, same 9 series -> REJECT, identical false-positive set to V1/V1'
+  - {from: H-B3-1d, to: H-B3-1e, type: grounds, since: 2026-09-06, note: "H-B3-1d's Relaxation Map candidate V2' -- ONE assumption changed (null-generating PROCEDURE now detrends before IAAFT), per Minimal Relaxation Rule"}
+  - {from: H-B3-1e, to: ART-V2PRIME-DETREND-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
 
   # naming collision — never merge
   - {from: PRJ-H7-GEOSPECTRA, to: PRJ-H7-TAD, type: collides_with, since: 2026-09-06, note: "both called 'H-7'; PARKED note links the wrong one"}
