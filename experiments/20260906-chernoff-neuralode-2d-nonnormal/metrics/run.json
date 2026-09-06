@@ -1,0 +1,163 @@
+{
+  "config": {
+    "A": [
+      [
+        -1.0,
+        10.0
+      ],
+      [
+        0.0,
+        -2.0
+      ]
+    ],
+    "coupling_c": 10.0,
+    "is_normal": false,
+    "measured_m1": 2.563492810335217,
+    "x0": [
+      1.0,
+      1.0
+    ],
+    "t": 1.0,
+    "n_values": [
+      50,
+      100,
+      200,
+      400,
+      800,
+      1600,
+      3200,
+      6400
+    ]
+  },
+  "results": {
+    "order1": {
+      "m": 1,
+      "empirical_order_estimate": 1.0003836075322026,
+      "a_power_m1_x0_norm": 29.274562336608895,
+      "per_n": {
+        "50": {
+          "true_error": 0.014732456846945814,
+          "measured_m2": 2.5982032208408925,
+          "theorem_3_1_bound": 1.949824986708659,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.007555784210055937
+        },
+        "100": {
+          "true_error": 0.007358633253533211,
+          "measured_m2": 2.580680639665306,
+          "theorem_3_1_bound": 0.9683375714364182,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.007599243766424883
+        },
+        "200": {
+          "true_error": 0.003677260271833922,
+          "measured_m2": 2.571807500540145,
+          "theorem_3_1_bound": 0.4825040710186424,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.007621200509398074
+        },
+        "400": {
+          "true_error": 0.001838097090536514,
+          "measured_m2": 2.567722509828656,
+          "theorem_3_1_bound": 0.24086883718519456,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.007631112069193383
+        },
+        "800": {
+          "true_error": 0.0009189129591793021,
+          "measured_m2": 2.565619168577237,
+          "theorem_3_1_bound": 0.12033576514396845,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.0076362414622113736
+        },
+        "1600": {
+          "true_error": 0.0004594222952760516,
+          "measured_m2": 2.56436325595865,
+          "theorem_3_1_bound": 0.06013842940766376,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.007639412931151558
+        },
+        "3200": {
+          "true_error": 0.00022970256542941453,
+          "measured_m2": 2.5639059827821065,
+          "theorem_3_1_bound": 0.030063852809298477,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.007640489956043478
+        },
+        "6400": {
+          "true_error": 0.00011484913320773066,
+          "measured_m2": 2.563691888204592,
+          "theorem_3_1_bound": 0.015030671189382205,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.007640985007300345
+        }
+      },
+      "all_n_bound_holds": true
+    },
+    "order2": {
+      "m": 2,
+      "empirical_order_estimate": 2.006759923331097,
+      "a_power_m1_x0_norm": 69.46221994724903,
+      "per_n": {
+        "50": {
+          "true_error": 0.0004759765164263906,
+          "measured_m2": 2.5627700441407524,
+          "theorem_3_1_bound": 0.030422797203608794,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.015645389647797724
+        },
+        "100": {
+          "true_error": 0.00011668178094363513,
+          "measured_m2": 2.5633020291077773,
+          "theorem_3_1_bound": 0.007607278107280494,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.015338177374107781
+        },
+        "200": {
+          "true_error": 2.8887502036555085e-05,
+          "measured_m2": 2.5633192312713784,
+          "theorem_3_1_bound": 0.0019018322898149906,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.015189300440032623
+        },
+        "400": {
+          "true_error": 7.18688132438662e-06,
+          "measured_m2": 2.5634689777331703,
+          "theorem_3_1_bound": 0.00047548584822323107,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.015114816458244038
+        },
+        "800": {
+          "true_error": 1.7923691007735494e-06,
+          "measured_m2": 2.5634901498643523,
+          "theorem_3_1_bound": 0.00011887244383565778,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.015078087426649659
+        },
+        "1600": {
+          "true_error": 4.475499462566724e-07,
+          "measured_m2": 2.563312847761416,
+          "theorem_3_1_bound": 2.971605552539987e-05,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.015060879997149286
+        },
+        "3200": {
+          "true_error": 1.1182011933163876e-07,
+          "measured_m2": 2.563369714150925,
+          "theorem_3_1_bound": 7.429178691976736e-06,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.015051477958445223
+        },
+        "6400": {
+          "true_error": 2.7946191650750584e-08,
+          "measured_m2": 2.5634282537539104,
+          "theorem_3_1_bound": 1.8573370879810602e-06,
+          "bound_holds": true,
+          "efficiency_true_over_bound": 0.015046375712622155
+        }
+      },
+      "all_n_bound_holds": true
+    }
+  },
+  "mechanism_holds_for_nonnormal_A": true
+}

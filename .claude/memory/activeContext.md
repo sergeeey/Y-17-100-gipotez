@@ -83,6 +83,11 @@
 - **Результат: механизм устоял полностью.** Порядок совпал с теорией (1.0014/2.0032), граница выполнилась во всех 16 случаях, эффективность постоянна, условие M2 выполнилось для ОБОИХ собственных значений на всех 8 n — не гарантировано заранее.
 - Граф: `H-B2-1b → confirmed` (новый узел, Minimal Relaxation Rule: 1D→2D). Pearl impact 7: коррекция H-B2-1 не артефакт игрушки, переносится на базовый многомерный случай.
 
+**[WS: H-B2-1c non-normal] CLOSED 2026-09-06 (ADR-018, автономно, `/loop`, третья подряд генерализация одного механизма).** `[VERIFIED]`:
+- A=[[-1,10],[0,-2]] (несимметричная, подтверждено). M1/M2 ЧЕСТНО измерены численно (не предположены =1, как в симметричном H-B2-1b) — этот трюк был легитимен только благодаря симметрии. 8 тестов ДО сравнения.
+- **Результат: механизм устоял.** Измерен реальный transient growth (M1≈2.563, M2≈2.56-2.60). Эмпирический порядок точно совпал с теорией (1.0004/2.0068). Граница выполнилась во всех 16 случаях. Эффективность постоянна (0.0076/0.0151) — сигнатура точного совпадения порядка, но константа слабее в 16-40 раз (transient growth + большая норма степеней A).
+- Граф: `H-B2-1c → confirmed` (новый узел). Pearl impact 7: третья подряд успешная генерализация в одной сессии (1D→2D-симметрия→2D-несимметрия) — сильный сигнал реальности коррекции H-B2-1, не артефакта игрушки.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -123,6 +128,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 15:53] `71cb476`: chore: auto-log commit history entry
 - [2026-09-06 15:52] `51c1c3f` (local, branch `feature/h-b2-1b-matrix-case` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1b): Theorem-3.1/K_j=0 mechanism confirmed in a genuine 2D matrix case
 - [2026-09-06 15:20] `db77901`: chore: auto-log commit history entry
 - [2026-09-06 15:19] `01d6d9d` (local, branch `feature/h-b2-1-theorem31-correction` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(H-B2-1): correct KILLED -> CONFIRMED after reading the paper's actual main theorem (3.1), not just its simplified 1D corollary
@@ -137,4 +143,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 14:30] `b408879` (local, branch `feature/h-b3-1e-v2prime` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1e): V2' (detrend-then-IAAFT surrogate) implemented and run -> REJECT, identical false-positive set to V1/V1'
 - [2026-09-06 14:07] `3e75d01` (local, branch `feature/auto-log-c8f5e5f` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-06 14:06] `c8f5e5f` (local, branch `feature/h-b3-1d-v1prime` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1d): V1' (IAAFT surrogate-null) implemented and run -> REJECT, sharper diagnosis than V1
-- [2026-09-06 13:34] `bbd1496`: chore: auto-log commit history entry
