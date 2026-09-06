@@ -135,6 +135,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 18:23] `7f6fbd3` (local, branch `feature/h-b2-1d-mixed-spectrum` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1d): 4th consecutive confirmation (mixed-sign spectrum, exact M1=M2=1) + fix(H-B2-1c): correct missing M1^2 factor found while deriving this bound
 - [2026-09-06 16:25] `bfb3ef1`: chore: auto-log commit history entry
 - [2026-09-06 16:24] `9da2cdc` (local, branch `feature/h-b2-1c-nonnormal` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1c): Theorem-3.1/K_j=0 mechanism survives a non-normal matrix with honestly measured M1/M2
 - [2026-09-06 15:53] `71cb476`: chore: auto-log commit history entry
@@ -149,4 +150,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 14:43] `5a8b00b`: chore: auto-log commit history entry
 - [2026-09-06 14:42] `4e7f269` (local, branch `feature/h-b2-1-chernoff-neuralode` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1): Chernoff <-> Neural-ODE bridge formalized and tested -> KILLED (practically useless, formally valid)
 - [2026-09-06 14:30] `527f6e1` (local, branch `feature/auto-log-b408879` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
-- [2026-09-06 14:30] `b408879` (local, branch `feature/h-b3-1e-v2prime` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1e): V2' (detrend-then-IAAFT surrogate) implemented and run -> REJECT, identical false-positive set to V1/V1'
