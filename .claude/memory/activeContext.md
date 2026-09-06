@@ -107,6 +107,12 @@
 - Граф: `H-B2-1f → confirmed`. Pearl impact 7: не предполагать «сложнее = хуже» без измерения.
 - **Пересмотр поведения:** перестал трактовать «нужно решение о масштабе» как повод остановиться — сам решаю и продолжаю через `/loop`, фиксируя выбор в ADR.
 
+**[WS: H-B2-1g strong coupling — самая важная находка] CLOSED 2026-09-06 (ADR-022, автономно, `/loop`, без пауз).** `[VERIFIED]`:
+- Усилил связь в 5 раз (3→15) на той же 8D конструкции H-B2-1f. 6 тестов ДО сравнения.
+- **Результат: M1 взлетел до 158.93 (~60× больше, чем 2.665 при слабой связи)** — контринтуитивная находка H-B2-1f оказалась артефактом слабой связи. Граница всё равно держится (16/16), порядок точен (1.0026/2.0007), но эффективность упала до ~1.5×10⁻⁷ — формально верно, практически бесполезно.
+- **Ключевой вывод серии:** валидность границы и практическая полезность — разные оси. Предыдущие числа эффективности (0.0002-0.37) были артефактом протестированных параметров, не общим свойством.
+- Граф: `H-B2-1g → confirmed`. Pearl impact 9 (самый высокий за всю серию B2) — предостережение от чтения прошлых чисел как общего свойства метода.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -147,6 +153,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 18:41] `104c300`: chore: auto-log commit history entry
 - [2026-09-06 18:40] `817fb47` (local, branch `feature/h-b2-1f-nd-stiff` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1f): sixth consecutive confirmation, N=8 scale-up, counterintuitive M1 finding
 - [2026-09-06 18:29] `390e573`: chore: auto-log commit history entry
 - [2026-09-06 18:29] `492eea1` (local, branch `feature/h-b2-1e-combined-stress` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1e): combined non-normal + mixed-sign stress test closes the H-B2-1* arc at 5 confirmations
@@ -161,4 +168,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 14:58] `f428e99`: chore: auto-log commit history entry
 - [2026-09-06 14:57] `09269f1` (local, branch `feature/consistency-review-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(null_results): timestamp the stale retroscan claim for H-B3-1c/1d
 - [2026-09-06 14:51] `6e1bc7a`: chore: auto-log commit history entry
-- [2026-09-06 14:50] `0ec53c5`: chore: auto-log commit history entry
