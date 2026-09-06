@@ -197,6 +197,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 22:18] `db14a3f` (local, branch `feature/h-b7-2-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-2: perturbation (do-operator) test of Kauffman's Cancer Attractor hypothesis -- differentiated result
 - [2026-09-06 22:05] `e45a14e`: chore: auto-log commit history entry
 - [2026-09-06 22:04] `242345a` (local, branch `feature/h-b7-1-kauffman-cellcycle` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-1: first Boolean-GRN experiment (Kauffman cancer attractors) -- CONFIRMED as a reproduction
 - [2026-09-06 21:05] `1a90d82`: chore: auto-log commit history entry
@@ -211,4 +212,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 20:04] `31bf217` (local, branch `feature/h-b3-1i-sign-flip-mechanism` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1i: mechanism of Peter doSat's sign flip found via cheap single-series diagnostic
 - [2026-09-06 19:39] `442931f`: chore: auto-log commit history entry
 - [2026-09-06 19:39] `0396524` (local, branch `feature/h-b3-1i-iaaft-total-persistence` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1i: IAAFT+total-persistence fills the last 2x2 design cell — REJECT verdict, but Peter doSat's 4x-robust lead reverses sign
-- [2026-09-06 19:23] `c3bb732`: chore: auto-log commit history entry
