@@ -804,6 +804,20 @@ nodes:
       to the one branch tested. Named next step: a three-hit `do(RAS=1, TP53=0, p21CIP=0)` test,
       directly motivated by the identified mechanism rather than another arbitrary gene choice. Net
       position, `evidence: CONFLICT` unchanged.
+      H-B7-6 (three-hit perturbation): tested `do(RAS=1, TP53=0, p21CIP=0)`. REJECTED again --
+      reaches a bit-string-novel attractor, but the model's own explicit phenotype nodes confirm it
+      is still `Growth_arrest=1, Proliferation=0` (corrected an ambiguity in the pre-registered kill
+      criterion by resolving it against the model's own phenotype semantics, not raw bit-string
+      novelty). Found the FULL mechanism: `Growth_arrest = p21CIP | RBL2 | RB1` is an EXPLICIT
+      three-way redundant OR gate in the network's own source; `CyclinD1` is PROVABLY (algebra,
+      then independently confirmed via pyboolnet on all 3 real attractors of this branch including
+      the genuine Proliferation one) never active at any fixed point of this branch, because RAS's
+      only other targets (E2F1_medium/E2F3_medium) require RBL2/RB1 already off -- a
+      chicken-and-egg loop RAS cannot break via permanent clamps alone. This explains, at the
+      mechanism level, why H-B7-4/H-B7-5/H-B7-6 all failed: the real escape route runs through
+      CyclinE1/CyclinA directly, never through RAS->CyclinD1. Named next step: four-hit
+      do(RAS=1, TP53=0, p21CIP=0, RBL2=0), or a transient (not permanent) kick of RBL2/CyclinE1.
+      Net position, `evidence: CONFLICT` unchanged.
 
   - id: H-B7-1
     type: hypothesis
@@ -913,6 +927,28 @@ nodes:
     date_created: 2026-09-06
     provenance: measurement
     source: "experiments/20260906-remy-tumorigenesis-twohit-h5/metrics/run.json"
+    updated: 2026-09-06
+
+  - id: H-B7-6
+    type: hypothesis
+    title: "Combined permanent do(RAS=1, TP53=0, p21CIP=0) three-hit perturbation on the Remy et al. 2015 network's bistable branch -- directly removes the TP53-independent p21CIP blocker H-B7-5 traced, the mechanistically motivated follow-up named in H-B7-5's own Relaxation Map"
+    status: killed                 # 2026-09-06 decision.md: REJECTED -- reaches a bit-string-novel attractor, but still Growth_arrest phenotype per the model's own phenotype nodes
+    evidence: VERIFIED-REAL        # metrics/run.json; 5 pre-registered tests including a hand-traced synthetic genuine-three-hit network; mechanism verified two independent ways (algebra + pyboolnet on all 3 real branch attractors)
+    l0_type: causal
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if the triple clamp reaches Proliferation (or a genuinely new non-Growth_arrest-PHENOTYPE attractor); REJECTED if the model's own Growth_arrest/Proliferation phenotype nodes still read Growth_arrest=1, Proliferation=0. RESULT: REJECTED -- reached attractor is bit-string-novel (never seen in H-B7-4/H-B7-5) but Growth_arrest=1/Proliferation=0 per the network's own explicit phenotype-readout nodes (ambiguity in the pre-registered wording resolved by intent, not letter -- Hindsight Distortion Gap discipline). Mechanism found and verified two independent ways: (1) algebra on the .bnet rules shows CyclinD1 cannot be 1 at any fixed point of this branch (self-contradictory loop between RB1, p16INK4a, CyclinD1 given Growth_inhibitors=1 fixed); (2) independently confirmed via pyboolnet on all 3 real wild-type attractors of this branch -- CyclinD1=0 in ALL THREE, including the genuine Proliferation attractor itself. Growth_arrest is an EXPLICIT three-way redundant OR gate in the source (p21CIP | RBL2 | RB1); RAS's only non-CyclinD1 targets (E2F1_medium/E2F3_medium) require RBL2/RB1 already off, a chicken-and-egg loop permanent RAS clamping cannot break. Named next step: four-hit do(RAS=1, TP53=0, p21CIP=0, RBL2=0), or a transient (not permanent) kick of RBL2/CyclinE1"
+    experiment_dir: "experiments/20260906-remy-tumorigenesis-threehit-h6"
+    source: "experiments/20260906-remy-tumorigenesis-threehit-h6/decision.md"
+    updated: 2026-09-06
+
+  - id: ART-REMY-THREEHIT-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — combined do(RAS=1, TP53=0, p21CIP=0) simulation on the Remy 2015 network's bistable branch; reaches a novel but still-Growth_arrest-phenotype attractor"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-remy-tumorigenesis-threehit-h6/metrics/run.json"
     updated: 2026-09-06
 
   # ───────────────────────── questions ─────────────────────────
@@ -1043,3 +1079,5 @@ edges:
   - {from: H-B7-4, to: ART-REMY-TRANSIENT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
   - {from: H-B7-4, to: H-B7-5, type: grounds, since: 2026-09-06, note: "H-B7-4's own Relaxation Map named this exact follow-up: a genuine two-hit do(RAS=1, TP53=0) perturbation, matching multi-hit carcinogenesis theory"}
   - {from: H-B7-5, to: ART-REMY-TWOHIT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B7-5, to: H-B7-6, type: grounds, since: 2026-09-06, note: "H-B7-5's own Relaxation Map named this exact follow-up: directly remove the traced TP53-independent p21CIP blocker"}
+  - {from: H-B7-6, to: ART-REMY-THREEHIT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}

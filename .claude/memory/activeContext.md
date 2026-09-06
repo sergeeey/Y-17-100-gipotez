@@ -48,6 +48,20 @@ Relaxation Map H-B7-3).** `[VERIFIED]`:
   механизмом, не произвольным выбором.
 **[WS: H-B7-5 remy_tumorigenesis two-hit] CLOSED.**
 
+**[WS: H-B7-6 remy_tumorigenesis three-hit] CLOSED 2026-09-06 (ADR-033, автономно, продолжение
+Relaxation Map H-B7-5).** `[VERIFIED]`:
+- `do(RAS=1, TP53=0, p21CIP=0)` → **REJECTED снова** — bit-string-новое состояние, но фенотипически
+  всё ещё Growth_arrest (собственный phenotype-узел сети: Growth_arrest=1, Proliferation=0).
+- Полный механизм найден И ПОДТВЕРЖДЁН ДВУМЯ независимыми способами: (1) алгебра на `.bnet` правилах
+  — `Growth_arrest = p21CIP | RBL2 | RB1`, явный тройной OR в исходнике; `CyclinD1` доказуемо не
+  может быть 1 ни в одной неподвижной точке этой ветки; (2) независимо подтверждено `pyboolnet` на
+  ВСЕХ 3 реальных аттракторах ветки — `CyclinD1=0` включая настоящий Proliferation.
+- Собственный kill criterion оказался двусмысленным (bit-string vs фенотипическая новизна) —
+  разрешено по намерению, зафиксировано как Hindsight Distortion Gap correction.
+- Граф: `H-B7-6 → killed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 9.** Следующий шаг:
+  четырёхударный `do(RAS=1, TP53=0, p21CIP=0, RBL2=0)` или транзиентный толчок RBL2/CyclinE1.
+**[WS: H-B7-6 remy_tumorigenesis three-hit] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -96,6 +110,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 23:12] `23fd3a2`: chore: auto-log commit history entry (2)
 - [2026-09-06 23:12] `5fbe68f` (local, branch `feature/auto-log-e9ce2d2` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-06 23:11] `e9ce2d2` (local, branch `feature/h-b7-5-twohit-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-5: two-hit do(RAS=1, TP53=0) REJECTED again, but the failure mechanism is traced and named
 - [2026-09-06 22:54] `8fbb6a3`: chore: auto-log commit history entry
@@ -110,4 +125,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 21:05] `1a90d82`: chore: auto-log commit history entry
 - [2026-09-06 21:05] `c238353` (local, branch `feature/h-b3-1k-null-model-falsified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1k: null-model-effect hypothesis FALSIFIED by its own pre-registered prediction
 - [2026-09-06 20:33] `5c61761`: chore: auto-log commit history entry
-- [2026-09-06 20:33] `b12c6d8`: chore: record reviewer-agent verdict for H-B3-1j in activeContext.md
