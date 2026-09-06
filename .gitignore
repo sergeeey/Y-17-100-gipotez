@@ -6,6 +6,7 @@
 .claude/checkpoints/
 .claude/state/
 .claude/memory/state/          # hook scratch (post_commit_nudge.json etc.), not project memory
+**/.claude/state/              # hooks also drop scratch inside subdirs (e.g. experiments/*/.claude/state/)
 .claude/worktrees/
 .claude/agent-memory-local/
 
