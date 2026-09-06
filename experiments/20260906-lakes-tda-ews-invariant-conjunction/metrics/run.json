@@ -1,0 +1,101 @@
+{
+  "note": "DESCRIPTIVE re-join, NO new compute -- pure conjunction of V1 (entropy) and V1g (total persistence), both already-committed AR(1)-null results.",
+  "table": {
+    "obrien_lower_zurich": {
+      "role": "positive",
+      "entropy_tda_crosses": true,
+      "entropy_tda_lead": null,
+      "total_persistence_tda_crosses": true,
+      "total_persistence_tda_lead": null,
+      "conjunction_both_cross": true,
+      "conjunction_false_positive": false,
+      "conjunction_positive_signal": true
+    },
+    "obrien_windermere": {
+      "role": "negative",
+      "entropy_tda_crosses": false,
+      "entropy_tda_lead": null,
+      "total_persistence_tda_crosses": true,
+      "total_persistence_tda_lead": 3.6666666666667425,
+      "conjunction_both_cross": false,
+      "conjunction_false_positive": false,
+      "conjunction_positive_signal": false
+    },
+    "obrien_loch_leven": {
+      "role": "negative",
+      "entropy_tda_crosses": true,
+      "entropy_tda_lead": -2.666666666666515,
+      "total_persistence_tda_crosses": true,
+      "total_persistence_tda_lead": 0.0,
+      "conjunction_both_cross": true,
+      "conjunction_false_positive": true,
+      "conjunction_positive_signal": false
+    },
+    "peterlake_Peter_chl": {
+      "role": "positive",
+      "entropy_tda_crosses": true,
+      "entropy_tda_lead": null,
+      "total_persistence_tda_crosses": true,
+      "total_persistence_tda_lead": null,
+      "conjunction_both_cross": true,
+      "conjunction_false_positive": false,
+      "conjunction_positive_signal": true
+    },
+    "peterlake_Peter_pH": {
+      "role": "positive",
+      "entropy_tda_crosses": false,
+      "entropy_tda_lead": null,
+      "total_persistence_tda_crosses": true,
+      "total_persistence_tda_lead": -100.00273972606601,
+      "conjunction_both_cross": false,
+      "conjunction_false_positive": false,
+      "conjunction_positive_signal": false
+    },
+    "peterlake_Peter_doSat": {
+      "role": "positive",
+      "entropy_tda_crosses": true,
+      "entropy_tda_lead": 12.999999999976808,
+      "total_persistence_tda_crosses": true,
+      "total_persistence_tda_lead": 12.999999999976808,
+      "conjunction_both_cross": true,
+      "conjunction_false_positive": false,
+      "conjunction_positive_signal": true
+    },
+    "peterlake_Paul_chl": {
+      "role": "negative",
+      "entropy_tda_crosses": true,
+      "entropy_tda_lead": null,
+      "total_persistence_tda_crosses": false,
+      "total_persistence_tda_lead": null,
+      "conjunction_both_cross": false,
+      "conjunction_false_positive": false,
+      "conjunction_positive_signal": false
+    },
+    "peterlake_Paul_pH": {
+      "role": "negative",
+      "entropy_tda_crosses": false,
+      "entropy_tda_lead": null,
+      "total_persistence_tda_crosses": true,
+      "total_persistence_tda_lead": 33.000000000017735,
+      "conjunction_both_cross": false,
+      "conjunction_false_positive": false,
+      "conjunction_positive_signal": false
+    },
+    "peterlake_Paul_doSat": {
+      "role": "negative",
+      "entropy_tda_crosses": true,
+      "entropy_tda_lead": 29.9999999999784,
+      "total_persistence_tda_crosses": true,
+      "total_persistence_tda_lead": 3.0000000000393356,
+      "conjunction_both_cross": true,
+      "conjunction_false_positive": true,
+      "conjunction_positive_signal": false
+    }
+  },
+  "n_negative_controls": 5,
+  "n_false_positives_conjunction": 2,
+  "n_false_positives_entropy_alone": 3,
+  "n_false_positives_total_persistence_alone": 4,
+  "n_positive_signals_conjunction": 3,
+  "peter_dosat_survives_conjunction": true
+}
