@@ -552,6 +552,28 @@ nodes:
     source: "experiments/20260906-lakes-tda-ews-total-persistence-iaaft-v1gprime/metrics/run.json"
     updated: 2026-09-06
 
+  - id: H-B3-1j
+    type: hypothesis
+    title: "Diagram-to-baseline-diagram Wasserstein distance instead of any scalar TDA summary -- the 'hard branch', a genuinely new detection FAMILY, not a parametric variant"
+    status: killed                 # 2026-09-06 decision.md: FP=4/5 meets literal REJECT bar, same series set as V1g/H-B3-1i
+    evidence: VERIFIED-REAL        # metrics/run.json from a real 9-series run; 5 pre-registered tests confirmed the new statistic's properties before running
+    l0_type: predictive
+    fl_tier: standard
+    kill_criterion: "PROMOTE: FP<=1/5 with >=1 surviving lead. REJECT: FP>=4/5. RESULT: REJECT -- FP=4/5, identical series set to V1g/H-B3-1i (Windermere, Loch Leven, Paul pH, Paul doSat). BUT n_positive_cases_with_tda_lead=2 (up from 0-1 in every prior variant): Peter doSat's lead restored to +11d (positive, close to historical +13d) and Peter pH shows an interpretable POSITIVE lead (+2d) for the first time ever in this investigation. Sharper pattern: Peter doSat's lead is positive under BOTH statistic families tested against the AR(1) null (total persistence +13d, diagram-distance +11d) and negative only under the one IAAFT-null variant tested (total persistence -74d, H-B3-1i) -- consistent with the sign flip being a NULL-MODEL effect (H-B3-1i's own spiky-threshold mechanism finding), not a statistic-family effect. Verdict kept as literal REJECT per pre-registered criteria (Anti-Overfitting Gate discipline, same as H-B3-1i) -- richer finding documented in Kill Analysis and pearl registry instead of used to upgrade the verdict"
+    experiment_dir: "experiments/20260906-lakes-tda-ews-diagram-distance-v1j"
+    source: "experiments/20260906-lakes-tda-ews-diagram-distance-v1j/decision.md"
+    updated: 2026-09-06
+
+  - id: ART-DIAGRAM-DISTANCE-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — Wasserstein diagram-distance + AR(1) null, 9-series real run; Peter doSat lead restored (+11d), Peter pH's first-ever positive lead (+2d)"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-lakes-tda-ews-diagram-distance-v1j/metrics/run.json"
+    updated: 2026-09-06
+
   # ───────────────────────── projects (added during H-B3-1 scoping, 2026-09-06) ─────────────────────────
   - id: PRJ-CARPENTER-PETERLAKE
     type: project
@@ -788,6 +810,9 @@ edges:
   - {from: H-B3-1g, to: H-B3-1i, type: grounds, since: 2026-09-06, note: "one assumption changed from V1g: null model AR(1) -> IAAFT (already validated on entropy in H-B3-1d)"}
   - {from: H-B3-1d, to: H-B3-1i, type: grounds, since: 2026-09-06, note: "IAAFT surrogate mechanism reused verbatim, validated once against entropy, not re-tested per invariant swap"}
   - {from: H-B3-1i, to: ART-IAAFT-TOTAL-PERSISTENCE-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B3-1g, to: H-B3-1j, type: grounds, since: 2026-09-06, note: "the 'hard branch' recommendation named in H-B3-1g's own claim.md -- a genuinely different detection family, not a parametric variant"}
+  - {from: H-B3-1i, to: H-B3-1j, type: grounds, since: 2026-09-06, note: "sharpens H-B3-1i's null-model-effect hypothesis: sign is positive under AR(1)+diagram-distance too, negative only under the one IAAFT variant tested"}
+  - {from: H-B3-1j, to: ART-DIAGRAM-DISTANCE-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
 
   # naming collision — never merge
   - {from: PRJ-H7-GEOSPECTRA, to: PRJ-H7-TAD, type: collides_with, since: 2026-09-06, note: "both called 'H-7'; PARKED note links the wrong one"}

@@ -25,6 +25,7 @@ import warnings
 from pathlib import Path
 
 import numpy as np
+import persim
 import pyreadr
 from ripser import ripser
 from scipy.stats import kendalltau
@@ -160,6 +161,41 @@ def betti1_total_persistence_series(
         life = finite[:, 1] - finite[:, 0]
         life = life[life > 0]
         out[i] = float(life.sum())  # total persistence, NOT entropy
+    return out
+
+
+def betti1_diagram_distance_series(
+    x: np.ndarray,
+    window: int,
+    dim: int = EMBED_DIM,
+    delay: int = EMBED_DELAY,
+    metric: str = "wasserstein",
+) -> np.ndarray:
+    """H-B3-1j: distance (Wasserstein-2 by default; pass metric='bottleneck' for the Relaxation
+    Map alternative) from EACH rolling window's H1 diagram to a FIXED REFERENCE diagram (the
+    first valid window's H1 diagram) -- a genuinely different detection FAMILY from
+    betti1_entropy_series/betti1_total_persistence_series: those reduce each diagram to a scalar
+    BEFORE any comparison; this compares diagrams DIRECTLY, preserving shape information a scalar
+    summary discards. Reference choice and metric are both pre-registered design choices, see
+    claim.md 'Baseline-Reference Design Choice' / 'Metric Choice'."""
+    n_out = len(x) - window + 1
+    out = np.full(n_out, np.nan)
+    metric_fn = persim.bottleneck if metric == "bottleneck" else persim.wasserstein
+
+    reference_dgm = None
+    for i in range(n_out):
+        w = x[i : i + window]
+        try:
+            cloud = takens_embed(w, dim, delay)
+        except ValueError:
+            continue
+        dgms = ripser(cloud, maxdim=1)["dgms"][1]
+        finite = dgms[np.isfinite(dgms[:, 1])]
+        if reference_dgm is None:
+            reference_dgm = finite  # first valid window becomes the fixed baseline
+            out[i] = 0.0  # distance from itself
+            continue
+        out[i] = float(metric_fn(finite, reference_dgm))
     return out
 
 

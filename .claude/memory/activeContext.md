@@ -91,6 +91,19 @@
   диаграммам — принципиально другая FAMILY, не параметрический вариант.
 - LAB.md обновлён (пункт L отмечен частично выполненным, добавлено консолидированное резюме).
 
+**[WS: H-B3-1j diagram-distance] CLOSED 2026-09-06 (ADR-026, автономно, `/loop`, «hard branch»
+полностью реализован, настоящий новый compute).** `[VERIFIED]`:
+- Реализовал `betti1_diagram_distance_series()` (Wasserstein-2 от диаграммы окна до diagраммы-БАЗЫ,
+  `persim` — уже транзитивная зависимость `ripser`, новых пакетов не нужно). 5 тестов ДО прогона.
+- **Формальный вердикт: REJECT** (FP=4/5, набор рядов идентичен V1g/H-B3-1i). Дисциплина: НЕ повысил
+  до LEAD (Anti-Overfitting Gate) несмотря на лучший `n_positive_cases_with_tda_lead` серии.
+- **Находка (impact 8, продолжение находки H-B3-1i):** лид Peter doSat восстановлен до +11d под
+  AR(1)-null'ом (близко к историческим +13d); Peter pH впервые дал интерпретируемый положительный
+  лид (+2d). Разворот знака положителен под ОБЕИМИ статистиками при AR(1), отрицателен только под
+  IAAFT — сужает находку H-B3-1i до вероятного эффекта NULL-МОДЕЛИ, не статистики. Предсказание для
+  проверки: IAAFT+diagram-distance должен дать отрицательный лид.
+- Граф: `H-B3-1j → killed` (FL-вердикт REJECT). Pearl impact 8.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -135,6 +148,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 20:09] `00a6637`: chore: auto-log commit history entry
 - [2026-09-06 20:08] `610ac08` (local, branch `feature/b3-may-tda-consolidation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3-MAY-TDA: update stale bridge node with consolidated evidence from 10 experiments
 - [2026-09-06 20:05] `045f082`: chore: auto-log commit history entry
 - [2026-09-06 20:04] `31bf217` (local, branch `feature/h-b3-1i-sign-flip-mechanism` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1i: mechanism of Peter doSat's sign flip found via cheap single-series diagnostic
@@ -149,4 +163,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 19:10] `a236655`: chore: auto-log commit history entry (2)
 - [2026-09-06 19:10] `a416670` (local, branch `feature/auto-log-7210aad` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-06 19:10] `7210aad` (local, branch `feature/h-b3-1h-conjunction` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1h: TDA invariant conjunction (entropy AND total-persistence) — best specificity in B3 arc
-- [2026-09-06 19:02] `3751f69`: chore: auto-log commit history entry
