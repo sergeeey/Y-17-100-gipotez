@@ -69,6 +69,14 @@
   Leven, Paul pH теперь через classical, не TDA).
 - Урок: «устойчиво под N вариантами» ≠ «устойчиво» без оговорки границ протестированного пространства.
 - Граф: `H-B3-1i → killed` (FL-вердикт REJECT). Pearl impact 9.
+- **[WS: H-B3-1i] Addendum (same day, single-series diagnostic, дешевле полного 9-серийного прогона):**
+  `[VERIFIED]` механизм разворота знака найден: реальная tau-кривая total persistence НЕ зависит
+  от null-модели, зависит только ПОРОГ. При t=172d реальная tau=0.786 > AR1-порога (0.557), но <
+  IAAFT-порога (0.948, локальный всплеск именно там). К t=259d tau упала до 0.564, IAAFT-порог
+  просел до 0.558 — узкое позднее пересечение. IAAFT-порог не «строже в среднем» (ниже AR1 в 58%
+  точек) — он зашумлённее в конкретной точке. Побочно поймал вводящую в заблуждение авто-строку
+  `interpretation` в собственном скрипте (сравнивала только средние, противоречила
+  `fraction_iaaft_higher<0.5`).
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
@@ -114,6 +122,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 19:39] `442931f`: chore: auto-log commit history entry
 - [2026-09-06 19:39] `0396524` (local, branch `feature/h-b3-1i-iaaft-total-persistence` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1i: IAAFT+total-persistence fills the last 2x2 design cell — REJECT verdict, but Peter doSat's 4x-robust lead reverses sign
 - [2026-09-06 19:23] `c3bb732`: chore: auto-log commit history entry
 - [2026-09-06 19:23] `4c2110b` (local, branch `feature/h-b3-1h-population-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1h: pearl's falsifiable_prediction CONFIRMED (100% of B3 crossings sit in a local variance minimum), plus self-caught error fix
@@ -128,4 +137,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 19:01] `6519e03` (local, branch `feature/h-b3-1g-result` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1g): first non-identical-5/5 result in the entire B3 arc -> LEAD
 - [2026-09-06 18:54] `98251ed`: chore: auto-log commit history entry
 - [2026-09-06 18:54] `62ad1d4` (local, branch `feature/h-b3-1g-total-persistence` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1g): add total-persistence TDA invariant, wire through V1's null pipeline; real run pending
-- [2026-09-06 18:46] `372ef2a`: chore: auto-log commit history entry

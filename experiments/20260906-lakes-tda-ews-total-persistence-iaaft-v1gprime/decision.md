@@ -105,6 +105,43 @@ BOTH overrides (`surrogate_fn=iaaft_surrogate`, `tda_stat_fn=betti1_total_persis
 correctly and produce a result genuinely different from either single-assumption neighbor (V1' and
 V1g), not a fresh floor/ceiling for machinery that didn't change.
 
+## Addendum (2026-09-06, same session) — mechanism of the sign flip, isolated cheaply
+
+Ran the Relaxation Map's own next-named step: inspected the null-threshold curves directly for
+Peter doSat, instead of another full 9-series run. Key structural fact confirmed by reading
+`run.py` before writing any new code: `analyze_series` computes the REAL total-persistence tau
+curve from the real data ONLY — it does not depend on `surrogate_fn` at all. The null model only
+builds the per-timepoint THRESHOLD curve the real tau is compared against. So the crossing-time
+shift (172d under AR(1) → 259d under IAAFT) can only come from the threshold curve moving, not
+from the real signal changing. Script: `case_study_peter_dosat_sign_flip.py` (single series, far
+cheaper than a population run); output: `metrics/case_study_peter_dosat_sign_flip.json`.
+
+**Result:** at t=172d (the AR(1) crossing), the real tau (0.786) clears AR(1)'s threshold there
+(0.557) but NOT IAAFT's (0.948) — a large, specific spike in IAAFT's threshold at exactly that
+time blocks the early crossing. By t=259d, the real tau has declined to 0.564 while IAAFT's
+threshold happens to dip to 0.558, producing a narrow, late crossing.
+
+**Self-caught error in the script's own auto-generated interpretation:** the script's canned
+`interpretation` field concluded "IAAFT null threshold sits HIGHER than AR(1) null on average" from
+comparing the two MEANS alone (0.686 vs 0.621). But `fraction_of_timepoints_iaaft_null_higher_than_ar1_null
+= 0.416` — IAAFT's threshold is actually LOWER than AR(1)'s at the MAJORITY (58%) of timepoints.
+The mean comparison is misleading here; a mean-only auto-interpretation is a real (if minor)
+instance of the same failure mode this project's rules warn about — a metric that sounds
+authoritative while the fuller picture contradicts its simple framing. Caught by reading the raw
+numbers rather than trusting the printed one-line verdict.
+
+**Corrected mechanism:** IAAFT's null-threshold curve for total persistence is not systematically
+*shifted* relative to AR(1)'s — it is *spikier/more variable* over time, with an anomalous local
+spike exactly at the time AR(1) crossed, which blocks that specific early opportunity. The eventual
+first IAAFT crossing at 259d happens where a (by-then-declining) real tau meets a locally low point
+of the (still generally noisier) IAAFT threshold — closer to "AR(1)'s crossing point specifically
+got blocked by IAAFT noise" than to "IAAFT is a uniformly stricter null."
+
+This does not change the REJECT verdict or the sign-flip finding itself — it only replaces a vague
+"the null model changed, so the crossing changed" statement with an actual, checked mechanism, and
+catches a real (if small) case of a misleading auto-generated summary string inside this session's
+own diagnostic tooling.
+
 ## Pearl Card Update
 
 **New information (high impact):** the ONE finding in the entire `H-B3-1*` investigation that had

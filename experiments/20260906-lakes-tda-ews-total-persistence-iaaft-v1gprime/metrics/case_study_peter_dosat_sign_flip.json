@@ -1,0 +1,21 @@
+{
+  "series": "peterlake_Peter_doSat",
+  "n_points": 334,
+  "window": 167,
+  "at_ar1_crossing_idx": {
+    "time": 172.00273972609716,
+    "real_tau": 0.7857142857142856,
+    "ar1_null_threshold": 0.556843326801005,
+    "iaaft_null_threshold": 0.9476656233969146
+  },
+  "at_iaaft_crossing_idx": {
+    "time": 259.00547945218636,
+    "real_tau": 0.5639339816470752,
+    "ar1_null_threshold": 0.6540862552753146,
+    "iaaft_null_threshold": 0.558392062108164
+  },
+  "mean_ar1_null_over_valid_range": 0.6208835927692429,
+  "mean_iaaft_null_over_valid_range": 0.6859979089666679,
+  "fraction_of_timepoints_iaaft_null_higher_than_ar1_null": 0.4161490683229814,
+  "interpretation": "IAAFT null threshold sits HIGHER than AR(1) null on average -> real tau needs longer to clear it -> LATER crossing (explains the +13d -> -74d lead reversal) "
+}
