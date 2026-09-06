@@ -865,6 +865,20 @@ nodes:
       is now CONFIRMED for this branch and clamp pair. Net position: `evidence: CONFLICT` retained
       (H-B7-3's TASK_INFEASIBLE finding on the OTHER model and the untested-generality gap to other
       branches both remain), but the bridge now has its cleanest, most complete positive result.
+      H-B7-10 (fine duration sweep k=4..9): pinned the exact threshold H-B7-9 left open (k=3
+      relapse, k=10 escape). CONFIRMED -- clean monotone threshold at k*=5: k=4 relapses to the
+      second Growth_arrest fixed point, k=5..9 all reach the exact Proliferation attractor.
+      Full per-step trace (run during the FL Step 8a skeptic pass) reveals the EXACT mechanism:
+      a one-synchronous-step race condition between the clamp's release and CyclinE1's
+      self-sustaining activation -- at k=4, CyclinE1 turns True in the SAME step p21CIP/RBL2
+      revert to True upon release (their rule evaluates the pre-release state where
+      CyclinE1 was still False), blocking the loop; at k=5, CyclinE1 turns True one step BEFORE
+      release, so p21CIP/RBL2's release-step evaluation already sees CyclinE1=True and stays off.
+      Not just a measured threshold but a fully traced, step-by-step explained one. Skeptic pass
+      (Step 8a) verdict CONFIRMED-REAL, hand-verified both boundary states against all 35 .bnet
+      rules and adversarially tested the monotonicity-detection logic against 5 non-monotone
+      shapes, all correctly rejected. Reused H-B7-9's simulate_transient_clamp_multi UNCHANGED
+      (Minimal Relaxation Rule: only duration granularity changed).
 
   - id: H-B7-1
     type: hypothesis
@@ -1064,6 +1078,28 @@ nodes:
     source: "experiments/20260906-remy-tumorigenesis-transient-necessity-h9/metrics/run.json"
     updated: 2026-09-07
 
+  - id: H-B7-10
+    type: hypothesis
+    title: "Fine duration sweep k=4..9 of the transient do(p21CIP=0, RBL2=0) clamp on the Remy et al. 2015 network's bistable branch -- pins down the exact relapse/escape threshold H-B7-9 left open (bracketed between k=3 relapse and k=10 escape)"
+    status: confirmed             # 2026-09-07 decision.md: CONFIRMED -- clean monotone threshold at k*=5, fully mechanistically traced; skeptic pass (Step 8a) CONFIRMED-REAL
+    evidence: VERIFIED-REAL       # metrics/run.json; 2 pre-registered tests (synthetic delay-line monotonicity check + real-network smoke test, reusing H-B7-9's already-validated simulate_transient_clamp_multi unchanged); full per-step mechanistic trace run during skeptic pass
+    l0_type: causal
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if a single clean monotone threshold k* exists in {4..9} (all k<k* relapse, all k>=k* escape); REJECTED if the pattern is non-monotone. RESULT: CONFIRMED -- k*=5 exactly. k=4 relapses to the second Growth_arrest fixed point (identified in H-B7-9); k=5 through k=9 all reach the exact Proliferation attractor, byte-identical. Full per-step trace (run during FL Step 8a skeptic pass) explains the EXACT mechanism, not just the number: a one-synchronous-step race condition -- at k=4, CyclinE1 turns True in the SAME synchronous step p21CIP/RBL2 revert to True upon release (their rule evaluates the pre-release state where CyclinE1 was still False), blocking the positive feedback; at k=5, CyclinE1 turns True one step BEFORE release, so p21CIP/RBL2's release-step evaluation already sees CyclinE1=True and stays off, making the feedback self-sustaining from the first released step. FL Step 8a skeptic pass (context-asymmetric) verdict CONFIRMED-REAL: hand-verified both boundary states (k=4, k=5) against all 35 .bnet rules confirming neither is a residual-clamp artifact, adversarially tested the monotonicity-detection logic in run.py against 5 non-monotone shapes (all correctly rejected), and bit-for-bit determinism confirmed via 2 fresh runs"
+    experiment_dir: "experiments/20260906-remy-tumorigenesis-transient-sweep-h10"
+    source: "experiments/20260906-remy-tumorigenesis-transient-sweep-h10/decision.md"
+    updated: 2026-09-07
+
+  - id: ART-REMY-TRANSIENT-SWEEP-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — fine duration sweep k=4..9 of transient do(p21CIP=0, RBL2=0) on the Remy 2015 network's bistable branch; clean monotone threshold at k*=5"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-07
+    provenance: measurement
+    source: "experiments/20260906-remy-tumorigenesis-transient-sweep-h10/metrics/run.json"
+    updated: 2026-09-07
+
   # ───────────────────────── questions ─────────────────────────
   - id: Q-GOE-vs-GUE
     type: question
@@ -1201,3 +1237,5 @@ edges:
   - {from: H-B7-8, to: H-B7-9, type: grounds, since: 2026-09-07, note: "H-B7-8's own Relaxation Map named this exact follow-up: transient (not permanent) version of the same do(p21CIP=0, RBL2=0) pair -- untested for any confirmed escape in this bridge until now"}
   - {from: H-B7-2, to: H-B7-9, type: links_to, since: 2026-09-07, note: "H-B7-9 resolves the weak-vs-strict distinction H-B7-2's own decision.md first named -- not a dependency, H-B7-2 stands on its own, but H-B7-9 is the strict-reading confirmation that distinction predicted would eventually be needed"}
   - {from: H-B7-9, to: ART-REMY-TRANSIENT-NECESSITY-RUN-20260906, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
+  - {from: H-B7-9, to: H-B7-10, type: grounds, since: 2026-09-07, note: "H-B7-9's own Relaxation Map named this exact follow-up: a finer sweep k=4..9 to pin down the exact threshold left open between k=3 relapse and k=10 escape"}
+  - {from: H-B7-10, to: ART-REMY-TRANSIENT-SWEEP-RUN-20260906, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}

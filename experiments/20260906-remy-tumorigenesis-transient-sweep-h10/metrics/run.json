@@ -1,0 +1,112 @@
+{
+  "clamps": {
+    "p21CIP": false,
+    "RBL2": false
+  },
+  "branch_inputs": {
+    "DNA_damage": false,
+    "EGFR_stimulus": false,
+    "FGFR3_stimulus": true,
+    "Growth_inhibitors": true
+  },
+  "growth_arrest_state": "00000000000000000011011000011110001",
+  "second_growth_arrest_state": "00000000000000010011011000010110011",
+  "proliferation_state": "00000100101001010011001000110010110",
+  "tested_durations": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "results_by_k": [
+    {
+      "k_steps": 4,
+      "final_attractor_period": 1,
+      "final_attractor_type": "point",
+      "final_state_pyboolnet_order": "00000000000000010011011000010110011",
+      "growth_arrest_phenotype_node": true,
+      "proliferation_phenotype_node": false,
+      "final_attractor_identity": "GROWTH_ARREST",
+      "branch_inputs_preserved": true,
+      "flipped_to_proliferation": false,
+      "matches_proliferation_state": false,
+      "matches_original_growth_arrest_state": false,
+      "matches_second_growth_arrest_state": true
+    },
+    {
+      "k_steps": 5,
+      "final_attractor_period": 1,
+      "final_attractor_type": "point",
+      "final_state_pyboolnet_order": "00000100101001010011001000110010110",
+      "growth_arrest_phenotype_node": false,
+      "proliferation_phenotype_node": true,
+      "final_attractor_identity": "PROLIFERATION",
+      "branch_inputs_preserved": true,
+      "flipped_to_proliferation": true,
+      "matches_proliferation_state": true,
+      "matches_original_growth_arrest_state": false,
+      "matches_second_growth_arrest_state": false
+    },
+    {
+      "k_steps": 6,
+      "final_attractor_period": 1,
+      "final_attractor_type": "point",
+      "final_state_pyboolnet_order": "00000100101001010011001000110010110",
+      "growth_arrest_phenotype_node": false,
+      "proliferation_phenotype_node": true,
+      "final_attractor_identity": "PROLIFERATION",
+      "branch_inputs_preserved": true,
+      "flipped_to_proliferation": true,
+      "matches_proliferation_state": true,
+      "matches_original_growth_arrest_state": false,
+      "matches_second_growth_arrest_state": false
+    },
+    {
+      "k_steps": 7,
+      "final_attractor_period": 1,
+      "final_attractor_type": "point",
+      "final_state_pyboolnet_order": "00000100101001010011001000110010110",
+      "growth_arrest_phenotype_node": false,
+      "proliferation_phenotype_node": true,
+      "final_attractor_identity": "PROLIFERATION",
+      "branch_inputs_preserved": true,
+      "flipped_to_proliferation": true,
+      "matches_proliferation_state": true,
+      "matches_original_growth_arrest_state": false,
+      "matches_second_growth_arrest_state": false
+    },
+    {
+      "k_steps": 8,
+      "final_attractor_period": 1,
+      "final_attractor_type": "point",
+      "final_state_pyboolnet_order": "00000100101001010011001000110010110",
+      "growth_arrest_phenotype_node": false,
+      "proliferation_phenotype_node": true,
+      "final_attractor_identity": "PROLIFERATION",
+      "branch_inputs_preserved": true,
+      "flipped_to_proliferation": true,
+      "matches_proliferation_state": true,
+      "matches_original_growth_arrest_state": false,
+      "matches_second_growth_arrest_state": false
+    },
+    {
+      "k_steps": 9,
+      "final_attractor_period": 1,
+      "final_attractor_type": "point",
+      "final_state_pyboolnet_order": "00000100101001010011001000110010110",
+      "growth_arrest_phenotype_node": false,
+      "proliferation_phenotype_node": true,
+      "final_attractor_identity": "PROLIFERATION",
+      "branch_inputs_preserved": true,
+      "flipped_to_proliferation": true,
+      "matches_proliferation_state": true,
+      "matches_original_growth_arrest_state": false,
+      "matches_second_growth_arrest_state": false
+    }
+  ],
+  "k_star": 5,
+  "is_clean_monotone_threshold": true,
+  "h_b7_9_boundary_context": "k=3 relapsed (second Growth_arrest), k=10 escaped (Proliferation)"
+}

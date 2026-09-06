@@ -11,56 +11,12 @@
 
 ## Current Focus
 [summarized] **B1/B2/B3 arc (H-B3-1 through H-B3-1k, ADR-010–027) archived to
-[summarized] **[WS: H-B7-1 Kauffman cancer attractors] CLOSED 2026-09-06 (ADR-028, прямой запрос пользователя
-[summarized] **[WS: H-B7-2 perturbation] CLOSED 2026-09-06 (ADR-029, прямой запрос пользователя «начинай
-[summarized] **[WS: H-B7-3 transient perturbation] CLOSED 2026-09-06 (ADR-030, прямой запрос пользователя
-
-  вернулись к quiescent point attractor, ровно как предсказано.
-- **Классификация: TASK_INFEASIBLE для строгой формулировки Kauffman в ЭТОЙ модели**, не улика
-  против гипотезы — модели не хватает мультистабильности внутри одной ветки CycD.
-- Сужает H-B7-2: эффект do(Rb=0) требует ПЕРМАНЕНТНОЙ фиксации, временная версия не даёт ничего.
-- Граф: `H-B7-3 → confirmed` (дедукция). Мост остаётся `evidence: CONFLICT`. Pearl impact 8.
-
-**[WS: H-B7-4 remy_tumorigenesis] CLOSED 2026-09-06 (ADR-031, автономно, `/loop`, продолжение
-Relaxation Map H-B7-3).** `[VERIFIED]`:
-- Установил `pyboolnet` как активный инструмент (не только .bnet-файлы). Живой прогон на Fauré-сети
-  → точное совпадение с H-B7-1 — апгрейд верификации до «different tool, same task» (addendum в
-  H-B7-1's decision.md).
-- Нашёл через `pyboolnet` реальную модель (Remy et al. 2015, рак мочевого пузыря, 35 узлов) с
-  ГЕНУИННОЙ мультистабильностью — 2 ветки дают РАЗНЫЕ ФЕНОТИПЫ (Growth_arrest vs Proliferation) при
-  одинаковых внешних сигналах — структура, которой не хватало Fauré-модели.
-- **do(RAS=1) → REJECTED**, но ГЕНУИННО информативно (структурная предпосылка успеха существовала,
-  в отличие от H-B7-3) — согласуется с multi-hit теорией канцерогенеза.
-- Граф: `H-B7-4 → killed`. Мост остаётся `evidence: CONFLICT`. Pearl impact 8. Следующий шаг:
-  комбинированное do(RAS=1, TP53=0).
-**[WS: H-B7-4 remy_tumorigenesis] CLOSED.**
-
-**[WS: H-B7-5 remy_tumorigenesis two-hit] CLOSED 2026-09-06 (ADR-032, прямой запрос пользователя
-«начинай двухударный эксперимент»).** `[VERIFIED]`:
-- `do(RAS=1, TP53=0)` на той же bistable-ветке → **REJECTED снова** (вернулось в Growth_arrest).
-- Но механизм провала ПРОСЛЕЖЕН прямо против правил `.bnet`: `p21CIP=1` держится ДАЖЕ при TP53=0
-  через второй, TP53-независимый дизъюнкт своего правила (`Growth_inhibitors&!CyclinE1&!AKT`),
-  блокируя CyclinD1 несмотря на RAS=1.
-- Структурно: ВСЕ 8 мультистабильных веток модели имеют `Growth_inhibitors=1` — резервный чекпоинт
-  не специфичен одной ветке.
-- Граф: `H-B7-5 → killed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 9** (самый высокий в
-  серии B7). Следующий шаг: трёхударный `do(RAS=1, TP53=0, p21CIP=0)`, мотивированный найденным
-  механизмом, не произвольным выбором.
-**[WS: H-B7-5 remy_tumorigenesis two-hit] CLOSED.**
-
-**[WS: H-B7-6 remy_tumorigenesis three-hit] CLOSED 2026-09-06 (ADR-033, автономно, продолжение
-Relaxation Map H-B7-5).** `[VERIFIED]`:
-- `do(RAS=1, TP53=0, p21CIP=0)` → **REJECTED снова** — bit-string-новое состояние, но фенотипически
-  всё ещё Growth_arrest (собственный phenotype-узел сети: Growth_arrest=1, Proliferation=0).
-- Полный механизм найден И ПОДТВЕРЖДЁН ДВУМЯ независимыми способами: (1) алгебра на `.bnet` правилах
-  — `Growth_arrest = p21CIP | RBL2 | RB1`, явный тройной OR в исходнике; `CyclinD1` доказуемо не
-  может быть 1 ни в одной неподвижной точке этой ветки; (2) независимо подтверждено `pyboolnet` на
-  ВСЕХ 3 реальных аттракторах ветки — `CyclinD1=0` включая настоящий Proliferation.
-- Собственный kill criterion оказался двусмысленным (bit-string vs фенотипическая новизна) —
-  разрешено по намерению, зафиксировано как Hindsight Distortion Gap correction.
-- Граф: `H-B7-6 → killed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 9.** Следующий шаг:
-  четырёхударный `do(RAS=1, TP53=0, p21CIP=0, RBL2=0)` или транзиентный толчок RBL2/CyclinE1.
-**[WS: H-B7-6 remy_tumorigenesis three-hit] CLOSED.**
+[summarized] **H-B7-1 through H-B7-6 (ADR-028–033) archived to
+`.claude/memory/history/activeContext-archive-20260907-b7-1to6.md`** — Fauré cell-cycle
+reproduction/perturbation/transient (H-B7-1..3, TASK_INFEASIBLE for the strict claim in that small
+model) → moved to Remy tumorigenesis model (H-B7-4..6, single/two/three-hit, all REJECTED but each
+tracing the next mechanism precisely, ending with `Growth_arrest = p21CIP|RBL2|RB1` found as an
+explicit source-level OR gate).
 
 **[WS: H-B7-7 remy_tumorigenesis four-hit] CLOSED 2026-09-06 (ADR-034, прямой запрос пользователя
 «начинай четырёхударный тест»).** `[VERIFIED]`:
@@ -113,6 +69,20 @@ Relaxation Map H-B7-5).** `[VERIFIED]`:
   шаг: тонкий скан k=4..9; кросс-ветка проверка на другой мультистабильной ветке.
 **[WS: H-B7-9 remy_tumorigenesis transient necessity] CLOSED.**
 
+**[WS: H-B7-10 remy_tumorigenesis transient sweep] CLOSED 2026-09-07 (ADR-037, прямой запрос
+пользователя «запусти скан k=4..9»).** `[VERIFIED]`:
+- Точный скан k=4..9 → **CONFIRMED, k*=5 ТОЧНО**: k=4 релапс во второй Growth_arrest fixed point,
+  k=5..9 все достигают точного Proliferation attractor.
+- **Полная пошаговая трассировка объясняет порог ДО ОТДЕЛЬНОГО синхронного шага**: гонка между
+  освобождением клампа и самоподдерживающейся активацией CyclinE1 — при k=4 CyclinE1 включается В
+  ТОТ ЖЕ шаг, когда p21CIP/RBL2 возвращаются к True при освобождении; при k=5 CyclinE1 включается
+  на шаг раньше, p21CIP/RBL2 на шаге освобождения уже видят CyclinE1=True.
+- **FL Step 8a skeptic pass выполнен и пройден** (пятый CONFIRMED подряд, каждый со своим pass):
+  CONFIRMED-REAL; hand-verified оба граничных состояния против всех 35 правил `.bnet`.
+- Граф: `H-B7-10 → confirmed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 8.** Следующий
+  шаг: тот же скан с другой стартовой точки; кросс-ветка проверка.
+**[WS: H-B7-10 remy_tumorigenesis transient sweep] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -161,6 +131,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 00:44] `b1d13a6`: chore: auto-log commit history entry
 - [2026-09-07 00:43] `a9a159a` (local, branch `feature/h-b7-9-transient-necessity` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-9: transient do(p21CIP=0, RBL2=0) CONFIRMED for k=10,30, first strict-Kauffman confirmation
 - [2026-09-07 00:09] `f2460d2`: chore: auto-log commit history entry
 - [2026-09-07 00:08] `5636812` (local, branch `feature/h-b7-8-necessity-test` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-8: necessity test do(p21CIP=0, RBL2=0) without RAS/TP53 CONFIRMED, skeptic pass passed
@@ -175,4 +146,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 22:54] `962403a` (local, branch `feature/active-context-archive-trim` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: archive B1/B2/B3 arc from activeContext.md, trim to under the 200-line ceiling
 - [2026-09-06 22:49] `167605b` (local, branch `feature/h-b7-4-remy-tumorigenesis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-4: installed pyboolnet, found a genuinely bistable cancer model, first structurally-capable test of Kauffman's hypothesis
 - [2026-09-06 22:30] `0f92f1c`: chore: auto-log commit history entry
-- [2026-09-06 22:30] `52fcdb6` (local, branch `feature/h-b7-3-transient-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-3: Compute-First deduction predicts the outcome before simulation -- strict Kauffman test is untestable in this model
