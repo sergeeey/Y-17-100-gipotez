@@ -1,0 +1,18 @@
+[project]
+name = "y17-bridge-lab"
+version = "0.1.0"
+description = "Y-17 Cross-Domain Bridge Lab — falsification-first research lab scaffold"
+requires-python = ">=3.11"
+dependencies = ["pyyaml>=6.0", "numpy>=1.26", "requests>=2.31"]
+
+[tool.ruff]
+# WHY: 100 to match ~/.claude/rules/coding-style.md and the PostToolUse formatter hook;
+# without this pin, `ruff format` (default 88) and the hook (100) ping-pong the same file.
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "RUF"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,5 @@
+# Y-17 Cross-Domain Bridge Lab — runtime deps
+# Pin exact versions in experiments/<id>/manifest.md at run time (FL Substrate Gate).
+pyyaml>=6.0          # scripts/lab_check.py
+numpy>=1.26          # H-B1-1a r-statistic
+requests>=2.31       # Odlyzko zeros download

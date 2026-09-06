@@ -40,7 +40,7 @@
 |---|---|---|
 | Домен | Физика частиц, S³×S⁶ compactification | Биология, Hi-C хроматин |
 | Путь | `E:\...\N-7-GeoSpectra-Lab` | `E:\Проверка Гипотез\работаю над проверкой гипотез\H-7 test dhk\` |
-| Статус | ACTIVE, Tom Lawrence collaboration | HOLD, redesign in progress |
+| Статус | ACTIVE, external collaboration (details local-only) | HOLD, redesign in progress |
 
 `[PARKED] Riemann via RMT — H7 Bridge.md` **ошибочно линкует на GeoSpectra Lab**, хотя реально должен ссылаться на TAD Spectral Diagnostic. Файл включён в папку с этой пометкой — не путай их дальше.
 

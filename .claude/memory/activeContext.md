@@ -7,11 +7,17 @@
 - **NOT NOW:** Frontier R&D / TOFT / RAF — заблокированы до подтверждения существования; полный Hypothesis Portfolio (128+ гипотез из ARCHCODE и др.) — отдельный, не связанный проект
 
 ## Current Focus
-**Phase 1a: Riemann zeros r-statistic replication.** Готовый код в `01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md`. Kill-критерий: r_mean должен совпасть с GUE-теорией (0.6027) в пределах ~0.01.
+**[WS: lab-core] Ядро лаборатории построено (2026-09-06), вариант C (ADR-002).** Файлы: `LAB.md`, `registry/{SCHEMA.md,graph.yaml}`, `experiments/_template/` (14 файлов из Claude-cod-top-2026), `null_results/parked/pearl_registry INDEX.md`, `tooling-eval/LEDGER.md`, `.claude/memory/decisions.md` (ADR-001..004). Статус: pre-commit review (yaml validation + reviewer agent) → commit → push.
 
-Phase 1b (сравнение с хроматином) — BLOCKED, ждёт Option A redesign в `H-7 TAD Spectral Diagnostic.md`.
+**[WS: pilot-H-B1-1a] СЛЕДУЮЩИЙ ШАГ:** пилот `H-B1-1a` (Riemann zeros r-stat, известный ответ r̄≈0.6027 GUE) через ПОЛНЫЙ FL стек как позитивный контроль лаборатории: L0 → claim.md → estimand → controls → floor/ceiling (Step 4a: floor=Poisson 0.386, ceiling=GUE 0.6027) → run → skeptic (asymmetric) → decision → graph.yaml + LEDGER. Kill: |r̄−0.6027| ≥ 0.01 → pipeline broken.
+
+Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
+- **Repo:** https://github.com/sergeeey/Y-17-100-gipotez — PUBLIC, created 2026-09-06, commit d50597f (initial import). [VERIFIED]
+- **Excluded from public repo (.gitignore):** `H-7 GeoSpectra Lab (DIFFERENT project…).md` — third-party correspondence refs (Tom Lawrence). Local copy kept. User may override.
+- **New meta-goal (2026-09-06, user):** make this an *exemplary experimental lab* — memory/structure/hypothesis-graph designed up front so a blind orchestrator can operate; use it to test the whole tool/agent/methodology stack. Structure variant NOT yet chosen — options presented to user.
+- **FL template source (reuse, don't reinvent):** `D:\Claude-cod-top-2026\experiments\_template\` (14 files) [VERIFIED]
 - **Files transferred:** 15 (2026-09-06)
 - **Bridges scoped:** 3 (RMT/Riemann — READY/BLOCKED split; ChernoffPy/UDE — needs formalization; May1972/TDA — ready to scope)
 - **Bridges blocked pending user input:** 3 (Frontier R&D, TOFT/SMT, RAF Theory)
@@ -35,3 +41,6 @@ python phase1a_riemann_check.py  # код в Cross-Domain Bridge Lab — Project
 
 ---
 *Создан: 2026-09-06 при переносе из Obsidian vault.*
+
+## Auto-commit log
+- [2026-09-06 10:58] `d50597f`: chore: initial import of Y-17 Cross-Domain Bridge Lab from Obsidian vault

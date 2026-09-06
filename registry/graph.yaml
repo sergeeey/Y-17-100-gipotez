@@ -1,0 +1,276 @@
+# registry/graph.yaml — единственный машиночитаемый граф лаборатории
+# Словарь типов/статусов/рёбер: registry/SCHEMA.md
+# Правило: статус меняется СНАЧАЛА здесь, потом в markdown. При расхождении прав этот файл.
+
+meta:
+  version: 1
+  created: 2026-09-06
+  updated: 2026-09-06
+  repo: https://github.com/sergeeey/Y-17-100-gipotez
+
+nodes:
+
+  # ───────────────────────── problems ─────────────────────────
+  - id: P-EXT-079
+    type: problem
+    title: "Uncertainty calibration for Neural ODE / UDE (external catalog #79)"
+    status: open
+    evidence: UNVERIFIED          # шаблонная аргументация в raw-каталоге; читать первоисточник перед использованием
+    catalog: raw-100
+    catalog_ref: 79
+    source: "00-catalog/100 Open Problems — raw catalog (source, 2026-09-06).md"
+    updated: 2026-09-06
+
+  - id: P-RIEMANN-RMT
+    type: problem
+    title: "Spectral universality: do non-number-theoretic spectra follow GUE/GOE statistics as Riemann zeros do?"
+    status: open
+    evidence: VERIFIED-REAL       # Montgomery–Odlyzko закон для нулей известен; вопрос — о переносе
+    catalog: phase1-43
+    catalog_ref: "RMT/Riemann cluster"
+    source: "00-catalog/Open Problems Catalog — Phase 1 (44 of 100, 2026-09-06).md"
+    updated: 2026-09-06
+
+  - id: P-MAY-1972
+    type: problem
+    title: "May 1972 stability–complexity paradox: why are large complex ecological networks stable?"
+    status: open
+    evidence: VERIFIED-REAL
+    catalog: phase1-43
+    catalog_ref: "Revival target R1"
+    source: "02-related-projects-context/Hypothesis Revival Targets — 9 классических гипотез для реанимации (2026-05-10).md"
+    updated: 2026-09-06
+
+  # ───────────────────────── projects ─────────────────────────
+  - id: PRJ-H7-TAD
+    type: project
+    title: "H-7 TAD Spectral Diagnostic (Hi-C chromatin, biology)"
+    status: hold                  # redesign Option A не завершён
+    evidence: VERIFIED-REAL
+    path: "E:/Проверка Гипотез/работаю над проверкой гипотез/H-7 test dhk/"
+    owner: self
+    source: "01-cross-domain-bridges/H-7 TAD Spectral Diagnostic.md"
+    updated: 2026-09-06
+
+  - id: PRJ-H7-GEOSPECTRA
+    type: project
+    title: "H-7 GeoSpectra Lab (S3xS6 compactification, particle physics) — DIFFERENT project, shares number only"
+    status: active
+    evidence: VERIFIED-REAL
+    path: "E:/Проверка Гипотез/работаю над проверкой гипотез/N-7-GeoSpectra-Lab/"
+    owner: self
+    source: "local only — file excluded from public repo (third-party correspondence); see .gitignore"
+    updated: 2026-09-06
+
+  - id: PRJ-CHERNOFFPY
+    type: project
+    title: "ChernoffPy — Chernoff-type operator semigroup approximations, predictions log"
+    status: active
+    evidence: VERIFIED-REAL
+    path: null
+    owner: self
+    source: "02-related-projects-context/ChernoffPy — Predictions Log.md"
+    updated: 2026-09-06
+
+  - id: PRJ-FRONTIER-RD
+    type: project
+    title: "Frontier R&D (Sentinel-2 OOD detection, Hypothesis H1)"
+    status: unverified_source
+    evidence: UNVERIFIED          # grep vault → 0 hits
+    path: null
+    owner: unknown
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § ПЕРЕД СТАРТОМ"
+    updated: 2026-09-06
+
+  - id: PRJ-TOFT-SMT
+    type: project
+    title: "TOFT vs SMT kill-test (Soto & Sonnenschein 1999)"
+    status: unverified_source
+    evidence: UNVERIFIED          # идея есть как Revival target R5 (NOT STARTED); проект/код не найден
+    path: null
+    owner: unknown
+    source: "02-related-projects-context/Hypothesis Revival Targets — 9 классических гипотез для реанимации (2026-05-10).md (R5)"
+    updated: 2026-09-06
+
+  - id: PRJ-RAF
+    type: project
+    title: "RAF Theory / CatlyNet / iRAF / Wood-Ljungdahl pathway"
+    status: unverified_source
+    evidence: UNVERIFIED          # grep vault → 0 hits
+    path: null
+    owner: unknown
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § ПЕРЕД СТАРТОМ"
+    updated: 2026-09-06
+
+  # ───────────────────────── bridges ─────────────────────────
+  - id: B1-RMT-RIEMANN-HIC
+    type: bridge
+    title: "Spectral universality: RMT ↔ Riemann zeros ↔ Hi-C chromatin"
+    status: verified_grounding
+    evidence: HYPOTHESIS
+    mechanism: "Level-spacing r-statistic of a spectrum discriminates Poisson vs Wigner–Dyson universality class independently of the system's physics"
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Bridge 1"
+    updated: 2026-09-06
+
+  - id: B2-CHERNOFF-UDE
+    type: bridge
+    title: "Chernoff operator semigroups ↔ Neural ODE / UDE stability bounds"
+    status: verified_grounding
+    evidence: HYPOTHESIS
+    mechanism: "Chernoff product formula bounds the error of approximating a C0-semigroup by discrete operator products; a ResNet/Neural-ODE layer may be such a product"
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Bridge 2"
+    updated: 2026-09-06
+
+  - id: B3-MAY-TDA
+    type: bridge
+    title: "May 1972 stability–complexity ↔ TDA early-warning signals"
+    status: verified_grounding
+    evidence: HYPOTHESIS
+    mechanism: "Persistent homology (Betti-1, persistent entropy) of network snapshots detects phase-space restructuring before variance/autocorrelation drift"
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Bridge 3"
+    updated: 2026-09-06
+
+  - id: B4-FRONTIER
+    type: bridge
+    title: "Frontier R&D OOD detection ↔ (unspecified catalog problem)"
+    status: unverified_source
+    evidence: UNVERIFIED
+    mechanism: "not recoverable — source project not found"
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Отклонённые"
+    updated: 2026-09-06
+
+  - id: B5-TOFT
+    type: bridge
+    title: "TOFT vs SMT kill-test ↔ (unspecified catalog problem)"
+    status: unverified_source
+    evidence: UNVERIFIED
+    mechanism: "not recoverable — source project not found"
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Отклонённые"
+    updated: 2026-09-06
+
+  - id: B6-RAF
+    type: bridge
+    title: "RAF autocatalytic sets ↔ (unspecified catalog problem)"
+    status: unverified_source
+    evidence: UNVERIFIED
+    mechanism: "not recoverable — source project not found"
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Отклонённые"
+    updated: 2026-09-06
+
+  # ───────────────────────── hypotheses ─────────────────────────
+  - id: H-B1-1a
+    type: hypothesis
+    title: "Riemann zeros r-statistic replicates GUE prediction (Montgomery–Odlyzko) — infrastructure positive control"
+    status: ready
+    evidence: HYPOTHESIS          # → VERIFIED-REAL после запуска
+    l0_type: descriptive
+    fl_tier: full                 # намеренно Full: пилот всего стека, хотя задача — репликация
+    kill_criterion: "|r_mean − 0.6027| ≥ 0.01 on Odlyzko zeros1 (first ~100k zeros) → KILLED (pipeline broken, NOT a scientific result)"
+    experiment_dir: null          # заполнится при запуске пилота
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Phase 1a"
+    updated: 2026-09-06
+
+  - id: H-B1-1b
+    type: hypothesis
+    title: "Hi-C chromatin (WT vs auxin-fused) r-statistic shows Poisson→GUE transition comparable to Riemann zeros"
+    status: blocked
+    evidence: CONFLICT            # PARKED говорит 'готово', проект говорит 'invalidated'
+    l0_type: descriptive
+    fl_tier: full
+    kill_criterion: "TBD after Option A redesign — must be set BEFORE any run; current honest numbers (WT 0.5113±0.061, auxin 0.5130±0.060) show no transition"
+    experiment_dir: null
+    source: "01-cross-domain-bridges/H-7 TAD Spectral Diagnostic.md"
+    updated: 2026-09-06
+
+  - id: H-B2-1
+    type: hypothesis
+    title: "A concrete Neural-ODE/ResNet layer satisfies the hypotheses of Chernoff's theorem (is a discrete approximation of a C0-semigroup)"
+    status: needs_formalization
+    evidence: HYPOTHESIS
+    l0_type: descriptive          # утверждение о математической структуре, не о причинности
+    fl_tier: standard
+    kill_criterion: "Either (a) the layer provably violates a Chernoff hypothesis (e.g. no strong continuity / no consistency condition), or (b) on a 1D Neural ODE with analytic solution the Chernoff bound does NOT dominate empirical error → bridge KILLED as practically useless even if formally valid"
+    experiment_dir: null
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Bridge 2"
+    updated: 2026-09-06
+
+  - id: H-B3-1
+    type: hypothesis
+    title: "TDA signals (Betti-1, persistent entropy) lead classical EWS (variance, autocorrelation) on ecological networks with known historical collapses"
+    status: ready_to_scope
+    evidence: HYPOTHESIS
+    l0_type: predictive
+    fl_tier: full
+    kill_criterion: "On ≥3 collapses with documented dates (Mangal/GloBI), TDA signal does NOT precede classical EWS by a pre-registered lead time → KILLED"
+    experiment_dir: null
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Bridge 3"
+    updated: 2026-09-06
+
+  # ───────────────────────── artifacts ─────────────────────────
+  - id: ART-TAD-AUC-0.99998
+    type: artifact
+    title: "Claimed AUC=0.99998 WT vs auxin classifier (H-7 TAD)"
+    status: invalidated
+    evidence: VERIFIED-REAL       # инвалидация задокументирована в самом проекте
+    date_created: 2026-05-16
+    provenance: fit               # классификатор использовал саму разницу как признак — тавтология
+    source: "01-cross-domain-bridges/H-7 TAD Spectral Diagnostic.md"
+    updated: 2026-09-06
+
+  - id: ART-TAD-R-HONEST
+    type: artifact
+    title: "Honest r-statistic: WT r=0.5113±0.061, auxin r=0.5130±0.060, Δ=+0.0018"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-05-16
+    provenance: measurement
+    source: "01-cross-domain-bridges/H-7 TAD Spectral Diagnostic.md"
+    updated: 2026-09-06
+
+  - id: ART-PARKED-RIEMANN-NOTE
+    type: artifact
+    title: "[PARKED] Riemann via RMT — H7 Bridge note (2026-05-28)"
+    status: stale                 # написан через 12 дней после инвалидации ART-TAD-AUC, но ссылается на него как на живой
+    evidence: CONFLICT
+    date_created: 2026-05-28
+    provenance: illustration
+    source: "01-cross-domain-bridges/[PARKED] Riemann via RMT — H7 Bridge.md"
+    updated: 2026-09-06
+
+  # ───────────────────────── questions ─────────────────────────
+  - id: Q-GOE-vs-GUE
+    type: question
+    title: "Which symmetry class does fused chromatin belong to? TAD project claims class A (GUE) via Altland–Zirnbauer tenfold way, not GOE"
+    status: open
+    evidence: UNVERIFIED
+    blocks: [H-B1-1b]
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Отдельный вопрос ансамбля"
+    updated: 2026-09-06
+
+edges:
+  # grounding of bridges
+  - {from: PRJ-H7-TAD,        to: B1-RMT-RIEMANN-HIC, type: grounds,   since: 2026-09-06}
+  - {from: P-RIEMANN-RMT,     to: B1-RMT-RIEMANN-HIC, type: grounds,   since: 2026-09-06}
+  - {from: PRJ-CHERNOFFPY,    to: B2-CHERNOFF-UDE,    type: grounds,   since: 2026-09-06}
+  - {from: P-EXT-079,         to: B2-CHERNOFF-UDE,    type: grounds,   since: 2026-09-06}
+  - {from: P-MAY-1972,        to: B3-MAY-TDA,         type: grounds,   since: 2026-09-06}
+  - {from: PRJ-FRONTIER-RD,   to: B4-FRONTIER,        type: grounds,   since: 2026-09-06, note: "source itself unverified"}
+  - {from: PRJ-TOFT-SMT,      to: B5-TOFT,            type: grounds,   since: 2026-09-06, note: "source itself unverified"}
+  - {from: PRJ-RAF,           to: B6-RAF,             type: grounds,   since: 2026-09-06, note: "source itself unverified"}
+
+  # bridges → hypotheses
+  - {from: B1-RMT-RIEMANN-HIC, to: H-B1-1a, type: grounds, since: 2026-09-06}
+  - {from: B1-RMT-RIEMANN-HIC, to: H-B1-1b, type: grounds, since: 2026-09-06}
+  - {from: B2-CHERNOFF-UDE,    to: H-B2-1,  type: grounds, since: 2026-09-06}
+  - {from: B3-MAY-TDA,         to: H-B3-1,  type: grounds, since: 2026-09-06}
+
+  # dependency chain that caused the stale-reference incident
+  - {from: ART-TAD-R-HONEST,  to: ART-TAD-AUC-0.99998,     type: invalidates, since: 2026-05-16, note: "label circularity exposed; honest Δ=+0.0018"}
+  - {from: ART-TAD-AUC-0.99998, to: ART-PARKED-RIEMANN-NOTE, type: grounds,   since: 2026-05-28, note: "note relied on invalidated result → note is stale"}
+  - {from: ART-TAD-AUC-0.99998, to: H-B1-1b,               type: depends_on, since: 2026-09-06, note: "H-B1-1b cannot run until a valid replacement artifact exists (Option A)"}
+  - {from: H-B1-1a,            to: H-B1-1b,               type: depends_on, since: 2026-09-06, note: "pipeline must reproduce known GUE result before touching biology"}
+  - {from: Q-GOE-vs-GUE,       to: H-B1-1b,               type: blocks,     since: 2026-09-06}
+
+  # naming collision — never merge
+  - {from: PRJ-H7-GEOSPECTRA, to: PRJ-H7-TAD, type: collides_with, since: 2026-09-06, note: "both called 'H-7'; PARKED note links the wrong one"}
+  - {from: ART-PARKED-RIEMANN-NOTE, to: PRJ-H7-GEOSPECTRA, type: links_to, since: 2026-05-28, note: "WRONG link in the note — should point to PRJ-H7-TAD"}

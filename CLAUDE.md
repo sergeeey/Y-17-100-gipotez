@@ -6,11 +6,16 @@
 - **Status:** Early exploration. Один мост (Riemann/RMT Phase 1a) готов к запуску, остальное требует scoping
 
 ## READ FIRST (в этом порядке)
+0. `LAB.md` — точка входа для слепого оркестратора: что это, где мы, что связано, следующий шаг
+0.5. `registry/graph.yaml` — единственный машиночитаемый граф связей; **статус меняется сначала здесь**, markdown вторичен
 1. `README.md` — полная навигация по структуре папки
 2. `00-catalog/Open Problems Catalog — Skeptic Assessment of the 100-item version (2026-09-06).md` — как относиться к каталогу 100 задач (реальные источники, но шаблонная аргументация)
 3. `01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md` — полный разбор мостов, что verified/blocked
 
 ## ALWAYS DO
+- Гипотеза не существует, пока нет узла в `registry/graph.yaml` (l0_type, kill_criterion, evidence, status) — см. `registry/SCHEMA.md`
+- Каждый применённый агент/скилл/хук/правило → строка в `tooling-eval/LEDGER.md` в ту же сессию (мета-цель: тест стека = данные, не впечатление)
+- Новый NULL/инвалидация → ретроскан по рёбрам `grounds`/`depends_on` в graph.yaml в ту же сессию
 - Перед тем как строить на любом "мосте" из этой папки — проверить, не изменился ли статус upstream-проекта (см. прецедент: PARKED-файл про Riemann/RMT ссылался на результат, инвалидированный за 12 дней до написания заметки)
 - Разделять Pipeline vs Experiment в любом коде (см. `03-methodology-rules/lesson-hypothesis-execution-rules.md`)
 - Explicit kill-criterion ДО запуска эксперимента, не после
