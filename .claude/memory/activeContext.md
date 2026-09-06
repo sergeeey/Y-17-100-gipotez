@@ -123,6 +123,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 15:52] `51c1c3f` (local, branch `feature/h-b2-1b-matrix-case` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1b): Theorem-3.1/K_j=0 mechanism confirmed in a genuine 2D matrix case
 - [2026-09-06 15:20] `db77901`: chore: auto-log commit history entry
 - [2026-09-06 15:19] `01d6d9d` (local, branch `feature/h-b2-1-theorem31-correction` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(H-B2-1): correct KILLED -> CONFIRMED after reading the paper's actual main theorem (3.1), not just its simplified 1D corollary
 - [2026-09-06 14:58] `f428e99`: chore: auto-log commit history entry
@@ -137,4 +138,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 14:07] `3e75d01` (local, branch `feature/auto-log-c8f5e5f` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-06 14:06] `c8f5e5f` (local, branch `feature/h-b3-1d-v1prime` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1d): V1' (IAAFT surrogate-null) implemented and run -> REJECT, sharper diagnosis than V1
 - [2026-09-06 13:34] `bbd1496`: chore: auto-log commit history entry
-- [2026-09-06 13:33] `34304c3`: feat(H-B3-1c): V1 surrogate-null implemented and re-run on both datasets -> REJECT (first real one)
