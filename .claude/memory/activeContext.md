@@ -83,6 +83,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 14:06] `c8f5e5f` (local, branch `feature/h-b3-1d-v1prime` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1d): V1' (IAAFT surrogate-null) implemented and run -> REJECT, sharper diagnosis than V1
 - [2026-09-06 13:34] `bbd1496`: chore: auto-log commit history entry
 - [2026-09-06 13:33] `34304c3`: feat(H-B3-1c): V1 surrogate-null implemented and re-run on both datasets -> REJECT (first real one)
 - [2026-09-06 13:12] `ea27a8a`: chore: auto-log commit history entry
@@ -97,4 +98,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 11:46] `c912d70`: chore: untrack hook scratch files, ignore **/.claude/state/
 - [2026-09-06 11:45] `f8057d0`: feat(pilot): H-B1-1a through FL Full-Ladder — PROMOTE [WEAKENED]
 - [2026-09-06 11:18] `f021de1`: feat: lab core — LAB.md entry point, registry graph, FL template, ledgers, lab_check
-- [2026-09-06 10:58] `d50597f`: chore: initial import of Y-17 Cross-Domain Bridge Lab from Obsidian vault
