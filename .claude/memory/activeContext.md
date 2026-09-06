@@ -117,6 +117,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 15:19] `01d6d9d` (local, branch `feature/h-b2-1-theorem31-correction` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(H-B2-1): correct KILLED -> CONFIRMED after reading the paper's actual main theorem (3.1), not just its simplified 1D corollary
 - [2026-09-06 14:58] `f428e99`: chore: auto-log commit history entry
 - [2026-09-06 14:57] `09269f1` (local, branch `feature/consistency-review-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(null_results): timestamp the stale retroscan claim for H-B3-1c/1d
 - [2026-09-06 14:51] `6e1bc7a`: chore: auto-log commit history entry
@@ -131,4 +132,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 13:34] `bbd1496`: chore: auto-log commit history entry
 - [2026-09-06 13:33] `34304c3`: feat(H-B3-1c): V1 surrogate-null implemented and re-run on both datasets -> REJECT (first real one)
 - [2026-09-06 13:12] `ea27a8a`: chore: auto-log commit history entry
-- [2026-09-06 13:12] `acd8184`: feat(H-B3-1): unblocked by user-provided data -> CRITERION_INVALID, 2nd independent confirmation
