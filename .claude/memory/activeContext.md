@@ -155,6 +155,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 18:54] `62ad1d4` (local, branch `feature/h-b3-1g-total-persistence` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1g): add total-persistence TDA invariant, wire through V1's null pipeline; real run pending
 - [2026-09-06 18:46] `372ef2a`: chore: auto-log commit history entry
 - [2026-09-06 18:46] `afa3234` (local, branch `feature/h-b2-1g-strong-coupling` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1g): 7th confirmation resolves the arc's most important finding -- bound validity != practical usefulness
 - [2026-09-06 18:41] `104c300`: chore: auto-log commit history entry
@@ -169,4 +170,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 15:52] `51c1c3f` (local, branch `feature/h-b2-1b-matrix-case` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1b): Theorem-3.1/K_j=0 mechanism confirmed in a genuine 2D matrix case
 - [2026-09-06 15:20] `db77901`: chore: auto-log commit history entry
 - [2026-09-06 15:19] `01d6d9d` (local, branch `feature/h-b2-1-theorem31-correction` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(H-B2-1): correct KILLED -> CONFIRMED after reading the paper's actual main theorem (3.1), not just its simplified 1D corollary
-- [2026-09-06 14:58] `f428e99`: chore: auto-log commit history entry
