@@ -103,6 +103,11 @@
   IAAFT — сужает находку H-B3-1i до вероятного эффекта NULL-МОДЕЛИ, не статистики. Предсказание для
   проверки: IAAFT+diagram-distance должен дать отрицательный лид.
 - Граф: `H-B3-1j → killed` (FL-вердикт REJECT). Pearl impact 8.
+- **Ревью (`reviewer` agent, т.к. правка общего модуля `obrienlakes/run.py`):** NEEDS_WORK, только
+  P2, без P0/P1. Все числа в decision.md сверены с run.json — совпадают. 2 P2 устранены: (1) проверил
+  reference-диаграмму на вырожденность на реальных данных всех 9 рядов — не вырождена (12-46 баров,
+  Peter doSat: 46 баров); (2) добавил 6-й тест на реальных данных Peter doSat (reps=2, быстрый) —
+  раньше только синтетика. 122 теста, вердикт REJECT не изменился.
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
@@ -148,6 +153,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 20:31] `dcecb68` (local, branch `feature/h-b3-1j-review-response` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1j: address reviewer's two P2 findings (reference-diagram degeneracy, missing real-data regression test)
 - [2026-09-06 20:24] `dedf213` (local, branch `feature/h-b3-1j-diagram-distance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1j: the "hard branch" fully implemented (Wasserstein diagram-distance) -- REJECT again, but narrows H-B3-1i's finding to a null-model effect
 - [2026-09-06 20:09] `00a6637`: chore: auto-log commit history entry
 - [2026-09-06 20:08] `610ac08` (local, branch `feature/b3-may-tda-consolidation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3-MAY-TDA: update stale bridge node with consolidated evidence from 10 experiments
@@ -162,4 +168,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 19:17] `94890ea`: chore: auto-log commit history entry
 - [2026-09-06 19:17] `4c9a795` (local, branch `feature/h-b3-1h-case-study` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1h Relaxation Map item 2: Loch Leven/Paul doSat case study — candidate mechanism KILLED by its own positive control
 - [2026-09-06 19:10] `a236655`: chore: auto-log commit history entry (2)
-- [2026-09-06 19:10] `a416670` (local, branch `feature/auto-log-7210aad` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
