@@ -113,7 +113,11 @@
 - **Ключевой вывод серии:** валидность границы и практическая полезность — разные оси. Предыдущие числа эффективности (0.0002-0.37) были артефактом протестированных параметров, не общим свойством.
 - Граф: `H-B2-1g → confirmed`. Pearl impact 9 (самый высокий за всю серию B2) — предостережение от чтения прошлых чисел как общего свойства метода.
 
-**[WS: H-B3-1g total persistence] IN PROGRESS, статус UNKNOWN до завершения фонового прогона (2026-09-06, автономно, `/loop`, «hard branch» из H-B3-1f).** `[VERIFIED]`: реализовал новый TDA-инвариант (total persistence вместо persistence entropy) в общем модуле, прокинул через V1's `cmd_run` (`tda_stat_fn` параметр, тот же паттерн reuse что V1'/V2'). 4 новых теста + 2 починенных regression-теста (лямбды-моки не принимали новый параметр) — `python -m pytest -q`: 108 passed. `[UNKNOWN]`: реальный результат на 9 рядах — прогон запущен в фоне (~25 мин по прошлым аналогичным запускам), ЕЩЁ НЕ ЗАВЕРШЁН на момент этой записи. Инфраструктура закоммичена отдельно от результата (claim.md уже pre-registered, decision.md будет после прогона).
+**[WS: H-B3-1g total persistence] CLOSED 2026-09-06 (ADR-023, автономно, `/loop`, «hard branch» из H-B3-1f).** `[VERIFIED]`:
+- Реализовал `betti1_total_persistence_series()` (сумма длин баров H1) в общем модуле, прокинул `tda_stat_fn` через всю цепочку V1. 2 существующих regression-теста сломались (моки не принимали новый параметр) — сразу пойманы и починены.
+- **Результат: первое отклонение от идентичного 5/5 за всю серию B3.** n_false_positives=4/5 (Paul chl перестал быть ложным срабатыванием) → IMPROVED_NOT_PASS. Новая проблема: Peter pH теперь даёт TDA-сигнал с запозданием на 100 дней (раньше не срабатывал вообще).
+- **Peter doSat's +13-дневный лид воспроизвёлся ИДЕНТИЧНО в 4-й раз подряд** под структурно разными методами (V1, V1', теперь V1g) — самый надёжный сигнал во всём мосте B3.
+- Граф: `H-B3-1g → lead`. Pearl impact 8: ось «топологический инвариант» НЕ исчерпана (в отличие от оси «null-модель», давшей идентичный 5/5 трижды подряд) — переоткрывает мост B3 для небезосновательного дальнейшего исследования.
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
@@ -155,6 +159,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 18:54] `98251ed`: chore: auto-log commit history entry
 - [2026-09-06 18:54] `62ad1d4` (local, branch `feature/h-b3-1g-total-persistence` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1g): add total-persistence TDA invariant, wire through V1's null pipeline; real run pending
 - [2026-09-06 18:46] `372ef2a`: chore: auto-log commit history entry
 - [2026-09-06 18:46] `afa3234` (local, branch `feature/h-b2-1g-strong-coupling` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1g): 7th confirmation resolves the arc's most important finding -- bound validity != practical usefulness
@@ -169,4 +174,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 15:53] `71cb476`: chore: auto-log commit history entry
 - [2026-09-06 15:52] `51c1c3f` (local, branch `feature/h-b2-1b-matrix-case` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1b): Theorem-3.1/K_j=0 mechanism confirmed in a genuine 2D matrix case
 - [2026-09-06 15:20] `db77901`: chore: auto-log commit history entry
-- [2026-09-06 15:19] `01d6d9d` (local, branch `feature/h-b2-1-theorem31-correction` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(H-B2-1): correct KILLED -> CONFIRMED after reading the paper's actual main theorem (3.1), not just its simplified 1D corollary

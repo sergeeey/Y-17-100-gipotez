@@ -1,0 +1,107 @@
+{
+  "config": {
+    "detection_rule": "per-series per-timepoint AR(1)-surrogate + total-persistence 95th percentile",
+    "alpha": 0.05,
+    "classical_reps": 100,
+    "tda_reps": 20,
+    "window_frac": 0.5,
+    "embed_dim": 3,
+    "embed_delay": 1
+  },
+  "results": {
+    "obrien_lower_zurich": {
+      "classical_ac1_crossing": null,
+      "classical_var_crossing": null,
+      "classical_earliest_crossing": null,
+      "tda_betti_crossing": 2001.6666666666667,
+      "tda_lead": null,
+      "role": "positive",
+      "n_points": 161,
+      "false_positive": false
+    },
+    "obrien_windermere": {
+      "classical_ac1_crossing": null,
+      "classical_var_crossing": 1993.5,
+      "classical_earliest_crossing": 1993.5,
+      "tda_betti_crossing": 1989.8333333333333,
+      "tda_lead": 3.6666666666667425,
+      "role": "negative",
+      "n_points": 244,
+      "false_positive": true
+    },
+    "obrien_loch_leven": {
+      "classical_ac1_crossing": 1999.6666666666667,
+      "classical_var_crossing": null,
+      "classical_earliest_crossing": 1999.6666666666667,
+      "tda_betti_crossing": 1999.6666666666667,
+      "tda_lead": 0.0,
+      "role": "negative",
+      "n_points": 152,
+      "false_positive": true
+    },
+    "peterlake_Peter_chl": {
+      "classical_ac1_crossing": null,
+      "classical_var_crossing": null,
+      "classical_earliest_crossing": null,
+      "tda_betti_crossing": 245.00547945214112,
+      "tda_lead": null,
+      "role": "positive",
+      "n_points": 334,
+      "false_positive": false
+    },
+    "peterlake_Peter_pH": {
+      "classical_ac1_crossing": null,
+      "classical_var_crossing": 218.0027397260917,
+      "classical_earliest_crossing": 218.0027397260917,
+      "tda_betti_crossing": 318.0054794521577,
+      "tda_lead": -100.00273972606601,
+      "role": "positive",
+      "n_points": 334,
+      "false_positive": false
+    },
+    "peterlake_Peter_doSat": {
+      "classical_ac1_crossing": 185.00273972607397,
+      "classical_var_crossing": 210.00273972612513,
+      "classical_earliest_crossing": 185.00273972607397,
+      "tda_betti_crossing": 172.00273972609716,
+      "tda_lead": 12.999999999976808,
+      "role": "positive",
+      "n_points": 334,
+      "false_positive": false
+    },
+    "peterlake_Paul_chl": {
+      "classical_ac1_crossing": null,
+      "classical_var_crossing": null,
+      "classical_earliest_crossing": null,
+      "tda_betti_crossing": null,
+      "tda_lead": null,
+      "role": "negative",
+      "n_points": 334,
+      "false_positive": false
+    },
+    "peterlake_Paul_pH": {
+      "classical_ac1_crossing": 205.0027397261149,
+      "classical_var_crossing": 215.00273972605237,
+      "classical_earliest_crossing": 205.0027397261149,
+      "tda_betti_crossing": 172.00273972609716,
+      "tda_lead": 33.000000000017735,
+      "role": "negative",
+      "n_points": 334,
+      "false_positive": true
+    },
+    "peterlake_Paul_doSat": {
+      "classical_ac1_crossing": 212.00273972609602,
+      "classical_var_crossing": 271.0054794521777,
+      "classical_earliest_crossing": 212.00273972609602,
+      "tda_betti_crossing": 209.0027397260567,
+      "tda_lead": 3.0000000000393356,
+      "role": "negative",
+      "n_points": 334,
+      "false_positive": true
+    }
+  },
+  "n_negative_controls": 5,
+  "n_false_positives": 4,
+  "n_positive_cases_with_tda_lead": 1,
+  "verdict": "IMPROVED_NOT_PASS"
+}

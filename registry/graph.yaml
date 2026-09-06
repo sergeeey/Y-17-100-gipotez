@@ -462,6 +462,28 @@ nodes:
     source: "experiments/20260906-lakes-tda-ews-descriptive-v3/metrics/run.json"
     updated: 2026-09-06
 
+  - id: H-B3-1g
+    type: hypothesis
+    title: "The 'hard branch' from H-B3-1f: does swapping the TDA invariant (Betti-1 persistence entropy -> total persistence), same AR(1) null as V1, change the false-positive profile on the same 9 series?"
+    status: lead                  # 2026-09-06 decision.md: first non-'5/5 identical' result in the B3 arc -- genuine but partial improvement (4/5 FP, verdict IMPROVED_NOT_PASS)
+    evidence: VERIFIED-REAL       # metrics/run.json; 4 new + 2 fixed regression tests
+    l0_type: predictive
+    fl_tier: standard
+    kill_criterion: "False-positive rate on the 5 negative controls must be <=1/5 with >=1 surviving positive lead for PASS; a false-positive SET strictly different from entropy's identical 5/5 (H-B3-1c/d/e) is the minimum bar for 'informative, not a repeat under a new name'. RESULT: n_false_positives=4/5 (Paul chl FLIPS from false-positive under all 3 entropy variants to NOT false-positive here) -> verdict IMPROVED_NOT_PASS, the FIRST non-5/5-identical result in the entire B3 investigation (raw threshold + V1 + V1' + V2' all gave exactly 5/5 on entropy). Does not clear the PASS bar. New problem introduced: Peter pH (positive case) now shows a TDA crossing that LAGS classical EWS by 100 days (previously showed no crossing at all under entropy) -- misleading-late, not just noisy. Standout finding: Peter doSat's +13-day TDA lead reproduces IDENTICALLY across 4 structurally different variants (V1 AR1-entropy, V1' IAAFT-entropy, and now V1g AR1-total-persistence; only V2's additional detrending lost it) -- the single most robust positive signal found anywhere in this bridge. LEAD (project 3-outcome convention): genuine, partial, informative result -- the TDA-invariant axis is NOT exhausted the way the null-model axis was (H-B3-1c/d/e's 3x identical 5/5 finding), reopening this bridge to further, non-arbitrary investigation"
+    experiment_dir: "experiments/20260906-lakes-tda-ews-total-persistence-v1g"
+    source: "experiments/20260906-lakes-tda-ews-total-persistence-v1g/decision.md"
+    updated: 2026-09-06
+
+  - id: ART-TOTAL-PERSISTENCE-V1G-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — total-persistence + AR(1)-null re-run on all 9 series, first non-5/5 result in the B3 arc"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-lakes-tda-ews-total-persistence-v1g/metrics/run.json"
+    updated: 2026-09-06
+
   # ───────────────────────── projects (added during H-B3-1 scoping, 2026-09-06) ─────────────────────────
   - id: PRJ-CARPENTER-PETERLAKE
     type: project
@@ -687,6 +709,11 @@ edges:
   - {from: H-B3-1d, to: H-B3-1f, type: grounds, since: 2026-09-06, note: "V1'/IAAFT data reused verbatim"}
   - {from: H-B3-1e, to: H-B3-1f, type: grounds, since: 2026-09-06, note: "V2'/detrend+IAAFT data reused verbatim"}
   - {from: H-B3-1f, to: ART-DESCRIPTIVE-V3-JOIN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+
+  # H-B3-1g (2026-09-06): "hard branch" from H-B3-1f -- different TDA invariant, same AR(1) null as V1
+  - {from: H-B3-1f, to: H-B3-1g, type: grounds, since: 2026-09-06, note: "H-B3-1f's decision.md explicitly recommended 'a genuinely new approach (different topological invariant...)' over another null-model variant -- attempted directly here"}
+  - {from: H-B3-1c, to: H-B3-1g, type: grounds, since: 2026-09-06, note: "reuses V1's exact AR(1)-surrogate null machinery via v1.cmd_run(), ONE assumption changed (tda_stat_fn), per Minimal Relaxation Rule"}
+  - {from: H-B3-1g, to: ART-TOTAL-PERSISTENCE-V1G-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
 
   # naming collision — never merge
   - {from: PRJ-H7-GEOSPECTRA, to: PRJ-H7-TAD, type: collides_with, since: 2026-09-06, note: "both called 'H-7'; PARKED note links the wrong one"}
