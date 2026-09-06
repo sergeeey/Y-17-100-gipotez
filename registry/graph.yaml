@@ -244,6 +244,28 @@ nodes:
     source: "experiments/20260906-lakes-tda-ews-surrogate-null-v1/decision.md"
     updated: 2026-09-06
 
+  - id: H-B3-1d
+    type: hypothesis
+    title: "V1': IAAFT phase-randomized surrogate-null (full power spectrum + exact amplitude distribution) replaces AR(1) as the null-generating model, re-run on the same 9 series as V1"
+    status: killed                # 2026-09-06 decision.md: genuine REJECT, same outcome in kind as V1 (5/5 negative controls false-positive) but a sharper diagnosis: IAAFT is unit-test-verified richer than AR(1) and STILL fails identically -> rules out "insufficient linear/spectral richness" as the explanation
+    evidence: VERIFIED-REAL       # metrics/run.json; IAAFT correctness independently verified by tests/test_iaaft_v1prime.py (amplitude distribution exact, spectrum error <10% vs AR(1)'s ~50% on structured test data)
+    l0_type: predictive
+    fl_tier: full
+    kill_criterion: "False-positive rate on the 5 negative-control series must be < 5/5 (better than V1/AR(1)) AND >=1 positive case must show a TDA lead>0, for PASS. RESULT: 5/5 negative controls STILL false-positive, identical set to V1, near-identical crossing dates and lead magnitudes (Peter doSat +13 days lead reproduced unchanged) -> REJECT (NO_IMPROVEMENT). Kill Analysis: kills 'AR(1) too simple' as a SUFFICIENT explanation (IAAFT captures the full linear spectrum + exact amplitude distribution and still fails); sharpens the diagnosis toward genuine within-season non-stationarity/deterministic trend that no STATIONARY linear surrogate (AR(1) or IAAFT) can null out. Relaxation Map: V2' (detrend-then-surrogate: remove a smooth per-season trend before generating the null, add it back after) is now independently motivated by TWO failed stationary nulls, not just one -- next candidate, not yet run"
+    experiment_dir: "experiments/20260906-lakes-tda-ews-iaaft-null-v1prime"
+    source: "experiments/20260906-lakes-tda-ews-iaaft-null-v1prime/decision.md"
+    updated: 2026-09-06
+
+  - id: ART-V1PRIME-IAAFT-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — V1' per-series IAAFT-surrogate-null re-run on all 9 series from H-B3-1 + H-B3-1b"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-lakes-tda-ews-iaaft-null-v1prime/metrics/run.json"
+    updated: 2026-09-06
+
   # ───────────────────────── projects (added during H-B3-1 scoping, 2026-09-06) ─────────────────────────
   - id: PRJ-CARPENTER-PETERLAKE
     type: project
@@ -437,6 +459,10 @@ edges:
   - {from: ART-RSTAT-RUN-20260906, to: H-B1-1c, type: grounds,  since: 2026-09-06, note: "the +0.0103 excess is the thing H-B1-1c explains"}
   - {from: H-B1-1a,               to: H-B1-1c, type: depends_on, since: 2026-09-06}
   - {from: B1-RMT-RIEMANN-HIC,    to: H-B1-1c, type: grounds,    since: 2026-09-06}
+
+  # H-B3-1d (2026-09-06): V1' IAAFT null fix, same 9 series as V1 -> REJECT (NO_IMPROVEMENT)
+  - {from: H-B3-1c, to: H-B3-1d, type: grounds, since: 2026-09-06, note: "H-B3-1c's Relaxation Map candidate V1' -- ONE assumption changed (null-generating model AR(1) -> IAAFT), per Minimal Relaxation Rule"}
+  - {from: H-B3-1d, to: ART-V1PRIME-IAAFT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
 
   # naming collision — never merge
   - {from: PRJ-H7-GEOSPECTRA, to: PRJ-H7-TAD, type: collides_with, since: 2026-09-06, note: "both called 'H-7'; PARKED note links the wrong one"}

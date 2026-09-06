@@ -41,9 +41,12 @@ TDA_REPS = 20  # matches the rep count already spent on the floor check in both 
 SEED = 0
 
 
-def analyze_series(x: np.ndarray, window: int, time_axis: np.ndarray) -> dict:
-    """Run classical (AC1, variance) and TDA (Betti-1) statistics through the V1 surrogate-null
-    detection rule. `time_axis` is decimal year (O'Brien lakes) or season-time days (Peter Lake)."""
+def analyze_series(x: np.ndarray, window: int, time_axis: np.ndarray, surrogate_fn=None) -> dict:
+    """Run classical (AC1, variance) and TDA (Betti-1) statistics through the surrogate-null
+    detection rule. `time_axis` is decimal year (O'Brien lakes) or season-time days (Peter Lake).
+    `surrogate_fn` defaults to `obrien.ar1_surrogate` (V1); pass `obrien.iaaft_surrogate` for V1'
+    -- the ONLY thing that changes between the two experiments (Minimal Relaxation Rule)."""
+    surrogate_fn = surrogate_fn or obrien.ar1_surrogate
     stats = {
         "ac1": obrien.rolling_stat(x, window, "ac1"),
         "var": obrien.rolling_stat(x, window, "var"),
@@ -54,7 +57,9 @@ def analyze_series(x: np.ndarray, window: int, time_axis: np.ndarray) -> dict:
     crossings: dict[str, float | None] = {}
     for kind, series in stats.items():
         tau = obrien.expanding_kendall_tau(series)
-        null_curve = obrien.surrogate_null_curve(x, window, kind, reps[kind], SEED)
+        null_curve = obrien.surrogate_null_curve(
+            x, window, kind, reps[kind], SEED, surrogate_fn=surrogate_fn
+        )
         idx = obrien.surrogate_crossing(tau, null_curve)
         window_end_axis = time_axis[window - 1 :]
         crossings[kind] = float(window_end_axis[idx]) if idx is not None else None
@@ -78,7 +83,7 @@ def analyze_series(x: np.ndarray, window: int, time_axis: np.ndarray) -> dict:
     }
 
 
-def run_obrien_lakes() -> dict:
+def run_obrien_lakes(surrogate_fn=None) -> dict:
     rdata = pyreadr.read_r(str(obrien.DATA))
     out = {}
     for lake_key, cfg in obrien.LAKES.items():
@@ -86,7 +91,7 @@ def run_obrien_lakes() -> dict:
         n = len(pca1)
         window = round(obrien.WINDOW_FRAC * n)
         window = max(window, obrien.EMBED_DIM * obrien.EMBED_DELAY + 8)
-        result = analyze_series(pca1, window, dates)
+        result = analyze_series(pca1, window, dates, surrogate_fn=surrogate_fn)
         result["role"] = cfg["role"]
         result["n_points"] = n
         result["false_positive"] = cfg["role"] == "negative" and (
@@ -98,7 +103,7 @@ def run_obrien_lakes() -> dict:
     return out
 
 
-def run_peter_paul_lake() -> dict:
+def run_peter_paul_lake(surrogate_fn=None) -> dict:
     out = {}
     for lake, role in peter.LAKES.items():
         for var in peter.VARIABLES:
@@ -106,7 +111,7 @@ def run_peter_paul_lake() -> dict:
             n = len(x)
             window = round(obrien.WINDOW_FRAC * n)
             window = max(window, obrien.EMBED_DIM * obrien.EMBED_DELAY + 8)
-            result = analyze_series(x, window, season_time)
+            result = analyze_series(x, window, season_time, surrogate_fn=surrogate_fn)
             result["role"] = role
             result["n_points"] = n
             result["false_positive"] = role == "negative" and (
@@ -118,8 +123,16 @@ def run_peter_paul_lake() -> dict:
     return out
 
 
-def cmd_run() -> dict:
-    results = {**run_obrien_lakes(), **run_peter_paul_lake()}
+def cmd_run(
+    surrogate_fn=None, detection_rule_label: str = "AR(1)-surrogate", write_output: bool = True
+) -> dict:
+    """`write_output=False` lets a sibling experiment (V1') reuse this function's compute logic
+    without overwriting THIS experiment's own metrics/run.json -- V1's historical REJECT result
+    must not be silently replaced by a re-run under a different surrogate model."""
+    results = {
+        **run_obrien_lakes(surrogate_fn=surrogate_fn),
+        **run_peter_paul_lake(surrogate_fn=surrogate_fn),
+    }
 
     negatives = [r for r in results.values() if r["role"] == "negative"]
     positives = [r for r in results.values() if r["role"] == "positive"]
@@ -137,7 +150,7 @@ def cmd_run() -> dict:
 
     out = {
         "config": {
-            "detection_rule": "per-series per-timepoint AR(1)-surrogate 95th percentile",
+            "detection_rule": f"per-series per-timepoint {detection_rule_label} 95th percentile",
             "alpha": obrien.SURROGATE_ALPHA,
             "classical_reps": CLASSICAL_REPS,
             "tda_reps": TDA_REPS,
@@ -151,9 +164,10 @@ def cmd_run() -> dict:
         "n_positive_cases_with_tda_lead": len(positive_leads),
         "verdict": verdict,
     }
-    METRICS.mkdir(exist_ok=True)
-    (METRICS / "run.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
-    print(json.dumps(out, indent=2))
+    if write_output:
+        METRICS.mkdir(exist_ok=True)
+        (METRICS / "run.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
+        print(json.dumps(out, indent=2))
     return out
 
 

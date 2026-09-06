@@ -1,8 +1,8 @@
 # Project Profile (auto-detected)
 
 - **Type:** research
-- **Confidence:** HIGH (margin=6)
-- **Signals:** {'research': 6, 'data-science': 0, 'production': 0, 'mvp': 0}
+- **Confidence:** HIGH (margin=9)
+- **Signals:** {'research': 11, 'data-science': 2, 'production': 2, 'mvp': 0}
 
 ## Methodology to load
 FL Full-Ladder + EstimandOps (L0 gate) + skeptic-triggers. Mark claims [VERIFIED]/[HYPOTHESIS].
