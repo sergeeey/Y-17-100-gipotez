@@ -153,6 +153,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 18:46] `afa3234` (local, branch `feature/h-b2-1g-strong-coupling` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1g): 7th confirmation resolves the arc's most important finding -- bound validity != practical usefulness
 - [2026-09-06 18:41] `104c300`: chore: auto-log commit history entry
 - [2026-09-06 18:40] `817fb47` (local, branch `feature/h-b2-1f-nd-stiff` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1f): sixth consecutive confirmation, N=8 scale-up, counterintuitive M1 finding
 - [2026-09-06 18:29] `390e573`: chore: auto-log commit history entry
@@ -167,4 +168,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 15:19] `01d6d9d` (local, branch `feature/h-b2-1-theorem31-correction` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(H-B2-1): correct KILLED -> CONFIRMED after reading the paper's actual main theorem (3.1), not just its simplified 1D corollary
 - [2026-09-06 14:58] `f428e99`: chore: auto-log commit history entry
 - [2026-09-06 14:57] `09269f1` (local, branch `feature/consistency-review-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(null_results): timestamp the stale retroscan claim for H-B3-1c/1d
-- [2026-09-06 14:51] `6e1bc7a`: chore: auto-log commit history entry
