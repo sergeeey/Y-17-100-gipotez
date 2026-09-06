@@ -123,6 +123,21 @@
   `B3-MAY-TDA` → `evidence: CONFLICT`.
 - Граф: `H-B3-1k → killed`. Pearl-запись H-B3-1j обновлена на FALSIFIED.
 
+**[WS: H-B7-1 Kauffman cancer attractors] CLOSED 2026-09-06 (ADR-028, прямой запрос пользователя
+«начинай скоупинг R6», первый выход за пределы B1/B2/B3).** `[VERIFIED]`:
+- Новый мост `B7-KAUFFMAN-ATTRACTORS` — Boolean-GRN динамика, первый раз в проекте. Gate 1: нашёл
+  реальную статью (Fauré et al. 2006) через WebSearch, точный `.bnet`-файл через GitHub API
+  (hklarner/pyboolnet), скачал и захэшировал. Gate 3: тот же репозиторий даёт сторонний positive
+  control (PyBoolNet's собственный отчёт об аттракторах).
+- 7 тестов (4 на проверяемых руками синтетических сетях) ДО реального прогона.
+- **Результат: CONFIRMED.** Brute-force с нуля (`boolean.py`, без `eval`) точно воспроизвёл: 2
+  аттрактора, quiescent point (байт-в-байт), complex period-7, basin 512/512. Расследована и
+  разрешена несостыковка в порядке переменных trapspace-строки PyBoolNet (алфавитный, не порядок
+  объявления) — не списано на совпадение, проверено против биологии.
+- **Важная оговорка:** это воспроизведение известного результата, НЕ проверка самой гипотезы
+  Kauffman. Настоящий тест — perturbation-эксперимент (Rb=0 или p27=0 зафиксированы), следующий шаг.
+- Граф: `H-B7-1 → confirmed`. Pearl impact 6.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -167,6 +182,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 21:05] `1a90d82`: chore: auto-log commit history entry
 - [2026-09-06 21:05] `c238353` (local, branch `feature/h-b3-1k-null-model-falsified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1k: null-model-effect hypothesis FALSIFIED by its own pre-registered prediction
 - [2026-09-06 20:33] `5c61761`: chore: auto-log commit history entry
 - [2026-09-06 20:33] `b12c6d8`: chore: record reviewer-agent verdict for H-B3-1j in activeContext.md
@@ -181,4 +197,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 19:23] `c3bb732`: chore: auto-log commit history entry
 - [2026-09-06 19:23] `4c2110b` (local, branch `feature/h-b3-1h-population-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1h: pearl's falsifiable_prediction CONFIRMED (100% of B3 crossings sit in a local variance minimum), plus self-caught error fix
 - [2026-09-06 19:18] `ddf4df9`: chore: auto-log commit history entry (3)
-- [2026-09-06 19:17] `6130d03`: chore: auto-log commit history entry (2)
