@@ -1,0 +1,322 @@
+{
+  "note": "DESCRIPTIVE ONLY -- no binary verdict, no kill_criterion. Re-joins already-committed results from H-B3-1/1b (raw), H-B3-1c (V1), H-B3-1d (V1'), H-B3-1e (V2'). No new compute performed.",
+  "table": {
+    "obrien_lower_zurich": {
+      "label": "Lower Zurich",
+      "role": "positive",
+      "raw_fixed_threshold": {
+        "tda_crossing": 1999.5,
+        "classical_crossing": 2001.5,
+        "lead": 24.0,
+        "lead_unit": "months",
+        "floor_fp_rate": 0.8333333333333334
+      },
+      "v1_ar1_null": {
+        "tda_crossing": 2000.0833333333333,
+        "classical_crossing": null,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v1prime_iaaft_null": {
+        "tda_crossing": 1999.9166666666667,
+        "classical_crossing": null,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v2prime_detrend_iaaft_null": {
+        "tda_crossing": 1999.5833333333333,
+        "classical_crossing": 2001.5,
+        "lead": 1.9166666666667425,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      }
+    },
+    "obrien_windermere": {
+      "label": "Windermere",
+      "role": "negative",
+      "raw_fixed_threshold": {
+        "tda_crossing": 1989.6666666666667,
+        "classical_crossing": 1989.6666666666667,
+        "lead": 0.0,
+        "lead_unit": "months",
+        "floor_fp_rate": 0.8
+      },
+      "v1_ar1_null": {
+        "tda_crossing": null,
+        "classical_crossing": 1993.5,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v1prime_iaaft_null": {
+        "tda_crossing": 1989.75,
+        "classical_crossing": null,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v2prime_detrend_iaaft_null": {
+        "tda_crossing": 1990.25,
+        "classical_crossing": null,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      }
+    },
+    "obrien_loch_leven": {
+      "label": "Loch Leven",
+      "role": "negative",
+      "raw_fixed_threshold": {
+        "tda_crossing": 1998.9166666666667,
+        "classical_crossing": 1999.25,
+        "lead": 3.9999999999990905,
+        "lead_unit": "months",
+        "floor_fp_rate": 0.8333333333333334
+      },
+      "v1_ar1_null": {
+        "tda_crossing": 2002.3333333333333,
+        "classical_crossing": 1999.6666666666667,
+        "lead": -2.666666666666515,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v1prime_iaaft_null": {
+        "tda_crossing": 2001.9166666666667,
+        "classical_crossing": 1999.8333333333333,
+        "lead": -2.083333333333485,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v2prime_detrend_iaaft_null": {
+        "tda_crossing": 1999.1666666666667,
+        "classical_crossing": null,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      }
+    },
+    "peterlake_Peter_chl": {
+      "label": "Peter chl",
+      "role": "positive",
+      "raw_fixed_threshold": {
+        "tda_crossing": null,
+        "classical_crossing": 172.00273972609716,
+        "lead": null,
+        "lead_unit": "days",
+        "floor_fp_rate": 0.45
+      },
+      "v1_ar1_null": {
+        "tda_crossing": 270.0054794521093,
+        "classical_crossing": null,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v1prime_iaaft_null": {
+        "tda_crossing": 261.00547945215726,
+        "classical_crossing": null,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v2prime_detrend_iaaft_null": {
+        "tda_crossing": null,
+        "classical_crossing": null,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      }
+    },
+    "peterlake_Peter_pH": {
+      "label": "Peter pH",
+      "role": "positive",
+      "raw_fixed_threshold": {
+        "tda_crossing": null,
+        "classical_crossing": 172.00273972609716,
+        "lead": null,
+        "lead_unit": "days",
+        "floor_fp_rate": 0.65
+      },
+      "v1_ar1_null": {
+        "tda_crossing": null,
+        "classical_crossing": 218.0027397260917,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v1prime_iaaft_null": {
+        "tda_crossing": null,
+        "classical_crossing": 175.0027397260535,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v2prime_detrend_iaaft_null": {
+        "tda_crossing": null,
+        "classical_crossing": 219.00273972607715,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      }
+    },
+    "peterlake_Peter_doSat": {
+      "label": "Peter doSat",
+      "role": "positive",
+      "raw_fixed_threshold": {
+        "tda_crossing": 172.00273972609716,
+        "classical_crossing": 173.0027397260826,
+        "lead": 0.9999999999854481,
+        "lead_unit": "days",
+        "floor_fp_rate": 0.45
+      },
+      "v1_ar1_null": {
+        "tda_crossing": 172.00273972609716,
+        "classical_crossing": 185.00273972607397,
+        "lead": 12.999999999976808,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v1prime_iaaft_null": {
+        "tda_crossing": 172.00273972609716,
+        "classical_crossing": 185.00273972607397,
+        "lead": 12.999999999976808,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v2prime_detrend_iaaft_null": {
+        "tda_crossing": null,
+        "classical_crossing": 221.0054794521584,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      }
+    },
+    "peterlake_Paul_chl": {
+      "label": "Paul chl",
+      "role": "negative",
+      "raw_fixed_threshold": {
+        "tda_crossing": 180.00273972606374,
+        "classical_crossing": 180.00273972606374,
+        "lead": 0.0,
+        "lead_unit": "days",
+        "floor_fp_rate": 0.6
+      },
+      "v1_ar1_null": {
+        "tda_crossing": 185.00273972607397,
+        "classical_crossing": null,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v1prime_iaaft_null": {
+        "tda_crossing": 181.00273972604919,
+        "classical_crossing": null,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v2prime_detrend_iaaft_null": {
+        "tda_crossing": 226.00547945216863,
+        "classical_crossing": null,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      }
+    },
+    "peterlake_Paul_pH": {
+      "label": "Paul pH",
+      "role": "negative",
+      "raw_fixed_threshold": {
+        "tda_crossing": null,
+        "classical_crossing": 173.0027397260826,
+        "lead": null,
+        "lead_unit": "days",
+        "floor_fp_rate": 0.85
+      },
+      "v1_ar1_null": {
+        "tda_crossing": null,
+        "classical_crossing": 205.0027397261149,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v1prime_iaaft_null": {
+        "tda_crossing": null,
+        "classical_crossing": 204.00273972612945,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v2prime_detrend_iaaft_null": {
+        "tda_crossing": null,
+        "classical_crossing": 203.002739726061,
+        "lead": null,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      }
+    },
+    "peterlake_Paul_doSat": {
+      "label": "Paul doSat",
+      "role": "negative",
+      "raw_fixed_threshold": {
+        "tda_crossing": 177.0027397261074,
+        "classical_crossing": 194.00273972610898,
+        "lead": 17.00000000000159,
+        "lead_unit": "days",
+        "floor_fp_rate": 0.65
+      },
+      "v1_ar1_null": {
+        "tda_crossing": 182.00273972611762,
+        "classical_crossing": 212.00273972609602,
+        "lead": 29.9999999999784,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v1prime_iaaft_null": {
+        "tda_crossing": 182.00273972611762,
+        "classical_crossing": 217.00273972610626,
+        "lead": 34.99999999998863,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      },
+      "v2prime_detrend_iaaft_null": {
+        "tda_crossing": 187.00273972612786,
+        "classical_crossing": 216.0027397261208,
+        "lead": 28.99999999999295,
+        "lead_unit": "native (years for O'Brien, days for Peter/Paul)"
+      }
+    }
+  },
+  "summary": {
+    "obrien_lower_zurich": {
+      "label": "Lower Zurich",
+      "role": "positive",
+      "n_methods_with_tda_crossing": 4,
+      "n_methods_with_positive_lead": 2
+    },
+    "obrien_windermere": {
+      "label": "Windermere",
+      "role": "negative",
+      "n_methods_with_tda_crossing": 3,
+      "n_methods_with_positive_lead": 0
+    },
+    "obrien_loch_leven": {
+      "label": "Loch Leven",
+      "role": "negative",
+      "n_methods_with_tda_crossing": 4,
+      "n_methods_with_positive_lead": 1
+    },
+    "peterlake_Peter_chl": {
+      "label": "Peter chl",
+      "role": "positive",
+      "n_methods_with_tda_crossing": 2,
+      "n_methods_with_positive_lead": 0
+    },
+    "peterlake_Peter_pH": {
+      "label": "Peter pH",
+      "role": "positive",
+      "n_methods_with_tda_crossing": 0,
+      "n_methods_with_positive_lead": 0
+    },
+    "peterlake_Peter_doSat": {
+      "label": "Peter doSat",
+      "role": "positive",
+      "n_methods_with_tda_crossing": 3,
+      "n_methods_with_positive_lead": 3
+    },
+    "peterlake_Paul_chl": {
+      "label": "Paul chl",
+      "role": "negative",
+      "n_methods_with_tda_crossing": 4,
+      "n_methods_with_positive_lead": 0
+    },
+    "peterlake_Paul_pH": {
+      "label": "Paul pH",
+      "role": "negative",
+      "n_methods_with_tda_crossing": 0,
+      "n_methods_with_positive_lead": 0
+    },
+    "peterlake_Paul_doSat": {
+      "label": "Paul doSat",
+      "role": "negative",
+      "n_methods_with_tda_crossing": 4,
+      "n_methods_with_positive_lead": 4
+    }
+  }
+}

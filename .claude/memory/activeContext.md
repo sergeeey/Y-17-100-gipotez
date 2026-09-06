@@ -60,6 +60,13 @@
 - Pearl impact 6: паттерн «гарантия m-1 против истины m» для полиномиально-усечённых функций Чернова — портативен на будущие проверки в этом и родственных (ChernoffPy) проектах.
 - Граф: `H-B2-1 → killed`. Первый КИЛЛ дедуктивного (не empirical-data) эксперимента в проекте — `null_results/H-B2-1-chernoff-neuralode-1d-decay.md`.
 
+**[WS: H-B3-1f V3 descriptive] CLOSED 2026-09-06 (ADR-015, автономно, explicitly рекомендован в H-B3-1e decision.md).** `[VERIFIED]`:
+- Джойн БЕЗ нового вычисления: 4 уже посчитанных `metrics/run.json` (raw, V1, V1', V2') → одна таблица 9×4. 4 регресс-теста подтвердили дословное воспроизведение родительских чисел.
+- **Находка: ранжирование по устойчивости сигнала показывает, что самый согласованный «TDA опережает classical» сигнал во ВСЁМ исследовании принадлежит НЕГАТИВНОМУ контролю** (Paul doSat, 4 из 4 методов согласны) — устойчивее, чем у 2 из 3 настоящих позитивных случаев (Peter chl/pH: 0 из 4 методов вообще находят TDA-сигнал). Это НЕ видно ни из одного отдельного REJECT — их агрегатный «5/5» не показывает, что самая уверенная ложная тревога сильнее большинства настоящих.
+- Побочно: pH-переменная (оба озера) никогда не даёт TDA-сигнал ни под одним методом.
+- Pearl impact 7: агрегатный счётчик ложных срабатываний может скрывать более резкую картину; такое ранжирование стоит строить РАНЬШЕ в цепочке (после 2-го REJECT, не 3-го).
+- Граф: `H-B3-1f → lead`, L0 переклассифицирован в descriptive. Рекомендация: текущий пайплайн детекции исчерпан для этой популяции — нужен принципиально новый подход, не очередной параметрический вариант.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -100,6 +107,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 14:43] `5a8b00b`: chore: auto-log commit history entry
 - [2026-09-06 14:42] `4e7f269` (local, branch `feature/h-b2-1-chernoff-neuralode` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1): Chernoff <-> Neural-ODE bridge formalized and tested -> KILLED (practically useless, formally valid)
 - [2026-09-06 14:30] `527f6e1` (local, branch `feature/auto-log-b408879` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-06 14:30] `b408879` (local, branch `feature/h-b3-1e-v2prime` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1e): V2' (detrend-then-IAAFT surrogate) implemented and run -> REJECT, identical false-positive set to V1/V1'
@@ -114,4 +122,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 12:21] `1a5cd82`: feat(H-B1-1c): known-answer test #2 CONFIRMED — closes CEILING_MISSPECIFIED from H-B1-1a
 - [2026-09-06 12:13] `d06942a`: feat(scoping): H-B3-1 — replace Mangal/GloBI with Carpenter 2011 Peter/Paul Lake; honest N=1 kill-criterion
 - [2026-09-06 12:00] `7baa088`: feat(lab): automate the 3 pilot pains — ceiling.md template, per-sign escape rows, ADR-005
-- [2026-09-06 11:57] `ff6246c`: fix: gitignore inline comments broke hook-scratch patterns; LEDGER +1
