@@ -32,7 +32,14 @@
 **[WS: merge-D-and-run-H-B3-1] 2026-09-06 (ADR-008, по подтверждению пользователя).**
 - **Merge/push D: DONE.** `y17/pilot-pains` (8c76a73) → `origin/main` через fast-forward push БЕЗ checkout (на рабочем дереве D: обнаружены чужие незакоммиченные файлы — не тронуты, Unclaimed Work Ownership). Local `main` тоже обновлён (`update-ref`, без переключения).
 - **H-B3-1 реальный запуск → BLOCKED-INFRASTRUCTURE.** Пакет `knb-lter-ntl.360.2` точно идентифицирован (DOI resolve), но EDI закрыл публичный доступ: PASTA API 403 на все методы (12/12 ID), портал → Cloudflare Turnstile. 9 путей проверено, CAPTCHA не обходил (запрещено). `experiments/20260906-may1972-tda-ews-peterlake/substrate_gate.md`. Граф: `H-B3-1 → blocked`, evidence не понижен — это НЕ REJECT.
-- **Требуется решение пользователя:** (a) вручную скачать пакет с `portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-ntl.360.2` и передать файл; (b) EDI API-токен, если есть аккаунт; (c) выбрать другой, уже открыто зеркалируемый датасет (смена Population в claim.md).
+- **Требуется решение пользователя (если хочешь закрыть именно Peter Lake):** (a) вручную скачать пакет с `portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-ntl.360.2`; (b) EDI API-токен; (c) — **сделано ниже через H-B3-1b, отдельный узел, Peter Lake не тронут.**
+
+**[WS: H-B3-1b] 2026-09-06 (ADR-009, автономно по запросу «действуй максимально автономно»).** `[VERIFIED]`:
+- Нашёл реально доступную альтернативу (O'Brien et al. 2023, тот же bridge B3): GitHub `duncanobrien/ews-assessments`, без CAPTCHA. Новый узел `H-B3-1b` (Peter Lake `H-B3-1` не тронут, остаётся `blocked`).
+- Gate 1 ДО запуска: Mendota/Washington исключены — их дата перехода лежит ВНЕ скачанного ряда.
+- **Результат:** Lower Zurich — TDA опередил classical EWS на **+24 месяца**, верное направление. Оба негативных контроля (Windermere, Loch Leven) — ложное срабатывание. `ceiling-gate` хук поймал пропущенный Step 4a → добавил AR(1)-суррогатную floor-проверку: **floor = 80–83%** ложных срабатываний БЕЗ всякого механизма → вердикт **CRITERION_INVALID** (не REJECT — жёсткое правило FL, не в null_results).
+- Граф: `H-B3-1b → lead` (трёхисходная конвенция KILLED/CONFIRMED/LEAD). Rescue Review: `weak_alive`, 3 конкретных дешёвых next steps в decision.md (новый experiment ID нужен для любого — Minimal Relaxation Rule).
+- Pearl (impact 8): фиксированный tau≥0.5 порог сидит на floor для экологических рядов такой длины — общий методологический паттерн.
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
@@ -70,6 +77,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 *Создан: 2026-09-06 при переносе из Obsidian vault.*
 
 ## Auto-commit log
+- [2026-09-06 12:32] `3d011c2`: chore(D:)+feat(H-B3-1): merge/push pilot-pains fix; H-B3-1 substrate gate BLOCKED-INFRASTRUCTURE
 - [2026-09-06 12:21] `1a5cd82`: feat(H-B1-1c): known-answer test #2 CONFIRMED — closes CEILING_MISSPECIFIED from H-B1-1a
 - [2026-09-06 12:13] `d06942a`: feat(scoping): H-B3-1 — replace Mangal/GloBI with Carpenter 2011 Peter/Paul Lake; honest N=1 kill-criterion
 - [2026-09-06 12:00] `7baa088`: feat(lab): automate the 3 pilot pains — ceiling.md template, per-sign escape rows, ADR-005

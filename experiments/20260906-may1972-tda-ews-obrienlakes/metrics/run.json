@@ -1,0 +1,62 @@
+{
+  "config": {
+    "window_frac": 0.5,
+    "embed_dim": 3,
+    "embed_delay": 1,
+    "tau_threshold": 0.5
+  },
+  "results": {
+    "lower_zurich": {
+      "role": "positive",
+      "n_points": 161,
+      "window": 80,
+      "date_range": [
+        1991.6666666666667,
+        2005.0
+      ],
+      "documented_transition": 2002.0,
+      "classical_ac1_crossing": null,
+      "classical_var_crossing": 2001.5,
+      "classical_earliest_crossing": 2001.5,
+      "tda_betti_crossing": 1999.5,
+      "lead_months_tda_minus_classical": 24.0,
+      "false_positive": false,
+      "floor_ar1_false_positive_rate": 0.8333333333333334
+    },
+    "windermere": {
+      "role": "negative",
+      "n_points": 244,
+      "window": 122,
+      "date_range": [
+        1979.0,
+        1999.25
+      ],
+      "documented_transition": null,
+      "classical_ac1_crossing": null,
+      "classical_var_crossing": 1989.6666666666667,
+      "classical_earliest_crossing": 1989.6666666666667,
+      "tda_betti_crossing": 1989.6666666666667,
+      "lead_months_tda_minus_classical": 0.0,
+      "false_positive": true,
+      "floor_ar1_false_positive_rate": 0.8
+    },
+    "loch_leven": {
+      "role": "negative",
+      "n_points": 152,
+      "window": 76,
+      "date_range": [
+        1992.0833333333333,
+        2004.6666666666667
+      ],
+      "documented_transition": null,
+      "classical_ac1_crossing": 1999.25,
+      "classical_var_crossing": 1999.5833333333333,
+      "classical_earliest_crossing": 1999.25,
+      "tda_betti_crossing": 1998.9166666666667,
+      "lead_months_tda_minus_classical": 3.9999999999990905,
+      "false_positive": true,
+      "floor_ar1_false_positive_rate": 0.8333333333333334
+    }
+  },
+  "verdict": "KILLED"
+}
