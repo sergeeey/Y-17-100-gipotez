@@ -109,6 +109,20 @@
   Peter doSat: 46 баров); (2) добавил 6-й тест на реальных данных Peter doSat (reps=2, быстрый) —
   раньше только синтетика. 122 теста, вердикт REJECT не изменился.
 
+**[WS: H-B3-1k IAAFT+diagram-distance] CLOSED 2026-09-06 (ADR-027, автономно, `/loop`, прямой тест
+собственного предсказания из pearl-записи H-B3-1j).** `[VERIFIED]`:
+- Последняя (4-я) клетка дизайна: IAAFT+diagram-distance. 3 теста ДО запуска.
+- **Предсказание ОПРОВЕРГНУТО:** лид Peter doSat = +4.0d, ПОЛОЖИТЕЛЬНЫЙ (предсказывался отрицательный).
+  Полная таблица 2×2: {AR1,IAAFT}×{total persistence,diagram-distance} = {+13, -74, +11, +4} —
+  положителен в 3/4 клеток. Ни null-модель, ни статистика не объясняют знак в одиночку. -74d теперь
+  выглядит как выброс конкретной ПАРЫ, не общий эффект.
+- **Побочно:** зеркальный паттерн у Peter pH (отрицателен в 3/4 клеток) — независимое подтверждение.
+- Что НЕ опровергнуто: само измерение H-B3-1i (зашумлённый IAAFT-порог в t=172d) остаётся верным как
+  единичный факт — опровергнута только обобщённая гипотеза из него.
+- **Методологическая ценность:** чистый цикл предсказание→тест→falsification. Усиливает
+  `B3-MAY-TDA` → `evidence: CONFLICT`.
+- Граф: `H-B3-1k → killed`. Pearl-запись H-B3-1j обновлена на FALSIFIED.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -153,6 +167,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 20:33] `5c61761`: chore: auto-log commit history entry
 - [2026-09-06 20:33] `b12c6d8`: chore: record reviewer-agent verdict for H-B3-1j in activeContext.md
 - [2026-09-06 20:31] `dcecb68` (local, branch `feature/h-b3-1j-review-response` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1j: address reviewer's two P2 findings (reference-diagram degeneracy, missing real-data regression test)
 - [2026-09-06 20:24] `dedf213` (local, branch `feature/h-b3-1j-diagram-distance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1j: the "hard branch" fully implemented (Wasserstein diagram-distance) -- REJECT again, but narrows H-B3-1i's finding to a null-model effect
@@ -167,4 +182,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 19:18] `ddf4df9`: chore: auto-log commit history entry (3)
 - [2026-09-06 19:17] `6130d03`: chore: auto-log commit history entry (2)
 - [2026-09-06 19:17] `94890ea`: chore: auto-log commit history entry
-- [2026-09-06 19:17] `4c9a795` (local, branch `feature/h-b3-1h-case-study` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1h Relaxation Map item 2: Loch Leven/Paul doSat case study — candidate mechanism KILLED by its own positive control
