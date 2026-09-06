@@ -1,0 +1,81 @@
+{
+  "node_order": [
+    "CycD",
+    "Cdc20",
+    "CycA",
+    "CycB",
+    "CycE",
+    "E2F",
+    "Rb",
+    "UbcH10",
+    "cdh1",
+    "p27"
+  ],
+  "interventions": {
+    "do(Rb=0)": {
+      "n_attractors_total": 2,
+      "attractors": [
+        {
+          "period": 8,
+          "type": "complex",
+          "states": [
+            "0000110011",
+            "0010110011",
+            "0010110010",
+            "0010100000",
+            "0011000100",
+            "0111000100",
+            "0100000110",
+            "0000010111"
+          ]
+        },
+        {
+          "period": 7,
+          "type": "complex",
+          "states": [
+            "1000010110",
+            "1000110010",
+            "1010110010",
+            "1010100000",
+            "1011000100",
+            "1111000100",
+            "1100000110"
+          ]
+        }
+      ],
+      "cycd0_reaches_attractor_types": [
+        "complex"
+      ],
+      "cycd0_reaches_complex_attractor": true
+    },
+    "do(p27=0)": {
+      "n_attractors_total": 2,
+      "attractors": [
+        {
+          "period": 1,
+          "type": "point",
+          "states": [
+            "0000001010"
+          ]
+        },
+        {
+          "period": 7,
+          "type": "complex",
+          "states": [
+            "1000010110",
+            "1000110010",
+            "1010110010",
+            "1010100000",
+            "1011000100",
+            "1111000100",
+            "1100000110"
+          ]
+        }
+      ],
+      "cycd0_reaches_attractor_types": [
+        "point"
+      ],
+      "cycd0_reaches_complex_attractor": false
+    }
+  }
+}

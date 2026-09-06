@@ -744,11 +744,26 @@ nodes:
   - id: B7-KAUFFMAN-ATTRACTORS
     type: bridge
     title: "Kauffman's Cancer Attractor hypothesis (1971) ↔ Boolean gene-regulatory-network dynamics: differentiated/pathological cell states are genuine dynamical attractors of the underlying regulatory network, not separate ad-hoc states"
-    status: proposed
-    evidence: HYPOTHESIS
+    status: verified_grounding      # updated 2026-09-06 after H-B7-1 (reproduction, CONFIRMED) + H-B7-2 (perturbation, differentiated result)
+    evidence: CONFLICT              # do(Rb=0): CONFIRMED-WEAKENED (destabilizes quiescence, but via a NEW attractor, not the strict "pre-existing attractor" reading); do(p27=0): REJECTED (quiescence survives)
     mechanism: "A gene regulatory network's Boolean state-transition dynamics settle into a small number of attractors (fixed points or limit cycles); Kauffman proposed that both normal cell types AND pathological states (e.g. persistent proliferation) correspond to attractors of the SAME network, reachable via different initial conditions or perturbations, not requiring a structurally different model for the disease state"
     source: "02-related-projects-context/Hypothesis Revival Targets — 9 классических гипотез для реанимации (2026-05-10).md (R6); CDT Protocol scoring session, 2026-09-06"
     updated: 2026-09-06
+    session_summary_2026-09-06: >
+      2 experiments. H-B7-1 (reproduction): independent brute-force enumeration exactly reproduced
+      a third-party (PyBoolNet) computation of the Fauré et al. 2006 network's 2 wild-type
+      attractors -- CONFIRMED, but explicitly a tooling-validation step, not a test of the
+      hypothesis itself. H-B7-2 (perturbation, the actual novel test): do(Rb=0) makes the
+      growth-factor-absent (CycD=0) region converge to a NEW period-8 cycling attractor instead
+      of quiescence -- CONFIRMED-WEAKENED (a single-gene loss is sufficient to destabilize
+      quiescence, but the accessible attractor is genuinely NEW, not one of the unperturbed
+      network's own attractors made newly reachable -- a distinguishable, weaker claim than
+      Kauffman's strict original one). do(p27=0) alone: REJECTED, quiescence survives. Net
+      position, `evidence: CONFLICT`: the bridge's mechanism is neither cleanly confirmed nor
+      cleanly rejected -- one biologically-plausible single perturbation destabilizes the model
+      (in a qualified sense), another does not, and the strict form of the original hypothesis
+      (transient perturbation revealing a PRE-EXISTING attractor, not permanently altering the
+      network) has not yet been tested -- named as the next step in H-B7-2's Relaxation Map.
 
   - id: H-B7-1
     type: hypothesis
@@ -770,6 +785,28 @@ nodes:
     date_created: 2026-09-06
     provenance: measurement
     source: "experiments/20260906-kauffman-cellcycle-attractors-h1/metrics/run.json"
+    updated: 2026-09-06
+
+  - id: H-B7-2
+    type: hypothesis
+    title: "Perturbation (do-operator) test of Kauffman's Cancer Attractor hypothesis: does permanently clamping Rb or p27 to 0 make the CycD=0 (growth-factor-absent) region converge to a cycling attractor instead of quiescence?"
+    status: lead                   # 2026-09-06 decision.md: CONFIRMED-WEAKENED for do(Rb=0), REJECTED for do(p27=0) -- differentiated, not a clean single-direction verdict
+    evidence: VERIFIED-REAL        # metrics/run.json from exhaustive brute-force enumeration; 6 pre-registered tests (5 on hand-checkable synthetic networks) passed before the real run
+    l0_type: causal                # do-operator intervention vs. natural-dynamics comparator; 4 identifiability assumptions trivially satisfied by a fully specified deterministic mechanism, see claim.md
+    fl_tier: standard
+    kill_criterion: "CONFIRMED per intervention if >=1 CycD=0 state reaches a complex attractor under the clamp; REJECTED if all CycD=0 states still reach a point attractor. RESULT: do(Rb=0) CONFIRMED (all CycD=0 states converge to a NEW period-8 complex attractor, entirely within CycD=0 -- growth-factor-independent persistent cycling); do(p27=0) REJECTED (CycD=0 region still converges to a point attractor, only p27's own clamped value differs from wild-type). Qualification: the do(Rb=0) result is CONFIRMED-WEAKENED, not a clean confirmation of Kauffman's STRICT original claim -- the newly-accessible period-8 attractor is a genuinely NEW attractor created by removing Rb's own dynamics, not one of the unperturbed network's own 2 attractors made newly reachable via transient perturbation (the stricter, more faithful test of the original hypothesis, named as the next step in the Relaxation Map). Matches known biology's redundancy: Rb sits more centrally in the restriction-point circuit (directly gates E2F) than p27 (one of several CDK inhibitors), consistent with Rb loss alone being sufficient while p27 loss alone is not"
+    experiment_dir: "experiments/20260906-kauffman-cellcycle-perturbation-h2"
+    source: "experiments/20260906-kauffman-cellcycle-perturbation-h2/decision.md"
+    updated: 2026-09-06
+
+  - id: ART-KAUFFMAN-PERTURBATION-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — do(Rb=0) and do(p27=0) perturbation results on the Fauré 2006 network; differentiated outcome (Rb destabilizes quiescence, p27 alone does not)"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-kauffman-cellcycle-perturbation-h2/metrics/run.json"
     updated: 2026-09-06
 
   # ───────────────────────── questions ─────────────────────────
@@ -890,3 +927,5 @@ edges:
   - {from: PRJ-FAURE-CELLCYCLE, to: B7-KAUFFMAN-ATTRACTORS, type: grounds, since: 2026-09-06, note: "Fauré 2006 model is the concrete test case chosen for the Kauffman cancer-attractor hypothesis"}
   - {from: B7-KAUFFMAN-ATTRACTORS, to: H-B7-1, type: grounds, since: 2026-09-06, note: "H-B7-1 operationalizes the bridge's mechanism claim as a falsifiable descriptive test on one published network"}
   - {from: H-B7-1, to: ART-FAURE-CELLCYCLE-BRUTEFORCE-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B7-1, to: H-B7-2, type: grounds, since: 2026-09-06, note: "reuses H-B7-1's verified pipeline functions unchanged (parse_bnet, compile_rules, synchronous_step) via import; this is the actual novel test of the bridge's mechanism claim, named in H-B7-1's own Relaxation Map"}
+  - {from: H-B7-2, to: ART-KAUFFMAN-PERTURBATION-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}

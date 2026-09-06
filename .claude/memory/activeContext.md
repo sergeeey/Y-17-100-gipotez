@@ -138,6 +138,21 @@
   Kauffman. Настоящий тест — perturbation-эксперимент (Rb=0 или p27=0 зафиксированы), следующий шаг.
 - Граф: `H-B7-1 → confirmed`. Pearl impact 6.
 
+**[WS: H-B7-2 perturbation] CLOSED 2026-09-06 (ADR-029, прямой запрос пользователя «начинай
+perturbation-эксперимент», настоящий тест гипотезы Kauffman).** `[VERIFIED]`:
+- Первый CAUSAL эксперимент в проекте (EstimandOps L0: do-оператор vs естественная динамика, 4
+  допущения идентифицируемости тривиальны — детерминированный механизм). Переиспользовал
+  верифицированные функции H-B7-1 без изменения. 6 тестов (5 на проверяемых сетях) ДО прогона.
+- **do(Rb=0) → CONFIRMED [WEAKENED]:** CycD=0 сходится к НОВОМУ аттрактору периода 8 внутри CycD=0 —
+  персистентное деление без фактора роста. Но это новый аттрактор, не один из 2 у невозмущённой сети
+  — слабее строгой формулировки Kauffman.
+- **do(p27=0) → REJECTED:** CycD=0 всё равно сходится к point attractor. Согласуется с биологией
+  (Rb центральнее p27 в узле рестрикции).
+- **Методологическая находка:** разграничил (a) «новый аттрактор от перманентной потери гена» vs
+  (b) «патологическое состояние уже существует, достижимо временным возмущением» [строгий Kauffman,
+  не проверено] — легко спутать при беглом изложении.
+- Граф: `H-B7-2 → lead`. Мост `B7-KAUFFMAN-ATTRACTORS` → `evidence: CONFLICT`. Pearl impact 7.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -182,6 +197,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 22:05] `e45a14e`: chore: auto-log commit history entry
 - [2026-09-06 22:04] `242345a` (local, branch `feature/h-b7-1-kauffman-cellcycle` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-1: first Boolean-GRN experiment (Kauffman cancer attractors) -- CONFIRMED as a reproduction
 - [2026-09-06 21:05] `1a90d82`: chore: auto-log commit history entry
 - [2026-09-06 21:05] `c238353` (local, branch `feature/h-b3-1k-null-model-falsified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1k: null-model-effect hypothesis FALSIFIED by its own pre-registered prediction
@@ -196,4 +212,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 19:39] `442931f`: chore: auto-log commit history entry
 - [2026-09-06 19:39] `0396524` (local, branch `feature/h-b3-1i-iaaft-total-persistence` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1i: IAAFT+total-persistence fills the last 2x2 design cell — REJECT verdict, but Peter doSat's 4x-robust lead reverses sign
 - [2026-09-06 19:23] `c3bb732`: chore: auto-log commit history entry
-- [2026-09-06 19:23] `4c2110b` (local, branch `feature/h-b3-1h-population-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1h: pearl's falsifiable_prediction CONFIRMED (100% of B3 crossings sit in a local variance minimum), plus self-caught error fix
