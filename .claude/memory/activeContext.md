@@ -51,6 +51,15 @@
 - **Синтетика прошла, реальность — нет:** отдельный методологический pearl (impact 7) — пройденный escape-point на синтетике подтверждает фикс только для СМОДЕЛИРОВАННОГО механизма, не гарантирует совпадение с реальным. Третий REJECT в проекте — `null_results/H-B3-1e-lakes-tda-ews-detrend-surrogate-v2prime.md`.
 - Rescue Review: `weak_alive`. Рекомендация decision.md: переходить к V3 (descriptive-only, без нового вычисления) вместо 4-й попытки null-модели — три подряд REJECT с идентичным набором ложных срабатываний указывают на проблему самой бинарной рамки, не конкретной null-модели.
 
+**[WS: H-B2-1 Chernoff-NeuralODE] CLOSED 2026-09-06 (ADR-014, автономно во время отсутствия пользователя, следующий незаблокированный пункт очереди).** `[VERIFIED]`:
+- **Сам поймал фабрикат цитаты ДО начала работы:** предыдущая врезка «⚡ Урок» этой же сессии утверждала несуществующую работу Chevyrev & Friz 2022. `WebSearch` (4 запроса) не нашёл. Третий случай фабрикации в проекте, первый — в неформальном тексте, не в FL-артефакте. Pearl impact 6: gate на атрибуцию должен покрывать ЛЮБОЙ текст, не только claim.md/decision.md.
+- Нашёл и прочитал ПЕРВОИСТОЧНИК вместо фабриката: Galkin & Remizov 2021 (arXiv:2104.01249) — реальная теорема о скорости сходимости формулы Чернова. `WebFetch` не смог декомпрессировать PDF (та же проблема, что дважды раньше) → `Read` постранично сработал.
+- Дизайн: 1D `dx/dt=-x` (точное аналитическое решение), два блока (order-1 Euler, order-2 Taylor). Формально проверил гипотезы теоремы Чернова — выполнены (kill-критерий (a) НЕ сработал). 7 тестов (позитив/негатив/self-consistency) ДО сравнения.
+- **Результат: оба блока дали эмпирический порядок сходимости на 1 больше, чем гарантирует сама теорема** (1.00/2.00 против гарантии 0/1), на 2 горизонтах T — подтверждено символьно И численно, совпадение <1%. Kill-критерий (b) сработал: теорема формально верна, но её количественная оценка систематически на порядок n слабее элементарного расчёта Тейлора.
+- Floor-Ceiling (Step 4a) явно НЕ применён — обосновано как дедуктивная, не популяционная проверка (Structure-Bias Guard).
+- Pearl impact 6: паттерн «гарантия m-1 против истины m» для полиномиально-усечённых функций Чернова — портативен на будущие проверки в этом и родственных (ChernoffPy) проектах.
+- Граф: `H-B2-1 → killed`. Первый КИЛЛ дедуктивного (не empirical-data) эксперимента в проекте — `null_results/H-B2-1-chernoff-neuralode-1d-decay.md`.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -91,6 +100,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 14:30] `527f6e1` (local, branch `feature/auto-log-b408879` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-06 14:30] `b408879` (local, branch `feature/h-b3-1e-v2prime` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1e): V2' (detrend-then-IAAFT surrogate) implemented and run -> REJECT, identical false-positive set to V1/V1'
 - [2026-09-06 14:07] `3e75d01` (local, branch `feature/auto-log-c8f5e5f` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-06 14:06] `c8f5e5f` (local, branch `feature/h-b3-1d-v1prime` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1d): V1' (IAAFT surrogate-null) implemented and run -> REJECT, sharper diagnosis than V1
@@ -105,4 +115,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 12:00] `7baa088`: feat(lab): automate the 3 pilot pains — ceiling.md template, per-sign escape rows, ADR-005
 - [2026-09-06 11:57] `ff6246c`: fix: gitignore inline comments broke hook-scratch patterns; LEDGER +1
 - [2026-09-06 11:47] `ff6246c`: fix: gitignore inline comments broke hook-scratch patterns; LEDGER +1
-- [2026-09-06 11:46] `c912d70`: chore: untrack hook scratch files, ignore **/.claude/state/
