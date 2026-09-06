@@ -91,6 +91,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 *Создан: 2026-09-06 при переносе из Obsidian vault.*
 
 ## Auto-commit log
+- [2026-09-06 13:33] `34304c3`: feat(H-B3-1c): V1 surrogate-null implemented and re-run on both datasets -> REJECT (first real one)
 - [2026-09-06 13:12] `ea27a8a`: chore: auto-log commit history entry
 - [2026-09-06 13:12] `acd8184`: feat(H-B3-1): unblocked by user-provided data -> CRITERION_INVALID, 2nd independent confirmation
 - [2026-09-06 12:57] `c166b46`: feat(H-B3-1b): re-scoped to a reachable dataset, ran end-to-end -> CRITERION_INVALID (LEAD)
