@@ -85,8 +85,15 @@
 
 **[WS: H-B2-1c non-normal] CLOSED 2026-09-06 (ADR-018, автономно, `/loop`, третья подряд генерализация одного механизма).** `[VERIFIED]`:
 - A=[[-1,10],[0,-2]] (несимметричная, подтверждено). M1/M2 ЧЕСТНО измерены численно (не предположены =1, как в симметричном H-B2-1b) — этот трюк был легитимен только благодаря симметрии. 8 тестов ДО сравнения.
-- **Результат: механизм устоял.** Измерен реальный transient growth (M1≈2.563, M2≈2.56-2.60). Эмпирический порядок точно совпал с теорией (1.0004/2.0068). Граница выполнилась во всех 16 случаях. Эффективность постоянна (0.0076/0.0151) — сигнатура точного совпадения порядка, но константа слабее в 16-40 раз (transient growth + большая норма степеней A).
+- **Результат: механизм устоял.** Измерен реальный transient growth (M1≈2.563, M2≈2.56-2.60). Эмпирический порядок точно совпал с теорией (1.0004/2.0068). Граница выполнилась во всех 16 случаях. Эффективность постоянна (0.00298/0.0059, исправлено в этой же сессии — изначально 0.0076/0.0151, в формуле границы был пропущен множитель M1²; вердикт не изменился) — сигнатура точного совпадения порядка, но константа слабее в 78-103 раза (transient growth + большая норма степеней A).
 - Граф: `H-B2-1c → confirmed` (новый узел). Pearl impact 7: третья подряд успешная генерализация в одной сессии (1D→2D-симметрия→2D-несимметрия) — сильный сигнал реальности коррекции H-B2-1, не артефакта игрушки.
+
+**[WS: H-B2-1d mixed spectrum + H-B2-1c formula fix] CLOSED 2026-09-06 (ADR-019, автономно, `/loop`, второе явное «продолжай автономно» пользователя).** `[VERIFIED]`:
+- Source Trace ДО дизайна: `WebSearch` нашёл, что реальные ResNet имеют нестабильные (растущие) направления (Li et al. ICLR 2017), Neural ODE — «stiffness» от широко разнесённых собственных значений. Выбрал смешанный знак спектра как обоснованный, не произвольный следующий шаг.
+- A симметрична, собственные значения +0.5/-2. Точный факт (не численный): при x>0 усечение ряда Тейлора eˣ всегда ≤ eˣ (все члены положительны) → M1=M2=1 ДОКАЗУЕМО. Подтверждено до машинной точности (M1=1.0000000000000004).
+- **Результат: подтверждено, самое чистое из четырёх генерализаций.** Порядок точно совпал (0.9988/2.0020), граница выполнилась во всех 16 случаях.
+- **Побочно поймал ошибку в собственной формуле H-B2-1c** (M1² вместо M1 — ошибка была скрыта там, где M1=1). Исправил, перезапустил (дёшево), вердикт H-B2-1c не изменился, эффективность честнее (слабее в ~2.56 раза).
+- Граф: `H-B2-1d → confirmed`. Pearl impact 8: четыре подряд успешные генерализации плюс самопойманная ошибка формулы — сигнал и качества коррекции, и дисциплины перепроверки.
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
@@ -128,6 +135,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 16:25] `bfb3ef1`: chore: auto-log commit history entry
 - [2026-09-06 16:24] `9da2cdc` (local, branch `feature/h-b2-1c-nonnormal` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1c): Theorem-3.1/K_j=0 mechanism survives a non-normal matrix with honestly measured M1/M2
 - [2026-09-06 15:53] `71cb476`: chore: auto-log commit history entry
 - [2026-09-06 15:52] `51c1c3f` (local, branch `feature/h-b2-1b-matrix-case` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1b): Theorem-3.1/K_j=0 mechanism confirmed in a genuine 2D matrix case
@@ -142,4 +150,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 14:42] `4e7f269` (local, branch `feature/h-b2-1-chernoff-neuralode` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1): Chernoff <-> Neural-ODE bridge formalized and tested -> KILLED (practically useless, formally valid)
 - [2026-09-06 14:30] `527f6e1` (local, branch `feature/auto-log-b408879` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-06 14:30] `b408879` (local, branch `feature/h-b3-1e-v2prime` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1e): V2' (detrend-then-IAAFT surrogate) implemented and run -> REJECT, identical false-positive set to V1/V1'
-- [2026-09-06 14:07] `3e75d01` (local, branch `feature/auto-log-c8f5e5f` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry

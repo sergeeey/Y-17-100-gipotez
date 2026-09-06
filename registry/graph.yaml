@@ -257,7 +257,7 @@ nodes:
     evidence: VERIFIED-REAL       # metrics/run.json; M1/M2 measured directly via scipy.linalg.expm and matrix powers, not assumed; 8 regression tests incl. transient-growth-is-measurable check
     l0_type: descriptive
     fl_tier: standard
-    kill_criterion: "n/a in the strict binary sense (Standard-tier deductive/numerical verification) -- MCID: a finite (M1,M2,w) triple found, bound holds for all tested n, efficiency stable (order-matching) across n, even if the constant itself is much larger than the symmetric case. RESULT: A=[[-1,10],[0,-2]] (upper-triangular, confirmed non-normal via A@A.T != A.T@A), eigenvalues unchanged (-1,-2). Measured (not assumed) M1=2.563 (real transient growth, ~2.56x the eigenvalue-only prediction of 1) and M2~2.56-2.60 (stable across n). Empirical order matches m exactly for both blocks (1.0004/2.0068, same as symmetric case). Bound holds in ALL 16 tested cases (2 blocks x 8 n). Efficiency CONSTANT across n for each block (0.0076 order-1, 0.0151 order-2) -- looser than the symmetric case's 0.23-0.37 (by ~16-40x, from both transient growth AND larger ||A^(m+1)x0|| due to the large coupling), but the ORDER still matches exactly, never drifting. PROMOTE: mechanism degrades gracefully (looser constant) under non-normality, does not break. Third consecutive generalization (1D scalar -> 2D symmetric -> 2D non-normal) of the same H-B2-1 correction mechanism, all three confirmed in one session"
+    kill_criterion: "n/a in the strict binary sense (Standard-tier deductive/numerical verification) -- MCID: a finite (M1,M2,w) triple found, bound holds for all tested n, efficiency stable (order-matching) across n, even if the constant itself is much larger than the symmetric case. RESULT: A=[[-1,10],[0,-2]] (upper-triangular, confirmed non-normal via A@A.T != A.T@A), eigenvalues unchanged (-1,-2). Measured (not assumed) M1=2.563 (real transient growth, ~2.56x the eigenvalue-only prediction of 1) and M2~2.56-2.60 (stable across n). Empirical order matches m exactly for both blocks (1.0004/2.0068, same as symmetric case). Bound holds in ALL 16 tested cases (2 blocks x 8 n). Efficiency CONSTANT across n for each block: 0.00298 order-1, 0.0059-0.0061 order-2 -- CORRECTED same session (found while writing H-B2-1d): the bound formula was missing an M1 factor (needs M1^2*M2, not M1*M2 -- invisible in H-B2-1/H-B2-1b where M1=1); fixed in run.py, verdict unchanged, only the quoted efficiency moved (was 0.0076/0.0151, now ~2.56x smaller/looser, matching M1). Looser than the symmetric case's 0.23-0.37 by ~78-103x (from transient growth AND larger ||A^(m+1)x0|| due to the large coupling), but the ORDER still matches exactly, never drifting. PROMOTE: mechanism degrades gracefully (looser constant) under non-normality, does not break. Third consecutive generalization (1D scalar -> 2D symmetric -> 2D non-normal) of the same H-B2-1 correction mechanism, all three confirmed in one session"
     experiment_dir: "experiments/20260906-chernoff-neuralode-2d-nonnormal"
     source: "experiments/20260906-chernoff-neuralode-2d-nonnormal/decision.md"
     updated: 2026-09-06
@@ -270,6 +270,28 @@ nodes:
     date_created: 2026-09-06
     provenance: measurement
     source: "experiments/20260906-chernoff-neuralode-2d-nonnormal/metrics/run.json"
+    updated: 2026-09-06
+
+  - id: H-B2-1d
+    type: hypothesis
+    title: "Relaxation Map from H-B2-1b (sign structure): does the K_j=0/Theorem 3.1 mechanism survive a mixed-sign spectrum (one growing, one decaying eigenvalue)?"
+    status: confirmed             # 2026-09-06 decision.md: PROMOTE -- mechanism survives, M1=M2=1 EXACTLY (provable, not just numerical)
+    evidence: VERIFIED-REAL       # metrics/run.json; M1=1.0000000000000004, M2~0.99999999999992 measured to machine precision, matching an exact closed-form proof (positive Taylor terms for x>0); 7 regression tests
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "n/a in the strict binary sense (Standard-tier deductive/numerical verification) -- MCID: finite (M1,w) found, bound holds for all tested n, efficiency stable across n. Design source-traced (FL Step -4, WebSearch): real trained ResNets show singular values >1 (unstable directions, Li et al. ICLR 2017 submission) and Neural ODEs develop 'stiffness' from widely-separated/large-negative eigenvalues (multiple 2024-2025 sources) -- both point toward testing a MIXED-SIGN spectrum, not an arbitrary wider ratio. RESULT: A symmetric with eigenvalues +0.5 (growth), -2 (decay); w=0.5 (first nonzero w in the H-B2-1* family) chosen to match the growing eigenvalue. EXACT algebraic fact: for x>0, e^x's Taylor series has all-positive terms, so any truncation f_m(x)<=e^x exactly -- gives M1=M2=1 PROVABLY, confirmed numerically to machine precision (M1=1.0000000000000004, M2->0.9999999999999...). Empirical order matches m exactly (0.9988/2.0020). Bound holds in ALL 16 tested cases. Efficiency constant (0.323-0.324 order-1, 0.117-0.118 order-2). PROMOTE: fourth consecutive confirmation of the mechanism, and the cleanest (exact, not numerical, M1/M2 derivation). Also: found and fixed a real formula bug while deriving this bound (missing M1^2, not M1, in the general formula) -- propagated correction into H-B2-1c (see that node's updated kill_criterion), verdict there unchanged, only efficiency numbers corrected"
+    experiment_dir: "experiments/20260906-chernoff-neuralode-2d-mixed-spectrum"
+    source: "experiments/20260906-chernoff-neuralode-2d-mixed-spectrum/decision.md"
+    updated: 2026-09-06
+
+  - id: ART-CHERNOFF-2D-MIXED-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — mixed-sign-spectrum 2D matrix Chernoff-rate vs empirical-error comparison, M1=M2=1 exact"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-chernoff-neuralode-2d-mixed-spectrum/metrics/run.json"
     updated: 2026-09-06
 
   - id: H-B3-1
@@ -538,6 +560,9 @@ edges:
   - {from: H-B2-1b, to: ART-CHERNOFF-2D-MATRIX-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
   - {from: H-B2-1b, to: H-B2-1c, type: grounds, since: 2026-09-06, note: "H-B2-1b's own Relaxation Map row 1 (non-normal matrix) -- ONE assumption changed (A normal -> A non-normal), per Minimal Relaxation Rule"}
   - {from: H-B2-1c, to: ART-CHERNOFF-2D-NONNORMAL-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B2-1b, to: H-B2-1d, type: grounds, since: 2026-09-06, note: "H-B2-1b's own Relaxation Map (sign structure) -- ONE assumption changed (both eigenvalues decaying -> mixed sign), per Minimal Relaxation Rule; source-traced via WebSearch (ResNet/stiff-Neural-ODE literature)"}
+  - {from: H-B2-1d, to: ART-CHERNOFF-2D-MIXED-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B2-1d, to: H-B2-1c, type: depends_on, since: 2026-09-06, note: "H-B2-1d's bound-formula derivation found and fixed a real M1^2-vs-M1 error, which was retroactively corrected in H-B2-1c's own numbers (verdict unchanged)"}
   - {from: B3-MAY-TDA,         to: H-B3-1,  type: grounds, since: 2026-09-06}
   - {from: PRJ-CARPENTER-PETERLAKE, to: H-B3-1, type: grounds, since: 2026-09-06, note: "corrected data source, replaces Mangal/GloBI"}
   - {from: ART-WANG2023-EWS-LIMITS, to: H-B3-1, type: depends_on, since: 2026-09-06, note: "informs why kill_criterion was revised from >=3 collapses to Phase 1 N=1"}

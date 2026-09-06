@@ -95,7 +95,12 @@ def measure_m2(block_fn, t: float, n: int, k_max: int | None = None) -> float:
 def theorem_3_1_bound(
     t: float, n: int, m: int, m1: float, m2: float, a_power_m1_x0_norm: float
 ) -> float:
-    return (m1 * m2 * t ** (m + 1)) / (math.factorial(m + 1) * n**m) * a_power_m1_x0_norm
+    """CORRECTED 2026-09-06 (found while writing H-B2-1d): formula (13) has an M1^2 factor, not
+    M1 -- C_{m+1}(t) = K_{m+1}(t)e^{-wt} + M1/(m+1)! (Lemma 3.3's bound on e^{tL}'s OWN Taylor
+    remainder) is itself multiplied by the outer M1*M2 prefactor. With K_{m+1}=0 and w=0:
+    bound = M1*M2*t^(m+1)/n^m * (M1/(m+1)!) * ||A^(m+1)x0|| = M1^2*M2*t^(m+1)/((m+1)!*n^m)*||...||.
+    Invisible in H-B2-1/H-B2-1b (M1=1 there, so M1^2=M1) but real here (M1~2.563)."""
+    return (m1**2 * m2 * t ** (m + 1)) / (math.factorial(m + 1) * n**m) * a_power_m1_x0_norm
 
 
 def cmd_run() -> dict:

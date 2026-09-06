@@ -1,6 +1,10 @@
 # decision.md — 20260906-chernoff-neuralode-2d-nonnormal
 
-**Graph node:** `H-B2-1c` · **Date:** 2026-09-06
+**Graph node:** `H-B2-1c` · **Date:** 2026-09-06 · **CORRECTED 2026-09-06 (same session, found while
+writing `H-B2-1d`): the bound formula was missing an `M1` factor (should be `M1²·M2`, not `M1·M2`) —
+invisible in `H-B2-1`/`H-B2-1b` since `M1=1` there, but real here since `M1≈2.563`. Fixed in `run.py`;
+numbers below updated to the corrected (looser, more honest) values. Verdict UNCHANGED (PROMOTE) — the
+bound still holds in all 16 cases, only the quoted efficiency was too optimistic by a factor of `M1`.**
 
 ## Verdict
 
@@ -24,8 +28,8 @@ and `M2` are measured directly (via `scipy.linalg.expm` and matrix powers) rathe
 | Empirical order, order-1 block | 1.0014 | **1.0004** |
 | Empirical order, order-2 block | 2.0032 | **2.0068** |
 | Bound holds (16 tested cases) | 16/16 | **16/16** |
-| Efficiency (order-1, constant across `n`) | 0.305–0.308 | **0.0076** (constant, ~40x looser) |
-| Efficiency (order-2, constant across `n`) | 0.233–0.237 | **0.0151** (constant, ~16x looser) |
+| Efficiency (order-1, constant across `n`) | 0.305–0.308 | **0.00298** (constant, ~103x looser; CORRECTED from an earlier 0.0076, which was too optimistic by the missing `M1≈2.563` factor) |
+| Efficiency (order-2, constant across `n`) | 0.233–0.237 | **0.0059–0.0061** (constant, ~40x looser; CORRECTED from an earlier 0.0151, same fix) |
 
 Both empirical orders match `m` exactly (not `m-1`), exactly as in the symmetric case. The bound holds
 in every single tested case. The efficiency is **substantially lower** (bound is looser) than the
