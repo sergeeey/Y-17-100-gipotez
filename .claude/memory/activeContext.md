@@ -113,6 +113,8 @@
 - **Ключевой вывод серии:** валидность границы и практическая полезность — разные оси. Предыдущие числа эффективности (0.0002-0.37) были артефактом протестированных параметров, не общим свойством.
 - Граф: `H-B2-1g → confirmed`. Pearl impact 9 (самый высокий за всю серию B2) — предостережение от чтения прошлых чисел как общего свойства метода.
 
+**[WS: H-B3-1g total persistence] IN PROGRESS, статус UNKNOWN до завершения фонового прогона (2026-09-06, автономно, `/loop`, «hard branch» из H-B3-1f).** `[VERIFIED]`: реализовал новый TDA-инвариант (total persistence вместо persistence entropy) в общем модуле, прокинул через V1's `cmd_run` (`tda_stat_fn` параметр, тот же паттерн reuse что V1'/V2'). 4 новых теста + 2 починенных regression-теста (лямбды-моки не принимали новый параметр) — `python -m pytest -q`: 108 passed. `[UNKNOWN]`: реальный результат на 9 рядах — прогон запущен в фоне (~25 мин по прошлым аналогичным запускам), ЕЩЁ НЕ ЗАВЕРШЁН на момент этой записи. Инфраструктура закоммичена отдельно от результата (claim.md уже pre-registered, decision.md будет после прогона).
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -153,6 +155,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 18:46] `372ef2a`: chore: auto-log commit history entry
 - [2026-09-06 18:46] `afa3234` (local, branch `feature/h-b2-1g-strong-coupling` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1g): 7th confirmation resolves the arc's most important finding -- bound validity != practical usefulness
 - [2026-09-06 18:41] `104c300`: chore: auto-log commit history entry
 - [2026-09-06 18:40] `817fb47` (local, branch `feature/h-b2-1f-nd-stiff` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1f): sixth consecutive confirmation, N=8 scale-up, counterintuitive M1 finding
@@ -167,4 +170,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 15:20] `db77901`: chore: auto-log commit history entry
 - [2026-09-06 15:19] `01d6d9d` (local, branch `feature/h-b2-1-theorem31-correction` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(H-B2-1): correct KILLED -> CONFIRMED after reading the paper's actual main theorem (3.1), not just its simplified 1D corollary
 - [2026-09-06 14:58] `f428e99`: chore: auto-log commit history entry
-- [2026-09-06 14:57] `09269f1` (local, branch `feature/consistency-review-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(null_results): timestamp the stale retroscan claim for H-B3-1c/1d

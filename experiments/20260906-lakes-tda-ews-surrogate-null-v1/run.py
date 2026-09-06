@@ -41,16 +41,21 @@ TDA_REPS = 20  # matches the rep count already spent on the floor check in both 
 SEED = 0
 
 
-def analyze_series(x: np.ndarray, window: int, time_axis: np.ndarray, surrogate_fn=None) -> dict:
+def analyze_series(
+    x: np.ndarray, window: int, time_axis: np.ndarray, surrogate_fn=None, tda_stat_fn=None
+) -> dict:
     """Run classical (AC1, variance) and TDA (Betti-1) statistics through the surrogate-null
     detection rule. `time_axis` is decimal year (O'Brien lakes) or season-time days (Peter Lake).
-    `surrogate_fn` defaults to `obrien.ar1_surrogate` (V1); pass `obrien.iaaft_surrogate` for V1'
-    -- the ONLY thing that changes between the two experiments (Minimal Relaxation Rule)."""
+    `surrogate_fn` defaults to `obrien.ar1_surrogate` (V1); pass `obrien.iaaft_surrogate` for V1'.
+    `tda_stat_fn` defaults to `obrien.betti1_entropy_series`; pass
+    `obrien.betti1_total_persistence_series` for H-B3-1g -- a DIFFERENT topological invariant,
+    the ONE thing that changes for that experiment (Minimal Relaxation Rule)."""
     surrogate_fn = surrogate_fn or obrien.ar1_surrogate
+    tda_stat_fn = tda_stat_fn or obrien.betti1_entropy_series
     stats = {
         "ac1": obrien.rolling_stat(x, window, "ac1"),
         "var": obrien.rolling_stat(x, window, "var"),
-        "betti": obrien.betti1_entropy_series(x, window),
+        "betti": tda_stat_fn(x, window),
     }
     reps = {"ac1": CLASSICAL_REPS, "var": CLASSICAL_REPS, "betti": TDA_REPS}
 
@@ -58,7 +63,7 @@ def analyze_series(x: np.ndarray, window: int, time_axis: np.ndarray, surrogate_
     for kind, series in stats.items():
         tau = obrien.expanding_kendall_tau(series)
         null_curve = obrien.surrogate_null_curve(
-            x, window, kind, reps[kind], SEED, surrogate_fn=surrogate_fn
+            x, window, kind, reps[kind], SEED, surrogate_fn=surrogate_fn, tda_stat_fn=tda_stat_fn
         )
         idx = obrien.surrogate_crossing(tau, null_curve)
         window_end_axis = time_axis[window - 1 :]
@@ -83,7 +88,7 @@ def analyze_series(x: np.ndarray, window: int, time_axis: np.ndarray, surrogate_
     }
 
 
-def run_obrien_lakes(surrogate_fn=None) -> dict:
+def run_obrien_lakes(surrogate_fn=None, tda_stat_fn=None) -> dict:
     rdata = pyreadr.read_r(str(obrien.DATA))
     out = {}
     for lake_key, cfg in obrien.LAKES.items():
@@ -91,7 +96,9 @@ def run_obrien_lakes(surrogate_fn=None) -> dict:
         n = len(pca1)
         window = round(obrien.WINDOW_FRAC * n)
         window = max(window, obrien.EMBED_DIM * obrien.EMBED_DELAY + 8)
-        result = analyze_series(pca1, window, dates, surrogate_fn=surrogate_fn)
+        result = analyze_series(
+            pca1, window, dates, surrogate_fn=surrogate_fn, tda_stat_fn=tda_stat_fn
+        )
         result["role"] = cfg["role"]
         result["n_points"] = n
         result["false_positive"] = cfg["role"] == "negative" and (
@@ -103,7 +110,7 @@ def run_obrien_lakes(surrogate_fn=None) -> dict:
     return out
 
 
-def run_peter_paul_lake(surrogate_fn=None) -> dict:
+def run_peter_paul_lake(surrogate_fn=None, tda_stat_fn=None) -> dict:
     out = {}
     for lake, role in peter.LAKES.items():
         for var in peter.VARIABLES:
@@ -111,7 +118,9 @@ def run_peter_paul_lake(surrogate_fn=None) -> dict:
             n = len(x)
             window = round(obrien.WINDOW_FRAC * n)
             window = max(window, obrien.EMBED_DIM * obrien.EMBED_DELAY + 8)
-            result = analyze_series(x, window, season_time, surrogate_fn=surrogate_fn)
+            result = analyze_series(
+                x, window, season_time, surrogate_fn=surrogate_fn, tda_stat_fn=tda_stat_fn
+            )
             result["role"] = role
             result["n_points"] = n
             result["false_positive"] = role == "negative" and (
@@ -124,14 +133,19 @@ def run_peter_paul_lake(surrogate_fn=None) -> dict:
 
 
 def cmd_run(
-    surrogate_fn=None, detection_rule_label: str = "AR(1)-surrogate", write_output: bool = True
+    surrogate_fn=None,
+    detection_rule_label: str = "AR(1)-surrogate",
+    write_output: bool = True,
+    tda_stat_fn=None,
 ) -> dict:
-    """`write_output=False` lets a sibling experiment (V1') reuse this function's compute logic
-    without overwriting THIS experiment's own metrics/run.json -- V1's historical REJECT result
-    must not be silently replaced by a re-run under a different surrogate model."""
+    """`write_output=False` lets a sibling experiment (V1', H-B3-1g) reuse this function's compute
+    logic without overwriting THIS experiment's own metrics/run.json -- V1's historical REJECT
+    result must not be silently replaced by a re-run under a different surrogate model or TDA
+    statistic. `tda_stat_fn` defaults to `obrien.betti1_entropy_series`; pass
+    `obrien.betti1_total_persistence_series` for H-B3-1g."""
     results = {
-        **run_obrien_lakes(surrogate_fn=surrogate_fn),
-        **run_peter_paul_lake(surrogate_fn=surrogate_fn),
+        **run_obrien_lakes(surrogate_fn=surrogate_fn, tda_stat_fn=tda_stat_fn),
+        **run_peter_paul_lake(surrogate_fn=surrogate_fn, tda_stat_fn=tda_stat_fn),
     }
 
     negatives = [r for r in results.values() if r["role"] == "negative"]

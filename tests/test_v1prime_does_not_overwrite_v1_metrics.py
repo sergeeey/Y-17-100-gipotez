@@ -44,10 +44,14 @@ def test_write_output_false_does_not_touch_v1_own_metrics_file(monkeypatch):
     before_mtime = V1_METRICS_FILE.stat().st_mtime_ns
 
     monkeypatch.setattr(
-        v1, "run_obrien_lakes", lambda surrogate_fn=None: {"o": _fake_result("positive")}
+        v1,
+        "run_obrien_lakes",
+        lambda surrogate_fn=None, tda_stat_fn=None: {"o": _fake_result("positive")},
     )
     monkeypatch.setattr(
-        v1, "run_peter_paul_lake", lambda surrogate_fn=None: {"p": _fake_result("negative")}
+        v1,
+        "run_peter_paul_lake",
+        lambda surrogate_fn=None, tda_stat_fn=None: {"p": _fake_result("negative")},
     )
 
     result = v1.cmd_run(surrogate_fn=v1.obrien.iaaft_surrogate, write_output=False)
@@ -64,10 +68,14 @@ def test_write_output_true_default_still_writes(monkeypatch, tmp_path):
     is unchanged -- redirects METRICS to a tmp dir so this test doesn't touch the real file."""
     monkeypatch.setattr(v1, "METRICS", tmp_path)
     monkeypatch.setattr(
-        v1, "run_obrien_lakes", lambda surrogate_fn=None: {"o": _fake_result("positive")}
+        v1,
+        "run_obrien_lakes",
+        lambda surrogate_fn=None, tda_stat_fn=None: {"o": _fake_result("positive")},
     )
     monkeypatch.setattr(
-        v1, "run_peter_paul_lake", lambda surrogate_fn=None: {"p": _fake_result("negative")}
+        v1,
+        "run_peter_paul_lake",
+        lambda surrogate_fn=None, tda_stat_fn=None: {"p": _fake_result("negative")},
     )
 
     v1.cmd_run()  # write_output defaults to True
