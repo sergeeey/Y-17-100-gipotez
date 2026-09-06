@@ -135,6 +135,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 20:08] `610ac08` (local, branch `feature/b3-may-tda-consolidation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3-MAY-TDA: update stale bridge node with consolidated evidence from 10 experiments
 - [2026-09-06 20:05] `045f082`: chore: auto-log commit history entry
 - [2026-09-06 20:04] `31bf217` (local, branch `feature/h-b3-1i-sign-flip-mechanism` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1i: mechanism of Peter doSat's sign flip found via cheap single-series diagnostic
 - [2026-09-06 19:39] `442931f`: chore: auto-log commit history entry
@@ -149,4 +150,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 19:10] `a416670` (local, branch `feature/auto-log-7210aad` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-06 19:10] `7210aad` (local, branch `feature/h-b3-1h-conjunction` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1h: TDA invariant conjunction (entropy AND total-persistence) — best specificity in B3 arc
 - [2026-09-06 19:02] `3751f69`: chore: auto-log commit history entry
-- [2026-09-06 19:01] `6519e03` (local, branch `feature/h-b3-1g-result` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1g): first non-identical-5/5 result in the entire B3 arc -> LEAD
