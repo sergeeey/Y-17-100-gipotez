@@ -846,6 +846,25 @@ nodes:
       now established: the two-hit do(p21CIP=0, RBL2=0). Next named step: transient (not
       permanent) version of this same double clamp -- untested for any confirmed escape in this
       bridge so far.
+      H-B7-9 (transient necessity test): tested transient do(p21CIP=0, RBL2=0) for k=1,3,10,30
+      steps then RELEASED to fully unperturbed wild-type dynamics. **CONFIRMED for k=10,30** --
+      the FIRST confirmation of Kauffman's STRICT original hypothesis anywhere in this bridge (a
+      pathological state pre-existing as a real attractor of the UNPERTURBED network, revealed by
+      a TEMPORARY push, persisting after release). Clean duration threshold found: k=1,3 relapse
+      to a DIFFERENT (second) Growth_arrest fixed point, not the original starting state; k=10,30
+      reach the exact Proliferation attractor. Independently re-confirmed via a FRESH
+      pyboolnet.compute_attractors() run on the FULLY UNCLAMPED branch (zero forcing at all,
+      only branch inputs frozen) -- found EXACTLY 3 attractors, matching all three states this
+      experiment reported (original Growth_arrest, second Growth_arrest, Proliferation)
+      one-to-one, independently reproducing H-B7-4's original branch-scoping result. Skeptic pass
+      (Step 8a) verdict CONFIRMED-REAL; skeptic also predicted (without being able to run it) that
+      k=0 would show a period-2 oscillation rather than either named fixed point -- run and
+      confirmed exactly. This closes the original methodological distinction named in H-B7-2's own
+      decision.md between the weak (new attractor from permanent clamp) and strict (pre-existing
+      attractor revealed by temporary push) readings of Kauffman's hypothesis -- the strict reading
+      is now CONFIRMED for this branch and clamp pair. Net position: `evidence: CONFLICT` retained
+      (H-B7-3's TASK_INFEASIBLE finding on the OTHER model and the untested-generality gap to other
+      branches both remain), but the bridge now has its cleanest, most complete positive result.
 
   - id: H-B7-1
     type: hypothesis
@@ -1023,6 +1042,28 @@ nodes:
     source: "experiments/20260906-remy-tumorigenesis-necessity-h8/metrics/run.json"
     updated: 2026-09-07
 
+  - id: H-B7-9
+    type: hypothesis
+    title: "Transient do(p21CIP=0, RBL2=0) for k=1,3,10,30 steps then RELEASED to fully unperturbed wild-type dynamics, on the Remy et al. 2015 network's bistable branch -- the sharpest available test of Kauffman's STRICT original hypothesis in this bridge, named in H-B7-8's own Relaxation Map"
+    status: confirmed             # 2026-09-07 decision.md: CONFIRMED for k=10,30 -- first strict-Kauffman confirmation in the bridge; skeptic pass (Step 8a) CONFIRMED-REAL with independent pyboolnet cross-check finding all 3 branch attractors
+    evidence: VERIFIED-REAL       # metrics/run.json; 4 pre-registered tests; independently re-confirmed via a FRESH pyboolnet.compute_attractors() run on the FULLY UNCLAMPED branch (zero forcing) finding exactly 3 attractors matching all 3 reported states 1:1; bit-identical reproducibility also verified
+    l0_type: causal
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if >=1 tested k reaches Proliferation=1 after release; REJECTED if all tested k relapse to Growth_arrest. RESULT: CONFIRMED for k=10 and k=30 (both byte-identical to PROLIFERATION_STATE, persisting after release with zero further clamping); k=1 and k=3 relapse, but to a SECOND, distinct Growth_arrest fixed point (not the original starting state) -- a clean duration threshold between k=3 and k=10. Independently re-confirmed via pyboolnet.compute_attractors() on the branch with ZERO clamps at all (p21CIP/RBL2 keep their own original rules, only the 4 branch inputs frozen) -- found EXACTLY 3 attractors, matching the original GROWTH_ARREST_STATE, the k=1/3 relapse state, and PROLIFERATION_STATE one-to-one, independently reproducing H-B7-4's original branch-scoping count. FL Step 8a skeptic pass (context-asymmetric) verdict CONFIRMED-REAL after checks including hand-verification that neither reported final state is a residual-clamp artifact (p21CIP/RBL2=0 at the Proliferation state are honestly re-derived via the !CyclinE1 term of their own rules, not leftover forcing) and an executed k=0 ancillary check (predicted by the skeptic without running it) confirming a period-2 complex attractor rather than either named fixed point -- proving the clamped step(s) do genuine dynamical work, not merely poking the initial state. This is the FIRST confirmation of Kauffman's STRICT original hypothesis (pathology = pre-existing attractor of the UNPERTURBED network, revealed by temporary push) anywhere in this bridge -- closes the distinction first named in H-B7-2's own decision.md between the weak permanent-clamp reading and the strict transient-reveal reading"
+    experiment_dir: "experiments/20260906-remy-tumorigenesis-transient-necessity-h9"
+    source: "experiments/20260906-remy-tumorigenesis-transient-necessity-h9/decision.md"
+    updated: 2026-09-07
+
+  - id: ART-REMY-TRANSIENT-NECESSITY-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — transient do(p21CIP=0, RBL2=0) for k=1,3,10,30 on the Remy 2015 network's bistable branch, released to unperturbed dynamics; clean duration threshold, k=10/30 reach the exact Proliferation attractor persisting after release"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-07
+    provenance: measurement
+    source: "experiments/20260906-remy-tumorigenesis-transient-necessity-h9/metrics/run.json"
+    updated: 2026-09-07
+
   # ───────────────────────── questions ─────────────────────────
   - id: Q-GOE-vs-GUE
     type: question
@@ -1157,3 +1198,6 @@ edges:
   - {from: H-B7-7, to: ART-REMY-FOURHIT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
   - {from: H-B7-7, to: H-B7-8, type: grounds, since: 2026-09-07, note: "H-B7-7's own FL Step 8a skeptic pass named this exact necessity test: RAS/TP53 clamps appeared redundant, test whether p21CIP+RBL2 alone suffice"}
   - {from: H-B7-8, to: ART-REMY-NECESSITY-RUN-20260906, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
+  - {from: H-B7-8, to: H-B7-9, type: grounds, since: 2026-09-07, note: "H-B7-8's own Relaxation Map named this exact follow-up: transient (not permanent) version of the same do(p21CIP=0, RBL2=0) pair -- untested for any confirmed escape in this bridge until now"}
+  - {from: H-B7-2, to: H-B7-9, type: links_to, since: 2026-09-07, note: "H-B7-9 resolves the weak-vs-strict distinction H-B7-2's own decision.md first named -- not a dependency, H-B7-2 stands on its own, but H-B7-9 is the strict-reading confirmation that distinction predicted would eventually be needed"}
+  - {from: H-B7-9, to: ART-REMY-TRANSIENT-NECESSITY-RUN-20260906, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}

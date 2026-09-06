@@ -1,0 +1,76 @@
+{
+  "clamps": {
+    "p21CIP": false,
+    "RBL2": false
+  },
+  "branch_inputs": {
+    "DNA_damage": false,
+    "EGFR_stimulus": false,
+    "FGFR3_stimulus": true,
+    "Growth_inhibitors": true
+  },
+  "growth_arrest_state": "00000000000000000011011000011110001",
+  "proliferation_state": "00000100101001010011001000110010110",
+  "tested_durations": [
+    1,
+    3,
+    10,
+    30
+  ],
+  "results_by_k": [
+    {
+      "k_steps": 1,
+      "final_attractor_period": 1,
+      "final_attractor_type": "point",
+      "final_state_pyboolnet_order": "00000000000000010011011000010110011",
+      "growth_arrest_phenotype_node": true,
+      "proliferation_phenotype_node": false,
+      "final_attractor_identity": "GROWTH_ARREST (relapsed after release)",
+      "branch_inputs_preserved": true,
+      "flipped_to_proliferation": false,
+      "matches_proliferation_state": false,
+      "matches_growth_arrest_state": false
+    },
+    {
+      "k_steps": 3,
+      "final_attractor_period": 1,
+      "final_attractor_type": "point",
+      "final_state_pyboolnet_order": "00000000000000010011011000010110011",
+      "growth_arrest_phenotype_node": true,
+      "proliferation_phenotype_node": false,
+      "final_attractor_identity": "GROWTH_ARREST (relapsed after release)",
+      "branch_inputs_preserved": true,
+      "flipped_to_proliferation": false,
+      "matches_proliferation_state": false,
+      "matches_growth_arrest_state": false
+    },
+    {
+      "k_steps": 10,
+      "final_attractor_period": 1,
+      "final_attractor_type": "point",
+      "final_state_pyboolnet_order": "00000100101001010011001000110010110",
+      "growth_arrest_phenotype_node": false,
+      "proliferation_phenotype_node": true,
+      "final_attractor_identity": "PROLIFERATION (strict Kauffman claim CONFIRMED for this k)",
+      "branch_inputs_preserved": true,
+      "flipped_to_proliferation": true,
+      "matches_proliferation_state": true,
+      "matches_growth_arrest_state": false
+    },
+    {
+      "k_steps": 30,
+      "final_attractor_period": 1,
+      "final_attractor_type": "point",
+      "final_state_pyboolnet_order": "00000100101001010011001000110010110",
+      "growth_arrest_phenotype_node": false,
+      "proliferation_phenotype_node": true,
+      "final_attractor_identity": "PROLIFERATION (strict Kauffman claim CONFIRMED for this k)",
+      "branch_inputs_preserved": true,
+      "flipped_to_proliferation": true,
+      "matches_proliferation_state": true,
+      "matches_growth_arrest_state": false
+    }
+  ],
+  "any_case_flipped_to_proliferation": true,
+  "comparison_to_h_b7_8_permanent": "H-B7-8 (permanent do(p21CIP=0, RBL2=0)): CONFIRMED, reached Proliferation"
+}

@@ -96,6 +96,23 @@ Relaxation Map H-B7-5).** `[VERIFIED]`:
   шаг: транзиентная версия — открыта для ВСЕЙ серии B7, не только этого эксперимента.
 **[WS: H-B7-8 remy_tumorigenesis necessity test] CLOSED.**
 
+**[WS: H-B7-9 remy_tumorigenesis transient necessity] CLOSED 2026-09-07 (ADR-036, прямой запрос
+пользователя «начинай транзиентную версию»).** `[VERIFIED]`:
+- Транзиентный `do(p21CIP=0, RBL2=0)` для k=1,3,10,30, затем ПОЛНОЕ освобождение к невозмущённым
+  правилам → **CONFIRMED для k=10,30** — точный Proliferation attractor, персистентен после release.
+- **Первое подтверждение строгой формулировки Kauffman во всей серии B7** — закрывает различие,
+  названное ещё в H-B7-2's decision.md (слабое перманентное чтение vs строгое транзиентное).
+- Чистый порог длительности: k=1,3 → релапс во ВТОРОЙ (не исходный) Growth_arrest fixed point.
+- Независимо переподтверждено СВЕЖИМ `pyboolnet.compute_attractors()` на ПОЛНОСТЬЮ невозмущённой
+  ветке (ноль клампов) — ровно 3 аттрактора, совпадают один-в-один со всеми тремя сообщёнными
+  состояниями.
+- **FL Step 8a skeptic pass выполнен и пройден** (третий CONFIRMED подряд, каждый со своим pass):
+  CONFIRMED-REAL; skeptic предсказал k=0 → period-2 осцилляцию БЕЗ возможности запустить —
+  подтверждено точно основной сессией.
+- Граф: `H-B7-9 → confirmed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 9.** Следующий
+  шаг: тонкий скан k=4..9; кросс-ветка проверка на другой мультистабильной ветке.
+**[WS: H-B7-9 remy_tumorigenesis transient necessity] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -144,6 +161,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 00:09] `f2460d2`: chore: auto-log commit history entry
 - [2026-09-07 00:08] `5636812` (local, branch `feature/h-b7-8-necessity-test` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-8: necessity test do(p21CIP=0, RBL2=0) without RAS/TP53 CONFIRMED, skeptic pass passed
 - [2026-09-06 23:54] `a8c76a4`: chore: auto-log commit history entry
 - [2026-09-06 23:53] `fd6c1e9` (local, branch `feature/h-b7-7-fourhit-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-7: four-hit do(RAS=1, TP53=0, p21CIP=0, RBL2=0) CONFIRMED, skeptic pass (Step 8a) passed
@@ -158,4 +176,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 22:30] `0f92f1c`: chore: auto-log commit history entry
 - [2026-09-06 22:30] `52fcdb6` (local, branch `feature/h-b7-3-transient-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-3: Compute-First deduction predicts the outcome before simulation -- strict Kauffman test is untestable in this model
 - [2026-09-06 22:19] `7422132`: chore: auto-log commit history entry
-- [2026-09-06 22:18] `db14a3f` (local, branch `feature/h-b7-2-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-2: perturbation (do-operator) test of Kauffman's Cancer Attractor hypothesis -- differentiated result
