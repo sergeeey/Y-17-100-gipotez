@@ -58,6 +58,18 @@
   поймал и исправил собственную ошибку в `case_study_notes.md` (Paul chl ошибочно был отнесён к
   «никогда не пересекающим» — на самом деле пересекает под entropy, но не под total persistence).
 
+**[WS: H-B3-1i IAAFT+total-persistence] CLOSED 2026-09-06 (ADR-025, автономно, `/loop`, последняя
+клетка дизайна 2×2, настоящий новый compute ~25 мин).** `[VERIFIED]`:
+- Заполнил четвёртую клетку {entropy,total persistence}×{AR(1),IAAFT}. 3 теста ДО запуска.
+- **Формальный вердикт: REJECT** (FP=4/5, набор рядов идентичен V1g). Дисциплина: НЕ повысил до LEAD
+  из-за интересной качественной находки (Anti-Overfitting Gate, verdict-shopping).
+- **Главная находка (impact 9, самый высокий в серии B3):** лид Peter doSat, идентичный (+13d) в 4
+  подряд структурно разных вариантах, здесь РАЗВОРАЧИВАЕТ ЗНАК на -74d (TDA теперь отстаёт). Первый
+  провал самой устойчивой находки всего моста B3. Механизм FP тоже сдвинулся для 2/4 рядов (Loch
+  Leven, Paul pH теперь через classical, не TDA).
+- Урок: «устойчиво под N вариантами» ≠ «устойчиво» без оговорки границ протестированного пространства.
+- Граф: `H-B3-1i → killed` (FL-вердикт REJECT). Pearl impact 9.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -102,6 +114,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 19:23] `c3bb732`: chore: auto-log commit history entry
 - [2026-09-06 19:23] `4c2110b` (local, branch `feature/h-b3-1h-population-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1h: pearl's falsifiable_prediction CONFIRMED (100% of B3 crossings sit in a local variance minimum), plus self-caught error fix
 - [2026-09-06 19:18] `ddf4df9`: chore: auto-log commit history entry (3)
 - [2026-09-06 19:17] `6130d03`: chore: auto-log commit history entry (2)
@@ -116,4 +129,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 18:54] `62ad1d4` (local, branch `feature/h-b3-1g-total-persistence` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1g): add total-persistence TDA invariant, wire through V1's null pipeline; real run pending
 - [2026-09-06 18:46] `372ef2a`: chore: auto-log commit history entry
 - [2026-09-06 18:46] `afa3234` (local, branch `feature/h-b2-1g-strong-coupling` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B2-1g): 7th confirmation resolves the arc's most important finding -- bound validity != practical usefulness
-- [2026-09-06 18:41] `104c300`: chore: auto-log commit history entry

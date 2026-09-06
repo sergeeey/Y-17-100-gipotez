@@ -288,6 +288,15 @@
 | 2026-09-06 | Прямая проверка своего же черновика по V1's `metrics/run.json` (self-audit spot-check) | practice | убедиться, что `case_study_notes.md` верно описывает, какие ряды пересекают | `CAUGHT` | поймал собственную ошибку: черновик отнёс Paul chl к «никогда не пересекающим», хотя `peterlake_Paul_chl.tda_betti_crossing = 185.0` в уже закоммиченных данных V1 — пересекает под entropy, не под total persistence; исправлено по Hindsight Distortion Gap (не переписано молча, добавлена datedcorrection-строка) |
 | 2026-09-06 | `all_series_variance_ratio_check.py` (тест собственного `falsifiable_prediction` из pearl-записи, без нового compute) | tool | проверить, держится ли паттерн «var_ratio<0.5 при crossing» на ВСЕХ 6 рядах с пересечением, не только на 3 | `CAUGHT` | 6/6 (100%), обе роли (positive mean 0.375, negative mean 0.199) — предсказание подтверждено, pearl → CONFIRMED |
 
+### Сессия 1y — H-B3-1i: последняя клетка дизайна 2×2 (IAAFT+total persistence), настоящий новый compute (2026-09-06, автономно, `/loop`)
+
+| Дата | Инструмент | Тип | Задача | Исход | Что именно / комментарий |
+|---|---|---|---|---|---|
+| 2026-09-06 | 3 pre-registered теста (`test_total_persistence_iaaft_v1gprime.py`) ДО реального прогона | practice | подтвердить, что `surrogate_fn` и `tda_stat_fn` компонуются независимо, прежде чем тратить ~25 мин на реальный прогон | `CAUGHT` | все 3 прошли с первого раза — оба параметра действительно независимо влияют на null-кривую |
+| 2026-09-06 | Реальный 9-серийный прогон (background, ~25 мин) | tool | заполнить последнюю клетку {entropy,total persistence}×{AR(1),IAAFT} | `CAUGHT` | REJECT формально (FP=4/5, идентично V1g), но лид Peter doSat (+13d устойчиво в 4 вариантах) РАЗВОРАЧИВАЕТ ЗНАК на -74d — первый провал самой устойчивой находки серии B3 |
+| 2026-09-06 | `commit-test-gate` хук (Stop hook feedback) | hook | напомнить прогнать тесты перед завершением хода, т.к. исходники менялись после последнего passing pytest | `CAUGHT` | сработал корректно — прогнал `pytest -q` (116 passed), прежде чем продолжать |
+| 2026-09-06 | Собственная дисциплина вердикта (Anti-Overfitting Gate, verdict-shopping guard) | practice | не повышать REJECT до LEAD post-hoc из-за интересной качественной находки | `CAUGHT` | вердикт оставлен REJECT по букве предзарегистрированного критерия claim.md; находка о развороте знака ушла в Kill Analysis + pearl (impact 9), а не в смену статуса |
+
 ## Сводка (считать командой ниже, не вручную)
 
 ```bash
@@ -296,7 +305,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 | Исход | Кол-во |
 |---|---|
-| CAUGHT | 60 |
+| CAUGHT | 64 |
 | OK | 63 |
 | MISSED | 3 |
 | NOISE | 18 |

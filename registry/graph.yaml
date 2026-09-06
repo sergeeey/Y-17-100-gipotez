@@ -506,6 +506,28 @@ nodes:
     source: "experiments/20260906-lakes-tda-ews-invariant-conjunction/metrics/run.json"
     updated: 2026-09-06
 
+  - id: H-B3-1i
+    type: hypothesis
+    title: "IAAFT-surrogate null combined with total persistence (fourth cell of {entropy,total persistence} x {AR(1),IAAFT}) -- genuine new compute, one assumption changed from H-B3-1g (null model)"
+    status: killed                 # 2026-09-06 decision.md: REJECT verdict, false-positive SET identical to V1g (4/5), pre-registered REJECT criterion met literally
+    evidence: VERIFIED-REAL        # metrics/run.json from a real 9-series run, 3 pre-registered tests confirmed the two overrides compose independently
+    l0_type: predictive
+    fl_tier: standard
+    kill_criterion: "PROMOTE: FP<=1/5 with >=1 surviving lead. REJECT: FP=4/5 or 5/5, same core series as V1g/V1'. RESULT: REJECT -- FP rate 4/5, false-positive SET byte-identical to V1g (Windermere, Loch Leven, Paul pH, Paul doSat). BUT the underlying mechanism differs for 2/4 (Loch Leven and Paul pH now trigger via the classical statistic only, TDA no longer crosses for them), and Peter doSat's TDA lead -- identical +13 days across 4 consecutive prior structurally different variants (V1, V1', V1g, H-B3-1h conjunction) -- REVERSES SIGN to -74 days (TDA now lags classical). First failure of the single most robust finding in the whole B3 arc; the 'Peter doSat lead is robust under any method' claim must be rescoped to 'robust under the 4 AR(1)-null-adjacent variants tested, not IAAFT+total-persistence'. Verdict kept as literal REJECT per pre-registered criteria (Anti-Overfitting Gate discipline) -- the mechanism/lead-reversal finding is documented in Kill Analysis and the pearl registry instead of used to upgrade the verdict post-hoc"
+    experiment_dir: "experiments/20260906-lakes-tda-ews-total-persistence-iaaft-v1gprime"
+    source: "experiments/20260906-lakes-tda-ews-total-persistence-iaaft-v1gprime/decision.md"
+    updated: 2026-09-06
+
+  - id: ART-IAAFT-TOTAL-PERSISTENCE-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — IAAFT null + total persistence, 9-series real run; Peter doSat lead sign-flip (+13d -> -74d)"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-lakes-tda-ews-total-persistence-iaaft-v1gprime/metrics/run.json"
+    updated: 2026-09-06
+
   # ───────────────────────── projects (added during H-B3-1 scoping, 2026-09-06) ─────────────────────────
   - id: PRJ-CARPENTER-PETERLAKE
     type: project
@@ -739,6 +761,9 @@ edges:
   - {from: H-B3-1c, to: H-B3-1h, type: grounds, since: 2026-09-06, note: "conjunction reuses V1's already-committed entropy results verbatim, no new compute"}
   - {from: H-B3-1g, to: H-B3-1h, type: grounds, since: 2026-09-06, note: "H-B3-1g's own Relaxation Map explicitly named this conjunction as the next step; reuses V1g's already-committed total-persistence results verbatim, no new compute"}
   - {from: H-B3-1h, to: ART-INVARIANT-CONJUNCTION-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B3-1g, to: H-B3-1i, type: grounds, since: 2026-09-06, note: "one assumption changed from V1g: null model AR(1) -> IAAFT (already validated on entropy in H-B3-1d)"}
+  - {from: H-B3-1d, to: H-B3-1i, type: grounds, since: 2026-09-06, note: "IAAFT surrogate mechanism reused verbatim, validated once against entropy, not re-tested per invariant swap"}
+  - {from: H-B3-1i, to: ART-IAAFT-TOTAL-PERSISTENCE-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
 
   # naming collision — never merge
   - {from: PRJ-H7-GEOSPECTRA, to: PRJ-H7-TAD, type: collides_with, since: 2026-09-06, note: "both called 'H-7'; PARKED note links the wrong one"}
