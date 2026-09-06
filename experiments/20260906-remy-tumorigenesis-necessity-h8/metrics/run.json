@@ -1,0 +1,28 @@
+{
+  "clamps": {
+    "p21CIP": false,
+    "RBL2": false
+  },
+  "ras_tp53_unclamped": true,
+  "branch_inputs": {
+    "DNA_damage": false,
+    "EGFR_stimulus": false,
+    "FGFR3_stimulus": true,
+    "Growth_inhibitors": true
+  },
+  "growth_arrest_state": "00000000000000000011011000011110001",
+  "proliferation_state": "00000100101001010011001000110010110",
+  "final_attractor_period": 1,
+  "final_attractor_type": "point",
+  "final_state_pyboolnet_order": "00000100101001010011001000110010110",
+  "growth_arrest_phenotype_node": false,
+  "proliferation_phenotype_node": true,
+  "final_ras_unclamped": true,
+  "final_tp53_unclamped": false,
+  "ras_matches_h_b7_7_clamped_value": true,
+  "tp53_matches_h_b7_7_clamped_value": true,
+  "final_attractor_identity": "PROLIFERATION (necessity confirmed for p21CIP/RBL2 alone)",
+  "branch_inputs_preserved": true,
+  "flipped_to_proliferation": true,
+  "comparison_to_h_b7_7_four_hit": "H-B7-7 (RAS+TP53+p21CIP+RBL2, all clamped): CONFIRMED, reached Proliferation"
+}

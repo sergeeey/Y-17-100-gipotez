@@ -79,6 +79,23 @@ Relaxation Map H-B7-5).** `[VERIFIED]`:
   тест необходимости `do(p21CIP=0, RBL2=0)` без RAS/TP53.
 **[WS: H-B7-7 remy_tumorigenesis four-hit] CLOSED.**
 
+**[WS: H-B7-8 remy_tumorigenesis necessity test] CLOSED 2026-09-07 (ADR-035, прямой запрос
+пользователя «начинай тест необходимости do(p21CIP=0, RBL2=0) итд действуй автономно»).**
+`[VERIFIED]`:
+- `do(p21CIP=0, RBL2=0)` БЕЗ клампа RAS/TP53 → **CONFIRMED** — reaches точный Proliferation
+  attractor; RAS/TP53 сами динамически осели в значения H-B7-7's клампа.
+- Независимо переподтверждено СВЕЖИМ `pyboolnet.compute_attractors()` с ПОЛНОСТЬЮ нетронутыми
+  правилами RAS/TP53 — ровно 1 аттрактор, побитовое совпадение. Bit-identical воспроизводимость
+  тоже проверена (2 свежих прогона).
+- **FL Step 8a skeptic pass снова выполнен и пройден:** CONFIRMED-REAL. Skeptic нашёл реальный,
+  включённый (не отклонённый) нюанс: самоподдерживающиеся сигнальные петли ветки делают RAS=1/
+  TP53=0 «естественным состоянием покоя» — смягчает, но не отменяет новизну (ни одно правило не
+  тавтология входов ветки).
+- Минимальный достаточный набор для этой точки установлен: `do(p21CIP=0, RBL2=0)`.
+- Граф: `H-B7-8 → confirmed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 8.** Следующий
+  шаг: транзиентная версия — открыта для ВСЕЙ серии B7, не только этого эксперимента.
+**[WS: H-B7-8 remy_tumorigenesis necessity test] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -127,6 +144,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 23:54] `a8c76a4`: chore: auto-log commit history entry
 - [2026-09-06 23:53] `fd6c1e9` (local, branch `feature/h-b7-7-fourhit-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-7: four-hit do(RAS=1, TP53=0, p21CIP=0, RBL2=0) CONFIRMED, skeptic pass (Step 8a) passed
 - [2026-09-06 23:26] `f8c36d2`: chore: auto-log commit history entry
 - [2026-09-06 23:25] `e2e6779` (local, branch `feature/h-b7-6-threehit-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-6: three-hit do(RAS=1, TP53=0, p21CIP=0) REJECTED, full mechanism found and verified two ways
@@ -141,4 +159,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 22:19] `7422132`: chore: auto-log commit history entry
 - [2026-09-06 22:18] `db14a3f` (local, branch `feature/h-b7-2-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-2: perturbation (do-operator) test of Kauffman's Cancer Attractor hypothesis -- differentiated result
 - [2026-09-06 22:05] `e45a14e`: chore: auto-log commit history entry
-- [2026-09-06 22:04] `242345a` (local, branch `feature/h-b7-1-kauffman-cellcycle` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-1: first Boolean-GRN experiment (Kauffman cancer attractors) -- CONFIRMED as a reproduction

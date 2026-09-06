@@ -832,6 +832,20 @@ nodes:
       mechanism found)->H-B7-7(CONFIRMED), each REJECT motivating the next hit with increasing
       precision. Bridge evidence updated: CONFLICT retained (H-B7-2's do(Rb=0) qualifier and the
       untested-necessity gap both remain), but now with a clean CONFIRMED anchor, not only REJECTs.
+      H-B7-8 (necessity test): tested do(p21CIP=0, RBL2=0) WITHOUT clamping RAS/TP53 -- directly
+      operationalizing H-B7-7's own skeptic WEAKENING finding. CONFIRMED -- reaches the exact
+      Proliferation attractor; unclamped RAS/TP53 dynamically settle to the same values H-B7-7
+      clamped them to. Independently re-confirmed via a FRESH pyboolnet.compute_attractors() run
+      (RAS/TP53 rules left completely intact, only p21CIP/RBL2 forced) -- exactly 1 attractor,
+      byte-identical match. Skeptic pass (Step 8a) verdict CONFIRMED-REAL, with a documented
+      caveat: the branch's own fixed inputs set up self-reinforcing signaling loops
+      (FGFR3_stimulus->FGFR3->RAS->SPRY-|GRB2; DNA_damage=0 keeping TP53's first disjunct off)
+      that make RAS=1/TP53=0 the branch's natural resting values -- softening but not eliminating
+      the finding's novelty (neither node's rule is a syntactic tautology of the branch inputs
+      alone, independently confirmed). Minimal sufficient perturbation for this starting point is
+      now established: the two-hit do(p21CIP=0, RBL2=0). Next named step: transient (not
+      permanent) version of this same double clamp -- untested for any confirmed escape in this
+      bridge so far.
 
   - id: H-B7-1
     type: hypothesis
@@ -987,6 +1001,28 @@ nodes:
     source: "experiments/20260906-remy-tumorigenesis-fourhit-h7/metrics/run.json"
     updated: 2026-09-06
 
+  - id: H-B7-8
+    type: hypothesis
+    title: "Necessity test do(p21CIP=0, RBL2=0) on the Remy et al. 2015 network's bistable branch WITHOUT clamping RAS/TP53 -- directly operationalizes H-B7-7's own FL Step 8a skeptic WEAKENING finding that RAS=1/TP53=0 were already true (no-ops) at the Growth_arrest starting state"
+    status: confirmed             # 2026-09-07 decision.md: CONFIRMED -- reaches the exact Proliferation attractor with RAS/TP53 left unclamped; skeptic pass (Step 8a) CONFIRMED-REAL with independent pyboolnet cross-check
+    evidence: VERIFIED-REAL       # metrics/run.json; 4 pre-registered tests; independently re-confirmed via a FRESH pyboolnet.compute_attractors() run with RAS/TP53 rules completely intact (only p21CIP/RBL2 forced) -- highest independent-verification tier used in this bridge; bit-identical reproducibility across 2 fresh runs also verified
+    l0_type: causal
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if the model's own Proliferation phenotype node reads 1 AND unclamped RAS/TP53 end at the same values H-B7-7 clamped them to (1/0); REJECTED if Growth_arrest persists (RAS/TP53 were secretly load-bearing). RESULT: CONFIRMED -- final_state_pyboolnet_order byte-identical to PROLIFERATION_STATE, Growth_arrest=False, Proliferation=True, final_ras_unclamped=True, final_tp53_unclamped=False (both matching H-B7-7's clamped values). Independently re-confirmed via a freshly-constructed, branch-restricted .bnet with ONLY p21CIP/RBL2 forced (RAS/TP53 rules left completely original) run through pyboolnet.compute_attractors() directly -- exactly 1 attractor, RAS=1, TP53=0, byte-identical state. FL Step 8a skeptic pass (context-asymmetric) verdict CONFIRMED-REAL after 5 checks (state decode, clamp-composition identity check, bit-identical reproducibility across 2 fresh runs, independent pyboolnet reproduction, tautology check) all passed. One documented caveat from the skeptic, incorporated not dismissed: the branch's fixed inputs set up self-reinforcing signaling loops (FGFR3_stimulus->FGFR3->RAS->SPRY-|GRB2; DNA_damage=0 keeping TP53's first disjunct off) that make RAS=1/TP53=0 the branch's natural resting values -- softens but does not eliminate the finding's novelty, since neither node's rule is a syntactic tautology of the branch inputs alone (independently confirmed). Establishes the minimal sufficient perturbation for this starting point: the two-hit do(p21CIP=0, RBL2=0)"
+    experiment_dir: "experiments/20260906-remy-tumorigenesis-necessity-h8"
+    source: "experiments/20260906-remy-tumorigenesis-necessity-h8/decision.md"
+    updated: 2026-09-07
+
+  - id: ART-REMY-NECESSITY-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — do(p21CIP=0, RBL2=0) simulation on the Remy 2015 network's bistable branch WITHOUT clamping RAS/TP53; reaches the exact Proliferation attractor, RAS/TP53 dynamically settle to H-B7-7's clamped values"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-07
+    provenance: measurement
+    source: "experiments/20260906-remy-tumorigenesis-necessity-h8/metrics/run.json"
+    updated: 2026-09-07
+
   # ───────────────────────── questions ─────────────────────────
   - id: Q-GOE-vs-GUE
     type: question
@@ -1119,3 +1155,5 @@ edges:
   - {from: H-B7-6, to: ART-REMY-THREEHIT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
   - {from: H-B7-6, to: H-B7-7, type: grounds, since: 2026-09-06, note: "H-B7-6's own Relaxation Map named this exact follow-up: directly remove the second remaining redundant OR-branch (RBL2) of Growth_arrest"}
   - {from: H-B7-7, to: ART-REMY-FOURHIT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B7-7, to: H-B7-8, type: grounds, since: 2026-09-07, note: "H-B7-7's own FL Step 8a skeptic pass named this exact necessity test: RAS/TP53 clamps appeared redundant, test whether p21CIP+RBL2 alone suffice"}
+  - {from: H-B7-8, to: ART-REMY-NECESSITY-RUN-20260906, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
