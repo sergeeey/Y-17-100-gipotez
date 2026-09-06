@@ -1,0 +1,103 @@
+{
+  "node_order": [
+    "CycD",
+    "Cdc20",
+    "CycA",
+    "CycB",
+    "CycE",
+    "E2F",
+    "Rb",
+    "UbcH10",
+    "cdh1",
+    "p27"
+  ],
+  "wild_type_quiescent_state": "0000001011",
+  "cases": [
+    {
+      "period": 1,
+      "type": "point",
+      "states": [
+        "0000001011"
+      ],
+      "post_release_start_state": "0001010111",
+      "label": "all-zero start, clamp Rb, k=1",
+      "clamp": {
+        "Rb": false
+      },
+      "k_steps": 1,
+      "returned_to_wild_type_quiescence": true
+    },
+    {
+      "period": 1,
+      "type": "point",
+      "states": [
+        "0000001011"
+      ],
+      "post_release_start_state": "0010110011",
+      "label": "all-zero start, clamp Rb, k=5",
+      "clamp": {
+        "Rb": false
+      },
+      "k_steps": 5,
+      "returned_to_wild_type_quiescence": true
+    },
+    {
+      "period": 1,
+      "type": "point",
+      "states": [
+        "0000001011"
+      ],
+      "post_release_start_state": "0000110011",
+      "label": "all-zero start, clamp Rb, k=20",
+      "clamp": {
+        "Rb": false
+      },
+      "k_steps": 20,
+      "returned_to_wild_type_quiescence": true
+    },
+    {
+      "period": 1,
+      "type": "point",
+      "states": [
+        "0000001011"
+      ],
+      "post_release_start_state": "0000001010",
+      "label": "all-zero start, clamp p27, k=5",
+      "clamp": {
+        "p27": false
+      },
+      "k_steps": 5,
+      "returned_to_wild_type_quiescence": true
+    },
+    {
+      "period": 1,
+      "type": "point",
+      "states": [
+        "0000001011"
+      ],
+      "post_release_start_state": "0010110010",
+      "label": "all-zero start, clamp Rb+p27, k=5",
+      "clamp": {
+        "Rb": false,
+        "p27": false
+      },
+      "k_steps": 5,
+      "returned_to_wild_type_quiescence": true
+    },
+    {
+      "period": 1,
+      "type": "point",
+      "states": [
+        "0000001011"
+      ],
+      "post_release_start_state": "0011000100",
+      "label": "H-B7-2-mid-trajectory start, clamp Rb, k=3",
+      "clamp": {
+        "Rb": false
+      },
+      "k_steps": 3,
+      "returned_to_wild_type_quiescence": true
+    }
+  ],
+  "all_cases_returned_to_quiescence": true
+}

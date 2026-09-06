@@ -750,20 +750,28 @@ nodes:
     source: "02-related-projects-context/Hypothesis Revival Targets — 9 классических гипотез для реанимации (2026-05-10).md (R6); CDT Protocol scoring session, 2026-09-06"
     updated: 2026-09-06
     session_summary_2026-09-06: >
-      2 experiments. H-B7-1 (reproduction): independent brute-force enumeration exactly reproduced
+      3 experiments. H-B7-1 (reproduction): independent brute-force enumeration exactly reproduced
       a third-party (PyBoolNet) computation of the Fauré et al. 2006 network's 2 wild-type
       attractors -- CONFIRMED, but explicitly a tooling-validation step, not a test of the
-      hypothesis itself. H-B7-2 (perturbation, the actual novel test): do(Rb=0) makes the
-      growth-factor-absent (CycD=0) region converge to a NEW period-8 cycling attractor instead
-      of quiescence -- CONFIRMED-WEAKENED (a single-gene loss is sufficient to destabilize
-      quiescence, but the accessible attractor is genuinely NEW, not one of the unperturbed
-      network's own attractors made newly reachable -- a distinguishable, weaker claim than
-      Kauffman's strict original one). do(p27=0) alone: REJECTED, quiescence survives. Net
-      position, `evidence: CONFLICT`: the bridge's mechanism is neither cleanly confirmed nor
-      cleanly rejected -- one biologically-plausible single perturbation destabilizes the model
-      (in a qualified sense), another does not, and the strict form of the original hypothesis
-      (transient perturbation revealing a PRE-EXISTING attractor, not permanently altering the
-      network) has not yet been tested -- named as the next step in H-B7-2's Relaxation Map.
+      hypothesis itself. H-B7-2 (permanent perturbation): do(Rb=0) makes the growth-factor-absent
+      (CycD=0) region converge to a NEW period-8 cycling attractor instead of quiescence --
+      CONFIRMED-WEAKENED (a single-gene loss is sufficient to destabilize quiescence, but the
+      accessible attractor is genuinely NEW, not one of the unperturbed network's own attractors
+      made newly reachable). do(p27=0) alone: REJECTED, quiescence survives. H-B7-3 (transient
+      perturbation, the STRICT operationalization of Kauffman's original claim): a Compute-First
+      deduction from H-B7-1's own exhaustive result (the CycD=0 region has exactly ONE attractor
+      under the true rules) PROVED, before any new simulation, that a transient (released) clamp
+      of Rb/p27 cannot escape that single attractor -- confirmed empirically on 6 concrete cases
+      (all_cases_returned_to_quiescence=true). This is a TASK_INFEASIBLE-style finding, not
+      evidence against Kauffman's hypothesis: this specific 10-node model lacks the
+      multi-attractor-per-branch structure the STRICT claim requires to be testable at all: it has
+      only 2 attractors total, cleanly separated by the CycD input switch, with no internal
+      multistability within either branch. Net position, `evidence: CONFLICT` unchanged: the
+      PERMANENT-clamp operationalization (H-B7-2) gives a qualified positive result for Rb; the
+      STRICT, more faithful operationalization (H-B7-3) is untestable in this model; a model with
+      genuine multistability per branch (candidates: other pyboolnet repository models, e.g.
+      `zhang_tlgl`, `remy_tumorigenesis`) would be needed for a real test of Kauffman's original
+      claim.
 
   - id: H-B7-1
     type: hypothesis
@@ -807,6 +815,28 @@ nodes:
     date_created: 2026-09-06
     provenance: measurement
     source: "experiments/20260906-kauffman-cellcycle-perturbation-h2/metrics/run.json"
+    updated: 2026-09-06
+
+  - id: H-B7-3
+    type: hypothesis
+    title: "Transient (finite-duration) perturbation of Rb/p27 followed by release -- the STRICT operationalization of Kauffman's hypothesis (pathological state = pre-existing attractor of the UNPERTURBED network, revealed by a temporary push, not a permanent rule change)"
+    status: confirmed              # 2026-09-06 decision.md: the pre-registered Compute-First deduction (not the hypothesis) is confirmed -- 6/6 simulated cases return to quiescence, as logically required by H-B7-1's own single-attractor finding
+    evidence: VERIFIED-REAL        # metrics/run.json, 6 simulated cases; 5 pre-registered tests on hand-checkable synthetic networks passed before the real run
+    l0_type: causal
+    fl_tier: standard
+    kill_criterion: "PREDICTED (deduced from H-B7-1's own exhaustive result BEFORE any new simulation): every transient clamp of Rb/p27, released back to natural dynamics from a CycD=0 state, returns to the wild-type quiescent point attractor -- because H-B7-1 already proved the entire 512-state CycD=0 region has exactly ONE attractor under the true rules, so there is no second attractor for a temporary push to reveal. FALSIFIED would mean a bug in the reasoning or code. RESULT: PREDICTED, confirmed empirically on 6 concrete cases (varying clamped node(s), duration 1-20 steps, and starting state including a mid-trajectory state from H-B7-2's own permanent-clamp run) -- all_cases_returned_to_quiescence=true. This is a TASK_INFEASIBLE-style finding for the STRICT Kauffman test in THIS model (established BEFORE running, not an excuse after an uninteresting result), not evidence against the hypothesis itself: this specific 10-node model has only 2 attractors total with no multi-attractor structure within either CycD branch, so the strict claim cannot be tested here regardless of its truth. Sharpens H-B7-2: do(Rb=0)'s effect requires the clamp to be PERMANENT -- a transient version of the identical intervention does nothing"
+    experiment_dir: "experiments/20260906-kauffman-cellcycle-transient-h3"
+    source: "experiments/20260906-kauffman-cellcycle-transient-h3/decision.md"
+    updated: 2026-09-06
+
+  - id: ART-KAUFFMAN-TRANSIENT-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — 6 transient-clamp-then-release simulations; all return to wild-type quiescence, confirming the Compute-First deduction"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-kauffman-cellcycle-transient-h3/metrics/run.json"
     updated: 2026-09-06
 
   # ───────────────────────── questions ─────────────────────────
@@ -929,3 +959,6 @@ edges:
   - {from: H-B7-1, to: ART-FAURE-CELLCYCLE-BRUTEFORCE-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
   - {from: H-B7-1, to: H-B7-2, type: grounds, since: 2026-09-06, note: "reuses H-B7-1's verified pipeline functions unchanged (parse_bnet, compile_rules, synchronous_step) via import; this is the actual novel test of the bridge's mechanism claim, named in H-B7-1's own Relaxation Map"}
   - {from: H-B7-2, to: ART-KAUFFMAN-PERTURBATION-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B7-1, to: H-B7-3, type: grounds, since: 2026-09-06, note: "H-B7-1's own exhaustive single-attractor finding for the CycD=0 region logically forecloses this experiment's outcome BEFORE any new simulation -- the Compute-First deduction"}
+  - {from: H-B7-2, to: H-B7-3, type: grounds, since: 2026-09-06, note: "the STRICT (transient) operationalization of the same hypothesis H-B7-2 tested with a PERMANENT clamp; sharpens H-B7-2's [WEAKENED] qualifier by showing permanence is necessary for the effect"}
+  - {from: H-B7-3, to: ART-KAUFFMAN-TRANSIENT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}

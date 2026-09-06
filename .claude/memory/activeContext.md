@@ -153,6 +153,18 @@ perturbation-эксперимент», настоящий тест гипоте�
   не проверено] — легко спутать при беглом изложении.
 - Граф: `H-B7-2 → lead`. Мост `B7-KAUFFMAN-ATTRACTORS` → `evidence: CONFLICT`. Pearl impact 7.
 
+**[WS: H-B7-3 transient perturbation] CLOSED 2026-09-06 (ADR-030, прямой запрос пользователя
+«начинай transient-perturbation эксперимент», Compute-First дедукция).** `[VERIFIED]`:
+- ДО новой симуляции проверил: H-B7-1 уже доказал, что у ВСЕХ 512 состояний CycD=0 РОВНО ОДИН
+  аттрактор. Логический вывод: временное (отпускаемое) возмущение Rb/p27 не может дать другой
+  исход — гарантировано заранее, без нового compute-дизайна.
+- 6 тестов + 6 реальных симуляций (разные узлы/длительности/старты) подтвердили: **6/6 (100%)**
+  вернулись к quiescent point attractor, ровно как предсказано.
+- **Классификация: TASK_INFEASIBLE для строгой формулировки Kauffman в ЭТОЙ модели**, не улика
+  против гипотезы — модели не хватает мультистабильности внутри одной ветки CycD.
+- Сужает H-B7-2: эффект do(Rb=0) требует ПЕРМАНЕНТНОЙ фиксации, временная версия не даёт ничего.
+- Граф: `H-B7-3 → confirmed` (дедукция). Мост остаётся `evidence: CONFLICT`. Pearl impact 8.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -197,6 +209,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 22:19] `7422132`: chore: auto-log commit history entry
 - [2026-09-06 22:18] `db14a3f` (local, branch `feature/h-b7-2-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-2: perturbation (do-operator) test of Kauffman's Cancer Attractor hypothesis -- differentiated result
 - [2026-09-06 22:05] `e45a14e`: chore: auto-log commit history entry
 - [2026-09-06 22:04] `242345a` (local, branch `feature/h-b7-1-kauffman-cellcycle` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-1: first Boolean-GRN experiment (Kauffman cancer attractors) -- CONFIRMED as a reproduction
@@ -211,4 +224,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 20:05] `045f082`: chore: auto-log commit history entry
 - [2026-09-06 20:04] `31bf217` (local, branch `feature/h-b3-1i-sign-flip-mechanism` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1i: mechanism of Peter doSat's sign flip found via cheap single-series diagnostic
 - [2026-09-06 19:39] `442931f`: chore: auto-log commit history entry
-- [2026-09-06 19:39] `0396524` (local, branch `feature/h-b3-1i-iaaft-total-persistence` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1i: IAAFT+total-persistence fills the last 2x2 design cell — REJECT verdict, but Peter doSat's 4x-robust lead reverses sign
