@@ -8,6 +8,8 @@
 
 
 ## Current Focus
+
+**[WS: consistency-review] CLOSED 2026-09-06 (автономно, `reviewer` agent, read-only pass по паттерну сессии 1a).** Аудит всех 4 гипотез, добавленных сегодня (H-B3-1d/1e/1f, H-B2-1) на предмет расхождений между graph.yaml/LAB.md/null_results/pearl_registry/decisions.md: **найдена 1 находка LOW-severity** — колонка «retroscan done» в `null_results/INDEX.md` для H-B3-1c/H-B3-1d утверждала «нет зависимых узлов», но позже в ту же сессию H-B3-1d/1e/1f сослались на них как на предков (Relaxation Map/descriptive join — ожидаемо, REJECT не отменён). Исправлено: добавлена временная пометка + явное объяснение, что это не откат вердикта. Всё остальное (валидность графа, provenance 4 новых узлов, числовая консистентность между файлами, арифметика LEDGER, честность цепочки Minimal Relaxation Rule) — без замечаний.
 [summarized] **[WS: lab-core] Ядро лаборатории построено (2026-09-06), вариант C (ADR-002).** Файлы: `LAB.md`,...
 [summarized] **[WS: pilot-H-B1-1a] CLOSED 2026-09-06 — PROMOTE [WEAKENED].** Полный FL Full-Ladder пройден: ZSG → L0...
 [summarized] **[WS: pilot-pains-automation] CLOSED 2026-09-06 — вариант C выполнен (ADR-005).** `[VERIFIED]`:
@@ -107,6 +109,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 14:51] `6e1bc7a`: chore: auto-log commit history entry
 - [2026-09-06 14:50] `0ec53c5`: chore: auto-log commit history entry
 - [2026-09-06 14:49] `30a0e63` (local, branch `feature/h-b3-1f-descriptive-v3` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1f): V3 descriptive-only join reveals the sharpest finding in bridge B3 -- with zero new compute
 - [2026-09-06 14:43] `5a8b00b`: chore: auto-log commit history entry
@@ -121,4 +124,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 13:12] `acd8184`: feat(H-B3-1): unblocked by user-provided data -> CRITERION_INVALID, 2nd independent confirmation
 - [2026-09-06 12:57] `c166b46`: feat(H-B3-1b): re-scoped to a reachable dataset, ran end-to-end -> CRITERION_INVALID (LEAD)
 - [2026-09-06 12:32] `3d011c2`: chore(D:)+feat(H-B3-1): merge/push pilot-pains fix; H-B3-1 substrate gate BLOCKED-INFRASTRUCTURE
-- [2026-09-06 12:21] `1a5cd82`: feat(H-B1-1c): known-answer test #2 CONFIRMED — closes CEILING_MISSPECIFIED from H-B1-1a
