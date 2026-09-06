@@ -125,10 +125,34 @@ nodes:
     type: bridge
     title: "May 1972 stability–complexity ↔ TDA early-warning signals"
     status: verified_grounding
-    evidence: HYPOTHESIS
-    mechanism: "Persistent homology (Betti-1, persistent entropy) of network snapshots detects phase-space restructuring before variance/autocorrelation drift"
+    evidence: CONFLICT      # updated 2026-09-06 after 10 experiments (H-B3-1 through H-B3-1i) -- was stale at initial-scoping HYPOTHESIS since before any of them ran
+    mechanism: "Persistent homology (Betti-1, persistent entropy OR total persistence) of network snapshots detects phase-space restructuring before variance/autocorrelation drift"
     source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Bridge 3"
     updated: 2026-09-06
+    session_summary_2026-09-06: >
+      10 experiments (H-B3-1 through H-B3-1i), same 9-series population throughout. Fixed
+      tau>=0.5 threshold: CRITERION_INVALID (floor 45-90% on 2 independent real datasets,
+      H-B3-1/1b). Per-series self-calibrated null (V1): REJECT, 5/5 false positives on
+      entropy, byte-identical across 3 structurally different null models (AR1/IAAFT/
+      detrend+IAAFT, H-B3-1c/d/e) -- rules out null-model choice as the cause. Switching
+      the TDA invariant (entropy -> total persistence, H-B3-1g) DID change the profile
+      (4/5, different series) -- the invariant axis matters, the null-model axis does not,
+      for entropy. Conjunction of both invariants (H-B3-1h, no new compute): best
+      specificity in the arc, 2/5. Filling the last null-model x invariant cell (IAAFT +
+      total persistence, H-B3-1i, real new compute): REJECT again (4/5, same series as
+      V1g) -- but Peter doSat's TDA-leads-classical lead, identical (+13d) across 4 prior
+      structurally different variants and repeatedly the single most confident finding of
+      the whole arc, REVERSES SIGN to -74d here. Mechanism isolated cheaply (single-series
+      diagnostic): the null THRESHOLD curve is spikier under IAAFT, with a specific spike
+      blocking the AR(1)-era crossing point. Net position: the mechanism as originally
+      hypothesized (TDA detects real regime shifts before classical EWS) is NOT
+      established as general or robust -- it produces false positives at a rate far above
+      PROMOTE bar under every method tried, and its one interpretable positive-lead
+      signal is itself not stable across all null models tested. Two negative-role series
+      (Loch Leven, Paul doSat) resist every method tried (6+ variants) -- the single most
+      concentrated, unexplained finding in the bridge, still open. `evidence: CONFLICTING`
+      reflects this mix (real, reproducible signal under SOME conditions; real, reproducible
+      failure under others) rather than either PROMOTE or a clean REJECT of the whole bridge.
 
   - id: B4-FRONTIER
     type: bridge
