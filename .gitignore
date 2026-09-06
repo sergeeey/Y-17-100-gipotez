@@ -1,0 +1,29 @@
+# --- Privacy: third-party correspondence (different project, kept local only) ---
+01-cross-domain-bridges/H-7 GeoSpectra Lab (DIFFERENT project - physics, not chromatin).md
+
+# --- Claude Code local state (never public) ---
+.claude/settings.local.json
+.claude/checkpoints/
+.claude/state/
+.claude/worktrees/
+.claude/agent-memory-local/
+
+# --- Python ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# --- Data caches (raw downloads are re-fetchable; keep manifests, not blobs) ---
+data/raw/
+*.npy
+*.npz
+*.h5
+*.parquet
+
+# --- OS / editors ---
+.DS_Store
+Thumbs.db
+.obsidian/workspace*.json
