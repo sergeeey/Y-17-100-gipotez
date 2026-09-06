@@ -29,7 +29,10 @@
 - Результат: ratio observed/predicted = **1.054** (кумулятивно) / **0.884** (окно последних 50k) — оба далеко внутри пре-регистрированного [1/3,3], несмотря на экстраполяцию на 3+ порядка ниже откалиброванного диапазона (n=10⁸-10²³ → применено на n≈10⁵). `experiments/20260906-riemann-cue-neff-ceiling/decision.md`.
 - Закрыл CEILING_MISSPECIFIED из H-B1-1a. Граф: `H-B1-1c → confirmed`.
 
-**СЛЕДУЮЩИЙ ШАГ (автономная очередь):** A и B закрыты. Кандидаты: D) merge/push ветки D: `y17/pilot-pains` (72 теста зелёные, не запушено); E) реальный расчёт H-B3-1 (EDI + Ripser — крупный шаг); F) Phase 2 H-B3-1 (гейтится на E). Дрейф хуков (`~/.claude` vs `D:`) остаётся флагом.
+**[WS: merge-D-and-run-H-B3-1] 2026-09-06 (ADR-008, по подтверждению пользователя).**
+- **Merge/push D: DONE.** `y17/pilot-pains` (8c76a73) → `origin/main` через fast-forward push БЕЗ checkout (на рабочем дереве D: обнаружены чужие незакоммиченные файлы — не тронуты, Unclaimed Work Ownership). Local `main` тоже обновлён (`update-ref`, без переключения).
+- **H-B3-1 реальный запуск → BLOCKED-INFRASTRUCTURE.** Пакет `knb-lter-ntl.360.2` точно идентифицирован (DOI resolve), но EDI закрыл публичный доступ: PASTA API 403 на все методы (12/12 ID), портал → Cloudflare Turnstile. 9 путей проверено, CAPTCHA не обходил (запрещено). `experiments/20260906-may1972-tda-ews-peterlake/substrate_gate.md`. Граф: `H-B3-1 → blocked`, evidence не понижен — это НЕ REJECT.
+- **Требуется решение пользователя:** (a) вручную скачать пакет с `portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-ntl.360.2` и передать файл; (b) EDI API-токен, если есть аккаунт; (c) выбрать другой, уже открыто зеркалируемый датасет (смена Population в claim.md).
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
@@ -67,6 +70,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 *Создан: 2026-09-06 при переносе из Obsidian vault.*
 
 ## Auto-commit log
+- [2026-09-06 12:21] `1a5cd82`: feat(H-B1-1c): known-answer test #2 CONFIRMED — closes CEILING_MISSPECIFIED from H-B1-1a
 - [2026-09-06 12:13] `d06942a`: feat(scoping): H-B3-1 — replace Mangal/GloBI with Carpenter 2011 Peter/Paul Lake; honest N=1 kill-criterion
 - [2026-09-06 12:00] `7baa088`: feat(lab): automate the 3 pilot pains — ceiling.md template, per-sign escape rows, ADR-005
 - [2026-09-06 11:57] `ff6246c`: fix: gitignore inline comments broke hook-scratch patterns; LEDGER +1

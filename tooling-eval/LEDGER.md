@@ -102,6 +102,17 @@
 | 2026-09-06 | `ceiling-gate` hook (PostToolUse на decision.md) | hook | decision.md упоминает «ceiling»/«efficiency» без блока Step 4a | `CAUGHT` | верно — я использовал слово «ceiling» в прозе про H-B1-1a без структурного блока для ЭТОГО эксперимента. Добавлен честный floor=0/ceiling=предсказание/efficiency=ratio блок — не для хука, а потому что маппинг реально корректен |
 | 2026-09-06 | `tests/test_cue_neff_ceiling.py`, 5 тестов | tool | harness sanity + негативный контроль | `OK` | воспроизвёл r_mean пилота бит-в-бит через переиспользованный `mean_r()`; негативный контроль подтвердил, что диапазон [1/3,3] не тривиально всегда PASS |
 | 2026-09-06 | `run.py` (H-B1-1c) | tool | сравнение observed vs predicted | `OK` | ratio 1.054 (кумулятивно) / 0.884 (окно) — оба далеко внутри допуска; закрывает CEILING_MISSPECIFIED из H-B1-1a |
+
+### Сессия 1f — merge/push D: и попытка реального запуска H-B3-1 (2026-09-06, автономно по подтверждению пользователя)
+
+| Дата | Инструмент | Тип | Задача | Исход | Что именно / комментарий |
+|---|---|---|---|---|---|
+| 2026-09-06 | `git merge-base --is-ancestor` + `push origin y17/pilot-pains:main` | tool | merge ветки D: без переключения на неё | `CAUGHT` | обнаружил чужие незакоммиченные изменения на рабочем дереве D: (activeContext, новый experiments/) — смержил fast-forward'ом БЕЗ checkout, чтобы их не тронуть (Unclaimed Work Ownership) |
+| 2026-09-06 | `pip show ripser scipy scikit-learn` | tool | проверка окружения перед TDA | `OK` | ripser 0.6.14 уже установлен — не пришлось ставить |
+| 2026-09-06 | `WebFetch` × 3 (EDI portal, PASTA API, science.org) | tool | скачать реальные данные Peter/Paul Lake | `CAUGHT` | все три пути дали содержательный отказ: PASTA API 403 (весь публичный доступ закрыт), portal → Cloudflare Turnstile, science.org → 403. НЕ попытался обойти CAPTCHA (запрещено) |
+| 2026-09-06 | `WebFetch` (DOI resolver) | tool | найти точный package ID | `OK` | `10.6073/pasta/f618d3b51a53d08021563701a211304f` → `knb-lter-ntl.360.2`, подтверждён как правильный датасет — блокер в скачивании, не в идентификации |
+| 2026-09-06 | `Bash` requests-скрипт (12 кандидатов package ID) | tool | обойти WebFetch, попробовать напрямую | `CAUGHT` | подтвердил: 403 на ВСЕ 12 ID, не только на искомый — это блокировка метода, не конкретного пакета |
+| 2026-09-06 | Substrate Gate (FL Step 2a) | rule | честно зафиксировать блокер до контролей | `OK` | `BLOCKED-INFRASTRUCTURE`, не REJECT; статус узла `H-B3-1` → `blocked`, evidence не понижен |
 | — | `analyst` / `hypothesis-arbiter` / `cross-domain` skills | skill | мосты B2, B3 | `NOT-YET` | |
 | — | `verifier` agent | agent | source trace (FL Step −4) для каталога 141 задачи | `NOT-YET` | |
 | — | `graphify` meta-graph query | tool | «уже есть в моих репо?» перед расширением `lab_check` | `NOT-YET` | |
@@ -114,8 +125,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 | Исход | Кол-во |
 |---|---|
-| CAUGHT | 20 |
-| OK | 25 |
+| CAUGHT | 23 |
+| OK | 28 |
 | MISSED | 2 |
 | NOISE | 10 |
 | BLOCKED | 1 |

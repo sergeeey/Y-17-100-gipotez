@@ -211,7 +211,7 @@ nodes:
   - id: H-B3-1
     type: hypothesis
     title: "Phase 1: TDA signals (Betti-1, persistent entropy) lead classical EWS (variance, autocorrelation) on the Carpenter 2011 Peter Lake whole-ecosystem regime-shift experiment"
-    status: ready               # scoped 2026-09-06: data source corrected (Mangal/GloBI wrong), method+baseline+kill defined; not yet run
+    status: blocked              # 2026-09-06 Substrate Gate: BLOCKED-INFRASTRUCTURE (EDI CAPTCHA + PASTA API 403 for public access). NOT evidence against the claim. See substrate_gate.md for the 9 access paths tried and what would unblock it.
     evidence: HYPOTHESIS
     l0_type: predictive
     fl_tier: full

@@ -46,6 +46,40 @@
 
 ---
 
+## ADR-008 — merge/push D: без checkout; H-B3-1 Substrate Gate BLOCKED-INFRASTRUCTURE (2026-09-06)
+
+**Контекст:** пользователь подтвердил: merge/push ветки D: `y17/pilot-pains` + запустить реальный расчёт
+H-B3-1 (загрузка EDI + Ripser).
+
+**Merge/push D:** `git status` на D: показал чужие незакоммиченные изменения (activeContext.md,
+новая `experiments/20260906-evidence-chain-verifier/`) — не мои, появились после моего коммита `8c76a73`.
+По правилу Unclaimed Work Ownership не стал их трогать. Проверил: `y17/pilot-pains` — чистый fast-forward
+от `main` (один коммит `8c76a73`), `main` == `origin/main`. Смержил БЕЗ переключения ветки:
+`git push origin y17/pilot-pains:main` (обновляет remote напрямую) + `git update-ref refs/heads/main` —
+рабочее дерево и текущая ветка (`y17/pilot-pains`) не тронуты, чужие изменения целы.
+
+**H-B3-1 реальный запуск:** окружение готово (`ripser` уже установлен). Данные — нет. Проверил 9 путей
+доступа к пакету `knb-lter-ntl.360.2` (точно идентифицирован через DOI): PASTA REST API — 403 "not
+authorized" на ВСЕ публичные методы (search, list, metadata — не только на нужный пакет, проверено на
+12 разных ID); веб-портал EDI — Cloudflare Turnstile CAPTCHA; NSF PAR — нет зеркала; `lterdatasampler` —
+нет этого датасета; Dryad — не найдено; Science.org SOM — 403 paywall.
+
+**Решение:** остановился на `BLOCKED-INFRASTRUCTURE` (FL Substrate Gate), не стал пытаться обойти
+Turnstile — это прямо запрещённое действие (bypass CAPTCHA/bot-detection), а не просто «сложный путь».
+Статус `H-B3-1` → `blocked`, evidence НЕ понижен (это не REJECT). Задокументировано в
+`substrate_gate.md` с тремя честными путями разблокировки: (a) пользователь скачивает вручную,
+(b) EDI API-токен, (c) другой открытый датасет.
+
+**Почему не подобрал другой датасет сам:** смена популяции — это решение уровня claim.md/estimand.md
+(меняет L1-атрибуты), не техническая деталь; лучше вернуть выбор пользователю, чем тихо подменить
+предмет исследования после того как источник данных уже один раз меняли в эту же сессию (ADR-006).
+
+**Pearl filed (impact 6):** «открытые данные» на бумаге (EDI, DOI, публичная лицензия) не гарантируют
+программный доступ без токена — стоит проверять доступность API/CAPTCHA до, а не вместо, идентификации
+источника в claim.md любого будущего эксперимента, ссылающегося на EDI/NTL-LTER.
+
+---
+
 ## ADR-007 — H-B1-1c: primary-source read overturns an unverified WebSearch-synthesized number (2026-09-06)
 
 **Контекст:** пункт B автономной очереди пользователя. `pearl_registry/INDEX.md` (запись во время
