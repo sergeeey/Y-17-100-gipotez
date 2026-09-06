@@ -5,8 +5,11 @@
 .claude/settings.local.json
 .claude/checkpoints/
 .claude/state/
-.claude/memory/state/          # hook scratch (post_commit_nudge.json etc.), not project memory
-**/.claude/state/              # hooks also drop scratch inside subdirs (e.g. experiments/*/.claude/state/)
+# hook scratch (post_commit_nudge.json etc.) — not project memory.
+# NOTE: gitignore has NO inline comments; a trailing "# ..." becomes part of the pattern (bit us once, 2026-09-06)
+.claude/memory/state/
+# hooks also drop scratch inside subdirs (e.g. experiments/*/.claude/state/)
+**/.claude/state/
 .claude/worktrees/
 .claude/agent-memory-local/
 

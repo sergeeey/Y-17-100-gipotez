@@ -51,6 +51,7 @@
 | 2026-09-06 | `permission-guard` (static deny `python -c`) | hook | вывод версий numpy/requests | `NOISE` | заблокировал невинный `python -c`, оборвал всю `&&`-цепочку (git rm, mkdir, cp не выполнились); обход через `pip show`. By design, но стоил круг |
 | 2026-09-06 | `locality-escalation` hook (×6) | hook | activeContext, run.py, test_rstat.py, graph.yaml, LAB.md, LEDGER.md отредактированы 4× каждый | `NOISE` | все шесть — журналы/реестры/lint-круги, churn by design; хук сам метит порог `[WEAK]`. **Но мета-сигнал в первых трёх был верен:** цикл «написал → линт → правка» → исправлен процесс (lint-fix внутри цепочки ДО тестов). Порог «4 правки» не различает реестр и модуль |
 | 2026-09-06 | `ceiling-gate` hook (PostToolUse на decision.md) | hook | проверка наличия Floor–Ceiling в decision | `OK` | нашёл floor / ceiling / efficiency с числами на строке — state-based проверка содержимого, сработала по делу |
+| 2026-09-06 | `git status` после `git rm --cached` | tool | почему scratch-файлы хуков всё ещё `??` | `CAUGHT` | `.gitignore` не поддерживает inline-комментарии — `# …` после паттерна стал частью паттерна, оба новых правила не матчились. Ошибка оркестратора, поймана состоянием, не словами |
 | 2026-09-06 | Zero-Signal Gate (FL Step −5) | rule | claim.md H-B1-1a | `OK` | entity / predicate / outcome заполнены из входа; PROCEED |
 | 2026-09-06 | EstimandOps L0 gate | rule | классификация H-B1-1a | `OK` | descriptive; causal layer снят; 2 ICE (corruption → abort; download → BLOCKED-INFRA) |
 | 2026-09-06 | FL Step −4 source trace (`WebSearch` + `mcp__arxiv__get_abstract`) | tool | константы ⟨r⟩ + URL данных | `CAUGHT` | вскрыл двусмысленность 0.6027 (surmise 3×3) vs 0.5996 (N→∞) ДО прогона → target назван явно; abstract 1212.5611 подтвердил, что нули ζ там есть как пример |
@@ -82,7 +83,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 | Исход | Кол-во |
 |---|---|
-| CAUGHT | 12 |
+| CAUGHT | 13 |
 | OK | 19 |
 | MISSED | 0 |
 | NOISE | 9 |
