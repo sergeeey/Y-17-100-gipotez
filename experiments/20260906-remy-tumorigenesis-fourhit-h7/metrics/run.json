@@ -1,0 +1,25 @@
+{
+  "clamps": {
+    "RAS": true,
+    "TP53": false,
+    "p21CIP": false,
+    "RBL2": false
+  },
+  "branch_inputs": {
+    "DNA_damage": false,
+    "EGFR_stimulus": false,
+    "FGFR3_stimulus": true,
+    "Growth_inhibitors": true
+  },
+  "growth_arrest_state": "00000000000000000011011000011110001",
+  "proliferation_state": "00000100101001010011001000110010110",
+  "final_attractor_period": 1,
+  "final_attractor_type": "point",
+  "final_state_pyboolnet_order": "00000100101001010011001000110010110",
+  "growth_arrest_phenotype_node": false,
+  "proliferation_phenotype_node": true,
+  "final_attractor_identity": "PROLIFERATION (checkpoint-removal mechanism confirmed)",
+  "branch_inputs_preserved": true,
+  "flipped_to_proliferation": true,
+  "comparison_to_h_b7_6_three_hit": "H-B7-6 (RAS+TP53+p21CIP): REJECTED, phenotype still Growth_arrest via RBL2 (second OR-branch)"
+}

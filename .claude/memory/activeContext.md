@@ -62,6 +62,23 @@ Relaxation Map H-B7-5).** `[VERIFIED]`:
   четырёхударный `do(RAS=1, TP53=0, p21CIP=0, RBL2=0)` или транзиентный толчок RBL2/CyclinE1.
 **[WS: H-B7-6 remy_tumorigenesis three-hit] CLOSED.**
 
+**[WS: H-B7-7 remy_tumorigenesis four-hit] CLOSED 2026-09-06 (ADR-034, прямой запрос пользователя
+«начинай четырёхударный тест»).** `[VERIFIED]`:
+- `do(RAS=1, TP53=0, p21CIP=0, RBL2=0)` → **CONFIRMED** — первый успешный перманентный побег из
+  Growth_arrest в Proliferation во всей серии B7. Побитовое совпадение с pyboolnet-верифицированным
+  PROLIFERATION_STATE.
+- Независимо переподтверждено СВЕЖИМ прогоном `pyboolnet.compute_attractors()` на построенной с
+  нуля сети (ноль переиспользования своего кода) — ровно 1 аттрактор, is_steady/is_univocal/
+  is_faithful все yes.
+- **FL Step 8a skeptic pass выполнен и пройден** (обязателен для CONFIRMED, не только REJECT):
+  вердикт CONFIRMED-REAL, 5 проверок фальсификации, включая реально ЗАПУЩЕННЫЙ (не только
+  предложенный) скрипт независимой проверки.
+- Skeptic нашёл реальное WEAKENING: RAS/TP53 уже истинны в стартовом состоянии — реально нагруженный
+  минимум — только `do(p21CIP=0, RBL2=0)`.
+- Граф: `H-B7-7 → confirmed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 9.** Следующий шаг:
+  тест необходимости `do(p21CIP=0, RBL2=0)` без RAS/TP53.
+**[WS: H-B7-7 remy_tumorigenesis four-hit] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -110,6 +127,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 23:26] `f8c36d2`: chore: auto-log commit history entry
 - [2026-09-06 23:25] `e2e6779` (local, branch `feature/h-b7-6-threehit-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-6: three-hit do(RAS=1, TP53=0, p21CIP=0) REJECTED, full mechanism found and verified two ways
 - [2026-09-06 23:12] `23fd3a2`: chore: auto-log commit history entry (2)
 - [2026-09-06 23:12] `5fbe68f` (local, branch `feature/auto-log-e9ce2d2` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
@@ -124,4 +142,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 22:05] `e45a14e`: chore: auto-log commit history entry
 - [2026-09-06 22:04] `242345a` (local, branch `feature/h-b7-1-kauffman-cellcycle` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-1: first Boolean-GRN experiment (Kauffman cancer attractors) -- CONFIRMED as a reproduction
 - [2026-09-06 21:05] `1a90d82`: chore: auto-log commit history entry
-- [2026-09-06 21:05] `c238353` (local, branch `feature/h-b3-1k-null-model-falsified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1k: null-model-effect hypothesis FALSIFIED by its own pre-registered prediction

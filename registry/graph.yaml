@@ -818,6 +818,20 @@ nodes:
       CyclinE1/CyclinA directly, never through RAS->CyclinD1. Named next step: four-hit
       do(RAS=1, TP53=0, p21CIP=0, RBL2=0), or a transient (not permanent) kick of RBL2/CyclinE1.
       Net position, `evidence: CONFLICT` unchanged.
+      H-B7-7 (four-hit perturbation): tested `do(RAS=1, TP53=0, p21CIP=0, RBL2=0)`. **CONFIRMED**
+      -- the FIRST successful permanent-clamp escape from Growth_arrest to Proliferation in this
+      bridge. Reached state is byte-identical to the pyboolnet-verified PROLIFERATION_STATE;
+      independently re-confirmed via a FRESH `pyboolnet.compute_attractors()` run on a
+      branch-restricted, four-clamped .bnet (zero reuse of this project's own simulation code) --
+      exactly 1 attractor, is_steady/is_univocal/is_faithful all yes, byte-identical match. Skeptic
+      pass (FL Step 8a, context-asymmetric) verdict CONFIRMED-REAL, ran 5 falsification checks, all
+      passed. One WEAKENING observation incorporated: RAS=1 and TP53=0 are already true at the
+      Growth_arrest starting state (no-ops relative to that state), so the actual novel/sufficient
+      perturbation is the two-hit do(p21CIP=0, RBL2=0) -- named as the next necessity-test step.
+      This closes the mechanistic chain H-B7-4(REJECT)->H-B7-5(REJECT)->H-B7-6(REJECT,
+      mechanism found)->H-B7-7(CONFIRMED), each REJECT motivating the next hit with increasing
+      precision. Bridge evidence updated: CONFLICT retained (H-B7-2's do(Rb=0) qualifier and the
+      untested-necessity gap both remain), but now with a clean CONFIRMED anchor, not only REJECTs.
 
   - id: H-B7-1
     type: hypothesis
@@ -951,6 +965,28 @@ nodes:
     source: "experiments/20260906-remy-tumorigenesis-threehit-h6/metrics/run.json"
     updated: 2026-09-06
 
+  - id: H-B7-7
+    type: hypothesis
+    title: "Combined permanent do(RAS=1, TP53=0, p21CIP=0, RBL2=0) four-hit perturbation on the Remy et al. 2015 network's bistable branch -- directly removes the second remaining redundant OR-branch (RBL2) of Growth_arrest, the mechanistically motivated follow-up named in H-B7-6's own Relaxation Map"
+    status: confirmed             # 2026-09-06 decision.md: CONFIRMED -- reaches the exact Proliferation attractor; skeptic pass (Step 8a) CONFIRMED-REAL with independent pyboolnet cross-check
+    evidence: VERIFIED-REAL       # metrics/run.json; 5 pre-registered tests; independently re-confirmed via a FRESH pyboolnet.compute_attractors() run built from scratch (zero reuse of this project's own simulation code) -- highest independent-verification tier used in this bridge
+    l0_type: causal
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if the model's own Proliferation phenotype node reads 1 in the reached attractor; REJECTED if Growth_arrest=1 persists. RESULT: CONFIRMED -- final_state_pyboolnet_order is byte-identical to PROLIFERATION_STATE (00000100101001010011001000110010110), Growth_arrest=False, Proliferation=True. Independently re-confirmed via a freshly-constructed, branch-restricted, four-clamped .bnet run through pyboolnet.compute_attractors() directly (not reusing this project's own synchronous_step/run_until_attractor at all) -- exactly 1 attractor, is_steady=True, is_univocal=yes, is_faithful=yes, same byte-identical state. FL Step 8a skeptic pass (context-asymmetric, claim.md+code+data only) verdict CONFIRMED-REAL after 5 falsification checks (node-order sanity, clamp-composition surgical-replacement check, own-pipeline sanity+result, independent pyboolnet reproduction, run.json freshness) all passed. One WEAKENING observation from the skeptic, incorporated not dismissed: RAS=1 and TP53=0 are already true at the GROWTH_ARREST_STATE starting point (no-ops relative to that specific state) -- the actually novel and load-bearing perturbation is the two-hit do(p21CIP=0, RBL2=0); named as the necessity-test next step. Closes the mechanistic chain H-B7-4(REJECT)->H-B7-5(REJECT)->H-B7-6(REJECT, mechanism found)->H-B7-7(CONFIRMED) -- the first successful permanent-clamp escape from Growth_arrest to Proliferation in this bridge"
+    experiment_dir: "experiments/20260906-remy-tumorigenesis-fourhit-h7"
+    source: "experiments/20260906-remy-tumorigenesis-fourhit-h7/decision.md"
+    updated: 2026-09-06
+
+  - id: ART-REMY-FOURHIT-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — combined do(RAS=1, TP53=0, p21CIP=0, RBL2=0) simulation on the Remy 2015 network's bistable branch; reaches the exact Proliferation attractor, independently confirmed via a fresh pyboolnet run"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-remy-tumorigenesis-fourhit-h7/metrics/run.json"
+    updated: 2026-09-06
+
   # ───────────────────────── questions ─────────────────────────
   - id: Q-GOE-vs-GUE
     type: question
@@ -1081,3 +1117,5 @@ edges:
   - {from: H-B7-5, to: ART-REMY-TWOHIT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
   - {from: H-B7-5, to: H-B7-6, type: grounds, since: 2026-09-06, note: "H-B7-5's own Relaxation Map named this exact follow-up: directly remove the traced TP53-independent p21CIP blocker"}
   - {from: H-B7-6, to: ART-REMY-THREEHIT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B7-6, to: H-B7-7, type: grounds, since: 2026-09-06, note: "H-B7-6's own Relaxation Map named this exact follow-up: directly remove the second remaining redundant OR-branch (RBL2) of Growth_arrest"}
+  - {from: H-B7-7, to: ART-REMY-FOURHIT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
