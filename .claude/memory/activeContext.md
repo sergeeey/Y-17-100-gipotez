@@ -8,50 +8,13 @@
 
 
 
+
 ## Current Focus
-**B1/B2/B3 arc (H-B3-1 through H-B3-1k, ADR-010–027) archived to
-`.claude/memory/history/activeContext-archive-20260906-b1b2b3.md`** — fully superseded by
-`registry/graph.yaml` node/bridge statuses (source of truth) and `decisions.md` ADRs. Summary: B2
-(Chernoff↔Neural-ODE) closed with 7 confirmations; B3 (May1972↔TDA) closed with 5 LEAD / 6 killed
-across 11 experiments, bridge `B3-MAY-TDA → evidence: CONFLICT`. Active thread below (B7,
-Kauffman cancer attractors) continues from there.
+[summarized] **B1/B2/B3 arc (H-B3-1 through H-B3-1k, ADR-010–027) archived to
+[summarized] **[WS: H-B7-1 Kauffman cancer attractors] CLOSED 2026-09-06 (ADR-028, прямой запрос пользователя
+[summarized] **[WS: H-B7-2 perturbation] CLOSED 2026-09-06 (ADR-029, прямой запрос пользователя «начинай
+[summarized] **[WS: H-B7-3 transient perturbation] CLOSED 2026-09-06 (ADR-030, прямой запрос пользователя
 
-**[WS: H-B7-1 Kauffman cancer attractors] CLOSED 2026-09-06 (ADR-028, прямой запрос пользователя
-«начинай скоупинг R6», первый выход за пределы B1/B2/B3).** `[VERIFIED]`:
-- Новый мост `B7-KAUFFMAN-ATTRACTORS` — Boolean-GRN динамика, первый раз в проекте. Gate 1: нашёл
-  реальную статью (Fauré et al. 2006) через WebSearch, точный `.bnet`-файл через GitHub API
-  (hklarner/pyboolnet), скачал и захэшировал. Gate 3: тот же репозиторий даёт сторонний positive
-  control (PyBoolNet's собственный отчёт об аттракторах).
-- 7 тестов (4 на проверяемых руками синтетических сетях) ДО реального прогона.
-- **Результат: CONFIRMED.** Brute-force с нуля (`boolean.py`, без `eval`) точно воспроизвёл: 2
-  аттрактора, quiescent point (байт-в-байт), complex period-7, basin 512/512. Расследована и
-  разрешена несостыковка в порядке переменных trapspace-строки PyBoolNet (алфавитный, не порядок
-  объявления) — не списано на совпадение, проверено против биологии.
-- **Важная оговорка:** это воспроизведение известного результата, НЕ проверка самой гипотезы
-  Kauffman. Настоящий тест — perturbation-эксперимент (Rb=0 или p27=0 зафиксированы), следующий шаг.
-- Граф: `H-B7-1 → confirmed`. Pearl impact 6.
-
-**[WS: H-B7-2 perturbation] CLOSED 2026-09-06 (ADR-029, прямой запрос пользователя «начинай
-perturbation-эксперимент», настоящий тест гипотезы Kauffman).** `[VERIFIED]`:
-- Первый CAUSAL эксперимент в проекте (EstimandOps L0: do-оператор vs естественная динамика, 4
-  допущения идентифицируемости тривиальны — детерминированный механизм). Переиспользовал
-  верифицированные функции H-B7-1 без изменения. 6 тестов (5 на проверяемых сетях) ДО прогона.
-- **do(Rb=0) → CONFIRMED [WEAKENED]:** CycD=0 сходится к НОВОМУ аттрактору периода 8 внутри CycD=0 —
-  персистентное деление без фактора роста. Но это новый аттрактор, не один из 2 у невозмущённой сети
-  — слабее строгой формулировки Kauffman.
-- **do(p27=0) → REJECTED:** CycD=0 всё равно сходится к point attractor. Согласуется с биологией
-  (Rb центральнее p27 в узле рестрикции).
-- **Методологическая находка:** разграничил (a) «новый аттрактор от перманентной потери гена» vs
-  (b) «патологическое состояние уже существует, достижимо временным возмущением» [строгий Kauffman,
-  не проверено] — легко спутать при беглом изложении.
-- Граф: `H-B7-2 → lead`. Мост `B7-KAUFFMAN-ATTRACTORS` → `evidence: CONFLICT`. Pearl impact 7.
-
-**[WS: H-B7-3 transient perturbation] CLOSED 2026-09-06 (ADR-030, прямой запрос пользователя
-«начинай transient-perturbation эксперимент», Compute-First дедукция).** `[VERIFIED]`:
-- ДО новой симуляции проверил: H-B7-1 уже доказал, что у ВСЕХ 512 состояний CycD=0 РОВНО ОДИН
-  аттрактор. Логический вывод: временное (отпускаемое) возмущение Rb/p27 не может дать другой
-  исход — гарантировано заранее, без нового compute-дизайна.
-- 6 тестов + 6 реальных симуляций (разные узлы/длительности/старты) подтвердили: **6/6 (100%)**
   вернулись к quiescent point attractor, ровно как предсказано.
 - **Классификация: TASK_INFEASIBLE для строгой формулировки Kauffman в ЭТОЙ модели**, не улика
   против гипотезы — модели не хватает мультистабильности внутри одной ветки CycD.
@@ -70,6 +33,20 @@ Relaxation Map H-B7-3).** `[VERIFIED]`:
   в отличие от H-B7-3) — согласуется с multi-hit теорией канцерогенеза.
 - Граф: `H-B7-4 → killed`. Мост остаётся `evidence: CONFLICT`. Pearl impact 8. Следующий шаг:
   комбинированное do(RAS=1, TP53=0).
+**[WS: H-B7-4 remy_tumorigenesis] CLOSED.**
+
+**[WS: H-B7-5 remy_tumorigenesis two-hit] CLOSED 2026-09-06 (ADR-032, прямой запрос пользователя
+«начинай двухударный эксперимент»).** `[VERIFIED]`:
+- `do(RAS=1, TP53=0)` на той же bistable-ветке → **REJECTED снова** (вернулось в Growth_arrest).
+- Но механизм провала ПРОСЛЕЖЕН прямо против правил `.bnet`: `p21CIP=1` держится ДАЖЕ при TP53=0
+  через второй, TP53-независимый дизъюнкт своего правила (`Growth_inhibitors&!CyclinE1&!AKT`),
+  блокируя CyclinD1 несмотря на RAS=1.
+- Структурно: ВСЕ 8 мультистабильных веток модели имеют `Growth_inhibitors=1` — резервный чекпоинт
+  не специфичен одной ветке.
+- Граф: `H-B7-5 → killed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 9** (самый высокий в
+  серии B7). Следующий шаг: трёхударный `do(RAS=1, TP53=0, p21CIP=0)`, мотивированный найденным
+  механизмом, не произвольным выбором.
+**[WS: H-B7-5 remy_tumorigenesis two-hit] CLOSED.**
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
@@ -85,11 +62,13 @@ Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998`
 
 
 
+
 ## Architecture (файлы этой папки)
 - `00-catalog/` — источники задач (raw + verified subset + skeptic assessment)
 - `01-cross-domain-bridges/` — главный рабочий файл + H-7 контекст (два разных проекта!)
 - `02-related-projects-context/` — ChernoffPy, May 1972
 - `03-methodology-rules/` — переиспользуемые правила (execution rules, submission gate, ESV scoring)
+
 
 
 
@@ -105,6 +84,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 
+
 ## Open Questions (для пользователя)
 1. Frontier R&D / TOFT / RAF Theory — реальны на другом компьютере, или нет?
 2. Доступен ли этот E:\ путь с других ПК (тот же физический диск / сетевая шара / нет)?
@@ -114,7 +94,9 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 
+
 ## Auto-commit log
+- [2026-09-06 22:54] `8fbb6a3`: chore: auto-log commit history entry
 - [2026-09-06 22:54] `962403a` (local, branch `feature/active-context-archive-trim` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: archive B1/B2/B3 arc from activeContext.md, trim to under the 200-line ceiling
 - [2026-09-06 22:49] `167605b` (local, branch `feature/h-b7-4-remy-tumorigenesis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-4: installed pyboolnet, found a genuinely bistable cancer model, first structurally-capable test of Kauffman's hypothesis
 - [2026-09-06 22:30] `0f92f1c`: chore: auto-log commit history entry
@@ -129,4 +111,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 20:33] `b12c6d8`: chore: record reviewer-agent verdict for H-B3-1j in activeContext.md
 - [2026-09-06 20:31] `dcecb68` (local, branch `feature/h-b3-1j-review-response` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1j: address reviewer's two P2 findings (reference-diagram degeneracy, missing real-data regression test)
 - [2026-09-06 20:24] `dedf213` (local, branch `feature/h-b3-1j-diagram-distance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1j: the "hard branch" fully implemented (Wasserstein diagram-distance) -- REJECT again, but narrows H-B3-1i's finding to a null-model effect
-- [2026-09-06 20:09] `00a6637`: chore: auto-log commit history entry

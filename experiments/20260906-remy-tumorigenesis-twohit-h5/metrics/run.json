@@ -1,0 +1,21 @@
+{
+  "clamps": {
+    "RAS": true,
+    "TP53": false
+  },
+  "branch_inputs": {
+    "DNA_damage": false,
+    "EGFR_stimulus": false,
+    "FGFR3_stimulus": true,
+    "Growth_inhibitors": true
+  },
+  "growth_arrest_state": "00000000000000000011011000011110001",
+  "proliferation_state": "00000100101001010011001000110010110",
+  "final_attractor_period": 1,
+  "final_attractor_type": "point",
+  "final_state_pyboolnet_order": "00000000000000000011011000011110001",
+  "final_attractor_identity": "GROWTH_ARREST (unchanged -- two-hit insufficient)",
+  "branch_inputs_preserved": true,
+  "flipped_to_proliferation": false,
+  "comparison_to_h_b7_4_single_hit_ras": "H-B7-4 (RAS alone): REJECTED, returned to Growth_arrest"
+}

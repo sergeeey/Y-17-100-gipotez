@@ -793,7 +793,17 @@ nodes:
       existed), consistent with multi-hit carcinogenesis theory (single oncogene activation
       alone is textbook-insufficient). Named next step: a combined do(RAS=1, TP53=0) two-hit
       perturbation. Net position, `evidence: CONFLICT` unchanged, now with a real (not merely
-      structurally foreclosed) negative data point on the strict hypothesis.
+      structurally foreclosed) negative data point on the strict hypothesis. H-B7-5 (two-hit
+      perturbation): tested combined permanent `do(RAS=1, TP53=0)` -- the biologically standard
+      oncogene+tumor-suppressor cooperating pair named as H-B7-4's own next step -- from the same
+      Growth_arrest fixed point. REJECTED again (returns to Growth_arrest), but this time the
+      mechanism was traced directly: `p21CIP` stays active DESPITE `TP53=0` via a SECOND,
+      TP53-independent route in its own rule (`Growth_inhibitors&!CyclinE1&!AKT`), which alone
+      blocks `CyclinD1` regardless of `RAS=1`. All 8 multistable branches in this model share
+      `Growth_inhibitors=1`, so this redundant checkpoint is structural to the model, not specific
+      to the one branch tested. Named next step: a three-hit `do(RAS=1, TP53=0, p21CIP=0)` test,
+      directly motivated by the identified mechanism rather than another arbitrary gene choice. Net
+      position, `evidence: CONFLICT` unchanged.
 
   - id: H-B7-1
     type: hypothesis
@@ -881,6 +891,28 @@ nodes:
     date_created: 2026-09-06
     provenance: measurement
     source: "experiments/20260906-remy-tumorigenesis-transient-h4/metrics/run.json"
+    updated: 2026-09-06
+
+  - id: H-B7-5
+    type: hypothesis
+    title: "Combined permanent do(RAS=1, TP53=0) two-hit perturbation on the Remy et al. 2015 network's bistable branch -- a biologically standard oncogene+tumor-suppressor cooperating pair, the deliberate two-assumption follow-up named in H-B7-4's own Relaxation Map"
+    status: killed                 # 2026-09-06 decision.md: REJECTED -- returns to Growth_arrest, mechanism traced (p21CIP sustained via a TP53-independent route)
+    evidence: VERIFIED-REAL        # metrics/run.json; 5 pre-registered tests including a hand-traced synthetic genuine-two-hit network, passed before the real run; mechanism independently traced against the actual .bnet rules
+    l0_type: causal
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if the combined clamp reaches Proliferation (or a new non-Growth_arrest attractor); REJECTED if it still returns to Growth_arrest. RESULT: REJECTED -- final_attractor_identity = GROWTH_ARREST (unchanged -- two-hit insufficient). Mechanism traced directly against the reached state and the .bnet rules: p21CIP=1 despite TP53=0, sustained via the SECOND disjunct of its own rule (Growth_inhibitors&!CyclinE1&!AKT, all three conditions verified true in the reached state) -- a TP53-independent redundant checkpoint that blocks CyclinD1 (needs !p21CIP&!p16INK4a&RAS) regardless of RAS=1, keeping RB1 active. Structural observation: all 8 multistable branches found in H-B7-4's own scoping have Growth_inhibitors=1, meaning this redundancy is present in every branch of this model where a Growth_arrest/Proliferation choice exists at all, not a peculiarity of the one branch tested. Named next step: three-hit do(RAS=1, TP53=0, p21CIP=0), directly motivated by the traced mechanism"
+    experiment_dir: "experiments/20260906-remy-tumorigenesis-twohit-h5"
+    source: "experiments/20260906-remy-tumorigenesis-twohit-h5/decision.md"
+    updated: 2026-09-06
+
+  - id: ART-REMY-TWOHIT-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — combined do(RAS=1, TP53=0) simulation on the Remy 2015 network's bistable branch; returns to Growth_arrest, mechanism traced to a TP53-independent p21CIP route"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-remy-tumorigenesis-twohit-h5/metrics/run.json"
     updated: 2026-09-06
 
   # ───────────────────────── questions ─────────────────────────
@@ -1009,3 +1041,5 @@ edges:
   - {from: H-B7-3, to: H-B7-4, type: grounds, since: 2026-09-06, note: "H-B7-3's own Relaxation Map named this exact follow-up: test the same transient-perturbation logic on a network KNOWN to have multiple attractors within one basin"}
   - {from: PRJ-REMY-TUMORIGENESIS, to: H-B7-4, type: grounds, since: 2026-09-06, note: "Remy et al. 2015 model is the concrete test case chosen because it was verified (via pyboolnet) to have the multi-attractor-per-branch structure H-B7-3 showed the Fauré model lacked"}
   - {from: H-B7-4, to: ART-REMY-TRANSIENT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B7-4, to: H-B7-5, type: grounds, since: 2026-09-06, note: "H-B7-4's own Relaxation Map named this exact follow-up: a genuine two-hit do(RAS=1, TP53=0) perturbation, matching multi-hit carcinogenesis theory"}
+  - {from: H-B7-5, to: ART-REMY-TWOHIT-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
