@@ -167,6 +167,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 21:05] `c238353` (local, branch `feature/h-b3-1k-null-model-falsified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1k: null-model-effect hypothesis FALSIFIED by its own pre-registered prediction
 - [2026-09-06 20:33] `5c61761`: chore: auto-log commit history entry
 - [2026-09-06 20:33] `b12c6d8`: chore: record reviewer-agent verdict for H-B3-1j in activeContext.md
 - [2026-09-06 20:31] `dcecb68` (local, branch `feature/h-b3-1j-review-response` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1j: address reviewer's two P2 findings (reference-diagram degeneracy, missing real-data regression test)
@@ -181,4 +182,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 19:23] `4c2110b` (local, branch `feature/h-b3-1h-population-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1h: pearl's falsifiable_prediction CONFIRMED (100% of B3 crossings sit in a local variance minimum), plus self-caught error fix
 - [2026-09-06 19:18] `ddf4df9`: chore: auto-log commit history entry (3)
 - [2026-09-06 19:17] `6130d03`: chore: auto-log commit history entry (2)
-- [2026-09-06 19:17] `94890ea`: chore: auto-log commit history entry
