@@ -77,6 +77,12 @@
 - Граф: `H-B2-1 → confirmed` (было `killed`). Pearl impact 8: новый методологический гейт «Strongest-Available-Formalization Check» — не убивать вывод об аппарате целиком, если протестировано только explicitly упрощённое следствие теоремы.
 - B2 Relaxation Map row 2 (многомерный случай) — приоритет повышен.
 
+**[WS: H-B2-1b matrix case] CLOSED 2026-09-06 (ADR-017, автономно, `/loop` продолжение установленной работы).** `[VERIFIED]`:
+- Реализовал 2D симметричную матрицу A (собственные значения -1,-2, ортогональный поворот — генуинно внедиагональная). Те же полиномиальные блоки и легитимный K_j=0, что в коррекции H-B2-1. 8 тестов ДО реального сравнения.
+- **Ключевая нетривиальность:** быстрое собственное значение (-2) требует вдвое мельче шага для условия M2, чем медленное — риск, который 1D-тест принципиально не мог показать.
+- **Результат: механизм устоял полностью.** Порядок совпал с теорией (1.0014/2.0032), граница выполнилась во всех 16 случаях, эффективность постоянна, условие M2 выполнилось для ОБОИХ собственных значений на всех 8 n — не гарантировано заранее.
+- Граф: `H-B2-1b → confirmed` (новый узел, Minimal Relaxation Rule: 1D→2D). Pearl impact 7: коррекция H-B2-1 не артефакт игрушки, переносится на базовый многомерный случай.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -117,6 +123,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-06 15:20] `db77901`: chore: auto-log commit history entry
 - [2026-09-06 15:19] `01d6d9d` (local, branch `feature/h-b2-1-theorem31-correction` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(H-B2-1): correct KILLED -> CONFIRMED after reading the paper's actual main theorem (3.1), not just its simplified 1D corollary
 - [2026-09-06 14:58] `f428e99`: chore: auto-log commit history entry
 - [2026-09-06 14:57] `09269f1` (local, branch `feature/consistency-review-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(null_results): timestamp the stale retroscan claim for H-B3-1c/1d
@@ -131,4 +138,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 14:06] `c8f5e5f` (local, branch `feature/h-b3-1d-v1prime` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat(H-B3-1d): V1' (IAAFT surrogate-null) implemented and run -> REJECT, sharper diagnosis than V1
 - [2026-09-06 13:34] `bbd1496`: chore: auto-log commit history entry
 - [2026-09-06 13:33] `34304c3`: feat(H-B3-1c): V1 surrogate-null implemented and re-run on both datasets -> REJECT (first real one)
-- [2026-09-06 13:12] `ea27a8a`: chore: auto-log commit history entry

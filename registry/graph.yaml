@@ -228,6 +228,28 @@ nodes:
     source: "experiments/20260906-chernoff-neuralode-1d-decay/metrics/theorem_3_1_check.json"
     updated: 2026-09-06
 
+  - id: H-B2-1b
+    type: hypothesis
+    title: "Relaxation Map row 2 from H-B2-1's correction: does the K_j=0/Theorem 3.1 mechanism generalize to a genuine 2D matrix Chernoff block (two distinct eigenvalues)?"
+    status: confirmed             # 2026-09-06 decision.md: PROMOTE -- mechanism generalizes cleanly to 2D
+    evidence: VERIFIED-REAL       # metrics/run.json; 8 regression tests incl. positive/negative controls and M2-condition edge check
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "n/a in the strict binary sense (Standard-tier deductive/numerical verification, same as H-B2-1) -- MCID: bound holds for all tested n AND efficiency ratio stable (not blowing up/collapsing by >~2 orders of magnitude) across n, for both block orders. RESULT: symmetric 2x2 A (eigenvalues -1,-2, orthogonal rotation making it genuinely off-diagonal), order-1 and order-2 polynomial blocks. Empirical order 1.0014/2.0032 (matches m exactly, not m-1). Bound holds in all 16 tested cases (2 blocks x 8 n). Efficiency CONSTANT across n (0.305-0.308 order-1, 0.233-0.237 order-2) -- same signature of exact order match found in the 1D correction. Critically, the M2 condition (|f_m(lambda*h)|<=1) was checked for BOTH eigenvalues, not just the dominant one -- the FASTER eigenvalue (-2) requires a stricter step size than the slower one (-1), a risk the 1D test could never reveal (only one eigenvalue there). The condition held at every tested n including the coarsest (n=50) -- not a foregone conclusion, genuinely checked. PROMOTE: mechanism generalizes to this basic multi-dimensional case. Open: non-normal matrices, wider eigenvalue spread, higher dimension -- named in decision.md Relaxation Map as natural next steps, not required for this verdict"
+    experiment_dir: "experiments/20260906-chernoff-neuralode-2d-matrix"
+    source: "experiments/20260906-chernoff-neuralode-2d-matrix/decision.md"
+    updated: 2026-09-06
+
+  - id: ART-CHERNOFF-2D-MATRIX-RUN-20260906
+    type: artifact
+    title: "metrics/run.json — 2D matrix Chernoff-rate vs empirical-error comparison, order-1/order-2 blocks, two eigenvalues"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-06
+    provenance: measurement
+    source: "experiments/20260906-chernoff-neuralode-2d-matrix/metrics/run.json"
+    updated: 2026-09-06
+
   - id: H-B3-1
     type: hypothesis
     title: "Phase 1 (Peter Lake): TDA signals (Betti-1, persistent entropy) lead classical EWS (variance, autocorrelation) on the Carpenter 2011 Peter Lake whole-ecosystem regime-shift experiment"
@@ -490,6 +512,8 @@ edges:
   - {from: B2-CHERNOFF-UDE,    to: H-B2-1,  type: grounds, since: 2026-09-06}
   - {from: H-B2-1, to: ART-CHERNOFF-1D-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
   - {from: H-B2-1, to: ART-CHERNOFF-THEOREM31-CORRECTION-20260906, type: grounds, since: 2026-09-06, note: "correction re-analysis produced this artifact, reverses original KILLED verdict -> confirmed"}
+  - {from: H-B2-1, to: H-B2-1b, type: grounds, since: 2026-09-06, note: "H-B2-1's own correction addendum Relaxation Map row 2 (matrix/multi-dimensional case) -- ONE assumption changed (dimension 1D scalar -> 2D matrix), per Minimal Relaxation Rule"}
+  - {from: H-B2-1b, to: ART-CHERNOFF-2D-MATRIX-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
   - {from: B3-MAY-TDA,         to: H-B3-1,  type: grounds, since: 2026-09-06}
   - {from: PRJ-CARPENTER-PETERLAKE, to: H-B3-1, type: grounds, since: 2026-09-06, note: "corrected data source, replaces Mangal/GloBI"}
   - {from: ART-WANG2023-EWS-LIMITS, to: H-B3-1, type: depends_on, since: 2026-09-06, note: "informs why kill_criterion was revised from >=3 collapses to Phase 1 N=1"}
