@@ -46,6 +46,31 @@
 
 ---
 
+## ADR-044 — H-B3-1b: исправлена устаревшая аннотация graph.yaml, Type-4 self-catch (2026-09-07, автономно, `/loop`)
+
+**Контекст:** при поиске следующего дешёвого шага в очереди (после закрытия обоих пунктов H-B2-1g's
+Relaxation Map) обнаружено: `H-B3-1b`'s собственный `kill_criterion` в graph.yaml утверждал «3
+некруговых фикса, ни один ещё не запущен» — но по факту ОДИН из трёх (surrogate-based null) БЫЛ
+запущен, причём трижды: H-B3-1c (AR1), H-B3-1d (IAAFT), H-B3-1e (detrend+IAAFT) — все REJECT, с
+идентичным набором ложных срабатываний на трёх структурно разных null-моделях. Дополнительно
+скомбинирован с альтернативными статистиками в H-B3-1g/h/i/j/k.
+
+**Это ровно Тип 4 ошибки** из `research-methodology.md` § Классификатор («лаг обновления»: новый
+NULL не применён ретроактивно к более старой аннотации) — не гипотетический, а реально найденный
+в собственном графе проекта.
+
+**Исправлено:** комментарий узла `H-B3-1b` в graph.yaml дополнен STALE-ANNOTATION CORRECTED
+секцией (не тихая правка — старый текст сохранён, добавлена дата и объяснение), `kill_criterion`
+обновлён: Row 1 (surrogate null) помечен `[RUN, REJECTED via H-B3-1c/d/e]`, Row 2 (change-point
+co-requirement) и Row 3 (peak-tau instead of first-crossing) помечены `[untested]`.
+
+**Следующий шаг:** Row 3 (peak-tau) явно назван «cheapest» в оригинальной Relaxation Map
+(`experiments/20260906-may1972-tda-ews-obrienlakes/decision.md`) — не требует новой статистической
+машинерии, только смена репортинга first-crossing на argmax(tau). Кандидат для следующего
+эксперимента по CDT Protocol.
+
+---
+
 ## ADR-043 — H-B2-1i: seed-ensemble test closes H-B2-1g's own open question (M1=158.93 — typical or unlucky?) (2026-09-07, автономно, `/loop`, продолжение Relaxation Map H-B2-1g/h)
 
 **Контекст:** H-B2-1g's own Relaxation Map (второй, ещё не закрытый пункт после H-B2-1h) назвал
