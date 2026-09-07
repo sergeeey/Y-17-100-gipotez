@@ -73,8 +73,17 @@ def two_part_crossing(
     return tau_idx if p_value < alpha else None
 
 
-def floor_false_positive_rate_v2(x: np.ndarray, window: int, reps: int, seed: int) -> float:
-    """Fraction of AR(1) surrogates (no mechanism) that STILL two-part-cross under V2."""
+def floor_false_positive_rate_v2(
+    x: np.ndarray, window: int, reps: int, seed: int
+) -> tuple[float, float]:
+    """Fraction of AR(1) surrogates (no mechanism) that STILL two-part-cross under V2.
+
+    Returns (rate, se) where se is the binomial standard error sqrt(p(1-p)/reps) -- reported
+    per FL Step 8a skeptic Finding 3: at the original reps=30 the 95% CI half-width (~18pp) sat
+    inside the pre-registered 50% decision boundary. `reps` and `seed` are now caller-controlled
+    (was hard-coded reps=30, seed=0 shared across all three lakes -- skeptic Finding 4) so a
+    genuinely per-lake-independent, adequately-powered floor estimate can be produced.
+    """
     rng = np.random.default_rng(seed)
     hits = 0
     for _ in range(reps):
@@ -88,14 +97,21 @@ def floor_false_positive_rate_v2(x: np.ndarray, window: int, reps: int, seed: in
             or two_part_crossing(ac1, tau_ac1) is not None
         ):
             hits += 1
-    return hits / reps
+    rate = hits / reps
+    se = float(np.sqrt(rate * (1.0 - rate) / reps))
+    return rate, se
+
+
+FLOOR_REPS = 500  # was 30 -- FL Step 8a skeptic Finding 3: reps=30 gave a 95% CI half-width of
+# ~18pp, placing the pre-registered 50% decision boundary inside the noise band. 500 reps gives
+# SE=sqrt(0.25/500)~=2.2pp, 95% CI half-width~=4.4pp -- comfortably resolves the boundary.
 
 
 def cmd_run() -> dict:
     rdata = pyreadr.read_r(str(obrien.DATA))
     results = {}
 
-    for lake_key, cfg in obrien.LAKES.items():
+    for lake_index, (lake_key, cfg) in enumerate(obrien.LAKES.items()):
         dates, pca1 = obrien.load_series(rdata, lake_key)
         n = len(pca1)
         window = round(obrien.WINDOW_FRAC * n)
@@ -124,7 +140,12 @@ def cmd_run() -> dict:
         if cross_betti is not None and classical_cross is not None:
             lead_months = (classical_cross - cross_betti) * 12.0
 
-        new_floor_fp_rate = floor_false_positive_rate_v2(pca1, window, reps=30, seed=0)
+        # per-lake seed (skeptic Finding 4: original code shared seed=0 across all 3 lakes,
+        # correlating their surrogate innovation sequences -- ~1.5, not 3, independent trials)
+        lake_seed = 1000 * (lake_index + 1)
+        new_floor_fp_rate, new_floor_se = floor_false_positive_rate_v2(
+            pca1, window, reps=FLOOR_REPS, seed=lake_seed
+        )
 
         results[lake_key] = {
             "role": cfg["role"],
@@ -141,6 +162,13 @@ def cmd_run() -> dict:
                 and (cross_ac1 is not None or cross_var is not None or cross_betti is not None)
             ),
             "new_floor_ar1_false_positive_rate": new_floor_fp_rate,
+            "new_floor_ar1_false_positive_rate_se": new_floor_se,
+            "new_floor_ar1_false_positive_rate_ci95": [
+                max(0.0, new_floor_fp_rate - 1.96 * new_floor_se),
+                min(1.0, new_floor_fp_rate + 1.96 * new_floor_se),
+            ],
+            "floor_reps": FLOOR_REPS,
+            "floor_seed": lake_seed,
             "original_floor_ar1_false_positive_rate": obrien.floor_false_positive_rate(
                 pca1, window, reps=30, seed=0
             ),

@@ -19,7 +19,14 @@
       "tda_betti_crossing": 1999.5,
       "lead_months_tda_minus_classical": 24.0,
       "false_positive": false,
-      "new_floor_ar1_false_positive_rate": 0.4,
+      "new_floor_ar1_false_positive_rate": 0.44,
+      "new_floor_ar1_false_positive_rate_se": 0.022199099080818574,
+      "new_floor_ar1_false_positive_rate_ci95": [
+        0.3964897658015956,
+        0.4835102341984044
+      ],
+      "floor_reps": 500,
+      "floor_seed": 1000,
       "original_floor_ar1_false_positive_rate": 0.8333333333333334
     },
     "windermere": {
@@ -33,7 +40,14 @@
       "tda_betti_crossing": null,
       "lead_months_tda_minus_classical": null,
       "false_positive": false,
-      "new_floor_ar1_false_positive_rate": 0.3333333333333333,
+      "new_floor_ar1_false_positive_rate": 0.428,
+      "new_floor_ar1_false_positive_rate_se": 0.022127629787213995,
+      "new_floor_ar1_false_positive_rate_ci95": [
+        0.38462984561706054,
+        0.47137015438293944
+      ],
+      "floor_reps": 500,
+      "floor_seed": 2000,
       "original_floor_ar1_false_positive_rate": 0.8
     },
     "loch_leven": {
@@ -47,10 +61,17 @@
       "tda_betti_crossing": null,
       "lead_months_tda_minus_classical": null,
       "false_positive": true,
-      "new_floor_ar1_false_positive_rate": 0.5333333333333333,
+      "new_floor_ar1_false_positive_rate": 0.416,
+      "new_floor_ar1_false_positive_rate_se": 0.02204286732709699,
+      "new_floor_ar1_false_positive_rate_ci95": [
+        0.37279598003888986,
+        0.4592040199611101
+      ],
+      "floor_reps": 500,
+      "floor_seed": 3000,
       "original_floor_ar1_false_positive_rate": 0.8333333333333334
     }
   },
-  "max_new_floor_fp_rate": 0.5333333333333333,
-  "verdict": "CRITERION_INVALID"
+  "max_new_floor_fp_rate": 0.44,
+  "verdict": "REJECT"
 }

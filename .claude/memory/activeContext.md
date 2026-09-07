@@ -47,6 +47,17 @@ K=225.0=предсказание, p≈3.7e-5), AND-gate не даёт заявл
 мягкого до математически/вычислительно безапелляционного, на ОБОИХ мостах (B2, B3). Систематический
 skeptic-скан флагованных экспериментов ЗАВЕРШЁН. **[WS: seventh and final skeptic pass] CLOSED.**
 
+**[WS: H-B3-1m power-фикс, прямое следствие ADR-056] REJECT финально (ADR-057):** установлен
+`pyhomogeneity`, `pettitt_test` сверена — K/U совпадает точно на 7 случаях, реализация без ошибок
+(Finding 5 DISMISSED); побочно — ВТОРОЕ независимое подтверждение Finding 1 (сторонний пакет тоже
+помечает чистый тренд как значимый). `run.py`: reps 30→500, раздельный seed на озеро. Floor
+резолвится чисто: Lower Zurich 44.0%, Windermere 42.8%, Loch Leven 41.6% (все CI<50%) — но именно
+это открыло Step 2 критерия впервые: Loch Leven реально two-part-crosses на СВОИХ данных (не
+только AR(1)-нуле) — истинный false positive. Вердикт UNRESOLVED→**REJECT**. Kill Analysis,
+`null_results/H-B3-1m-…md`, graph.yaml status killed/evidence VERIFIED-REAL. **ЗАКРЫВАЕТ ВСЕ 3
+пункта Relaxation Map H-B3-1b окончательно** (Row1 REJECT, Row2 REJECT, Row3 CONFIRMED-с-
+конфаундом) — ни один чистый PROMOTE. **[WS: H-B3-1m power fix] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -103,6 +114,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 11:04] `435a7f2` (local, branch `feature/h-b3-1m-skeptic-final-sweep-close` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 2, final)
 - [2026-09-07 11:04] `7d0a417` (local, branch `feature/h-b3-1m-skeptic-final-sweep-close` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-07 11:04] `f0ddb5c` (local, branch `feature/h-b3-1m-skeptic-final-sweep-close` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B3-1m verdict downgraded to UNRESOLVED AT CURRENT POWER by seventh and final skeptic pass -- AND-gate mechanism disproven by direct computation
 - [2026-09-07 10:51] `3ae216d` (local, branch `feature/h-b3-1l-skeptic-argmax-bias` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 4, folding in)
@@ -117,4 +129,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 09:51] `cc4932d` (local, branch `feature/h-b2-1l-skeptic-weakened` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1l WEAKENED by the session's first real skeptic pass -- N-sweep was one curve, not 9
 - [2026-09-07 09:07] `5b1ab1e` (local, branch `feature/h-b2-1l-eigenvector-conditioning` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1l: eigenvector conditioning kappa(V) explains M1 in both independent H-B2-1* populations
 - [2026-09-07 08:56] `31daa9a` (local, branch `feature/h-b2-1k-dimension-sweep` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1k: M1(N) is non-monotonic at a fixed spectral range -- confirms H-B2-1j's own prediction
-- [2026-09-07 08:39] `f263ce1` (local, branch `feature/h-b2-1j-scale-n50` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1j: Theorem 3.1 bound CONFIRMED at N=50, efficiency collapses 3-5 more orders of magnitude
