@@ -1,0 +1,22 @@
+{
+  "40": {
+    "n_dim": 40,
+    "rho_global": 0.8209090239580531,
+    "p_global": 0.00017621363510801592,
+    "rho_local_wide": 0.7849512785922561,
+    "p_local_wide": 0.0005274769341518232,
+    "local_alpha_min": 7.174496644295301,
+    "local_alpha_max": 12.802013422818792,
+    "hit_window_boundary_20": false
+  },
+  "50": {
+    "n_dim": 50,
+    "rho_global": 0.8239050522521785,
+    "p_global": 0.0001591290848353395,
+    "rho_local_wide": 0.7999999999999999,
+    "p_local_wide": 0.00034226983303569167,
+    "local_alpha_min": 8.090604026845638,
+    "local_alpha_max": 15.681208053691275,
+    "hit_window_boundary_20": false
+  }
+}

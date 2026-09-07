@@ -1,0 +1,74 @@
+{
+  "3": {
+    "n_dim": 3,
+    "rho_global": 0.9792489833686687,
+    "p_global": 2.1503434323725896e-10,
+    "rho_local": 0.9955257046261681,
+    "p_local": 1.0432649576610316e-14,
+    "rho_diff": 0.01627672125749935,
+    "max_abs_alpha_diff_local_vs_global": 0.4242424242424203,
+    "n_local_below_universal_bound_1p5": 1,
+    "local_alpha_min": 1.40909090909091,
+    "local_alpha_max": 3.7323232323232327
+  },
+  "4": {
+    "n_dim": 4,
+    "rho_global": 0.9589801130069681,
+    "p_global": 1.717811090725635e-08,
+    "rho_local": 0.9946284302621328,
+    "p_local": 3.41516542673269e-14,
+    "rho_diff": 0.03564831725516471,
+    "max_abs_alpha_diff_local_vs_global": 0.5252525252525206,
+    "n_local_below_universal_bound_1p5": 0,
+    "local_alpha_min": 1.9141414141414135,
+    "local_alpha_max": 3.7323232323232327
+  },
+  "8": {
+    "n_dim": 8,
+    "rho_global": 0.9728524798578371,
+    "p_global": 1.2142649856549394e-09,
+    "rho_local": 0.9883652477914251,
+    "p_local": 5.112936421826324e-12,
+    "rho_diff": 0.015512767933588023,
+    "max_abs_alpha_diff_local_vs_global": 0.520202020202019,
+    "n_local_below_universal_bound_1p5": 0,
+    "local_alpha_min": 1.6111111111111107,
+    "local_alpha_max": 4.641414141414142
+  },
+  "12": {
+    "n_dim": 12,
+    "rho_global": 0.9306138590020807,
+    "p_global": 4.883883605870344e-07,
+    "rho_local": 0.9453928457135371,
+    "p_local": 1.0673271491280114e-07,
+    "rho_diff": 0.014778986711456388,
+    "max_abs_alpha_diff_local_vs_global": 0.5404040404040416,
+    "n_local_below_universal_bound_1p5": 0,
+    "local_alpha_min": 2.5202020202020208,
+    "local_alpha_max": 7.3686868686868685
+  },
+  "40": {
+    "n_dim": 40,
+    "rho_global": 0.8209090239580531,
+    "p_global": 0.00017621363510801592,
+    "rho_local": 0.7899575980421271,
+    "p_local": 0.0004585252300806687,
+    "rho_diff": -0.030951425915926034,
+    "max_abs_alpha_diff_local_vs_global": 2.0202020202020208,
+    "n_local_below_universal_bound_1p5": 0,
+    "local_alpha_min": 7.166666666666666,
+    "local_alpha_max": 10.5
+  },
+  "50": {
+    "n_dim": 50,
+    "rho_global": 0.8239050522521785,
+    "p_global": 0.0001591290848353395,
+    "rho_local": 0.7977647343851264,
+    "p_local": 0.0003657893909693338,
+    "rho_diff": -0.026140317867052065,
+    "max_abs_alpha_diff_local_vs_global": 5.025252525252526,
+    "n_local_below_universal_bound_1p5": 0,
+    "local_alpha_min": 8.075757575757576,
+    "local_alpha_max": 10.5
+  }
+}

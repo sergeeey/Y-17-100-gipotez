@@ -547,6 +547,18 @@ nodes:
     source: "experiments/20260907-chernoff-neuralode-nd-numerical-abscissa-fixedgrid/decision.md"
     updated: 2026-09-07
 
+  - id: H-B2-1r
+    type: hypothesis
+    title: "Does pseudospectral abscissa alpha_eps(A) explain M1 at N_DIM in {40,50}, where BOTH kappa(V) and omega(A) are hard_killed? Grounded in the (proven) Kreiss Matrix Theorem, deferred since H-B2-1n as the more expensive, more complete descriptor"
+    status: confirmed          # 2026-09-07 decision.md: CONFIRMED. All 6 slices significant (N=3..50), including both large-N targets (N=40 rho=0.821 p=0.00018; N=50 rho=0.824 p=0.00016). A real same-session bug was found (grid search landing on the WRONG eigenvalue's own eps-disk, returning impossible values <1.5 for 3/15 seeds at N=3) and fixed (dynamic re_min clamp to the matrix's own spectral abscissa + finer grid) BEFORE trusting the result. FL Step 8a skeptic pass (given the full bug history): [WEAKENED] -- sharpest concern was undetectable wrong-component contamination at large N (dense negative eigenvalues coalescing above the clamp). Directly resolved (not just argued) via an independently-parameterized local-vs-global convergence check at N=40,50: local search (provably excluding every other eigenvalue's own disk) reproduces global values within ~2% and correlation within p<0.001 both slices -- concern #2 closed with a number. Remaining limitations (small discretization slack at small N, no third-party cross-implementation check) documented, not eliminated.
+    evidence: VERIFIED-REAL       # metrics/run.json (90 pairs) + metrics/local_vs_global_verification.json + metrics/local_vs_global_verification_wide.json; FL Step 8a skeptic pass (WEAKENED, 5 concerns) + independent local-vs-global verification directly resolving the load-bearing concern; 6 regression/correctness tests incl. exact-formula check on symmetric matrix, non-normality sensitivity check, and a direct regression test on the 3 real matrices that hit the original bug
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if >=1 of N=40/N=50 individually significant (alpha=0.05, positive). RESULT: BOTH significant (N=40 p=0.00018, N=50 p=0.00016) -> CONFIRMED. Small-N sanity slices (N=3,4,8,12) all strongly significant too (rho 0.93-0.98). Bug found+fixed+independently re-verified before this verdict was finalized -- full history in decision.md, not glossed over. Relaxation Map: full cross-implementation check (pseudopy/EigTool) and mechanistic follow-up (WHY pseudospectral abscissa succeeds where kappa(V)/omega(A) fail) named, not launched."
+    experiment_dir: "experiments/20260907-chernoff-neuralode-nd-pseudospectral-abscissa"
+    source: "experiments/20260907-chernoff-neuralode-nd-pseudospectral-abscissa/decision.md"
+    updated: 2026-09-07
+
   - id: ART-CHERNOFF-ND-MULTISEED-RUN-20260907
     type: artifact
     title: "metrics/run.json — 30-seed ensemble at coupling=15, M1 distribution (median 68.97, seed=0's 158.93 = MODERATE, right-skewed)"
@@ -1425,6 +1437,7 @@ edges:
   - {from: H-B2-1n, to: H-B2-1o, type: grounds, since: 2026-09-07, note: "H-B2-1n's own decision.md named this exact next step -- a NEW, separately pre-registered confirmatory experiment with the Fisher combination as PRIMARY criterion from the start, on a fresh non-overlapping seed range, to avoid double-dipping on the exploratory discovery"}
   - {from: H-B2-1o, to: H-B2-1p, type: grounds, since: 2026-09-07, note: "H-B2-1o's own decision.md and pearl_registry entry named the skeptic's own suggested next test verbatim -- N_DIM in {64,80} to discriminate whether the N=40,50 null was an unlucky pair of slices or a genuine ceiling"}
   - {from: H-B2-1p, to: H-B2-1q, type: grounds, since: 2026-09-07, note: "H-B2-1p's own decision.md named this exact fix verbatim in its Relaxation Map -- a genuinely pre-registered FIXED grid (N in 56,64,72, decided before running, not adaptively after a null) to resolve whether N=64's disputed significance was real or drawer-selection"}
+  - {from: H-B2-1q, to: H-B2-1r, type: grounds, since: 2026-09-07, note: "H-B2-1q's own decision.md and pearl_registry entry named pseudospectral abscissa as the correct next candidate descriptor for M1 at N>=40, deferred since H-B2-1n as the more complete but expensive option, now that both cheaper descriptors are confirmed hard_killed there"}
   - {from: B3-MAY-TDA,         to: H-B3-1,  type: grounds, since: 2026-09-06}
   - {from: PRJ-CARPENTER-PETERLAKE, to: H-B3-1, type: grounds, since: 2026-09-06, note: "corrected data source, replaces Mangal/GloBI"}
   - {from: ART-WANG2023-EWS-LIMITS, to: H-B3-1, type: depends_on, since: 2026-09-06, note: "informs why kill_criterion was revised from >=3 collapses to Phase 1 N=1"}
