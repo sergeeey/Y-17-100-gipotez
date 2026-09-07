@@ -1,0 +1,46 @@
+{
+  "per_series": {
+    "Paul_chl": {
+      "abs_trend_rho": 0.18700493325571532,
+      "ac1_lag1": 0.9215753268878328,
+      "crossing_rate": 3
+    },
+    "Paul_pH": {
+      "abs_trend_rho": 0.5790025435212672,
+      "ac1_lag1": 0.9395292204746353,
+      "crossing_rate": 3
+    },
+    "Paul_doSat": {
+      "abs_trend_rho": 0.044491412495702425,
+      "ac1_lag1": 0.8743760950368424,
+      "crossing_rate": 7
+    },
+    "Peter_chl": {
+      "abs_trend_rho": 0.4289481545179106,
+      "ac1_lag1": 0.9370848073693512,
+      "crossing_rate": 6
+    },
+    "Peter_pH": {
+      "abs_trend_rho": 0.7214268518227764,
+      "ac1_lag1": 0.9719029310694486,
+      "crossing_rate": 4
+    },
+    "Peter_doSat": {
+      "abs_trend_rho": 0.46591109833580124,
+      "ac1_lag1": 0.9232725678067595,
+      "crossing_rate": 6
+    }
+  },
+  "trend_vs_crossing_rate": {
+    "spearman_rho": -0.44136741475237473,
+    "p_value": 0.3809392104771887,
+    "predicted_direction": "negative (stronger trend -> fewer crossings)",
+    "confirmed_at_0.05": false
+  },
+  "ac1_vs_crossing_rate_pooled_6": {
+    "spearman_rho": -0.44136741475237473,
+    "p_value": 0.3809392104771887,
+    "predicted_direction": "negative (lower AC1 -> more crossings)",
+    "confirmed_at_0.05": false
+  }
+}

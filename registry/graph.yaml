@@ -174,7 +174,18 @@ nodes:
       this sample size). Full writeup: experiments/20260906-lakes-tda-ews-invariant-conjunction/
       decision.md Addenda 3-4. Net position unchanged: evidence CONFLICT/CONFLICTING stands, but
       the "sharpest open question" is now correctly stated as Paul_doSat vs Paul_chl/Paul_pH, not
-      Loch Leven/Paul doSat vs 3 others.
+      Loch Leven/Paul doSat vs 3 others. Addendum 5 (same day): replicated the within-lake
+      comparison on Peter lake (positive-role) as an out-of-sample check. Peter's own
+      crossing-rate spread (chl=6/7, pH=4/7, doSat=6/7) is qualitatively different in SHAPE from
+      Paul's (3/7, 3/7, 7/7 -- doSat alone at top vs. doSat/chl tied at top on Peter) -- yet the
+      SPECIFIC direction "strongest trend -> lowest crossing rate" replicated independently: pH
+      has both the strongest trend (rho=-0.721, strongest of all 6 variables across both lakes)
+      and the lowest crossing rate (4/7) on Peter too. 2-for-2 informal replication of this
+      narrow claim, though the formal pooled test (n=6, same series already tested) remains
+      non-significant (rho=-0.441, p=0.381 for both |trend| and AC1 against crossing rate --
+      found to be numerically identical, a genuine coincidence given rank ties at this n, not a
+      bug). Side finding: |trend| and AC1 are themselves rank-correlated in this dataset --
+      plausibly two facets of one non-stationarity axis, not independent candidates.
 
   - id: B4-FRONTIER
     type: bridge

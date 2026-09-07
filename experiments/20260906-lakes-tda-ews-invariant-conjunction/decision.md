@@ -260,29 +260,88 @@ mirroring `load_daily_series`'s own gap logic exactly) rather than the season-ti
 Corrected field now reads `n_seasons: 3` for all three Paul lake variables, matching
 `peterlake/run.py`'s own `INCLUDED_SEASONS = (2008, 2009, 2010)` exactly. Regression test added.
 
+## Addendum 5 (2026-09-07) — Peter lake replicate: trend-inversion direction holds independently
+on a second lake
+
+Ran the named next step from Addendum 3's own Relaxation Map: repeat the within-lake variable
+comparison on Peter lake (positive-role) as an out-of-sample check on Paul lake's own findings.
+**Pre-check, before any new compute:** Peter lake's own crossing-rate spread (already committed,
+`ac1_vs_crossing_rate_check.json`) is `chl=6/7, pH=4/7, doSat=6/7` — much NARROWER than Paul's
+`3/7, 3/7, 7/7`, and ranks `doSat`/`chl` TIED at the top with `pH` lowest, the OPPOSITE ranking
+shape from Paul lake (where `chl`/`pH` were tied at the bottom, `doSat` alone at the top). This
+alone is informative: whatever makes `Paul_doSat` a 7/7 outlier is plausibly lake-specific, not a
+general "`doSat` always wins" rule.
+
+**Result (`peter_lake_variable_comparison.py`):**
+
+| Variable | Trend ρ | Trend p | ACF lag-1 | Crossing rate |
+|---|---|---|---|---|
+| `pH` | **-0.721** (strongest of all 6 variables across both lakes) | 6.3×10⁻⁵⁵ | 0.972 (highest) | **4/7 (lowest)** |
+| `doSat` | -0.466 | 2.1×10⁻¹⁹ | 0.923 | 6/7 |
+| `chl` | -0.429 | 2.2×10⁻¹⁶ | 0.937 | 6/7 |
+
+**The trend-inversion DIRECTION replicates independently on Peter lake**: `pH` again has both the
+strongest trend AND the lowest crossing rate — exactly the same qualitative pattern found on Paul
+lake (Addendum 3), on a completely different lake with a completely different (narrower,
+differently-shaped) crossing-rate spread. This is 2-for-2 on the specific claim "the variable with
+the strongest trend has the lowest crossing rate," an informal but genuine out-of-sample
+replication, even though (see below) the formal pooled statistical test remains non-significant.
+
+**Pooled formal test (`trend_magnitude_vs_crossing_rate_combined.py`, n=6, both lakes' 3 variables
+each):** `rho=-0.441, p=0.381` for BOTH `|trend|` and `AC1` against crossing rate — numerically
+identical, and now fully explained by hand, not merely "not a bug": the two predictors give
+IDENTICAL ranks on 4 of 6 series (`Paul_chl`, `Paul_pH`, `Paul_doSat`, `Peter_pH`); the only
+disagreement is `Peter_chl`/`Peter_doSat`, where `|trend|` ranks them 3rd/4th and `AC1` ranks them
+4th/3rd — but both series are TIED in `crossing_rate` (6/7 each). Swapping two predictor ranks
+whose paired response values are tied cannot change Spearman's sum of squared rank differences,
+so the two correlations are mathematically guaranteed to match exactly, not coincidentally.
+**Still not significant at n=6** — this is the SAME 6-series set
+already tested in Addendum 4's `peterlake_only` check, not new statistical power; Peter lake's
+contribution here is the qualitative replication above, not additional pooled sample size (the
+formal test needs more independent lakes, not more variables from the same 2 lakes, to gain real
+power).
+
+**Side observation:** `|trend|` and `AC1` are themselves rank-correlated across these 6 variables
+— which makes statistical sense (a genuine secular drift elevates apparent lag-1 autocorrelation
+above what a stationary process of the same short-term "roughness" would show). This means the two
+candidate mechanisms tested in this thread may not be fully independent explanations — both could
+be facets of a single underlying "how non-stationary is this series" axis, not two separate
+competing hypotheses.
+
+## Note on Floor-Ceiling (FL Step 4a) — Addendum 5
+
+Not applicable — descriptive statistical comparison, same reasoning as Addenda 3-4.
+
 ## Session Summary — B3 case-study thread (2026-09-07)
 
 Three genuinely distinct candidate mechanisms for "why do some series resist correction under every
 method more than others" have now been tested against real data in this thread:
 1. **Local variance minimum at the crossing** — KILLED by its own positive control (same session,
    2026-09-06).
-2. **Raw monotonic trend strength** — REJECTED, inverted (Addendum 3): the variable with by far the
-   strongest trend (`pH`) has the LOWEST crossing rate; the variable with no trend (`doSat`) has the
-   HIGHEST.
-3. **Lag-1 autocorrelation** — WEAK (Addendum 4): direction matches prediction twice (full
-   population and sampling-frequency-controlled subset) but neither reaches significance at the
-   available sample sizes.
+2. **Raw monotonic trend strength** — REJECTED as a "stronger trend → more crossings" claim, but the
+   OPPOSITE direction ("stronger trend → FEWER crossings") replicated INDEPENDENTLY on both lakes
+   tested (Addendum 3 on Paul, Addendum 5 on Peter): `pH` has the strongest trend AND the lowest
+   crossing rate on BOTH lakes, despite the two lakes' crossing-rate spreads having qualitatively
+   different shapes (Paul: 3/3/7 with `doSat` alone at the top; Peter: 6/4/6 with `doSat`/`chl` tied
+   at the top). 2-for-2 informal replication of the inverted direction, though the formal pooled
+   test (n=6, both lakes' 3 variables) is not significant (`rho=-0.441, p=0.381`).
+3. **Lag-1 autocorrelation** — WEAK (Addendum 4): direction matches prediction on the full 9-series
+   population and the 6-series sampling-frequency-controlled subset, but neither reaches
+   significance. Addendum 5 found `|trend|` and `AC1` are themselves rank-correlated in this
+   dataset (statistically expected — genuine drift elevates apparent AC1) — these may be two facets
+   of one "non-stationarity" axis, not fully independent candidate mechanisms.
 
 **Also corrected along the way:** the original framing ("2 series always cross, 3 never cross") was
 factually wrong, not merely imprecise — the real pattern is a spectrum with `Paul_doSat` as the sole
 7/7 outlier and `Paul_chl`/`Paul_pH` as the sole 3/7 low-crossers, uncorrelated with
 positive/negative role.
 
-**Honest state of the open question:** no single raw-series statistic tested so far cleanly explains
-the crossing-rate spectrum. The `AC1` candidate remains the most promising untested-to-significance
-lead (consistent direction, twice), but would need either a larger population or a differently-
-powered test (e.g., a designed comparison rather than the 9 series this bridge happens to have) to
-move past `[WEAK]`.
+**Honest state of the open question:** the SPECIFIC claim "the variable with the strongest trend has
+the lowest crossing rate" now has 2-for-2 independent qualitative support (Paul, Peter) — a real,
+if informal, replication — but remains formally `[WEAK]` (n too small for significance, and the
+underlying mechanism connecting "trend strength" to "TDA-crossing avoidance" is not yet explained,
+only observed). A third independent lake (not available in this bridge's current data) would be
+needed to move this past `[WEAK]` toward `[CONFIRMED]`.
 
 ## Pearl Card Update
 

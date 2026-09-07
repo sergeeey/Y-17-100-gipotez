@@ -1,0 +1,58 @@
+{
+  "per_variable": {
+    "chl": {
+      "lake": "Peter",
+      "variable": "chl",
+      "n_points": 334,
+      "mean": 2.2636242431240543,
+      "std": 1.0522906620562147,
+      "cv": 0.4648698498669267,
+      "spearman_trend_rho": -0.4289481545179106,
+      "spearman_trend_p": 2.2076247236335513e-16,
+      "acf_lag1_3": [
+        0.9370848073693512,
+        0.8792396298317217,
+        0.8219616002196471
+      ],
+      "n_seasons": 3
+    },
+    "pH": {
+      "lake": "Peter",
+      "variable": "pH",
+      "n_points": 334,
+      "mean": 6.894380423199853,
+      "std": 0.38285698303299565,
+      "cv": 0.055531746078975756,
+      "spearman_trend_rho": -0.7214268518227764,
+      "spearman_trend_p": 6.296231863548582e-55,
+      "acf_lag1_3": [
+        0.9719029310694486,
+        0.9431400996956453,
+        0.9159088537082087
+      ],
+      "n_seasons": 3
+    },
+    "doSat": {
+      "lake": "Peter",
+      "variable": "doSat",
+      "n_points": 334,
+      "mean": 96.88579602292937,
+      "std": 4.290249149084459,
+      "cv": 0.04428150797325453,
+      "spearman_trend_rho": -0.46591109833580124,
+      "spearman_trend_p": 2.117813109196904e-19,
+      "acf_lag1_3": [
+        0.9232725678067595,
+        0.8317973985108461,
+        0.7557758605266115
+      ],
+      "n_seasons": 3
+    }
+  },
+  "tda_crossing_rate_context": {
+    "chl": "6/7 (verified cross-tabulation, ac1_vs_crossing_rate_check.json)",
+    "pH": "4/7 (lowest of the 3 -- opposite ranking from Paul lake)",
+    "doSat": "6/7 (tied with chl -- NOT the outlier it was on Paul lake)"
+  },
+  "paul_lake_comparison_context": "Paul lake (already committed, paul_lake_variable_comparison.json): chl=3/7, pH=3/7, doSat=7/7 -- doSat was the SOLE outlier there. Peter lake's spread (6/4/6) is narrower and ranks doSat/chl TIED at the top, pH lowest -- a qualitatively different pattern, not a replica."
+}

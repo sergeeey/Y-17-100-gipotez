@@ -43,6 +43,11 @@ skeptic found the two branches dynamically equivalent, closing the question by e
   `approx_n_seasons` всегда возвращал 1 (диффил намеренно сжатую `season_time`). Не был load-bearing
   ни в одном выводе. Исправлен независимым пересчётом границ сезона из сырой decimal-year оси
   (`count_seasons`), даёт корректные `n_seasons=3`. Regression test добавлен, 185 тестов проходят.
+- **Addendum 5 (продолжение автономно, `/loop`):** Peter lake replicate — направление тренд-инверсии
+  реплицировалось НЕЗАВИСИМО на второй, качественно другой по форме ветке (pH — сильнейший тренд И
+  наименьшая частота на ОБОИХ озёрах, несмотря на разную форму спектра частот). Формальный
+  объединённый тест (n=6) остаётся незначимым — тот же набор данных, не новая мощность. Побочно:
+  |trend| и AC1 сами ранг-коррелированы — возможно, одна ось нестационарности, не два кандидата.
 **[WS: B3 case-study thread continued] CLOSED.**
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
@@ -93,6 +98,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 07:14] `c49c0a2`: chore: auto-log commit history entry
 - [2026-09-07 07:13] `cf68944` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: note reviewer-caught fix in activeContext.md
 - [2026-09-07 07:13] `7ed5ea3` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: approx_n_seasons always returned 1, reviewer-caught before push
 - [2026-09-07 07:05] `b44f9b2` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3: fix provenance drift, correct a wrong crossing-rate claim, test 2 new candidates
@@ -107,4 +113,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 00:09] `f2460d2`: chore: auto-log commit history entry
 - [2026-09-07 00:08] `5636812` (local, branch `feature/h-b7-8-necessity-test` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-8: necessity test do(p21CIP=0, RBL2=0) without RAS/TP53 CONFIRMED, skeptic pass passed
 - [2026-09-06 23:54] `a8c76a4`: chore: auto-log commit history entry
-- [2026-09-06 23:53] `fd6c1e9` (local, branch `feature/h-b7-7-fourhit-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-7: four-hit do(RAS=1, TP53=0, p21CIP=0, RBL2=0) CONFIRMED, skeptic pass (Step 8a) passed
