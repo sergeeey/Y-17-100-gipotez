@@ -129,13 +129,16 @@ def cmd_run() -> dict:
     all_median_diffs_under_15pct = all(
         v["median_relative_diff"] < 0.15 for v in per_n_slice.values()
     )
-    any_slice_lost_significance = any(
-        not v["pseudopy_vs_m1"]["significant_positive"] for v in per_n_slice.values()
-    )
+    # "loses significance" means DISAGREES with H-B2-1r's own established verdict at that slice
+    # (mine was significant, pseudopy is not) -- reviewer-caught P2: an earlier version checked
+    # pseudopy's absolute significance only, never actually comparing against "mine", which the
+    # verdict_note's own wording ("loses significance") implied but the code didn't do. Now
+    # directly consults verdict_agrees (computed per-slice above, previously unused here).
+    any_slice_disagrees_with_mine = any(not v["verdict_agrees"] for v in per_n_slice.values())
 
     if both_slices_pseudopy_significant and all_median_diffs_under_15pct:
         verdict = "CONFIRMED"
-    elif any_slice_lost_significance:
+    elif any_slice_disagrees_with_mine:
         verdict = "KILLED_OR_WEAKENED"
     else:
         verdict = "WEAKENED"

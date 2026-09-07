@@ -46,10 +46,28 @@ def test_reuses_h_b2_1r_m1_values_not_recomputed():
 
 def _cached_run() -> dict:
     """cmd_run() re-runs pseudopy on all 30 matrices (~5s/matrix) -- share one call across the
-    3 tests below instead of tripling an already-expensive third-party computation."""
+    tests below instead of repeating an already-expensive third-party computation."""
     if not hasattr(_cached_run, "_result"):
         _cached_run._result = crossimpl.cmd_run()
     return _cached_run._result
+
+
+def test_cmd_run_output_seed_keys_match_h_b2_1r_source_exactly():
+    """Reviewer-caught gap: the sibling test only checked the SOURCE json had 15 seeds, never
+    that cmd_run()'s own output per_seed keys are the SAME set as H_B2_1R_RESULT's -- i.e. that
+    'mine' and freshly-computed 'pseudopy' values are matched to the same (n_dim, seed), not
+    silently shifted or subset/superset mismatched."""
+    result = _cached_run()
+    for n_dim in crossimpl.PRIMARY_N_DIM_VALUES:
+        source_keys = set(crossimpl.H_B2_1R_RESULT["per_n_slice"][str(n_dim)]["per_seed"].keys())
+        output_keys = set(result["per_n_slice"][str(n_dim)]["per_seed"].keys())
+        assert output_keys == source_keys
+        for seed_key in source_keys:
+            expected_mine = crossimpl.H_B2_1R_RESULT["per_n_slice"][str(n_dim)]["per_seed"][
+                seed_key
+            ]["alpha_eps"]
+            actual_mine = result["per_n_slice"][str(n_dim)]["per_seed"][seed_key]["alpha_eps_mine"]
+            assert actual_mine == expected_mine
 
 
 def test_verdict_is_one_of_three_outcomes():
@@ -58,17 +76,19 @@ def test_verdict_is_one_of_three_outcomes():
 
 
 def test_verdict_matches_kill_criterion_logic():
+    """Reviewer-caught P2: 'loses significance' must mean DISAGREES with H-B2-1r's own already-
+    established verdict at that slice (verdict_agrees=False), not just 'pseudopy is not
+    significant in isolation' -- the latter ignored the already-computed verdict_agrees field
+    entirely, which the verdict_note's own wording contradicted."""
     result = _cached_run()
     both_sig = all(
         v["pseudopy_vs_m1"]["significant_positive"] for v in result["per_n_slice"].values()
     )
     all_close = all(v["median_relative_diff"] < 0.15 for v in result["per_n_slice"].values())
-    any_lost = any(
-        not v["pseudopy_vs_m1"]["significant_positive"] for v in result["per_n_slice"].values()
-    )
+    any_disagrees = any(not v["verdict_agrees"] for v in result["per_n_slice"].values())
     if both_sig and all_close:
         assert result["verdict"] == "CONFIRMED"
-    elif any_lost:
+    elif any_disagrees:
         assert result["verdict"] == "KILLED_OR_WEAKENED"
     else:
         assert result["verdict"] == "WEAKENED"

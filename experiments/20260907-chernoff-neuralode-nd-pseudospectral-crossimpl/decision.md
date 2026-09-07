@@ -36,6 +36,20 @@ result-serialization bug, not a computational one, confirmed by the fact the fix
 (`bool(...)` wrapping) reproduced numerically identical `rho`/`p` values on re-run. Fixed by
 explicit `bool()` casts; no other logic changed.
 
+## Reviewer Finding, Fixed Before Merge (P2, not statistical — code-level)
+
+The mandatory CLAUDE.md reviewer pass (3+ files changed) caught a real, if minor, logic gap:
+the original `any_slice_lost_significance` check only tested `pseudopy_vs_m1`'s significance in
+isolation, never actually comparing it against `mine_significant_positive` (computed but left
+unused) — the `verdict_note`'s own wording ("loses significance") implied a before/after
+comparison the code didn't perform. Fixed: the verdict now consults the already-computed
+`verdict_agrees` field per slice directly. A companion test gap (asserting only that the SOURCE
+json had 15 seeds, never that `cmd_run()`'s own output keys matched it) was fixed with a direct
+key-equality + value-equality test. **The verdict itself is unchanged (CONFIRMED, unaffected by
+the fix)** — re-run after the fix reproduced numerically identical results; this was a
+robustness/clarity fix for a case that didn't actually occur in this run's data, not a
+correction of the reported numbers.
+
 ## Honest Scope of This Verification (per claim.md's own caveat)
 
 This is cross-**implementation** (two independently written codebases), not cross-**algorithm**
