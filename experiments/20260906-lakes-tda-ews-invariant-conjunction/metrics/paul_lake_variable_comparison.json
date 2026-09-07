@@ -14,7 +14,7 @@
         0.8461937948795548,
         0.7785850659493869
       ],
-      "approx_n_seasons": 1
+      "n_seasons": 3
     },
     "pH": {
       "lake": "Paul",
@@ -30,7 +30,7 @@
         0.8746132083343579,
         0.8127804862160848
       ],
-      "approx_n_seasons": 1
+      "n_seasons": 3
     },
     "doSat": {
       "lake": "Paul",
@@ -46,7 +46,7 @@
         0.7349611982135031,
         0.6262000907374236
       ],
-      "approx_n_seasons": 1
+      "n_seasons": 3
     }
   },
   "tda_crossing_rate_context": {

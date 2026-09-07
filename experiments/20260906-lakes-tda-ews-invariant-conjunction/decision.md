@@ -248,6 +248,18 @@ promote or act on.
 Not applicable — a correlation test between two already-computed descriptive statistics (AC1,
 crossing rate), not a detection-rule run against a null-model floor.
 
+**Post-commit reviewer catch (2026-09-07, same session):** the `reviewer` agent, run per the
+project's own 3+-file-Python-change checklist, found a real P1 bug in `paul_lake_variable_
+comparison.py`'s `approx_n_seasons` field — it diffed `season_time`, whose own gap-bridging logic
+deliberately compresses every season boundary to a single nominal step (indistinguishable from a
+normal daily increment, by the design of `peterlake/run.py`'s own `median_gap_bridge_days`), so the
+heuristic silently returned `1` for every series regardless of the real season count. Confirmed
+NOT load-bearing (never referenced in this file's own trend/ACF conclusions above). Fixed by
+independently re-deriving season boundaries from the raw decimal-year axis (`count_seasons`,
+mirroring `load_daily_series`'s own gap logic exactly) rather than the season-time-diff heuristic.
+Corrected field now reads `n_seasons: 3` for all three Paul lake variables, matching
+`peterlake/run.py`'s own `INCLUDED_SEASONS = (2008, 2009, 2010)` exactly. Regression test added.
+
 ## Session Summary — B3 case-study thread (2026-09-07)
 
 Three genuinely distinct candidate mechanisms for "why do some series resist correction under every

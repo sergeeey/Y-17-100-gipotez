@@ -27,6 +27,7 @@ import json
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 from scipy.stats import spearmanr
 
 HERE = Path(__file__).resolve().parent
@@ -43,14 +44,36 @@ def acf(x: np.ndarray, max_lag: int) -> list[float]:
     return [float(np.sum(x[: len(x) - lag] * x[lag:]) / denom) for lag in range(1, max_lag + 1)]
 
 
+def count_seasons(var: str, lake: str) -> int:
+    """Independently re-derive the number of field seasons (gap-separated contiguous runs) from
+    the raw dates -- NOT from `season_time`, whose own gap-bridging logic (peterlake/run.py's
+    `median_gap_bridge_days`) deliberately compresses each season boundary to a single nominal
+    step, indistinguishable from a normal daily increment (per that function's own docstring:
+    "so windows never span a literal multi-month jump"). A diff-based heuristic on `season_time`
+    can therefore never see season boundaries at all -- confirmed by review before trusting it;
+    the original version of this function always returned 1, silently, for every series. Mirrors
+    `load_daily_series`'s own gap-detection logic exactly (same constants, same threshold), on
+    the raw decimal-year axis where the gap IS still visible."""
+    df = pd.read_csv(peter.DATA, usecols=["lake", "datetime", var])
+    df = df[df["lake"] == lake].copy()
+    df["datetime"] = pd.to_datetime(df["datetime"])
+    df = df.dropna(subset=[var])
+    daily = df.set_index("datetime")[var].resample("D").mean().dropna()
+    dates = daily.index
+    decimal_year = (dates.year + (dates.dayofyear - 1) / 365.0).to_numpy(dtype=float)
+    years = dates.year.to_numpy()
+    keep = np.isin(years, peter.INCLUDED_SEASONS)
+    decimal_year = decimal_year[keep]
+    spacing = np.diff(decimal_year)
+    med = np.median(spacing)
+    gap_idx = np.where(spacing > peter.SEASON_GAP_DAYS * med)[0]
+    return len(gap_idx) + 1
+
+
 def analyze(lake: str, var: str) -> dict:
-    season_time, values, _ = peter.load_daily_series(var, lake)
+    _, values, _ = peter.load_daily_series(var, lake)
     t = np.arange(len(values))
     rho, p = spearmanr(t, values)
-    # n_seasons: count contiguous runs via the same gap logic load_daily_series uses internally
-    # (re-derive cheaply from season_time resets, since load_daily_series doesn't return bounds).
-    diffs = np.diff(season_time)
-    n_season_boundaries = int(np.sum(diffs < 0))  # season_time resets near 0 at each new season
     return {
         "lake": lake,
         "variable": var,
@@ -61,7 +84,7 @@ def analyze(lake: str, var: str) -> dict:
         "spearman_trend_rho": float(rho),
         "spearman_trend_p": float(p),
         "acf_lag1_3": acf(values, 3),
-        "approx_n_seasons": n_season_boundaries + 1,
+        "n_seasons": count_seasons(var, lake),
     }
 
 

@@ -51,3 +51,16 @@ def test_real_paul_lake_comparison_runs_and_reports_expected_shape():
     assert max(trend_by_var, key=trend_by_var.get) == "pH"
     acf1_by_var = {v: per_var[v]["acf_lag1_3"][0] for v in per_var}
     assert min(acf1_by_var, key=acf1_by_var.get) == "doSat"
+
+
+def test_count_seasons_finds_real_gaps_not_a_constant_one():
+    """Regression test for a reviewer-caught bug: the original approx_n_seasons heuristic
+    diffed `season_time`, whose own gap-bridging logic (peterlake/run.py's own
+    median_gap_bridge_days) deliberately compresses every season boundary to a single nominal
+    step -- indistinguishable from a normal daily increment -- so the old heuristic silently
+    returned 1 for every series, always. count_seasons must find the real multi-season structure
+    (Paul lake spans 2008-2010 field seasons, per peterlake/run.py's own INCLUDED_SEASONS) by
+    re-deriving gaps from the raw decimal-year axis instead."""
+    n = mod.count_seasons("chl", "Paul")
+    assert n > 1, "count_seasons must not silently collapse to the old constant-1 bug"
+    assert n <= len(mod.peter.INCLUDED_SEASONS)
