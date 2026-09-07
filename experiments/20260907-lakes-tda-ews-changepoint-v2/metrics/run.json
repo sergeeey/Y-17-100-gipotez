@@ -1,0 +1,56 @@
+{
+  "config": {
+    "window_frac": 0.5,
+    "embed_dim": 3,
+    "embed_delay": 1,
+    "tau_threshold": 0.5,
+    "pettitt_alpha": 0.05,
+    "detection_rule": "tau>=threshold AND Pettitt p<alpha on raw statistic (causal)"
+  },
+  "results": {
+    "lower_zurich": {
+      "role": "positive",
+      "n_points": 161,
+      "window": 80,
+      "documented_transition": 2002.0,
+      "classical_ac1_crossing": null,
+      "classical_var_crossing": 2001.5,
+      "classical_earliest_crossing": 2001.5,
+      "tda_betti_crossing": 1999.5,
+      "lead_months_tda_minus_classical": 24.0,
+      "false_positive": false,
+      "new_floor_ar1_false_positive_rate": 0.4,
+      "original_floor_ar1_false_positive_rate": 0.8333333333333334
+    },
+    "windermere": {
+      "role": "negative",
+      "n_points": 244,
+      "window": 122,
+      "documented_transition": null,
+      "classical_ac1_crossing": null,
+      "classical_var_crossing": null,
+      "classical_earliest_crossing": null,
+      "tda_betti_crossing": null,
+      "lead_months_tda_minus_classical": null,
+      "false_positive": false,
+      "new_floor_ar1_false_positive_rate": 0.3333333333333333,
+      "original_floor_ar1_false_positive_rate": 0.8
+    },
+    "loch_leven": {
+      "role": "negative",
+      "n_points": 152,
+      "window": 76,
+      "documented_transition": null,
+      "classical_ac1_crossing": 1999.25,
+      "classical_var_crossing": 1999.5833333333333,
+      "classical_earliest_crossing": 1999.25,
+      "tda_betti_crossing": null,
+      "lead_months_tda_minus_classical": null,
+      "false_positive": true,
+      "new_floor_ar1_false_positive_rate": 0.5333333333333333,
+      "original_floor_ar1_false_positive_rate": 0.8333333333333334
+    }
+  },
+  "max_new_floor_fp_rate": 0.5333333333333333,
+  "verdict": "CRITERION_INVALID"
+}

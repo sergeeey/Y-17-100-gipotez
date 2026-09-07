@@ -11,57 +11,19 @@
 
 
 ## Current Focus
-[summarized] **B1/B2/B3 arc (H-B3-1 through H-B3-1k, ADR-010–027) archived to
-[summarized] **H-B7-7 through H-B7-12 (ADR-034–039) archived to
-[summarized] **[WS: B3 case-study thread continued] CLOSED 2026-09-07 (ADR-040, прямой запрос пользователя
+[summarized] **B1/B2/B3 arc (H-B3-1 through H-B3-1k, ADR-010–027) archived to `history/activeContext-archive-20260906-b1b2b3.md`**
+[summarized] **H-B7-7 through H-B7-12 (ADR-034–039) archived to `history/activeContext-archive-20260907-b7-7to12.md`**
+[summarized] **B3 case-study (ADR-040) + B2 coupling/seed (ADR-042/043) + B3 peak-tau self-catch (ADR-044/045) archived to `history/activeContext-archive-20260907-b2-b3-part2.md`**
 
-  Windermere пересекает 6/7 (как позитивы); настоящие выбросы — Paul_doSat (7/7) и Paul_chl/
-  Paul_pH (3/7 каждый). Частота НЕ коррелирует с ролью positive/negative.
-- Тест тренда (Paul lake, 3 переменные) → **REJECTED, развёрнут наоборот**: pH — сильнейший тренд
-  (ρ=-0.579, p≈3e-31), но наименьшая частота; doSat — тренда нет (p=0.42), но частота максимальна.
-- Тест автокорреляции lag-1 → **WEAK**: направление совпадает с предсказанием дважды (n=9 и
-  n=6 контролируемых по частоте), но не значимо ни разу.
-- Граф: `B3-MAY-TDA` session_summary_2026-09-07 добавлен (correction, не тихая правка). Вердикт
-  `H-B3-1h` не изменён (остаётся `lead`). 5 новых тестов, все прошли.
-- **Post-commit reviewer catch (per собственный 3+-файлов чек-лист):** нашёл реальный P1 —
-  `approx_n_seasons` всегда возвращал 1 (диффил намеренно сжатую `season_time`). Не был load-bearing
-  ни в одном выводе. Исправлен независимым пересчётом границ сезона из сырой decimal-year оси
-  (`count_seasons`), даёт корректные `n_seasons=3`. Regression test добавлен, 185 тестов проходят.
-- **Addendum 5 (продолжение автономно, `/loop`):** Peter lake replicate — направление тренд-инверсии
-  реплицировалось НЕЗАВИСИМО на второй, качественно другой по форме ветке (pH — сильнейший тренд И
-  наименьшая частота на ОБОИХ озёрах, несмотря на разную форму спектра частот). Формальный
-  объединённый тест (n=6) остаётся незначимым — тот же набор данных, не новая мощность. Побочно:
-  |trend| и AC1 сами ранг-коррелированы — возможно, одна ось нестационарности, не два кандидата.
-**[WS: B3 case-study thread continued] CLOSED.**
-
-**[WS: B2 coupling sweep, `/loop` continued] H-B2-1h (ADR-042):** 10-точечный скан
-`coupling_magnitude ∈ {3..30}` для M1 (H-B2-1g's own named next step). Provenance побитово
-проверен против H-B2-1f (M1=2.665) и H-B2-1g (M1=158.93). **CONFIRMED** экспоненциальный рост
-(raw-NLS R²=0.9994 vs квадратичная 0.951 vs линейная 0.680) — но только после самопойманной
-ошибки: первая версия сравнивала log-space R² экспоненты с raw-space R² альтернатив (разные
-loss), исправлено переподбором через `scipy.optimize.curve_fit`. Caveat задокументирован, не
-подавлен: consecutive ratios M1[i+1]/M1[i] монотонно убывают (3.76→1.80) — рост замедляется,
-хотя экспонента всё равно лучшая из трёх форм. Pearl impact 7 (общий паттерн: R² на широком
-динамическом диапазоне слабо ловит систематическое отклонение). 5 новых тестов, 195 всего проходят.
-**[WS: B2 coupling sweep] CLOSED.**
-
-**[WS: B2 multi-seed, `/loop` continued] H-B2-1i (ADR-043):** закрывает второй открытый вопрос
-H-B2-1g's Relaxation Map — типичен ли M1=158.93 (seed=0, coupling=15) или это неудачный draw.
-Ансамбль 30 сидов, Tukey-fence критерий пре-регистрирован до запуска. **MODERATE**: выше Q3
-(143.97, медиана 68.97), но внутри Tukey fence (371.36 — максимум на другом сиде). Распределение
-право-скошено (mean 109.14 > median 68.97, диапазон 15.00–371.36 при фиксированных eigenvalues/
-coupling). Честный вердикт сохранён (не округлён до TYPICAL/OUTLIER). 4 новых теста, 199 всего.
-**[WS: B2 multi-seed] CLOSED.**
-
-**[WS: B3 peak-tau, `/loop` continued] Type-4 self-catch (ADR-044):** H-B3-1b's аннотация в
-graph.yaml устарела — утверждала «3 фикса, ни один не запущен», хотя Row 1 (surrogate null) был
-запущен трижды (H-B3-1c/d/e) и убит. Исправлено с датированной коррекцией. **H-B3-1l (ADR-045)
-закрывает Row 3** (peak-tau reporting, «cheapest», единственный непроверенный до сих пор):
-**CONFIRMED буквально** (пик TDA ближе к переходу 2002.0), НО пре-регистрированная проверка
-конфаунда нашла: оба негативных контроля ТОЖЕ показывают пик TDA раньше классики (+8.0 мес
-одинаково на обоих, необъяснено) — вердикт оставлен CONFIRMED (не понижен post-hoc), но ВСЕГДА
-цитировать с оговоркой о конфаунде. 5 новых тестов, 204 всего. Row 2 (change-point) остаётся
-единственным непроверенным пунктом Relaxation Map. **[WS: B3 peak-tau] CLOSED.**
+**[WS: B3 change-point, `/loop` continued] H-B3-1m (ADR-046):** закрывает ПОСЛЕДНИЙ пункт
+H-B3-1b's Relaxation Map — Row 2 (two-part правило: tau≥0.5 И Pettitt level-shift test).
+Pettitt's test реализован с нуля (не установлен ни один пакет), провалидирован 4 тестами
+(позитив/негатив/калибровка/вырожденный случай) ДО реального прогона. **CRITERION_INVALID
+снова** (max floor FP = 53.3% на Loch Leven, ≥ порога 50%) — НЕ доказательство против гипотезы
+(FL Step 4a). НО floor упал ПРИМЕРНО ВДВОЕ на 2 из 3 озёр (83.3%→40.0%, 80.0%→33.3%) — механизм
+работает, недостаточно именно на Loch Leven. Все 3 пункта исходной Relaxation Map `H-B3-1b`
+теперь закрыты (Row 1 REJECT, Row 2 CRITERION_INVALID-с-улучшением, Row 3 CONFIRMED-с-конфаундом).
+8 новых тестов, 212 всего. **[WS: B3 change-point] CLOSED.**
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
@@ -115,6 +77,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 08:10] `aaa6c04` (local, branch `feature/h-b3-1l-peaktau` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1l: peak-tau reporting closes H-B3-1b's Relaxation Map Row 3 -- CONFIRMED with a confound
 - [2026-09-07 08:00] `8b85c83` (local, branch `feature/h-b3-1b-stale-annotation-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B3-1b graph.yaml annotation was stale -- Type-4 status-lag self-catch
 - [2026-09-07 07:55] `782ae01` (local, branch `feature/h-b2-1i-multiseed` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1i: 30-seed ensemble at coupling=15 closes H-B2-1g's open question -- M1=158.93 is MODERATE
 - [2026-09-07 07:48] `9d5a9bc` (local, branch `feature/auto-log-5b1c9b8` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
@@ -129,4 +92,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 01:51] `da0e337` (local, branch `feature/h-b7-12-crossbranch-transient` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-12: transient sweep on second branch WEAKENED -- exact k*=5 match was branch equivalence
 - [2026-09-07 01:33] `8ce0ff7`: chore: auto-log commit history entry
 - [2026-09-07 01:32] `6343a11` (local, branch `feature/h-b7-11-crossbranch` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-11: cross-branch generalization CONFIRMED, incidentally caught H-B7-4's branch-count error
-- [2026-09-07 01:01] `6788722`: chore: auto-log commit history entry

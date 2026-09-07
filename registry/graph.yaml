@@ -675,6 +675,18 @@ nodes:
     source: "experiments/20260907-lakes-tda-ews-peaktau-v3/decision.md"
     updated: 2026-09-07
 
+  - id: H-B3-1m
+    type: hypothesis
+    title: "H-B3-1b Relaxation Map Row 2 (last untested item): two-part detection rule -- tau>=0.5 AND a Pettitt level-shift test on the raw statistic -- does requiring BOTH cut the AR(1) floor false-positive rate?"
+    status: lead                  # 2026-09-07 decision.md: CRITERION_INVALID again (FL Step 4a), but with a real, substantial per-lake floor improvement -- not a clean "no progress" result
+    evidence: VERIFIED-REAL       # metrics/run.json; Pettitt's test hand-implemented and validated with 4 dedicated positive/negative-control tests BEFORE the real run, per project precedent for ar1_surrogate/iaaft_surrogate
+    l0_type: predictive
+    fl_tier: standard
+    kill_criterion: "Step 1 (floor, checked first): STILL CRITERION_INVALID if max new floor FP rate >=50%; FLOOR IMPROVED if <50% -- then Step 2 (PROMOTE if Lower Zurich crosses with TDA lead>0 and no false positives on Windermere/Loch Leven). RESULT: max_new_floor_fp_rate=53.3% (Loch Leven) -> CRITERION_INVALID, NOT evidence against the claim (FL Step 4a hard rule). BUT floor dropped substantially at 2/3 lakes (Lower Zurich 83.3%->40.0%, Windermere 80.0%->33.3%) -- the mechanism (requiring a genuine level shift, not just monotone trend) works, just not sufficiently at Loch Leven specifically (53.3%, barely over the pre-registered bound). Lower Zurich's surviving crossing (TDA 1999.5, classical 2001.5, lead +24mo) is IDENTICAL to H-B3-1's own original result -- confirms the two-part rule only REMOVES crossings, never shifts timing, exactly as designed. Closes the LAST of H-B3-1b's 3 originally-named Relaxation Map rows (Row 1 REJECTED via H-B3-1c/d/e, Row 3 CONFIRMED-with-confound via H-B3-1l, Row 2 this experiment)."
+    experiment_dir: "experiments/20260907-lakes-tda-ews-changepoint-v2"
+    source: "experiments/20260907-lakes-tda-ews-changepoint-v2/decision.md"
+    updated: 2026-09-07
+
   - id: ART-DIAGRAM-DISTANCE-IAAFT-RUN-20260906
     type: artifact
     title: "metrics/run.json — Wasserstein diagram-distance + IAAFT null, 9-series real run; completes the 2x2 design, falsifies the null-model-effect hypothesis"
@@ -1356,6 +1368,7 @@ edges:
   - {from: H-B3-1, to: H-B3-1f, type: grounds, since: 2026-09-06, note: "raw fixed-threshold data reused verbatim"}
   - {from: H-B3-1b, to: H-B3-1f, type: grounds, since: 2026-09-06, note: "raw fixed-threshold data reused verbatim"}
   - {from: H-B3-1b, to: H-B3-1l, type: grounds, since: 2026-09-07, note: "H-B3-1b's own Relaxation Map Row 3 (peak-tau reporting, marked cheapest, never tried) -- this is that test"}
+  - {from: H-B3-1b, to: H-B3-1m, type: grounds, since: 2026-09-07, note: "H-B3-1b's own Relaxation Map Row 2 (change-point co-requirement via Pettitt's test) -- the last of its 3 originally-named fixes, this is that test"}
   - {from: H-B3-1c, to: H-B3-1f, type: grounds, since: 2026-09-06, note: "V1/AR(1) data reused verbatim"}
   - {from: H-B3-1d, to: H-B3-1f, type: grounds, since: 2026-09-06, note: "V1'/IAAFT data reused verbatim"}
   - {from: H-B3-1e, to: H-B3-1f, type: grounds, since: 2026-09-06, note: "V2'/detrend+IAAFT data reused verbatim"}
