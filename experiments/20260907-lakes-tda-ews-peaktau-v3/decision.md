@@ -1,6 +1,69 @@
 # decision.md — H-B3-1l (peak-tau reporting, H-B3-1b's Relaxation Map Row 3)
 
-## Result
+## CORRECTION ADDENDUM (2026-09-07, FL Step 8a skeptic pass — sixth in a row, session-wide)
+
+**Verdict downgraded CONFIRMED → WEAKENED, more seriously than the original confound already
+implied.** Original text kept unedited below (Hindsight Distortion Gap discipline). Sixth
+`Agent(skeptic)` invocation in the same `/loop` continuation (fifth on bridge B2, first on
+bridge B3) — explicitly told the original author had ALREADY caught and disclosed the
+negative-control confound, and asked to find something NOT already caught, not just repeat it.
+It did.
+
+**Finding 1 — a mechanistic explanation for the confound (plausible, NOT yet empirically
+confirmed):** `expanding_kendall_tau`'s early Kendall-tau values are noisier (sampling variance
+shrinks roughly as `1/k`), so `argmax` is structurally pulled toward early indices. This bias is
+NOT equal across signal families: `rolling_stat` (AC1/variance) changes smoothly between
+adjacent windows (they share `window−1` points), producing a smooth, weakly-spiking tau
+trajectory; `betti1_entropy_series` reduces each window through a full Vietoris–Rips → H1
+diagram → entropy pipeline, where one new/dropped point can discontinuously add or remove a
+topological feature — a much jumpier, more early-spiking tau trajectory. Predicted consequence:
+TDA's argmax should land systematically earlier than classical's on ANY series, mechanism or no
+mechanism — matching the observed all-3-lakes pattern exactly. **Not yet verified empirically**
+(the skeptic's own suggested check — run this same peak-lead comparison on ~500 AR(1) surrogates
+of Lower Zurich and see whether the median gap already reaches ~50 months — was not run this
+pass; flagged in Relaxation Map, not treated as proven).
+
+**Finding 2 — independently VERIFIED, not speculative:** the code selects
+`classical_peak_date_used` differently for Lower Zurich (whichever of AC1/variance is CLOSEST to
+the known transition — an oracle-informed choice using the answer being tested) than for the
+negative controls (`min(...)`, the earliest of the two — the harder bar). Checked directly
+against `metrics/run.json`: on Lower Zurich, `classical_ac1_peak_date = 1999.25` — **which is
+BEFORE `tda_betti_peak_date = 2000.5`.** AC1 alone, a legitimate classical EWS statistic, already
+peaked earlier than TDA on the one positive case. The reported "TDA leads classical" framing is
+true only relative to the OTHER classical statistic (variance, 2004.67), selected specifically
+because it happened to sit closer to the transition. **The CONFIRMED verdict is conditional on
+which classical statistic the oracle-informed rule happens to pick, not on TDA outperforming
+classical EWS as a family.**
+
+**What survives:** the raw peak dates themselves (real, computed correctly) and the fact that
+this design does sidestep the ORIGINAL threshold-crossing floor problem (CRITERION_INVALID from
+`H-B3-1`/`H-B3-1b`) — that specific failure mode is genuinely avoided. **What does NOT survive:**
+"TDA's peak genuinely anticipates the real transition better than classical's peak does" as an
+unqualified claim — one classical statistic (AC1) already beat TDA on the only positive case
+tested, and a plausible (not yet confirmed) structural mechanism could explain the entire
+negative-control confound without any real signal at all.
+
+**Corrected honest statement:** *On Lower Zurich, TDA's peak (2000.5) is closer to the documented
+transition (2002.0) than the CLOSEST of the two classical statistics (variance, 2004.67) — but
+AC1 alone (1999.25) already peaked before TDA. The "TDA leads classical" framing depends on which
+classical statistic is selected for comparison, using knowledge of the answer being tested. A
+structural mechanism (differential early-argmax bias between smooth and jumpy tau trajectories)
+plausibly explains the entire observed pattern, including the positive case, without invoking any
+real transition-detection ability — not yet empirically ruled out.*
+
+**Response Matrix disposition:** Confirmed (Finding 2, HIGH confidence, independently verified
+against committed data), Plausible-not-yet-confirmed (Finding 1, would need the AR(1)-surrogate
+check named in Relaxation Map), Weak/non-diagnostic (the identical +8.0-month coincidence — the
+skeptic's own Finding 3, kept as a minor open item, not load-bearing).
+
+**Corrected Relaxation Map priority:** the AR(1)-surrogate peak-lead-gap check (already named
+below, previously treated as one option among several) is now the SINGLE highest-priority
+follow-up — it would directly test Finding 1's mechanism and could settle whether Lower Zurich's
++50.0-month lead is distinguishable from a pure floor artifact at all.
+
+---
+
+## Result (ORIGINAL TEXT, superseded in interpretation by the correction above — kept for the audit trail)
 
 **Verdict: CONFIRMED (per the literal pre-registered criterion) — but with a serious,
 pre-registered confound found in the negative controls that substantially weakens the practical
