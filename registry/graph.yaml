@@ -523,6 +523,18 @@ nodes:
     source: "experiments/20260907-chernoff-neuralode-nd-numerical-abscissa-confirmatory/decision.md"
     updated: 2026-09-07
 
+  - id: H-B2-1p
+    type: hypothesis
+    title: "Discriminating test at N_DIM in {64,80}: does the omega(A)-M1 signal that vanished at N_DIM in {40,50} (H-B2-1o) reappear (unlucky pair) or stay null (genuine ceiling)?"
+    status: lead                  # 2026-09-07 decision.md: pre-registered MIXED (N=64 significant p=0.021, N=80 not p=0.506). First-draft post-hoc framing asserted "intermittent, not monotonic" via retrospective BH-FDR over all 7 slices ever tested -- CORRECTED IN PLACE by a same-session skeptic pass: the 7-slice set is NOT a fixed pre-planned grid (N=64,80 were adaptively chosen specifically BECAUSE N=40,50 were null, to test for "reappearance") -- retrospective FDR/binomial correction over an adaptively-selected set is invalid (optional-stopping / garden-of-forking-paths), and N=64's significance cannot be trusted as independent evidence. Honest state: solid signal at N in {16,32}, genuinely null at N in {40,50}, N=64's status UNRESOLVED pending a pre-registered fixed-grid replication (named, not launched). Real, self-caught methodological error -- corrected in place, not just caveated.
+    evidence: VERIFIED-REAL       # metrics/run.json (120 fresh pairs at N=64,80, never before tested); FL-style skeptic pass on the post-hoc framing (WEAKENED, 4 concerns, all substantive, framing corrected in place); 5 regression tests
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "REAPPEARS: both N=64,80 individually significant, positive sign. CEILING_CONFIRMED: neither significant. MIXED: exactly one significant. RESULT: N=64 rho=0.298 p=0.0209 (significant); N=80 rho=0.088 p=0.506 (not) -> MIXED per pre-registered rule. Post-hoc BH-FDR/binomial analysis across all 7 slices ever tested in the arc was drafted asserting an 'intermittent, not monotonic' pattern -- FOUND INVALID by skeptic pass (adaptive N-selection breaks the fixed-grid assumption both the binomial and BH-FDR require) and corrected in the same decision.md, not left standing. Full corrected analysis and named fixed-grid replication (N in {56,64,72}) in decision.md."
+    experiment_dir: "experiments/20260907-chernoff-neuralode-nd-numerical-abscissa-boundary"
+    source: "experiments/20260907-chernoff-neuralode-nd-numerical-abscissa-boundary/decision.md"
+    updated: 2026-09-07
+
   - id: ART-CHERNOFF-ND-MULTISEED-RUN-20260907
     type: artifact
     title: "metrics/run.json — 30-seed ensemble at coupling=15, M1 distribution (median 68.97, seed=0's 158.93 = MODERATE, right-skewed)"
@@ -1399,6 +1411,7 @@ edges:
   - {from: H-B2-1l, to: H-B2-1m, type: grounds, since: 2026-09-07, note: "H-B2-1l's own Relaxation Map and the session's post-sweep next-steps table named this exact fix -- a genuinely independent multi-seed x multi-N_DIM population, replacing the discredited N-sweep leg (seed=0 hard-coded across N)"}
   - {from: H-B2-1m, to: H-B2-1n, type: grounds, since: 2026-09-07, note: "H-B2-1m's own decision.md named this exact fix -- a targeted test of a specific alternative descriptor (numerical abscissa) at the large N_DIM values where kappa(V) failed, reusing the IDENTICAL (N_DIM,seed) population from H-B2-1m's power follow-up"}
   - {from: H-B2-1n, to: H-B2-1o, type: grounds, since: 2026-09-07, note: "H-B2-1n's own decision.md named this exact next step -- a NEW, separately pre-registered confirmatory experiment with the Fisher combination as PRIMARY criterion from the start, on a fresh non-overlapping seed range, to avoid double-dipping on the exploratory discovery"}
+  - {from: H-B2-1o, to: H-B2-1p, type: grounds, since: 2026-09-07, note: "H-B2-1o's own decision.md and pearl_registry entry named the skeptic's own suggested next test verbatim -- N_DIM in {64,80} to discriminate whether the N=40,50 null was an unlucky pair of slices or a genuine ceiling"}
   - {from: B3-MAY-TDA,         to: H-B3-1,  type: grounds, since: 2026-09-06}
   - {from: PRJ-CARPENTER-PETERLAKE, to: H-B3-1, type: grounds, since: 2026-09-06, note: "corrected data source, replaces Mangal/GloBI"}
   - {from: ART-WANG2023-EWS-LIMITS, to: H-B3-1, type: depends_on, since: 2026-09-06, note: "informs why kill_criterion was revised from >=3 collapses to Phase 1 N=1"}
