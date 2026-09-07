@@ -53,6 +53,16 @@ H-B2-1g's Relaxation Map — типичен ли M1=158.93 (seed=0, coupling=15)
 coupling). Честный вердикт сохранён (не округлён до TYPICAL/OUTLIER). 4 новых теста, 199 всего.
 **[WS: B2 multi-seed] CLOSED.**
 
+**[WS: B3 peak-tau, `/loop` continued] Type-4 self-catch (ADR-044):** H-B3-1b's аннотация в
+graph.yaml устарела — утверждала «3 фикса, ни один не запущен», хотя Row 1 (surrogate null) был
+запущен трижды (H-B3-1c/d/e) и убит. Исправлено с датированной коррекцией. **H-B3-1l (ADR-045)
+закрывает Row 3** (peak-tau reporting, «cheapest», единственный непроверенный до сих пор):
+**CONFIRMED буквально** (пик TDA ближе к переходу 2002.0), НО пре-регистрированная проверка
+конфаунда нашла: оба негативных контроля ТОЖЕ показывают пик TDA раньше классики (+8.0 мес
+одинаково на обоих, необъяснено) — вердикт оставлен CONFIRMED (не понижен post-hoc), но ВСЕГДА
+цитировать с оговоркой о конфаунде. 5 новых тестов, 204 всего. Row 2 (change-point) остаётся
+единственным непроверенным пунктом Relaxation Map. **[WS: B3 peak-tau] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -105,6 +115,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 08:00] `8b85c83` (local, branch `feature/h-b3-1b-stale-annotation-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B3-1b graph.yaml annotation was stale -- Type-4 status-lag self-catch
 - [2026-09-07 07:55] `782ae01` (local, branch `feature/h-b2-1i-multiseed` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1i: 30-seed ensemble at coupling=15 closes H-B2-1g's open question -- M1=158.93 is MODERATE
 - [2026-09-07 07:48] `9d5a9bc` (local, branch `feature/auto-log-5b1c9b8` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-07 07:48] `5b1c9b8` (local, branch `feature/h-b2-1h-coupling-sweep` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1h: coupling-magnitude sweep CONFIRMS exponential M1 growth, self-caught R^2 loss-mismatch first
@@ -119,4 +130,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 01:33] `8ce0ff7`: chore: auto-log commit history entry
 - [2026-09-07 01:32] `6343a11` (local, branch `feature/h-b7-11-crossbranch` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-11: cross-branch generalization CONFIRMED, incidentally caught H-B7-4's branch-count error
 - [2026-09-07 01:01] `6788722`: chore: auto-log commit history entry
-- [2026-09-07 01:00] `c24b243` (local, branch `feature/h-b7-10-transient-sweep` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-10: fine duration sweep pins exact threshold k*=5, fully traced to a 1-step race condition

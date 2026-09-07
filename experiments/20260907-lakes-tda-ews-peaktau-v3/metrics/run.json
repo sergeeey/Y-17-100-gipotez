@@ -1,0 +1,54 @@
+{
+  "config": {
+    "window_frac": 0.5,
+    "embed_dim": 3,
+    "embed_delay": 1,
+    "detection_rule": "peak (argmax) of expanding Kendall tau, no threshold"
+  },
+  "results": {
+    "lower_zurich": {
+      "role": "positive",
+      "n_points": 161,
+      "window": 80,
+      "documented_transition": 2002.0,
+      "tda_betti_peak_date": 2000.5,
+      "classical_ac1_peak_date": 1999.25,
+      "classical_var_peak_date": 2004.6666666666667,
+      "classical_peak_date_used": 2004.6666666666667,
+      "peak_lead_months_tda_minus_classical": 50.00000000000091,
+      "tda_distance_to_transition_years": 1.5,
+      "classical_distance_to_transition_years": 2.6666666666667425
+    },
+    "windermere": {
+      "role": "negative",
+      "n_points": 244,
+      "window": 122,
+      "documented_transition": null,
+      "tda_betti_peak_date": 1989.75,
+      "classical_ac1_peak_date": 1990.4166666666667,
+      "classical_var_peak_date": 1997.5,
+      "classical_peak_date_used": 1990.4166666666667,
+      "peak_lead_months_tda_minus_classical": 8.00000000000091
+    },
+    "loch_leven": {
+      "role": "negative",
+      "n_points": 152,
+      "window": 76,
+      "documented_transition": null,
+      "tda_betti_peak_date": 1999.25,
+      "classical_ac1_peak_date": 2000.0,
+      "classical_var_peak_date": 1999.9166666666667,
+      "classical_peak_date_used": 1999.9166666666667,
+      "peak_lead_months_tda_minus_classical": 8.00000000000091
+    }
+  },
+  "verdict": "CONFIRMED",
+  "negative_control_leads_months": {
+    "windermere": 8.00000000000091,
+    "loch_leven": 8.00000000000091
+  },
+  "negative_control_same_direction_as_lower_zurich": {
+    "windermere": true,
+    "loch_leven": true
+  }
+}
