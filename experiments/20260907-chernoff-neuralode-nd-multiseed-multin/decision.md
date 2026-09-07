@@ -1,6 +1,61 @@
 # decision.md — H-B2-1m (genuinely independent multi-seed x multi-N_DIM test of kappa(V)->M1)
 
-## Result
+## FOLLOW-UP (2026-09-07, same session, user request: increase seeds at N_DIM>=16 and re-run,
+resolves the Relaxation Map's open H1-vs-H2 question below) — **VERDICT UNCHANGED (WEAKENED),
+but the evidence is now much stronger and points toward H1 (genuine mechanism breakdown), not H2
+(inadequate power)**
+
+The original run's Relaxation Map (below) left open whether the large-`N_DIM` null (no
+individually-significant slice at `N_DIM` in {16,24,32,40,50}, `N_DIM=50`'s p=0.056 close to
+alpha) reflected a genuine breakdown of the kappa(V) mechanism at large dimension (H1), or simply
+inadequate statistical power at 15 seeds/slice (H2). Re-ran with seeds increased to 40 at
+`N_DIM>=16` (the boundary is drawn where THIS experiment's own data actually broke — `N_DIM=12`
+was individually significant, `N_DIM=16` was the first slice that was not), leaving `N_DIM<16`
+unchanged at 15 seeds (already strongly significant, no need for more power there). 40 seeds
+detects `rho~=0.43` at 80% power — comparable to this experiment's own original point estimates
+at `N_DIM=24` (0.446) and `N_DIM=50` (0.504), so a real effect of that size should have become
+individually significant if H2 were correct.
+
+**Result: it did not. If anything, the opposite happened.**
+
+| N_DIM | rho (n=15, original) | rho (n=40, follow-up) | p (n=40) | Individually significant? |
+|---|---|---|---|---|
+| 16 | -0.225 | **-0.012** | 0.943 | No |
+| 24 | -0.225 | **-0.091** | 0.575 | No |
+| 32 | 0.264 | **0.157** | 0.334 | No |
+| 40 | 0.300 | **0.057** | 0.728 | No |
+| 50 | 0.504 | **0.298** | 0.062 | No (still borderline, but weaker) |
+
+With 2.67x more seeds, every large-`N_DIM` point estimate moved TOWARD zero (three of five moved
+substantially closer to zero; none moved further from it), not toward significance. This is the
+classic signature of the original small-sample point estimates being noise regressing toward a
+true null, not evidence of an under-detected real effect — the opposite of what H2 (power
+explains the null) would predict, which is that more data should sharpen a real signal, not
+dissolve it. `n_large_n_slices_significant` remains 0. The decay trend (`Spearman(N_DIM,
+per-slice rho)`) itself is now individually significant: rho=-0.683, p=0.042 (was p=0.053,
+borderline, at the original sample sizes) — the decay is no longer merely suggestive.
+
+**Reading:** this evidence favors H1 (kappa(V) genuinely stops being a sufficient descriptor of
+transient growth at larger dimension — other structure, e.g. pseudospectral geometry, eigenvector
+interaction patterns, or block/orientation effects, likely dominates) over H2 (the large-N null
+was just underpowered). It does not prove H1 outright — `N_DIM=50` remains borderline (p=0.062,
+weaker point estimate than before but not yet cleanly zero) and a mechanistic account of WHY the
+relationship breaks down at `N_DIM>=16` specifically has not been tested. But the specific,
+falsifiable prediction H2 implied (more seeds restores significance) did not hold, while the
+prediction naturally following from H1 (more seeds should not manufacture a significant effect
+out of noise) is exactly what was observed.
+
+**graph.yaml / kill_criterion:** verdict stays WEAKENED (no large-N slice individually
+significant, same criterion as the original run) — the follow-up strengthens the CONFIDENCE in
+that verdict and narrows the open question, it does not change the verdict category itself.
+
+**Practical implication for any future experiment on this bridge:** per the user's own framing,
+the honest next boundary question is not "does kappa(V) explain M1" (answered: only at small-to-
+moderate N) but "what starts to dominate transient growth once kappa(V) stops being sufficient" —
+a mechanistic question, not a power question, and NOT recommended to pursue via another broad
+N-sweep (this one already answered the power question cleanly).
+
+## Result (ORIGINAL, before the follow-up above)
 
 **Verdict: WEAKENED** — kappa(V) has a strong, individually-significant relationship with M1 at
 small-to-moderate dimension (`N_DIM` in {3,4,8,12}: all rho >= 0.88, all p < 1.4e-4), but the
@@ -97,18 +152,23 @@ positive one.
   mathematical fact, not something this experiment could have falsified.
 
 **Relaxation Map (untested directions, if resumed):**
-- Increase seeds/`N_DIM` at the large-`N_DIM` end specifically (e.g. 30-50 seeds at `N_DIM` in
-  {24,32,40,50}) — the current WEAKENED verdict at large N could reflect genuine absence of the
-  effect, or simply inadequate power at n=15/slice; `N_DIM=50`'s p=0.056 is close enough to
-  alpha=0.05 that more seeds could plausibly flip it.
+- ~~Increase seeds/`N_DIM` at the large-`N_DIM` end specifically~~ **DONE, same session (see
+  FOLLOW-UP at top of this file):** 40 seeds at `N_DIM>=16` — every large-N point estimate moved
+  TOWARD zero, not toward significance; `n_large_n_slices_significant` stayed 0. Evidence now
+  favors genuine absence of the effect (H1) over inadequate power (H2), though not proven outright
+  (`N_DIM=50` still borderline at p=0.062).
 - Investigate numerical stability of `cond(V)` at large `N_DIM` directly (skeptic finding, not
   independently checked here) — `np.linalg.cond` on a near-defective eigenvector matrix can be
-  unstable, and this was flagged but not resolved; the negative slices at `N_DIM=16,24` could in
-  principle reflect measurement noise in kappa(V) itself rather than a genuine absence of
-  mechanism, not distinguished here.
+  unstable, and this was flagged but not resolved; still open after the power follow-up — the
+  negative slices at `N_DIM=16,24` could in principle reflect measurement noise in kappa(V)
+  itself rather than a genuine absence of mechanism.
 - A mechanistic explanation for WHY the relationship concentrates at small `N_DIM` (more degrees
   of freedom at large N for other transient-growth contributors to dilute kappa(V)'s specific
-  contribution is a plausible hypothesis, not tested here).
+  contribution is a plausible hypothesis, not tested here) — now the PRIMARY open question on
+  this bridge, per the follow-up's own practical-implication note. NOT recommended to pursue via
+  another broad N-sweep (the power question is now answered); the natural next step is a targeted
+  test of a specific alternative descriptor (e.g. pseudospectral abscissa, eigenvector clustering
+  metrics beyond kappa(V), or `x0`-orientation dependence) at one or two large `N_DIM` values.
 
 ## What This Does NOT Mean (restated per claim.md)
 
@@ -116,12 +176,21 @@ positive one.
    separate, structurally different measurement).
 2. Does NOT establish causality between kappa(V) and M1.
 3. Does NOT contradict `H-B2-1i`'s own surviving `N_DIM=8` finding — different population.
-4. Does NOT establish that the large-`N_DIM` absence of signal is permanent — it may simply
-   reflect insufficient power at 15 seeds/slice, an open question named in the Relaxation Map.
+4. Does NOT establish that the large-`N_DIM` absence of signal is a PROVEN mechanism breakdown —
+   the power follow-up (see top of this file) makes H1 (genuine breakdown) more likely than H2
+   (inadequate power), but does not rule out H2 entirely, and does not identify WHAT replaces
+   kappa(V) as the dominant descriptor at large N, if anything does.
 
 ## Pearl Registry Update
 
-New falsifiable, testable side-finding worth its own row: kappa(V)'s explanatory power for M1
-appears concentrated at small-to-moderate dimension and is undetectable (not just weaker) at
-larger dimension with matched sample size — filed separately with a concrete falsifiable
-prediction (more seeds at large N should either restore or rule out the effect).
+**Original entry (resolved by the FOLLOW-UP above, not superseded):** kappa(V)'s explanatory
+power for M1 appears concentrated at small-to-moderate dimension and is undetectable (not just
+weaker) at larger dimension with matched sample size — falsifiable prediction was "more seeds at
+large N should either restore or rule out the effect." Result: seeds increased 2.67x at
+`N_DIM>=16`, effect did NOT restore (point estimates moved toward zero) — prediction resolved in
+favor of "ruled out" over "restored," strengthening but not proving genuine mechanism breakdown.
+
+**New entry from the follow-up itself:** the primary open question on this bridge is now
+mechanistic (what replaces kappa(V) as a sufficient descriptor of transient growth at large
+`N_DIM`), not statistical (is there enough power) — filed separately with the concrete next step
+named in the Relaxation Map above.

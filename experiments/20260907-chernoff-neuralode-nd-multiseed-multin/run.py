@@ -39,6 +39,24 @@ _SPEC_L.loader.exec_module(eig_cond)
 N_SEEDS_PER_N = 15  # fresh independent seeds at EVERY (N_DIM, seed) pair -- the actual fix
 CONFIRM_THRESHOLD = 0.2  # matches H-B2-1l's own pre-registered |rho| threshold
 
+# FOLLOW-UP (2026-09-07, user's own request after reading decision.md's Relaxation Map): the
+# original run left an open question -- is the large-N_DIM null (N_DIM in {16,24,32,40,50}, none
+# individually significant at n=15/slice) a genuine breakdown of the kappa(V) mechanism, or just
+# inadequate power? N_DIM=50's p=0.056 at n=15 was close enough to alpha=0.05 to be suspicious.
+# LARGE_N_THRESHOLD=16 matches the ACTUAL boundary found in this experiment's own data: N_DIM=12
+# was individually significant (p=9.4e-8), N_DIM=16 was the first slice that was not -- the
+# threshold is drawn where the real data broke, not chosen a priori.
+LARGE_N_THRESHOLD = 16
+N_SEEDS_LARGE_N = 40  # detects rho~=0.43 at 80% power, alpha=0.05 -- comparable to this
+# experiment's own original point estimates at N_DIM=24 (0.446) and N_DIM=50 (0.504), so a real
+# effect of that size should become individually significant; SeedSequence-based seeding means
+# seeds 0..14 are byte-identical to the original run, this only ADDS seeds 15..39, not a fresh
+# randomization of the already-collected small-N results.
+
+
+def seeds_for(n_dim: int) -> int:
+    return N_SEEDS_LARGE_N if n_dim >= LARGE_N_THRESHOLD else N_SEEDS_PER_N
+
 
 def build_matrix_with_seed_and_n(n_dim: int, seed: int) -> np.ndarray:
     """Same construction as H-B2-1k's dim_sweep.build_matrix (fixed SPECTRAL_RANGE, not scaled
@@ -112,10 +130,11 @@ def cmd_run() -> dict:
     n_all: list[int] = []
 
     for n_dim in dim_sweep.N_DIM_VALUES:
+        n_seeds_here = seeds_for(n_dim)
         kappas = []
         m1s = []
         per_seed = {}
-        for seed in range(N_SEEDS_PER_N):
+        for seed in range(n_seeds_here):
             a = build_matrix_with_seed_and_n(n_dim, seed)
             kappa = eig_cond.eigenvector_condition_number(a)
             m1 = dim_sweep.measure_m1(a, dim_sweep.T_MAX, dim_sweep.W)
@@ -129,7 +148,7 @@ def cmd_run() -> dict:
         rho, p = spearmanr(kappas, m1s)
         per_n_slice[str(n_dim)] = {
             "n_dim": n_dim,
-            "n_seeds": N_SEEDS_PER_N,
+            "n_seeds": n_seeds_here,
             "spearman_rho": float(rho),
             "spearman_p": float(p),
             "per_seed": per_seed,
@@ -147,12 +166,12 @@ def cmd_run() -> dict:
     # skeptic pass (2026-09-07) found np.finfo(float).tiny (~2.2e-308) as a floor launders this
     # into an astronomically-inflated Fisher statistic dominated by one slice. The PRINCIPLED
     # floor for this specific artifact is the exact-permutation minimum p-value achievable at
-    # this sample size: with N_SEEDS_PER_N independent ranks, the smallest possible two-sided
-    # exact Spearman p-value is 2/N_SEEDS_PER_N! (only 2 of N! permutations give a perfect rank
-    # match, in either direction).
-    p_floor = 2.0 / factorial(N_SEEDS_PER_N)
-    slice_ps_floored = [max(p, p_floor) for p in slice_ps]
-    any_floored = any(p < p_floor for p in slice_ps)
+    # THAT SLICE's own sample size (slices now differ in size after the large-N power follow-up):
+    # with n independent ranks, the smallest possible two-sided exact Spearman p-value is 2/n!
+    # (only 2 of n! permutations give a perfect rank match, in either direction).
+    slice_p_floors = [2.0 / factorial(v["n_seeds"]) for v in per_n_slice.values()]
+    slice_ps_floored = [max(p, floor) for p, floor in zip(slice_ps, slice_p_floors)]
+    any_floored = any(p < floor for p, floor in zip(slice_ps, slice_p_floors))
     fisher_stat, fisher_p = combine_pvalues(slice_ps_floored, method="fisher")
 
     # Honest trend report (skeptic finding #3): does correlation strength itself trend with
@@ -192,7 +211,9 @@ def cmd_run() -> dict:
     result = {
         "config": {
             "n_dim_values": list(dim_sweep.N_DIM_VALUES),
-            "seeds_per_n": N_SEEDS_PER_N,
+            "seeds_per_n_small": N_SEEDS_PER_N,
+            "seeds_per_n_large": N_SEEDS_LARGE_N,
+            "large_n_threshold": LARGE_N_THRESHOLD,
             "confirm_threshold": CONFIRM_THRESHOLD,
         },
         "per_n_slice": per_n_slice,

@@ -112,6 +112,27 @@ def test_p_value_floor_uses_exact_permutation_bound_not_arbitrary_tiny_float():
     assert expected_floor < 1e-11
 
 
+def test_seeds_for_gives_more_seeds_at_large_n():
+    """Regression test for the power follow-up (user request, 2026-09-07, after reading the
+    Relaxation Map): large-N_DIM slices (>=16, the actual boundary where individual significance
+    broke down in this experiment's own data) get more seeds than small-N slices, so a real
+    effect at large N would have a chance to show up if power was the limiting factor."""
+    assert multin.seeds_for(12) == multin.N_SEEDS_PER_N
+    assert multin.seeds_for(16) == multin.N_SEEDS_LARGE_N
+    assert multin.seeds_for(50) == multin.N_SEEDS_LARGE_N
+    assert multin.N_SEEDS_LARGE_N > multin.N_SEEDS_PER_N
+
+
+def test_build_matrix_is_deterministic_per_n_dim_seed_pair():
+    """SeedSequence-based seeding must be a pure function of (n_dim, seed) -- calling it twice
+    with the same arguments gives byte-identical output. This is what makes the power follow-up
+    safe: extending large-N seed counts only ADDS new seeds, it cannot silently re-randomize the
+    already-collected small-N slice results (seeds 0..14 stay whatever they always were)."""
+    a1 = multin.build_matrix_with_seed_and_n(8, seed=5)
+    a2 = multin.build_matrix_with_seed_and_n(8, seed=5)
+    assert np.array_equal(a1, a2)
+
+
 def test_real_run_produces_9_slices_with_verdict_and_large_n_check():
     result = multin.cmd_run()
     assert len(result["per_n_slice"]) == 9
@@ -120,6 +141,10 @@ def test_real_run_produces_9_slices_with_verdict_and_large_n_check():
     assert 0 <= summary["n_slices_positive"] <= 9
     assert "n_large_n_slices_significant" in summary
     assert "decay_trend_rho_vs_n_dim" in summary
+    # large-N slices must actually use the bigger seed count
+    for n_dim in dim_sweep.N_DIM_VALUES:
+        expected = multin.seeds_for(n_dim)
+        assert result["per_n_slice"][str(n_dim)]["n_seeds"] == expected
     # CONFIRMED requires a large-N individually-significant slice -- lock in the refined criterion
     if result["verdict"] == "CONFIRMED":
         assert summary["n_large_n_slices_significant"] > 0

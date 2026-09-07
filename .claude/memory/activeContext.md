@@ -46,6 +46,15 @@ Hi-C-матрица по умолчанию GOE, не GUE. Gate 4 Scientism flag
 необнаружимо при большом (16-50). 7 регрессионных тестов, включая lock-in независимости RNG.
 **[WS: H-B2-1m] CLOSED.**
 
+**[WS: H-B2-1m power follow-up, прямая команда пользователя] H1>H2, вердикт WEAKENED остаётся,
+уверенность выросла (ADR-061).** Сиды увеличены 15→40 при N_DIM≥16 (граница из самих данных:
+N=12 значим, N=16 первый незначимый). Результат: точечные оценки СДВИНУЛИСЬ К НУЛЮ, не к
+значимости (N=16: -0.225→-0.012; N=50: 0.504→0.298) — сигнатура шума, регрессирующего к
+истинному нулю, а не недодетектированного эффекта. Тренд затухания сам стал значим (p=0.042).
+Свидетельство теперь склоняется к H1 (генуинный слом κ(V) как дескриптора при большом N), не к
+H2 (просто мощность). Первичный вопрос моста B2 сместился со статистического на механистический:
+что управляет M1, когда κ(V) уже недостаточно. 2 новых теста. **[WS: power follow-up] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
 ## Project State
@@ -107,6 +116,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 12:54] `da584f8` (local, branch `feature/h-b2-1m-multiseed-multin` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (final)
 - [2026-09-07 12:54] `6974b5e` (local, branch `feature/h-b2-1m-multiseed-multin` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-07 12:54] `c09f7e1` (local, branch `feature/h-b2-1m-multiseed-multin` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1m -- genuinely independent multi-seed x multi-N_DIM test of kappa(V)->M1, first use of Step 0a gate
 - [2026-09-07 11:53] `fed7f36` (local, branch `feature/meta-analysis-b1-b4b6-resolution` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (final)
@@ -121,4 +131,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 10:51] `3ae216d` (local, branch `feature/h-b3-1l-skeptic-argmax-bias` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 4, folding in)
 - [2026-09-07 10:51] `36ad740` (local, branch `feature/h-b3-1l-skeptic-argmax-bias` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 3, final)
 - [2026-09-07 10:51] `0dd1337` (local, branch `feature/h-b3-1l-skeptic-argmax-bias` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 2)
-- [2026-09-07 10:51] `5fd8565` (local, branch `feature/h-b3-1l-skeptic-argmax-bias` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
