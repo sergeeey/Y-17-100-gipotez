@@ -3,3 +3,8 @@
 pyyaml>=6.0          # scripts/lab_check.py
 numpy>=1.26          # H-B1-1a r-statistic
 requests>=2.31       # Odlyzko zeros download
+pseudopy==1.2.5      # H-B2-1s cross-implementation check of pseudospectral abscissa.
+                     # Unmaintained (last touched pre-shapely-2.0 rename): needs a one-line
+                     # compat shim (shapely.ops.cascaded_union -> unary_union alias) before
+                     # import -- see experiments/20260907-.../run.py for the shim, applied at
+                     # the call site, not by patching the installed package.

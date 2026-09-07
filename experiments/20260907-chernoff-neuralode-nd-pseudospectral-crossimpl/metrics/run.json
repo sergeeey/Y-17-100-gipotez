@@ -1,0 +1,273 @@
+{
+  "config": {
+    "eps": 1.0,
+    "n_dim_values": [
+      40,
+      50
+    ],
+    "grid": {
+      "re_min": -2.0,
+      "re_max": 25.0,
+      "im_max": 10.0,
+      "n": 150
+    },
+    "package": "pseudopy==1.2.5",
+    "population_note": "Same matrices as H-B2-1r (build_matrix_with_seed_and_n, seeds 0-14, N=40,50). M1 reused from H-B2-1r's own metrics/run.json, not recomputed."
+  },
+  "per_n_slice": {
+    "40": {
+      "n_dim": 40,
+      "n_seeds": 15,
+      "rho_between_implementations": 0.9954934425924684,
+      "p_between_implementations": 1.0930570660277362e-14,
+      "median_relative_diff": 0.024069432090778897,
+      "max_relative_diff": 0.04672337878852637,
+      "mine_vs_m1": {
+        "rho": 0.8209090239580531,
+        "p": 0.00017621363510801592,
+        "significant_positive": true
+      },
+      "pseudopy_vs_m1": {
+        "rho": 0.7849512785922561,
+        "p": 0.0005274769341518232,
+        "significant_positive": true
+      },
+      "verdict_agrees": true,
+      "per_seed": {
+        "0": {
+          "alpha_eps_mine": 10.11616161616162,
+          "alpha_eps_pseudopy": 10.140939597315436,
+          "abs_diff": 0.024777981153816242,
+          "rel_diff": 0.0024493461150552243,
+          "m1": 327.8478641121948
+        },
+        "1": {
+          "alpha_eps_mine": 12.52020202020202,
+          "alpha_eps_pseudopy": 12.859060402684563,
+          "abs_diff": 0.33885838248254174,
+          "rel_diff": 0.027064929298726607,
+          "m1": 661.760620757541
+        },
+        "2": {
+          "alpha_eps_mine": 7.111111111111114,
+          "alpha_eps_pseudopy": 7.422818791946309,
+          "abs_diff": 0.3117076808351946,
+          "rel_diff": 0.04383389261744922,
+          "m1": 56.48661659050568
+        },
+        "3": {
+          "alpha_eps_mine": 9.515151515151516,
+          "alpha_eps_pseudopy": 9.95973154362416,
+          "abs_diff": 0.4445800284726449,
+          "rel_diff": 0.04672337878852637,
+          "m1": 187.78770387616032
+        },
+        "4": {
+          "alpha_eps_mine": 8.313131313131315,
+          "alpha_eps_pseudopy": 8.510067114093959,
+          "abs_diff": 0.19693580096264363,
+          "rel_diff": 0.02368972575370804,
+          "m1": 255.83395391154755
+        },
+        "5": {
+          "alpha_eps_mine": 10.11616161616162,
+          "alpha_eps_pseudopy": 10.140939597315436,
+          "abs_diff": 0.024777981153816242,
+          "rel_diff": 0.0024493461150552243,
+          "m1": 573.4207564359723
+        },
+        "6": {
+          "alpha_eps_mine": 11.31818181818182,
+          "alpha_eps_pseudopy": 11.228187919463087,
+          "abs_diff": 0.08999389871873298,
+          "rel_diff": 0.007951268159888053,
+          "m1": 1017.4281149219368
+        },
+        "7": {
+          "alpha_eps_mine": 8.914141414141419,
+          "alpha_eps_pseudopy": 9.23489932885906,
+          "abs_diff": 0.3207579147176407,
+          "rel_diff": 0.035983040857842964,
+          "m1": 54.20094635767182
+        },
+        "8": {
+          "alpha_eps_mine": 10.11616161616162,
+          "alpha_eps_pseudopy": 10.140939597315436,
+          "abs_diff": 0.024777981153816242,
+          "rel_diff": 0.0024493461150552243,
+          "m1": 592.6293005971758
+        },
+        "9": {
+          "alpha_eps_mine": 7.111111111111114,
+          "alpha_eps_pseudopy": 7.060402684563758,
+          "abs_diff": 0.050708426547355856,
+          "rel_diff": 0.007130872483221914,
+          "m1": 56.83016843644176
+        },
+        "10": {
+          "alpha_eps_mine": 8.313131313131315,
+          "alpha_eps_pseudopy": 8.691275167785234,
+          "abs_diff": 0.37814385465391886,
+          "rel_diff": 0.045487535371492055,
+          "m1": 143.95844437631848
+        },
+        "11": {
+          "alpha_eps_mine": 7.712121212121211,
+          "alpha_eps_pseudopy": 7.966442953020133,
+          "abs_diff": 0.2543217408989218,
+          "rel_diff": 0.03297688585329831,
+          "m1": 52.849164849992746
+        },
+        "12": {
+          "alpha_eps_mine": 9.515151515151516,
+          "alpha_eps_pseudopy": 9.778523489932885,
+          "abs_diff": 0.26337197478136964,
+          "rel_diff": 0.027679220279570694,
+          "m1": 931.2051877526883
+        },
+        "13": {
+          "alpha_eps_mine": 11.31818181818182,
+          "alpha_eps_pseudopy": 11.590604026845636,
+          "abs_diff": 0.2724222086638157,
+          "rel_diff": 0.024069432090778897,
+          "m1": 590.3933974652596
+        },
+        "14": {
+          "alpha_eps_mine": 7.712121212121211,
+          "alpha_eps_pseudopy": 7.604026845637584,
+          "abs_diff": 0.10809436648362691,
+          "rel_diff": 0.014016165398662824,
+          "m1": 134.62135435876192
+        }
+      }
+    },
+    "50": {
+      "n_dim": 50,
+      "n_seeds": 15,
+      "rho_between_implementations": 0.9892083171972245,
+      "p_between_implementations": 3.1419925732211997e-12,
+      "median_relative_diff": 0.027064929298726607,
+      "max_relative_diff": 0.056311196456070994,
+      "mine_vs_m1": {
+        "rho": 0.8239050522521785,
+        "p": 0.0001591290848353395,
+        "significant_positive": true
+      },
+      "pseudopy_vs_m1": {
+        "rho": 0.8042898653967124,
+        "p": 0.0003005904553772448,
+        "significant_positive": true
+      },
+      "verdict_agrees": true,
+      "per_seed": {
+        "0": {
+          "alpha_eps_mine": 7.712121212121211,
+          "alpha_eps_pseudopy": 7.966442953020133,
+          "abs_diff": 0.2543217408989218,
+          "rel_diff": 0.03297688585329831,
+          "m1": 79.09544991614148
+        },
+        "1": {
+          "alpha_eps_mine": 12.52020202020202,
+          "alpha_eps_pseudopy": 12.859060402684563,
+          "abs_diff": 0.33885838248254174,
+          "rel_diff": 0.027064929298726607,
+          "m1": 969.6773253240467
+        },
+        "2": {
+          "alpha_eps_mine": 11.919191919191917,
+          "alpha_eps_pseudopy": 12.315436241610737,
+          "abs_diff": 0.3962443224188199,
+          "rel_diff": 0.033244227050392525,
+          "m1": 234.08748659876656
+        },
+        "3": {
+          "alpha_eps_mine": 9.515151515151516,
+          "alpha_eps_pseudopy": 9.95973154362416,
+          "abs_diff": 0.4445800284726449,
+          "rel_diff": 0.04672337878852637,
+          "m1": 200.17361991366158
+        },
+        "4": {
+          "alpha_eps_mine": 8.914141414141419,
+          "alpha_eps_pseudopy": 9.416107382550335,
+          "abs_diff": 0.5019659684089159,
+          "rel_diff": 0.056311196456070994,
+          "m1": 384.8934731375951
+        },
+        "5": {
+          "alpha_eps_mine": 9.515151515151516,
+          "alpha_eps_pseudopy": 9.778523489932885,
+          "abs_diff": 0.26337197478136964,
+          "rel_diff": 0.027679220279570694,
+          "m1": 112.03667968071987
+        },
+        "6": {
+          "alpha_eps_mine": 11.919191919191917,
+          "alpha_eps_pseudopy": 12.134228187919462,
+          "abs_diff": 0.21503626872754467,
+          "rel_diff": 0.01804117847798892,
+          "m1": 693.3672381362912
+        },
+        "7": {
+          "alpha_eps_mine": 10.11616161616162,
+          "alpha_eps_pseudopy": 10.503355704697986,
+          "abs_diff": 0.3871940885363667,
+          "rel_diff": 0.038274802561258404,
+          "m1": 351.5811941193677
+        },
+        "8": {
+          "alpha_eps_mine": 12.52020202020202,
+          "alpha_eps_pseudopy": 13.040268456375838,
+          "abs_diff": 0.520066436173817,
+          "rel_diff": 0.04153818247777965,
+          "m1": 497.0921659657282
+        },
+        "9": {
+          "alpha_eps_mine": 12.52020202020202,
+          "alpha_eps_pseudopy": 12.677852348993287,
+          "abs_diff": 0.1576503287912665,
+          "rel_diff": 0.012591676119673564,
+          "m1": 1100.5566342750437
+        },
+        "10": {
+          "alpha_eps_mine": 15.525252525252526,
+          "alpha_eps_pseudopy": 15.577181208053691,
+          "abs_diff": 0.05192868280116514,
+          "rel_diff": 0.003344788287127748,
+          "m1": 2451.955561929087
+        },
+        "11": {
+          "alpha_eps_mine": 8.313131313131315,
+          "alpha_eps_pseudopy": 8.510067114093959,
+          "abs_diff": 0.19693580096264363,
+          "rel_diff": 0.02368972575370804,
+          "m1": 136.03879525018436
+        },
+        "12": {
+          "alpha_eps_mine": 11.31818181818182,
+          "alpha_eps_pseudopy": 11.409395973154362,
+          "abs_diff": 0.09121415497254226,
+          "rel_diff": 0.008059081965445499,
+          "m1": 1332.5156659582808
+        },
+        "13": {
+          "alpha_eps_mine": 12.52020202020202,
+          "alpha_eps_pseudopy": 12.859060402684563,
+          "abs_diff": 0.33885838248254174,
+          "rel_diff": 0.027064929298726607,
+          "m1": 1284.9058772442552
+        },
+        "14": {
+          "alpha_eps_mine": 8.914141414141419,
+          "alpha_eps_pseudopy": 9.053691275167784,
+          "abs_diff": 0.13954986102636546,
+          "rel_diff": 0.015654885259614927,
+          "m1": 147.00386122278672
+        }
+      }
+    }
+  },
+  "verdict": "CONFIRMED",
+  "verdict_note": "CONFIRMED: both large-N slices individually significant under the independent implementation AND median relative value difference < 15% -- H-B2-1r's claim strengthens. KILLED_OR_WEAKENED: at least one slice loses significance under the independent implementation -- per the user's own kill criterion. WEAKENED: both significant but with notable systematic value disagreement."
+}
