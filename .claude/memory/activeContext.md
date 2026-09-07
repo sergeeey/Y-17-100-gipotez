@@ -41,7 +41,17 @@ N=32 и N=40. Первая в сессии REJECT-запись → `null_results
 пределах ~2% на N=40,50 (12.80 vs 12.52; 15.68 vs 15.53), значимость сохранилась (p<0.001 оба).
 Итог: CONFIRMED на всех 6 срезах (N=3..50), включая оба целевых больших N. Дырка B2-Chernoff
 закрыта третьим дескриптором. Cross-implementation проверка (pseudopy/EigTool) названа, не
-запущена. **[WS: H-B2-1r] CLOSED.** Ждёт указаний пользователя.
+запущена. **[WS: H-B2-1r] CLOSED.**
+
+**[Инфраструктурная находка, ADR-067] Evaluator-Optimizer гейт был застрял с 02:29 сегодня —
+задолго до арки H-B2-1m→1r, не связан с ней.** 3 non-LGTM вердикта: 2×P2 (H-B3-1j review,
+косметика) + 1×P1 (реальный баг `approx_n_seasons` в B3/Peter-Paul Lake diagnostics, прошлая
+версия сессии сама эскалировала пользователю, ответа не было). Обнаружила через разбор полной
+транскрипции сессии. Пользователь: понизить P1→P2 (не load-bearing, зафиксировано в
+pearl_registry), сбросить счётчик. Гейт создавал тупик (reviewer нужен для LGTM, LGTM нужен
+чтобы разрешить reviewer) — собственная документация хука называет ручной сброс state-файла
+законным путём восстановления для этого случая. Сброшено валидной подписью (не обход схемы),
+файл гитигнорится. Reviewer на H-B2-1r отдельно получил **LGTM** после сброса.
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
@@ -108,6 +118,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 21:31] `6956804` (local, branch `feature/h-b2-1r-pseudospectral-abscissa` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: ADR-067 -- resolve Evaluator-Optimizer iteration-guard deadlock by documented manual counter reset
 - [2026-09-07 21:19] `9f56f2e` (local, branch `feature/h-b2-1r-pseudospectral-abscissa` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: downgrade stale P1 finding in approx_n_seasons to P2, by user decision
 - [2026-09-07 20:48] `e00608a` (local, branch `feature/h-b2-1r-pseudospectral-abscissa` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1r -- pseudospectral abscissa CONFIRMED at N=40,50, closing the descriptor gap kappa(V)/omega(A) left open, after a self-caught bug and independent verification
 - [2026-09-07 20:05] `15cf345` (local, branch `feature/h-b2-1q-fixedgrid-replication` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1q -- pre-registered fixed-grid replication resolves the H-B2-1p N=64 dispute: NOT_REPLICATED, omega(A) sub-arc closed
@@ -122,4 +133,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 14:10] `1a53d71` (local, branch `feature/h-b2-1n-numerical-abscissa` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (final)
 - [2026-09-07 14:10] `ad0cc76` (local, branch `feature/h-b2-1n-numerical-abscissa` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-07 14:10] `30cf4bc` (local, branch `feature/h-b2-1n-numerical-abscissa` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1n -- numerical abscissa omega(A) tested against M1 at large N_DIM, WEAKENED with a walled-off exploratory Fisher signal
-- [2026-09-07 13:35] `82b5f25` (local, branch `feature/h-b2-1m-power-followup` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (final)
