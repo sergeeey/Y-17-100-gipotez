@@ -39,6 +39,10 @@ skeptic found the two branches dynamically equivalent, closing the question by e
   n=6 контролируемых по частоте), но не значимо ни разу.
 - Граф: `B3-MAY-TDA` session_summary_2026-09-07 добавлен (correction, не тихая правка). Вердикт
   `H-B3-1h` не изменён (остаётся `lead`). 5 новых тестов, все прошли.
+- **Post-commit reviewer catch (per собственный 3+-файлов чек-лист):** нашёл реальный P1 —
+  `approx_n_seasons` всегда возвращал 1 (диффил намеренно сжатую `season_time`). Не был load-bearing
+  ни в одном выводе. Исправлен независимым пересчётом границ сезона из сырой decimal-year оси
+  (`count_seasons`), даёт корректные `n_seasons=3`. Regression test добавлен, 185 тестов проходят.
 **[WS: B3 case-study thread continued] CLOSED.**
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
@@ -89,6 +93,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 07:13] `7ed5ea3` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: approx_n_seasons always returned 1, reviewer-caught before push
 - [2026-09-07 07:05] `b44f9b2` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3: fix provenance drift, correct a wrong crossing-rate claim, test 2 new candidates
 - [2026-09-07 01:52] `fbb382b`: chore: auto-log commit history entry
 - [2026-09-07 01:51] `da0e337` (local, branch `feature/h-b7-12-crossbranch-transient` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-12: transient sweep on second branch WEAKENED -- exact k*=5 match was branch equivalence
@@ -103,4 +108,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 23:54] `a8c76a4`: chore: auto-log commit history entry
 - [2026-09-06 23:53] `fd6c1e9` (local, branch `feature/h-b7-7-fourhit-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-7: four-hit do(RAS=1, TP53=0, p21CIP=0, RBL2=0) CONFIRMED, skeptic pass (Step 8a) passed
 - [2026-09-06 23:26] `f8c36d2`: chore: auto-log commit history entry
-- [2026-09-06 23:25] `e2e6779` (local, branch `feature/h-b7-6-threehit-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-6: three-hit do(RAS=1, TP53=0, p21CIP=0) REJECTED, full mechanism found and verified two ways
