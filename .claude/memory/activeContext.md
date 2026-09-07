@@ -9,28 +9,12 @@
 
 
 
+
 ## Current Focus
 [summarized] **B1/B2/B3 arc (H-B3-1 through H-B3-1k, ADR-010–027) archived to
-[summarized] **H-B7-1 through H-B7-6 (ADR-028–033) archived to
-`.claude/memory/history/activeContext-archive-20260907-b7-1to6.md`** — Fauré cell-cycle
-reproduction/perturbation/transient (H-B7-1..3, TASK_INFEASIBLE for the strict claim in that small
-model) → moved to Remy tumorigenesis model (H-B7-4..6, single/two/three-hit, all REJECTED but each
-tracing the next mechanism precisely, ending with `Growth_arrest = p21CIP|RBL2|RB1` found as an
-explicit source-level OR gate).
-
 [summarized] **H-B7-7 through H-B7-12 (ADR-034–039) archived to
-`.claude/memory/history/activeContext-archive-20260907-b7-7to12.md`** — four-hit CONFIRMED (first
-escape) → necessity-minimized to two-hit → transient CONFIRMED with exact k*=5 threshold, fully
-traced to a one-step race condition → cross-branch generalization CONFIRMED then WEAKENED once the
-skeptic found the two branches dynamically equivalent, closing the question by exhaustion. Bridge
-`B7-KAUFFMAN-ATTRACTORS` net position: `evidence: CONFLICT` throughout.
+[summarized] **[WS: B3 case-study thread continued] CLOSED 2026-09-07 (ADR-040, прямой запрос пользователя
 
-**[WS: B3 case-study thread continued] CLOSED 2026-09-07 (ADR-040, прямой запрос пользователя
-«займись B3»).** `[VERIFIED]`:
-- Нашёл provenance drift: pearl-запись про case-study Loch Leven/Paul doSat помечена «pending»,
-  хотя фактически завершена в прошлой сессии — исправлено немедленно.
-- **Более серьёзное:** сама формулировка decision.md «3 ряда никогда не пересекают» — ФАКТИЧЕСКИ
-  НЕВЕРНА. Полная cross-tab (7 методов × 9 рядов, из реальных committed metrics) показывает:
   Windermere пересекает 6/7 (как позитивы); настоящие выбросы — Paul_doSat (7/7) и Paul_chl/
   Paul_pH (3/7 каждый). Частота НЕ коррелирует с ролью positive/negative.
 - Тест тренда (Paul lake, 3 переменные) → **REJECTED, развёрнут наоборот**: pH — сильнейший тренд
@@ -50,6 +34,17 @@ skeptic found the two branches dynamically equivalent, closing the question by e
   |trend| и AC1 сами ранг-коррелированы — возможно, одна ось нестационарности, не два кандидата.
 **[WS: B3 case-study thread continued] CLOSED.**
 
+**[WS: B2 coupling sweep, `/loop` continued] H-B2-1h (ADR-042):** 10-точечный скан
+`coupling_magnitude ∈ {3..30}` для M1 (H-B2-1g's own named next step). Provenance побитово
+проверен против H-B2-1f (M1=2.665) и H-B2-1g (M1=158.93). **CONFIRMED** экспоненциальный рост
+(raw-NLS R²=0.9994 vs квадратичная 0.951 vs линейная 0.680) — но только после самопойманной
+ошибки: первая версия сравнивала log-space R² экспоненты с raw-space R² альтернатив (разные
+loss), исправлено переподбором через `scipy.optimize.curve_fit`. Caveat задокументирован, не
+подавлен: consecutive ratios M1[i+1]/M1[i] монотонно убывают (3.76→1.80) — рост замедляется,
+хотя экспонента всё равно лучшая из трёх форм. Pearl impact 7 (общий паттерн: R² на широком
+динамическом диапазоне слабо ловит систематическое отклонение). 5 новых тестов, 195 всего проходят.
+**[WS: B2 coupling sweep] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -65,11 +60,13 @@ Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998`
 
 
 
+
 ## Architecture (файлы этой папки)
 - `00-catalog/` — источники задач (raw + verified subset + skeptic assessment)
 - `01-cross-domain-bridges/` — главный рабочий файл + H-7 контекст (два разных проекта!)
 - `02-related-projects-context/` — ChernoffPy, May 1972
 - `03-methodology-rules/` — переиспользуемые правила (execution rules, submission gate, ESV scoring)
+
 
 
 
@@ -87,6 +84,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 
+
 ## Open Questions (для пользователя)
 1. Frontier R&D / TOFT / RAF Theory — реальны на другом компьютере, или нет?
 2. Доступен ли этот E:\ путь с других ПК (тот же физический диск / сетевая шара / нет)?
@@ -97,7 +95,9 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 
+
 ## Auto-commit log
+- [2026-09-07 07:32] `b31db36`: chore: auto-log commit history entry
 - [2026-09-07 07:32] `e826359` (local, branch `feature/b3-peter-lake-replicate` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3 Addendum 5: Peter lake replicate confirms trend-inversion direction independently
 - [2026-09-07 07:14] `c49c0a2`: chore: auto-log commit history entry
 - [2026-09-07 07:13] `cf68944` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: note reviewer-caught fix in activeContext.md
@@ -112,4 +112,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 00:44] `b1d13a6`: chore: auto-log commit history entry
 - [2026-09-07 00:43] `a9a159a` (local, branch `feature/h-b7-9-transient-necessity` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-9: transient do(p21CIP=0, RBL2=0) CONFIRMED for k=10,30, first strict-Kauffman confirmation
 - [2026-09-07 00:09] `f2460d2`: chore: auto-log commit history entry
-- [2026-09-07 00:08] `5636812` (local, branch `feature/h-b7-8-necessity-test` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-8: necessity test do(p21CIP=0, RBL2=0) without RAS/TP53 CONFIRMED, skeptic pass passed

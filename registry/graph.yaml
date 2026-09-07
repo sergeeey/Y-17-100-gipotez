@@ -417,6 +417,28 @@ nodes:
     source: "experiments/20260906-chernoff-neuralode-nd-strong-coupling/metrics/run.json"
     updated: 2026-09-06
 
+  - id: H-B2-1h
+    type: hypothesis
+    title: "Coupling-magnitude sweep of M1 (H-B2-1g's own named next step): does log(M1) grow linearly in coupling_magnitude (exponential), vs polynomial/linear alternatives?"
+    status: confirmed             # 2026-09-07 decision.md: CONFIRMED, but only after catching a methodological error mid-experiment
+    evidence: VERIFIED-REAL       # metrics/run.json; provenance cross-checked exactly against H-B2-1f (M1=2.665) and H-B2-1g (M1=158.93); 5 regression tests
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if raw-space R^2 of an exponential fit to M1 vs coupling_magnitude (coupling in {3,6,...,30}) is >0.9 AND clearly beats linear/quadratic raw-space R^2; REJECTED if linear/quadratic fits at least as well. RESULT: exponential (fit by scipy.optimize.curve_fit, raw nonlinear least squares) R^2=0.9994 vs quadratic 0.951 vs linear 0.680 -> CONFIRMED. Self-caught methodological error before this was trusted: the first version compared the exponential model's LOG-space R^2 (0.985) against the other two models' RAW-space R^2 -- different loss functions, not a fair comparison -- fixed by refitting the exponential model directly in raw space via nonlinear least squares. Caveat documented, not suppressed: consecutive M1 ratios at fixed coupling step DECREASE monotonically (3.76 -> 1.80), showing the local growth rate itself decelerates -- true single-rate exponential is not exact, though it remains the best-fitting of the three tested forms by a wide margin. Reused H-B2-1f/g's own matrix-construction logic verified byte-for-byte (build_matrix(15.0) == H-B2-1g's own module-level A)."
+    experiment_dir: "experiments/20260906-chernoff-neuralode-nd-coupling-sweep"
+    source: "experiments/20260906-chernoff-neuralode-nd-coupling-sweep/decision.md"
+    updated: 2026-09-07
+
+  - id: ART-CHERNOFF-ND-COUPLING-SWEEP-RUN-20260907
+    type: artifact
+    title: "metrics/run.json — 10-point coupling-magnitude sweep (3..30), M1 exponential-fit CONFIRMED, ratio-deceleration caveat"
+    status: valid
+    evidence: VERIFIED-REAL
+    date_created: 2026-09-07
+    provenance: measurement
+    source: "experiments/20260906-chernoff-neuralode-nd-coupling-sweep/metrics/run.json"
+    updated: 2026-09-07
+
   - id: H-B3-1
     type: hypothesis
     title: "Phase 1 (Peter Lake): TDA signals (Betti-1, persistent entropy) lead classical EWS (variance, autocorrelation) on the Carpenter 2011 Peter Lake whole-ecosystem regime-shift experiment"
@@ -1248,6 +1270,8 @@ edges:
   - {from: H-B2-1f, to: ART-CHERNOFF-ND-STIFF-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
   - {from: H-B2-1f, to: H-B2-1g, type: grounds, since: 2026-09-06, note: "H-B2-1f's own decision.md named stronger coupling as the next step to test whether its counterintuitive finding was coupling-dependent -- ONE assumption changed (coupling 3 -> 15), per Minimal Relaxation Rule"}
   - {from: H-B2-1g, to: ART-CHERNOFF-ND-STRONG-COUPLING-RUN-20260906, type: grounds, since: 2026-09-06, note: "experiment produced this artifact"}
+  - {from: H-B2-1g, to: H-B2-1h, type: grounds, since: 2026-09-07, note: "H-B2-1g's own Relaxation Map named a systematic coupling-magnitude sweep as the direct next step (pearl_registry impact 9); this is that sweep"}
+  - {from: H-B2-1h, to: ART-CHERNOFF-ND-COUPLING-SWEEP-RUN-20260907, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
   - {from: B3-MAY-TDA,         to: H-B3-1,  type: grounds, since: 2026-09-06}
   - {from: PRJ-CARPENTER-PETERLAKE, to: H-B3-1, type: grounds, since: 2026-09-06, note: "corrected data source, replaces Mangal/GloBI"}
   - {from: ART-WANG2023-EWS-LIMITS, to: H-B3-1, type: depends_on, since: 2026-09-06, note: "informs why kill_criterion was revised from >=3 collapses to Phase 1 N=1"}
