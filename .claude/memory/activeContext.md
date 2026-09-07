@@ -25,71 +25,22 @@ Pettitt's test реализован с нуля (не установлен ни 
 теперь закрыты (Row 1 REJECT, Row 2 CRITERION_INVALID-с-улучшением, Row 3 CONFIRMED-с-конфаундом).
 8 новых тестов, 212 всего. **[WS: B3 change-point] CLOSED.**
 
-**[WS: B2 scale N=50, продолжение по «продолжай автономно»] H-B2-1j (ADR-047):** закрывает
-ПОСЛЕДНИЙ открытый пункт LAB.md для всей арки H-B2-1* (coupling sweep + multi-seed уже закрыты).
-Идентичная конструкция H-B2-1f/g, N_DIM 8→50, coupling=15/seed=0 зафиксированы. **CONFIRMED**:
-граница держится 16/16, порядок точен (0.9983, 2.0081). Находка: M1 ВЫРОС 158.93→675.40 (~4.25×)
-— опровергает наивную экстраполяцию «M1 продолжает уменьшаться с N» из H-B2-1f. Эффективность
-упала ЕЩЁ на 3-5 порядков (1.3e-10, 4.3e-12). Новый механизм: `‖A^(m+1)x0‖` растёт с N независимо
-от M1 — минимум два члена управляют коллапсом эффективности. 5 новых тестов, 217 всего.
-**[WS: B2 scale N=50] CLOSED.**
+[summarized] **H-B2-1j/1k/1l scale sweep + первые 4 skeptic-прохода (ADR-047–053) archived to
+`history/activeContext-archive-20260907-skeptic-sweep-part1.md`**
 
-**[WS: M1 non-monotonicity, выбор пользователя «углубиться в новые механизмы»] H-B2-1k
-(ADR-048):** прямая проверка pearl-предсказания H-B2-1j. Фиксированный спектральный диапазон
-[-50,-1] (изолирует размерность от диапазона, в отличие от H-B2-1j's confounded конвенции).
-Найден и исправлен edge case ДО прогона: N=2 даёт вырожденный linspace(num=1) — исключён из
-скана. **CONFIRMED немонотонность**: 8 смен знака в 8 разностях M1(N=3..50), крупные скачки
-(12× рост, >6× падение). Однозначно подтверждает собственное предсказание H-B2-1j. Ограничение:
-один сид, конкретная форма кривой не установлена как типичная. 8 новых тестов, 225 всего.
-**[WS: M1 non-monotonicity] CLOSED.**
-
-**[WS: eigenvector conditioning, продолжение «углубиться в новые механизмы»] H-B2-1l
-(ADR-049):** заостряет неформальную гипотезу «кластеризация собственных значений» (общую для
-H-B2-1i и H-B2-1k) до κ(V) — числа обусловленности матрицы собственных векторов, классически
-связанного с M1. Переиспользованы ОБЕ уже построенные популяции (30 seed-матриц H-B2-1i + 9
-N-матриц H-B2-1k) без новых draw'ов. **CONFIRMED**: положительная корреляция в ОБЕИХ популяциях
-(seed: ρ=0.453 p=0.012 n=30; N: ρ=0.917 p=0.0005 n=9) — объединяет две ранее необъяснённые
-находки одним механизмом. N-скан намного сильнее seed-ансамбля, причина не диагностирована.
-6 новых тестов, 231 всего. **[WS: eigenvector conditioning] CLOSED.**
-
-**[WS: первый реальный skeptic-проход, после отчёта пользователю] H-B2-1l WEAKENED (ADR-050):**
-запущен `Agent(skeptic)` на H-B2-1l с полной асимметрией контекста (первый раз за всю сессию,
-после того как сама пометила это HIGH-приоритетной дырой в отчёте). Найдено реально: N-скан
-популяция (fixed seed=0) — одна детерминированная кривая на 9 точках сетки, НЕ 9 независимых
-наблюдений; эффективный n≈1. «Согласованность в обеих популяциях» не выдержала проверки —
-переоткрыта немонотонность H-B2-1k по N. Seed-ансамбль (ρ=0.453, n=30) выжил как частичный
-механизм (~20% вариации). Побочно исправлен реальный баг verdict-логики (принимала любой
-положительный ρ, мягче собственного порога claim.md). 1 новый regression-тест, 232 всего.
-Обе связанные pearl-записи исправлены. **[WS: first skeptic pass] CLOSED.**
-
-**[WS: второй skeptic-проход подряд] H-B2-1j confound найден (ADR-051):** сразу за H-B2-1l —
-skeptic на H-B2-1j (граница Чернова при N=50). Нашёл: конструкция меняет N_DIM, спектральный
-диапазон И размер блока связи ОДНОВРЕМЕННО — минимум 3 переменные вместо заявленной одной.
-**Ирония:** этот же confound я сам распознал и избежал при построении H-B2-1k, но не
-распространил осознание назад на H-B2-1j. Находка «M1 выросло с размерностью» опровергнута как
-изолированный эффект — H-B2-1k's правильно изолированный скан заменяет её. Граница
-(валидность+порядок) выжила, проверена дополнительно вручную (локальный порядок по парам n).
-Обе pearl-записи и graph.yaml исправлены. **[WS: second skeptic pass] CLOSED.**
-
-**[WS: третий skeptic-проход подряд, самая серьёзная находка] H-B2-1k FALSIFIED (ADR-052):**
-skeptic на H-B2-1k (немонотонность M1 по N). Нашёл: пре-регистрированный критерий «≥1 смена
-знака» проходится ЧИСТЫМ ШУМОМ с вероятностью ≈0.999994 (2 из 9! упорядочиваний монотонны) —
-тот же класс floor-дефекта, что H-B3-1/1b's tau≥0.5, просто не пойманный из-за ярлыка
-«descriptive → floor not applicable». Плюс: 9 точек скана — структурно независимые draw'ы
-(seed пересоздаётся заново на каждый вызов). Моя собственная заранее предвиденная защита
-(«смягчено масштабом скачков») логически несостоятельна. Статус понижен confirmed→lead
-(CRITERION_INVALID precedent). Аудит: паттерн больше нигде в сессии не повторяется. Pearl
-impact 8: FL Step 4a floor-проверка нужна для ЛЮБОГО бинарного критерия, не только detection
-rules. **[WS: third skeptic pass] CLOSED.**
-
-**[WS: четвёртый skeptic-проход, самый мягкий] H-B2-1i WEAKENED (ADR-053):** skeptic на
-H-B2-1i (seed-ансамбль M1) — единственном основании уцелевшей части H-B2-1l. **Ядро измерения
-явно подтверждено целым** (30 значений — реальные независимые draw'ы, ссылка H-B2-1l безопасна).
-Найдено мягче: self-inclusion референсного сида (не меняет вердикт), Tukey-на-скошенном-
-распределении (на лог-шкале 158.93 — «заурядно», ≈0.87σ, а не «выше Q3» как на сырой шкале).
-Статус узла НЕ понижен (в отличие от H-B2-1k) — ослаблена метка, не данные. Итог 4 подряд
-skeptic-проходов: 4/4 нашли реальные, но по-разному серьёзные проблемы — не монотонная
-эскалация, честный разброс. **[WS: fourth skeptic pass] CLOSED.**
+**[WS: пятый skeptic-проход подряд, самый строгий] H-B2-1h REJECTED (ADR-054):** skeptic на
+H-B2-1h (coupling-magnitude скан M1) — последнем непроверенном эксперименте арки B2. Нашёл
+самое строгое из пяти: `build_matrix(c)` пересоздаёт ОДИН И ТОТ ЖЕ seed на каждый вызов — все
+10 точек скана тестируют ОДНО фиксированное случайное направление N, линейно растянутое
+скаляром c (A(c)=D+c·N). **Проверено независимо прямым вычислением** (не принято на веру):
+off_diagonal(6.0)==2×off_diagonal(3.0) с точностью до машинной погрешности. Следствие —
+**математический факт**: для нильпотентного N (N⁸=0), M1(c) ДОКАЗУЕМО полином степени ≤7 —
+истинная экспонента алгебраически НЕВОЗМОЖНА. Уже задокументированное замедление отношений
+(3.76→1.80) оказалось эмпирической сигнатурой именно этого факта, не второстепенной оговоркой.
+Вердикт CONFIRMED→REJECTED, статус confirmed→killed. Практически важный вопрос pearl impact 9
+переоткрыт — этот скан тестировал другой, более узкий вопрос. Итог 5 подряд skeptic-проходов:
+5/5 нашли реальные проблемы, разброс от мягкого до математически безапелляционного.
+**[WS: fifth skeptic pass] CLOSED.**
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
@@ -143,6 +94,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 10:22] `9475623` (local, branch `feature/h-b2-1i-skeptic-weakened` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1i WEAKENED by fourth skeptic pass -- mildest of four, core measurement confirmed intact
 - [2026-09-07 10:12] `5aa54d5` (local, branch `feature/h-b2-1k-skeptic-falsified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1k FALSIFIED by third skeptic pass -- monotonicity criterion passed by pure noise ~always
 - [2026-09-07 10:02] `d198c40` (local, branch `feature/h-b2-1j-skeptic-confound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1j's M1-growth claim falsified by a confound the SAME session already knew to avoid
 - [2026-09-07 09:51] `cc4932d` (local, branch `feature/h-b2-1l-skeptic-weakened` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1l WEAKENED by the session's first real skeptic pass -- N-sweep was one curve, not 9
@@ -157,4 +109,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 07:48] `5b1c9b8` (local, branch `feature/h-b2-1h-coupling-sweep` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1h: coupling-magnitude sweep CONFIRMS exponential M1 growth, self-caught R^2 loss-mismatch first
 - [2026-09-07 07:32] `b31db36`: chore: auto-log commit history entry
 - [2026-09-07 07:32] `e826359` (local, branch `feature/b3-peter-lake-replicate` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3 Addendum 5: Peter lake replicate confirms trend-inversion direction independently
-- [2026-09-07 07:14] `c49c0a2`: chore: auto-log commit history entry
