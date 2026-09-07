@@ -43,6 +43,15 @@ Pettitt's test реализован с нуля (не установлен ни 
 один сид, конкретная форма кривой не установлена как типичная. 8 новых тестов, 225 всего.
 **[WS: M1 non-monotonicity] CLOSED.**
 
+**[WS: eigenvector conditioning, продолжение «углубиться в новые механизмы»] H-B2-1l
+(ADR-049):** заостряет неформальную гипотезу «кластеризация собственных значений» (общую для
+H-B2-1i и H-B2-1k) до κ(V) — числа обусловленности матрицы собственных векторов, классически
+связанного с M1. Переиспользованы ОБЕ уже построенные популяции (30 seed-матриц H-B2-1i + 9
+N-матриц H-B2-1k) без новых draw'ов. **CONFIRMED**: положительная корреляция в ОБЕИХ популяциях
+(seed: ρ=0.453 p=0.012 n=30; N: ρ=0.917 p=0.0005 n=9) — объединяет две ранее необъяснённые
+находки одним механизмом. N-скан намного сильнее seed-ансамбля, причина не диагностирована.
+6 новых тестов, 231 всего. **[WS: eigenvector conditioning] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -95,6 +104,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 08:56] `31daa9a` (local, branch `feature/h-b2-1k-dimension-sweep` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1k: M1(N) is non-monotonic at a fixed spectral range -- confirms H-B2-1j's own prediction
 - [2026-09-07 08:39] `f263ce1` (local, branch `feature/h-b2-1j-scale-n50` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1j: Theorem 3.1 bound CONFIRMED at N=50, efficiency collapses 3-5 more orders of magnitude
 - [2026-09-07 08:30] `2434dfe` (local, branch `feature/h-b3-1m-changepoint` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1m: two-part rule (tau AND Pettitt) closes the last H-B3-1b Relaxation Map row
 - [2026-09-07 08:10] `aaa6c04` (local, branch `feature/h-b3-1l-peaktau` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1l: peak-tau reporting closes H-B3-1b's Relaxation Map Row 3 -- CONFIRMED with a confound
@@ -109,4 +119,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 07:13] `7ed5ea3` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: approx_n_seasons always returned 1, reviewer-caught before push
 - [2026-09-07 07:05] `b44f9b2` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3: fix provenance drift, correct a wrong crossing-rate claim, test 2 new candidates
 - [2026-09-07 01:52] `fbb382b`: chore: auto-log commit history entry
-- [2026-09-07 01:51] `da0e337` (local, branch `feature/h-b7-12-crossbranch-transient` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-12: transient sweep on second branch WEAKENED -- exact k*=5 match was branch equivalence
