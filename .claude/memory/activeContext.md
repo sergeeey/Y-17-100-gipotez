@@ -71,6 +71,17 @@ skeptic на H-B2-1j (граница Чернова при N=50). Нашёл: к
 (валидность+порядок) выжила, проверена дополнительно вручную (локальный порядок по парам n).
 Обе pearl-записи и graph.yaml исправлены. **[WS: second skeptic pass] CLOSED.**
 
+**[WS: третий skeptic-проход подряд, самая серьёзная находка] H-B2-1k FALSIFIED (ADR-052):**
+skeptic на H-B2-1k (немонотонность M1 по N). Нашёл: пре-регистрированный критерий «≥1 смена
+знака» проходится ЧИСТЫМ ШУМОМ с вероятностью ≈0.999994 (2 из 9! упорядочиваний монотонны) —
+тот же класс floor-дефекта, что H-B3-1/1b's tau≥0.5, просто не пойманный из-за ярлыка
+«descriptive → floor not applicable». Плюс: 9 точек скана — структурно независимые draw'ы
+(seed пересоздаётся заново на каждый вызов). Моя собственная заранее предвиденная защита
+(«смягчено масштабом скачков») логически несостоятельна. Статус понижен confirmed→lead
+(CRITERION_INVALID precedent). Аудит: паттерн больше нигде в сессии не повторяется. Pearl
+impact 8: FL Step 4a floor-проверка нужна для ЛЮБОГО бинарного критерия, не только detection
+rules. **[WS: third skeptic pass] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -123,6 +134,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 10:02] `d198c40` (local, branch `feature/h-b2-1j-skeptic-confound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1j's M1-growth claim falsified by a confound the SAME session already knew to avoid
 - [2026-09-07 09:51] `cc4932d` (local, branch `feature/h-b2-1l-skeptic-weakened` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1l WEAKENED by the session's first real skeptic pass -- N-sweep was one curve, not 9
 - [2026-09-07 09:07] `5b1ab1e` (local, branch `feature/h-b2-1l-eigenvector-conditioning` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1l: eigenvector conditioning kappa(V) explains M1 in both independent H-B2-1* populations
 - [2026-09-07 08:56] `31daa9a` (local, branch `feature/h-b2-1k-dimension-sweep` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1k: M1(N) is non-monotonic at a fixed spectral range -- confirms H-B2-1j's own prediction
@@ -137,4 +149,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 07:32] `e826359` (local, branch `feature/b3-peter-lake-replicate` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3 Addendum 5: Peter lake replicate confirms trend-inversion direction independently
 - [2026-09-07 07:14] `c49c0a2`: chore: auto-log commit history entry
 - [2026-09-07 07:13] `cf68944` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: note reviewer-caught fix in activeContext.md
-- [2026-09-07 07:13] `7ed5ea3` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: approx_n_seasons always returned 1, reviewer-caught before push

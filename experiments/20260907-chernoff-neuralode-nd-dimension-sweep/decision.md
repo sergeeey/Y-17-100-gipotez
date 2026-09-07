@@ -1,6 +1,76 @@
 # decision.md — H-B2-1k (is M1(N_DIM) monotonic at a fixed spectral range?)
 
-## Result
+## CORRECTION ADDENDUM (2026-09-07, FL Step 8a skeptic pass — third in a row, most severe finding)
+
+**Verdict downgraded CONFIRMED → FALSIFIED.** Original text kept below unedited (Hindsight
+Distortion Gap discipline). Third `Agent(skeptic)` invocation in the same `/loop` continuation
+(after `H-B2-1l` and `H-B2-1j`, both WEAKENED) — this one found the most severe problem of the
+three: the pre-registered kill criterion itself has essentially zero power to distinguish signal
+from noise.
+
+**What the skeptic found, given only `claim.md` + `run.py`:**
+
+1. **[Confirmed — structural]** `build_matrix(n_dim)` calls `np.random.default_rng(SEED)`
+   FRESH, inside the function, on every invocation. The 9 sweep points are therefore NOT "one
+   coherent system probed at 9 dimensions" — they are 9 structurally independent random matrix
+   draws that merely share a seed *number*, not a shared random *state*. Combined with `H-B2-1i`'s
+   own already-committed finding (M1 varies ~25× across 30 independent seeds at FIXED N=8), the
+   between-N swings observed here are not clearly distinguishable from ordinary seed-to-seed
+   noise at a single N.
+2. **[Confirmed — mathematically decisive]** The pre-registered kill criterion ("CONFIRMED if
+   consecutive differences change sign at least once in the 9-point sequence") is passed by pure
+   noise with probability ≈1. For 9 iid continuous draws, only 2 of `9! = 362,880` possible
+   orderings are monotonic (fully increasing or fully decreasing), so `P(monotonic | pure noise)
+   ≈ 5.5×10⁻⁶` and `P(≥1 sign change | pure noise) ≈ 0.999994`. **This criterion cannot fail on
+   noise, and therefore cannot count as evidence of signal when it passes.** This is precisely
+   the class of defect the project's own FL Step 4a exists to catch (a criterion passed by a
+   construction with no real mechanism in it — normally checked via an explicit floor/null
+   baseline) — this experiment's own "Note on Floor–Ceiling: not applicable" was WRONG. A
+   pre-registered pass/fail criterion on a NEW quantity (here, "is a sequence monotonic") needed
+   a null-model floor check even though the experiment is "descriptive," and didn't get one.
+3. **[Confirmed — my own anticipated defense doesn't survive]** The original FL Step 8a section
+   below explicitly anticipated "could just be sampling noise dressed up as non-monotonic" and
+   responded "mitigated by magnitude" (the swings are large, not a few-percent wiggle). That
+   defense is invalid: the criterion's near-certain pass under noise does not depend on the
+   MAGNITUDE of the swings at all — any 9 iid draws of any scale produce a sign change with
+   probability ≈1. Anticipating the right concern and answering it with the wrong argument is
+   itself worth recording (this is different from `H-B2-1l`/`H-B2-1j`'s pattern of not
+   anticipating the flaw at all).
+
+**What survives:** the raw numbers themselves (the M1 sequence, provenance-verified,
+byte-identical formula to every prior `H-B2-1*` experiment) are real measurements, not fabricated
+or miscalculated. **What does NOT survive:** the interpretive claim that they demonstrate
+"genuine non-monotonic structure" as opposed to noise — the pre-registered test could not have
+told the difference either way, so CONFIRMED here is not evidence of anything beyond "9 numbers
+were computed."
+
+**Downstream consequence:** this compounds `H-B2-1l`'s own correction. `H-B2-1l`'s N-sweep leg
+was already downgraded because its 9 points are one deterministic curve, not independent
+samples (true, and now understood to be worse: even AS a single curve, whether it reflects a
+real N-dependent trend or just 9 independent-ish noisy draws was never established by THIS
+experiment's own criterion). `H-B2-1j`'s M1-growth claim (already corrected for the N/range/
+coupling-size confound) was never solid ground to begin with, for the same underlying reason —
+none of `H-B2-1g`, `H-B2-1j`, or `H-B2-1k` ever compared their single-draw M1 measurements
+against a noise floor.
+
+**Recommended fix (per skeptic's own suggestion), not yet built:** re-run as a genuine
+multi-seed × multi-N grid (≥20-30 seeds per `N_DIM` value, reusing `H-B2-1i`'s own seed-ensemble
+machinery), and replace the sign-change criterion with something that has real discriminating
+power against a seed-shuffled null — e.g. a permutation test (shuffle which M1 value is assigned
+to which N, count how often the shuffled data produces an equally or more "non-monotonic"
+pattern than observed).
+
+**New pearl (generalizes beyond this one experiment):** any pre-registered "≥1 sign change in a
+short sequence" criterion is a Zero-Signal/Floor problem in disguise — worth auditing every prior
+`H-B2-1*` verdict for the same shape before trusting it further.
+
+**Response Matrix disposition:** Confirmed (1), Confirmed (2, the load-bearing one), Confirmed
+(3). No concern is dismissible. Response: Mitigated only by a real re-design (multi-seed grid +
+permutation test), not by anything already in this decision.md.
+
+---
+
+## Result (ORIGINAL TEXT, superseded by the correction above — kept for the audit trail)
 
 **Verdict: CONFIRMED (non-monotonic).** At a FIXED spectral range `[-50,-1]` (isolating
 dimension from spectral range, unlike `H-B2-1j`'s own confounded convention), `M1` shows
