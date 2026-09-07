@@ -62,6 +62,15 @@ N-матриц H-B2-1k) без новых draw'ов. **CONFIRMED**: положи
 положительный ρ, мягче собственного порога claim.md). 1 новый regression-тест, 232 всего.
 Обе связанные pearl-записи исправлены. **[WS: first skeptic pass] CLOSED.**
 
+**[WS: второй skeptic-проход подряд] H-B2-1j confound найден (ADR-051):** сразу за H-B2-1l —
+skeptic на H-B2-1j (граница Чернова при N=50). Нашёл: конструкция меняет N_DIM, спектральный
+диапазон И размер блока связи ОДНОВРЕМЕННО — минимум 3 переменные вместо заявленной одной.
+**Ирония:** этот же confound я сам распознал и избежал при построении H-B2-1k, но не
+распространил осознание назад на H-B2-1j. Находка «M1 выросло с размерностью» опровергнута как
+изолированный эффект — H-B2-1k's правильно изолированный скан заменяет её. Граница
+(валидность+порядок) выжила, проверена дополнительно вручную (локальный порядок по парам n).
+Обе pearl-записи и graph.yaml исправлены. **[WS: second skeptic pass] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -114,6 +123,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 09:51] `cc4932d` (local, branch `feature/h-b2-1l-skeptic-weakened` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1l WEAKENED by the session's first real skeptic pass -- N-sweep was one curve, not 9
 - [2026-09-07 09:07] `5b1ab1e` (local, branch `feature/h-b2-1l-eigenvector-conditioning` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1l: eigenvector conditioning kappa(V) explains M1 in both independent H-B2-1* populations
 - [2026-09-07 08:56] `31daa9a` (local, branch `feature/h-b2-1k-dimension-sweep` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1k: M1(N) is non-monotonic at a fixed spectral range -- confirms H-B2-1j's own prediction
 - [2026-09-07 08:39] `f263ce1` (local, branch `feature/h-b2-1j-scale-n50` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1j: Theorem 3.1 bound CONFIRMED at N=50, efficiency collapses 3-5 more orders of magnitude
@@ -128,4 +138,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 07:14] `c49c0a2`: chore: auto-log commit history entry
 - [2026-09-07 07:13] `cf68944` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: note reviewer-caught fix in activeContext.md
 - [2026-09-07 07:13] `7ed5ea3` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: approx_n_seasons always returned 1, reviewer-caught before push
-- [2026-09-07 07:05] `b44f9b2` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3: fix provenance drift, correct a wrong crossing-rate claim, test 2 new candidates
