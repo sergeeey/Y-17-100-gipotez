@@ -55,6 +55,17 @@ N=12 значим, N=16 первый незначимый). Результат: 
 H2 (просто мощность). Первичный вопрос моста B2 сместился со статистического на механистический:
 что управляет M1, когда κ(V) уже недостаточно. 2 новых теста. **[WS: power follow-up] CLOSED.**
 
+**[WS: H-B2-1n, «продолжай автономно» после power follow-up] WEAKENED + exploratory сигнал,
+честно отгорожен (ADR-062).** Первый целевой тест альтернативы: numerical abscissa ω(A) на
+идентичной популяции H-B2-1m. WEAKENED по критерию (1/5 значим), но ВСЕ 5 срезов положительны
+(у κ(V) 2 были отрицательны) — материально консистентнее. Exploratory (вычислено после
+незначимых срезов, по Anti-Overfitting Gate НЕ меняет вердикт): Fisher-комбинация p=0.013,
+знаковая консистентность p=0.0625. Skeptic CONFIRMED-REAL: стена от вердикта алгоритмически
+реальна (verdict вычисляется до combine_pvalues), но предупредил — «нарративно пориста»,
+явный guardrail добавлен. Новый предрегистрированный подтверждающий тест (свежие сиды, Fisher
+как первичный критерий) НЕ запущен автоматически — по собственной дисциплине сессии против
+автоцепочки. **[WS: H-B2-1n] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
 ## Project State
@@ -116,6 +127,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 13:35] `82b5f25` (local, branch `feature/h-b2-1m-power-followup` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (final)
 - [2026-09-07 13:34] `c823896` (local, branch `feature/h-b2-1m-power-followup` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-07 13:34] `e115766` (local, branch `feature/h-b2-1m-power-followup` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1m power follow-up -- more seeds at large N move point estimates toward zero, not toward significance
 - [2026-09-07 12:54] `da584f8` (local, branch `feature/h-b2-1m-multiseed-multin` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (final)
@@ -130,4 +142,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 11:04] `435a7f2` (local, branch `feature/h-b3-1m-skeptic-final-sweep-close` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 2, final)
 - [2026-09-07 11:04] `7d0a417` (local, branch `feature/h-b3-1m-skeptic-final-sweep-close` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-07 11:04] `f0ddb5c` (local, branch `feature/h-b3-1m-skeptic-final-sweep-close` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B3-1m verdict downgraded to UNRESOLVED AT CURRENT POWER by seventh and final skeptic pass -- AND-gate mechanism disproven by direct computation
-- [2026-09-07 10:51] `3ae216d` (local, branch `feature/h-b3-1l-skeptic-argmax-bias` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 4, folding in)
