@@ -82,6 +82,15 @@ skeptic на H-B2-1k (немонотонность M1 по N). Нашёл: пр�
 impact 8: FL Step 4a floor-проверка нужна для ЛЮБОГО бинарного критерия, не только detection
 rules. **[WS: third skeptic pass] CLOSED.**
 
+**[WS: четвёртый skeptic-проход, самый мягкий] H-B2-1i WEAKENED (ADR-053):** skeptic на
+H-B2-1i (seed-ансамбль M1) — единственном основании уцелевшей части H-B2-1l. **Ядро измерения
+явно подтверждено целым** (30 значений — реальные независимые draw'ы, ссылка H-B2-1l безопасна).
+Найдено мягче: self-inclusion референсного сида (не меняет вердикт), Tukey-на-скошенном-
+распределении (на лог-шкале 158.93 — «заурядно», ≈0.87σ, а не «выше Q3» как на сырой шкале).
+Статус узла НЕ понижен (в отличие от H-B2-1k) — ослаблена метка, не данные. Итог 4 подряд
+skeptic-проходов: 4/4 нашли реальные, но по-разному серьёзные проблемы — не монотонная
+эскалация, честный разброс. **[WS: fourth skeptic pass] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -134,6 +143,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 10:12] `5aa54d5` (local, branch `feature/h-b2-1k-skeptic-falsified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1k FALSIFIED by third skeptic pass -- monotonicity criterion passed by pure noise ~always
 - [2026-09-07 10:02] `d198c40` (local, branch `feature/h-b2-1j-skeptic-confound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1j's M1-growth claim falsified by a confound the SAME session already knew to avoid
 - [2026-09-07 09:51] `cc4932d` (local, branch `feature/h-b2-1l-skeptic-weakened` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1l WEAKENED by the session's first real skeptic pass -- N-sweep was one curve, not 9
 - [2026-09-07 09:07] `5b1ab1e` (local, branch `feature/h-b2-1l-eigenvector-conditioning` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1l: eigenvector conditioning kappa(V) explains M1 in both independent H-B2-1* populations
@@ -148,4 +158,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 07:32] `b31db36`: chore: auto-log commit history entry
 - [2026-09-07 07:32] `e826359` (local, branch `feature/b3-peter-lake-replicate` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3 Addendum 5: Peter lake replicate confirms trend-inversion direction independently
 - [2026-09-07 07:14] `c49c0a2`: chore: auto-log commit history entry
-- [2026-09-07 07:13] `cf68944` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: note reviewer-caught fix in activeContext.md
