@@ -463,6 +463,18 @@ nodes:
     source: "experiments/20260907-chernoff-neuralode-nd-scale/decision.md"
     updated: 2026-09-07
 
+  - id: H-B2-1k
+    type: hypothesis
+    title: "Is M1(N_DIM) non-monotonic at a FIXED spectral range [-50,-1] (isolating dimension from range, unlike H-B2-1j's own confounded convention)? Direct test of H-B2-1j's own pearl_registry falsifiable prediction"
+    status: confirmed             # 2026-09-07 decision.md: CONFIRMED non-monotonic, 8 sign changes across 8 consecutive diffs, several large (12x jump, >6x drop)
+    evidence: VERIFIED-REAL       # metrics/run.json; a real construction edge case (N=2's single-eigenvalue linspace degenerate case) caught by a dedicated test BEFORE the real run, N=2 excluded from the sweep as a result; 8 regression tests
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if consecutive M1(N_DIM) differences change sign at least once across the sweep; REJECTED if all same sign (monotonic). RESULT: CONFIRMED -- 8 sign changes across 8 consecutive diffs (N=3..50, 9 points), several large in magnitude (N=3->4: -4.04; N=12->16: +99.69; N=24->32: -59.27 net over two steps; N=40->50: +615.78) -- not noise-level wobble. Directly answers H-B2-1j's own falsifiable prediction (impact 7 pearl): YES, non-monotonic, not simple decrease-then-increase. Single-seed (seed=0) result -- specific curve shape not established as typical, per H-B2-1i's own established seed-variability caveat; qualitative non-monotonicity finding judged robust given swing magnitude."
+    experiment_dir: "experiments/20260907-chernoff-neuralode-nd-dimension-sweep"
+    source: "experiments/20260907-chernoff-neuralode-nd-dimension-sweep/decision.md"
+    updated: 2026-09-07
+
   - id: ART-CHERNOFF-ND-MULTISEED-RUN-20260907
     type: artifact
     title: "metrics/run.json — 30-seed ensemble at coupling=15, M1 distribution (median 68.97, seed=0's 158.93 = MODERATE, right-skewed)"
@@ -1332,6 +1344,7 @@ edges:
   - {from: H-B2-1h, to: ART-CHERNOFF-ND-COUPLING-SWEEP-RUN-20260907, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
   - {from: H-B2-1g, to: H-B2-1i, type: grounds, since: 2026-09-07, note: "H-B2-1g's own Relaxation Map named this exact question untested (is M1=158.93 typical or an unlucky draw); H-B2-1h deliberately left seed fixed to stay comparable, per Minimal Relaxation Rule"}
   - {from: H-B2-1g, to: H-B2-1j, type: grounds, since: 2026-09-07, note: "LAB.md's own open-items list named N=50+ as the last untested dimension after the coupling sweep (H-B2-1h) and multi-seed (H-B2-1i) items were closed"}
+  - {from: H-B2-1j, to: H-B2-1k, type: grounds, since: 2026-09-07, note: "H-B2-1j's own pearl_registry falsifiable prediction (M1 should be non-monotonic in N, not simple decrease-then-increase) -- this is that test, with a methodological refinement isolating dimension from spectral range"}
   - {from: H-B2-1i, to: ART-CHERNOFF-ND-MULTISEED-RUN-20260907, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
   - {from: B3-MAY-TDA,         to: H-B3-1,  type: grounds, since: 2026-09-06}
   - {from: PRJ-CARPENTER-PETERLAKE, to: H-B3-1, type: grounds, since: 2026-09-06, note: "corrected data source, replaces Mangal/GloBI"}

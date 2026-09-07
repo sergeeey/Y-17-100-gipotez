@@ -34,6 +34,15 @@ Pettitt's test реализован с нуля (не установлен ни 
 от M1 — минимум два члена управляют коллапсом эффективности. 5 новых тестов, 217 всего.
 **[WS: B2 scale N=50] CLOSED.**
 
+**[WS: M1 non-monotonicity, выбор пользователя «углубиться в новые механизмы»] H-B2-1k
+(ADR-048):** прямая проверка pearl-предсказания H-B2-1j. Фиксированный спектральный диапазон
+[-50,-1] (изолирует размерность от диапазона, в отличие от H-B2-1j's confounded конвенции).
+Найден и исправлен edge case ДО прогона: N=2 даёт вырожденный linspace(num=1) — исключён из
+скана. **CONFIRMED немонотонность**: 8 смен знака в 8 разностях M1(N=3..50), крупные скачки
+(12× рост, >6× падение). Однозначно подтверждает собственное предсказание H-B2-1j. Ограничение:
+один сид, конкретная форма кривой не установлена как типичная. 8 новых тестов, 225 всего.
+**[WS: M1 non-monotonicity] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -86,6 +95,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 08:39] `f263ce1` (local, branch `feature/h-b2-1j-scale-n50` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1j: Theorem 3.1 bound CONFIRMED at N=50, efficiency collapses 3-5 more orders of magnitude
 - [2026-09-07 08:30] `2434dfe` (local, branch `feature/h-b3-1m-changepoint` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1m: two-part rule (tau AND Pettitt) closes the last H-B3-1b Relaxation Map row
 - [2026-09-07 08:10] `aaa6c04` (local, branch `feature/h-b3-1l-peaktau` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1l: peak-tau reporting closes H-B3-1b's Relaxation Map Row 3 -- CONFIRMED with a confound
 - [2026-09-07 08:00] `8b85c83` (local, branch `feature/h-b3-1b-stale-annotation-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B3-1b graph.yaml annotation was stale -- Type-4 status-lag self-catch
@@ -100,4 +110,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 07:05] `b44f9b2` (local, branch `feature/b3-crosstab-correction-and-paul-lake-analysis` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3: fix provenance drift, correct a wrong crossing-rate claim, test 2 new candidates
 - [2026-09-07 01:52] `fbb382b`: chore: auto-log commit history entry
 - [2026-09-07 01:51] `da0e337` (local, branch `feature/h-b7-12-crossbranch-transient` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-12: transient sweep on second branch WEAKENED -- exact k*=5 match was branch equivalence
-- [2026-09-07 01:33] `8ce0ff7`: chore: auto-log commit history entry
