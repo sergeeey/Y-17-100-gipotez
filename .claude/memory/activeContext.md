@@ -45,6 +45,14 @@ loss), исправлено переподбором через `scipy.optimize.
 динамическом диапазоне слабо ловит систематическое отклонение). 5 новых тестов, 195 всего проходят.
 **[WS: B2 coupling sweep] CLOSED.**
 
+**[WS: B2 multi-seed, `/loop` continued] H-B2-1i (ADR-043):** закрывает второй открытый вопрос
+H-B2-1g's Relaxation Map — типичен ли M1=158.93 (seed=0, coupling=15) или это неудачный draw.
+Ансамбль 30 сидов, Tukey-fence критерий пре-регистрирован до запуска. **MODERATE**: выше Q3
+(143.97, медиана 68.97), но внутри Tukey fence (371.36 — максимум на другом сиде). Распределение
+право-скошено (mean 109.14 > median 68.97, диапазон 15.00–371.36 при фиксированных eigenvalues/
+coupling). Честный вердикт сохранён (не округлён до TYPICAL/OUTLIER). 4 новых теста, 199 всего.
+**[WS: B2 multi-seed] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -97,6 +105,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 07:48] `9d5a9bc` (local, branch `feature/auto-log-5b1c9b8` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-07 07:48] `5b1c9b8` (local, branch `feature/h-b2-1h-coupling-sweep` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1h: coupling-magnitude sweep CONFIRMS exponential M1 growth, self-caught R^2 loss-mismatch first
 - [2026-09-07 07:32] `b31db36`: chore: auto-log commit history entry
 - [2026-09-07 07:32] `e826359` (local, branch `feature/b3-peter-lake-replicate` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): B3 Addendum 5: Peter lake replicate confirms trend-inversion direction independently
@@ -111,4 +120,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 01:01] `6788722`: chore: auto-log commit history entry
 - [2026-09-07 01:00] `c24b243` (local, branch `feature/h-b7-10-transient-sweep` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-10: fine duration sweep pins exact threshold k*=5, fully traced to a 1-step race condition
 - [2026-09-07 00:44] `b1d13a6`: chore: auto-log commit history entry
-- [2026-09-07 00:43] `a9a159a` (local, branch `feature/h-b7-9-transient-necessity` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-9: transient do(p21CIP=0, RBL2=0) CONFIRMED for k=10,30, first strict-Kauffman confirmation
