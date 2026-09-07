@@ -36,6 +36,17 @@ committed data**: `classical_ac1_peak_date=1999.25` — ДО `tda_betti_peak_dat
 подряд skeptic-проходов: 6/6 нашли реальные проблемы на ДВУХ разных мостах (B2 и B3) — не
 специфично одному стилю эксперимента. **[WS: sixth skeptic pass] CLOSED.**
 
+**[WS: седьмой, ПОСЛЕДНИЙ skeptic-проход] H-B3-1m CRITERION_INVALID → UNRESOLVED AT CURRENT
+POWER (ADR-056):** skeptic на H-B3-1m (two-part tau+Pettitt rule). Самая серьёзная находка всего
+скана, независимо перепроверена вычислением: claim.md's механизм-обоснование («Pettitt ловит
+level-shift, не тренд») ЛОЖНО — K=n²/4 точно для чистого монотонного тренда без шума (n=30 →
+K=225.0=предсказание, p≈3.7e-5), AND-gate не даёт заявленной специфичности. Плюс: reps=30 даёт
+95%-CI±18пп, порог 50% внутри шума — Loch Leven (53.3%) vs Windermere (33.3%) неразличимы;
+общий seed=0 коррелирует суррогаты трёх озёр. graph.yaml evidence→CONFLICT, kill_criterion
+переписан. **Итог СЕМИ подряд skeptic-проходов: 7/7 нашли реальные проблемы**, диапазон от
+мягкого до математически/вычислительно безапелляционного, на ОБОИХ мостах (B2, B3). Систематический
+skeptic-скан флагованных экспериментов ЗАВЕРШЁН. **[WS: seventh and final skeptic pass] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -92,6 +103,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 10:51] `3ae216d` (local, branch `feature/h-b3-1l-skeptic-argmax-bias` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 4, folding in)
 - [2026-09-07 10:51] `36ad740` (local, branch `feature/h-b3-1l-skeptic-argmax-bias` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 3, final)
 - [2026-09-07 10:51] `0dd1337` (local, branch `feature/h-b3-1l-skeptic-argmax-bias` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 2)
 - [2026-09-07 10:51] `5fd8565` (local, branch `feature/h-b3-1l-skeptic-argmax-bias` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
@@ -106,4 +118,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 08:39] `f263ce1` (local, branch `feature/h-b2-1j-scale-n50` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1j: Theorem 3.1 bound CONFIRMED at N=50, efficiency collapses 3-5 more orders of magnitude
 - [2026-09-07 08:30] `2434dfe` (local, branch `feature/h-b3-1m-changepoint` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1m: two-part rule (tau AND Pettitt) closes the last H-B3-1b Relaxation Map row
 - [2026-09-07 08:10] `aaa6c04` (local, branch `feature/h-b3-1l-peaktau` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1l: peak-tau reporting closes H-B3-1b's Relaxation Map Row 3 -- CONFIRMED with a confound
-- [2026-09-07 08:00] `8b85c83` (local, branch `feature/h-b3-1b-stale-annotation-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B3-1b graph.yaml annotation was stale -- Type-4 status-lag self-catch

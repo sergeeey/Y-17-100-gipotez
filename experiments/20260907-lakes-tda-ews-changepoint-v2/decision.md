@@ -1,6 +1,93 @@
 # decision.md — H-B3-1m (V2 two-part rule: tau AND Pettitt level-shift, H-B3-1b Row 2)
 
-## Result
+## CORRECTION ADDENDUM (2026-09-07, FL Step 8a skeptic pass — seventh and final of the systematic
+sweep this session)
+
+**This experiment's own decision.md (below, "FL Step 8a — Skeptic Pass") explicitly noted the
+context-asymmetric skeptic agent was NOT run** ("Evaluator-Optimizer cap still in effect
+session-wide") — only manual self-review was applied. Running the actual agent this session (as
+done for six other flagged experiments) found real, previously-uncaught issues, the most serious
+of which independently-verified computation confirms is load-bearing.
+
+**Finding 1 — CONFIRMED (independently re-verified by direct computation, not accepted on the
+skeptic's derivation alone): claim.md's central mechanistic justification is false as stated.**
+claim.md argues Pettitt's test adds specificity because it "targets a DIFFERENT signal — a
+genuine level shift — which pure AR(1) red noise should NOT reliably produce, even though it CAN
+produce spurious monotone trend." This is not correct: Pettitt's test has near-full power against
+a pure monotone trend with NO step change at all, because the underlying Mann-Whitney-style rank
+statistic responds to *any* systematic ordering, not specifically to a discrete jump. Verified
+directly: for a strictly monotone series of length n with zero noise, `K = n²/4` exactly (matches
+the closed-form derivation), giving p≈3.7×10⁻⁵ at n=30 — i.e., the test rejects the null with
+near-certainty on trend alone, no step change involved. The "AND" gate is therefore closer to
+"trend AND (trend-is-not-flat)" than "trend AND genuine regime shift" — the claimed mechanism by
+which AR(1)-faked-trend gets filtered out does not operate as described. This does NOT change the
+reported floor false-positive numbers (those remain real empirical measurements of the actual
+rule as coded), but it invalidates the "why this works" narrative in claim.md's "Why This
+Experiment, Specifically" section and the MCID framing that attributes any observed floor drop to
+a trend-vs-step-change mechanism.
+
+**Finding 2 — CONFIRMED (visible directly in code, no independent verification needed):
+Pettitt's p-value approximation assumes IID observations; the inputs are rolling-window
+statistics with (window−1)/window inter-sample correlation by construction.** The nominal
+`alpha=0.05` in `two_part_crossing` is therefore not a real 5% type-I rate on these inputs — the
+test is known to be anti-conservative on autocorrelated series. The floor computation still
+honestly measures whatever the coded rule does (surrogates go through the identical
+rolling→Pettitt path as real data), but "we chose α=0.05" should be read as "we chose a nominal
+label whose true significance level is unknown and likely inflated," not a calibrated 5% gate.
+
+**Finding 3 — CONFIRMED (binomial arithmetic): `reps=30` per lake gives SE≈9.1pp, 95% CI
+half-width≈18pp — the pre-registered 50% decision boundary sits well inside this noise band.**
+Loch Leven's reported 53.3% (CRITERION_INVALID) and Windermere's 33.3% (well under) are not
+reliably distinguishable from each other or from the 50% line at this rep count. The "roughly
+halved" characterization of the floor improvement, and the CRITERION_INVALID verdict itself, are
+both underpowered as measured — a re-run at reps≥500 could plausibly move Loch Leven below 50% or
+push Windermere/Lower Zurich above it. This was not caught before the claim was finalized, despite
+the project's own established precedent (`H-B2-1i` et al.) of scrutinizing sample-size adequacy
+near decision thresholds.
+
+**Finding 4 — CONFIRMED (visible directly in code):
+`floor_false_positive_rate_v2(pca1, window, reps=30, seed=0)` is called with the literal same
+`seed=0` for all three lakes.** Each lake's `pca1` differs, so surrogates are still lake-specific,
+but the shared RNG start correlates the innovation sequences across lakes' surrogate draws —
+effectively fewer than 3 independent floor measurements (skeptic estimates ~1.5). Weakens the
+"improvement seen independently at 2/3 lakes" framing in the original decision.md.
+
+**Finding 5 — plausible, not independently verified this pass: validation-theater risk.** The
+Pettitt implementation's own positive/negative-control tests were written in the same session as
+the implementation, and a positive control using an obvious step change does not discriminate a
+correct p-value formula from a mis-scaled one (any monotone function of K that shrinks with larger
+K would "pass" such a test). No cross-check against an independent third-party Pettitt
+implementation (e.g. `pyhomogeneity`, R's `trend::pettitt.test`) was run. Flagged for follow-up,
+not confirmed as an actual bug — no arithmetic error was found in the formula itself.
+
+**Response Matrix disposition:** Finding 1 — **Accepted, core correction** (mechanism narrative in
+claim.md and MCID section is wrong; independently re-verified, not just re-argued). Finding 2 —
+**Accepted, reframe** (α=0.05 is nominal only; document as such). Finding 3 — **Accepted,
+significant** (verdict CRITERION_INVALID should be read as "unresolved at this power," not a
+confident conclusion; re-run at higher reps is the correct next step, not a new claim). Finding 4
+— **Accepted, documented weakness** (per-lake seeding needed for a genuinely independent 3-lake
+result). Finding 5 — **Accepted as open item, not yet confirmed or dismissed** (independent
+cross-check is cheap and should be done before this rule is trusted further).
+
+**Practical consequence:** the numeric floor measurements (83.3%/80.0%/83.3% → 40.0%/33.3%/53.3%)
+stand as honest empirical readings of the coded rule, but every downstream interpretation this
+project has drawn from them — "the mechanism works, just not sufficiently at Loch Leven," "a real
+substantial improvement, not a clean no-progress result," even the CRITERION_INVALID verdict
+itself — rests on an underpowered measurement (Finding 3) interpreted through a mechanistic story
+that Finding 1 shows is not actually operating as claimed. This is weaker than a clean REJECT: the
+raw numbers are not shown to be wrong, but neither the "why" nor the precision needed to trust
+"which side of 50%" is currently defensible. Verdict downgraded: CRITERION_INVALID (as reported)
+→ **CRITERION_INVALID, UNRESOLVED AT CURRENT POWER** — re-run at reps≥500 with per-lake seeding
+and an independent Pettitt cross-check is required before this experiment's numbers support any
+further claim in either direction.
+
+Seventh and final skeptic pass of this session's systematic sweep: **7/7 found real,
+previously-uncaught issues** — ranging from label-only weakening (H-B2-1i) through rigorous
+mathematical impossibility (H-B2-1h) to, here, a foundational mechanism-justification error
+confirmed by independent computation. No experiment in the flagged set survived a genuine
+context-asymmetric skeptic pass unchanged.
+
+## Result (ORIGINAL TEXT, superseded above for interpretation — raw numbers stand as measured)
 
 **Verdict: CRITERION_INVALID** (per FL Step 4a — NOT evidence against the claim), but with a
 real, substantial, per-lake floor improvement that a flat "still invalid" label would obscure.
