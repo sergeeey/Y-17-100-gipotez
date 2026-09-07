@@ -4,7 +4,7 @@
 - **Goal:** [PLAN, не факт] Оценить и начать проверку cross-domain мостов между каталогом ~141 открытых научных задач и реальными проектами (H-7 chromatin, ChernoffPy, May 1972)
 - **Boundary:** Эта папка + чтение (не запись) в исходный vault `C:\Users\serge\.claude\memory\` при необходимости сверки
 - **Done when:** Хотя бы один мост прошёл полный цикл kill-criterion → эксперимент → KILLED/CONFIRMED/LEAD
-- **NOT NOW:** Frontier R&D / TOFT / RAF — заблокированы до подтверждения существования; полный Hypothesis Portfolio (128+ гипотез из ARCHCODE и др.) — отдельный, не связанный проект
+- **NOT NOW:** Frontier R&D / TOFT / RAF — постоянно `unverified_source` (пользователь подтвердил 2026-09-07: возможно на другой машине, доступа нет); полный Hypothesis Portfolio (128+ гипотез из ARCHCODE и др.) — отдельный, не связанный проект
 
 
 
@@ -58,7 +58,21 @@ skeptic-скан флагованных экспериментов ЗАВЕРШ�
 пункта Relaxation Map H-B3-1b окончательно** (Row1 REJECT, Row2 REJECT, Row3 CONFIRMED-с-
 конфаундом) — ни один чистый PROMOTE. **[WS: H-B3-1m power fix] CLOSED.**
 
-Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
+**[WS: пользователь — 3 приоритета после 7/7 skeptic-скана] Мета-анализ (ADR-058) + B1/B4-B6
+(ADR-059).** Пользователь явно остановил автозапуск H-B2-1l (был бы 8-м экспериментом без анализа
+7/7): читать «skeptic 7/7» как провал generation process, не как повод запускать больше. Приоритет:
+анализ → B1 (делегирован агенту) → B4-B6 (пользователь ответил) → H-B2-1l (припаркован).
+**Мета-анализ:** прямое чтение всех 7 CORRECTION ADDENDUM → 3 под-паттерна, большинство (4/7) —
+неверифицированное механистическое предложение (естественноязыковой claim о поведении
+статистики использован как обоснование без прямой проверки). `03-methodology-rules/lesson-self-review-blind-spot-7of7.md`.
+**B1 (Q-GOE-vs-GUE) разрешён:** цитируемый аргумент H-7 TAD путает Poisson-vs-Wigner-Dyson
+(связность, верно) с GOE-vs-GUE (нарушение симметрии, не установлено) — реальная симметричная
+Hi-C-матрица по умолчанию GOE, не GUE. Gate 4 Scientism flag: датированная пометка «усиление для
+рукописи». H-B1-1b остаётся blocked, но сужен до ОДНОГО блокера (Option A, внешний, вне scope).
+**B4-B6:** пользователь ответил напрямую — доступа к другой машине сейчас нет, постоянное
+`unverified_source`, не переспрашивать. **[WS: user 3-priority redirect] CLOSED.**
+
+Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
 ## Project State
 - **Repo:** https://github.com/sergeeey/Y-17-100-gipotez — PUBLIC, created 2026-09-06, commit d50597f (initial import). [VERIFIED]
@@ -102,7 +116,12 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Open Questions (для пользователя)
-1. Frontier R&D / TOFT / RAF Theory — реальны на другом компьютере, или нет?
+1. ~~Frontier R&D / TOFT / RAF Theory — реальны на другом компьютере, или нет?~~ **[VERIFIED —
+   прямая цитата пользователя, 2026-09-07, эта сессия]:** "на другой машине может и раньше были
+   но сейчас у меня нет доступа к этой машине". Это ПОСТОЯННОЕ, не временное состояние — B4-B6
+   остаются `unverified_source` в graph.yaml без дальнейшего перефлагирования как открытого
+   вопроса каждую сессию. Не строить на них выводы, но и не переспрашивать снова без новой
+   информации от пользователя.
 2. Доступен ли этот E:\ путь с других ПК (тот же физический диск / сетевая шара / нет)?
 
 ---
@@ -114,6 +133,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 11:27] `96b5b93` (local, branch `feature/h-b3-1m-power-fix-reject` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 2, final)
 - [2026-09-07 11:27] `8f81fe8` (local, branch `feature/h-b3-1m-power-fix-reject` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-07 11:27] `22cec95` (local, branch `feature/h-b3-1m-power-fix-reject` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B3-1m REJECT, finally -- power fix + independent Pettitt cross-check resolve the skeptic's open findings
 - [2026-09-07 11:04] `435a7f2` (local, branch `feature/h-b3-1m-skeptic-final-sweep-close` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 2, final)
@@ -128,4 +148,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 10:22] `9475623` (local, branch `feature/h-b2-1i-skeptic-weakened` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1i WEAKENED by fourth skeptic pass -- mildest of four, core measurement confirmed intact
 - [2026-09-07 10:12] `5aa54d5` (local, branch `feature/h-b2-1k-skeptic-falsified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1k FALSIFIED by third skeptic pass -- monotonicity criterion passed by pure noise ~always
 - [2026-09-07 10:02] `d198c40` (local, branch `feature/h-b2-1j-skeptic-confound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1j's M1-growth claim falsified by a confound the SAME session already knew to avoid
-- [2026-09-07 09:51] `cc4932d` (local, branch `feature/h-b2-1l-skeptic-weakened` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1l WEAKENED by the session's first real skeptic pass -- N-sweep was one curve, not 9

@@ -121,7 +121,9 @@ TAD-проект утверждает через Altland-Zirnbauer tenfold way, 
 1. Прочитать `00-catalog/Open Problems Catalog — Skeptic Assessment` — как вообще относиться к каталогу
 2. Прочитать `01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md` целиком — полный разбор мостов
 3. Запустить Phase 1a код (2 минуты) — sanity-check RMT-инфраструктуры
-4. Определиться по Frontier R&D / TOFT / RAF — реальны или нет
+4. ~~Определиться по Frontier R&D / TOFT / RAF — реальны или нет~~ **Отвечено 2026-09-07:** могли
+   существовать на другой машине, доступа к ней сейчас нет — постоянное `unverified_source`
+   состояние, не открытый вопрос
 5. Переиспользовать `03-methodology-rules/` при каждом новом эксперименте — не изобретать заново
 
 ---

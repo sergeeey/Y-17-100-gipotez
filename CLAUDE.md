@@ -25,7 +25,8 @@
 ## CRITICAL CONTEXT — не наступать на грабли снова
 - **"H-7 GeoSpectra Lab" ≠ "H-7 TAD Spectral Diagnostic"** — два разных проекта (физика vs биология), случайно делят номер. См. файлы в `01-cross-domain-bridges/` с явными пометками.
 - **Биологический r-statistic результат (AUC=0.99998) INVALIDATED** — label circularity, не биологический сигнал. Redesign Option A не завершён. Не сравнивать с Riemann zeros, пока это не исправлено.
-- **Frontier R&D / TOFT / RAF Theory / CatlyNet — НЕ НАЙДЕНЫ нигде в исходном Obsidian vault** после grep-проверки. Если пользователь ссылается на них как на существующие проекты — уточнить, где физически лежат, прежде чем строить на них выводы.
+- **Frontier R&D / TOFT / RAF Theory / CatlyNet — НЕ НАЙДЕНЫ нигде в исходном Obsidian vault** после grep-проверки. **Отвечено пользователем 2026-09-07:** могли существовать на другой машине, доступа к которой сейчас нет — это ПОСТОЯННОЕ `unverified_source` состояние (registry/graph.yaml), не открытый вопрос, требующий переспрашивания. Не строить на них выводы, не переспрашивать снова без новой информации от пользователя.
+- **Q-GOE-vs-GUE (мост B1) разрешён 2026-09-07** — цитируемый аргумент H-7 TAD ("fully-connected → класс A/GUE") путает ось Poisson-vs-Wigner-Dyson (связность/хаос, предсказана верно) с осью GOE-vs-GUE (требует нарушения time-reversal симметрии, не установлено). По умолчанию: реальная симметричная Hi-C-матрица → GOE (⟨r⟩≈0.536), не GUE (⟨r⟩≈0.603), пока не назван конкретный механизм нарушения симметрии. См. `01-cross-domain-bridges/Q-GOE-vs-GUE — resolution analysis (2026-09-07).md`. H-B1-1b остаётся BLOCKED — единственный оставшийся блокер: Option A redesign (внешний проект H-7 TAD, вне scope этой папки).
 
 ## NEVER
 - Не подавать/публиковать что-либо из этой папки без прогона через Submission Gate (`03-methodology-rules/Submission Gate Protocol (HARD RULE).md`) — 4 gate'а: skeptic run, checklist, consistency check, 24h cooling-off

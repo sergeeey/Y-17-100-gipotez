@@ -76,31 +76,31 @@ nodes:
     type: project
     title: "Frontier R&D (Sentinel-2 OOD detection, Hypothesis H1)"
     status: unverified_source
-    evidence: UNVERIFIED          # grep vault → 0 hits
+    evidence: UNVERIFIED          # grep vault → 0 hits. 2026-09-07 (user, directly): may have existed on another machine, but that machine is not accessible right now -- this is a standing, not a temporary, unverified state; do not keep re-flagging as an open question pending user input each session
     path: null
     owner: unknown
     source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § ПЕРЕД СТАРТОМ"
-    updated: 2026-09-06
+    updated: 2026-09-07
 
   - id: PRJ-TOFT-SMT
     type: project
     title: "TOFT vs SMT kill-test (Soto & Sonnenschein 1999)"
     status: unverified_source
-    evidence: UNVERIFIED          # идея есть как Revival target R5 (NOT STARTED); проект/код не найден
+    evidence: UNVERIFIED          # идея есть как Revival target R5 (NOT STARTED); проект/код не найден. 2026-09-07 (user, directly): may have existed on another machine, but that machine is not accessible right now -- standing, not temporary, unverified state
     path: null
     owner: unknown
     source: "02-related-projects-context/Hypothesis Revival Targets — 9 классических гипотез для реанимации (2026-05-10).md (R5)"
-    updated: 2026-09-06
+    updated: 2026-09-07
 
   - id: PRJ-RAF
     type: project
     title: "RAF Theory / CatlyNet / iRAF / Wood-Ljungdahl pathway"
     status: unverified_source
-    evidence: UNVERIFIED          # grep vault → 0 hits
+    evidence: UNVERIFIED          # grep vault → 0 hits. 2026-09-07 (user, directly): may have existed on another machine, but that machine is not accessible right now -- standing, not temporary, unverified state
     path: null
     owner: unknown
     source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § ПЕРЕД СТАРТОМ"
-    updated: 2026-09-06
+    updated: 2026-09-07
 
   # ───────────────────────── bridges ─────────────────────────
   - id: B1-RMT-RIEMANN-HIC
@@ -243,15 +243,15 @@ nodes:
 
   - id: H-B1-1b
     type: hypothesis
-    title: "Hi-C chromatin (WT vs auxin-fused) r-statistic shows Poisson→GUE transition comparable to Riemann zeros"
-    status: blocked
+    title: "Hi-C chromatin (WT vs auxin-fused) r-statistic shows Poisson→GOE transition (CORRECTED 2026-09-07 from Poisson->GUE -- see Q-GOE-vs-GUE resolution)"
+    status: blocked                # 2026-09-07: ONE of two original blockers now resolved (Q-GOE-vs-GUE), remaining sole blocker is Option A (ART-TAD-AUC-0.99998 replacement) -- genuinely external, out of Y-17's write-scope, cannot be closed from inside this project
     evidence: CONFLICT            # PARKED говорит 'готово', проект говорит 'invalidated'
     l0_type: descriptive
     fl_tier: full
-    kill_criterion: "TBD after Option A redesign — must be set BEFORE any run; current honest numbers (WT 0.5113±0.061, auxin 0.5130±0.060) show no transition"
+    kill_criterion: "TBD after Option A redesign (STILL BLOCKED, external dependency) -- must be set BEFORE any run; current honest numbers (WT 0.5113±0.061, auxin 0.5130±0.060) show no transition. CORRECTED 2026-09-07: comparison target is GOE (⟨r⟩≈0.536), NOT GUE (⟨r⟩≈0.603) as originally titled -- see Q-GOE-vs-GUE node and '01-cross-domain-bridges/Q-GOE-vs-GUE — resolution analysis (2026-09-07).md'. Both reference values already computed in experiments/20260906-riemann-rstat-gue/result_summary.md."
     experiment_dir: null
     source: "01-cross-domain-bridges/H-7 TAD Spectral Diagnostic.md"
-    updated: 2026-09-06
+    updated: 2026-09-07
 
   - id: H-B2-1
     type: hypothesis
@@ -1315,11 +1315,11 @@ nodes:
   - id: Q-GOE-vs-GUE
     type: question
     title: "Which symmetry class does fused chromatin belong to? TAD project claims class A (GUE) via Altland–Zirnbauer tenfold way, not GOE"
-    status: open
-    evidence: UNVERIFIED
+    status: resolved                # 2026-09-07 (bracketed resolution -- reasoned default + named burden of proof, not a hard proof; schema only allows open/resolved for question-type, evidence marker below carries the nuance): the cited argument conflates the Poisson-vs-Wigner-Dyson axis (connectivity/chaos, correctly predicted) with the GOE-vs-GUE axis (requires broken time-reversal symmetry, NOT established by "fully-connected"). A real symmetric Hi-C contact matrix is GOE by default absent a named symmetry-breaking mechanism, which the cited section (added "усиление для рукописи", a Gate 4 Scientism Detection flag) does not provide.
+    evidence: HYPOTHESIS           # standard RMT/AZ classification argument (this project's evidence vocabulary has no INFERRED tier -- HYPOTHESIS is the closest fit: reasoned, not yet empirically tested against real chromatin data)
     blocks: [H-B1-1b]
-    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Отдельный вопрос ансамбля"
-    updated: 2026-09-06
+    source: "01-cross-domain-bridges/Q-GOE-vs-GUE — resolution analysis (2026-09-07).md ; original claim in 01-cross-domain-bridges/H-7 TAD Spectral Diagnostic.md lines 130-151"
+    updated: 2026-09-07
 
 edges:
   # grounding of bridges
