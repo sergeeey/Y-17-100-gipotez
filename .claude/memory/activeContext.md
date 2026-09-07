@@ -17,46 +17,10 @@
 [summarized] **H-B2-1j/1k/1l scale sweep + первые 4 skeptic-прохода (ADR-047–053) archived to
 [summarized] **[WS: пятый skeptic-проход подряд, самый строгий] H-B2-1h REJECTED (ADR-054):** skeptic на
 
-**математический факт**: для нильпотентного N (N⁸=0), M1(c) ДОКАЗУЕМО полином степени ≤7 —
-истинная экспонента алгебраически НЕВОЗМОЖНА. Уже задокументированное замедление отношений
-(3.76→1.80) оказалось эмпирической сигнатурой именно этого факта, не второстепенной оговоркой.
-Вердикт CONFIRMED→REJECTED, статус confirmed→killed. Практически важный вопрос pearl impact 9
-переоткрыт — этот скан тестировал другой, более узкий вопрос. Итог 5 подряд skeptic-проходов:
-5/5 нашли реальные проблемы, разброс от мягкого до математически безапелляционного.
-**[WS: fifth skeptic pass] CLOSED.**
-
-**[WS: шестой skeptic-проход, первый на мосте B3] H-B3-1l дальше WEAKENED (ADR-055):** skeptic
-на H-B3-1l (peak-tau TDA vs classical). Нашёл 2: (1) правдоподобный механизм для конфаунда
-негативных контролей (argmax структурно смещён к раннему индексу, РАЗНО для гладких classical и
-«дёрганых» TDA-статистик) — не подтверждён эмпирически; (2) **независимо проверено против
-committed data**: `classical_ac1_peak_date=1999.25` — ДО `tda_betti_peak_date=2000.5` — AC1
-САМ ПО СЕБЕ уже обходит TDA, скрыто асимметричным правилом выбора classical-статистики
-(oracle-informed для позитивного случая, «раньше из двух» для негативных). Вердикт WEAKENED
-сильнее, чем оригинальный самопойманный конфаунд подразумевал. 2 новых pearl-записи. Итог 6
-подряд skeptic-проходов: 6/6 нашли реальные проблемы на ДВУХ разных мостах (B2 и B3) — не
-специфично одному стилю эксперимента. **[WS: sixth skeptic pass] CLOSED.**
-
-**[WS: седьмой, ПОСЛЕДНИЙ skeptic-проход] H-B3-1m CRITERION_INVALID → UNRESOLVED AT CURRENT
-POWER (ADR-056):** skeptic на H-B3-1m (two-part tau+Pettitt rule). Самая серьёзная находка всего
-скана, независимо перепроверена вычислением: claim.md's механизм-обоснование («Pettitt ловит
-level-shift, не тренд») ЛОЖНО — K=n²/4 точно для чистого монотонного тренда без шума (n=30 →
-K=225.0=предсказание, p≈3.7e-5), AND-gate не даёт заявленной специфичности. Плюс: reps=30 даёт
-95%-CI±18пп, порог 50% внутри шума — Loch Leven (53.3%) vs Windermere (33.3%) неразличимы;
-общий seed=0 коррелирует суррогаты трёх озёр. graph.yaml evidence→CONFLICT, kill_criterion
-переписан. **Итог СЕМИ подряд skeptic-проходов: 7/7 нашли реальные проблемы**, диапазон от
-мягкого до математически/вычислительно безапелляционного, на ОБОИХ мостах (B2, B3). Систематический
-skeptic-скан флагованных экспериментов ЗАВЕРШЁН. **[WS: seventh and final skeptic pass] CLOSED.**
-
-**[WS: H-B3-1m power-фикс, прямое следствие ADR-056] REJECT финально (ADR-057):** установлен
-`pyhomogeneity`, `pettitt_test` сверена — K/U совпадает точно на 7 случаях, реализация без ошибок
-(Finding 5 DISMISSED); побочно — ВТОРОЕ независимое подтверждение Finding 1 (сторонний пакет тоже
-помечает чистый тренд как значимый). `run.py`: reps 30→500, раздельный seed на озеро. Floor
-резолвится чисто: Lower Zurich 44.0%, Windermere 42.8%, Loch Leven 41.6% (все CI<50%) — но именно
-это открыло Step 2 критерия впервые: Loch Leven реально two-part-crosses на СВОИХ данных (не
-только AR(1)-нуле) — истинный false positive. Вердикт UNRESOLVED→**REJECT**. Kill Analysis,
-`null_results/H-B3-1m-…md`, graph.yaml status killed/evidence VERIFIED-REAL. **ЗАКРЫВАЕТ ВСЕ 3
-пункта Relaxation Map H-B3-1b окончательно** (Row1 REJECT, Row2 REJECT, Row3 CONFIRMED-с-
-конфаундом) — ни один чистый PROMOTE. **[WS: H-B3-1m power fix] CLOSED.**
+[summarized] **5-й/6-й/7-й skeptic-проходы + H-B3-1m power-фикс (ADR-054–057) archived to
+`history/activeContext-archive-20260907-skeptic-sweep-part2.md`** — итог: 7/7 skeptic-проходов
+нашли реальные проблемы (H-B2-1h REJECTED математически, H-B3-1l WEAKENED, H-B3-1m финально
+REJECT после power-фикса), систематический скан флагованных экспериментов завершён.
 
 **[WS: пользователь — 3 приоритета после 7/7 skeptic-скана] Мета-анализ (ADR-058) + B1/B4-B6
 (ADR-059).** Пользователь явно остановил автозапуск H-B2-1l (был бы 8-м экспериментом без анализа
@@ -71,6 +35,16 @@ Hi-C-матрица по умолчанию GOE, не GUE. Gate 4 Scientism flag
 рукописи». H-B1-1b остаётся blocked, но сужен до ОДНОГО блокера (Option A, внешний, вне scope).
 **B4-B6:** пользователь ответил напрямую — доступа к другой машине сейчас нет, постоянное
 `unverified_source`, не переспрашивать. **[WS: user 3-priority redirect] CLOSED.**
+
+**[WS: H-B2-1m, прямая команда пользователя «Запусти H-B2-1l итд»] WEAKENED, не CONFIRMED
+(ADR-060).** Первое применение нового Step 0a Gate — ДО прогона поймал confound pooled-N (naive
+ρ=0.948 на данных без реальной связи). FL Step 8a skeptic нашёл ТРЕТИЙ RNG-независимость
+инцидент в арке (тоньше прежних — 15 разных кривых на N, но зависимых между срезами для
+совпадающего seed) — независимо перепроверено вычислением, исправлено `SeedSequence`. После
+фикса: 7/9 срезов положительны, но 0 значимых при N_DIM≥24 → критерий уточнён ДО финализации,
+вердикт WEAKENED. Честная картина: κ(V) сильно объясняет M1 при малом N (3,4,8,12, все ρ≥0.88),
+необнаружимо при большом (16-50). 7 регрессионных тестов, включая lock-in независимости RNG.
+**[WS: H-B2-1m] CLOSED.**
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
@@ -133,6 +107,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 11:53] `fed7f36` (local, branch `feature/meta-analysis-b1-b4b6-resolution` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (final)
 - [2026-09-07 11:53] `c45def5` (local, branch `feature/meta-analysis-b1-b4b6-resolution` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: fix stale 'blocked pending user input' line + auto-log entry
 - [2026-09-07 11:53] `be76b4b` (local, branch `feature/meta-analysis-b1-b4b6-resolution` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: root-cause self-review's 7/7 blind spot; resolve B1 (Q-GOE-vs-GUE) and B4-B6 per user direction
 - [2026-09-07 11:27] `96b5b93` (local, branch `feature/h-b3-1m-power-fix-reject` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 2, final)
@@ -147,4 +122,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 10:51] `5fd8565` (local, branch `feature/h-b3-1l-skeptic-argmax-bias` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-07 10:50] `3e72176` (local, branch `feature/h-b3-1l-skeptic-argmax-bias` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B3-1l WEAKENED by sixth skeptic pass -- AC1 quietly beats TDA via asymmetric selection rule
 - [2026-09-07 10:38] `8a7aef4` (local, branch `feature/h-b2-1h-skeptic-rejected` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1h REJECTED by fifth skeptic pass -- proven mathematically, not just re-argued
-- [2026-09-07 10:22] `9475623` (local, branch `feature/h-b2-1i-skeptic-weakened` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1i WEAKENED by fourth skeptic pass -- mildest of four, core measurement confirmed intact
