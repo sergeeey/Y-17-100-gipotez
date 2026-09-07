@@ -451,6 +451,18 @@ nodes:
     source: "experiments/20260906-chernoff-neuralode-nd-multiseed/decision.md"
     updated: 2026-09-07
 
+  - id: H-B2-1j
+    type: hypothesis
+    title: "Does the Theorem 3.1 bound stay valid and order-matching at N_DIM=50 (vs N_DIM<=8 tested in every prior H-B2-1* experiment)? LAB.md's own named open item"
+    status: confirmed             # 2026-09-07 decision.md: CONFIRMED, bound holds 16/16, order matches tightly, but efficiency collapses 3-5 more orders of magnitude
+    evidence: VERIFIED-REAL       # metrics/run.json; reuses H-B2-1g's own theorem_3_1_bound/measure_m1_with_w/measure_m2_with_w/empirical_order code byte-identical, only N_DIM/EIGENVALUES/A/X0 differ; 5 regression tests
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if bound holds for ALL tested n at both orders AND empirical order within 10% of theoretical (1,2). RESULT: CONFIRMED -- bound holds 16/16 cases, empirical order 0.9983 (order-1) and 2.0081 (order-2), both within 1% of theoretical. NEW FINDING: M1 grew from 158.93 (N=8, H-B2-1g) to 675.40 (N=50, same coupling=15) -- ~4.25x larger, directly falsifying a naive extrapolation of H-B2-1f's N=2->N=8 shrinkage ('maybe M1 keeps shrinking with N') -- it does not. Efficiency collapsed further: ~1.3e-10 (order-1) and ~4.3e-12 (order-2), vs H-B2-1g's already-poor ~1.5e-7 at N=8 -- 3-5 more orders of magnitude looser. NEW MECHANISTIC DETAIL: inspecting a_power_m1_x0_norm (the ||A^(m+1)x0|| term in the bound formula) shows it is enormous at N=50 (25,750 for order-1, 1.67 million for order-2) and scales with N independently of M1 -- at least two independently-growing terms drive the efficiency collapse, not just M1^2*M2. Closes LAB.md's last-named open item for the H-B2-1* arc (coupling sweep [H-B2-1h], multi-seed [H-B2-1i], N=50+ [this] -- all three now tried)."
+    experiment_dir: "experiments/20260907-chernoff-neuralode-nd-scale"
+    source: "experiments/20260907-chernoff-neuralode-nd-scale/decision.md"
+    updated: 2026-09-07
+
   - id: ART-CHERNOFF-ND-MULTISEED-RUN-20260907
     type: artifact
     title: "metrics/run.json — 30-seed ensemble at coupling=15, M1 distribution (median 68.97, seed=0's 158.93 = MODERATE, right-skewed)"
@@ -1319,6 +1331,7 @@ edges:
   - {from: H-B2-1g, to: H-B2-1h, type: grounds, since: 2026-09-07, note: "H-B2-1g's own Relaxation Map named a systematic coupling-magnitude sweep as the direct next step (pearl_registry impact 9); this is that sweep"}
   - {from: H-B2-1h, to: ART-CHERNOFF-ND-COUPLING-SWEEP-RUN-20260907, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
   - {from: H-B2-1g, to: H-B2-1i, type: grounds, since: 2026-09-07, note: "H-B2-1g's own Relaxation Map named this exact question untested (is M1=158.93 typical or an unlucky draw); H-B2-1h deliberately left seed fixed to stay comparable, per Minimal Relaxation Rule"}
+  - {from: H-B2-1g, to: H-B2-1j, type: grounds, since: 2026-09-07, note: "LAB.md's own open-items list named N=50+ as the last untested dimension after the coupling sweep (H-B2-1h) and multi-seed (H-B2-1i) items were closed"}
   - {from: H-B2-1i, to: ART-CHERNOFF-ND-MULTISEED-RUN-20260907, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
   - {from: B3-MAY-TDA,         to: H-B3-1,  type: grounds, since: 2026-09-06}
   - {from: PRJ-CARPENTER-PETERLAKE, to: H-B3-1, type: grounds, since: 2026-09-06, note: "corrected data source, replaces Mangal/GloBI"}

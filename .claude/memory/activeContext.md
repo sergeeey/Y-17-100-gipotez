@@ -25,6 +25,15 @@ Pettitt's test реализован с нуля (не установлен ни 
 теперь закрыты (Row 1 REJECT, Row 2 CRITERION_INVALID-с-улучшением, Row 3 CONFIRMED-с-конфаундом).
 8 новых тестов, 212 всего. **[WS: B3 change-point] CLOSED.**
 
+**[WS: B2 scale N=50, продолжение по «продолжай автономно»] H-B2-1j (ADR-047):** закрывает
+ПОСЛЕДНИЙ открытый пункт LAB.md для всей арки H-B2-1* (coupling sweep + multi-seed уже закрыты).
+Идентичная конструкция H-B2-1f/g, N_DIM 8→50, coupling=15/seed=0 зафиксированы. **CONFIRMED**:
+граница держится 16/16, порядок точен (0.9983, 2.0081). Находка: M1 ВЫРОС 158.93→675.40 (~4.25×)
+— опровергает наивную экстраполяцию «M1 продолжает уменьшаться с N» из H-B2-1f. Эффективность
+упала ЕЩЁ на 3-5 порядков (1.3e-10, 4.3e-12). Новый механизм: `‖A^(m+1)x0‖` растёт с N независимо
+от M1 — минимум два члена управляют коллапсом эффективности. 5 новых тестов, 217 всего.
+**[WS: B2 scale N=50] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
 ## Project State
@@ -77,6 +86,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 08:30] `2434dfe` (local, branch `feature/h-b3-1m-changepoint` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1m: two-part rule (tau AND Pettitt) closes the last H-B3-1b Relaxation Map row
 - [2026-09-07 08:10] `aaa6c04` (local, branch `feature/h-b3-1l-peaktau` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B3-1l: peak-tau reporting closes H-B3-1b's Relaxation Map Row 3 -- CONFIRMED with a confound
 - [2026-09-07 08:00] `8b85c83` (local, branch `feature/h-b3-1b-stale-annotation-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B3-1b graph.yaml annotation was stale -- Type-4 status-lag self-catch
 - [2026-09-07 07:55] `782ae01` (local, branch `feature/h-b2-1i-multiseed` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B2-1i: 30-seed ensemble at coupling=15 closes H-B2-1g's open question -- M1=158.93 is MODERATE
@@ -91,4 +101,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 01:52] `fbb382b`: chore: auto-log commit history entry
 - [2026-09-07 01:51] `da0e337` (local, branch `feature/h-b7-12-crossbranch-transient` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-12: transient sweep on second branch WEAKENED -- exact k*=5 match was branch equivalence
 - [2026-09-07 01:33] `8ce0ff7`: chore: auto-log commit history entry
-- [2026-09-07 01:32] `6343a11` (local, branch `feature/h-b7-11-crossbranch` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-11: cross-branch generalization CONFIRMED, incidentally caught H-B7-4's branch-count error
