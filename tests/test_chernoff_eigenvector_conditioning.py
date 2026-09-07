@@ -91,6 +91,18 @@ def test_real_run_reproduces_committed_m1_values_from_both_parent_experiments():
     assert n8_m1 > 0
 
 
+def test_classify_verdict_matches_claim_md_pre_registered_threshold():
+    """Regression test for the FL Step 8a skeptic-caught bug: the original verdict logic
+    accepted ANY positive rho (e.g. 0.001) as CONFIRMED, looser than claim.md's own
+    pre-registered "REJECTED: |rho| < 0.2 in either population" criterion. This locks in the
+    fixed threshold so the bug cannot silently return."""
+    assert conditioning.classify_verdict(0.05, 0.9) == "REJECTED"  # one leg near-zero
+    assert conditioning.classify_verdict(0.9, 0.05) == "REJECTED"  # the other leg near-zero
+    assert conditioning.classify_verdict(0.5, 0.5) == "CONFIRMED"  # both comfortably positive
+    assert conditioning.classify_verdict(-0.5, 0.5) == "MIXED"  # opposite signs, both large
+    assert conditioning.classify_verdict(0.453, 0.917) == "CONFIRMED"  # the actual committed data
+
+
 def test_real_run_reports_coherent_correlation_shape():
     result = conditioning.cmd_run()
     assert result["verdict"] in {"CONFIRMED", "MIXED", "REJECTED"}

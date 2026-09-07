@@ -1,6 +1,73 @@
 # decision.md — H-B2-1l (eigenvector conditioning κ(V) vs M1)
 
-## Result
+## CORRECTION ADDENDUM (2026-09-07, FL Step 8a skeptic pass — first one actually run all session)
+
+**The verdict below is downgraded from CONFIRMED to WEAKENED.** The original text is kept
+unedited below (Hindsight Distortion Gap discipline) with this dated correction on top, not a
+silent rewrite. This is the first genuine, context-asymmetric skeptic invocation of the entire
+session (Evaluator-Optimizer cap had blocked the `reviewer` agent since mid-`B3`; every CONFIRMED
+verdict since then substituted manual self-review) — invoked specifically because the session's
+own retrospective report flagged this as the highest-priority methodological gap.
+
+**What the skeptic found, given only `claim.md` + `run.py` (no session history, no decision.md,
+no reasoning chain):**
+
+1. **[Dismissed]** `np.linalg.cond(V)` numerical trustworthiness — the construction is strictly
+   upper-triangular, so eigenvalues are exactly the real, distinct diagonal entries; `eig`/`cond`
+   behave sanely here. Not a flaw, but it clarifies WHY rho can't approach 1 even under the true
+   mechanism (Trefethen–Embree is an inequality, not an equality — noted in the original text
+   too, but the skeptic sharpened why this caps the seed-ensemble rho specifically).
+
+2. **[Accepted — fatal for the "cross-population" framing]** The N-sweep population has
+   `SEED=0` hard-coded (verified directly against `H-B2-1k`'s own source). Its 9 (κ(V), M1) pairs
+   are **not 9 independent draws** — they are ONE deterministic curve evaluated at 9 designed
+   grid points. `spearmanr`'s null hypothesis ("ranks are a random permutation of each other")
+   does not apply: any quantity that is roughly monotone-in-N (`log N`, `‖A‖_F`, Henrici's
+   departure-from-normality, pseudospectral abscissa) would likely post a similarly large rho
+   against `M1` on this same curve, because both trend upward with `N` for structural reasons
+   that have nothing specifically to do with `κ(V)`. Effective sample size for testing "does
+   κ(V) explain M1" is closer to **1** (one curve), not 9. **The N-sweep leg does not corroborate
+   the seed-ensemble leg** — the "consistent, cross-population support" argument that was this
+   experiment's central rhetorical move does not hold as stated.
+
+3. **[Accepted — narrows the surviving claim]** The seed-ensemble result (rho=0.453, n=30, real
+   independent seeds) IS a genuine, valid finding — but rho²≈0.20 means κ(V) explains roughly
+   20% of rank variance in M1, not "the mechanism." "CONFIRMED" over-read what a modest,
+   partial correlation licenses. Also: `run.py`'s original verdict logic (`if seed_rho > 0 and
+   n_rho > 0: CONFIRMED`) accepted ANY positive rho, looser than `claim.md`'s own pre-registered
+   `|rho| < 0.2` rejection threshold — a genuine code/spec inconsistency, fixed (see below), even
+   though it happened not to flip the numeric verdict on the committed data.
+
+4. **[Documented limitation]** The two populations both anchor on `seed=0` (P1's seed=0 case and
+   P2 at N=8 both use it as their reference point) — not fully statistically independent draws,
+   a minor additional reason not to treat them as two separate confirmations.
+
+**Fixed:** `run.py`'s verdict logic now implements `claim.md`'s own `|rho| >= 0.2` threshold
+exactly (`classify_verdict`, regression-tested). The numeric verdict on the already-committed
+data is unchanged (CONFIRMED under the code's own criterion) — the downgrade to WEAKENED is an
+INTERPRETIVE correction (per the project's Skeptic Response Matrix), not a re-run with different
+numbers.
+
+**Corrected honest statement, replacing the original headline claim:** *At fixed N=8,
+coupling=15, κ(V) is positively rank-correlated with M1 across 30 independent seeds (Spearman
+ρ=0.453, p=0.012) — consistent with the Trefethen–Embree bound as ONE contributor to M1's
+variability, explaining roughly 20% of rank variance, not the dominant driver. The N-sweep
+result does NOT independently corroborate this — with seed fixed and 9 designed grid points, it
+is one deterministic curve, and any monotone-in-N proxy would likely show similarly strong rank
+correlation with M1 for purely structural reasons unrelated to κ(V) specifically.*
+
+**What survives:** the seed-ensemble finding itself (κ(V) as a genuine, partial, independently-
+sampled contributor to M1's seed-to-seed variability at fixed N and coupling). **What does not
+survive:** the "unifies two independently-pearled findings under cross-population support"
+framing — `H-B2-1k`'s own pearl entry (non-monotonicity by N) is NOT actually explained by this
+experiment; that remains open, exactly as it was before this experiment ran.
+
+**Response Matrix disposition:** Accepted (2), Accepted (3), Dismissed (1), Documented limitation
+(4). No concern rises to a full kill of the surviving seed-ensemble finding.
+
+---
+
+## Result (ORIGINAL TEXT, superseded in interpretation by the correction above — kept for the audit trail)
 
 **Verdict: CONFIRMED.** Eigenvector-matrix conditioning `κ(V)` is POSITIVELY correlated with `M1`
 in BOTH independently-collected populations, unifying two previously-unexplained findings from

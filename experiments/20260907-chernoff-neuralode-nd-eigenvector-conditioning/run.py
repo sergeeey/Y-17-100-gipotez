@@ -36,6 +36,22 @@ def eigenvector_condition_number(a: np.ndarray) -> float:
     return float(np.linalg.cond(v))
 
 
+REJECT_THRESHOLD = 0.2  # matches claim.md's own pre-registered kill criterion exactly
+
+
+def classify_verdict(seed_rho: float, n_rho: float) -> str:
+    """Bug found by FL Step 8a skeptic pass (2026-09-07): the original version accepted ANY
+    positive rho (including ~0) as CONFIRMED, looser than claim.md's own pre-registered kill
+    criterion ("REJECTED: |rho| < 0.2 in either population"). Fixed to match that threshold
+    exactly -- did not change the verdict on the already-committed data (both rhos are
+    comfortably above 0.2), but the machinery is now self-consistent with its own spec."""
+    if seed_rho > REJECT_THRESHOLD and n_rho > REJECT_THRESHOLD:
+        return "CONFIRMED"
+    if abs(seed_rho) < REJECT_THRESHOLD or abs(n_rho) < REJECT_THRESHOLD:
+        return "REJECTED"
+    return "MIXED"
+
+
 def cmd_run() -> dict:
     # Population 1: H-B2-1i's own 30-seed ensemble at fixed N_DIM=8, coupling=15.
     seed_ensemble = {}
@@ -61,12 +77,7 @@ def cmd_run() -> dict:
     n_m1 = np.array([v["m1"] for v in n_sweep.values()])
     n_rho, n_p = spearmanr(n_kappa, n_m1)
 
-    if seed_rho > 0 and n_rho > 0:
-        verdict = "CONFIRMED"
-    elif (seed_rho > 0) != (n_rho > 0):
-        verdict = "MIXED"
-    else:
-        verdict = "REJECTED"
+    verdict = classify_verdict(seed_rho, n_rho)
 
     result = {
         "seed_ensemble": seed_ensemble,
