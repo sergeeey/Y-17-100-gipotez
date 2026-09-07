@@ -18,102 +18,28 @@ model) → moved to Remy tumorigenesis model (H-B7-4..6, single/two/three-hit, a
 tracing the next mechanism precisely, ending with `Growth_arrest = p21CIP|RBL2|RB1` found as an
 explicit source-level OR gate).
 
-**[WS: H-B7-7 remy_tumorigenesis four-hit] CLOSED 2026-09-06 (ADR-034, прямой запрос пользователя
-«начинай четырёхударный тест»).** `[VERIFIED]`:
-- `do(RAS=1, TP53=0, p21CIP=0, RBL2=0)` → **CONFIRMED** — первый успешный перманентный побег из
-  Growth_arrest в Proliferation во всей серии B7. Побитовое совпадение с pyboolnet-верифицированным
-  PROLIFERATION_STATE.
-- Независимо переподтверждено СВЕЖИМ прогоном `pyboolnet.compute_attractors()` на построенной с
-  нуля сети (ноль переиспользования своего кода) — ровно 1 аттрактор, is_steady/is_univocal/
-  is_faithful все yes.
-- **FL Step 8a skeptic pass выполнен и пройден** (обязателен для CONFIRMED, не только REJECT):
-  вердикт CONFIRMED-REAL, 5 проверок фальсификации, включая реально ЗАПУЩЕННЫЙ (не только
-  предложенный) скрипт независимой проверки.
-- Skeptic нашёл реальное WEAKENING: RAS/TP53 уже истинны в стартовом состоянии — реально нагруженный
-  минимум — только `do(p21CIP=0, RBL2=0)`.
-- Граф: `H-B7-7 → confirmed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 9.** Следующий шаг:
-  тест необходимости `do(p21CIP=0, RBL2=0)` без RAS/TP53.
-**[WS: H-B7-7 remy_tumorigenesis four-hit] CLOSED.**
+[summarized] **H-B7-7 through H-B7-12 (ADR-034–039) archived to
+`.claude/memory/history/activeContext-archive-20260907-b7-7to12.md`** — four-hit CONFIRMED (first
+escape) → necessity-minimized to two-hit → transient CONFIRMED with exact k*=5 threshold, fully
+traced to a one-step race condition → cross-branch generalization CONFIRMED then WEAKENED once the
+skeptic found the two branches dynamically equivalent, closing the question by exhaustion. Bridge
+`B7-KAUFFMAN-ATTRACTORS` net position: `evidence: CONFLICT` throughout.
 
-**[WS: H-B7-8 remy_tumorigenesis necessity test] CLOSED 2026-09-07 (ADR-035, прямой запрос
-пользователя «начинай тест необходимости do(p21CIP=0, RBL2=0) итд действуй автономно»).**
-`[VERIFIED]`:
-- `do(p21CIP=0, RBL2=0)` БЕЗ клампа RAS/TP53 → **CONFIRMED** — reaches точный Proliferation
-  attractor; RAS/TP53 сами динамически осели в значения H-B7-7's клампа.
-- Независимо переподтверждено СВЕЖИМ `pyboolnet.compute_attractors()` с ПОЛНОСТЬЮ нетронутыми
-  правилами RAS/TP53 — ровно 1 аттрактор, побитовое совпадение. Bit-identical воспроизводимость
-  тоже проверена (2 свежих прогона).
-- **FL Step 8a skeptic pass снова выполнен и пройден:** CONFIRMED-REAL. Skeptic нашёл реальный,
-  включённый (не отклонённый) нюанс: самоподдерживающиеся сигнальные петли ветки делают RAS=1/
-  TP53=0 «естественным состоянием покоя» — смягчает, но не отменяет новизну (ни одно правило не
-  тавтология входов ветки).
-- Минимальный достаточный набор для этой точки установлен: `do(p21CIP=0, RBL2=0)`.
-- Граф: `H-B7-8 → confirmed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 8.** Следующий
-  шаг: транзиентная версия — открыта для ВСЕЙ серии B7, не только этого эксперимента.
-**[WS: H-B7-8 remy_tumorigenesis necessity test] CLOSED.**
-
-**[WS: H-B7-9 remy_tumorigenesis transient necessity] CLOSED 2026-09-07 (ADR-036, прямой запрос
-пользователя «начинай транзиентную версию»).** `[VERIFIED]`:
-- Транзиентный `do(p21CIP=0, RBL2=0)` для k=1,3,10,30, затем ПОЛНОЕ освобождение к невозмущённым
-  правилам → **CONFIRMED для k=10,30** — точный Proliferation attractor, персистентен после release.
-- **Первое подтверждение строгой формулировки Kauffman во всей серии B7** — закрывает различие,
-  названное ещё в H-B7-2's decision.md (слабое перманентное чтение vs строгое транзиентное).
-- Чистый порог длительности: k=1,3 → релапс во ВТОРОЙ (не исходный) Growth_arrest fixed point.
-- Независимо переподтверждено СВЕЖИМ `pyboolnet.compute_attractors()` на ПОЛНОСТЬЮ невозмущённой
-  ветке (ноль клампов) — ровно 3 аттрактора, совпадают один-в-один со всеми тремя сообщёнными
-  состояниями.
-- **FL Step 8a skeptic pass выполнен и пройден** (третий CONFIRMED подряд, каждый со своим pass):
-  CONFIRMED-REAL; skeptic предсказал k=0 → period-2 осцилляцию БЕЗ возможности запустить —
-  подтверждено точно основной сессией.
-- Граф: `H-B7-9 → confirmed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 9.** Следующий
-  шаг: тонкий скан k=4..9; кросс-ветка проверка на другой мультистабильной ветке.
-**[WS: H-B7-9 remy_tumorigenesis transient necessity] CLOSED.**
-
-**[WS: H-B7-10 remy_tumorigenesis transient sweep] CLOSED 2026-09-07 (ADR-037, прямой запрос
-пользователя «запусти скан k=4..9»).** `[VERIFIED]`:
-- Точный скан k=4..9 → **CONFIRMED, k*=5 ТОЧНО**: k=4 релапс во второй Growth_arrest fixed point,
-  k=5..9 все достигают точного Proliferation attractor.
-- **Полная пошаговая трассировка объясняет порог ДО ОТДЕЛЬНОГО синхронного шага**: гонка между
-  освобождением клампа и самоподдерживающейся активацией CyclinE1 — при k=4 CyclinE1 включается В
-  ТОТ ЖЕ шаг, когда p21CIP/RBL2 возвращаются к True при освобождении; при k=5 CyclinE1 включается
-  на шаг раньше, p21CIP/RBL2 на шаге освобождения уже видят CyclinE1=True.
-- **FL Step 8a skeptic pass выполнен и пройден** (пятый CONFIRMED подряд, каждый со своим pass):
-  CONFIRMED-REAL; hand-verified оба граничных состояния против всех 35 правил `.bnet`.
-- Граф: `H-B7-10 → confirmed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 8.** Следующий
-  шаг: тот же скан с другой стартовой точки; кросс-ветка проверка.
-**[WS: H-B7-10 remy_tumorigenesis transient sweep] CLOSED.**
-
-**[WS: H-B7-11 remy_tumorigenesis cross-branch] CLOSED 2026-09-07 (ADR-038, прямой запрос
-пользователя «проверь другую мультистабильную ветку итд продолжай выполнять все по очереди»).**
-`[VERIFIED]`:
-- Compute-First пересчёт всех 16 веток ДО дизайна → **побочно поймал ошибку счёта H-B7-4** (7, не
-  8, мультистабильных веток; «2 фенотипически разных» — верно). Dated correction addendum, не
-  тихая правка.
-- `do(p21CIP=0, RBL2=0)` на ЕДИНСТВЕННОЙ другой фенотипически-дивергентной ветке (отличается на 1
-  бит, EGFR_stimulus) → **CONFIRMED** — точный Proliferation attractor этой ветки, механизм
-  структурно идентичен (те же escape-route узлы активны).
-- **FL Step 8a skeptic pass выполнен и пройден** (шестой CONFIRMED подряд): CONFIRMED-REAL;
-  исчерпывающее перечисление аттракторов второй ветки — ровно 3, все совпали.
-- Граф: `H-B7-11 → confirmed`. Мост остаётся `evidence: CONFLICT`. **Pearl impact 8.** Первая
-  кросс-ветка генерализация в серии B7. Следующий шаг: транзиентная версия на этой ветке.
-**[WS: H-B7-11 remy_tumorigenesis cross-branch] CLOSED.**
-
-**[WS: H-B7-12 remy_tumorigenesis cross-branch transient] CLOSED 2026-09-07 (ADR-039, продолжение
-очереди по запросу пользователя «продолжай выполнять все по очереди»).** `[VERIFIED]`:
-- Транзиентный `do(p21CIP=0, RBL2=0)` на второй ветке → k*=5 воспроизвёлся ТОЧНО (тот же
-  one-step race, что H-B7-10).
-- **НО skeptic отнёсся к «подозрительно удобному» совпадению как к сигналу для БОЛЬШЕЙ проверки** —
-  нашёл, что обе ветки динамически ЭКВИВАЛЕНТНЫ: `EGFR` заблокирован `FGFR3=1` (правило требует
-  `!FGFR3` в обоих дизъюнктах), `EGFR_stimulus` никогда не распространяется.
-- **Дополнительно:** только 2 из 7 мультистабильных веток вообще имеют Proliferation attractor, обе
-  требуют идентичной `(DNA=0,FGFR3=1,GI=1)` — пространство кросс-веточной генерализации для этой
-  цели побега ИСЧЕРПАНО.
-- **Вердикт: WEAKENED** (per Response Matrix, Accepted) — технический kill criterion выполнен, но
-  рамка скорректирована. Dated addendum добавлен в H-B7-11's decision.md (не тихая правка,
-  технический CONFIRMED H-B7-11 не изменён).
-- Граф: `H-B7-12 → confirmed` (WEAKENED). Мост остаётся `evidence: CONFLICT`. **Pearl impact 8** —
-  методологическая находка о ТОМ, как проверять claims о генерализации.
-**[WS: H-B7-12 remy_tumorigenesis cross-branch transient] CLOSED.**
+**[WS: B3 case-study thread continued] CLOSED 2026-09-07 (ADR-040, прямой запрос пользователя
+«займись B3»).** `[VERIFIED]`:
+- Нашёл provenance drift: pearl-запись про case-study Loch Leven/Paul doSat помечена «pending»,
+  хотя фактически завершена в прошлой сессии — исправлено немедленно.
+- **Более серьёзное:** сама формулировка decision.md «3 ряда никогда не пересекают» — ФАКТИЧЕСКИ
+  НЕВЕРНА. Полная cross-tab (7 методов × 9 рядов, из реальных committed metrics) показывает:
+  Windermere пересекает 6/7 (как позитивы); настоящие выбросы — Paul_doSat (7/7) и Paul_chl/
+  Paul_pH (3/7 каждый). Частота НЕ коррелирует с ролью positive/negative.
+- Тест тренда (Paul lake, 3 переменные) → **REJECTED, развёрнут наоборот**: pH — сильнейший тренд
+  (ρ=-0.579, p≈3e-31), но наименьшая частота; doSat — тренда нет (p=0.42), но частота максимальна.
+- Тест автокорреляции lag-1 → **WEAK**: направление совпадает с предсказанием дважды (n=9 и
+  n=6 контролируемых по частоте), но не значимо ни разу.
+- Граф: `B3-MAY-TDA` session_summary_2026-09-07 добавлен (correction, не тихая правка). Вердикт
+  `H-B3-1h` не изменён (остаётся `lead`). 5 новых тестов, все прошли.
+**[WS: B3 case-study thread continued] CLOSED.**
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: upstream `ART-TAD-AUC-0.99998` invalidated; ждёт Option A в H-7 TAD + решение `Q-GOE-vs-GUE`.
 
@@ -163,6 +89,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 01:52] `fbb382b`: chore: auto-log commit history entry
 - [2026-09-07 01:51] `da0e337` (local, branch `feature/h-b7-12-crossbranch-transient` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-12: transient sweep on second branch WEAKENED -- exact k*=5 match was branch equivalence
 - [2026-09-07 01:33] `8ce0ff7`: chore: auto-log commit history entry
 - [2026-09-07 01:32] `6343a11` (local, branch `feature/h-b7-11-crossbranch` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-11: cross-branch generalization CONFIRMED, incidentally caught H-B7-4's branch-count error
@@ -177,4 +104,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-06 23:26] `f8c36d2`: chore: auto-log commit history entry
 - [2026-09-06 23:25] `e2e6779` (local, branch `feature/h-b7-6-threehit-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): H-B7-6: three-hit do(RAS=1, TP53=0, p21CIP=0) REJECTED, full mechanism found and verified two ways
 - [2026-09-06 23:12] `23fd3a2`: chore: auto-log commit history entry (2)
-- [2026-09-06 23:12] `5fbe68f` (local, branch `feature/auto-log-e9ce2d2` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry

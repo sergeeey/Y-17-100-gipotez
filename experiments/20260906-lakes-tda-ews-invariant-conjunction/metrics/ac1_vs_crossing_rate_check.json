@@ -1,0 +1,44 @@
+{
+  "per_series": {
+    "obrien_lower_zurich": {
+      "ac1_lag1": 0.42406697475291294,
+      "crossing_rate_out_of_7": 6
+    },
+    "obrien_windermere": {
+      "ac1_lag1": 0.6506787736071407,
+      "crossing_rate_out_of_7": 6
+    },
+    "obrien_loch_leven": {
+      "ac1_lag1": 0.32465776796604773,
+      "crossing_rate_out_of_7": 6
+    },
+    "peterlake_Peter_chl": {
+      "ac1_lag1": 0.9370848073693512,
+      "crossing_rate_out_of_7": 6
+    },
+    "peterlake_Peter_pH": {
+      "ac1_lag1": 0.9719029310694486,
+      "crossing_rate_out_of_7": 4
+    },
+    "peterlake_Peter_doSat": {
+      "ac1_lag1": 0.9232725678067595,
+      "crossing_rate_out_of_7": 6
+    },
+    "peterlake_Paul_chl": {
+      "ac1_lag1": 0.9215753268878328,
+      "crossing_rate_out_of_7": 3
+    },
+    "peterlake_Paul_pH": {
+      "ac1_lag1": 0.9395292204746353,
+      "crossing_rate_out_of_7": 3
+    },
+    "peterlake_Paul_doSat": {
+      "ac1_lag1": 0.8743760950368424,
+      "crossing_rate_out_of_7": 7
+    }
+  },
+  "spearman_rho_ac1_vs_crossing_rate": -0.5229577884350213,
+  "spearman_p": 0.14855887564628661,
+  "predicted_direction": "negative (lower AC1 -> higher crossing rate)",
+  "prediction_confirmed": false
+}

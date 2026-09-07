@@ -1,0 +1,57 @@
+{
+  "per_variable": {
+    "chl": {
+      "lake": "Paul",
+      "variable": "chl",
+      "n_points": 334,
+      "mean": 1.5581795080367504,
+      "std": 0.5674624720914615,
+      "cv": 0.3641829899344804,
+      "spearman_trend_rho": -0.18700493325571532,
+      "spearman_trend_p": 0.0005921607662288088,
+      "acf_lag1_3": [
+        0.9215753268878328,
+        0.8461937948795548,
+        0.7785850659493869
+      ],
+      "approx_n_seasons": 1
+    },
+    "pH": {
+      "lake": "Paul",
+      "variable": "pH",
+      "n_points": 334,
+      "mean": 6.452436936893496,
+      "std": 0.12888402409748084,
+      "cv": 0.01997447249124633,
+      "spearman_trend_rho": -0.5790025435212672,
+      "spearman_trend_p": 2.740085954148485e-31,
+      "acf_lag1_3": [
+        0.9395292204746353,
+        0.8746132083343579,
+        0.8127804862160848
+      ],
+      "approx_n_seasons": 1
+    },
+    "doSat": {
+      "lake": "Paul",
+      "variable": "doSat",
+      "n_points": 334,
+      "mean": 91.47889147988923,
+      "std": 3.9328781599203637,
+      "cv": 0.0429921930217636,
+      "spearman_trend_rho": -0.044491412495702425,
+      "spearman_trend_p": 0.41767394427273385,
+      "acf_lag1_3": [
+        0.8743760950368424,
+        0.7349611982135031,
+        0.6262000907374236
+      ],
+      "approx_n_seasons": 1
+    }
+  },
+  "tda_crossing_rate_context": {
+    "chl": "3/7 (verified cross-tabulation, H-B3-1h decision.md correction addendum)",
+    "pH": "3/7",
+    "doSat": "7/7 (crosses under literally every method tested)"
+  }
+}

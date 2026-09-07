@@ -129,6 +129,149 @@ series — worth flagging in any future revision of the detection rule, separate
 still-unresolved question of why Loch Leven/Paul doSat specifically cross under every
 invariant/null-model tried while the other 3 negative-role series do not.
 
+## CORRECTION ADDENDUM (2026-09-07, resuming B3 work — Hindsight Distortion Gap discipline, not a
+silent rewrite)
+
+Re-examining this file's own claim ("Windermere/Peter pH never cross under ANY method") before
+starting a new investigation, cross-tabulated `tda_betti_crossing` for all 9 series across ALL 7
+method variants actually run in this arc (V1, V1', V2', V1g, V1g', diagram-distance+AR1,
+diagram-distance+IAAFT), read directly from each experiment's own `metrics/run.json` — not
+reconstructed from memory:
+
+```
+                     V1  V1' V2' V1g V1g' diag-AR1 diag-IAAFT   rate
+Paul_doSat           X   X   X   X   X    X        X            7/7
+Loch_Leven           X   X   X   X   .    X        X            6/7
+Lower_Zurich         X   X   X   X   .    X        X            6/7
+Windermere           .   X   X   X   X    X        X            6/7
+Peter_chl            X   X   .   X   X    X        X            6/7
+Peter_doSat          X   X   .   X   X    X        X            6/7
+Peter_pH             .   .   .   X   X    X        X            4/7
+Paul_chl             X   X   X   .   .    .        .            3/7
+Paul_pH              .   .   .   X   .    X        X            3/7
+```
+
+**The claim above was WRONG, not just imprecisely worded:** `Windermere` crosses in 6 of 7 method
+variants — the SAME rate as three of the four positive-role series (`Lower Zurich`, `Peter_chl`,
+`Peter_doSat`). Crossing rate does NOT correlate with true/false-positive role at all. The actual
+distinctive outliers are `Paul_doSat` (the ONLY series crossing under literally every method tested)
+and `Paul_chl`/`Paul_pH` (tied for the LOWEST rate, 3/7) — not "Loch Leven and Paul doSat vs. the
+other 3." `Loch_Leven` itself sits at 6/7, indistinguishable from the role-mismatched `Windermere`
+and three positives.
+
+**This reframes the sharpest open question more precisely and more tractably than before:** the
+most informative comparison is not "2 stubborn negatives vs 3 clean negatives" (that framing doesn't
+survive the actual data) — it is **`Paul_doSat` (7/7) vs. its own siblings `Paul_chl`/`Paul_pH`
+(3/7 each)**: three variables measured on the SAME lake, SAME period, SAME (absence of)
+manipulation, differing only in which physical quantity is recorded. This is a cleaner natural
+experiment than any cross-lake comparison, since lake-level confounds (basin morphology, sampling
+protocol, observer, instrumentation) are held constant by construction. See the new investigation in
+`paul_lake_variable_comparison.py`/`paul_lake_variable_comparison_notes.md` for the follow-up.
+
+## Addendum 3 (2026-09-07) — Paul lake within-lake variable comparison: trend hypothesis REJECTED,
+inverted, new candidate found
+
+Ran `paul_lake_variable_comparison.py` on Paul lake's 3 variables (same lake, same period, same
+absence of manipulation — the cleanest natural comparison available, per the corrected framing
+above). Pre-registered falsifiable predicate: `Paul_doSat` (crosses 7/7 methods) shows a STRONGER
+raw monotonic trend than `Paul_chl`/`Paul_pH` (3/7 each), since expanding-Kendall-tau detectors are
+known to respond to genuine secular drift.
+
+**Result: REJECTED, and inverted.**
+
+| Variable | Spearman trend ρ | trend p-value | ACF lag-1 | TDA crossing rate |
+|---|---|---|---|---|
+| `pH` | **-0.579** (strong) | 2.7×10⁻³¹ | 0.940 | 3/7 (lowest) |
+| `chl` | -0.187 (weak) | 0.0006 | 0.922 | 3/7 (lowest) |
+| **`doSat`** | **-0.044 (essentially none)** | **0.418 (n.s.)** | **0.874 (lowest of the 3)** | **7/7 (highest)** |
+
+`pH` has by far the STRONGEST, most statistically overwhelming secular trend of the three
+variables, yet the LOWEST crossing rate. `doSat` has a trend statistically indistinguishable from
+zero, yet the HIGHEST possible crossing rate. This is the opposite of the pre-registered
+prediction — a clean, informative falsification, not a null (no-signal) result.
+
+**New candidate surfaced, not yet tested:** `doSat` has the lowest lag-1 autocorrelation of the
+three (0.874 vs. 0.922/0.940) — faster decorrelation, i.e. noisier / less persistent than `chl`/
+`pH`. A candidate mechanism: an AR(1) surrogate null is calibrated to the SAME empirical AC1 as the
+real series; a series with genuinely lower AC1 (like `doSat`) sits closer to white noise, and any
+higher-order structure in the real data (e.g. short storm/wind-mixing bursts well documented in
+limnological dissolved-oxygen records, not captured by a simple AR(1) model) would be relatively
+MORE anomalous against that null than the same structure would be against a higher-AC1 null — a
+different, autocorrelation-mediated route to more frequent crossings, not a trend-mediated one.
+**Not tested here** — this is a Pearl Registry candidate for a follow-up, not a claim.
+
+## Kill Analysis (OSA) — Addendum 3
+
+### What Was Confirmed
+- [x] The naive "raw monotonic trend explains crossing rate" hypothesis is REJECTED for this
+  specific, cleanest-available natural comparison (same lake, same period).
+
+### What Was NOT Confirmed
+- [x] No replacement mechanism confirmed — the autocorrelation-difference candidate is named but
+  untested.
+
+### Relaxation Map
+| Assumption | Modification | Note |
+|---|---|---|
+| Trend (Spearman ρ vs. time) as the candidate mechanism | Test lag-1 autocorrelation itself (not trend) as the predictor, across all 9 series (not just Paul lake's 3) — does crossing rate correlate with empirical AC1 across the full population? | Directly follows from this addendum's own surfaced candidate; cheap, reuses already-loaded series |
+| Within-lake (Paul) comparison only | Repeat the SAME within-lake comparison on Peter lake's 3 variables (chl, pH, doSat) as a second natural-experiment replicate | Peter is the positive-role lake; if the same AC1-crossing-rate pattern holds there too, it strengthens the candidate considerably |
+
+## Note on Floor-Ceiling (FL Step 4a) — Addendum 3
+
+Not applicable — this is a descriptive statistical comparison (trend, autocorrelation) of already-
+collected raw series, not a detection-rule run being tested against a threshold. There is no
+floor/ceiling construction here: the finding is a REJECT of a candidate mechanism via direct
+statistical comparison, not a pass/fail against a null-model floor.
+
+## Addendum 4 (2026-09-07) — AC1-vs-crossing-rate candidate tested population-wide: WEAK, not
+statistically confirmed
+
+Followed up Addendum 3's own surfaced candidate (lower lag-1 autocorrelation → higher TDA-crossing
+rate) across the full 9-series population (`ac1_vs_crossing_rate_check.py`).
+
+**Result: `rho=-0.523, p=0.149`** — direction matches the prediction, but NOT statistically
+significant at `n=9`. **Important confound caught before over-interpreting:** the 3 `obrienlakes`
+series (`Lower Zurich`, `Windermere`, `Loch Leven`) are MONTHLY-sampled PCA1 scores, while all 6
+`peterlake` series are DAILY-aggregated — adjacent daily values are mechanically more similar than
+adjacent monthly values, so AC1 differs by sampling interval alone, confounding any cross-population
+comparison. Re-ran restricted to the 6 sampling-frequency-matched `peterlake` series only
+(`ac1_vs_crossing_rate_peterlake_only.py`): **`rho=-0.441, p=0.381`** (`n=6`) — same direction,
+still not significant.
+
+**Verdict: WEAK, not CONFIRMED.** Both tests point the same direction the candidate predicted, but
+neither reaches significance, and `n=6-9` is honestly underpowered to detect anything short of a
+very strong effect. Per FL discipline, this stays `[WEAK]` — a hint worth naming, not a finding to
+promote or act on.
+
+## Note on Floor-Ceiling (FL Step 4a) — Addendum 4
+
+Not applicable — a correlation test between two already-computed descriptive statistics (AC1,
+crossing rate), not a detection-rule run against a null-model floor.
+
+## Session Summary — B3 case-study thread (2026-09-07)
+
+Three genuinely distinct candidate mechanisms for "why do some series resist correction under every
+method more than others" have now been tested against real data in this thread:
+1. **Local variance minimum at the crossing** — KILLED by its own positive control (same session,
+   2026-09-06).
+2. **Raw monotonic trend strength** — REJECTED, inverted (Addendum 3): the variable with by far the
+   strongest trend (`pH`) has the LOWEST crossing rate; the variable with no trend (`doSat`) has the
+   HIGHEST.
+3. **Lag-1 autocorrelation** — WEAK (Addendum 4): direction matches prediction twice (full
+   population and sampling-frequency-controlled subset) but neither reaches significance at the
+   available sample sizes.
+
+**Also corrected along the way:** the original framing ("2 series always cross, 3 never cross") was
+factually wrong, not merely imprecise — the real pattern is a spectrum with `Paul_doSat` as the sole
+7/7 outlier and `Paul_chl`/`Paul_pH` as the sole 3/7 low-crossers, uncorrelated with
+positive/negative role.
+
+**Honest state of the open question:** no single raw-series statistic tested so far cleanly explains
+the crossing-rate spectrum. The `AC1` candidate remains the most promising untested-to-significance
+lead (consistent direction, twice), but would need either a larger population or a differently-
+powered test (e.g., a designed comparison rather than the 9 series this bridge happens to have) to
+move past `[WEAK]`.
+
 ## Pearl Card Update
 
 **New information:** two specific series (Loch Leven, Paul doSat) have now resisted false-positive
