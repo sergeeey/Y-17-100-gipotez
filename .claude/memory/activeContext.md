@@ -11,42 +11,14 @@
 
 
 
+
 ## Current Focus
 [summarized] **B1/B2/B3 arc (H-B3-1 through H-B3-1k, ADR-010–027) archived to `history/activeContext-archive-20260906-b1b2b3.md`**
-[summarized] **[WS: B3 change-point, `/loop` continued] H-B3-1m (ADR-046):** закрывает ПОСЛЕДНИЙ пункт
-[summarized] **H-B2-1j/1k/1l scale sweep + первые 4 skeptic-прохода (ADR-047–053) archived to
-[summarized] **[WS: пятый skeptic-проход подряд, самый строгий] H-B2-1h REJECTED (ADR-054):** skeptic на
-
 [summarized] **5-й/6-й/7-й skeptic-проходы + H-B3-1m power-фикс (ADR-054–057) archived to
-`history/activeContext-archive-20260907-skeptic-sweep-part2.md`** — итог: 7/7 skeptic-проходов
-нашли реальные проблемы (H-B2-1h REJECTED математически, H-B3-1l WEAKENED, H-B3-1m финально
-REJECT после power-фикса), систематический скан флагованных экспериментов завершён.
+[summarized] **[WS: пользователь — 3 приоритета после 7/7 skeptic-скана] Мета-анализ (ADR-058) + B1/B4-B6
+[summarized] **[WS: H-B2-1m, прямая команда пользователя «Запусти H-B2-1l итд»] WEAKENED, не CONFIRMED
+[summarized] **[WS: H-B2-1m power follow-up, прямая команда пользователя] H1>H2, вердикт WEAKENED остаётся,
 
-**[WS: пользователь — 3 приоритета после 7/7 skeptic-скана] Мета-анализ (ADR-058) + B1/B4-B6
-(ADR-059).** Пользователь явно остановил автозапуск H-B2-1l (был бы 8-м экспериментом без анализа
-7/7): читать «skeptic 7/7» как провал generation process, не как повод запускать больше. Приоритет:
-анализ → B1 (делегирован агенту) → B4-B6 (пользователь ответил) → H-B2-1l (припаркован).
-**Мета-анализ:** прямое чтение всех 7 CORRECTION ADDENDUM → 3 под-паттерна, большинство (4/7) —
-неверифицированное механистическое предложение (естественноязыковой claim о поведении
-статистики использован как обоснование без прямой проверки). `03-methodology-rules/lesson-self-review-blind-spot-7of7.md`.
-**B1 (Q-GOE-vs-GUE) разрешён:** цитируемый аргумент H-7 TAD путает Poisson-vs-Wigner-Dyson
-(связность, верно) с GOE-vs-GUE (нарушение симметрии, не установлено) — реальная симметричная
-Hi-C-матрица по умолчанию GOE, не GUE. Gate 4 Scientism flag: датированная пометка «усиление для
-рукописи». H-B1-1b остаётся blocked, но сужен до ОДНОГО блокера (Option A, внешний, вне scope).
-**B4-B6:** пользователь ответил напрямую — доступа к другой машине сейчас нет, постоянное
-`unverified_source`, не переспрашивать. **[WS: user 3-priority redirect] CLOSED.**
-
-**[WS: H-B2-1m, прямая команда пользователя «Запусти H-B2-1l итд»] WEAKENED, не CONFIRMED
-(ADR-060).** Первое применение нового Step 0a Gate — ДО прогона поймал confound pooled-N (naive
-ρ=0.948 на данных без реальной связи). FL Step 8a skeptic нашёл ТРЕТИЙ RNG-независимость
-инцидент в арке (тоньше прежних — 15 разных кривых на N, но зависимых между срезами для
-совпадающего seed) — независимо перепроверено вычислением, исправлено `SeedSequence`. После
-фикса: 7/9 срезов положительны, но 0 значимых при N_DIM≥24 → критерий уточнён ДО финализации,
-вердикт WEAKENED. Честная картина: κ(V) сильно объясняет M1 при малом N (3,4,8,12, все ρ≥0.88),
-необнаружимо при большом (16-50). 7 регрессионных тестов, включая lock-in независимости RNG.
-**[WS: H-B2-1m] CLOSED.**
-
-**[WS: H-B2-1m power follow-up, прямая команда пользователя] H1>H2, вердикт WEAKENED остаётся,
 уверенность выросла (ADR-061).** Сиды увеличены 15→40 при N_DIM≥16 (граница из самих данных:
 N=12 значим, N=16 первый незначимый). Результат: точечные оценки СДВИНУЛИСЬ К НУЛЮ, не к
 значимости (N=16: -0.225→-0.012; N=50: 0.504→0.298) — сигнатура шума, регрессирующего к
@@ -66,6 +38,17 @@ H2 (просто мощность). Первичный вопрос моста B
 как первичный критерий) НЕ запущен автоматически — по собственной дисциплине сессии против
 автоцепочки. **[WS: H-B2-1n] CLOSED.**
 
+**[WS: H-B2-1o, прямая команда пользователя «запусти подтверждающий тест на свежих сидах итд
+все по очереди автономно»] CONFIRMED по букве, но сужен skeptic'ом (ADR-063).** Предрегистрированный
+подтверждающий тест: сиды 40-99 (0 пересечения с H-B2-1n), Fisher — первичный критерий с самого
+начала. Fisher p=0.0019 → CONFIRMED. Skeptic `[WEAKENED]`: 99.4% сигнала — от 3/5 срезов
+(N=16,24,32); N=40,50 дают ρ=0.007 дважды (не слабее — неотличимо от нуля). Post-hoc
+partial-conjunction (k=3/5, отгорожен как и Fisher в H-B2-1n) даёт p=0.151 — НЕ проходит,
+подтверждает возражение числом. Вырожденность m1/ω(A) на большом N проверена и исключена
+(CV≈1.0/0.07). Честный вывод: сигнал реален и реплицирован, но сужен до N∈{16,24,32};
+разрыв при N≥40 остаётся открытым. Новый тест N∈{64,80} назван (различил бы «невезучая пара»
+от «генуинный потолок»), НЕ запущен — требует новых данных. **[WS: H-B2-1o] CLOSED.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
 ## Project State
@@ -83,11 +66,13 @@ Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный ос�
 
 
 
+
 ## Architecture (файлы этой папки)
 - `00-catalog/` — источники задач (raw + verified subset + skeptic assessment)
 - `01-cross-domain-bridges/` — главный рабочий файл + H-7 контекст (два разных проекта!)
 - `02-related-projects-context/` — ChernoffPy, May 1972
 - `03-methodology-rules/` — переиспользуемые правила (execution rules, submission gate, ESV scoring)
+
 
 
 
@@ -103,6 +88,7 @@ python -m ruff check scripts/ tests/ # lint (line-length=100 pinned in pyproject
 # LEDGER summary — count by grep, never by hand:
 grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ /,"",$6); print $6}' | sort | uniq -c
 ```
+
 
 
 
@@ -126,7 +112,9 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 
+
 ## Auto-commit log
+- [2026-09-07 14:10] `1a53d71` (local, branch `feature/h-b2-1n-numerical-abscissa` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (final)
 - [2026-09-07 14:10] `ad0cc76` (local, branch `feature/h-b2-1n-numerical-abscissa` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-07 14:10] `30cf4bc` (local, branch `feature/h-b2-1n-numerical-abscissa` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1n -- numerical abscissa omega(A) tested against M1 at large N_DIM, WEAKENED with a walled-off exploratory Fisher signal
 - [2026-09-07 13:35] `82b5f25` (local, branch `feature/h-b2-1m-power-followup` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (final)
@@ -141,4 +129,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 11:27] `96b5b93` (local, branch `feature/h-b3-1m-power-fix-reject` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 2, final)
 - [2026-09-07 11:27] `8f81fe8` (local, branch `feature/h-b3-1m-power-fix-reject` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-07 11:27] `22cec95` (local, branch `feature/h-b3-1m-power-fix-reject` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B3-1m REJECT, finally -- power fix + independent Pettitt cross-check resolve the skeptic's open findings
-- [2026-09-07 11:04] `435a7f2` (local, branch `feature/h-b3-1m-skeptic-final-sweep-close` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 2, final)
