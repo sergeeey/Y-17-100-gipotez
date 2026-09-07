@@ -82,7 +82,7 @@ Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный ос�
 - **FL template source (reuse, don't reinvent):** `D:\Claude-cod-top-2026\experiments\_template\` (14 files) [VERIFIED]
 - **Files transferred:** 15 (2026-09-06)
 - **Bridges scoped:** 3 (RMT/Riemann — READY/BLOCKED split; ChernoffPy/UDE — needs formalization; May1972/TDA — ready to scope)
-- **Bridges blocked pending user input:** 3 (Frontier R&D, TOFT/SMT, RAF Theory)
+- **Bridges permanently `unverified_source`** (answered 2026-09-07, not pending): 3 (Frontier R&D, TOFT/SMT, RAF Theory)
 
 
 
@@ -133,6 +133,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-07 11:53] `be76b4b` (local, branch `feature/meta-analysis-b1-b4b6-resolution` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: root-cause self-review's 7/7 blind spot; resolve B1 (Q-GOE-vs-GUE) and B4-B6 per user direction
 - [2026-09-07 11:27] `96b5b93` (local, branch `feature/h-b3-1m-power-fix-reject` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 2, final)
 - [2026-09-07 11:27] `8f81fe8` (local, branch `feature/h-b3-1m-power-fix-reject` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry
 - [2026-09-07 11:27] `22cec95` (local, branch `feature/h-b3-1m-power-fix-reject` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B3-1m REJECT, finally -- power fix + independent Pettitt cross-check resolve the skeptic's open findings
@@ -147,4 +148,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 10:38] `8a7aef4` (local, branch `feature/h-b2-1h-skeptic-rejected` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1h REJECTED by fifth skeptic pass -- proven mathematically, not just re-argued
 - [2026-09-07 10:22] `9475623` (local, branch `feature/h-b2-1i-skeptic-weakened` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1i WEAKENED by fourth skeptic pass -- mildest of four, core measurement confirmed intact
 - [2026-09-07 10:12] `5aa54d5` (local, branch `feature/h-b2-1k-skeptic-falsified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1k FALSIFIED by third skeptic pass -- monotonicity criterion passed by pure noise ~always
-- [2026-09-07 10:02] `d198c40` (local, branch `feature/h-b2-1j-skeptic-confound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1j's M1-growth claim falsified by a confound the SAME session already knew to avoid
