@@ -1,0 +1,4032 @@
+{
+  "config": {
+    "n_reps": 500,
+    "seed": 20260908,
+    "transition_fixed": 2002.0,
+    "window": 80,
+    "n_valid_surrogate_leads": 500
+  },
+  "real_lead_months": 50.00000000000091,
+  "real_ac1_lead_months": -15.0,
+  "surrogate_lead_summary": {
+    "median": 6.499999999999545,
+    "mean": 5.070000000000022,
+    "std": 33.377314151980656,
+    "p05": -54.0,
+    "p50": 6.499999999999545,
+    "p80": 33.0,
+    "p95": 61.00000000000182,
+    "max": 74.00000000000091
+  },
+  "percentile_of_real_lead_within_null": 90.4,
+  "fraction_surrogates_matching_or_exceeding_real_lead": 0.096,
+  "ac1_lead_surrogate_summary": {
+    "median": 1.000000000001819,
+    "p05": -63.99999999999909,
+    "p95": 66.99999999999909,
+    "n_valid": 500
+  },
+  "verdict": "INCONCLUSIVE_AT_THIS_SAMPLE_SIZE",
+  "reps": [
+    {
+      "peak_ac1": 2003.75,
+      "peak_var": 2000.6666666666667,
+      "peak_tda": 1999.4166666666667,
+      "classical_peak_used": 2000.6666666666667,
+      "lead_months": 15.0,
+      "ac1_lead_months": 51.99999999999909
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 2001.6666666666667,
+      "peak_tda": 2001.1666666666667,
+      "classical_peak_used": 2001.6666666666667,
+      "lead_months": 6.0,
+      "ac1_lead_months": -27.0
+    },
+    {
+      "peak_ac1": 1999.9166666666667,
+      "peak_var": 1999.6666666666667,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 1999.9166666666667,
+      "lead_months": 12.0,
+      "ac1_lead_months": 12.0
+    },
+    {
+      "peak_ac1": 2000.75,
+      "peak_var": 2002.5833333333333,
+      "peak_tda": 2000.0833333333333,
+      "classical_peak_used": 2002.5833333333333,
+      "lead_months": 30.0,
+      "ac1_lead_months": 8.00000000000091
+    },
+    {
+      "peak_ac1": 2004.3333333333333,
+      "peak_var": 1999.3333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2004.3333333333333,
+      "lead_months": 66.0,
+      "ac1_lead_months": 66.0
+    },
+    {
+      "peak_ac1": 2000.25,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2001.5,
+      "classical_peak_used": 2000.25,
+      "lead_months": -15.0,
+      "ac1_lead_months": -15.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 1999.25,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 1999.25,
+      "lead_months": 0.0,
+      "ac1_lead_months": 69.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2002.9166666666667,
+      "peak_tda": 2000.5,
+      "classical_peak_used": 2002.9166666666667,
+      "lead_months": 29.00000000000091,
+      "ac1_lead_months": 54.0
+    },
+    {
+      "peak_ac1": 1999.5,
+      "peak_var": 2005.0,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 1999.5,
+      "lead_months": 6.9999999999990905,
+      "ac1_lead_months": 6.9999999999990905
+    },
+    {
+      "peak_ac1": 2000.25,
+      "peak_var": 2001.75,
+      "peak_tda": 2002.1666666666667,
+      "classical_peak_used": 2001.75,
+      "lead_months": -5.0000000000009095,
+      "ac1_lead_months": -23.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.4166666666667,
+      "classical_peak_used": 2005.0,
+      "lead_months": 66.99999999999909,
+      "ac1_lead_months": 66.99999999999909
+    },
+    {
+      "peak_ac1": 2000.0,
+      "peak_var": 2000.5,
+      "peak_tda": 1999.4166666666667,
+      "classical_peak_used": 2000.5,
+      "lead_months": 12.99999999999909,
+      "ac1_lead_months": 6.9999999999990905
+    },
+    {
+      "peak_ac1": 1999.5833333333333,
+      "peak_var": 2000.5833333333333,
+      "peak_tda": 2000.9166666666667,
+      "classical_peak_used": 2000.5833333333333,
+      "lead_months": -4.000000000001819,
+      "ac1_lead_months": -16.00000000000182
+    },
+    {
+      "peak_ac1": 2000.0833333333333,
+      "peak_var": 1999.5,
+      "peak_tda": 1999.5,
+      "classical_peak_used": 2000.0833333333333,
+      "lead_months": 6.9999999999990905,
+      "ac1_lead_months": 6.9999999999990905
+    },
+    {
+      "peak_ac1": 2004.5833333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 2004.5833333333333,
+      "lead_months": 63.99999999999909,
+      "ac1_lead_months": 63.99999999999909
+    },
+    {
+      "peak_ac1": 2001.4166666666667,
+      "peak_var": 2001.9166666666667,
+      "peak_tda": 2001.0833333333333,
+      "classical_peak_used": 2001.9166666666667,
+      "lead_months": 10.000000000001819,
+      "ac1_lead_months": 4.000000000001819
+    },
+    {
+      "peak_ac1": 2000.75,
+      "peak_var": 2003.5833333333333,
+      "peak_tda": 2003.9166666666667,
+      "classical_peak_used": 2000.75,
+      "lead_months": -38.00000000000091,
+      "ac1_lead_months": -38.00000000000091
+    },
+    {
+      "peak_ac1": 1999.5,
+      "peak_var": 2000.5,
+      "peak_tda": 2001.1666666666667,
+      "classical_peak_used": 2000.5,
+      "lead_months": -8.00000000000091,
+      "ac1_lead_months": -20.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.5833333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1999.5833333333333,
+      "lead_months": 9.0,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 2000.0833333333333,
+      "peak_tda": 2001.4166666666667,
+      "classical_peak_used": 2000.0833333333333,
+      "lead_months": -16.00000000000182,
+      "ac1_lead_months": -30.0
+    },
+    {
+      "peak_ac1": 2002.5,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2002.5,
+      "lead_months": 42.99999999999909,
+      "ac1_lead_months": 42.99999999999909
+    },
+    {
+      "peak_ac1": 2002.25,
+      "peak_var": 2003.0,
+      "peak_tda": 2002.0,
+      "classical_peak_used": 2002.25,
+      "lead_months": 3.0,
+      "ac1_lead_months": 3.0
+    },
+    {
+      "peak_ac1": 2003.0833333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 2003.0833333333333,
+      "lead_months": 45.0,
+      "ac1_lead_months": 45.0
+    },
+    {
+      "peak_ac1": 1999.4166666666667,
+      "peak_var": 1999.25,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 1999.4166666666667,
+      "lead_months": 6.0,
+      "ac1_lead_months": 6.0
+    },
+    {
+      "peak_ac1": 2000.5,
+      "peak_var": 2000.3333333333333,
+      "peak_tda": 2001.6666666666667,
+      "classical_peak_used": 2000.5,
+      "lead_months": -14.00000000000091,
+      "ac1_lead_months": -14.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2005.0,
+      "lead_months": 72.99999999999909,
+      "ac1_lead_months": 72.99999999999909
+    },
+    {
+      "peak_ac1": 2000.75,
+      "peak_var": 1999.8333333333333,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2000.75,
+      "lead_months": 21.99999999999909,
+      "ac1_lead_months": 21.99999999999909
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 2004.1666666666667,
+      "peak_tda": 2004.4166666666667,
+      "classical_peak_used": 2004.1666666666667,
+      "lead_months": -3.0,
+      "ac1_lead_months": -63.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2005.0,
+      "peak_tda": 2000.5,
+      "classical_peak_used": 2005.0,
+      "lead_months": 54.0,
+      "ac1_lead_months": -20.00000000000091
+    },
+    {
+      "peak_ac1": 2000.1666666666667,
+      "peak_var": 1999.75,
+      "peak_tda": 2000.3333333333333,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": -1.999999999998181,
+      "ac1_lead_months": -1.999999999998181
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2001.4166666666667,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2001.4166666666667,
+      "lead_months": 31.00000000000182,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2004.0,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -62.00000000000091,
+      "ac1_lead_months": -62.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 1999.3333333333333,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 1999.3333333333333,
+      "lead_months": 4.999999999998181,
+      "ac1_lead_months": 72.99999999999909
+    },
+    {
+      "peak_ac1": 2001.75,
+      "peak_var": 2005.0,
+      "peak_tda": 2000.5833333333333,
+      "classical_peak_used": 2001.75,
+      "lead_months": 14.00000000000091,
+      "ac1_lead_months": 14.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2004.3333333333333,
+      "peak_tda": 2003.6666666666667,
+      "classical_peak_used": 2004.3333333333333,
+      "lead_months": 7.999999999998181,
+      "ac1_lead_months": 15.99999999999909
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.1666666666667,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -4.000000000001819,
+      "ac1_lead_months": -4.000000000001819
+    },
+    {
+      "peak_ac1": 1999.5,
+      "peak_var": 2000.1666666666667,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": 16.00000000000182,
+      "ac1_lead_months": 8.00000000000091
+    },
+    {
+      "peak_ac1": 2001.8333333333333,
+      "peak_var": 1999.0,
+      "peak_tda": 2001.6666666666667,
+      "classical_peak_used": 2001.8333333333333,
+      "lead_months": 1.999999999998181,
+      "ac1_lead_months": 1.999999999998181
+    },
+    {
+      "peak_ac1": 1999.9166666666667,
+      "peak_var": 2001.75,
+      "peak_tda": 2004.5833333333333,
+      "classical_peak_used": 2001.75,
+      "lead_months": -33.99999999999909,
+      "ac1_lead_months": -55.99999999999818
+    },
+    {
+      "peak_ac1": 2001.5833333333333,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2001.5833333333333,
+      "lead_months": 31.99999999999818,
+      "ac1_lead_months": 31.99999999999818
+    },
+    {
+      "peak_ac1": 2001.3333333333333,
+      "peak_var": 2000.25,
+      "peak_tda": 2003.6666666666667,
+      "classical_peak_used": 2001.3333333333333,
+      "lead_months": -28.00000000000182,
+      "ac1_lead_months": -28.00000000000182
+    },
+    {
+      "peak_ac1": 2003.25,
+      "peak_var": 2003.1666666666667,
+      "peak_tda": 2000.75,
+      "classical_peak_used": 2003.1666666666667,
+      "lead_months": 29.00000000000091,
+      "ac1_lead_months": 30.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2000.25,
+      "peak_tda": 2000.0,
+      "classical_peak_used": 2000.25,
+      "lead_months": 3.0,
+      "ac1_lead_months": 60.0
+    },
+    {
+      "peak_ac1": 2003.1666666666667,
+      "peak_var": 2002.8333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2002.8333333333333,
+      "lead_months": 48.0,
+      "ac1_lead_months": 52.00000000000182
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 2000.5,
+      "classical_peak_used": 1999.0,
+      "lead_months": -18.0,
+      "ac1_lead_months": -18.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.9166666666667,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -13.000000000001819,
+      "ac1_lead_months": -13.000000000001819
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2000.8333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.8333333333333,
+      "lead_months": 24.0,
+      "ac1_lead_months": 74.00000000000091
+    },
+    {
+      "peak_ac1": 2003.4166666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2003.4166666666667,
+      "lead_months": -18.99999999999909,
+      "ac1_lead_months": -18.99999999999909
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 2001.4166666666667,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2001.4166666666667,
+      "lead_months": 31.00000000000182,
+      "ac1_lead_months": 1.000000000001819
+    },
+    {
+      "peak_ac1": 2000.0,
+      "peak_var": 2002.3333333333333,
+      "peak_tda": 2000.4166666666667,
+      "classical_peak_used": 2002.3333333333333,
+      "lead_months": 22.99999999999818,
+      "ac1_lead_months": -5.0000000000009095
+    },
+    {
+      "peak_ac1": 1999.5833333333333,
+      "peak_var": 1999.25,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 1999.5833333333333,
+      "lead_months": -65.00000000000091,
+      "ac1_lead_months": -65.00000000000091
+    },
+    {
+      "peak_ac1": 2001.1666666666667,
+      "peak_var": 2001.25,
+      "peak_tda": 1999.9166666666667,
+      "classical_peak_used": 2001.25,
+      "lead_months": 15.99999999999909,
+      "ac1_lead_months": 15.0
+    },
+    {
+      "peak_ac1": 2000.1666666666667,
+      "peak_var": 1999.5833333333333,
+      "peak_tda": 2001.3333333333333,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": -13.999999999998181,
+      "ac1_lead_months": -13.999999999998181
+    },
+    {
+      "peak_ac1": 1999.6666666666667,
+      "peak_var": 2001.0833333333333,
+      "peak_tda": 2000.1666666666667,
+      "classical_peak_used": 2001.0833333333333,
+      "lead_months": 10.999999999998181,
+      "ac1_lead_months": -6.0
+    },
+    {
+      "peak_ac1": 1999.25,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 1999.25,
+      "lead_months": -69.0,
+      "ac1_lead_months": -69.0
+    },
+    {
+      "peak_ac1": 1999.75,
+      "peak_var": 2000.3333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.3333333333333,
+      "lead_months": 18.0,
+      "ac1_lead_months": 11.00000000000091
+    },
+    {
+      "peak_ac1": 2004.1666666666667,
+      "peak_var": 2003.4166666666667,
+      "peak_tda": 2004.0833333333333,
+      "classical_peak_used": 2003.4166666666667,
+      "lead_months": -7.999999999998181,
+      "ac1_lead_months": 1.000000000001819
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.8333333333333,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 1999.8333333333333,
+      "lead_months": 6.0,
+      "ac1_lead_months": -6.0
+    },
+    {
+      "peak_ac1": 2003.4166666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 2003.4166666666667,
+      "lead_months": 49.00000000000182,
+      "ac1_lead_months": 49.00000000000182
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2005.0,
+      "lead_months": 74.00000000000091,
+      "ac1_lead_months": 74.00000000000091
+    },
+    {
+      "peak_ac1": 2003.3333333333333,
+      "peak_var": 2004.0833333333333,
+      "peak_tda": 2003.3333333333333,
+      "classical_peak_used": 2003.3333333333333,
+      "lead_months": 0.0,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 2000.4166666666667,
+      "classical_peak_used": 1998.9166666666667,
+      "lead_months": -18.0,
+      "ac1_lead_months": -18.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -6.0,
+      "ac1_lead_months": -6.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.1666666666667,
+      "peak_tda": 1999.5833333333333,
+      "classical_peak_used": 1999.1666666666667,
+      "lead_months": -4.999999999998181,
+      "ac1_lead_months": -9.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2005.0,
+      "lead_months": 74.00000000000091,
+      "ac1_lead_months": 74.00000000000091
+    },
+    {
+      "peak_ac1": 2000.1666666666667,
+      "peak_var": 1999.5,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": 15.0,
+      "ac1_lead_months": 15.0
+    },
+    {
+      "peak_ac1": 2002.8333333333333,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 1999.1666666666667,
+      "classical_peak_used": 2002.8333333333333,
+      "lead_months": 43.99999999999818,
+      "ac1_lead_months": 43.99999999999818
+    },
+    {
+      "peak_ac1": 2002.25,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2002.25,
+      "lead_months": 41.00000000000091,
+      "ac1_lead_months": 41.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2001.25,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2001.25,
+      "lead_months": 27.99999999999909,
+      "ac1_lead_months": 72.99999999999909
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2001.0,
+      "classical_peak_used": 1999.0,
+      "lead_months": -24.0,
+      "ac1_lead_months": -24.0
+    },
+    {
+      "peak_ac1": 2001.0833333333333,
+      "peak_var": 2001.5833333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2001.5833333333333,
+      "lead_months": 33.0,
+      "ac1_lead_months": 27.0
+    },
+    {
+      "peak_ac1": 1999.75,
+      "peak_var": 1999.9166666666667,
+      "peak_tda": 1999.4166666666667,
+      "classical_peak_used": 1999.9166666666667,
+      "lead_months": 6.0,
+      "ac1_lead_months": 3.9999999999990905
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 2004.8333333333333,
+      "classical_peak_used": 2005.0,
+      "lead_months": 2.0000000000009095,
+      "ac1_lead_months": 2.0000000000009095
+    },
+    {
+      "peak_ac1": 2001.9166666666667,
+      "peak_var": 2000.5833333333333,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2001.9166666666667,
+      "lead_months": -36.99999999999909,
+      "ac1_lead_months": -36.99999999999909
+    },
+    {
+      "peak_ac1": 2003.1666666666667,
+      "peak_var": 2002.0,
+      "peak_tda": 2003.1666666666667,
+      "classical_peak_used": 2002.0,
+      "lead_months": -14.00000000000091,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2005.0,
+      "peak_tda": 2002.5,
+      "classical_peak_used": 2005.0,
+      "lead_months": 30.0,
+      "ac1_lead_months": -44.00000000000091
+    },
+    {
+      "peak_ac1": 2000.8333333333333,
+      "peak_var": 2001.5833333333333,
+      "peak_tda": 2000.5,
+      "classical_peak_used": 2001.5833333333333,
+      "lead_months": 12.99999999999909,
+      "ac1_lead_months": 3.9999999999990905
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 1999.8333333333333,
+      "classical_peak_used": 1999.0,
+      "lead_months": -9.99999999999909,
+      "ac1_lead_months": -9.99999999999909
+    },
+    {
+      "peak_ac1": 1999.9166666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 1999.9166666666667,
+      "lead_months": 8.00000000000091,
+      "ac1_lead_months": 8.00000000000091
+    },
+    {
+      "peak_ac1": 2001.6666666666667,
+      "peak_var": 2003.0833333333333,
+      "peak_tda": 2000.4166666666667,
+      "classical_peak_used": 2001.6666666666667,
+      "lead_months": 15.0,
+      "ac1_lead_months": 15.0
+    },
+    {
+      "peak_ac1": 2000.3333333333333,
+      "peak_var": 1999.6666666666667,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.3333333333333,
+      "lead_months": 18.0,
+      "ac1_lead_months": 18.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 2005.0,
+      "lead_months": 68.00000000000091,
+      "ac1_lead_months": 68.00000000000091
+    },
+    {
+      "peak_ac1": 2000.0,
+      "peak_var": 1999.3333333333333,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 2000.0,
+      "lead_months": 11.00000000000091,
+      "ac1_lead_months": 11.00000000000091
+    },
+    {
+      "peak_ac1": 1999.6666666666667,
+      "peak_var": 1999.25,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 1999.6666666666667,
+      "lead_months": 7.000000000001819,
+      "ac1_lead_months": 7.000000000001819
+    },
+    {
+      "peak_ac1": 2003.3333333333333,
+      "peak_var": 2003.0,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2003.0,
+      "lead_months": 48.0,
+      "ac1_lead_months": 51.99999999999909
+    },
+    {
+      "peak_ac1": 2000.75,
+      "peak_var": 2000.3333333333333,
+      "peak_tda": 2003.0,
+      "classical_peak_used": 2000.75,
+      "lead_months": -27.0,
+      "ac1_lead_months": -27.0
+    },
+    {
+      "peak_ac1": 1999.9166666666667,
+      "peak_var": 1999.1666666666667,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 1999.9166666666667,
+      "lead_months": -60.99999999999909,
+      "ac1_lead_months": -60.99999999999909
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2003.0833333333333,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 2003.0833333333333,
+      "lead_months": 48.0,
+      "ac1_lead_months": 71.00000000000091
+    },
+    {
+      "peak_ac1": 2003.9166666666667,
+      "peak_var": 2003.1666666666667,
+      "peak_tda": 2001.0,
+      "classical_peak_used": 2003.1666666666667,
+      "lead_months": 26.00000000000091,
+      "ac1_lead_months": 35.00000000000091
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1999.1666666666667,
+      "lead_months": 4.000000000001819,
+      "ac1_lead_months": 4.000000000001819
+    },
+    {
+      "peak_ac1": 2001.25,
+      "peak_var": 1999.75,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2001.25,
+      "lead_months": 29.00000000000091,
+      "ac1_lead_months": 29.00000000000091
+    },
+    {
+      "peak_ac1": 2000.3333333333333,
+      "peak_var": 2001.8333333333333,
+      "peak_tda": 2000.25,
+      "classical_peak_used": 2001.8333333333333,
+      "lead_months": 18.99999999999909,
+      "ac1_lead_months": 0.9999999999990905
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 1999.8333333333333,
+      "peak_tda": 2000.5833333333333,
+      "classical_peak_used": 1999.8333333333333,
+      "lead_months": -9.0,
+      "ac1_lead_months": 53.00000000000091
+    },
+    {
+      "peak_ac1": 2002.5,
+      "peak_var": 2002.4166666666667,
+      "peak_tda": 1999.5833333333333,
+      "classical_peak_used": 2002.4166666666667,
+      "lead_months": 34.00000000000182,
+      "ac1_lead_months": 35.00000000000091
+    },
+    {
+      "peak_ac1": 1999.3333333333333,
+      "peak_var": 1999.5833333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1999.5833333333333,
+      "lead_months": 9.0,
+      "ac1_lead_months": 6.0
+    },
+    {
+      "peak_ac1": 1999.8333333333333,
+      "peak_var": 2000.5833333333333,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 2000.5833333333333,
+      "lead_months": 15.99999999999909,
+      "ac1_lead_months": 6.9999999999990905
+    },
+    {
+      "peak_ac1": 1999.75,
+      "peak_var": 2000.0,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.0,
+      "lead_months": 14.00000000000091,
+      "ac1_lead_months": 11.00000000000091
+    },
+    {
+      "peak_ac1": 2000.75,
+      "peak_var": 1999.5833333333333,
+      "peak_tda": 2000.3333333333333,
+      "classical_peak_used": 2000.75,
+      "lead_months": 5.0000000000009095,
+      "ac1_lead_months": 5.0000000000009095
+    },
+    {
+      "peak_ac1": 2002.8333333333333,
+      "peak_var": 2001.0,
+      "peak_tda": 1999.75,
+      "classical_peak_used": 2002.8333333333333,
+      "lead_months": 36.99999999999909,
+      "ac1_lead_months": 36.99999999999909
+    },
+    {
+      "peak_ac1": 1999.9166666666667,
+      "peak_var": 2000.1666666666667,
+      "peak_tda": 2000.0,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": 2.0000000000009095,
+      "ac1_lead_months": -0.9999999999990905
+    },
+    {
+      "peak_ac1": 1999.9166666666667,
+      "peak_var": 2000.0833333333333,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2000.0833333333333,
+      "lead_months": 12.99999999999909,
+      "ac1_lead_months": 11.00000000000091
+    },
+    {
+      "peak_ac1": 1999.4166666666667,
+      "peak_var": 2001.0833333333333,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2001.0833333333333,
+      "lead_months": -47.00000000000091,
+      "ac1_lead_months": -66.99999999999909
+    },
+    {
+      "peak_ac1": 1999.4166666666667,
+      "peak_var": 2004.8333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1999.4166666666667,
+      "lead_months": 7.000000000001819,
+      "ac1_lead_months": 7.000000000001819
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 1999.0,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 1999.0,
+      "lead_months": -3.9999999999990905,
+      "ac1_lead_months": -3.9999999999990905
+    },
+    {
+      "peak_ac1": 2003.5,
+      "peak_var": 2002.0833333333333,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2002.0833333333333,
+      "lead_months": 37.99999999999818,
+      "ac1_lead_months": 54.99999999999909
+    },
+    {
+      "peak_ac1": 2002.9166666666667,
+      "peak_var": 2004.25,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2002.9166666666667,
+      "lead_months": 49.00000000000182,
+      "ac1_lead_months": 49.00000000000182
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2000.9166666666667,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.9166666666667,
+      "lead_months": 25.00000000000182,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 2002.75,
+      "peak_var": 2001.5833333333333,
+      "peak_tda": 2004.0833333333333,
+      "classical_peak_used": 2001.5833333333333,
+      "lead_months": -30.0,
+      "ac1_lead_months": -15.99999999999909
+    },
+    {
+      "peak_ac1": 2003.0,
+      "peak_var": 2001.25,
+      "peak_tda": 2004.6666666666667,
+      "classical_peak_used": 2001.25,
+      "lead_months": -41.00000000000091,
+      "ac1_lead_months": -20.00000000000091
+    },
+    {
+      "peak_ac1": 1999.5833333333333,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 2000.25,
+      "classical_peak_used": 1999.5833333333333,
+      "lead_months": -8.00000000000091,
+      "ac1_lead_months": -8.00000000000091
+    },
+    {
+      "peak_ac1": 2002.4166666666667,
+      "peak_var": 2004.6666666666667,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2002.4166666666667,
+      "lead_months": -30.99999999999909,
+      "ac1_lead_months": -30.99999999999909
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2004.25,
+      "peak_tda": 2001.0,
+      "classical_peak_used": 2004.25,
+      "lead_months": 39.0,
+      "ac1_lead_months": 48.0
+    },
+    {
+      "peak_ac1": 1999.5833333333333,
+      "peak_var": 2004.25,
+      "peak_tda": 2003.4166666666667,
+      "classical_peak_used": 2004.25,
+      "lead_months": 9.99999999999909,
+      "ac1_lead_months": -46.00000000000182
+    },
+    {
+      "peak_ac1": 2000.5833333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2004.9166666666667,
+      "classical_peak_used": 2000.5833333333333,
+      "lead_months": -52.00000000000182,
+      "ac1_lead_months": -52.00000000000182
+    },
+    {
+      "peak_ac1": 2003.0,
+      "peak_var": 2000.5833333333333,
+      "peak_tda": 1999.8333333333333,
+      "classical_peak_used": 2003.0,
+      "lead_months": 38.00000000000091,
+      "ac1_lead_months": 38.00000000000091
+    },
+    {
+      "peak_ac1": 2000.1666666666667,
+      "peak_var": 2000.0,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": 15.0,
+      "ac1_lead_months": 15.0
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 1998.9166666666667,
+      "lead_months": -3.9999999999990905,
+      "ac1_lead_months": -3.9999999999990905
+    },
+    {
+      "peak_ac1": 2000.6666666666667,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 2001.75,
+      "classical_peak_used": 2000.6666666666667,
+      "lead_months": -12.99999999999909,
+      "ac1_lead_months": -12.99999999999909
+    },
+    {
+      "peak_ac1": 1999.4166666666667,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 1999.4166666666667,
+      "lead_months": 4.000000000001819,
+      "ac1_lead_months": 4.000000000001819
+    },
+    {
+      "peak_ac1": 2000.25,
+      "peak_var": 1999.0,
+      "peak_tda": 2002.6666666666667,
+      "classical_peak_used": 2000.25,
+      "lead_months": -29.00000000000091,
+      "ac1_lead_months": -29.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 2005.0,
+      "lead_months": 69.0,
+      "ac1_lead_months": 69.0
+    },
+    {
+      "peak_ac1": 2001.9166666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.1666666666667,
+      "classical_peak_used": 2001.9166666666667,
+      "lead_months": 33.0,
+      "ac1_lead_months": 33.0
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2000.5,
+      "classical_peak_used": 1999.0,
+      "lead_months": -18.0,
+      "ac1_lead_months": -18.0
+    },
+    {
+      "peak_ac1": 2003.3333333333333,
+      "peak_var": 2001.75,
+      "peak_tda": 2001.3333333333333,
+      "classical_peak_used": 2001.75,
+      "lead_months": 5.0000000000009095,
+      "ac1_lead_months": 24.0
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 2002.6666666666667,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2002.6666666666667,
+      "lead_months": 46.00000000000182,
+      "ac1_lead_months": 2.0000000000009095
+    },
+    {
+      "peak_ac1": 2001.5,
+      "peak_var": 2000.3333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2001.5,
+      "lead_months": 32.00000000000091,
+      "ac1_lead_months": 32.00000000000091
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 2002.8333333333333,
+      "peak_tda": 2002.75,
+      "classical_peak_used": 2002.8333333333333,
+      "lead_months": 0.9999999999990905,
+      "ac1_lead_months": -44.00000000000091
+    },
+    {
+      "peak_ac1": 1999.25,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 2004.25,
+      "classical_peak_used": 1999.25,
+      "lead_months": -60.0,
+      "ac1_lead_months": -60.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2000.25,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -17.00000000000091,
+      "ac1_lead_months": -17.00000000000091
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.5,
+      "classical_peak_used": 1999.1666666666667,
+      "lead_months": -3.9999999999990905,
+      "ac1_lead_months": -3.9999999999990905
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2004.1666666666667,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 2004.1666666666667,
+      "lead_months": 61.00000000000182,
+      "ac1_lead_months": -3.0
+    },
+    {
+      "peak_ac1": 2000.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.6666666666667,
+      "classical_peak_used": 2000.0,
+      "lead_months": 3.9999999999990905,
+      "ac1_lead_months": 3.9999999999990905
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.4166666666667,
+      "peak_tda": 2004.6666666666667,
+      "classical_peak_used": 1999.4166666666667,
+      "lead_months": -63.0,
+      "ac1_lead_months": -70.00000000000182
+    },
+    {
+      "peak_ac1": 1999.3333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1999.3333333333333,
+      "lead_months": 6.0,
+      "ac1_lead_months": 6.0
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 2004.5833333333333,
+      "peak_tda": 2001.9166666666667,
+      "classical_peak_used": 2004.5833333333333,
+      "lead_months": 31.99999999999818,
+      "ac1_lead_months": -34.00000000000182
+    },
+    {
+      "peak_ac1": 2001.0,
+      "peak_var": 2000.6666666666667,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 2001.0,
+      "lead_months": 21.0,
+      "ac1_lead_months": 21.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2002.75,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -47.00000000000091,
+      "ac1_lead_months": -47.00000000000091
+    },
+    {
+      "peak_ac1": 1999.3333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 1999.3333333333333,
+      "lead_months": 4.999999999998181,
+      "ac1_lead_months": 4.999999999998181
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 2003.4166666666667,
+      "peak_tda": 2000.8333333333333,
+      "classical_peak_used": 2003.4166666666667,
+      "lead_months": 31.00000000000182,
+      "ac1_lead_months": -21.0
+    },
+    {
+      "peak_ac1": 1999.6666666666667,
+      "peak_var": 2000.8333333333333,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2000.8333333333333,
+      "lead_months": -50.00000000000091,
+      "ac1_lead_months": -63.99999999999909
+    },
+    {
+      "peak_ac1": 2001.0833333333333,
+      "peak_var": 2000.5,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2001.0833333333333,
+      "lead_months": -47.00000000000091,
+      "ac1_lead_months": -47.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2004.5,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -68.00000000000091,
+      "ac1_lead_months": -68.00000000000091
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 2000.75,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.75,
+      "lead_months": 23.00000000000091,
+      "ac1_lead_months": 1.000000000001819
+    },
+    {
+      "peak_ac1": 2001.3333333333333,
+      "peak_var": 2000.0,
+      "peak_tda": 2003.6666666666667,
+      "classical_peak_used": 2001.3333333333333,
+      "lead_months": -28.00000000000182,
+      "ac1_lead_months": -28.00000000000182
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 2000.1666666666667,
+      "peak_tda": 2001.6666666666667,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": -18.0,
+      "ac1_lead_months": -33.0
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 2003.3333333333333,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2003.3333333333333,
+      "lead_months": -20.00000000000091,
+      "ac1_lead_months": -69.99999999999909
+    },
+    {
+      "peak_ac1": 1999.6666666666667,
+      "peak_var": 2003.25,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2003.25,
+      "lead_months": -21.0,
+      "ac1_lead_months": -63.99999999999909
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2005.0,
+      "lead_months": 0.0,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 2000.1666666666667,
+      "peak_var": 1999.5833333333333,
+      "peak_tda": 2001.3333333333333,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": -13.999999999998181,
+      "ac1_lead_months": -13.999999999998181
+    },
+    {
+      "peak_ac1": 2000.0833333333333,
+      "peak_var": 2001.8333333333333,
+      "peak_tda": 2004.6666666666667,
+      "classical_peak_used": 2001.8333333333333,
+      "lead_months": -34.00000000000182,
+      "ac1_lead_months": -55.00000000000182
+    },
+    {
+      "peak_ac1": 2001.8333333333333,
+      "peak_var": 1999.4166666666667,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2001.8333333333333,
+      "lead_months": 34.99999999999818,
+      "ac1_lead_months": 34.99999999999818
+    },
+    {
+      "peak_ac1": 1999.75,
+      "peak_var": 1999.8333333333333,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 1999.8333333333333,
+      "lead_months": 9.99999999999909,
+      "ac1_lead_months": 9.0
+    },
+    {
+      "peak_ac1": 1999.3333333333333,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 2001.4166666666667,
+      "classical_peak_used": 1999.3333333333333,
+      "lead_months": -25.00000000000182,
+      "ac1_lead_months": -25.00000000000182
+    },
+    {
+      "peak_ac1": 2000.25,
+      "peak_var": 1999.25,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.25,
+      "lead_months": 17.00000000000091,
+      "ac1_lead_months": 17.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2005.0,
+      "lead_months": 0.0,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 2002.4166666666667,
+      "peak_tda": 1999.5,
+      "classical_peak_used": 2002.4166666666667,
+      "lead_months": 35.00000000000091,
+      "ac1_lead_months": -6.0
+    },
+    {
+      "peak_ac1": 1999.8333333333333,
+      "peak_var": 2004.8333333333333,
+      "peak_tda": 2000.5833333333333,
+      "classical_peak_used": 1999.8333333333333,
+      "lead_months": -9.0,
+      "ac1_lead_months": -9.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": 0.0,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 2004.9166666666667,
+      "peak_var": 2001.9166666666667,
+      "peak_tda": 2004.5833333333333,
+      "classical_peak_used": 2001.9166666666667,
+      "lead_months": -31.99999999999818,
+      "ac1_lead_months": 4.000000000001819
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2000.8333333333333,
+      "classical_peak_used": 2005.0,
+      "lead_months": 50.00000000000091,
+      "ac1_lead_months": 50.00000000000091
+    },
+    {
+      "peak_ac1": 1999.5,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 2004.3333333333333,
+      "classical_peak_used": 1999.5,
+      "lead_months": -57.99999999999909,
+      "ac1_lead_months": -57.99999999999909
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2004.0,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2004.0,
+      "lead_months": -12.0,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 1999.4166666666667,
+      "peak_var": 2001.5,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2001.5,
+      "lead_months": -42.0,
+      "ac1_lead_months": -66.99999999999909
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2002.0833333333333,
+      "peak_tda": 2003.9166666666667,
+      "classical_peak_used": 2002.0833333333333,
+      "lead_months": -22.00000000000182,
+      "ac1_lead_months": 12.99999999999909
+    },
+    {
+      "peak_ac1": 2001.0,
+      "peak_var": 2003.0,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2001.0,
+      "lead_months": 24.0,
+      "ac1_lead_months": 24.0
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 1999.0,
+      "peak_tda": 2000.5833333333333,
+      "classical_peak_used": 1999.0,
+      "lead_months": -18.99999999999909,
+      "ac1_lead_months": -18.99999999999909
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2003.0,
+      "classical_peak_used": 1999.1666666666667,
+      "lead_months": -45.99999999999909,
+      "ac1_lead_months": -45.99999999999909
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 2004.5833333333333,
+      "peak_tda": 1999.4166666666667,
+      "classical_peak_used": 2004.5833333333333,
+      "lead_months": 61.99999999999818,
+      "ac1_lead_months": -4.000000000001819
+    },
+    {
+      "peak_ac1": 2000.0833333333333,
+      "peak_var": 2002.75,
+      "peak_tda": 2000.5833333333333,
+      "classical_peak_used": 2002.75,
+      "lead_months": 26.00000000000091,
+      "ac1_lead_months": -6.0
+    },
+    {
+      "peak_ac1": 1999.4166666666667,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 2001.4166666666667,
+      "classical_peak_used": 1999.4166666666667,
+      "lead_months": -24.0,
+      "ac1_lead_months": -24.0
+    },
+    {
+      "peak_ac1": 2000.8333333333333,
+      "peak_var": 2000.0,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2000.8333333333333,
+      "lead_months": -50.00000000000091,
+      "ac1_lead_months": -50.00000000000091
+    },
+    {
+      "peak_ac1": 1999.3333333333333,
+      "peak_var": 1999.1666666666667,
+      "peak_tda": 2003.1666666666667,
+      "classical_peak_used": 1999.3333333333333,
+      "lead_months": -46.00000000000182,
+      "ac1_lead_months": -46.00000000000182
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2003.0833333333333,
+      "peak_tda": 1999.6666666666667,
+      "classical_peak_used": 2003.0833333333333,
+      "lead_months": 40.99999999999818,
+      "ac1_lead_months": 63.99999999999909
+    },
+    {
+      "peak_ac1": 2000.1666666666667,
+      "peak_var": 1999.6666666666667,
+      "peak_tda": 2002.6666666666667,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": -30.0,
+      "ac1_lead_months": -30.0
+    },
+    {
+      "peak_ac1": 2001.1666666666667,
+      "peak_var": 1999.25,
+      "peak_tda": 1999.8333333333333,
+      "classical_peak_used": 2001.1666666666667,
+      "lead_months": 16.00000000000182,
+      "ac1_lead_months": 16.00000000000182
+    },
+    {
+      "peak_ac1": 2000.25,
+      "peak_var": 2000.4166666666667,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 2000.4166666666667,
+      "lead_months": 13.000000000001819,
+      "ac1_lead_months": 11.00000000000091
+    },
+    {
+      "peak_ac1": 1999.3333333333333,
+      "peak_var": 1999.25,
+      "peak_tda": 1999.4166666666667,
+      "classical_peak_used": 1999.3333333333333,
+      "lead_months": -1.000000000001819,
+      "ac1_lead_months": -1.000000000001819
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2002.0,
+      "peak_tda": 2002.4166666666667,
+      "classical_peak_used": 2002.0,
+      "lead_months": -5.0000000000009095,
+      "ac1_lead_months": 30.99999999999909
+    },
+    {
+      "peak_ac1": 1999.9166666666667,
+      "peak_var": 2000.25,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 2000.25,
+      "lead_months": 12.0,
+      "ac1_lead_months": 8.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2001.25,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 2001.25,
+      "lead_months": 24.0,
+      "ac1_lead_months": 69.0
+    },
+    {
+      "peak_ac1": 2001.4166666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2000.0,
+      "classical_peak_used": 2001.4166666666667,
+      "lead_months": 17.00000000000091,
+      "ac1_lead_months": 17.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.8333333333333,
+      "peak_tda": 1999.75,
+      "classical_peak_used": 1999.8333333333333,
+      "lead_months": 0.9999999999990905,
+      "ac1_lead_months": -11.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2002.5833333333333,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -45.0,
+      "ac1_lead_months": -45.0
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2000.8333333333333,
+      "classical_peak_used": 1998.9166666666667,
+      "lead_months": -22.99999999999818,
+      "ac1_lead_months": -22.99999999999818
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2003.5833333333333,
+      "peak_tda": 2003.8333333333333,
+      "classical_peak_used": 2003.5833333333333,
+      "lead_months": -3.0,
+      "ac1_lead_months": -60.0
+    },
+    {
+      "peak_ac1": 2000.4166666666667,
+      "peak_var": 1999.25,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2000.4166666666667,
+      "lead_months": 17.00000000000091,
+      "ac1_lead_months": 17.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2002.0833333333333,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 2002.0833333333333,
+      "lead_months": 33.99999999999909,
+      "ac1_lead_months": -5.0000000000009095
+    },
+    {
+      "peak_ac1": 2004.6666666666667,
+      "peak_var": 2002.8333333333333,
+      "peak_tda": 2002.8333333333333,
+      "classical_peak_used": 2002.8333333333333,
+      "lead_months": 0.0,
+      "ac1_lead_months": 22.00000000000182
+    },
+    {
+      "peak_ac1": 2001.5833333333333,
+      "peak_var": 2001.5833333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2001.5833333333333,
+      "lead_months": 33.0,
+      "ac1_lead_months": 33.0
+    },
+    {
+      "peak_ac1": 2002.25,
+      "peak_var": 2000.75,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2002.25,
+      "lead_months": 41.00000000000091,
+      "ac1_lead_months": 41.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2004.4166666666667,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2004.4166666666667,
+      "lead_months": -6.9999999999990905,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 2003.5833333333333,
+      "peak_var": 2003.75,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2003.5833333333333,
+      "lead_months": -17.00000000000091,
+      "ac1_lead_months": -17.00000000000091
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 1999.1666666666667,
+      "peak_tda": 2001.6666666666667,
+      "classical_peak_used": 1999.1666666666667,
+      "lead_months": -30.0,
+      "ac1_lead_months": -33.0
+    },
+    {
+      "peak_ac1": 1999.4166666666667,
+      "peak_var": 1999.4166666666667,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 1999.4166666666667,
+      "lead_months": 5.0000000000009095,
+      "ac1_lead_months": 5.0000000000009095
+    },
+    {
+      "peak_ac1": 2000.5833333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.8333333333333,
+      "classical_peak_used": 2000.5833333333333,
+      "lead_months": 9.0,
+      "ac1_lead_months": 9.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2000.75,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 2000.75,
+      "lead_months": 20.00000000000091,
+      "ac1_lead_months": -3.0
+    },
+    {
+      "peak_ac1": 1999.8333333333333,
+      "peak_var": 1999.9166666666667,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 1999.9166666666667,
+      "lead_months": 10.000000000001819,
+      "ac1_lead_months": 9.0
+    },
+    {
+      "peak_ac1": 1999.8333333333333,
+      "peak_var": 1999.5,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 1999.8333333333333,
+      "lead_months": -62.00000000000091,
+      "ac1_lead_months": -62.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.5,
+      "classical_peak_used": 2005.0,
+      "lead_months": 66.0,
+      "ac1_lead_months": -8.00000000000091
+    },
+    {
+      "peak_ac1": 2001.1666666666667,
+      "peak_var": 2003.0833333333333,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2001.1666666666667,
+      "lead_months": 26.00000000000091,
+      "ac1_lead_months": 26.00000000000091
+    },
+    {
+      "peak_ac1": 2000.5,
+      "peak_var": 1999.4166666666667,
+      "peak_tda": 1999.1666666666667,
+      "classical_peak_used": 2000.5,
+      "lead_months": 15.99999999999909,
+      "ac1_lead_months": 15.99999999999909
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2002.3333333333333,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -42.0,
+      "ac1_lead_months": -42.0
+    },
+    {
+      "peak_ac1": 2000.6666666666667,
+      "peak_var": 1999.1666666666667,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.6666666666667,
+      "lead_months": 22.00000000000182,
+      "ac1_lead_months": 22.00000000000182
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2000.4166666666667,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.4166666666667,
+      "lead_months": 19.00000000000182,
+      "ac1_lead_months": 74.00000000000091
+    },
+    {
+      "peak_ac1": 2000.1666666666667,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": -57.99999999999909,
+      "ac1_lead_months": -57.99999999999909
+    },
+    {
+      "peak_ac1": 2000.5833333333333,
+      "peak_var": 2005.0,
+      "peak_tda": 2003.75,
+      "classical_peak_used": 2000.5833333333333,
+      "lead_months": -38.00000000000091,
+      "ac1_lead_months": -38.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2001.5,
+      "peak_tda": 2001.3333333333333,
+      "classical_peak_used": 2001.5,
+      "lead_months": 2.0000000000009095,
+      "ac1_lead_months": -30.0
+    },
+    {
+      "peak_ac1": 1999.25,
+      "peak_var": 1999.25,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 1999.25,
+      "lead_months": 2.0000000000009095,
+      "ac1_lead_months": 2.0000000000009095
+    },
+    {
+      "peak_ac1": 2004.1666666666667,
+      "peak_var": 2000.25,
+      "peak_tda": 2000.0,
+      "classical_peak_used": 2000.25,
+      "lead_months": 3.0,
+      "ac1_lead_months": 50.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2005.0,
+      "peak_tda": 2004.1666666666667,
+      "classical_peak_used": 2005.0,
+      "lead_months": 9.99999999999909,
+      "ac1_lead_months": -64.00000000000182
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2001.75,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -35.00000000000091,
+      "ac1_lead_months": -35.00000000000091
+    },
+    {
+      "peak_ac1": 2000.5833333333333,
+      "peak_var": 2000.5833333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.5833333333333,
+      "lead_months": 21.0,
+      "ac1_lead_months": 21.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.1666666666667,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -4.000000000001819,
+      "ac1_lead_months": -4.000000000001819
+    },
+    {
+      "peak_ac1": 2004.9166666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 2002.8333333333333,
+      "classical_peak_used": 2004.9166666666667,
+      "lead_months": 25.00000000000182,
+      "ac1_lead_months": 25.00000000000182
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.6666666666667,
+      "classical_peak_used": 1998.9166666666667,
+      "lead_months": -9.0,
+      "ac1_lead_months": -9.0
+    },
+    {
+      "peak_ac1": 2003.4166666666667,
+      "peak_var": 2002.5833333333333,
+      "peak_tda": 2000.75,
+      "classical_peak_used": 2002.5833333333333,
+      "lead_months": 21.99999999999909,
+      "ac1_lead_months": 32.00000000000091
+    },
+    {
+      "peak_ac1": 1999.25,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2000.6666666666667,
+      "classical_peak_used": 1999.25,
+      "lead_months": -17.00000000000091,
+      "ac1_lead_months": -17.00000000000091
+    },
+    {
+      "peak_ac1": 2001.6666666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2001.6666666666667,
+      "lead_months": 34.00000000000182,
+      "ac1_lead_months": 34.00000000000182
+    },
+    {
+      "peak_ac1": 2000.1666666666667,
+      "peak_var": 2000.3333333333333,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2000.3333333333333,
+      "lead_months": 16.99999999999818,
+      "ac1_lead_months": 15.0
+    },
+    {
+      "peak_ac1": 2004.1666666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 2001.3333333333333,
+      "classical_peak_used": 2004.1666666666667,
+      "lead_months": 34.00000000000182,
+      "ac1_lead_months": 34.00000000000182
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.9166666666667,
+      "peak_tda": 2004.6666666666667,
+      "classical_peak_used": 1999.9166666666667,
+      "lead_months": -57.0,
+      "ac1_lead_months": -70.00000000000182
+    },
+    {
+      "peak_ac1": 2000.0833333333333,
+      "peak_var": 1999.75,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 2000.0833333333333,
+      "lead_months": 12.0,
+      "ac1_lead_months": 12.0
+    },
+    {
+      "peak_ac1": 2000.5833333333333,
+      "peak_var": 1999.3333333333333,
+      "peak_tda": 2001.0833333333333,
+      "classical_peak_used": 2000.5833333333333,
+      "lead_months": -6.0,
+      "ac1_lead_months": -6.0
+    },
+    {
+      "peak_ac1": 1999.6666666666667,
+      "peak_var": 1999.8333333333333,
+      "peak_tda": 2004.3333333333333,
+      "classical_peak_used": 1999.8333333333333,
+      "lead_months": -54.0,
+      "ac1_lead_months": -55.99999999999818
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2005.0,
+      "lead_months": 72.99999999999909,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 2004.25,
+      "peak_tda": 2004.5,
+      "classical_peak_used": 2004.25,
+      "lead_months": -3.0,
+      "ac1_lead_months": -66.99999999999909
+    },
+    {
+      "peak_ac1": 2001.3333333333333,
+      "peak_var": 1999.6666666666667,
+      "peak_tda": 1999.4166666666667,
+      "classical_peak_used": 2001.3333333333333,
+      "lead_months": 22.99999999999818,
+      "ac1_lead_months": 22.99999999999818
+    },
+    {
+      "peak_ac1": 2000.4166666666667,
+      "peak_var": 1999.9166666666667,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.4166666666667,
+      "lead_months": 19.00000000000182,
+      "ac1_lead_months": 19.00000000000182
+    },
+    {
+      "peak_ac1": 2001.1666666666667,
+      "peak_var": 2002.1666666666667,
+      "peak_tda": 1999.75,
+      "classical_peak_used": 2002.1666666666667,
+      "lead_months": 29.00000000000091,
+      "ac1_lead_months": 17.00000000000091
+    },
+    {
+      "peak_ac1": 1999.75,
+      "peak_var": 1999.1666666666667,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 1999.75,
+      "lead_months": 6.0,
+      "ac1_lead_months": 6.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2002.9166666666667,
+      "peak_tda": 2003.25,
+      "classical_peak_used": 2002.9166666666667,
+      "lead_months": -3.9999999999990905,
+      "ac1_lead_months": -53.00000000000091
+    },
+    {
+      "peak_ac1": 2004.6666666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 2000.9166666666667,
+      "classical_peak_used": 2004.6666666666667,
+      "lead_months": 45.0,
+      "ac1_lead_months": 45.0
+    },
+    {
+      "peak_ac1": 2001.8333333333333,
+      "peak_var": 2004.9166666666667,
+      "peak_tda": 2000.5833333333333,
+      "classical_peak_used": 2001.8333333333333,
+      "lead_months": 15.0,
+      "ac1_lead_months": 15.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2000.0,
+      "peak_tda": 2002.25,
+      "classical_peak_used": 2000.0,
+      "lead_months": -27.0,
+      "ac1_lead_months": -41.00000000000091
+    },
+    {
+      "peak_ac1": 2001.0833333333333,
+      "peak_var": 1999.3333333333333,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2001.0833333333333,
+      "lead_months": 24.99999999999909,
+      "ac1_lead_months": 24.99999999999909
+    },
+    {
+      "peak_ac1": 1999.5833333333333,
+      "peak_var": 2000.5,
+      "peak_tda": 1999.5833333333333,
+      "classical_peak_used": 2000.5,
+      "lead_months": 11.00000000000091,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 1999.75,
+      "classical_peak_used": 1999.0833333333333,
+      "lead_months": -8.00000000000091,
+      "ac1_lead_months": -8.00000000000091
+    },
+    {
+      "peak_ac1": 1999.5,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 2001.1666666666667,
+      "classical_peak_used": 1999.5,
+      "lead_months": -20.00000000000091,
+      "ac1_lead_months": -20.00000000000091
+    },
+    {
+      "peak_ac1": 2001.75,
+      "peak_var": 2001.0833333333333,
+      "peak_tda": 2001.1666666666667,
+      "classical_peak_used": 2001.75,
+      "lead_months": 6.9999999999990905,
+      "ac1_lead_months": 6.9999999999990905
+    },
+    {
+      "peak_ac1": 2001.5,
+      "peak_var": 1999.8333333333333,
+      "peak_tda": 2001.0,
+      "classical_peak_used": 2001.5,
+      "lead_months": 6.0,
+      "ac1_lead_months": 6.0
+    },
+    {
+      "peak_ac1": 2001.5,
+      "peak_var": 2002.9166666666667,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2001.5,
+      "lead_months": -42.0,
+      "ac1_lead_months": -42.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 1999.4166666666667,
+      "peak_tda": 1999.75,
+      "classical_peak_used": 1999.4166666666667,
+      "lead_months": -3.9999999999990905,
+      "ac1_lead_months": 63.0
+    },
+    {
+      "peak_ac1": 2002.4166666666667,
+      "peak_var": 2002.4166666666667,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2002.4166666666667,
+      "lead_months": -30.99999999999909,
+      "ac1_lead_months": -30.99999999999909
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2004.8333333333333,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2004.8333333333333,
+      "lead_months": -2.0000000000009095,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 1999.9166666666667,
+      "peak_var": 2001.1666666666667,
+      "peak_tda": 2004.6666666666667,
+      "classical_peak_used": 2001.1666666666667,
+      "lead_months": -42.0,
+      "ac1_lead_months": -57.0
+    },
+    {
+      "peak_ac1": 2001.6666666666667,
+      "peak_var": 2001.1666666666667,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2001.6666666666667,
+      "lead_months": 32.00000000000091,
+      "ac1_lead_months": 32.00000000000091
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 1999.5833333333333,
+      "peak_tda": 2000.9166666666667,
+      "classical_peak_used": 1999.5833333333333,
+      "lead_months": -16.00000000000182,
+      "ac1_lead_months": -21.0
+    },
+    {
+      "peak_ac1": 2000.5,
+      "peak_var": 1999.5,
+      "peak_tda": 1999.5833333333333,
+      "classical_peak_used": 2000.5,
+      "lead_months": 11.00000000000091,
+      "ac1_lead_months": 11.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2000.0,
+      "peak_tda": 2003.3333333333333,
+      "classical_peak_used": 2000.0,
+      "lead_months": -39.99999999999909,
+      "ac1_lead_months": 20.00000000000091
+    },
+    {
+      "peak_ac1": 2000.0,
+      "peak_var": 2002.75,
+      "peak_tda": 2000.6666666666667,
+      "classical_peak_used": 2002.75,
+      "lead_months": 24.99999999999909,
+      "ac1_lead_months": -8.00000000000091
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 2004.75,
+      "peak_tda": 2004.9166666666667,
+      "classical_peak_used": 2004.75,
+      "lead_months": -2.0000000000009095,
+      "ac1_lead_months": -69.0
+    },
+    {
+      "peak_ac1": 2000.1666666666667,
+      "peak_var": 2001.9166666666667,
+      "peak_tda": 2003.75,
+      "classical_peak_used": 2001.9166666666667,
+      "lead_months": -21.99999999999909,
+      "ac1_lead_months": -42.99999999999909
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2004.9166666666667,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 2004.9166666666667,
+      "lead_months": 68.00000000000091,
+      "ac1_lead_months": 69.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2000.0833333333333,
+      "peak_tda": 2000.75,
+      "classical_peak_used": 2000.0833333333333,
+      "lead_months": -8.00000000000091,
+      "ac1_lead_months": -23.00000000000091
+    },
+    {
+      "peak_ac1": 1999.8333333333333,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 1999.6666666666667,
+      "classical_peak_used": 1999.8333333333333,
+      "lead_months": 1.999999999998181,
+      "ac1_lead_months": 1.999999999998181
+    },
+    {
+      "peak_ac1": 1999.25,
+      "peak_var": 2000.1666666666667,
+      "peak_tda": 1999.1666666666667,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": 12.0,
+      "ac1_lead_months": 0.9999999999990905
+    },
+    {
+      "peak_ac1": 1999.25,
+      "peak_var": 2000.75,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2000.75,
+      "lead_months": -51.0,
+      "ac1_lead_months": -69.0
+    },
+    {
+      "peak_ac1": 2004.0833333333333,
+      "peak_var": 2004.0,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 2004.0,
+      "lead_months": 56.00000000000091,
+      "ac1_lead_months": 57.0
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 2000.4166666666667,
+      "classical_peak_used": 1999.0833333333333,
+      "lead_months": -16.00000000000182,
+      "ac1_lead_months": -16.00000000000182
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 1999.5,
+      "peak_tda": 2000.5,
+      "classical_peak_used": 1999.5,
+      "lead_months": -12.0,
+      "ac1_lead_months": -15.99999999999909
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2003.25,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -53.00000000000091,
+      "ac1_lead_months": -53.00000000000091
+    },
+    {
+      "peak_ac1": 1999.8333333333333,
+      "peak_var": 1999.4166666666667,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1999.8333333333333,
+      "lead_months": 12.0,
+      "ac1_lead_months": 12.0
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 2004.3333333333333,
+      "peak_tda": 2002.1666666666667,
+      "classical_peak_used": 2004.3333333333333,
+      "lead_months": 25.99999999999818,
+      "ac1_lead_months": -39.0
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 1999.0,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1999.0,
+      "lead_months": 2.0000000000009095,
+      "ac1_lead_months": 2.0000000000009095
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 2001.1666666666667,
+      "peak_tda": 2003.0,
+      "classical_peak_used": 2001.1666666666667,
+      "lead_months": -21.99999999999909,
+      "ac1_lead_months": -48.99999999999909
+    },
+    {
+      "peak_ac1": 2003.25,
+      "peak_var": 1999.5,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2003.25,
+      "lead_months": 53.00000000000091,
+      "ac1_lead_months": 53.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 1998.9166666666667,
+      "lead_months": -3.9999999999990905,
+      "ac1_lead_months": -5.0000000000009095
+    },
+    {
+      "peak_ac1": 2003.0,
+      "peak_var": 1999.3333333333333,
+      "peak_tda": 2000.75,
+      "classical_peak_used": 2003.0,
+      "lead_months": 27.0,
+      "ac1_lead_months": 27.0
+    },
+    {
+      "peak_ac1": 2001.5,
+      "peak_var": 1999.0,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2001.5,
+      "lead_months": -42.0,
+      "ac1_lead_months": -42.0
+    },
+    {
+      "peak_ac1": 2000.25,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.8333333333333,
+      "classical_peak_used": 2000.25,
+      "lead_months": 5.0000000000009095,
+      "ac1_lead_months": 5.0000000000009095
+    },
+    {
+      "peak_ac1": 2001.5,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2004.25,
+      "classical_peak_used": 2001.5,
+      "lead_months": -33.0,
+      "ac1_lead_months": -33.0
+    },
+    {
+      "peak_ac1": 2000.1666666666667,
+      "peak_var": 1999.8333333333333,
+      "peak_tda": 1999.1666666666667,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": 12.0,
+      "ac1_lead_months": 12.0
+    },
+    {
+      "peak_ac1": 2001.8333333333333,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 2001.0833333333333,
+      "classical_peak_used": 2001.8333333333333,
+      "lead_months": 9.0,
+      "ac1_lead_months": 9.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.1666666666667,
+      "classical_peak_used": 2005.0,
+      "lead_months": 69.99999999999909,
+      "ac1_lead_months": 69.99999999999909
+    },
+    {
+      "peak_ac1": 1999.25,
+      "peak_var": 2001.75,
+      "peak_tda": 2002.1666666666667,
+      "classical_peak_used": 2001.75,
+      "lead_months": -5.0000000000009095,
+      "ac1_lead_months": -35.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2005.0,
+      "lead_months": 72.0,
+      "ac1_lead_months": 72.0
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 1999.5,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1999.5,
+      "lead_months": 8.00000000000091,
+      "ac1_lead_months": 2.0000000000009095
+    },
+    {
+      "peak_ac1": 2003.1666666666667,
+      "peak_var": 2000.0833333333333,
+      "peak_tda": 2002.6666666666667,
+      "classical_peak_used": 2003.1666666666667,
+      "lead_months": 6.0,
+      "ac1_lead_months": 6.0
+    },
+    {
+      "peak_ac1": 2003.9166666666667,
+      "peak_var": 2002.5,
+      "peak_tda": 2004.4166666666667,
+      "classical_peak_used": 2002.5,
+      "lead_months": -23.00000000000091,
+      "ac1_lead_months": -6.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2003.0,
+      "peak_tda": 2001.75,
+      "classical_peak_used": 2003.0,
+      "lead_months": 15.0,
+      "ac1_lead_months": 39.0
+    },
+    {
+      "peak_ac1": 2001.75,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.75,
+      "classical_peak_used": 2001.75,
+      "lead_months": 24.0,
+      "ac1_lead_months": 24.0
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 2000.5,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2000.5,
+      "lead_months": -54.0,
+      "ac1_lead_months": -69.99999999999909
+    },
+    {
+      "peak_ac1": 2003.75,
+      "peak_var": 2004.0833333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2003.75,
+      "lead_months": 59.00000000000091,
+      "ac1_lead_months": 59.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -1.000000000001819,
+      "ac1_lead_months": -1.000000000001819
+    },
+    {
+      "peak_ac1": 2002.75,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2000.3333333333333,
+      "classical_peak_used": 2002.75,
+      "lead_months": 29.00000000000091,
+      "ac1_lead_months": 29.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.3333333333333,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 1999.3333333333333,
+      "lead_months": 0.0,
+      "ac1_lead_months": -6.0
+    },
+    {
+      "peak_ac1": 1999.4166666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 2001.0833333333333,
+      "classical_peak_used": 1999.4166666666667,
+      "lead_months": -19.99999999999818,
+      "ac1_lead_months": -19.99999999999818
+    },
+    {
+      "peak_ac1": 2000.5833333333333,
+      "peak_var": 2001.8333333333333,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 2001.8333333333333,
+      "lead_months": 33.0,
+      "ac1_lead_months": 18.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2002.3333333333333,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -42.0,
+      "ac1_lead_months": -42.0
+    },
+    {
+      "peak_ac1": 2000.0,
+      "peak_var": 1999.75,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 2000.0,
+      "lead_months": 8.00000000000091,
+      "ac1_lead_months": 8.00000000000091
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 1999.3333333333333,
+      "peak_tda": 2001.5,
+      "classical_peak_used": 1999.3333333333333,
+      "lead_months": -26.00000000000091,
+      "ac1_lead_months": -27.99999999999909
+    },
+    {
+      "peak_ac1": 2003.0833333333333,
+      "peak_var": 2005.0,
+      "peak_tda": 2003.25,
+      "classical_peak_used": 2003.0833333333333,
+      "lead_months": -2.0000000000009095,
+      "ac1_lead_months": -2.0000000000009095
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.75,
+      "peak_tda": 2000.8333333333333,
+      "classical_peak_used": 1999.75,
+      "lead_months": -12.99999999999909,
+      "ac1_lead_months": -24.0
+    },
+    {
+      "peak_ac1": 2001.0,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 2004.9166666666667,
+      "classical_peak_used": 2001.0,
+      "lead_months": -47.00000000000091,
+      "ac1_lead_months": -47.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": 0.0,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2000.9166666666667,
+      "peak_tda": 1999.5833333333333,
+      "classical_peak_used": 2000.9166666666667,
+      "lead_months": 16.00000000000182,
+      "ac1_lead_months": -9.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.6666666666667,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 1999.6666666666667,
+      "lead_months": 8.00000000000091,
+      "ac1_lead_months": -2.0000000000009095
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.1666666666667,
+      "classical_peak_used": 2005.0,
+      "lead_months": 69.99999999999909,
+      "ac1_lead_months": 69.99999999999909
+    },
+    {
+      "peak_ac1": 1999.25,
+      "peak_var": 2003.0,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2003.0,
+      "lead_months": -24.0,
+      "ac1_lead_months": -69.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2004.3333333333333,
+      "peak_tda": 2000.5,
+      "classical_peak_used": 2004.3333333333333,
+      "lead_months": 45.99999999999909,
+      "ac1_lead_months": -20.00000000000091
+    },
+    {
+      "peak_ac1": 2003.0833333333333,
+      "peak_var": 2001.0,
+      "peak_tda": 1999.1666666666667,
+      "classical_peak_used": 2001.0,
+      "lead_months": 21.99999999999909,
+      "ac1_lead_months": 46.99999999999818
+    },
+    {
+      "peak_ac1": 2003.25,
+      "peak_var": 1999.0,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2003.25,
+      "lead_months": -21.0,
+      "ac1_lead_months": -21.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.5833333333333,
+      "classical_peak_used": 2005.0,
+      "lead_months": 65.00000000000091,
+      "ac1_lead_months": 65.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2000.0833333333333,
+      "peak_tda": 2001.5833333333333,
+      "classical_peak_used": 2000.0833333333333,
+      "lead_months": -18.0,
+      "ac1_lead_months": 41.00000000000091
+    },
+    {
+      "peak_ac1": 2004.8333333333333,
+      "peak_var": 2002.9166666666667,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 2002.9166666666667,
+      "lead_months": 44.00000000000091,
+      "ac1_lead_months": 66.99999999999909
+    },
+    {
+      "peak_ac1": 1999.4166666666667,
+      "peak_var": 2001.4166666666667,
+      "peak_tda": 2004.6666666666667,
+      "classical_peak_used": 2001.4166666666667,
+      "lead_months": -39.0,
+      "ac1_lead_months": -63.0
+    },
+    {
+      "peak_ac1": 1999.25,
+      "peak_var": 2000.3333333333333,
+      "peak_tda": 1999.6666666666667,
+      "classical_peak_used": 2000.3333333333333,
+      "lead_months": 7.999999999998181,
+      "ac1_lead_months": -5.0000000000009095
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 2001.4166666666667,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2001.4166666666667,
+      "lead_months": 30.0,
+      "ac1_lead_months": 3.0
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 2004.0,
+      "classical_peak_used": 2005.0,
+      "lead_months": 12.0,
+      "ac1_lead_months": -60.99999999999909
+    },
+    {
+      "peak_ac1": 2004.25,
+      "peak_var": 2000.0,
+      "peak_tda": 1999.75,
+      "classical_peak_used": 2000.0,
+      "lead_months": 3.0,
+      "ac1_lead_months": 54.0
+    },
+    {
+      "peak_ac1": 2002.9166666666667,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 2000.5,
+      "classical_peak_used": 2002.9166666666667,
+      "lead_months": 29.00000000000091,
+      "ac1_lead_months": 29.00000000000091
+    },
+    {
+      "peak_ac1": 2000.6666666666667,
+      "peak_var": 2000.6666666666667,
+      "peak_tda": 1999.4166666666667,
+      "classical_peak_used": 2000.6666666666667,
+      "lead_months": 15.0,
+      "ac1_lead_months": 15.0
+    },
+    {
+      "peak_ac1": 2002.3333333333333,
+      "peak_var": 2001.0,
+      "peak_tda": 2003.1666666666667,
+      "classical_peak_used": 2002.3333333333333,
+      "lead_months": -10.000000000001819,
+      "ac1_lead_months": -10.000000000001819
+    },
+    {
+      "peak_ac1": 1999.9166666666667,
+      "peak_var": 2002.8333333333333,
+      "peak_tda": 1999.5833333333333,
+      "classical_peak_used": 2002.8333333333333,
+      "lead_months": 39.0,
+      "ac1_lead_months": 4.000000000001819
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.1666666666667,
+      "peak_tda": 1999.9166666666667,
+      "classical_peak_used": 1999.1666666666667,
+      "lead_months": -9.0,
+      "ac1_lead_months": -13.000000000001819
+    },
+    {
+      "peak_ac1": 1999.5,
+      "peak_var": 1999.6666666666667,
+      "peak_tda": 2000.0,
+      "classical_peak_used": 1999.6666666666667,
+      "lead_months": -3.9999999999990905,
+      "ac1_lead_months": -6.0
+    },
+    {
+      "peak_ac1": 2001.6666666666667,
+      "peak_var": 2000.0833333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2001.6666666666667,
+      "lead_months": 34.00000000000182,
+      "ac1_lead_months": 34.00000000000182
+    },
+    {
+      "peak_ac1": 2001.1666666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2001.1666666666667,
+      "lead_months": 28.00000000000182,
+      "ac1_lead_months": 28.00000000000182
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2000.9166666666667,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2000.9166666666667,
+      "lead_months": -48.99999999999909,
+      "ac1_lead_months": -74.00000000000091
+    },
+    {
+      "peak_ac1": 2001.0833333333333,
+      "peak_var": 2002.25,
+      "peak_tda": 2004.9166666666667,
+      "classical_peak_used": 2002.25,
+      "lead_months": -32.00000000000091,
+      "ac1_lead_months": -46.00000000000182
+    },
+    {
+      "peak_ac1": 2002.6666666666667,
+      "peak_var": 2003.5,
+      "peak_tda": 2000.9166666666667,
+      "classical_peak_used": 2002.6666666666667,
+      "lead_months": 21.0,
+      "ac1_lead_months": 21.0
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 2002.5,
+      "peak_tda": 2002.5,
+      "classical_peak_used": 2002.5,
+      "lead_months": 0.0,
+      "ac1_lead_months": -42.0
+    },
+    {
+      "peak_ac1": 2000.6666666666667,
+      "peak_var": 1999.5,
+      "peak_tda": 1999.9166666666667,
+      "classical_peak_used": 2000.6666666666667,
+      "lead_months": 9.0,
+      "ac1_lead_months": 9.0
+    },
+    {
+      "peak_ac1": 2004.0,
+      "peak_var": 2005.0,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2004.0,
+      "lead_months": -12.0,
+      "ac1_lead_months": -12.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.5,
+      "peak_tda": 2002.5,
+      "classical_peak_used": 1999.5,
+      "lead_months": -36.0,
+      "ac1_lead_months": -44.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.1666666666667,
+      "peak_tda": 2004.75,
+      "classical_peak_used": 1999.1666666666667,
+      "lead_months": -66.99999999999909,
+      "ac1_lead_months": -71.00000000000091
+    },
+    {
+      "peak_ac1": 2003.25,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 2000.25,
+      "classical_peak_used": 2003.25,
+      "lead_months": 36.0,
+      "ac1_lead_months": 36.0
+    },
+    {
+      "peak_ac1": 2000.1666666666667,
+      "peak_var": 1999.4166666666667,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": 14.00000000000091,
+      "ac1_lead_months": 14.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.0,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1999.0,
+      "lead_months": 2.0000000000009095,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 2001.4166666666667,
+      "peak_var": 2000.0833333333333,
+      "peak_tda": 2000.25,
+      "classical_peak_used": 2001.4166666666667,
+      "lead_months": 14.00000000000091,
+      "ac1_lead_months": 14.00000000000091
+    },
+    {
+      "peak_ac1": 1999.5833333333333,
+      "peak_var": 2000.0,
+      "peak_tda": 2000.75,
+      "classical_peak_used": 2000.0,
+      "lead_months": -9.0,
+      "ac1_lead_months": -14.00000000000091
+    },
+    {
+      "peak_ac1": 1999.25,
+      "peak_var": 1999.4166666666667,
+      "peak_tda": 2003.25,
+      "classical_peak_used": 1999.4166666666667,
+      "lead_months": -45.99999999999909,
+      "ac1_lead_months": -48.0
+    },
+    {
+      "peak_ac1": 2001.5833333333333,
+      "peak_var": 2005.0,
+      "peak_tda": 2004.8333333333333,
+      "classical_peak_used": 2001.5833333333333,
+      "lead_months": -39.0,
+      "ac1_lead_months": -39.0
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 2001.25,
+      "classical_peak_used": 1999.0833333333333,
+      "lead_months": -26.00000000000091,
+      "ac1_lead_months": -26.00000000000091
+    },
+    {
+      "peak_ac1": 2000.4166666666667,
+      "peak_var": 2000.75,
+      "peak_tda": 2003.4166666666667,
+      "classical_peak_used": 2000.75,
+      "lead_months": -32.00000000000091,
+      "ac1_lead_months": -36.0
+    },
+    {
+      "peak_ac1": 1999.5833333333333,
+      "peak_var": 1999.0,
+      "peak_tda": 2004.9166666666667,
+      "classical_peak_used": 1999.5833333333333,
+      "lead_months": -64.00000000000182,
+      "ac1_lead_months": -64.00000000000182
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2004.6666666666667,
+      "peak_tda": 2000.6666666666667,
+      "classical_peak_used": 2004.6666666666667,
+      "lead_months": 48.0,
+      "ac1_lead_months": 51.99999999999909
+    },
+    {
+      "peak_ac1": 2002.9166666666667,
+      "peak_var": 1999.0,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2002.9166666666667,
+      "lead_months": 47.00000000000091,
+      "ac1_lead_months": 47.00000000000091
+    },
+    {
+      "peak_ac1": 2002.0,
+      "peak_var": 2002.9166666666667,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2002.0,
+      "lead_months": -36.0,
+      "ac1_lead_months": -36.0
+    },
+    {
+      "peak_ac1": 2003.3333333333333,
+      "peak_var": 2003.25,
+      "peak_tda": 2001.25,
+      "classical_peak_used": 2003.25,
+      "lead_months": 24.0,
+      "ac1_lead_months": 24.99999999999909
+    },
+    {
+      "peak_ac1": 1999.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2002.1666666666667,
+      "classical_peak_used": 1999.8333333333333,
+      "lead_months": -28.00000000000182,
+      "ac1_lead_months": -28.00000000000182
+    },
+    {
+      "peak_ac1": 2004.4166666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 2000.4166666666667,
+      "classical_peak_used": 2004.4166666666667,
+      "lead_months": 48.0,
+      "ac1_lead_months": 48.0
+    },
+    {
+      "peak_ac1": 1999.5,
+      "peak_var": 1999.5,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 1999.5,
+      "lead_months": 5.0000000000009095,
+      "ac1_lead_months": 5.0000000000009095
+    },
+    {
+      "peak_ac1": 2003.5,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2003.5,
+      "lead_months": 56.00000000000091,
+      "ac1_lead_months": 56.00000000000091
+    },
+    {
+      "peak_ac1": 2004.8333333333333,
+      "peak_var": 2003.5833333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2003.5833333333333,
+      "lead_months": 57.0,
+      "ac1_lead_months": 72.0
+    },
+    {
+      "peak_ac1": 2004.0833333333333,
+      "peak_var": 2004.75,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 2004.0833333333333,
+      "lead_months": 60.0,
+      "ac1_lead_months": 60.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2002.0,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -38.00000000000091,
+      "ac1_lead_months": -38.00000000000091
+    },
+    {
+      "peak_ac1": 2000.75,
+      "peak_var": 2000.75,
+      "peak_tda": 2003.0833333333333,
+      "classical_peak_used": 2000.75,
+      "lead_months": -27.99999999999909,
+      "ac1_lead_months": -27.99999999999909
+    },
+    {
+      "peak_ac1": 2003.0833333333333,
+      "peak_var": 2003.75,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2003.0833333333333,
+      "lead_months": 49.99999999999818,
+      "ac1_lead_months": 49.99999999999818
+    },
+    {
+      "peak_ac1": 2004.0833333333333,
+      "peak_var": 2001.5,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2001.5,
+      "lead_months": 30.0,
+      "ac1_lead_months": 60.99999999999909
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 1999.1666666666667,
+      "lead_months": -1.999999999998181,
+      "ac1_lead_months": -1.999999999998181
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2004.9166666666667,
+      "peak_tda": 2004.0,
+      "classical_peak_used": 2004.9166666666667,
+      "lead_months": 11.00000000000091,
+      "ac1_lead_months": 12.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2001.4166666666667,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 2001.4166666666667,
+      "lead_months": 25.00000000000182,
+      "ac1_lead_months": 68.00000000000091
+    },
+    {
+      "peak_ac1": 2000.8333333333333,
+      "peak_var": 2002.8333333333333,
+      "peak_tda": 2000.5833333333333,
+      "classical_peak_used": 2002.8333333333333,
+      "lead_months": 27.0,
+      "ac1_lead_months": 3.0
+    },
+    {
+      "peak_ac1": 2003.9166666666667,
+      "peak_var": 1999.5,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2003.9166666666667,
+      "lead_months": 61.00000000000182,
+      "ac1_lead_months": 61.00000000000182
+    },
+    {
+      "peak_ac1": 2000.0,
+      "peak_var": 2000.4166666666667,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2000.4166666666667,
+      "lead_months": 17.00000000000091,
+      "ac1_lead_months": 12.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2002.0833333333333,
+      "peak_tda": 1999.1666666666667,
+      "classical_peak_used": 2002.0833333333333,
+      "lead_months": 34.99999999999818,
+      "ac1_lead_months": 69.99999999999909
+    },
+    {
+      "peak_ac1": 2000.1666666666667,
+      "peak_var": 2000.5,
+      "peak_tda": 2003.3333333333333,
+      "classical_peak_used": 2000.5,
+      "lead_months": -33.99999999999909,
+      "ac1_lead_months": -37.99999999999818
+    },
+    {
+      "peak_ac1": 2001.1666666666667,
+      "peak_var": 1999.6666666666667,
+      "peak_tda": 1999.4166666666667,
+      "classical_peak_used": 2001.1666666666667,
+      "lead_months": 21.0,
+      "ac1_lead_months": 21.0
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 1999.3333333333333,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 1999.3333333333333,
+      "lead_months": -68.00000000000091,
+      "ac1_lead_months": -72.99999999999909
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 2005.0,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 1999.0833333333333,
+      "lead_months": 1.999999999998181,
+      "ac1_lead_months": 1.999999999998181
+    },
+    {
+      "peak_ac1": 2001.25,
+      "peak_var": 2000.0833333333333,
+      "peak_tda": 2004.5833333333333,
+      "classical_peak_used": 2001.25,
+      "lead_months": -39.99999999999909,
+      "ac1_lead_months": -39.99999999999909
+    },
+    {
+      "peak_ac1": 2002.4166666666667,
+      "peak_var": 2003.1666666666667,
+      "peak_tda": 2001.8333333333333,
+      "classical_peak_used": 2002.4166666666667,
+      "lead_months": 7.000000000001819,
+      "ac1_lead_months": 7.000000000001819
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2004.0,
+      "classical_peak_used": 1999.0833333333333,
+      "lead_months": -59.00000000000091,
+      "ac1_lead_months": -59.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2004.0833333333333,
+      "peak_tda": 1999.75,
+      "classical_peak_used": 2004.0833333333333,
+      "lead_months": 51.99999999999909,
+      "ac1_lead_months": 63.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 2000.1666666666667,
+      "classical_peak_used": 2005.0,
+      "lead_months": 57.99999999999909,
+      "ac1_lead_months": 57.99999999999909
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 2002.4166666666667,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2002.4166666666667,
+      "lead_months": 41.00000000000091,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2003.3333333333333,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -54.0,
+      "ac1_lead_months": -54.0
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 2002.75,
+      "peak_tda": 2001.6666666666667,
+      "classical_peak_used": 2002.75,
+      "lead_months": 12.99999999999909,
+      "ac1_lead_months": -32.00000000000091
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 2002.0,
+      "peak_tda": 2001.0833333333333,
+      "classical_peak_used": 2002.0,
+      "lead_months": 11.00000000000091,
+      "ac1_lead_months": -22.99999999999818
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.6666666666667,
+      "classical_peak_used": 2005.0,
+      "lead_months": 63.99999999999909,
+      "ac1_lead_months": 63.99999999999909
+    },
+    {
+      "peak_ac1": 2000.5833333333333,
+      "peak_var": 1999.0,
+      "peak_tda": 2003.1666666666667,
+      "classical_peak_used": 2000.5833333333333,
+      "lead_months": -31.00000000000182,
+      "ac1_lead_months": -31.00000000000182
+    },
+    {
+      "peak_ac1": 1999.5,
+      "peak_var": 1999.5,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1999.5,
+      "lead_months": 8.00000000000091,
+      "ac1_lead_months": 8.00000000000091
+    },
+    {
+      "peak_ac1": 2004.4166666666667,
+      "peak_var": 2003.1666666666667,
+      "peak_tda": 2002.0,
+      "classical_peak_used": 2003.1666666666667,
+      "lead_months": 14.00000000000091,
+      "ac1_lead_months": 29.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 2002.8333333333333,
+      "classical_peak_used": 2005.0,
+      "lead_months": 26.00000000000091,
+      "ac1_lead_months": 26.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2004.1666666666667,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -64.00000000000182,
+      "ac1_lead_months": -64.00000000000182
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 2003.9166666666667,
+      "classical_peak_used": 1999.0833333333333,
+      "lead_months": -58.00000000000182,
+      "ac1_lead_months": -60.0
+    },
+    {
+      "peak_ac1": 2000.3333333333333,
+      "peak_var": 2001.75,
+      "peak_tda": 2003.25,
+      "classical_peak_used": 2001.75,
+      "lead_months": -18.0,
+      "ac1_lead_months": -35.00000000000091
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 1999.4166666666667,
+      "peak_tda": 2003.1666666666667,
+      "classical_peak_used": 1999.4166666666667,
+      "lead_months": -45.0,
+      "ac1_lead_months": -48.0
+    },
+    {
+      "peak_ac1": 2003.6666666666667,
+      "peak_var": 2004.1666666666667,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 2003.6666666666667,
+      "lead_months": 53.00000000000091,
+      "ac1_lead_months": 53.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2005.0,
+      "peak_tda": 2000.25,
+      "classical_peak_used": 2005.0,
+      "lead_months": 57.0,
+      "ac1_lead_months": -17.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2000.0,
+      "peak_tda": 1999.5833333333333,
+      "classical_peak_used": 2000.0,
+      "lead_months": 5.0000000000009095,
+      "ac1_lead_months": 65.00000000000091
+    },
+    {
+      "peak_ac1": 2000.0,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.6666666666667,
+      "classical_peak_used": 2000.0,
+      "lead_months": 3.9999999999990905,
+      "ac1_lead_months": 3.9999999999990905
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2000.9166666666667,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": -25.00000000000182,
+      "ac1_lead_months": -25.00000000000182
+    },
+    {
+      "peak_ac1": 2003.0833333333333,
+      "peak_var": 2000.75,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 2003.0833333333333,
+      "lead_months": 45.0,
+      "ac1_lead_months": 45.0
+    },
+    {
+      "peak_ac1": 2000.75,
+      "peak_var": 1999.4166666666667,
+      "peak_tda": 2002.5833333333333,
+      "classical_peak_used": 2000.75,
+      "lead_months": -21.99999999999909,
+      "ac1_lead_months": -21.99999999999909
+    },
+    {
+      "peak_ac1": 2001.0,
+      "peak_var": 2000.8333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2001.0,
+      "lead_months": 26.00000000000091,
+      "ac1_lead_months": 26.00000000000091
+    },
+    {
+      "peak_ac1": 2000.0833333333333,
+      "peak_var": 2000.0,
+      "peak_tda": 2003.9166666666667,
+      "classical_peak_used": 2000.0833333333333,
+      "lead_months": -46.00000000000182,
+      "ac1_lead_months": -46.00000000000182
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.75,
+      "classical_peak_used": 2005.0,
+      "lead_months": 63.0,
+      "ac1_lead_months": 63.0
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 2002.5833333333333,
+      "peak_tda": 2000.9166666666667,
+      "classical_peak_used": 2002.5833333333333,
+      "lead_months": 19.99999999999818,
+      "ac1_lead_months": -22.00000000000182
+    },
+    {
+      "peak_ac1": 1999.6666666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2002.75,
+      "classical_peak_used": 1999.6666666666667,
+      "lead_months": -36.99999999999909,
+      "ac1_lead_months": -36.99999999999909
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2004.6666666666667,
+      "classical_peak_used": 2005.0,
+      "lead_months": 3.9999999999990905,
+      "ac1_lead_months": 3.9999999999990905
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 2001.0,
+      "classical_peak_used": 1998.9166666666667,
+      "lead_months": -24.99999999999909,
+      "ac1_lead_months": -24.99999999999909
+    },
+    {
+      "peak_ac1": 2001.9166666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2001.9166666666667,
+      "lead_months": 37.00000000000182,
+      "ac1_lead_months": 37.00000000000182
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 1999.3333333333333,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 1999.3333333333333,
+      "lead_months": 0.0,
+      "ac1_lead_months": -1.999999999998181
+    },
+    {
+      "peak_ac1": 2002.25,
+      "peak_var": 2002.75,
+      "peak_tda": 1999.8333333333333,
+      "classical_peak_used": 2002.25,
+      "lead_months": 29.00000000000091,
+      "ac1_lead_months": 29.00000000000091
+    },
+    {
+      "peak_ac1": 2004.8333333333333,
+      "peak_var": 2003.3333333333333,
+      "peak_tda": 2000.25,
+      "classical_peak_used": 2003.3333333333333,
+      "lead_months": 36.99999999999909,
+      "ac1_lead_months": 54.99999999999909
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 2004.3333333333333,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 2004.3333333333333,
+      "lead_months": 60.99999999999909,
+      "ac1_lead_months": -3.9999999999990905
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 1999.1666666666667,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 1999.1666666666667,
+      "lead_months": -69.99999999999909,
+      "ac1_lead_months": -72.99999999999909
+    },
+    {
+      "peak_ac1": 2000.0,
+      "peak_var": 2005.0,
+      "peak_tda": 2002.25,
+      "classical_peak_used": 2000.0,
+      "lead_months": -27.0,
+      "ac1_lead_months": -27.0
+    },
+    {
+      "peak_ac1": 2001.8333333333333,
+      "peak_var": 2005.0,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2001.8333333333333,
+      "lead_months": -38.00000000000091,
+      "ac1_lead_months": -38.00000000000091
+    },
+    {
+      "peak_ac1": 1999.75,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2001.4166666666667,
+      "classical_peak_used": 1999.75,
+      "lead_months": -20.00000000000091,
+      "ac1_lead_months": -20.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 2005.0,
+      "lead_months": 71.00000000000091,
+      "ac1_lead_months": 71.00000000000091
+    },
+    {
+      "peak_ac1": 1999.9166666666667,
+      "peak_var": 1999.5833333333333,
+      "peak_tda": 2003.0833333333333,
+      "classical_peak_used": 1999.9166666666667,
+      "lead_months": -37.99999999999818,
+      "ac1_lead_months": -37.99999999999818
+    },
+    {
+      "peak_ac1": 2004.5833333333333,
+      "peak_var": 2002.5,
+      "peak_tda": 1999.8333333333333,
+      "classical_peak_used": 2002.5,
+      "lead_months": 32.00000000000091,
+      "ac1_lead_months": 57.0
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 2001.0833333333333,
+      "peak_tda": 1999.9166666666667,
+      "classical_peak_used": 2001.0833333333333,
+      "lead_months": 13.999999999998181,
+      "ac1_lead_months": -10.000000000001819
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2004.8333333333333,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2004.8333333333333,
+      "lead_months": 70.99999999999818,
+      "ac1_lead_months": -1.000000000001819
+    },
+    {
+      "peak_ac1": 2000.0833333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2000.0833333333333,
+      "lead_months": 12.99999999999909,
+      "ac1_lead_months": 12.99999999999909
+    },
+    {
+      "peak_ac1": 2001.6666666666667,
+      "peak_var": 2001.6666666666667,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2001.6666666666667,
+      "lead_months": 33.0,
+      "ac1_lead_months": 33.0
+    },
+    {
+      "peak_ac1": 2002.5,
+      "peak_var": 1999.9166666666667,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2002.5,
+      "lead_months": 42.99999999999909,
+      "ac1_lead_months": 42.99999999999909
+    },
+    {
+      "peak_ac1": 1999.6666666666667,
+      "peak_var": 2004.5833333333333,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 1999.6666666666667,
+      "lead_months": -63.99999999999909,
+      "ac1_lead_months": -63.99999999999909
+    },
+    {
+      "peak_ac1": 2002.75,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2000.5833333333333,
+      "classical_peak_used": 2002.75,
+      "lead_months": 26.00000000000091,
+      "ac1_lead_months": 26.00000000000091
+    },
+    {
+      "peak_ac1": 2004.3333333333333,
+      "peak_var": 2003.5,
+      "peak_tda": 2000.3333333333333,
+      "classical_peak_used": 2003.5,
+      "lead_months": 38.00000000000091,
+      "ac1_lead_months": 48.0
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 1999.0833333333333,
+      "lead_months": 0.0,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 2003.75,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.5,
+      "classical_peak_used": 2003.75,
+      "lead_months": 51.0,
+      "ac1_lead_months": 51.0
+    },
+    {
+      "peak_ac1": 1999.0,
+      "peak_var": 2000.0,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.0,
+      "lead_months": 14.00000000000091,
+      "ac1_lead_months": 2.0000000000009095
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1998.9166666666667,
+      "lead_months": 1.000000000001819,
+      "ac1_lead_months": 1.000000000001819
+    },
+    {
+      "peak_ac1": 2001.0833333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.4166666666667,
+      "classical_peak_used": 2001.0833333333333,
+      "lead_months": 19.99999999999818,
+      "ac1_lead_months": 19.99999999999818
+    },
+    {
+      "peak_ac1": 2000.0833333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2000.8333333333333,
+      "classical_peak_used": 2000.0833333333333,
+      "lead_months": -9.0,
+      "ac1_lead_months": -9.0
+    },
+    {
+      "peak_ac1": 2002.1666666666667,
+      "peak_var": 2001.5833333333333,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2002.1666666666667,
+      "lead_months": -33.99999999999909,
+      "ac1_lead_months": -33.99999999999909
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.25,
+      "peak_tda": 2001.5,
+      "classical_peak_used": 1999.25,
+      "lead_months": -27.0,
+      "ac1_lead_months": -32.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2002.4166666666667,
+      "peak_tda": 2004.9166666666667,
+      "classical_peak_used": 2002.4166666666667,
+      "lead_months": -30.0,
+      "ac1_lead_months": 0.9999999999990905
+    },
+    {
+      "peak_ac1": 2000.9166666666667,
+      "peak_var": 2002.5833333333333,
+      "peak_tda": 2004.9166666666667,
+      "classical_peak_used": 2002.5833333333333,
+      "lead_months": -28.00000000000182,
+      "ac1_lead_months": -48.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2000.0,
+      "peak_tda": 2000.6666666666667,
+      "classical_peak_used": 2000.0,
+      "lead_months": -8.00000000000091,
+      "ac1_lead_months": -22.00000000000182
+    },
+    {
+      "peak_ac1": 1999.75,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.1666666666667,
+      "classical_peak_used": 1999.75,
+      "lead_months": 6.9999999999990905,
+      "ac1_lead_months": 6.9999999999990905
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 2005.0,
+      "lead_months": 71.00000000000091,
+      "ac1_lead_months": 71.00000000000091
+    },
+    {
+      "peak_ac1": 2001.0833333333333,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 1999.75,
+      "classical_peak_used": 2001.0833333333333,
+      "lead_months": 15.99999999999909,
+      "ac1_lead_months": 15.99999999999909
+    },
+    {
+      "peak_ac1": 2004.75,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.8333333333333,
+      "classical_peak_used": 2004.75,
+      "lead_months": 59.00000000000091,
+      "ac1_lead_months": 59.00000000000091
+    },
+    {
+      "peak_ac1": 2002.3333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2003.0,
+      "classical_peak_used": 2002.3333333333333,
+      "lead_months": -8.00000000000091,
+      "ac1_lead_months": -8.00000000000091
+    },
+    {
+      "peak_ac1": 1999.75,
+      "peak_var": 1999.5,
+      "peak_tda": 2004.5833333333333,
+      "classical_peak_used": 1999.75,
+      "lead_months": -57.99999999999909,
+      "ac1_lead_months": -57.99999999999909
+    },
+    {
+      "peak_ac1": 2001.5,
+      "peak_var": 2000.0833333333333,
+      "peak_tda": 1999.5833333333333,
+      "classical_peak_used": 2001.5,
+      "lead_months": 23.00000000000091,
+      "ac1_lead_months": 23.00000000000091
+    },
+    {
+      "peak_ac1": 2001.6666666666667,
+      "peak_var": 2000.8333333333333,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2001.6666666666667,
+      "lead_months": 33.0,
+      "ac1_lead_months": 33.0
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 1999.0833333333333,
+      "lead_months": 0.9999999999990905,
+      "ac1_lead_months": 0.9999999999990905
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2005.0,
+      "lead_months": 72.0,
+      "ac1_lead_months": 72.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 2001.3333333333333,
+      "classical_peak_used": 2005.0,
+      "lead_months": 44.00000000000091,
+      "ac1_lead_months": 44.00000000000091
+    },
+    {
+      "peak_ac1": 2004.0833333333333,
+      "peak_var": 2005.0,
+      "peak_tda": 2001.3333333333333,
+      "classical_peak_used": 2004.0833333333333,
+      "lead_months": 33.0,
+      "ac1_lead_months": 33.0
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 1999.0833333333333,
+      "lead_months": -71.00000000000091,
+      "ac1_lead_months": -72.99999999999909
+    },
+    {
+      "peak_ac1": 2004.0,
+      "peak_var": 1999.0,
+      "peak_tda": 2000.6666666666667,
+      "classical_peak_used": 2004.0,
+      "lead_months": 39.99999999999909,
+      "ac1_lead_months": 39.99999999999909
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 1999.1666666666667,
+      "peak_tda": 2002.1666666666667,
+      "classical_peak_used": 1999.1666666666667,
+      "lead_months": -36.0,
+      "ac1_lead_months": -36.0
+    },
+    {
+      "peak_ac1": 2004.9166666666667,
+      "peak_var": 2003.5833333333333,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2003.5833333333333,
+      "lead_months": 55.99999999999818,
+      "ac1_lead_months": 72.0
+    },
+    {
+      "peak_ac1": 2003.5,
+      "peak_var": 1999.5,
+      "peak_tda": 1999.6666666666667,
+      "classical_peak_used": 2003.5,
+      "lead_months": 45.99999999999909,
+      "ac1_lead_months": 45.99999999999909
+    },
+    {
+      "peak_ac1": 2000.5833333333333,
+      "peak_var": 2001.75,
+      "peak_tda": 2000.5833333333333,
+      "classical_peak_used": 2001.75,
+      "lead_months": 14.00000000000091,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 1999.25,
+      "peak_var": 2000.9166666666667,
+      "peak_tda": 1999.75,
+      "classical_peak_used": 2000.9166666666667,
+      "lead_months": 14.00000000000091,
+      "ac1_lead_months": -6.0
+    },
+    {
+      "peak_ac1": 2001.75,
+      "peak_var": 2001.5,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2001.75,
+      "lead_months": 33.99999999999909,
+      "ac1_lead_months": 33.99999999999909
+    },
+    {
+      "peak_ac1": 2003.9166666666667,
+      "peak_var": 2004.1666666666667,
+      "peak_tda": 1999.5833333333333,
+      "classical_peak_used": 2003.9166666666667,
+      "lead_months": 52.00000000000182,
+      "ac1_lead_months": 52.00000000000182
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 1998.8333333333333,
+      "lead_months": 0.0,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 2005.0,
+      "lead_months": 71.00000000000091,
+      "ac1_lead_months": -3.0
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 2000.5,
+      "classical_peak_used": 1999.0833333333333,
+      "lead_months": -17.00000000000091,
+      "ac1_lead_months": -20.00000000000091
+    },
+    {
+      "peak_ac1": 1999.6666666666667,
+      "peak_var": 1999.4166666666667,
+      "peak_tda": 2000.8333333333333,
+      "classical_peak_used": 1999.6666666666667,
+      "lead_months": -13.999999999998181,
+      "ac1_lead_months": -13.999999999998181
+    },
+    {
+      "peak_ac1": 2002.5,
+      "peak_var": 2002.5,
+      "peak_tda": 2000.6666666666667,
+      "classical_peak_used": 2002.5,
+      "lead_months": 21.99999999999909,
+      "ac1_lead_months": 21.99999999999909
+    },
+    {
+      "peak_ac1": 2002.5,
+      "peak_var": 2001.0,
+      "peak_tda": 2003.8333333333333,
+      "classical_peak_used": 2002.5,
+      "lead_months": -15.99999999999909,
+      "ac1_lead_months": -15.99999999999909
+    },
+    {
+      "peak_ac1": 1999.5833333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 1999.5833333333333,
+      "classical_peak_used": 1999.5833333333333,
+      "lead_months": 0.0,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 2000.6666666666667,
+      "peak_var": 2002.5,
+      "peak_tda": 2000.1666666666667,
+      "classical_peak_used": 2002.5,
+      "lead_months": 27.99999999999909,
+      "ac1_lead_months": 6.0
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2000.9166666666667,
+      "peak_tda": 1999.9166666666667,
+      "classical_peak_used": 2000.9166666666667,
+      "lead_months": 12.0,
+      "ac1_lead_months": 60.99999999999909
+    },
+    {
+      "peak_ac1": 2004.6666666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.5833333333333,
+      "classical_peak_used": 2004.6666666666667,
+      "lead_months": 61.00000000000182,
+      "ac1_lead_months": 61.00000000000182
+    },
+    {
+      "peak_ac1": 2003.25,
+      "peak_var": 1999.0,
+      "peak_tda": 1999.0,
+      "classical_peak_used": 2003.25,
+      "lead_months": 51.0,
+      "ac1_lead_months": 51.0
+    },
+    {
+      "peak_ac1": 1999.5833333333333,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 1999.5833333333333,
+      "lead_months": -65.00000000000091,
+      "ac1_lead_months": -65.00000000000091
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 2003.8333333333333,
+      "peak_tda": 2000.0,
+      "classical_peak_used": 2003.8333333333333,
+      "lead_months": 45.99999999999909,
+      "ac1_lead_months": -9.99999999999909
+    },
+    {
+      "peak_ac1": 2000.4166666666667,
+      "peak_var": 2002.0833333333333,
+      "peak_tda": 1999.5,
+      "classical_peak_used": 2002.0833333333333,
+      "lead_months": 30.99999999999909,
+      "ac1_lead_months": 11.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 1999.1666666666667,
+      "peak_tda": 2002.0833333333333,
+      "classical_peak_used": 1999.1666666666667,
+      "lead_months": -34.99999999999818,
+      "ac1_lead_months": 35.00000000000091
+    },
+    {
+      "peak_ac1": 1998.8333333333333,
+      "peak_var": 2001.3333333333333,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2001.3333333333333,
+      "lead_months": 28.99999999999818,
+      "ac1_lead_months": -1.000000000001819
+    },
+    {
+      "peak_ac1": 1999.4166666666667,
+      "peak_var": 1999.0,
+      "peak_tda": 2001.6666666666667,
+      "classical_peak_used": 1999.4166666666667,
+      "lead_months": -27.0,
+      "ac1_lead_months": -27.0
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 1999.0,
+      "peak_tda": 1999.4166666666667,
+      "classical_peak_used": 1999.0,
+      "lead_months": -5.0000000000009095,
+      "ac1_lead_months": -6.0
+    },
+    {
+      "peak_ac1": 1999.0833333333333,
+      "peak_var": 1999.4166666666667,
+      "peak_tda": 2002.5,
+      "classical_peak_used": 1999.4166666666667,
+      "lead_months": -36.99999999999909,
+      "ac1_lead_months": -41.00000000000091
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 2000.0833333333333,
+      "peak_tda": 2000.3333333333333,
+      "classical_peak_used": 2000.0833333333333,
+      "lead_months": -3.0,
+      "ac1_lead_months": -16.99999999999818
+    },
+    {
+      "peak_ac1": 1999.1666666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2004.5833333333333,
+      "classical_peak_used": 1999.1666666666667,
+      "lead_months": -64.99999999999818,
+      "ac1_lead_months": -64.99999999999818
+    },
+    {
+      "peak_ac1": 2004.5833333333333,
+      "peak_var": 2002.1666666666667,
+      "peak_tda": 1999.6666666666667,
+      "classical_peak_used": 2002.1666666666667,
+      "lead_months": 30.0,
+      "ac1_lead_months": 58.99999999999818
+    },
+    {
+      "peak_ac1": 2001.5833333333333,
+      "peak_var": 2001.5833333333333,
+      "peak_tda": 2000.1666666666667,
+      "classical_peak_used": 2001.5833333333333,
+      "lead_months": 16.99999999999818,
+      "ac1_lead_months": 16.99999999999818
+    },
+    {
+      "peak_ac1": 2001.5833333333333,
+      "peak_var": 2001.8333333333333,
+      "peak_tda": 2003.5833333333333,
+      "classical_peak_used": 2001.8333333333333,
+      "lead_months": -21.0,
+      "ac1_lead_months": -24.0
+    },
+    {
+      "peak_ac1": 2004.1666666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2000.5,
+      "classical_peak_used": 2004.1666666666667,
+      "lead_months": 44.00000000000091,
+      "ac1_lead_months": 44.00000000000091
+    },
+    {
+      "peak_ac1": 2002.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1999.25,
+      "classical_peak_used": 2002.0,
+      "lead_months": 33.0,
+      "ac1_lead_months": 33.0
+    },
+    {
+      "peak_ac1": 2004.4166666666667,
+      "peak_var": 2000.0833333333333,
+      "peak_tda": 1999.75,
+      "classical_peak_used": 2000.0833333333333,
+      "lead_months": 3.9999999999990905,
+      "ac1_lead_months": 56.00000000000091
+    },
+    {
+      "peak_ac1": 2004.6666666666667,
+      "peak_var": 2002.5833333333333,
+      "peak_tda": 2002.8333333333333,
+      "classical_peak_used": 2002.5833333333333,
+      "lead_months": -3.0,
+      "ac1_lead_months": 22.00000000000182
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2000.6666666666667,
+      "classical_peak_used": 2005.0,
+      "lead_months": 51.99999999999909,
+      "ac1_lead_months": 51.99999999999909
+    },
+    {
+      "peak_ac1": 1998.9166666666667,
+      "peak_var": 1998.8333333333333,
+      "peak_tda": 2000.4166666666667,
+      "classical_peak_used": 1998.9166666666667,
+      "lead_months": -18.0,
+      "ac1_lead_months": -18.0
+    },
+    {
+      "peak_ac1": 2001.9166666666667,
+      "peak_var": 1999.8333333333333,
+      "peak_tda": 2000.5,
+      "classical_peak_used": 2001.9166666666667,
+      "lead_months": 17.00000000000091,
+      "ac1_lead_months": 17.00000000000091
+    },
+    {
+      "peak_ac1": 1999.4166666666667,
+      "peak_var": 1999.3333333333333,
+      "peak_tda": 2004.5,
+      "classical_peak_used": 1999.4166666666667,
+      "lead_months": -60.99999999999909,
+      "ac1_lead_months": -60.99999999999909
+    },
+    {
+      "peak_ac1": 2002.1666666666667,
+      "peak_var": 2002.0,
+      "peak_tda": 2002.0833333333333,
+      "classical_peak_used": 2002.0,
+      "lead_months": -0.9999999999990905,
+      "ac1_lead_months": 1.000000000001819
+    },
+    {
+      "peak_ac1": 2000.0,
+      "peak_var": 1999.6666666666667,
+      "peak_tda": 2000.4166666666667,
+      "classical_peak_used": 2000.0,
+      "lead_months": -5.0000000000009095,
+      "ac1_lead_months": -5.0000000000009095
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 2000.5833333333333,
+      "classical_peak_used": 2005.0,
+      "lead_months": 53.00000000000091,
+      "ac1_lead_months": 53.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 2000.5833333333333,
+      "classical_peak_used": 2005.0,
+      "lead_months": 53.00000000000091,
+      "ac1_lead_months": 53.00000000000091
+    },
+    {
+      "peak_ac1": 2001.5,
+      "peak_var": 1999.75,
+      "peak_tda": 2003.6666666666667,
+      "classical_peak_used": 2001.5,
+      "lead_months": -26.00000000000091,
+      "ac1_lead_months": -26.00000000000091
+    },
+    {
+      "peak_ac1": 2000.25,
+      "peak_var": 1999.0833333333333,
+      "peak_tda": 1999.3333333333333,
+      "classical_peak_used": 2000.25,
+      "lead_months": 11.00000000000091,
+      "ac1_lead_months": 11.00000000000091
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2001.4166666666667,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2001.4166666666667,
+      "lead_months": -42.99999999999909,
+      "ac1_lead_months": 0.0
+    },
+    {
+      "peak_ac1": 2002.3333333333333,
+      "peak_var": 2000.0,
+      "peak_tda": 2005.0,
+      "classical_peak_used": 2002.3333333333333,
+      "lead_months": -32.00000000000091,
+      "ac1_lead_months": -32.00000000000091
+    },
+    {
+      "peak_ac1": 2000.8333333333333,
+      "peak_var": 1999.0,
+      "peak_tda": 2004.3333333333333,
+      "classical_peak_used": 2000.8333333333333,
+      "lead_months": -42.0,
+      "ac1_lead_months": -42.0
+    },
+    {
+      "peak_ac1": 2001.8333333333333,
+      "peak_var": 1999.1666666666667,
+      "peak_tda": 2001.1666666666667,
+      "classical_peak_used": 2001.8333333333333,
+      "lead_months": 7.999999999998181,
+      "ac1_lead_months": 7.999999999998181
+    },
+    {
+      "peak_ac1": 2001.6666666666667,
+      "peak_var": 2000.5833333333333,
+      "peak_tda": 2000.6666666666667,
+      "classical_peak_used": 2001.6666666666667,
+      "lead_months": 12.0,
+      "ac1_lead_months": 12.0
+    },
+    {
+      "peak_ac1": 2001.8333333333333,
+      "peak_var": 2000.5833333333333,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2001.8333333333333,
+      "lead_months": 34.99999999999818,
+      "ac1_lead_months": 34.99999999999818
+    },
+    {
+      "peak_ac1": 2005.0,
+      "peak_var": 2005.0,
+      "peak_tda": 1998.9166666666667,
+      "classical_peak_used": 2005.0,
+      "lead_months": 72.99999999999909,
+      "ac1_lead_months": 72.99999999999909
+    },
+    {
+      "peak_ac1": 2001.9166666666667,
+      "peak_var": 1999.3333333333333,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2001.9166666666667,
+      "lead_months": 37.00000000000182,
+      "ac1_lead_months": 37.00000000000182
+    },
+    {
+      "peak_ac1": 2000.4166666666667,
+      "peak_var": 1999.0,
+      "peak_tda": 2000.75,
+      "classical_peak_used": 2000.4166666666667,
+      "lead_months": -3.9999999999990905,
+      "ac1_lead_months": -3.9999999999990905
+    },
+    {
+      "peak_ac1": 2000.1666666666667,
+      "peak_var": 2000.1666666666667,
+      "peak_tda": 2002.5833333333333,
+      "classical_peak_used": 2000.1666666666667,
+      "lead_months": -28.99999999999818,
+      "ac1_lead_months": -28.99999999999818
+    },
+    {
+      "peak_ac1": 1999.9166666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 2003.4166666666667,
+      "classical_peak_used": 1999.9166666666667,
+      "lead_months": -42.0,
+      "ac1_lead_months": -42.0
+    },
+    {
+      "peak_ac1": 2004.9166666666667,
+      "peak_var": 2005.0,
+      "peak_tda": 2004.4166666666667,
+      "classical_peak_used": 2004.9166666666667,
+      "lead_months": 6.0,
+      "ac1_lead_months": 6.0
+    },
+    {
+      "peak_ac1": 2002.75,
+      "peak_var": 2001.6666666666667,
+      "peak_tda": 1999.0833333333333,
+      "classical_peak_used": 2001.6666666666667,
+      "lead_months": 31.00000000000182,
+      "ac1_lead_months": 44.00000000000091
+    },
+    {
+      "peak_ac1": 1999.8333333333333,
+      "peak_var": 2002.4166666666667,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2002.4166666666667,
+      "lead_months": 43.00000000000182,
+      "ac1_lead_months": 12.0
+    },
+    {
+      "peak_ac1": 2004.0,
+      "peak_var": 2002.4166666666667,
+      "peak_tda": 2001.0,
+      "classical_peak_used": 2002.4166666666667,
+      "lead_months": 17.00000000000091,
+      "ac1_lead_months": 36.0
+    },
+    {
+      "peak_ac1": 2000.5833333333333,
+      "peak_var": 1998.9166666666667,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2000.5833333333333,
+      "lead_months": 21.0,
+      "ac1_lead_months": 21.0
+    },
+    {
+      "peak_ac1": 1999.4166666666667,
+      "peak_var": 2001.0,
+      "peak_tda": 1998.8333333333333,
+      "classical_peak_used": 2001.0,
+      "lead_months": 26.00000000000091,
+      "ac1_lead_months": 7.000000000001819
+    }
+  ]
+}
