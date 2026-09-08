@@ -1,5 +1,19 @@
 # H-B3-1o — decision.md
 
+## FL Step 8a — mandatory reviewer
+
+Scoped narrowly per the now-established pattern (3rd consecutive success this session):
+verify (1) the gate-enforcement logic actually forces `METRIC_UNRELIABLE` when the
+positive-control gate fails, regardless of how the primary pH numbers compare, and (2)
+H-B3-1g's stored crossing values are read at runtime from its `metrics/run.json`, not
+hardcoded as literals (a manual-sync risk this experiment deliberately avoided, unlike
+H-B3-1n's `real_lead` constant, which WAS hardcoded but guarded by its own drift test).
+Completed successfully on the first attempt — **`VERDICT: LGTM`**, 0 P0/P1/P2 findings.
+Confirmed both: the gate check runs before any comparison of the primary distances, and
+none of the three crossing-date numbers appear as literals anywhere in `run.py` — verified
+by reading the actual JSON file and comparing dict-access paths, not by trusting the
+docstring. Ran `pytest` (7 passed, 7.17s) and `ruff` (clean) itself.
+
 ## Result
 
 ### Positive control gate: FAILED
