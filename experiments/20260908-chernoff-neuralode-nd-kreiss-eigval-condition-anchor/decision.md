@@ -142,11 +142,22 @@ estimate, shallow or deep.
   upper bound never exceeded by any tested eps.
 - **Concern: "the mechanism gate's own numeric breakdown at eps<=1e-6 could itself be a
   bug in the tricontour extraction, not floating-point noise — did you rule that out?"**
-  -> Not fully ruled out with a second independent method (e.g. a direct SVD-based
-  resolvent-norm evaluation bypassing pseudopy's contour machinery entirely). This is a
-  genuine gap, not dismissed: the interpretation "numerical floor" is the most parsimonious
-  explanation (matches the expected precision of double-precision SVD at that scale) but is
-  not independently confirmed. Recorded here rather than glossed over.
+  -> **RULED OUT, with a genuinely independent second method**, added during self-review
+  after both spawned reviewer-agent passes hit their turn limit without producing a
+  report. A hand-derivable 2x2 case (`A=[[a,b],[0,d]]`, closed form
+  `kappa(lambda=a)=sqrt(1+(b/(a-d))^2)`) confirms `eigenvalue_condition_number()` matches
+  the hand derivation to 1e-9 (a=0.5, d=-1, b=2 -> both give 1.6666666667). A SECOND,
+  independent numerical method — direct bisection search on `sigma_min(zI-A)` via
+  `np.linalg.svd`, no `pseudopy`, no tricontour, no triangulated grid at all — converges
+  CLEANLY toward the same kappa as eps shrinks with NO reversal: 1.655072 (eps=0.01) ->
+  1.665484 (1e-3) -> 1.666548 (1e-4) -> 1.666655 (1e-5) -> 1.666665 (1e-6), vs. the exact
+  1.666667. This SHARPENS the mechanism-gate finding above: the eps<=1e-6 breakdown is
+  specific to `pseudopy`'s own triangulation/tricontour-based extraction pipeline, NOT a
+  fundamental floating-point limit of every SVD-based resolvent-norm method at that eps
+  scale — a direct bisection search has no trouble at all at eps=1e-6 on this test case.
+  The practical conclusion is unchanged (use the closed form, not deep pseudospectrum
+  sampling), but the EXPLANATION is now more precise: it is a limitation of this
+  project's specific extraction pipeline, not of double-precision arithmetic in general.
 - **Concern: "is the RMSE comparison apples-to-apples with H-B2-1x's reference number?"**
   -> This was CAUGHT AS A REAL BUG during self-review, not a hypothetical skeptic
   question: the first draft of this experiment assumed H-B2-1x's "expanded" k_model was

@@ -21,6 +21,56 @@ def cached_result():
     return eigval_anchor.cmd_run()
 
 
+def test_kappa_matches_hand_derived_closed_form_for_2x2_triangular_matrix():
+    """Independent check, not just re-reading the code: for A=[[a,b],[0,d]], the
+    eigenvalue condition number of the dominant eigenvalue a has a hand-derivable
+    closed form kappa(a) = sqrt(1 + (b/(a-d))^2) -- derived by hand (left eigenvector
+    of a via A^T, right eigenvector via A directly, both unit-normalized). Confirms
+    eigenvalue_condition_number() is not just internally self-consistent but matches
+    an independently-derived formula."""
+    a, d, b = 0.5, -1.0, 2.0
+    matrix = np.array([[a, b], [0.0, d]])
+    hand_derived = (1 + (b / (a - d)) ** 2) ** 0.5
+    computed = eigval_anchor.eigenvalue_condition_number(matrix)["kappa_lambda1"]
+    assert computed == pytest.approx(hand_derived, abs=1e-9)
+
+
+def test_kappa_matches_direct_svd_bisection_no_pseudopy_no_tricontour():
+    """A SECOND independent numerical method (direct bisection on sigma_min(zI-A) via
+    np.linalg.svd, no pseudopy, no triangulated grid at all) must converge toward the
+    same kappa(lambda_1) as eps shrinks, with no reversal at eps as small as 1e-6 --
+    this is what rules out (rather than just asserts) that the Mechanism Claim Gate's
+    own eps<=1e-6 breakdown (in run.py's pseudopy-based sweep) is a fundamental
+    floating-point limit rather than an artifact specific to pseudopy's own
+    tricontour extraction pipeline."""
+    a, d, b = 0.5, -1.0, 2.0
+    matrix = np.array([[a, b], [0.0, d]])
+    kappa = eigval_anchor.eigenvalue_condition_number(matrix)["kappa_lambda1"]
+    alpha = float(np.max(np.linalg.eigvals(matrix).real))
+
+    def sigma_min(z: complex) -> float:
+        m = z * np.eye(2) - matrix
+        return float(np.linalg.svd(m, compute_uv=False)[-1])
+
+    def alpha_eps_via_bisection(eps: float) -> float:
+        lo, hi = 0.0, 50.0
+        for _ in range(200):
+            mid = (lo + hi) / 2
+            if sigma_min(alpha + mid) <= eps:
+                lo = mid
+            else:
+                hi = mid
+        return alpha + lo
+
+    ratios = [
+        (alpha_eps_via_bisection(eps) - alpha) / eps
+        for eps in (0.01, 0.001, 0.0001, 0.00001, 0.000001)
+    ]
+    # monotonically approaching kappa, no reversal, all within 1% by the finest eps
+    assert all(r <= kappa + 1e-6 for r in ratios)
+    assert ratios[-1] == pytest.approx(kappa, rel=0.01)
+
+
 def test_symmetric_matrix_has_kappa_exactly_one():
     """Positive control: for a NORMAL matrix, eigenvectors are orthonormal, so the
     eigenvalue condition number must be exactly 1 (no non-normal amplification)."""

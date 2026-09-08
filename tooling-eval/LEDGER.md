@@ -742,6 +742,8 @@
 | 2026-09-08 | H-B2-1z: Cheapest Differentiating Test — вместо продолжения углублять pseudospectrum-сэмплирование (H-B2-1y's собственная Relaxation Map), проверена дешёвая закрытая альтернатива (kappa(lambda_1), один вызов eig()+inv()) ДО инвестирования в adaptive/solver-based метод | practice | falsification-ladder.md Cheapest Differentiating Test Protocol; ответ на reflective-вопрос пользователя после H-B2-1y автономно, без ожидания явной команды (стоящая авторизация «продолжай автономно») | `CAUGHT` | нашла точный, бесплатный proxy — Mechanism Claim Gate подтвердил совпадение с pseudospectrum-сэмплированием в пределах 0.02% на достижимом sweet spot, закрыв вопрос без нового дорогого compute |
 | 2026-09-08 | H-B2-1z: self-review поймал, что первый черновик сравнивал RMSE однопризнаковой kappa-модели напрямую с RMSE H-B2-1x без проверки, что H-B2-1x's модель тоже однопризнаковая — оказалось ДВЕ фичи (log_K + log_N_DIM), не одна | practice | integrity.md Verify-Output + rationalizations.md «я уже знаю этот API» — не читать чужой run.py на память | `CAUGHT` | исправлено ДО мержа: добавлена двухфакторная kappa-модель, сравнение стало честно apples-to-apples; зафиксировано явно в decision.md, не тихо подменено |
 | 2026-09-08 | H-B2-1z: Mechanism Claim Gate на мелком eps (1e-6, 1e-7) дал разные числа при двух идентичных прогонах одного детерминированного расчёта — не списано на «шум», а зафиксировано как прямая улика численного floor'а | practice + result | integrity.md: не сглаживать неожиданное поведение под удобное объяснение без проверки | `CAUGHT` | non-determinism сам стал доказательной единицей (не просто побочным наблюдением) — записано в decision.md И в pearl_registry как общий урок для любого будущего использования pseudopy на очень мелком eps |
+| 2026-09-08 | H-B2-1z: два подряд запущенных `Agent(reviewer)` (второй — по ошибке НОВЫЙ вызов вместо `SendMessage` к прерванному первому) оба упёрлись в лимит ходов (12) без финального вердикта | agent | delegation-contract.md / audit-verification-gate.md — доверие агенту не подтверждено, если он не дошёл до отчёта | `BLOCKED` | не выдано за «reviewer одобрил» — вместо этого self-review: независимая hand-derived формула + второй независимый численный метод (bisection по sigma_min через SVD, БЕЗ pseudopy) добавлены как тесты, закрывшие ранее честно отмеченный gap в decision.md's FL Step 8a |
+| 2026-09-08 | H-B2-1z self-review: независимая проверка kappa(lambda_1) вторым методом (прямой SVD-bisection, не pseudopy) показала, что разворот отношения при eps<=1e-6 — артефакт КОНКРЕТНО pipeline'а `pseudopy`/tricontour, а НЕ фундаментальный предел double-precision SVD в общем случае | practice + result | doubt-driven-development.md: не принимать первое правдоподобное объяснение без независимой проверки | `CAUGHT` | второй метод (bisection) сошёлся к kappa БЕЗ разворота даже при eps=1e-6 (1.666665 vs точных 1.666667) — уточнило и усилило decision.md's объяснение, не изменив практический вывод |
 
 ## Сводка (считать командой ниже, не вручную)
 
@@ -751,11 +753,11 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 | Исход | Кол-во |
 |---|---|
-| CAUGHT | 228 |
+| CAUGHT | 229 |
 | OK | 106 |
 | MISSED | 4 |
 | NOISE | 30 |
-| BLOCKED | 2 |
+| BLOCKED | 3 |
 | NOT-YET | 3 |
 
 **Наблюдение после сессии 1a:** все `NOISE` — хуки с keyword-эвристикой, не различающие тип задачи (scaffolding vs research) и источник текста (запрос пользователя vs уведомление агента). `routing-floor` — 2/3 до порога действия (pearl №1).
