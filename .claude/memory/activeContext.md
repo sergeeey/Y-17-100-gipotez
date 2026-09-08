@@ -84,7 +84,7 @@ Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный ос�
 - **Graph validator:** `python scripts/lab_check.py` (SCHEMA invariants 1–3) + `pytest` (3 tests incl. negative control replicating the 2026-05-28 incident). Run both before every commit.
 - **FL template source (reuse, don't reinvent):** `D:\Claude-cod-top-2026\experiments\_template\` (14 files) [VERIFIED]
 - **Files transferred:** 15 (2026-09-06)
-- **Bridges scoped:** 3 (RMT/Riemann — READY/BLOCKED split; ChernoffPy/UDE — needs formalization; May1972/TDA — ready to scope)
+- **Bridges scoped:** 3 (RMT/Riemann — READY/BLOCKED split; ChernoffPy/UDE — CONFIRMED-WITH-CAVEATS, арка H-B2-1→1v закрыта 2026-09-08; May1972/TDA — Phase 1 запущена, LEAD)
 - **Bridges permanently `unverified_source`** (answered 2026-09-07, not pending): 3 (Frontier R&D, TOFT/SMT, RAF Theory)
 
 
@@ -144,6 +144,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-08 13:40] `35c0f9d` (local, branch `docs/close-bridge2-arc` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: close Bridge 2 (Chernoff/Kreiss) arc in the canonical bridge document
 - [2026-09-08 13:37] `20d3d03`: feat: H-B2-1v -- independent cross-implementation check of H-B2-1u's small-eps Kreiss growth via pseudopy
 - [2026-09-08 13:28] `20d3d03` (local, branch `feature/h-b2-1v-kreiss-crossimpl-smalleps` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1v -- independent cross-implementation check of H-B2-1u's small-eps Kreiss growth via pseudopy
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
@@ -156,6 +157,5 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
-- [2026-09-08 12:58] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 12:58] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 12:58] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
