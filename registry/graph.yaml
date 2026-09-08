@@ -1551,9 +1551,9 @@ nodes:
   - id: BRIDGE-8-UDE-IDENTIFIABILITY
     type: bridge
     title: "UDE parameter identifiability (Philipps/Schmid/Hasenauer 2025) <-> ChernoffPy's existing Neural-ODE/UDE stack"
-    status: proposed                 # scoping (feasibility gate) not yet done -- do not upgrade to verified_grounding until PRJ-CHERNOFFPY's partial-observable-variant feasibility is checked
-    evidence: HYPOTHESIS
-    mechanism: "same UDE/Neural-ODE machinery already built for Bridge 2 answers a DIFFERENT open question here: does identifiability of the neural component degrade specifically with observable-mapping restriction (not generic noise), distinct from Bridge 2's transient-growth/stability question"
+    status: rejected                 # 2026-09-09: feasibility gate (item 1, defined at proposal time) FAILED -- see below. Bridge rejected at scoping stage, before any experiment.
+    evidence: CONFLICT                # the transfer premise ("shared UDE/Neural-ODE infrastructure with Bridge 2") is falsified by direct code inspection; the underlying open problem (source) remains real and VERIFIED-REAL
+    mechanism: "PREMISE FALSIFIED 2026-09-09: `grep -rl '^import torch\\|nn.Module\\|.backward()' experiments/` across ALL Bridge 2 code = 0 hits; same grep against the actual external E:/MarkovChains/ChernoffPy repo (chernoffpy/, examples/, tests/) for 'torch|neural|UDE|identifiab' = 0 hits. Bridge 2's entire 'Neural-ODE/UDE' framing is a THEORETICAL analogy (Chernoff's theorem applied to a linear operator A / matrix exponential), never an actually-trained neural network. There is no fitted model, no noise model, no observable-mapping restriction anywhere in PRJ-CHERNOFFPY (internal or external). Building real UDE-training infrastructure (ODE solver + trainable NN + optimizer + noise model + practical-identifiability metric) from scratch is NOT cheap reuse -- it is a new simulation/ML pipeline, disproportionate to this bridge's own pre-registered feasibility gate item 1."
     source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md, section 'Bridge 8 (PROPOSED, 2026-09-09)'"
     updated: 2026-09-09
 
