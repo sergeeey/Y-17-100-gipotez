@@ -47,16 +47,30 @@ quadratic, ~0.6-0.7) is ROBUST to the ADR-077 correction** — the correction wa
 necessary for interpretive honesty (kappa(lambda_1) is not the true K(A) in general), but
 it does not materially change the arc's own headline predictive/exponent numbers.
 
-## FL Step 8a — self-review (mandatory reviewer did not reach a verdict)
+## FL Step 8a — mandatory reviewer, resolved after a scope correction
 
-`Agent(reviewer)` was invoked once, scoped narrowly to just this experiment's 4 files, and
-hit its 12-turn limit without producing a report (third consecutive reviewer timeout this
-session — H-B2-1z hit it twice). No `SendMessage` tool was available in this environment to
-resume it, and a fresh `Agent()` call would only duplicate work with no memory of partial
-progress (per this session's own memory: "resume-stalled-agent-with-sendmessage"). Not
-treated as reviewer approval — self-review substituted, documented honestly below rather
-than silently absorbed, per the standing lesson from an earlier incident this same project
-("don't let agent caps silently substitute for FL Step 8a").
+**Update (same day, second attempt, user asked to wait for a real verdict rather than
+accept the self-review below as final):** a SECOND `Agent(reviewer)` call, scoped to just
+two items (the lower-bound math derivation, and running tests+lint) instead of the whole
+experiment, completed successfully — `VERDICT: LGTM`, `SEVERITY: P2`, `0` P0/P1/P2
+findings. It independently re-derived the same lower-bound proof as the self-review below
+(same structure: `z=alpha+x` lies in its own `eps(z)`-pseudospectrum, so `alpha_{eps(z)}(A)
+>= Re(z)`, giving `x/eps(z) <= K(A)` unconditionally) and confirmed `7 passed` /
+`All checks passed!` by running them itself, not trusting the reported numbers. Lesson: the
+first (broad, 4-file) review scope was too large for this environment's reviewer turn
+budget; a second, narrowly-targeted review of just the load-bearing claims succeeded on the
+first attempt. The self-review below is KEPT for the record, not replaced — it reached the
+same conclusion independently, which is itself a useful cross-check, not a redundant step.
+
+**Original note (first attempt, kept for the record):** `Agent(reviewer)` was invoked once,
+scoped narrowly to just this experiment's 4 files, and hit its 12-turn limit without
+producing a report (third consecutive reviewer timeout this session — H-B2-1z hit it
+twice). No `SendMessage` tool was available in this environment to resume it, and a fresh
+`Agent()` call would only duplicate work with no memory of partial progress (per this
+session's own memory: "resume-stalled-agent-with-sendmessage"). Not treated as reviewer
+approval — self-review substituted, documented honestly below rather than silently
+absorbed, per the standing lesson from an earlier incident this same project ("don't let
+agent caps silently substitute for FL Step 8a").
 
 Two concerns were checked directly, matching what a reviewer would likely have flagged:
 
