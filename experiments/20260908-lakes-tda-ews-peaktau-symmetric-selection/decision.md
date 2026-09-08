@@ -1,5 +1,18 @@
 # H-B3-1p — decision.md
 
+## FL Step 8a — mandatory reviewer
+
+Scoped narrowly per the now-established pattern (4th consecutive success this session):
+verify (1) the selection-rule change genuinely ignores `transition` for ALL lakes when
+computing `classical_peak` (not just for negative controls), and (2) the consistency
+check compares the correct stored field (`classical_peak_date_used`) from H-B3-1l's own
+`metrics/run.json`. Completed successfully on the first attempt with a full, clean
+verdict (no P0/P1/P2 findings, no blocking issues) — confirmed both: `transition` never
+feeds into `classical_peak` selection (only into the separate diagnostic
+distance-to-transition columns, guarded independently), and the consistency check reads
+the correct field, verified by reading the actual stored JSON directly rather than
+trusting the code's own comment. Ran `pytest` (6 passed, 3.47s) and `ruff` (clean) itself.
+
 ## Result
 
 Recomputed Lower Zurich's classical-peak selection using the SAME "earliest of the two"
