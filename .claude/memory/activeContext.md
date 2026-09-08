@@ -13,27 +13,12 @@
 
 
 
+
 ## Current Focus
 [summarized] **B1/B2/B3 arc (H-B3-1 through H-B3-1k, ADR-010–027) archived to `history/activeContext-archive-20260906-b1b2b3.md`**
-[summarized] уверенность выросла (ADR-061).** Полный ход H-B2-1n→1o→1p→1q (WEAKENED→CONFIRMED-сужен→MIXED→
-[summarized] **[Итог всей под-арки H-B2-1m→1q, ЗАВЕРШЕНА, ADR-065]** ω(A) твёрдо коррелирует с M1 при
-
-репликацией — H-B2-1p был drawer-selection). ω(A), как и κ(V), имеет реальный потолок между
-N=32 и N=40. Первая в сессии REJECT-запись → `null_results/INDEX.md`. Revival Condition: нужен
-ДРУГОЙ дескриптор (pseudospectral abscissa названа, не протестирована) — не вариация текущей
-пары.
-
-**[Полный ход H-B2-1r→1s→1t (WEAKENED-фикс→CONFIRMED→CONFIRMED сильнее) archived to
-`history/activeContext-archive-20260908-pseudospectral-verification-arc.md`]**
-
-**[Итог: pseudospectral abscissa дважды независимо реплицирована, ADR-069]** CONFIRMED на
-N=40,50 на ТРЁХ разных наборах данных подряд (H-B2-1r: сиды 0-14; H-B2-1s: та же популяция,
-независимая реализация pseudopy; H-B2-1t: полностью свежие сиды 300-339) — с усилением эффекта
-на каждом шаге (N=40: ρ 0.82→0.73 у своей реализации, но 0.731 на свежих данных против
-исходных ρ; значимость p=8.69e-8). Comparator-аномалия (κ(V) маргинально значим при N=40 на
-третьем диапазоне сидов) честно исследована через partial correlation: ω(A)-сигнал — spillover
-(исчезает), κ(V)-сигнал выживает — единичное наблюдение в pearl_registry, не меняет hard_killed
-статус H-B2-1q.
+[summarized] репликацией — H-B2-1p был drawer-selection). ω(A), как и κ(V), имеет реальный потолок между
+[summarized] **[Полный ход H-B2-1r→1s→1t (WEAKENED-фикс→CONFIRMED→CONFIRMED сильнее) archived to
+[summarized] **[Итог: pseudospectral abscissa дважды независимо реплицирована, ADR-069]** CONFIRMED на
 
 **[Полный ход H-B2-1u→1v→Step2→1w→1x→1y (MECHANISM_VERIFIED→cross-validated→docs closed→
 K_MODEL_WINS→robustness→ARTIFACT_HYPOTHESIS_SUPPORTED) archived to
@@ -51,7 +36,20 @@ alpha_eps-корреляции и наивного теоретического 
 матриц с уже большим K (bias~shallow_K^1.6, до 84×), и при глубокой переоценке показатель степени
 M1~K(A) падает с 2.19 до 0.72** — «квадратичный масштаб» substantially объясняется этим смещением,
 не новой физикой. Option B закрыт БЕЗ построения теории. Предиктивный результат H-B2-1w не
-пострадал (RMSE-победа не зависит от чистоты физического закона). **Ничего не запущено дальше
+пострадал (RMSE-победа не зависит от чистоты физического закона).
+
+**[VERIFIED] Продолжение (H-B2-1z, автономно, по стоящей авторизации, после reflective-сообщения
+пользователя о том, что «нужна сходящаяся оценка K(A), иначе физическая интерпретация мутная»):**
+закрытая форма kappa(lambda_1) (Trefethen-Embree eigenvalue condition number, один вызов
+eig()+inv(), БЕЗ pseudopy) даёт ИМЕННО эту сходящуюся оценку. Проверено на 16 матрицах H-B2-1y:
+kappa(lambda_1) >= deep_k в 16/16 случаях (медиана 0.989 от kappa). Mechanism Claim Gate на
+отдельной малой тестовой матрице: сэмплированное отношение сходится к kappa(lambda_1) в пределах
+0.02% на достижимом sweet spot (eps~5e-5), затем РАЗВОРАЧИВАЕТСЯ (численный floor, подтверждён
+non-determinism между двумя идентичными прогонами на самых мелких eps). Переподгонка M1~K(A) с
+kappa(lambda_1) на ПОЛНОЙ 80-точечной выборке H-B2-1x дала показатель 0.62-0.66 — ещё дальше от
+квадратичного, усиливая H-B2-1y на впятеро большей выборке. Честная оговорка: kappa(lambda_1) —
+худший held-out предиктор M1 (RMSE 0.522 vs 0.365 у смещённой shallow-оценки) — предиктивная
+полезность и физическая корректность остаются разными осями. **Ничего не запущено дальше
 автоматически — ждёт направления пользователя.**
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
@@ -73,11 +71,13 @@ Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный ос�
 
 
 
+
 ## Architecture (файлы этой папки)
 - `00-catalog/` — источники задач (raw + verified subset + skeptic assessment)
 - `01-cross-domain-bridges/` — главный рабочий файл + H-7 контекст (два разных проекта!)
 - `02-related-projects-context/` — ChernoffPy, May 1972
 - `03-methodology-rules/` — переиспользуемые правила (execution rules, submission gate, ESV scoring)
+
 
 
 
@@ -95,6 +95,7 @@ python -m ruff check scripts/ tests/ # lint (line-length=100 pinned in pyproject
 # LEDGER summary — count by grep, never by hand:
 grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ /,"",$6); print $6}' | sort | uniq -c
 ```
+
 
 
 
@@ -122,7 +123,9 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 
+
 ## Auto-commit log
+- [2026-09-08 19:18] `cdb6ed3` (local, branch `feature/h-b2-1y-kreiss-bias-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1y -- close 2 reviewer-found gaps, verify deep_k boundary-hit pattern directly
 - [2026-09-08 18:47] `98375d1` (local, branch `feature/h-b2-1y-kreiss-bias-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1y -- Chernoff/Kreiss node closes Option B: K^2 exponent traced to K(A) estimate bias, sharpened not weakened
 - [2026-09-08 15:23] `4a7167a` (local, branch `feature/h-b2-1x-tighter-predictor-robustness` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1x -- robustness check on H-B2-1w's K(A) exponent, sharpened not weakened
 - [2026-09-08 14:14] `505a1ef` (local, branch `feature/h-b2-1w-tighter-predictor-m1` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: log LEDGER row for verifying H-B2-1w's cross-experiment data join
@@ -137,4 +140,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
-- [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
