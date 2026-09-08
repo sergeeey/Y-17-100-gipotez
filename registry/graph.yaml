@@ -1580,6 +1580,28 @@ nodes:
     source: "experiments/20260909-forsythe-conjecture-restart-cg-search/decision.md"
     updated: 2026-09-09
 
+  - id: PROB-CAT-31
+    type: problem
+    title: "Typical Lovász theta number of random dense circulant graphs: does E[theta(G)] = (1+o(1))sqrt(n)? (Conjecture 18)"
+    status: open                     # general asymptotic remains open; source paper's own companion work gives partial bounds (lower bound + O(sqrt(n log log n)) upper bound), gap not yet closed
+    evidence: VERIFIED-REAL          # formal statement + Table 1 LP read directly from arXiv:2603.29571 via mcp__arxiv__download_paper, full text, not a snippet
+    catalog: "raw-100"
+    catalog_ref: "#31"
+    source: "Bandeira, Dmitriev, Lucca, Nizic-Nikolac, Rodder, Randomstrasse101: Open Problems of 2025, arXiv:2603.29571 (2026), Entry 9, Conjecture 18"
+    updated: 2026-09-09
+
+  - id: H-CAT31-1
+    type: hypothesis
+    title: "Random dense circulant graphs (n=10..2560, p=0.5): theta(G)/sqrt(n) stays close to 1 across ~3 orders of magnitude in n, consistent with the tight Conjecture 18 rather than only the weaker published O(sqrt(n log log n)) upper bound"
+    status: confirmed                # see decision.md -- log-log slope of ratio vs n = -0.035 (flat/mildly negative), ratio in [0.97,1.02] for n>=40
+    evidence: VERIFIED-REAL
+    l0_type: descriptive
+    kill_criterion: "CONFIRMED if theta(G)/sqrt(n) shows no systematic growth trend across n in [10,2560] (flat or converging); a systematic positive log-log-slope trend matching only the weaker O(sqrt(log log n)) bound would be INCONCLUSIVE (not REJECTED -- neither outcome disproves anything, both are informative). RESULT: measured log-log slope -0.035, ratio 0.97-1.02 for n>=40 -- CONFIRMED, consistent with the tight conjecture over the tested range. Two real bugs caught via Mechanism Claim Gate BEFORE trusting this number: (1) a memory-recalled eigenvalue formula for theta(G) on vertex-transitive graphs was independently confirmed WRONG for dense circulant graphs (verified via a C_9-isomorphic-complement cross-check + the theta(G)*theta(Gbar)=n identity), discarded in favor of the paper's own directly-sourced LP; (2) the LP's O(n^2) DFT-matrix construction was rewritten from a Python double-loop to a vectorized numpy outer product after an initial run exceeded 3 minutes with no output."
+    fl_tier: standard
+    experiment_dir: "experiments/20260909-lovasz-theta-random-circulant-graphs"
+    source: "experiments/20260909-lovasz-theta-random-circulant-graphs/decision.md"
+    updated: 2026-09-09
+
 edges:
   # grounding of bridges
   - {from: PRJ-H7-TAD,        to: B1-RMT-RIEMANN-HIC, type: grounds,   since: 2026-09-06}
@@ -1755,3 +1777,4 @@ edges:
 
   # ───────────────────────── scope expansion (2026-09-09, ADR-087) ─────────────────────────
   - {from: PROB-CAT-37, to: H-CAT37-1, type: grounds, since: 2026-09-09, note: "Problem 2.20 of arXiv:2602.05394 is the formal object this hypothesis tests"}
+  - {from: PROB-CAT-31, to: H-CAT31-1, type: grounds, since: 2026-09-09, note: "Conjecture 18 of arXiv:2603.29571 is the formal object this hypothesis tests"}
