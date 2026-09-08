@@ -49,8 +49,11 @@ non-determinism между двумя идентичными прогонами 
 kappa(lambda_1) на ПОЛНОЙ 80-точечной выборке H-B2-1x дала показатель 0.62-0.66 — ещё дальше от
 квадратичного, усиливая H-B2-1y на впятеро большей выборке. Честная оговорка: kappa(lambda_1) —
 худший held-out предиктор M1 (RMSE 0.522 vs 0.365 у смещённой shallow-оценки) — предиктивная
-полезность и физическая корректность остаются разными осями. **Ничего не запущено дальше
-автоматически — ждёт направления пользователя.**
+полезность и физическая корректность остаются разными осями. **Reviewer не дошёл до вердикта
+(2 попытки, обе упёрлись в лимит ходов) — закрыто self-review: независимая hand-derived формула
++ второй независимый численный метод (SVD-bisection, без pseudopy) подтвердили формулу и
+уточнили природу численного floor'а (артефакт pipeline'а pseudopy, не double-precision вообще).
+Смержено в main.** Ничего не запущено дальше автоматически — ждёт направления пользователя.
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
@@ -125,6 +128,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-08 20:12] `fcc1362` (local, branch `feature/h-b2-1z-kreiss-eigval-condition-anchor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1z -- close the reviewer-flagged gap with a second independent numerical method, since Agent(reviewer) never reached a verdict
+- [2026-09-08 20:04] `866627e` (local, branch `feature/h-b2-1z-kreiss-eigval-condition-anchor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1z -- closed-form eigenvalue condition number replaces non-converging pseudospectrum sampling as the convergent K(A) anchor
 - [2026-09-08 19:18] `cdb6ed3` (local, branch `feature/h-b2-1y-kreiss-bias-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1y -- close 2 reviewer-found gaps, verify deep_k boundary-hit pattern directly
 - [2026-09-08 18:47] `98375d1` (local, branch `feature/h-b2-1y-kreiss-bias-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1y -- Chernoff/Kreiss node closes Option B: K^2 exponent traced to K(A) estimate bias, sharpened not weakened
 - [2026-09-08 15:23] `4a7167a` (local, branch `feature/h-b2-1x-tighter-predictor-robustness` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1x -- robustness check on H-B2-1w's K(A) exponent, sharpened not weakened
@@ -134,8 +139,6 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-08 13:40] `35c0f9d` (local, branch `docs/close-bridge2-arc` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: close Bridge 2 (Chernoff/Kreiss) arc in the canonical bridge document
 - [2026-09-08 13:37] `20d3d03`: feat: H-B2-1v -- independent cross-implementation check of H-B2-1u's small-eps Kreiss growth via pseudopy
 - [2026-09-08 13:28] `20d3d03` (local, branch `feature/h-b2-1v-kreiss-crossimpl-smalleps` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1v -- independent cross-implementation check of H-B2-1u's small-eps Kreiss growth via pseudopy
-- [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
-- [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
