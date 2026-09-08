@@ -1,0 +1,200 @@
+{
+  "config": {
+    "matrices": [
+      {
+        "n_dim": 50,
+        "seed": 301
+      },
+      {
+        "n_dim": 40,
+        "seed": 307
+      },
+      {
+        "n_dim": 50,
+        "seed": 304
+      }
+    ],
+    "eps_values": [
+      0.02,
+      0.01,
+      0.005,
+      0.002,
+      0.001,
+      0.0005,
+      0.0001
+    ],
+    "auto_kwargs": {
+      "eps_min": 5e-05,
+      "eps_max": 0.05,
+      "n_circles": 40,
+      "n_points": 150
+    }
+  },
+  "per_matrix": {
+    "n50_seed301": {
+      "n_dim": 50,
+      "seed": 301,
+      "spectral_abscissa": 0.5,
+      "comparison": {
+        "0.02": {
+          "grid": 261.74496644295306,
+          "pseudopy_auto": 262.95502445216755,
+          "rel_diff": 0.004623042137768188,
+          "agrees_within_20pct": true
+        },
+        "0.01": {
+          "grid": null,
+          "pseudopy_auto": 434.34700995951215,
+          "rel_diff": null
+        },
+        "0.005": {
+          "grid": null,
+          "pseudopy_auto": 723.0554008395229,
+          "rel_diff": null
+        },
+        "0.002": {
+          "grid": null,
+          "pseudopy_auto": 1376.7303289551473,
+          "rel_diff": null
+        },
+        "0.001": {
+          "grid": null,
+          "pseudopy_auto": 2208.3530298938867,
+          "rel_diff": null
+        },
+        "0.0005": {
+          "grid": null,
+          "pseudopy_auto": 3445.6545933591674,
+          "rel_diff": null
+        },
+        "0.0001": {
+          "grid": null,
+          "pseudopy_auto": 8895.763665242881,
+          "rel_diff": null
+        }
+      },
+      "pseudopy_plateau_check": {
+        "growth_factors": [
+          1.6517920160088875,
+          1.6646952419608525,
+          1.90404542633477,
+          1.6040563525392002,
+          1.560282503166957,
+          2.5817340143111687
+        ],
+        "plateau_detected": false
+      }
+    },
+    "n40_seed307": {
+      "n_dim": 40,
+      "seed": 307,
+      "spectral_abscissa": 0.5,
+      "comparison": {
+        "0.02": {
+          "grid": 30.201342281879207,
+          "pseudopy_auto": 35.6644350032627,
+          "rel_diff": 0.18088907010803126,
+          "agrees_within_20pct": true
+        },
+        "0.01": {
+          "grid": null,
+          "pseudopy_auto": 39.407376283766006,
+          "rel_diff": null
+        },
+        "0.005": {
+          "grid": null,
+          "pseudopy_auto": 42.54912274900431,
+          "rel_diff": null
+        },
+        "0.002": {
+          "grid": null,
+          "pseudopy_auto": 45.07865933028759,
+          "rel_diff": null
+        },
+        "0.001": {
+          "grid": null,
+          "pseudopy_auto": 46.064526609431056,
+          "rel_diff": null
+        },
+        "0.0005": {
+          "grid": null,
+          "pseudopy_auto": 46.66505756964456,
+          "rel_diff": null
+        },
+        "0.0001": {
+          "grid": null,
+          "pseudopy_auto": 47.164560589660894,
+          "rel_diff": null
+        }
+      },
+      "pseudopy_plateau_check": {
+        "growth_factors": [
+          1.1049488455420893,
+          1.0797248322906632,
+          1.059449793975893,
+          1.0218699334405688,
+          1.0130367335651844,
+          1.01070400522427
+        ],
+        "plateau_detected": true
+      }
+    },
+    "n50_seed304": {
+      "n_dim": 50,
+      "seed": 304,
+      "spectral_abscissa": 0.5,
+      "comparison": {
+        "0.02": {
+          "grid": 161.07382550335583,
+          "pseudopy_auto": 167.9600527639492,
+          "rel_diff": 0.0427519942428504,
+          "agrees_within_20pct": true
+        },
+        "0.01": {
+          "grid": null,
+          "pseudopy_auto": 278.749912291722,
+          "rel_diff": null
+        },
+        "0.005": {
+          "grid": null,
+          "pseudopy_auto": 472.49701881039687,
+          "rel_diff": null
+        },
+        "0.002": {
+          "grid": null,
+          "pseudopy_auto": 903.0018276734188,
+          "rel_diff": null
+        },
+        "0.001": {
+          "grid": null,
+          "pseudopy_auto": 1490.4562923576705,
+          "rel_diff": null
+        },
+        "0.0005": {
+          "grid": null,
+          "pseudopy_auto": 2335.33929237088,
+          "rel_diff": null
+        },
+        "0.0001": {
+          "grid": null,
+          "pseudopy_auto": 5638.223067898948,
+          "rel_diff": null
+        }
+      },
+      "pseudopy_plateau_check": {
+        "growth_factors": [
+          1.659620294853543,
+          1.695057103070624,
+          1.9111270372602593,
+          1.6505573374063107,
+          1.5668619766613454,
+          2.4143057440595364
+        ],
+        "plateau_detected": false
+      }
+    }
+  },
+  "all_agree_within_20pct": true,
+  "any_plateau_detected": true,
+  "verdict": "GRID_SEARCH_ARTIFACT_SUSPECTED"
+}

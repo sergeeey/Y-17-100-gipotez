@@ -56,6 +56,18 @@ eps=0.001 подтвердил — ratio растёт геометрически
 (включая «выброс 31%») — верхняя граница, не точные значения; «выброс» — скорее артефакт. Второй
 коммит (не amend): убран мёртвый code, исправлена тестовая формула, честный caveat в decision.md.
 
+**[VERIFIED] [H-B2-1v, ADR-072, cross-implementation малых eps через pseudopy — ЗАВЕРШЁН]** Пользователь
+предложил cross-check как приоритет; прямая проверка показала — буквальный шаг уже сделан
+(H-B2-1s), реально открыт только малый-eps gap. `pseudopy.NonnormalAuto` (окружности вокруг
+собственных значений, не сетка) — positive control поймал ВТОРОЙ реальный баг (points/vals-маска
+занижала на ~16%), исправлено через `matplotlib.tricontour` (ratio=0.9998-1.0000 на контроле).
+Результат на 3 матрицах: 2 (наибольший/средний K) — <1% совпадение с grid-search, БЕЗ плато до
+eps=0.0001 (независимо подтверждает H-B2-1u); 1 (наименьший K) — НАСТОЯЩЕЕ плато (K→~47).
+Сходимость масштабируется с величиной K — не противоречие. Механический вердикт в JSON
+(`GRID_SEARCH_ARTIFACT_SUSPECTED`) явно помечен как вводящий в заблуждение label, не итоговый
+вывод. **Следующее по плану: Step 2 (закрыть B2 документально) / Step 3 (tighter predictor) — не
+запущены.**
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
 ## Project State
@@ -125,18 +137,18 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
-- [2026-09-08 12:29] `87493bf`: feat: H-B2-1u -- Kreiss Matrix Theorem mechanistic verification (Priority 3), MECHANISM_VERIFIED after self-caught eps-sampling bug
-- [2026-09-08 12:27] `87493bf`: feat: H-B2-1u -- Kreiss Matrix Theorem mechanistic verification (Priority 3), MECHANISM_VERIFIED after self-caught eps-sampling bug
-- [2026-09-08 12:06] `87493bf` (local, branch `feature/h-b2-1u-kreiss-mechanism` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1u -- Kreiss Matrix Theorem mechanistic verification (Priority 3), MECHANISM_VERIFIED after self-caught eps-sampling bug
-- [2026-09-08 09:27] `2860881` (local, branch `feature/h-b2-1t-fresh-confirmatory` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history + verdict entries
-- [2026-09-08 09:26] `ad2b889` (local, branch `feature/h-b2-1t-fresh-confirmatory` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1t -- fresh-seed confirmatory replication (Priority 2), CONFIRMED even stronger, comparator anomaly investigated not glossed
-- [2026-09-07 22:05] `53081a1` (local, branch `feature/h-b2-1s-pseudospectral-crossimpl` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history + verdict entries
-- [2026-09-07 22:04] `92618a8` (local, branch `feature/h-b2-1s-pseudospectral-crossimpl` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1s -- verdict logic now compares against H-B2-1r's own result, not pseudopy in isolation (reviewer P2)
-- [2026-09-07 21:58] `74155cf` (local, branch `feature/h-b2-1s-pseudospectral-crossimpl` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1s -- cross-implementation check of H-B2-1r's pseudospectral abscissa via pseudopy, CONFIRMED cleanly
-- [2026-09-07 21:31] `6956804` (local, branch `feature/h-b2-1r-pseudospectral-abscissa` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: ADR-067 -- resolve Evaluator-Optimizer iteration-guard deadlock by documented manual counter reset
-- [2026-09-07 21:19] `9f56f2e` (local, branch `feature/h-b2-1r-pseudospectral-abscissa` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: downgrade stale P1 finding in approx_n_seasons to P2, by user decision
-- [2026-09-07 20:48] `e00608a` (local, branch `feature/h-b2-1r-pseudospectral-abscissa` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1r -- pseudospectral abscissa CONFIRMED at N=40,50, closing the descriptor gap kappa(V)/omega(A) left open, after a self-caught bug and independent verification
-- [2026-09-07 20:05] `15cf345` (local, branch `feature/h-b2-1q-fixedgrid-replication` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1q -- pre-registered fixed-grid replication resolves the H-B2-1p N=64 dispute: NOT_REPLICATED, omega(A) sub-arc closed
-- [2026-09-07 19:00] `68f1371` (local, branch `feature/h-b2-1p-boundary-test` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1p -- discriminating test at N_DIM in {64,80}, MIXED, and a self-caught methodological error (retrospective FDR over adaptively-selected N) corrected in place
-- [2026-09-07 18:42] `d05b5bf` (local, branch `feature/h-b2-1o-confirmatory-fresh-seeds` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 5, final)
-- [2026-09-07 18:41] `09a74c2` (local, branch `feature/h-b2-1o-confirmatory-fresh-seeds` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 4, final)
+- [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 12:58] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 12:58] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 12:58] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 12:57] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
+- [2026-09-08 12:36] `e45cec6` (local, branch `fix/h-b2-1u-kreiss-convergence-caveat` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
