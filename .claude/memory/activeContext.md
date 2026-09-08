@@ -35,48 +35,24 @@ N=40,50 на ТРЁХ разных наборах данных подряд (H-B
 (исчезает), κ(V)-сигнал выживает — единичное наблюдение в pearl_registry, не меняет hard_killed
 статус H-B2-1q.
 
-**[H-B2-1u, ADR-070, «Го Priority 3, механистический анализ» — ЗАВЕРШЁН]** Прямая проверка
-теоремы Крейса `K(A) <= sup_t||exp(tA)|| <= e*n*K(A)` на 20 матрицах (N=40,50, сиды 300-309).
-Первый черновик дал 1/20 кажущихся нарушений ДОКАЗАННОЙ границы (seed=301,N=50) —
-per kill criterion расследовано, не отчитано как есть: причина — `EPS_VALUES` черновика
-никогда не пробовал малые eps, где живёт истинный супремум K(A) для этого (почти нильпотентного)
-семейства матриц (11-кратный скачок ratio при eps=0.02 против 0.5-3.0). Не баг в дважды
-верифицированной pseudospectral_abscissa. Исправлено (расширенный EPS_VALUES + локальная сетка) →
-**MECHANISM_VERIFIED, 0/20 нарушений.** Efficiency ratio низкий по всей выборке (медиана 3.7-6.3%,
-макс 31%) — граница держится, но рыхлая (известное ограничение множителя `e*n`, не дефект).
-Contextualизирует, не подрывает H-B2-1r/1s/1t. Статус `lead` (теорема не «подтверждается»
-данными). **Последний названный шаг текущего плана пользователя — новый эксперимент НЕ запущен,
-ждёт направления.**
+**[Полный ход H-B2-1u→1v→Step2→1w→1x→1y (MECHANISM_VERIFIED→cross-validated→docs closed→
+K_MODEL_WINS→robustness→ARTIFACT_HYPOTHESIS_SUPPORTED) archived to
+`history/activeContext-archive-20260908-kreiss-mechanism-and-predictor-arc.md`]**
 
-**[ADR-071, коррекция ПОСЛЕ мержа]** Широкий reviewer дважды упёрся в лимит ходов → смержено по
-узкому reviewer'у (LGTM) → запоздавшее уведомление: широкий досчитал, `NEEDS_WORK (P1)`.
-Проверено напрямую: k_estimate уперт в наименьший eps=0.02 на 20/20 матриц, без плато (скан до
-eps=0.001 подтвердил — ratio растёт геометрически, не сходится). Структурный потолок grid-search,
-не баг. MECHANISM_VERIFIED устоял (недооценка K только ужесточает проверку), но efficiency-числа
-(включая «выброс 31%») — верхняя граница, не точные значения; «выброс» — скорее артефакт. Второй
-коммит (не amend): убран мёртвый code, исправлена тестовая формула, честный caveat в decision.md.
-
-**[Полный ход H-B2-1u→1v→Step2→1w (MECHANISM_VERIFIED→cross-validated→docs closed→K_MODEL_WINS)
-archived to `history/activeContext-archive-20260908-kreiss-mechanism-and-predictor-arc.md`]**
-
-**[VERIFIED] [Итог: пользовательский 3-priority план (cross-check → close B2 → tighter predictor)
-ПОЛНОСТЬЮ ВЫПОЛНЕН, ADR-070…073]** Теорема Крейса верифицирована на 20 матрицах, дважды
-независимо cross-validated через `pseudopy` (eps~1 в H-B2-1s, малые eps в H-B2-1v), канонический
-документ моста B2 обновлён (`CONFIRMED-WITH-CAVEATS`), и — главный итог — **первый predictive-tier
-результат арки**: K(A)-модель решительно предсказывает M1 точнее established alpha_eps-корреляции
-(RMSE в 2.6× лучше) и наивного теоретического потолка (в 12.2× лучше) на генуинно held-out данных
-(30 свежих сидов, pre-registered split). Подобранная эмпирическая закономерность M1~K(A)^1.94 —
-конкретный кандидат для future аналитической работы (Option B), честно помечена как наблюдение,
-не теорема.
-
-**[H-B2-1x, ADR-074, «продолжай» — robustness-проверка K(A)-показателя, ЗАВЕРШЁН]** TRAIN
-расширен до 80 точек, TEST — 30 новых свежих сидов (420-434). Показатель K(A) устоял и сузился:
-1.943→**2.354, 95% CI [2.19,2.52]** — полностью исключает 1.0, устойчиво superlinear (механический
-label `EXPONENT_SHIFTED_AWAY_FROM_2` снова вводит в заблуждение, тот же класс проблемы что в
-H-B2-1v). Две честные новые находки: (1) показатель N_DIM НЕ разделим (CI включает почти ноль) —
-collinearity с K(A) (corr=0.45) + всего 2 значения N_DIM; (2) больше TRAIN-данных НЕ улучшило
-RMSE на свежем тесте (0.3652 vs оригинальные 0.3058) — зафиксировано как есть, не объяснено
-задним числом. **Ничего не запущено дальше автоматически — ждёт направления пользователя.**
+**[VERIFIED] [Итог: пользовательский 3-priority план ПОЛНОСТЬЮ ВЫПОЛНЕН + Option B закрыт,
+ADR-070…075]** Теорема Крейса верифицирована на 20 матрицах, дважды независимо cross-validated
+через `pseudopy`, канонический документ моста B2 обновлён (`CONFIRMED-WITH-CAVEATS`). Первый
+predictive-tier результат арки: K(A)-модель решительно предсказывает M1 точнее established
+alpha_eps-корреляции и наивного теоретического потолка на held-out данных (H-B2-1w,
+`K_MODEL_WINS`, устояло при расширении выборки — H-B2-1x). **Финал (H-B2-1y):** литературный
+поиск для Option B (аналитический вывод «почему K²») не нашёл прямого совпадения — вместо
+подгонки цитаты пользователь выбрал дешёвую проверку альтернативы: не артефакт ли это. Прямая
+проверка на 16 матрицах подтвердила — **shallow K(A) недооценивает истинную константу СИЛЬНЕЕ для
+матриц с уже большим K (bias~shallow_K^1.6, до 84×), и при глубокой переоценке показатель степени
+M1~K(A) падает с 2.19 до 0.72** — «квадратичный масштаб» substantially объясняется этим смещением,
+не новой физикой. Option B закрыт БЕЗ построения теории. Предиктивный результат H-B2-1w не
+пострадал (RMSE-победа не зависит от чистоты физического закона). **Ничего не запущено дальше
+автоматически — ждёт направления пользователя.**
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
@@ -147,6 +123,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-08 15:23] `4a7167a` (local, branch `feature/h-b2-1x-tighter-predictor-robustness` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1x -- robustness check on H-B2-1w's K(A) exponent, sharpened not weakened
 - [2026-09-08 14:14] `505a1ef` (local, branch `feature/h-b2-1w-tighter-predictor-m1` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: log LEDGER row for verifying H-B2-1w's cross-experiment data join
 - [2026-09-08 14:12] `7f9727e` (local, branch `feature/h-b2-1w-tighter-predictor-m1` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1w -- K(A)-based model decisively beats naive ceiling and established alpha_eps correlation on held-out M1 prediction
 - [2026-09-08 13:40] `d05f090` (local, branch `docs/close-bridge2-arc` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: fix stale Bridge 2 status line in activeContext.md Project State summary
@@ -159,6 +136,5 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
-- [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
