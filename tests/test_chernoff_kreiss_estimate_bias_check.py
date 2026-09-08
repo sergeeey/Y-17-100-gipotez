@@ -31,7 +31,11 @@ def _cached_run():
 
 
 def test_sample_matrices_are_all_drawn_from_h_b2_1x_train_data():
-    train_pairs = {(r["n_dim"], r["seed"]) for r in biascheck.H_B2_1X_RESULT["train_data"]}
+    train_rows = biascheck.H_B2_1X_RESULT["train_data"]
+    train_pairs = {(r["n_dim"], r["seed"]) for r in train_rows}
+    # No duplicate (n_dim, seed) rows -- otherwise cmd_run()'s `next(...)` lookup could
+    # silently pick the wrong row (reviewer-caught gap, H-B2-1y).
+    assert len(train_pairs) == len(train_rows)
     for pair in biascheck.SAMPLE_MATRICES:
         assert pair in train_pairs
 
@@ -69,11 +73,21 @@ def test_alpha_eps_via_tricontour_matches_exact_formula_for_symmetric_matrix():
 def test_deep_k_is_at_least_as_large_as_shallow_k_for_every_matrix():
     """Deep K(A) samples smaller eps than the shallow production estimate -- by the arc's own
     established understanding (grid/circle-based K estimates only ever UNDERSHOOT as eps grows
-    coarser), deep_k must be >= shallow_k for every matrix, never smaller."""
+    coarser), deep_k must be >= shallow_k for every matrix, never smaller.
+
+    Reviewer-caught gap (H-B2-1y): the original loop only asserted inside `if deep_k is not
+    None`, so it would pass vacuously if EVERY deep_k came back None. Assert non-None coverage
+    explicitly first, then require it for ALL 16 matrices (not just "any"), since a matrix
+    silently missing its deep estimate would otherwise corrupt the bias-factor regression
+    without failing this test."""
     result = _cached_run()
-    for row in result["per_matrix"].values():
-        if row["deep_k"] is not None:
-            assert row["deep_k"] >= row["shallow_k"] - 1e-6
+    rows = list(result["per_matrix"].values())
+    assert all(row["deep_k"] is not None for row in rows), (
+        "every one of the 16 sampled matrices must have a deep_k -- a None here would silently "
+        "drop that matrix from the bias-factor regression"
+    )
+    for row in rows:
+        assert row["deep_k"] >= row["shallow_k"] - 1e-6
 
 
 def test_cmd_run_produces_expected_shape_and_verdict():

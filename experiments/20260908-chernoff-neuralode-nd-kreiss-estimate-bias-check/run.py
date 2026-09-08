@@ -71,6 +71,12 @@ SAMPLE_MATRICES = (
 )
 
 # Extended an order of magnitude deeper than H-B2-1v's own check (which used eps_min=0.00005).
+# VERIFIED after running (not assumed): all 16/16 matrices hit their max ratio at the SMALLEST
+# tested eps (0.00001), still climbing steeply with no inflection -- "deep_k" here is a LESS
+# shallow lower bound, not a converged value (same pattern H-B2-1u/1v found for the arc's own
+# shallow estimate). This means the bias factors and the corrected exponent in decision.md are
+# themselves conservative -- the true correction is likely larger, not smaller. See decision.md
+# Honest Caveat #2 for the full account.
 DEEP_AUTO_KWARGS = {"eps_min": 0.000005, "eps_max": 0.05, "n_circles": 50, "n_points": 150}
 DEEP_EPS_VALUES = (0.02, 0.01, 0.005, 0.002, 0.001, 0.0005, 0.0001, 0.00005, 0.00001)
 

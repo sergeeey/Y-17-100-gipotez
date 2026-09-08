@@ -42,14 +42,20 @@ itself, not from new physics.
    interval is reported here (unlike `H-B2-1x`'s careful 95%-CI discipline) — this experiment was
    scoped as a DIAGNOSTIC (does the artifact hypothesis survive at all), not a final precision
    re-estimate. A proper CI on the deep-K exponent is a natural next step, not done here.
-2. **"Deep" is still not "true."** `H-B2-1v` already established that even `eps=0.0001` does not
-   show a plateau for high-K matrices — this experiment's `eps_min=0.000005` (an order of
-   magnitude deeper) is a BETTER measurement, not a converged one. The bias factors reported here
-   (1.6x-84x) are themselves likely UNDERSTATED — the true bias could be larger still. This means
-   the deep-K exponent of 0.72 should be read as "closer to the truth, still possibly biased in
-   the same direction," not as a final, precise value. It could still move further, plausibly
-   toward 1 (the classical linear value) as measurement depth increases further, though this is
-   not tested here.
+2. **"Deep" is still not "true" — VERIFIED directly, not assumed.** Checked which `eps` level in
+   `DEEP_EPS_VALUES` produced each matrix's winning ratio (`max(deep_ratios_by_eps)`): **16 out of
+   16 matrices** hit their maximum at the SMALLEST tested `eps=0.00001`, with the ratio still
+   climbing steeply at that boundary in every single case (e.g. seed=329: 223.7 at eps=0.02 ->
+   18,669.2 at eps=0.00001, roughly doubling with each halving of `eps` all the way down, no
+   inflection visible). This is the exact same "100% boundary hits, no plateau" pattern `H-B2-1u`
+   found for its own shallow estimate — confirming `deep_k` here is a LESS shallow lower bound, not
+   a converged one. The bias factors reported here (1.6x-84x) are themselves demonstrably
+   UNDERSTATED — the true bias is larger still, and grows faster for the already-highest-K
+   matrices (seed=329's ratio nearly doubled between the last two eps steps alone, more than the
+   smaller-K matrices did). This means the deep-K exponent of 0.72 should be read as "moved
+   correctly in direction, itself still an underestimate of how far the correction should go" —
+   the true corrected exponent could plausibly sit anywhere from here up toward 1, or even further,
+   not a settled final value.
 3. **The exponent moved BELOW 1 (0.72), not just toward 1.** This is worth flagging honestly, not
    glossed over: the classical Kreiss bound structure suggests M1 should scale AT LEAST linearly
    with the true K(A) in general expectation (informally), so a sub-linear fitted exponent of 0.72
