@@ -169,6 +169,24 @@ print(f"Delta: {abs(r_mean - 0.6027):.4f}")
 
 ---
 
+### Bridge 8 (PROPOSED, 2026-09-09) — UDE parameter identifiability ↔ ChernoffPy
+
+**Почему это новый мост, а не продолжение Bridge 2:** Bridge 2 тестировал transient-growth/stability предсказание (pseudospectral abscissa как bound для M1). Этот источник называет ОТКРЫТОЙ другую, структурно иную задачу того же UDE-стека: **параметрическая идентифицируемость** нейросетевого компонента деградирует при ограниченном observable mapping (не все переменные системы наблюдаемы) и малом/шумном датасете. Разные вопросы, общая инфраструктура (`PRJ-CHERNOFFPY`) — переносится код, не вывод.
+
+**Grounding (источник проверен WebSearch этой сессией, не принят на веру):**
+- Philipps, Schmid, Hasenauer (2025), *«Current state and open problems in universal differential equations for systems biology»*, npj Systems Biology and Applications 11, [s41540-025-00550-w](https://www.nature.com/articles/s41540-025-00550-w) [VERIFIED — DOI резолвится, статья реальна, опубликована Nature]. Явно называет открытой проблемой: "Observable mappings can restrict the identifiability of model parameters, particularly when data availability is low and resolution is limited."
+
+**Novelty check (FL Step -3, выполнен ДО scoping):** grep по `null_results/INDEX.md`, `parked/INDEX.md`, `pearl_registry/INDEX.md` на "identifiab*" — 0 совпадений с этой конкретной задачей (единственное совпадение в graph.yaml — не связанный causal-identifiability вопрос в H-7-2/Kauffman). Не переоткрытие.
+
+**⚠️ Novelty/Transfer Gate — определён СЕЙЧАС, до какого-либо scoping-вложения (именно то, чего не хватало Bridge 3 на старте — источник данных Mangal/GloBI оказался непригоден и был пойман только ПОСЛЕ первой попытки скоупинга):**
+1. **Feasibility:** содержит ли `PRJ-CHERNOFFPY` (или можно ли дёшево добавить) синтетическую систему с ИЗВЕСТНЫМИ истинными параметрами, чтобы деградацию идентифицируемости можно было измерить против проверяемого эталона — не просто "сеть подогналась под данные"? Если требует непропорциональной новой инфраструктуры симуляции → мост паркуется на этом шаге, не выполняется.
+2. **Различимость от Bridge 2:** гипотеза должна делать предсказание, которое было бы ЛОЖНЫМ, если бы идентифицируемость деградировала как обычная noise-robustness кривая, а не именно как «ограничение observable mapping» из источника — иначе это просто Bridge 2 под другим именем.
+3. **Kill-критерий для самого этапа scoping (до claim.md):** если `PRJ-CHERNOFFPY`'s код не предоставляет способ дёшево строить partial-observable варианты одной и той же системы (не переписывая симулятор с нуля) — `status: blocked` на scoping-уровне, эксперимент не начинается.
+
+**Status:** `proposed` — зарегистрирован в `registry/graph.yaml` (узлы `PROB-UDE-IDENTIFIABILITY-2025`, `BRIDGE-8-UDE-IDENTIFIABILITY`). Feasibility-проверка (пункт 1 gate) — следующий шаг, не выполнена в этой сессии.
+
+---
+
 ## ❌ Отклонённые/не найденные (park until located)
 
 **Frontier R&D, TOFT vs SMT, RAF/CatlyNet** — см. раздел выше. Не добавлять в execution queue пока не подтверждена реальность этих проектов.

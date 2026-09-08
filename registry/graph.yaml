@@ -1537,6 +1537,26 @@ nodes:
     source: "01-cross-domain-bridges/Q-GOE-vs-GUE — resolution analysis (2026-09-07).md ; original claim in 01-cross-domain-bridges/H-7 TAD Spectral Diagnostic.md lines 130-151"
     updated: 2026-09-07
 
+  # ───────────────────────── Bridge 8 (proposed, 2026-09-09) ─────────────────────────
+  - id: PROB-UDE-IDENTIFIABILITY-2025
+    type: problem
+    title: "Observable-mapping restrictions on UDE (universal differential equation) parameter identifiability under low/noisy data"
+    status: open
+    evidence: VERIFIED-REAL          # DOI resolves, article verified via WebSearch 2026-09-09, real Nature-portfolio publication
+    catalog: "direct-source-2026-09-09"   # not from either existing 100-item or 43-item catalog; found this session while scoping the next bridge
+    catalog_ref: "Philipps, Schmid, Hasenauer (2025), npj Systems Biology and Applications 11, s41540-025-00550-w"
+    source: "https://www.nature.com/articles/s41540-025-00550-w"
+    updated: 2026-09-09
+
+  - id: BRIDGE-8-UDE-IDENTIFIABILITY
+    type: bridge
+    title: "UDE parameter identifiability (Philipps/Schmid/Hasenauer 2025) <-> ChernoffPy's existing Neural-ODE/UDE stack"
+    status: proposed                 # scoping (feasibility gate) not yet done -- do not upgrade to verified_grounding until PRJ-CHERNOFFPY's partial-observable-variant feasibility is checked
+    evidence: HYPOTHESIS
+    mechanism: "same UDE/Neural-ODE machinery already built for Bridge 2 answers a DIFFERENT open question here: does identifiability of the neural component degrade specifically with observable-mapping restriction (not generic noise), distinct from Bridge 2's transient-growth/stability question"
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md, section 'Bridge 8 (PROPOSED, 2026-09-09)'"
+    updated: 2026-09-09
+
 edges:
   # grounding of bridges
   - {from: PRJ-H7-TAD,        to: B1-RMT-RIEMANN-HIC, type: grounds,   since: 2026-09-06}
@@ -1705,3 +1725,7 @@ edges:
   - {from: H-B7-12, to: H-B7-11, type: depends_on, since: 2026-09-07, note: "H-B7-12's own skeptic pass found the two branches tested in H-B7-11/H-B7-12 are dynamically equivalent (EGFR gated by FGFR3=1) -- corrects H-B7-11's 'generalization' framing via a dated addendum in H-B7-11's own decision.md, does not change H-B7-11's technical CONFIRMED verdict"}
   - {from: H-B7-12, to: ART-REMY-CROSSBRANCH-TRANSIENT-RUN-20260906, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
   - {from: H-B7-11, to: H-B7-4, type: depends_on, since: 2026-09-07, note: "H-B7-11's Compute-First scoping found and corrected a minor factual error in H-B7-4's own original branch-count claim (7, not 8, of 16 branches multistable) -- documented as a dated correction addendum in H-B7-4's Data_README.md, H-B7-4's own verdict/status unaffected"}
+
+  # ───────────────────────── Bridge 8 (proposed, 2026-09-09) ─────────────────────────
+  - {from: PROB-UDE-IDENTIFIABILITY-2025, to: BRIDGE-8-UDE-IDENTIFIABILITY, type: grounds, since: 2026-09-09, note: "npj Sys Biol Appl 2025 names this open problem directly"}
+  - {from: PRJ-CHERNOFFPY, to: BRIDGE-8-UDE-IDENTIFIABILITY, type: grounds, since: 2026-09-09, note: "existing UDE/Neural-ODE codebase is the candidate infrastructure to reuse -- feasibility of partial-observable variants not yet checked, see Novelty/Transfer Gate in project doc"}
