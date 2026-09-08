@@ -67,7 +67,16 @@ archived to `history/activeContext-archive-20260908-kreiss-mechanism-and-predict
 (RMSE в 2.6× лучше) и наивного теоретического потолка (в 12.2× лучше) на генуинно held-out данных
 (30 свежих сидов, pre-registered split). Подобранная эмпирическая закономерность M1~K(A)^1.94 —
 конкретный кандидат для future аналитической работы (Option B), честно помечена как наблюдение,
-не теорема. **Ничего не запущено дальше автоматически — ждёт направления пользователя.**
+не теорема.
+
+**[H-B2-1x, ADR-074, «продолжай» — robustness-проверка K(A)-показателя, ЗАВЕРШЁН]** TRAIN
+расширен до 80 точек, TEST — 30 новых свежих сидов (420-434). Показатель K(A) устоял и сузился:
+1.943→**2.354, 95% CI [2.19,2.52]** — полностью исключает 1.0, устойчиво superlinear (механический
+label `EXPONENT_SHIFTED_AWAY_FROM_2` снова вводит в заблуждение, тот же класс проблемы что в
+H-B2-1v). Две честные новые находки: (1) показатель N_DIM НЕ разделим (CI включает почти ноль) —
+collinearity с K(A) (corr=0.45) + всего 2 значения N_DIM; (2) больше TRAIN-данных НЕ улучшило
+RMSE на свежем тесте (0.3652 vs оригинальные 0.3058) — зафиксировано как есть, не объяснено
+задним числом. **Ничего не запущено дальше автоматически — ждёт направления пользователя.**
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
@@ -138,6 +147,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-08 14:14] `505a1ef` (local, branch `feature/h-b2-1w-tighter-predictor-m1` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: log LEDGER row for verifying H-B2-1w's cross-experiment data join
+- [2026-09-08 14:12] `7f9727e` (local, branch `feature/h-b2-1w-tighter-predictor-m1` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1w -- K(A)-based model decisively beats naive ceiling and established alpha_eps correlation on held-out M1 prediction
 - [2026-09-08 13:40] `d05f090` (local, branch `docs/close-bridge2-arc` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: fix stale Bridge 2 status line in activeContext.md Project State summary
 - [2026-09-08 13:40] `35c0f9d` (local, branch `docs/close-bridge2-arc` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: close Bridge 2 (Chernoff/Kreiss) arc in the canonical bridge document
 - [2026-09-08 13:37] `20d3d03`: feat: H-B2-1v -- independent cross-implementation check of H-B2-1u's small-eps Kreiss growth via pseudopy
@@ -151,5 +162,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
-- [2026-09-08 12:59] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
-- [2026-09-08 12:58] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
