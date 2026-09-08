@@ -143,6 +143,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-08 22:26] `b5766d7` (local, branch `fix/h-b2-1z-correction-external-audit` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1z correction -- external audit + independent reconfirmation falsify "convergent K(A) found"
 - [2026-09-08 20:14] `ac6b74b` (local, branch `feature/h-b2-1z-kreiss-eigval-condition-anchor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: auto-log commit history entry
 - [2026-09-08 20:14] `79fce3d` (local, branch `feature/h-b2-1z-kreiss-eigval-condition-anchor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: update activeContext.md with H-B2-1z's closed gap and merge status
 - [2026-09-08 20:12] `fcc1362` (local, branch `feature/h-b2-1z-kreiss-eigval-condition-anchor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1z -- close the reviewer-flagged gap with a second independent numerical method, since Agent(reviewer) never reached a verdict
@@ -156,5 +157,4 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-08 13:40] `35c0f9d` (local, branch `docs/close-bridge2-arc` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: close Bridge 2 (Chernoff/Kreiss) arc in the canonical bridge document
 - [2026-09-08 13:37] `20d3d03`: feat: H-B2-1v -- independent cross-implementation check of H-B2-1u's small-eps Kreiss growth via pseudopy
 - [2026-09-08 13:28] `20d3d03` (local, branch `feature/h-b2-1v-kreiss-crossimpl-smalleps` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1v -- independent cross-implementation check of H-B2-1u's small-eps Kreiss growth via pseudopy
-- [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
