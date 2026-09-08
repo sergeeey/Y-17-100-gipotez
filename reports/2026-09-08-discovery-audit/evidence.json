@@ -1,0 +1,79 @@
+{
+  "scope": "Retrospective audit; counterexamples are numerical/model evidence, not a new discovery.",
+  "environment": {
+    "python": "3.13.2",
+    "numpy": "2.3.4",
+    "scipy": "1.16.3"
+  },
+  "input_sha256": {
+    "experiments\\20260907-chernoff-neuralode-nd-multiseed-multin\\run.py": "b2fb20445ac3b219932a8800397be0ca3311eb3fdc10b7a3116a61d603a0d170",
+    "experiments\\20260908-chernoff-neuralode-nd-tighter-predictor-robustness\\metrics\\run.json": "5ced475afa4bf7ea15a7452b76935ab419acc7459394a7b8e34c066e76939f3f",
+    "registry\\graph.yaml": "2aa3dfd2faba928272e076c7b90f6bb8351b58d517d220004bfdc2254d222c54"
+  },
+  "inventory": {
+    "nodes": 116,
+    "edges": 137,
+    "hypotheses": 54,
+    "status": {
+      "confirmed": 29,
+      "blocked": 1,
+      "killed": 12,
+      "lead": 12
+    },
+    "evidence_labels": {
+      "VERIFIED-REAL": 53,
+      "CONFLICT": 1
+    },
+    "branches": {
+      "B1": 3,
+      "B2": 26,
+      "B3": 13,
+      "B7": 12
+    }
+  },
+  "shift_counterexample": {
+    "A": "0.5 I_2",
+    "K(A-0.5I)": 1,
+    "raw_norm_t10": 148.4131591025766,
+    "wrong_ceiling": 5.43656365691809,
+    "true_K_A_and_raw_infinite_horizon_sup": "infinity"
+  },
+  "existing_training_counterexample": {
+    "n": 40,
+    "seed": 314,
+    "x": 0.7405684692,
+    "kappa_lambda1": 50.10510698013526,
+    "K_shifted_lower_bound": 108.83796086385792,
+    "ratio": 2.1721929644219293
+  },
+  "constructed_support_counterexample": {
+    "n": 40,
+    "last_block_size": 5,
+    "coupling": 14,
+    "kappa_lambda1": 1.0,
+    "K_shifted_lower_bound": 44.8735683200581,
+    "norm_exp_shifted_t1": 85.31685600538083
+  },
+  "horizon": {
+    "population_size": 110,
+    "asymptotic_exceeds_stored_m1": 97,
+    "worst": {
+      "n_dim": 50,
+      "seed": 424,
+      "stored_m1_t_le_1": 621.0209019427924,
+      "asymptotic_norm": 15896.28584689053,
+      "asymptotic_over_stored": 25.597022253455286
+    },
+    "interpretation": "Finite-horizon M1 is not the all-time semigroup supremum; this does not invalidate it as a finite-horizon prediction target."
+  },
+  "fairer_baseline_retrospective": {
+    "features": [
+      "intercept",
+      "log_alpha_eps",
+      "log_N"
+    ],
+    "test_rmse": 0.7186256563609648,
+    "original_k_model_test_rmse": 0.36523002411242284,
+    "note": "Diagnostic reuse of revealed test data; not a new confirmatory model-selection experiment."
+  }
+}

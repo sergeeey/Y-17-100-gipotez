@@ -136,6 +136,28 @@ def test_mechanism_gate_ratios_cover_every_configured_eps(cached_result):
         assert str(eps) in mech["ratios_by_eps"]
 
 
+def test_mechanism_gate_ratios_are_sane_for_eps_at_or_above_1e5(cached_result):
+    """Gap found during self-review (2026-09-08, external discovery audit's own re-run):
+    a THIRD invocation of cmd_run() on this exact matrix returned
+    ratios_by_eps["1e-07"] = -14999995.41 -- a non-physical negative value in the
+    millions -- and the pre-existing test above only checked key presence, not value
+    sanity, so it passed silently. eps=1e-7/1e-6 are KNOWN unreliable (see decision.md's
+    "Run-to-run instability" section, three independent runs gave three different
+    answers there) so this test deliberately does NOT assert on those two -- asserting
+    sanity on a value already documented as unstable would just be a differently-flaky
+    test. eps>=1e-5 stayed stable to 3-4 significant figures across all three runs, so
+    THAT range gets a real sanity bound: positive, and within an order of magnitude of
+    kappa_lambda1 (never more than 2x, since these ratios approach kappa from below)."""
+    mech = cached_result["mechanism_claim_gate"]
+    kappa = mech["kappa_lambda1"]
+    for eps in eigval_anchor.MECH_GATE_EPS_VALUES:
+        if eps < 1e-5:
+            continue
+        value = mech["ratios_by_eps"][str(eps)]
+        assert value is not None
+        assert 0 < value < 2 * kappa, f"eps={eps} gave implausible ratio {value} (kappa={kappa})"
+
+
 def test_verdict_is_one_of_the_three_defined_outcomes(cached_result):
     assert cached_result["verdict"] in {
         "KAPPA_LAMBDA1_CONFIRMED_AS_CONVERGENT_ANCHOR",
