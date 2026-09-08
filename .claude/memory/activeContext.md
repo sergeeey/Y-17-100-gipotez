@@ -67,8 +67,20 @@ Gate (поведение kappa относительно самой себя). К
 предвидел именно эту находку ДО прогона — переобещание было только в более сильном языке
 decision.md/graph.yaml, написанном ПОСЛЕ результата. Новое открытое, не закрытое: переподгонка
 Claim 2 (показатель 0.62-0.66) сама может быть смещена тем же механизмом, что H-B2-1y нашла для
-shallow-оценки — не проверено ни в какую сторону. Ничего не запущено дальше автоматически — ждёт
-направления пользователя.
+shallow-оценки.
+
+**[VERIFIED] H-B2-2 (по явному выбору пользователя — «технический фикс сейчас», не пауза на
+стратегию): «newly open» вопрос ADR-077 ЗАКРЫТ на масштабе всей популяции.** K_ref =
+max(kappa(lambda_1), floored real-axis line search x≥1e-4), без pseudopy вообще. Positive control:
+seed=314 даёт K_ref=108.868, совпадает с независимой перепроверкой и аудитом до 3 значащих цифр.
+**Главная находка: line search реально доминирует над kappa(lambda_1) только в 5/110 (4.5%)
+матриц популяции H-B2-1x, разброс 1.016-2.173 — seed=314 (пример аудита) БЛИЗОК К ХУДШЕМУ случаю
+всей выборки, не типичен.** Переподгонка M1~K(A) с K_ref: показатель 0.637-0.670 (было 0.622-0.656
+у kappa(lambda_1) в одиночку) — сдвиг всего 0.01-0.015, RMSE не изменился до 3-го знака. **Вывод
+H-B2-1y/1z про показатель степени substantially ниже квадратичного УСТОЙЧИВ к коррекции ADR-077.**
+K_ref зафиксирован в pearl_registry как рекомендуемый reference для K(A) во всей этой матричной
+семье вместо pseudopy (нестабилен) и kappa(lambda_1) в одиночку (недооценивает на редких, но
+реальных матрицах). Ничего не запущено дальше автоматически — ждёт направления пользователя.
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
@@ -143,6 +155,9 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-08 22:46] `568b4b4` (local, branch `feature/h-b2-2-resolvent-reference` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-2 -- self-review after third consecutive reviewer-agent timeout this session
+- [2026-09-08 22:43] `785856e` (local, branch `feature/h-b2-2-resolvent-reference` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-2 -- move the x_floor safety check from an uncommitted scratchpad script into the committed test suite
+- [2026-09-08 22:42] `dc6eac6` (local, branch `feature/h-b2-2-resolvent-reference` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-2 -- direct resolvent-norm reference K_ref replaces pseudopy; ADR-077's open question closed at population scale
 - [2026-09-08 22:26] `b5766d7` (local, branch `fix/h-b2-1z-correction-external-audit` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1z correction -- external audit + independent reconfirmation falsify "convergent K(A) found"
 - [2026-09-08 20:14] `ac6b74b` (local, branch `feature/h-b2-1z-kreiss-eigval-condition-anchor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: auto-log commit history entry
 - [2026-09-08 20:14] `79fce3d` (local, branch `feature/h-b2-1z-kreiss-eigval-condition-anchor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: update activeContext.md with H-B2-1z's closed gap and merge status
@@ -155,6 +170,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-08 14:12] `7f9727e` (local, branch `feature/h-b2-1w-tighter-predictor-m1` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1w -- K(A)-based model decisively beats naive ceiling and established alpha_eps correlation on held-out M1 prediction
 - [2026-09-08 13:40] `d05f090` (local, branch `docs/close-bridge2-arc` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: fix stale Bridge 2 status line in activeContext.md Project State summary
 - [2026-09-08 13:40] `35c0f9d` (local, branch `docs/close-bridge2-arc` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: close Bridge 2 (Chernoff/Kreiss) arc in the canonical bridge document
-- [2026-09-08 13:37] `20d3d03`: feat: H-B2-1v -- independent cross-implementation check of H-B2-1u's small-eps Kreiss growth via pseudopy
-- [2026-09-08 13:28] `20d3d03` (local, branch `feature/h-b2-1v-kreiss-crossimpl-smalleps` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1v -- independent cross-implementation check of H-B2-1u's small-eps Kreiss growth via pseudopy
-- [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
