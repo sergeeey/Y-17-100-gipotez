@@ -1,0 +1,521 @@
+{
+  "config": {
+    "n_dim_values": [
+      40,
+      50
+    ],
+    "seed_range": [
+      300,
+      310
+    ],
+    "eps_values": [
+      0.02,
+      0.05,
+      0.1,
+      0.2,
+      0.5,
+      1.0,
+      2.0
+    ],
+    "population_note": "Reuses H-B2-1t's own fresh seeds 300-309 (first 10 of the 40 used there) -- same deterministic matrices, no new randomness."
+  },
+  "per_n_slice": {
+    "40": {
+      "n_dim": 40,
+      "n_seeds": 10,
+      "seed_range": [
+        300,
+        310
+      ],
+      "upper_bound_violations": 0,
+      "lower_bound_violations": 0,
+      "efficiency_median": 0.03679190146487543,
+      "efficiency_min": 0.022748904289598523,
+      "efficiency_max": 0.06977567817426053,
+      "per_seed": {
+        "300": {
+          "k_estimate": 50.335570469798796,
+          "raw_transient_growth": 124.5059056666507,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 5473.050661326951,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.022748904289598523,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 50.335570469798796,
+              "0.05": 36.24161073825505,
+              "0.1": 26.174496644295324,
+              "0.2": 18.120805369127524,
+              "0.5": 11.275167785234899,
+              "1.0": 7.852348993288594,
+              "2.0": 5.436241610738255
+            },
+            "k_estimate": 50.335570469798796
+          }
+        },
+        "301": {
+          "k_estimate": 130.8724832214766,
+          "raw_transient_growth": 924.0890899066395,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 14229.931719450045,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.0649398119488906,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 130.8724832214766,
+              "0.05": 76.51006711409401,
+              "0.1": 48.32214765100673,
+              "0.2": 31.20805369127517,
+              "0.5": 17.31543624161074,
+              "1.0": 11.275167785234899,
+              "2.0": 7.248322147651007
+            },
+            "k_estimate": 130.8724832214766
+          }
+        },
+        "302": {
+          "k_estimate": 80.536912751678,
+          "raw_transient_growth": 326.6048275786632,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 8756.881058123114,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.03729693545120109,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 80.536912751678,
+              "0.05": 52.34899328859065,
+              "0.1": 36.24161073825505,
+              "0.2": 24.161073825503365,
+              "0.5": 14.093959731543627,
+              "1.0": 9.46308724832215,
+              "2.0": 6.342281879194632
+            },
+            "k_estimate": 80.536912751678
+          }
+        },
+        "303": {
+          "k_estimate": 110.73825503355721,
+          "raw_transient_growth": 589.1577704054064,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 12040.711454919277,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.04893047828703708,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 110.73825503355721,
+              "0.05": 60.40268456375841,
+              "0.1": 38.25503355704701,
+              "0.2": 25.167785234899345,
+              "0.5": 13.691275167785236,
+              "1.0": 8.859060402684566,
+              "2.0": 5.838926174496645
+            },
+            "k_estimate": 110.73825503355721
+          }
+        },
+        "304": {
+          "k_estimate": 90.60402684563762,
+          "raw_transient_growth": 357.47975529172766,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 9851.49119038849,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.03628686747854977,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 90.60402684563762,
+              "0.05": 56.375838926174566,
+              "0.1": 38.25503355704701,
+              "0.2": 25.167785234899345,
+              "0.5": 14.899328859060404,
+              "1.0": 9.865771812080538,
+              "2.0": 6.543624161073826
+            },
+            "k_estimate": 90.60402684563762
+          }
+        },
+        "305": {
+          "k_estimate": 40.268456375839,
+          "raw_transient_growth": 141.4734199556543,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 4378.440529061557,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.03231137182671216,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 40.268456375839,
+              "0.05": 40.268456375838966,
+              "0.1": 30.201342281879207,
+              "0.2": 22.147651006711424,
+              "0.5": 13.691275167785236,
+              "1.0": 9.46308724832215,
+              "2.0": 6.4429530201342295
+            },
+            "k_estimate": 40.268456375839
+          }
+        },
+        "306": {
+          "k_estimate": 130.8724832214766,
+          "raw_transient_growth": 960.5119530962068,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 14229.931719450045,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.06749940702690374,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 130.8724832214766,
+              "0.05": 76.51006711409401,
+              "0.1": 48.32214765100673,
+              "0.2": 30.201342281879207,
+              "0.5": 16.510067114093964,
+              "1.0": 10.469798657718123,
+              "2.0": 6.845637583892618
+            },
+            "k_estimate": 130.8724832214766
+          }
+        },
+        "307": {
+          "k_estimate": 30.201342281879207,
+          "raw_transient_growth": 79.95932403517881,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 3283.830396796163,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.02434940736074261,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 30.201342281879207,
+              "0.05": 28.187919463087283,
+              "0.1": 22.147651006711442,
+              "0.2": 17.114093959731544,
+              "0.5": 11.275167785234899,
+              "1.0": 8.053691275167786,
+              "2.0": 5.6375838926174495
+            },
+            "k_estimate": 30.201342281879207
+          }
+        },
+        "308": {
+          "k_estimate": 130.8724832214766,
+          "raw_transient_growth": 992.9031360980481,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 14229.931719450045,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.06977567817426053,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 130.8724832214766,
+              "0.05": 72.4832214765101,
+              "0.1": 46.30872483221477,
+              "0.2": 29.194630872483227,
+              "0.5": 16.107382550335572,
+              "1.0": 10.469798657718123,
+              "2.0": 6.845637583892618
+            },
+            "k_estimate": 130.8724832214766
+          }
+        },
+        "309": {
+          "k_estimate": 70.4697986577182,
+          "raw_transient_growth": 228.5280494562891,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 7662.27092585772,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.029825106899454553,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 70.4697986577182,
+              "0.05": 48.32214765100673,
+              "0.1": 34.22818791946309,
+              "0.2": 24.161073825503365,
+              "0.5": 14.49664429530202,
+              "1.0": 9.664429530201343,
+              "2.0": 6.4429530201342295
+            },
+            "k_estimate": 70.4697986577182
+          }
+        }
+      }
+    },
+    "50": {
+      "n_dim": 50,
+      "n_seeds": 10,
+      "seed_range": [
+        300,
+        310
+      ],
+      "upper_bound_violations": 0,
+      "lower_bound_violations": 0,
+      "efficiency_median": 0.06322544082841461,
+      "efficiency_min": 0.030506835471565647,
+      "efficiency_max": 0.30993107701376976,
+      "per_seed": {
+        "300": {
+          "k_estimate": 151.00671140939602,
+          "raw_transient_growth": 1904.9271072621593,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 20523.939979976018,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.09281488394142075,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 151.00671140939602,
+              "0.05": 80.53691275167786,
+              "0.1": 50.33557046979869,
+              "0.2": 31.20805369127517,
+              "0.5": 16.510067114093964,
+              "1.0": 10.671140939597315,
+              "2.0": 7.046979865771813
+            },
+            "k_estimate": 151.00671140939602
+          }
+        },
+        "301": {
+          "k_estimate": 261.74496644295306,
+          "raw_transient_growth": 11025.745159103886,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 35574.82929862509,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.30993107701376976,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 261.74496644295306,
+              "0.05": 128.85906040268458,
+              "0.1": 78.52348993288594,
+              "0.2": 46.30872483221477,
+              "0.5": 23.35570469798658,
+              "1.0": 14.093959731543626,
+              "2.0": 8.65771812080537
+            },
+            "k_estimate": 261.74496644295306
+          }
+        },
+        "302": {
+          "k_estimate": 50.335570469798796,
+          "raw_transient_growth": 208.70682006580608,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 6841.313326658689,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.030506835471565647,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 50.335570469798796,
+              "0.05": 36.24161073825505,
+              "0.1": 28.187919463087283,
+              "0.2": 20.134228187919465,
+              "0.5": 12.483221476510067,
+              "1.0": 8.456375838926174,
+              "2.0": 5.838926174496645
+            },
+            "k_estimate": 50.335570469798796
+          }
+        },
+        "303": {
+          "k_estimate": 151.00671140939602,
+          "raw_transient_growth": 1228.4805605584156,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 20523.939979976018,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.05985598095477626,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 151.00671140939602,
+              "0.05": 80.53691275167786,
+              "0.1": 52.34899328859061,
+              "0.2": 33.22147651006713,
+              "0.5": 18.52348993288591,
+              "1.0": 11.67785234899329,
+              "2.0": 7.550335570469799
+            },
+            "k_estimate": 151.00671140939602
+          }
+        },
+        "304": {
+          "k_estimate": 161.07382550335583,
+          "raw_transient_growth": 2445.973457623965,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 21892.202645307763,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.1117280657982681,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 161.07382550335583,
+              "0.05": 84.56375838926178,
+              "0.1": 54.36241610738257,
+              "0.2": 35.234899328859065,
+              "0.5": 19.328859060402685,
+              "1.0": 12.281879194630875,
+              "2.0": 7.751677852348994
+            },
+            "k_estimate": 161.07382550335583
+          }
+        },
+        "305": {
+          "k_estimate": 140.9395973154364,
+          "raw_transient_growth": 1325.232554892999,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 19155.677314644297,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.06918223423401863,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 140.9395973154364,
+              "0.05": 80.53691275167786,
+              "0.1": 50.33557046979869,
+              "0.2": 31.20805369127517,
+              "0.5": 16.91275167785235,
+              "1.0": 10.87248322147651,
+              "2.0": 7.046979865771813
+            },
+            "k_estimate": 140.9395973154364
+          }
+        },
+        "306": {
+          "k_estimate": 140.9395973154364,
+          "raw_transient_growth": 1216.1130212780001,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 19155.677314644297,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.06348577506827678,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 140.9395973154364,
+              "0.05": 76.51006711409401,
+              "0.1": 50.33557046979869,
+              "0.2": 31.20805369127517,
+              "0.5": 16.91275167785235,
+              "1.0": 10.87248322147651,
+              "2.0": 7.14765100671141
+            },
+            "k_estimate": 140.9395973154364
+          }
+        },
+        "307": {
+          "k_estimate": 140.9395973154364,
+          "raw_transient_growth": 1206.139263892494,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 19155.677314644297,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.06296510658855244,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 140.9395973154364,
+              "0.05": 76.51006711409401,
+              "0.1": 48.32214765100673,
+              "0.2": 31.20805369127517,
+              "0.5": 17.31543624161074,
+              "1.0": 11.073825503355707,
+              "2.0": 7.248322147651007
+            },
+            "k_estimate": 140.9395973154364
+          }
+        },
+        "308": {
+          "k_estimate": 130.8724832214766,
+          "raw_transient_growth": 1111.0413197332764,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 17787.41464931256,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.062462215090725144,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 130.8724832214766,
+              "0.05": 72.4832214765101,
+              "0.1": 44.29530201342285,
+              "0.2": 28.187919463087248,
+              "0.5": 15.302013422818796,
+              "1.0": 9.865771812080538,
+              "2.0": 6.543624161073826
+            },
+            "k_estimate": 130.8724832214766
+          }
+        },
+        "309": {
+          "k_estimate": 90.60402684563762,
+          "raw_transient_growth": 437.8832153849928,
+          "t_at_max": 1.0,
+          "t_at_max_near_boundary": true,
+          "ceiling_e_n_k": 12314.363987985611,
+          "upper_bound_holds": true,
+          "lower_bound_holds": true,
+          "efficiency": 0.03555873578304241,
+          "kreiss_detail": {
+            "spectral_abscissa": 0.5,
+            "ratios_by_eps": {
+              "0.02": 90.60402684563762,
+              "0.05": 56.375838926174566,
+              "0.1": 36.24161073825505,
+              "0.2": 24.161073825503365,
+              "0.5": 14.49664429530202,
+              "1.0": 9.664429530201343,
+              "2.0": 6.543624161073826
+            },
+            "k_estimate": 90.60402684563762
+          }
+        }
+      }
+    }
+  },
+  "upper_bound_check": {
+    "total_matrices": 20,
+    "total_violations": 0,
+    "all_hold": true
+  },
+  "verdict": "MECHANISM_VERIFIED",
+  "verdict_note": "MECHANISM_VERIFIED: the proven Kreiss upper bound holds for every sampled matrix (mathematically required if this arc's own alpha_eps/transient-growth code is correct) -- the substantive finding is the efficiency ratio distribution, not this binary. CODE_BUG_SUSPECTED: the upper bound was violated somewhere -- this cannot happen if the theorem is applied correctly to correctly-computed inputs, so a violation indicates a real implementation bug requiring investigation, not a normal REJECT."
+}
