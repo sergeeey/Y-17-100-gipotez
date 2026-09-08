@@ -14,43 +14,11 @@
 
 
 
+
+
 ## Current Focus
 [summarized] **B1/B2/B3 arc (H-B3-1 through H-B3-1k, ADR-010–027) archived to `history/activeContext-archive-20260906-b1b2b3.md`**
-[summarized] репликацией — H-B2-1p был drawer-selection). ω(A), как и κ(V), имеет реальный потолок между
-[summarized] **[Полный ход H-B2-1r→1s→1t (WEAKENED-фикс→CONFIRMED→CONFIRMED сильнее) archived to
-[summarized] **[Итог: pseudospectral abscissa дважды независимо реплицирована, ADR-069]** CONFIRMED на
 
-**[Полный ход H-B2-1u→1v→Step2→1w→1x→1y (MECHANISM_VERIFIED→cross-validated→docs closed→
-K_MODEL_WINS→robustness→ARTIFACT_HYPOTHESIS_SUPPORTED) archived to
-`history/activeContext-archive-20260908-kreiss-mechanism-and-predictor-arc.md`]**
-
-**[summarized] [Итог: 3-priority план выполнен, Option B закрыт БЕЗ теории (H-B2-1y: bias~shallow_K^1.6
-объясняет «квадратичный масштаб») → H-B2-1z предложил kappa(lambda_1) как сходящуюся оценку K(A) →
-ПЕРЕОТКРЫТО внешним аудитом (ADR-077: kappa(lambda_1) недооценивает K(A) до ×2.17 на редких матрицах,
-независимо подтверждено) → H-B2-2 закрыл вопрос на масштабе ВСЕЙ 110-матричной популяции (K_ref, без
-pseudopy; аудиторский пример близок к худшему случаю, не типичен; вывод об экспоненте устойчив) →
-reviewer, узко скоупнутый по явному запросу пользователя, дал реальный LGTM с первой попытки.
-Полная хронология: `history/activeContext-archive-20260908-kreiss-1z-correction-2-arc.md`, ADR-076…078.]**
-
-**[VERIFIED] H-B3-1n (автономно, «продолжай автономно, следующая гипотеза по очереди» — выбрана
-через pearl_registry: самый дешёвый, наиболее готовый к запуску high-impact pending-пункт, impact
-8, «~5 минут, машинерия готова»):** AR(1)-суррогатная проверка +50-месячного TDA-vs-classical
-peak-lead моста B3 (Lower Zurich, H-B3-1l). Timing-check ДО полного прогона подтвердил оценку
-(0.17с/повтор → 500 повторов ≈2.6 мин). **Результат: честный `INCONCLUSIVE_AT_THIS_SAMPLE_SIZE`**
-— реальный лид попадает на 90.4-й перцентиль null-распределения (медиана 6.5, p80=33.0, p95=61.0),
-между предрегистрированными порогами 80/95, НЕ чистый floor-артефакт (как предполагала мотивирующая
-гипотеза pearl'а), но и НЕ статистически убедительно выживший сигнал. H-B3-1l downgrade
-`confirmed`→`lead` в графе. Bonus: AC1-лид (-15 мес) сам по себе заурядeн относительно своего null
-(медиана 1.0) — количественно подтверждает находку скептика. Мост B3 остаётся на балансе
-WEAKENED/lead — ни один из проверенных вариантов (H-B3-1c…1n) не дал чистый PROMOTE.
-
-**[VERIFIED] H-B3-1o (автономно, вторая итерация «продолжай автономно, следующая гипотеза по
-очереди» — последняя невыполненная строка H-B3-1g's собственной Relaxation Map):** диагностика
-100-дневного lag'а Peter pH под total persistence. Предрегистрированный **positive-control gate**
-(метрика должна СНАЧАЛА правильно отследить известный случай doSat) **ПРОВАЛИЛСЯ** — 77 дней
-разрыва вместо допустимых ≤20. При этом pH дал эффектное 0.0-дневное совпадение half-rise-date с
-classical_crossing — число, легко принимаемое за находку. **По предрегистрации НЕ использовано**
-— вердикт `METRIC_UNRELIABLE`, gate сработал ровно так, как задуман. Статус в графе `parked`, не
 `killed` — вопрос о механизме lag'а НЕ опровергнут, отложен только этот дешёвый метод; revival
 condition назван (сравнить траекторию expanding-tau напрямую) и не выполнен. Reviewer, снова
 узко скоупнутый, дал LGTM с первой попытки (уже 3-й раз подряд с этим подходом). Мост B3: 15
@@ -72,6 +40,8 @@ Consistency check: негативные контроли воспроизвед�
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
+**[2026-09-09] Все 3 моста достигли терминального состояния — graph.yaml не содержит ни одного узла со статусом proposed/ready/needs_formalization.** Bridge 3 арка формально закрыта в `01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md` (см. правку 2026-09-09). Проверено grep'ом по `registry/graph.yaml`: 39 valid / 29 confirmed / 14 lead / 14 killed / 6 unverified_source / 6 active / 1 blocked / 1 parked / 1 hold / 1 invalidated — ни одной "готовой к запуску" гипотезы. Внешний (Codex-style) лог этой же сессии предлагал новый multi-seed×multi-N эксперимент H-B2-1l — **сознательно НЕ запущен**: пользователь сам предостерёг от немедленного 8-го эксперимента сразу после skeptic-sweep 7/7 (сильный сигнал сначала стабилизировать методологию, не производить ещё один результат), и H-B2-1l переоткрывал бы уже закрытую 2026-09-08 арку Bridge 2 без новой мотивации. B1 (Option A) и B4-B6 (unverified_source) — оба фактических вопроса пользователю, оба уже отвечены ранее и не переспрашиваются (см. `CLAUDE.md` § CRITICAL CONTEXT). **Следующий шаг — не продолжение существующих мостов, а выбор нового cross-domain моста с изначально более сильным novelty/transfer gate (рекомендация пользователя, ещё не выполнена).**
+
 ## Project State
 - **Repo:** https://github.com/sergeeey/Y-17-100-gipotez — PUBLIC, created 2026-09-06, commit d50597f (initial import). [VERIFIED]
 - **Excluded from public repo (.gitignore):** `H-7 GeoSpectra Lab (DIFFERENT project…).md` — third-party correspondence refs (Tom Lawrence). Local copy kept. User may override.
@@ -79,8 +49,10 @@ Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный ос�
 - **Graph validator:** `python scripts/lab_check.py` (SCHEMA invariants 1–3) + `pytest` (3 tests incl. negative control replicating the 2026-05-28 incident). Run both before every commit.
 - **FL template source (reuse, don't reinvent):** `D:\Claude-cod-top-2026\experiments\_template\` (14 files) [VERIFIED]
 - **Files transferred:** 15 (2026-09-06)
-- **Bridges scoped:** 3 (RMT/Riemann — READY/BLOCKED split; ChernoffPy/UDE — CONFIRMED-WITH-CAVEATS, арка H-B2-1→1v закрыта 2026-09-08; May1972/TDA — Phase 1 запущена, LEAD)
+- **Bridges scoped:** 3, все терминальны (2026-09-09): RMT/Riemann — Phase 1a READY, 1b BLOCKED (external Option A); ChernoffPy/UDE — CONFIRMED-WITH-CAVEATS, арка H-B2-1→1v закрыта 2026-09-08; May1972/TDA — CLOSED 2026-09-09 как informative negative (0 confirmed / 8 killed / 1 parked из 15 под-гипотез), арка H-B3-1→1p
 - **Bridges permanently `unverified_source`** (answered 2026-09-07, not pending): 3 (Frontier R&D, TOFT/SMT, RAF Theory)
+
+
 
 
 
@@ -95,6 +67,8 @@ Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный ос�
 - `01-cross-domain-bridges/` — главный рабочий файл + H-7 контекст (два разных проекта!)
 - `02-related-projects-context/` — ChernoffPy, May 1972
 - `03-methodology-rules/` — переиспользуемые правила (execution rules, submission gate, ESV scoring)
+
+
 
 
 
@@ -122,6 +96,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 
+
+
 ## Open Questions (для пользователя)
 1. ~~Frontier R&D / TOFT / RAF Theory — реальны на другом компьютере, или нет?~~ **[VERIFIED —
    прямая цитата пользователя, 2026-09-07, эта сессия]:** "на другой машине может и раньше были
@@ -133,6 +109,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 ---
 *Создан: 2026-09-06 при переносе из Obsidian vault.*
+
+
 
 
 
