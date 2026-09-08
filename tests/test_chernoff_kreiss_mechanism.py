@@ -49,22 +49,26 @@ def test_reuses_pseudospectral_abscissa_unchanged():
     )
 
 
-def test_kreiss_constant_is_zero_for_symmetric_normal_matrix():
+def test_kreiss_constant_is_minimal_for_symmetric_normal_matrix():
     """A symmetric matrix is normal -- pseudospectra are disks of radius eps around each
     eigenvalue, so alpha_eps(A) = alpha(A) + eps exactly for every eps, giving K(A) = 1
-    (the minimum possible value: K(A) >= 1 always, per Trefethen-Embree).
+    (the minimum possible value: K(A) >= 1 always, per Trefethen-Embree). Named for what it
+    actually asserts (K~=1, not K=0 -- an earlier draft's name was misleading, reviewer P2).
 
     pseudospectral_abscissa is a FINITE GRID SEARCH -- kreiss_constant_estimate uses the
-    LOCAL, alpha(A)-centered KREISS_GRID_KWARGS window (not the arc-wide default), so it can
-    only ever UNDERSHOOT the true alpha_eps by up to that grid's own step -- same discipline
-    as H-B2-1r's regression test. The tightest bound comes from whichever sampled eps
-    minimizes grid_step/eps -- here the largest EPS_VALUES entry -- so that sets the
+    LOCAL, alpha(A)-centered KREISS_GRID_KWARGS window (effective_re_min clamps to
+    spectral_abscissa regardless of any offset, per pseudospectral_abscissa's own H-B2-1r fix
+    -- so the real window is [spectral_abscissa, spectral_abscissa+re_max_offset] with
+    n_re-1 intervals, not n_re -- reviewer P2 caught an earlier off-by-one/wrong-offset here),
+    so it can only ever UNDERSHOOT the true alpha_eps by up to that grid's own step -- same
+    discipline as H-B2-1r's regression test. The tightest bound comes from whichever sampled
+    eps minimizes grid_step/eps -- here the largest EPS_VALUES entry -- so that sets the
     tolerance, not an arbitrary constant."""
     rng = np.random.default_rng(0)
     m = rng.standard_normal((5, 5))
     a = (m + m.T) / 2 - 3 * np.eye(5)  # symmetric, shifted to stable (Re < 0)
     g = kreiss.KREISS_GRID_KWARGS
-    grid_step = (g["re_max_offset"] - g["re_min_offset"]) / g["n_re"]
+    grid_step = g["re_max_offset"] / (g["n_re"] - 1)
     max_eps = max(kreiss.EPS_VALUES)
     tolerance = grid_step / max_eps
     kr = kreiss.kreiss_constant_estimate(a)

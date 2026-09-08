@@ -48,6 +48,14 @@ Contextualизирует, не подрывает H-B2-1r/1s/1t. Статус `l
 данными). **Последний названный шаг текущего плана пользователя — новый эксперимент НЕ запущен,
 ждёт направления.**
 
+**[ADR-071, коррекция ПОСЛЕ мержа]** Широкий reviewer дважды упёрся в лимит ходов → смержено по
+узкому reviewer'у (LGTM) → запоздавшее уведомление: широкий досчитал, `NEEDS_WORK (P1)`.
+Проверено напрямую: k_estimate уперт в наименьший eps=0.02 на 20/20 матриц, без плато (скан до
+eps=0.001 подтвердил — ratio растёт геометрически, не сходится). Структурный потолок grid-search,
+не баг. MECHANISM_VERIFIED устоял (недооценка K только ужесточает проверку), но efficiency-числа
+(включая «выброс 31%») — верхняя граница, не точные значения; «выброс» — скорее артефакт. Второй
+коммит (не amend): убран мёртвый code, исправлена тестовая формула, честный caveat в decision.md.
+
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
 ## Project State
@@ -117,6 +125,9 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-08 12:29] `87493bf`: feat: H-B2-1u -- Kreiss Matrix Theorem mechanistic verification (Priority 3), MECHANISM_VERIFIED after self-caught eps-sampling bug
+- [2026-09-08 12:27] `87493bf`: feat: H-B2-1u -- Kreiss Matrix Theorem mechanistic verification (Priority 3), MECHANISM_VERIFIED after self-caught eps-sampling bug
+- [2026-09-08 12:06] `87493bf` (local, branch `feature/h-b2-1u-kreiss-mechanism` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1u -- Kreiss Matrix Theorem mechanistic verification (Priority 3), MECHANISM_VERIFIED after self-caught eps-sampling bug
 - [2026-09-08 09:27] `2860881` (local, branch `feature/h-b2-1t-fresh-confirmatory` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history + verdict entries
 - [2026-09-08 09:26] `ad2b889` (local, branch `feature/h-b2-1t-fresh-confirmatory` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1t -- fresh-seed confirmatory replication (Priority 2), CONFIRMED even stronger, comparator anomaly investigated not glossed
 - [2026-09-07 22:05] `53081a1` (local, branch `feature/h-b2-1s-pseudospectral-crossimpl` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history + verdict entries
@@ -129,6 +140,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-07 19:00] `68f1371` (local, branch `feature/h-b2-1p-boundary-test` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1p -- discriminating test at N_DIM in {64,80}, MIXED, and a self-caught methodological error (retrospective FDR over adaptively-selected N) corrected in place
 - [2026-09-07 18:42] `d05b5bf` (local, branch `feature/h-b2-1o-confirmatory-fresh-seeds` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 5, final)
 - [2026-09-07 18:41] `09a74c2` (local, branch `feature/h-b2-1o-confirmatory-fresh-seeds` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 4, final)
-- [2026-09-07 18:41] `757312c` (local, branch `feature/h-b2-1o-confirmatory-fresh-seeds` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 3, final)
-- [2026-09-07 18:41] `67efdaa` (local, branch `feature/h-b2-1o-confirmatory-fresh-seeds` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (round 2, final)
-- [2026-09-07 18:41] `0f1039a` (local, branch `feature/h-b2-1o-confirmatory-fresh-seeds` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: auto-log commit history entry (final)

@@ -65,14 +65,45 @@ SEED_COUNT = 10  # first 10 of 40 already used there (no new randomness introduc
 # theorem. Fixed by widening EPS_VALUES down to 0.02 and switching to a dedicated, locally-
 # refined grid (see KREISS_GRID_KWARGS below) instead of pseudospectral_abscissa's eps~1-tuned
 # arc-wide default -- re-run confirmed the upper bound holds for all 20/20 matrices.
+#
+# CONVERGENCE CAVEAT (found by mandatory reviewer, P1, verified directly before accepting):
+# k_estimate is pinned to the SMALLEST sampled eps (0.02) for 20/20 matrices with NO plateau --
+# a targeted follow-up scan on the worst-case matrix (seed=301, N=50) down to eps=0.001 (finer,
+# narrower grid: window +8, n_re=1200) found the ratio STILL climbing steeply (262.9 -> 437.7 ->
+# 723.3 -> 1377.8 -> 2208.5 as eps: 0.02 -> 0.01 -> 0.005 -> 0.002 -> 0.001), not converging --
+# and at these smaller eps the grid step itself becomes comparable to or larger than eps, so even
+# THOSE numbers are not trustworthy as a converged K(A). This is a structural limitation of
+# grid-search pseudospectral abscissa, not a fixable "just add more EPS_VALUES" bug: resolving
+# eps requires grid step << eps, which needs grid resolution scaling with 1/eps -- unbounded as
+# eps -> 0. k_estimate below is therefore a DEMONSTRATED LOWER BOUND on the true K(A), not a
+# converged estimate. Consequences, both checked, not assumed:
+# (1) MECHANISM_VERIFIED is UNAFFECTED in the safe direction -- an underestimated K(A) only makes
+#     e*n*K(A) (the ceiling) SMALLER, i.e. the upper-bound check is STRICTER, not more lenient.
+#     It still held 20/20 despite using an underestimated K -- the true (larger) ceiling holds
+#     with even more margin.
+# (2) The reported efficiency ratios (growth/ceiling) are UPPER bounds on the true efficiency --
+#     true efficiency is likely LOWER (looser bound) than reported, strengthening rather than
+#     undermining the "bound holds but is loose" qualitative finding in decision.md.
+# (3) The N=50/seed=301 "efficiency max=0.31" outlier is likely an ARTIFACT of that specific
+#     matrix happening to have a k_estimate that undershot proportionally more at eps=0.02 than
+#     the other 19 -- at eps=0.001 its own efficiency would drop to ~0.037, in line with the
+#     other matrices, not a genuine per-matrix difference. decision.md's "Convergence Caveat"
+#     section states this explicitly rather than treating the outlier as a real finding.
+# Not fixed further here (would need an adaptive/higher-resolution estimator, e.g. reusing
+# pseudopy's own solver instead of a fixed grid, or an eigenvalue-perturbation-based small-eps
+# expansion) -- named as a Pearl Registry follow-up, not chased with more compute in this cycle.
 EPS_VALUES = (0.02, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0)
 
 # Dedicated grid for the Kreiss estimate: a LOCAL window around alpha(A) (not the arc-wide
 # RE_MIN..RE_MAX=-5..60 grid, which is far too coarse -- step 0.65 -- to resolve eps as small
 # as 0.02). Window width (+30 past spectral_abscissa) and n_re=150 were validated against the
 # worst-case matrix found (seed=301, N=50, alpha_eps(eps=3.0)=20.28, comfortably inside +30).
+# NOTE (reviewer P2, verified): pseudospectral_abscissa clamps its own re_min to
+# max(re_min, spectral_abscissa) (H-B2-1r's bug fix) -- passing re_min < spectral_abscissa is
+# always overridden. No re_min_offset key here (an earlier draft's -1.0 offset was silently
+# discarded every call); the effective window is exactly [spectral_abscissa, spectral_abscissa +
+# re_max_offset].
 KREISS_GRID_KWARGS = {
-    "re_min_offset": -1.0,
     "re_max_offset": 30.0,
     "im_max": 10.0,
     "n_re": 150,
@@ -95,10 +126,13 @@ def raw_transient_growth(a: np.ndarray, t_max: float, n_grid: int = 1000) -> tup
 
 def kreiss_constant_estimate(a: np.ndarray, eps_values: tuple[float, ...] = EPS_VALUES) -> dict:
     """K(A) = sup_{eps>0} (alpha_eps(A) - alpha(A)) / eps, estimated as the max over a FINITE
-    sample of eps values -- an honest UNDERESTIMATE of the true supremum (more eps sampled ->
-    tighter estimate), not claimed to be exact. Uses a LOCAL, alpha(A)-centered grid (not
-    pseudospectral_abscissa's arc-wide default) so small eps values are actually resolved --
-    see the EPS_VALUES/KREISS_GRID_KWARGS bug/fix note above."""
+    sample of eps values -- a DEMONSTRATED LOWER BOUND on the true supremum, NOT shown to have
+    converged (see the CONVERGENCE CAVEAT above EPS_VALUES -- the ratio was still climbing
+    steeply at eps down to 0.001 on the worst-case matrix, with no plateau found). Uses a LOCAL,
+    alpha(A)-centered grid (not pseudospectral_abscissa's arc-wide default) so small eps values
+    are at least partially resolved -- see the EPS_VALUES/KREISS_GRID_KWARGS bug/fix note above.
+    `re_min` is intentionally omitted: pseudospectral_abscissa clamps it to spectral_abscissa
+    regardless (reviewer P2 finding), so passing an offset here would be dead code."""
     spectral_abscissa = float(np.max(np.linalg.eigvals(a).real))
     g = KREISS_GRID_KWARGS
     ratios = {}
@@ -106,7 +140,6 @@ def kreiss_constant_estimate(a: np.ndarray, eps_values: tuple[float, ...] = EPS_
         alpha_eps = alpha_mod.pseudospectral_abscissa(
             a,
             eps=eps,
-            re_min=spectral_abscissa + g["re_min_offset"],
             re_max=spectral_abscissa + g["re_max_offset"],
             im_max=g["im_max"],
             n_re=g["n_re"],

@@ -15,12 +15,64 @@ much of the theoretical ceiling the observed transient growth actually reaches.
 | 50 | 0.0632 | 0.0305 | 0.3099 | 0/10 |
 
 **Interpretation (per claim.md's own pre-registered "What This Does NOT Mean" #2):** efficiency
-is low across the board (median 3.7-6.3%, one outlier at 31%) — the Kreiss upper bound holds
-comfortably but is LOOSE for this matrix family. This is informative, not disappointing: it means
-`e*n*K(A)` is a mathematically valid but far-from-tight ceiling here, consistent with the known
-general looseness of the Kreiss Matrix Theorem's `e*n` factor (a classical, acknowledged
-limitation of the theorem itself, not of this arc's computation) — the theorem gives existence
-and an order-of-magnitude bound, not a sharp estimate.
+is low across the board (median 3.7-6.3%, one apparent outlier at 31% — see Convergence Caveat
+below, this outlier is now understood to be largely an artifact, not a real per-matrix effect) —
+the Kreiss upper bound holds comfortably but is LOOSE for this matrix family. This is informative,
+not disappointing: it means `e*n*K(A)` is a mathematically valid but far-from-tight ceiling here,
+consistent with the known general looseness of the Kreiss Matrix Theorem's `e*n` factor (Trefethen
+& Embree, *Spectra and Pseudospectra*, 2005 — the same reference `claim.md` already cites for the
+theorem itself; Ch. 16 discusses the factor's known slack) — the theorem gives existence and an
+order-of-magnitude bound, not a sharp estimate.
+
+## Convergence Caveat — Reviewer P1, Verified Directly
+
+**Mandatory reviewer (`Agent(reviewer)`) found, and this was independently verified before being
+accepted:** `k_estimate` is pinned to the SMALLEST sampled `eps` (0.02) for **20/20 matrices**,
+with the ratio still climbing steeply at every step down — no plateau anywhere in the sampled
+range. Direct follow-up on the worst-case matrix (seed=301, N=50) extended the scan two more
+octaves down, using a finer, narrower grid (`window +8`, `n_re=1200`):
+
+| eps | ratio |
+|---|---|
+| 0.02 | 262.9 |
+| 0.01 | 437.7 |
+| 0.005 | 723.3 |
+| 0.002 | 1377.8 |
+| 0.001 | 2208.5 |
+
+**Still climbing, no plateau — and at these smaller eps the grid step itself becomes comparable
+to or larger than eps, so even these deeper numbers are not trustworthy as a converged value.**
+This is a STRUCTURAL limitation of grid-search pseudospectral abscissa, not a fixable
+"add more `EPS_VALUES`" bug: resolving `eps` requires grid step `<< eps`, which needs resolution
+scaling as `1/eps` — unbounded as `eps -> 0`. `k_estimate` as computed is therefore a
+**demonstrated lower bound** on the true `K(A)`, not a converged estimate.
+
+**Consequences, checked, not assumed:**
+1. **`MECHANISM_VERIFIED` is unaffected in the safe direction.** An underestimated `K(A)` only
+   makes the ceiling `e*n*K(A)` SMALLER — the check is STRICTER, not more lenient. It held 20/20
+   despite using an underestimated `K` — the true (larger) ceiling holds with even more margin.
+2. **The reported efficiency ratios are UPPER bounds on the true efficiency.** True efficiency is
+   likely LOWER (an even looser bound) than reported — this strengthens, not undermines, the
+   "bound holds but is loose" finding above.
+3. **The N=50/seed=301 "efficiency max=0.31" outlier is very likely an artifact**, not a genuine
+   per-matrix difference: at `eps=0.001` that SAME matrix's `k_estimate` is already 2208.5 (vs.
+   261.7 at the production `eps=0.02`) — recomputing its efficiency with this deeper value gives
+   `growth/(e*50*2208.5) ~= 11025.75/300,331 ~= 0.037`, in line with the OTHER 19 matrices'
+   3-9% range, not a real outlier. The apparent spread in the table above likely reflects uneven
+   degree of `k_estimate` undershoot across matrices at the fixed `eps=0.02` sampling point, not
+   a genuine structural difference in how loose the bound is for different matrices.
+
+**Not chased further here.** A properly converged estimate would need an adaptive-resolution or
+solver-based pseudospectral computation (e.g. reusing `pseudopy`'s own algorithm, already
+cross-validated in `H-B2-1s`, instead of a fixed grid) — named as a Pearl Registry follow-up, not
+pursued with more grid-search compute in this cycle (Cheapest Differentiating Test discipline:
+more `eps` values on the same fixed-resolution grid would not resolve this, only a genuinely
+different estimator would).
+
+**Response classification (FL Step 8a Skeptic Response Matrix): `[WEAKENED]`.** The core claim
+(the theorem's computation checks out, 20/20) holds; the numeric precision of `k_estimate` and
+therefore the exact efficiency values are narrower in scope than the original decision.md implied
+— accepted as a documented limitation, not dismissed and not requiring a full re-run.
 
 ## Bug/Fix History — Found By This Experiment's Own Kill Criterion
 
@@ -116,6 +168,11 @@ covers where the supremum lives for this matrix family.
 3. Does NOT establish causality — this is a mathematical inequality check, not an intervention.
 4. The `t_at_max == T_MAX` finding for all 20 matrices does NOT indicate a bug — see the honest
    T_MAX diagnostic above.
+5. The reported `k_estimate`/efficiency numbers do NOT represent a converged Kreiss constant —
+   see the Convergence Caveat above. They are directionally safe for the binary
+   `MECHANISM_VERIFIED` verdict (underestimating `K` only tightens the check) but should NOT be
+   quoted elsewhere as precise per-matrix values, and the N=50 "efficiency max=0.31" figure
+   specifically should NOT be read as a real structural difference from the other 19 matrices.
 
 ## Relaxation Map / Next Steps (not auto-launched)
 
