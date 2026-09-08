@@ -169,9 +169,13 @@ print(f"Delta: {abs(r_mean - 0.6027):.4f}")
 
 ---
 
-### Bridge 8 (PROPOSED, 2026-09-09) — UDE parameter identifiability ↔ ChernoffPy
+### Bridge 8 (REJECTED at scoping gate, 2026-09-09) — UDE parameter identifiability ↔ ChernoffPy
 
-**Почему это новый мост, а не продолжение Bridge 2:** Bridge 2 тестировал transient-growth/stability предсказание (pseudospectral abscissa как bound для M1). Этот источник называет ОТКРЫТОЙ другую, структурно иную задачу того же UDE-стека: **параметрическая идентифицируемость** нейросетевого компонента деградирует при ограниченном observable mapping (не все переменные системы наблюдаемы) и малом/шумном датасете. Разные вопросы, общая инфраструктура (`PRJ-CHERNOFFPY`) — переносится код, не вывод.
+**Почему это новый мост, а не продолжение Bridge 2 (первоначальный аргумент, см. коррекцию ниже):** Bridge 2 тестировал transient-growth/stability предсказание (pseudospectral abscissa как bound для M1). Этот источник называет ОТКРЫТОЙ другую, структурно иную задачу того же UDE-стека: **параметрическая идентифицируемость** нейросетевого компонента деградирует при ограниченном observable mapping (не все переменные системы наблюдаемы) и малом/шумном датасете. Разные вопросы, общая инфраструктура (`PRJ-CHERNOFFPY`) — переносится код, не вывод.
+
+**🔴 Коррекция (2026-09-09, тот же день): фраза «общая инфраструктура» была непроверенным допущением, не фактом.** Feasibility-gate (пункт 1 ниже) выполнен — и провалился. Прямой grep по всей папке `experiments/` на `import torch|nn.Module|.backward()` — **0 совпадений**. Тот же grep по РЕАЛЬНОМУ внешнему репозиторию `E:/MarkovChains/ChernoffPy` (`chernoffpy/`, `examples/`, `tests/`) на `torch|neural|UDE|identifiab` — **0 совпадений**. Весь фрейминг Bridge 2 «Neural-ODE/UDE» — теоретическая аналогия (теорема Чернова применена к линейному оператору A / матричной экспоненте), НЕ обученная нейросеть. Нигде в `PRJ-CHERNOFFPY` (ни внутри Y-17, ни во внешнем репо) нет: обученной модели, модели шума, ограничения observable mapping. Построение реальной UDE-инфраструктуры (ODE-солвер + обучаемая сеть + оптимизатор + модель шума + метрика practical identifiability) с нуля — это НЕ дешёвое переиспользование, а новый ML-пайплайн, непропорциональный собственному же feasibility-критерию этого моста (пункт 1 ниже).
+
+**Урок процесса (честно, не заметая под ковёр):** при регистрации Bridge 8 я написал «общая инфраструктура» ДО того как прочитал реальный код `PRJ-CHERNOFFPY` — непроверенное умозаключение, поданное как факт, ровно тот класс ошибки, что integrity.md запрещает (`[INFERRED]` без цепочки проверки = не `[VERIFIED]`). Novelty/transfer gate, который я же сам определил ДО scoping, сработал ровно для того, для чего был создан — поймал ложную посылку до какого-либо реального вложения (0 экспериментов запущено). Это тот же паттерн, что Bridge 3's собственная SCOPING CORRECTION (Mangal/GloBI), только пойман на день раньше в цикле, а не после первой попытки.
 
 **Grounding (источник проверен WebSearch этой сессией, не принят на веру):**
 - Philipps, Schmid, Hasenauer (2025), *«Current state and open problems in universal differential equations for systems biology»*, npj Systems Biology and Applications 11, [s41540-025-00550-w](https://www.nature.com/articles/s41540-025-00550-w) [VERIFIED — DOI резолвится, статья реальна, опубликована Nature]. Явно называет открытой проблемой: "Observable mappings can restrict the identifiability of model parameters, particularly when data availability is low and resolution is limited."
@@ -183,7 +187,9 @@ print(f"Delta: {abs(r_mean - 0.6027):.4f}")
 2. **Различимость от Bridge 2:** гипотеза должна делать предсказание, которое было бы ЛОЖНЫМ, если бы идентифицируемость деградировала как обычная noise-robustness кривая, а не именно как «ограничение observable mapping» из источника — иначе это просто Bridge 2 под другим именем.
 3. **Kill-критерий для самого этапа scoping (до claim.md):** если `PRJ-CHERNOFFPY`'s код не предоставляет способ дёшево строить partial-observable варианты одной и той же системы (не переписывая симулятор с нуля) — `status: blocked` на scoping-уровне, эксперимент не начинается.
 
-**Status:** `proposed` — зарегистрирован в `registry/graph.yaml` (узлы `PROB-UDE-IDENTIFIABILITY-2025`, `BRIDGE-8-UDE-IDENTIFIABILITY`). Feasibility-проверка (пункт 1 gate) — следующий шаг, не выполнена в этой сессии.
+**Revival condition:** этот конкретный мост (через `PRJ-CHERNOFFPY`) возобновляется ТОЛЬКО если (а) кто-то реально построит UDE-training инфраструктуру (обученная сеть + шум + observable-restriction + identifiability-метрика) — непропорциональное вложение, сейчас не оправдано ради одного моста, ИЛИ (б) найдётся другой уже существующий проект/репозиторий (среди 54 в meta-graph или локальных) с РЕАЛЬНОЙ UDE-training инфраструктурой — при этом переносится не «Bridge 8 на ChernoffPy», а «Bridge 8 на этот другой проект», с собственной проверкой feasibility. Открытая научная задача (npj Sys Biol Appl 2025) остаётся реальной и VERIFIED-REAL — отклонён именно ЭТОТ мост, не сама задача.
+
+**Status:** `rejected` в `registry/graph.yaml` (узлы `PROB-UDE-IDENTIFIABILITY-2025` остаётся `open`, `BRIDGE-8-UDE-IDENTIFIABILITY` → `rejected`). Feasibility-gate (пункт 1) выполнен и провалился в тот же день, до какого-либо scoping-вложения.
 
 ---
 
