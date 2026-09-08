@@ -65,8 +65,15 @@ eps=0.001 подтвердил — ratio растёт геометрически
 eps=0.0001 (независимо подтверждает H-B2-1u); 1 (наименьший K) — НАСТОЯЩЕЕ плато (K→~47).
 Сходимость масштабируется с величиной K — не противоречие. Механический вердикт в JSON
 (`GRID_SEARCH_ARTIFACT_SUSPECTED`) явно помечен как вводящий в заблуждение label, не итоговый
-вывод. **Следующее по плану: Step 2 (закрыть B2 документально) / Step 3 (tighter predictor) — не
-запущены.**
+вывод.
+
+**[Step 2, «что дальше?» — ЗАВЕРШЁН]** Обновлён канонический документ моста
+(`01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md` § Bridge 2) — был стал устаревшим
+(«NEEDS FORMALIZATION», до всей арки H-B2-1→1v). Теперь: `CONFIRMED-WITH-CAVEATS`, концентрат всей
+хронологии (κ(V)→ω(A)→pseudospectral abscissa→теорема Крейса→двойной cross-implementation),
+таблица приоритетов синхронизирована. Чистая документация, без нового compute — 1 файл, reviewer
+не обязателен по MANDATORY PRE-COMMIT CHECKLIST (порог 3+ файлов). **Step 3 (tighter predictor) —
+не запущен, требует явного дизайна estimand'а перед стартом.**
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
@@ -137,6 +144,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-08 13:37] `20d3d03`: feat: H-B2-1v -- independent cross-implementation check of H-B2-1u's small-eps Kreiss growth via pseudopy
+- [2026-09-08 13:28] `20d3d03` (local, branch `feature/h-b2-1v-kreiss-crossimpl-smalleps` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1v -- independent cross-implementation check of H-B2-1u's small-eps Kreiss growth via pseudopy
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
@@ -150,5 +159,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-08 12:58] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 12:58] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 12:58] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
-- [2026-09-08 12:57] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
-- [2026-09-08 12:36] `e45cec6` (local, branch `fix/h-b2-1u-kreiss-convergence-caveat` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
