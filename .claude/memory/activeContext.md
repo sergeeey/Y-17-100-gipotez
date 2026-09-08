@@ -53,7 +53,22 @@ kappa(lambda_1) на ПОЛНОЙ 80-точечной выборке H-B2-1x д�
 (2 попытки, обе упёрлись в лимит ходов) — закрыто self-review: независимая hand-derived формула
 + второй независимый численный метод (SVD-bisection, без pseudopy) подтвердили формулу и
 уточнили природу численного floor'а (артефакт pipeline'а pseudopy, не double-precision вообще).
-Смержено в main.** Ничего не запущено дальше автоматически — ждёт направления пользователя.
+Смержено в main.**
+
+**[VERIFIED] ПЕРЕОТКРЫТО В ТУ ЖЕ СЕССИЮ (внешний discovery-аудит, ADR-077):** «сходящаяся оценка
+K(A) найдена» — ОПРОВЕРГНУТО, независимо перепроверено собственным (третьим, не переиспользующим
+аудиторский код) скриптом. kappa(lambda_1) НЕ равна истинной K(A) — на N=40,seed=314 (train-
+выборка H-B2-1x): kappa(lambda_1)=50.11 против независимо подтверждённой прямой нижней границы
+108.87 (совпадение с аудитом до 3 значащих цифр) — недооценка 2.17×. Аудит также построил
+adversarial-пример, где kappa(lambda_1)=1.0 при истинной границе 44.87. graph.yaml: H-B2-1z
+`confirmed`→`lead`. Устояло: 16/16 deep_k≤kappa(lambda_1) (обе — нижние границы), Mechanism Claim
+Gate (поведение kappa относительно самой себя). Ключевой методологический вывод: claim.md's
+собственный предрегистрированный hedge («K(A) could exceed kappa if non-monotonic») уже верно
+предвидел именно эту находку ДО прогона — переобещание было только в более сильном языке
+decision.md/graph.yaml, написанном ПОСЛЕ результата. Новое открытое, не закрытое: переподгонка
+Claim 2 (показатель 0.62-0.66) сама может быть смещена тем же механизмом, что H-B2-1y нашла для
+shallow-оценки — не проверено ни в какую сторону. Ничего не запущено дальше автоматически — ждёт
+направления пользователя.
 
 Phase 1b (H-B1-1b, хроматин) — BLOCKED: единственный оставшийся блокер — Option A в H-7 TAD (внешняя работа, вне scope Y-17). `Q-GOE-vs-GUE` разрешён 2026-09-07 (см. ADR-059).
 
@@ -128,6 +143,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-08 22:26] `b5766d7` (local, branch `fix/h-b2-1z-correction-external-audit` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1z correction -- external audit + independent reconfirmation falsify "convergent K(A) found"
 - [2026-09-08 20:14] `ac6b74b` (local, branch `feature/h-b2-1z-kreiss-eigval-condition-anchor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: auto-log commit history entry
 - [2026-09-08 20:14] `79fce3d` (local, branch `feature/h-b2-1z-kreiss-eigval-condition-anchor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: update activeContext.md with H-B2-1z's closed gap and merge status
 - [2026-09-08 20:12] `fcc1362` (local, branch `feature/h-b2-1z-kreiss-eigval-condition-anchor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: H-B2-1z -- close the reviewer-flagged gap with a second independent numerical method, since Agent(reviewer) never reached a verdict
@@ -141,5 +157,4 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-08 13:40] `35c0f9d` (local, branch `docs/close-bridge2-arc` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: close Bridge 2 (Chernoff/Kreiss) arc in the canonical bridge document
 - [2026-09-08 13:37] `20d3d03`: feat: H-B2-1v -- independent cross-implementation check of H-B2-1u's small-eps Kreiss growth via pseudopy
 - [2026-09-08 13:28] `20d3d03` (local, branch `feature/h-b2-1v-kreiss-crossimpl-smalleps` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-1v -- independent cross-implementation check of H-B2-1u's small-eps Kreiss growth via pseudopy
-- [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)
 - [2026-09-08 13:15] `e45cec6`: fix: H-B2-1u -- address mandatory reviewer's late-arriving P1 (unconverged Kreiss eps floor)

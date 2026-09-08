@@ -1,6 +1,59 @@
 # H-B2-1z — decision.md
 
-## Result
+## CORRECTION ADDENDUM (2026-09-08, external discovery audit, independently reconfirmed same session)
+
+**~~kappa(lambda_1) gives the sought convergent K(A) estimate; the question is closed~~ —
+FALSIFIED as stated.** An external audit (`reports/2026-09-08-discovery-audit/ASSESSMENT.md`,
+`verify_findings.py`, `evidence.json`) found, and this session independently re-derived with a
+freshly-written script (not reusing the audit's own code — `x/sigma_min((alpha+x)I-A)` maximized
+over a fine grid, no `pseudopy`, no import of the audit's script), that on **N=40, seed=314**
+(already in H-B2-1x's own train set) a direct resolvent-norm lower bound for K(A) reaches
+**108.87-108.84**, while `kappa(lambda_1)` for the SAME matrix is only **50.11** — a **2.17x**
+undershoot, confirmed by two independently-written implementations agreeing to 3 significant
+figures. The audit additionally constructed an adversarial example (N=40, an isolated fully-
+connected 5x5 trailing block, coupling=14) where `kappa(lambda_1)=1.0` (a perfectly-conditioned,
+decoupled dominant eigenvalue) while the true resolvent-based lower bound is `44.87` — showing the
+undershoot is not a small-sample fluke, it can be made arbitrarily bad by construction.
+
+**What survives:** the Mechanism Claim Gate's own core finding (the pseudospectrum-sampled ratio
+converges toward `kappa(lambda_1)` — not toward the true `K(A)` — to within 0.02% at its
+achievable numerical sweet spot, then reverses past `eps<=1e-6`) is UNAFFECTED — that finding was
+always about `kappa(lambda_1)`'s own eps->0 asymptotic behavior relative to itself, not a claim
+about the relationship between `kappa(lambda_1)` and the true `K(A)`. The 16/16 `deep_k <=
+kappa(lambda_1)` bound (Claim 1) also survives unchanged — both `deep_k` and `kappa(lambda_1)` are
+LOWER bounds on the true `K(A)`; `kappa(lambda_1)` merely being a tighter lower bound than the
+16-matrix sample's own `deep_k` says nothing about how far either sits from the true supremum.
+claim.md's own pre-registered "What This Does NOT Mean" #1 already correctly hedged exactly this
+possibility ("K(A) could in principle exceed [kappa(lambda_1)] if the ratio is non-monotonic and
+peaks at some intermediate eps... not ruled out for other matrix families") — **the error was in
+this file's own stronger language below** (`"gives EXACTLY this sought convergent estimate"`,
+`"closes the... question... via the closed-form eigenvalue condition number"`), which overclaimed
+past what claim.md's own hedge licensed, and in the `registry/graph.yaml` node's `status: confirmed`
+and the ADR-076 title, which inherited that overclaim.
+
+**Corrected interpretation:** `kappa(lambda_1)` is a cheap, closed-form, TIGHTER lower bound on
+`K(A)` than shallow/deep pseudospectrum sampling for this arc's own tested matrices — genuinely
+useful as a better proxy than what H-B2-1u/1v/1y used. It is NOT a solution to computing the true
+`K(A)`, and does not "close the question" of a convergent estimate. The true supremum, per this
+correction's own resolvent search, is achieved at a FINITE eps (x≈0.72, not eps->0) for this
+matrix — meaning the eps->0 local eigenvalue-condition-number is the wrong regime to search in
+general; `K(A)` here comes from an intermediate-eps effect (plausibly interaction with non-dominant
+eigenvalues, not captured by a single-eigenvalue quantity).
+
+**Corrected exponent-refit interpretation:** Claim 2's refit exponent (0.62-0.66) is a fit against
+a K(A) PROXY known to itself undershoot the true K(A) by a matrix-dependent factor (not a fixed
+constant — the audit's constructed example shows the undershoot factor can range from ~1x to
+arbitrarily large). This means Claim 2's own exponent number is STILL potentially subject to a
+bias mechanism directly analogous to what H-B2-1y found for the shallow pseudospectrum estimate —
+this was not checked before this correction, and is now an open question, not resolved either way.
+
+**Status change:** `registry/graph.yaml` H-B2-1z node downgraded `confirmed` -> `weakened`. See
+LEDGER and pearl_registry for the corresponding entries. Full independent-audit report:
+`reports/2026-09-08-discovery-audit/ASSESSMENT.md`.
+
+---
+
+## Result (ORIGINAL, kept for record — read the Correction Addendum above first)
 
 ### Mechanism Claim Gate (Step 0a)
 
@@ -28,6 +81,22 @@ runs. Two runs of a deterministic computation disagreeing specifically at the fi
 and only there, is itself direct evidence for the numerical-floor interpretation below
 (not merely consistent with it) — a genuinely converged measurement would reproduce
 exactly.
+
+**Third data point (2026-09-08, during the external discovery audit's own re-run of this
+suite): a THIRD invocation of `cmd_run()` on the identical matrix produced
+`ratios_by_eps["1e-07"] = -14999995.41`** — not merely a percentage disagreement, an
+outright non-physical NEGATIVE value in the millions, `pct_of_kappa_at_finest_eps`
+correspondingly around -2.6e8%. This is a decisive strengthening of "numerical floor," not
+a new concern: three independent invocations of one deterministic computation gave three
+qualitatively different answers at eps=1e-7 (5.16, 4.46, and now -1.5e7), while every
+eps>=1e-5 value stayed stable to 3-4 significant figures across all three. Also exposes a
+real gap in this experiment's OWN test suite: `test_mechanism_gate_ratios_cover_every_
+configured_eps` only checks that each eps key is present in the result, not that its value
+is physically sane (e.g. non-negative, within some multiple of `kappa_lambda1`) — a value
+this obviously wrong passed the existing test unnoticed. `metrics/run.json` was restored to
+the version matching the table above (git-committed, matplotlib/pseudopy state at time of
+merge) rather than left at this garbage value; the instability itself is the finding, not
+any one of the three numbers.
 
 **Verdict recorded by the mechanical check: `gate_holds = False`** (the pre-registered rule
 required monotonic increase all the way to the finest eps, which fails past 1e-6). But
