@@ -82,6 +82,51 @@ def test_refit_uses_full_population_both_feature_shapes(cached_result):
     assert cached_result["config"]["n_test"] == 30
 
 
+def test_x_floor_does_not_clip_a_genuine_interior_maximum_below_it():
+    """The claim that X_FLOOR=1e-4 is safe was originally checked only in an UNCOMMITTED
+    scratchpad script (7 matrices, x_lo down to 1e-8) -- this test moves that check into
+    the experiment's own committed, reproducible suite so the claim isn't just asserted
+    in prose. For a sample of matrices where kappa(lambda_1) already dominates (NOT
+    seed=314, which genuinely has an interior maximum above the floor), extending the
+    search well below X_FLOOR (down to 1e-8) must not find anything exceeding
+    kappa(lambda_1) by more than trivial numerical noise -- if it did, X_FLOOR would be
+    silently discarding a real signal."""
+    import importlib.util as ilu
+
+    m_dir = HERE.parent / "20260907-chernoff-neuralode-nd-multiseed-multin"
+    spec_m = ilu.spec_from_file_location("t3_multin", m_dir / "run.py")
+    multin = ilu.module_from_spec(spec_m)
+    spec_m.loader.exec_module(multin)
+
+    def _sub_floor_line_search(a: np.ndarray, alpha: float, x_lo: float = 1e-8) -> float:
+        from scipy.optimize import minimize_scalar
+
+        log_xs = np.linspace(np.log(x_lo), np.log(resolvent_ref.X_HI), 400)
+        ratios = np.array([-resolvent_ref._neg_ratio(lx, a, alpha) for lx in log_xs])
+        i = int(np.argmax(ratios))
+        lo = log_xs[max(0, i - 2)]
+        hi = log_xs[min(len(log_xs) - 1, i + 2)]
+        res = minimize_scalar(
+            resolvent_ref._neg_ratio,
+            bounds=(lo, hi),
+            method="bounded",
+            args=(a, alpha),
+            options={"xatol": 1e-10},
+        )
+        return float(-res.fun)
+
+    kappa_dominant_sample = [(40, 307), (50, 329), (40, 306), (50, 304)]
+    for n_dim, seed in kappa_dominant_sample:
+        a = multin.build_matrix_with_seed_and_n(n_dim, seed)
+        alpha = float(np.max(np.linalg.eigvals(a).real))
+        kappa = resolvent_ref.eigval_anchor.eigenvalue_condition_number(a)["kappa_lambda1"]
+        sub_floor_best = _sub_floor_line_search(a, alpha)
+        assert sub_floor_best <= kappa * 1.001, (
+            f"n_dim={n_dim} seed={seed}: search below X_FLOOR found {sub_floor_best} "
+            f"exceeding kappa={kappa} -- X_FLOOR may be clipping a real interior maximum"
+        )
+
+
 def test_line_search_floor_does_not_silently_clip_a_real_interior_maximum():
     """For a matrix where the line search DOES dominate (seed=314), the found x_star must
     sit comfortably above X_FLOOR, not pinned at the floor -- pinning at the floor would
