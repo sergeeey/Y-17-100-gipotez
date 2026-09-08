@@ -47,6 +47,41 @@ quadratic, ~0.6-0.7) is ROBUST to the ADR-077 correction** — the correction wa
 necessary for interpretive honesty (kappa(lambda_1) is not the true K(A) in general), but
 it does not materially change the arc's own headline predictive/exponent numbers.
 
+## FL Step 8a — self-review (mandatory reviewer did not reach a verdict)
+
+`Agent(reviewer)` was invoked once, scoped narrowly to just this experiment's 4 files, and
+hit its 12-turn limit without producing a report (third consecutive reviewer timeout this
+session — H-B2-1z hit it twice). No `SendMessage` tool was available in this environment to
+resume it, and a fresh `Agent()` call would only duplicate work with no memory of partial
+progress (per this session's own memory: "resume-stalled-agent-with-sendmessage"). Not
+treated as reviewer approval — self-review substituted, documented honestly below rather
+than silently absorbed, per the standing lesson from an earlier incident this same project
+("don't let agent caps silently substitute for FL Step 8a").
+
+Two concerns were checked directly, matching what a reviewer would likely have flagged:
+
+1. **Is `x/sigma_min((alpha+x)I-A)` actually a valid lower bound for K(A)?** Proven, not
+   just asserted: for any real `x>0`, let `z=alpha+x` and `eps_z=sigma_min(zI-A)`. By
+   definition `z` lies in the `eps_z`-pseudospectrum of A (since `sigma_min(zI-A)<=eps_z`
+   trivially holds with equality). `alpha_{eps_z}(A)`, the rightmost real part over that
+   pseudospectrum, is therefore `>= Re(z) = alpha(A)+x`, so `x <= alpha_{eps_z}(A)-alpha(A)`,
+   giving `x/eps_z <= (alpha_{eps_z}(A)-alpha(A))/eps_z <= K(A)` by definition of the
+   supremum. This holds for EVERY `x`, regardless of whether `x` happens to be exactly the
+   pseudospectral abscissa at that eps level — the formula is a valid lower bound
+   unconditionally, not merely under some assumption about `z` being the extremal point.
+2. **Could the 300-point log-spaced grid + narrow local-refinement window miss a sharper,
+   narrower peak between grid points?** Checked directly: re-ran all 5 line-search-dominant
+   matrices with a 10x denser grid (3000 points, wider refinement window). Result: IDENTICAL
+   to 4 decimal places on every matrix (e.g. seed=314: 108.8680 both times). The local
+   refinement step (a continuous bounded optimizer, not just grid-point selection) is
+   robust to grid density here — no narrow-peak risk found in practice for this matrix
+   family. Script not committed (a quick confirmatory check, not a new claim requiring its
+   own artifact) — result recorded here per integrity.md's Verify-Output principle.
+
+Not independently checked (real, disclosed limitation, not glossed over): the complex-plane
+question (real-axis-only vs. full 2D search) remains open exactly as claim.md's own "What
+This Does NOT Mean" #1 already stated before this experiment ran.
+
 ## FL Step 0a Mechanism Claim Gate
 
 Pre-registered in claim.md, based on a same-session pre-check (7 matrices, `x_lo=1e-8`
