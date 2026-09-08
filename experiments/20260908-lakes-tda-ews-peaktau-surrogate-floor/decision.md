@@ -1,5 +1,23 @@
 # H-B3-1n — decision.md
 
+## FL Step 8a — mandatory reviewer
+
+Scoped narrowly per the lesson learned in the H-B2-2 cycle (broad "review this experiment"
+requests had timed out three times that session; a request scoped to 2 concrete checks
+succeeded on the first try). Asked to verify: (1) the percentile computation
+(`np.mean(leads < real_lead) * 100`) is the correct estimator, and whether the `<` vs `<=`
+boundary matters; (2) the hardcoded `real_lead` constant matches H-B3-1l's own stored
+`metrics/run.json` value exactly, not a retyped approximation. Completed successfully on
+the first attempt — **`VERDICT: LGTM`**. Findings: the percentile estimator is correct and
+the `<`/`<=` boundary is immaterial here (the hardcoded constant carries float-precision
+noise from date arithmetic, making an exact tie with any of 500 independently-generated
+surrogate leads probability-zero); the constant matches the stored value
+character-for-character (also independently guarded by this experiment's own
+`test_real_lead_value_matches_h_b3_1l_stored_metric`). Ran `pytest` (8 passed, 177s) and
+`ruff` (clean) itself. Minor, non-blocking suggestion: read `run.json` at runtime instead
+of hardcoding the constant, to remove a manual-sync risk — not acted on, since the existing
+test already guards against exactly that drift.
+
 ## Result
 
 500 AR(1) surrogates of Lower Zurich's real PC1 series (matched length/mean/variance/lag-1
