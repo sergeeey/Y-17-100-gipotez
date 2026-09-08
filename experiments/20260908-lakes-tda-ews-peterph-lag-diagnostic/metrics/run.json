@@ -1,0 +1,17 @@
+{
+  "positive_control": {
+    "dosat_half_rise_date": 249.0054794521659,
+    "dosat_tda_crossing": 172.00273972609716,
+    "dosat_gate_distance_days": 77.00273972606874,
+    "gate_threshold_days": 20.0,
+    "gate_passes": false
+  },
+  "primary": {
+    "ph_half_rise_date": 218.0027397260917,
+    "ph_classical_crossing": 218.0027397260917,
+    "ph_tda_crossing": 318.0054794521577,
+    "distance_to_classical_anchor": 0.0,
+    "distance_to_tda_crossing_anchor": 100.00273972606601
+  },
+  "verdict": "METRIC_UNRELIABLE"
+}
