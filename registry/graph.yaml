@@ -1673,6 +1673,18 @@ nodes:
     source: "experiments/20260910-remy-tumorigenesis-point-of-no-return-h24/decision.md"
     updated: 2026-09-10
 
+  - id: H-B7-25
+    type: hypothesis
+    title: "Along H-B7-22's own 8 confirmed SCHEDULE_FRAGILE shortest escaping paths (H-B7-24's own construction), is p21CIP actively unstable (ready to fire) throughout the entire pre-point-of-no-return window while RBL2 stays passively stable -- closing H-B7-22's own remaining Relaxation Map item (bounded-delay fairness) with an exact per-condition starvation count."
+    status: lead                   # 2026-09-10 decision.md: REJECTED for the universal 8/8 asymmetry claim, status lead (not hard-killed) -- a real, more precise, honestly-reported refinement survives. p21CIP unstable (rule already says True, actively trying to re-establish) at EVERY step of the pre-commitment window, ALL 8 conditions, no exceptions -- confirms it is not structurally blocked, only starved by scheduling. RBL2's passive-stable framing does NOT generalize: holds cleanly at k=1,2 (both branches), but RBL2 ALSO becomes unstable in the final 1-2 steps before commitment at k=3,4 (both branches) -- less "room" closer to the synchronous threshold k*=5. Anti-Overfitting Gate applied honestly: the universal claim (generalized from a single k=1/branch_1 spot-check) was tested against all 8 conditions and found to break at 4 of them, reported as REJECTED rather than silently narrowed or smoothed over. Direct, exact answer to H-B7-22's own bounded-delay-fairness question: p21CIP_min_starvation_count (= H-B7-24's own point-of-no-return step index) gives, per condition, the minimum number of consecutive turns p21CIP must be skipped for this specific shortest path to succeed (5/4/4/2 for k=1..4, both branches) -- valid regardless of the RBL2 asymmetry finding. No FL Step 8a (REJECT verdict, per the rule's own scope).
+    evidence: VERIFIED-REAL        # metrics/run.json (8 conditions, exact node-stability check at every pre-commitment step, reusing H-B7-24's already-reviewer-verified path construction unchanged); 6 tests incl. explicit regression locks on BOTH the k=1,2 confirming cases and the k=3,4 falsifying cases (not just the headline pattern)
+    l0_type: descriptive           # exact node-stability/count questions at known states of a fully specified deterministic system -- not causal
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if p21CIP unstable AND RBL2 stable throughout the pre-commitment window for all 8 release-states; REJECTED if any release-state shows a different pattern. RESULT: REJECTED -- p21CIP-unstable holds in 8/8, RBL2-stable-throughout holds only in 4/8 (k=1,2 both branches), breaking at k=3,4 where RBL2 also becomes unstable in the final 1-2 pre-commitment steps."
+    experiment_dir: "experiments/20260910-remy-tumorigenesis-starvation-asymmetry-h25"
+    source: "experiments/20260910-remy-tumorigenesis-starvation-asymmetry-h25/decision.md"
+    updated: 2026-09-10
+
   - id: ART-REMY-CROSSBRANCH-TRANSIENT-RUN-20260906
     type: artifact
     title: "metrics/run.json — transient do(p21CIP=0, RBL2=0) sweep k=1,3,4,5,6,9,10,30 on the second Remy 2015 branch; k*=5 exactly, later shown to be an arithmetic consequence of branch equivalence, not independent generalization evidence"
@@ -1993,6 +2005,7 @@ edges:
   - {from: H-B7-22, to: H-B7-23, type: grounds, since: 2026-09-10, note: "H-B7-23 directly runs H-B7-22's own named Relaxation Map item ('quantify vulnerability, not just existence') on H-B7-22's own 8 confirmed SCHEDULE_FRAGILE release-states, reusing H-B7-22's async_successors/fate_label machinery unchanged"}
   - {from: H-B7-16, to: H-B7-23, type: grounds, since: 2026-09-10, note: "H-B7-23's own numbers give a qualitative (explicitly not quantitative, different random-schedule convention) mechanistic grounding for H-B7-16's own DEGRADED-BUT-INFORMATIVE accuracy gap -- both point the same direction, synchronous-only validation understates real asynchronous risk"}
   - {from: H-B7-22, to: H-B7-24, type: grounds, since: 2026-09-10, note: "H-B7-24 pinpoints WHEN commitment becomes irreversible along H-B7-22's own escaping paths (a single sharp step, always CyclinE1's firing), deepening H-B7-22's race-condition mechanism from 'exists somewhere along the path' to an exact, mechanistically-explained step; reuses H-B7-22's async_successors/build_reachability_graph/find_sink_attractors entirely unchanged"}
+  - {from: H-B7-24, to: H-B7-25, type: grounds, since: 2026-09-10, note: "H-B7-25 tests a p21CIP/RBL2 stability asymmetry noticed while investigating H-B7-24's own point-of-no-return step, reusing H-B7-24's shortest-path construction and PNR step index unchanged; closes H-B7-22's own remaining Relaxation Map item (bounded-delay fairness) via the p21CIP_min_starvation_count = PNR step quantity"}
 
   # ───────────────────────── Bridge 8 (proposed, 2026-09-09) ─────────────────────────
   - {from: PROB-UDE-IDENTIFIABILITY-2025, to: BRIDGE-8-UDE-IDENTIFIABILITY, type: grounds, since: 2026-09-09, note: "npj Sys Biol Appl 2025 names this open problem directly"}
