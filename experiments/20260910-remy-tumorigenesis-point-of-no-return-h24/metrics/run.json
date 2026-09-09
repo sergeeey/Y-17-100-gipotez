@@ -1,0 +1,750 @@
+{
+  "claim": "H-B7-24 -- point of no return along the shortest async-escaping path, for each of H-B7-22's 8 confirmed SCHEDULE_FRAGILE release-states",
+  "n_release_states_tested": 8,
+  "n_ok": 8,
+  "all_sharp_single_step": true,
+  "triggering_nodes_by_condition": {
+    "branch_1/1": "CyclinE1",
+    "branch_1/2": "CyclinE1",
+    "branch_1/3": "CyclinE1",
+    "branch_1/4": "CyclinE1",
+    "branch_2/1": "CyclinE1",
+    "branch_2/2": "CyclinE1",
+    "branch_2/3": "CyclinE1",
+    "branch_2/4": "CyclinE1"
+  },
+  "n_triggered_by_cyclinA_or_cyclinE1": 8,
+  "verdict": "CONFIRMED",
+  "per_state_results": [
+    {
+      "path_length": 11,
+      "step_reachability": [
+        {
+          "step": 0,
+          "status": "OK",
+          "n_states_from_here": 956,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 1,
+          "status": "OK",
+          "n_states_from_here": 954,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 2,
+          "status": "OK",
+          "n_states_from_here": 852,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 3,
+          "status": "OK",
+          "n_states_from_here": 784,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 4,
+          "status": "OK",
+          "n_states_from_here": 712,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 5,
+          "status": "OK",
+          "n_states_from_here": 48,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 6,
+          "status": "OK",
+          "n_states_from_here": 24,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 7,
+          "status": "OK",
+          "n_states_from_here": 12,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 8,
+          "status": "OK",
+          "n_states_from_here": 8,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 9,
+          "status": "OK",
+          "n_states_from_here": 4,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 10,
+          "status": "OK",
+          "n_states_from_here": 2,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 11,
+          "status": "OK",
+          "n_states_from_here": 1,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        }
+      ],
+      "point_of_no_return_step": 5,
+      "triggering_node": "CyclinE1",
+      "is_sharp_single_step": true,
+      "status": "OK",
+      "branch": "branch_1",
+      "k": 1
+    },
+    {
+      "path_length": 10,
+      "step_reachability": [
+        {
+          "step": 0,
+          "status": "OK",
+          "n_states_from_here": 954,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 1,
+          "status": "OK",
+          "n_states_from_here": 852,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 2,
+          "status": "OK",
+          "n_states_from_here": 784,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 3,
+          "status": "OK",
+          "n_states_from_here": 712,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 4,
+          "status": "OK",
+          "n_states_from_here": 48,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 5,
+          "status": "OK",
+          "n_states_from_here": 24,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 6,
+          "status": "OK",
+          "n_states_from_here": 12,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 7,
+          "status": "OK",
+          "n_states_from_here": 8,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 8,
+          "status": "OK",
+          "n_states_from_here": 4,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 9,
+          "status": "OK",
+          "n_states_from_here": 2,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 10,
+          "status": "OK",
+          "n_states_from_here": 1,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        }
+      ],
+      "point_of_no_return_step": 4,
+      "triggering_node": "CyclinE1",
+      "is_sharp_single_step": true,
+      "status": "OK",
+      "branch": "branch_1",
+      "k": 2
+    },
+    {
+      "path_length": 6,
+      "step_reachability": [
+        {
+          "step": 0,
+          "status": "OK",
+          "n_states_from_here": 200,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 1,
+          "status": "OK",
+          "n_states_from_here": 188,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 2,
+          "status": "OK",
+          "n_states_from_here": 176,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 3,
+          "status": "OK",
+          "n_states_from_here": 152,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 4,
+          "status": "OK",
+          "n_states_from_here": 4,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 5,
+          "status": "OK",
+          "n_states_from_here": 2,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 6,
+          "status": "OK",
+          "n_states_from_here": 1,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        }
+      ],
+      "point_of_no_return_step": 4,
+      "triggering_node": "CyclinE1",
+      "is_sharp_single_step": true,
+      "status": "OK",
+      "branch": "branch_1",
+      "k": 3
+    },
+    {
+      "path_length": 3,
+      "step_reachability": [
+        {
+          "step": 0,
+          "status": "OK",
+          "n_states_from_here": 111,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 1,
+          "status": "OK",
+          "n_states_from_here": 108,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 2,
+          "status": "OK",
+          "n_states_from_here": 2,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 3,
+          "status": "OK",
+          "n_states_from_here": 1,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        }
+      ],
+      "point_of_no_return_step": 2,
+      "triggering_node": "CyclinE1",
+      "is_sharp_single_step": true,
+      "status": "OK",
+      "branch": "branch_1",
+      "k": 4
+    },
+    {
+      "path_length": 11,
+      "step_reachability": [
+        {
+          "step": 0,
+          "status": "OK",
+          "n_states_from_here": 956,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 1,
+          "status": "OK",
+          "n_states_from_here": 954,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 2,
+          "status": "OK",
+          "n_states_from_here": 852,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 3,
+          "status": "OK",
+          "n_states_from_here": 784,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 4,
+          "status": "OK",
+          "n_states_from_here": 712,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 5,
+          "status": "OK",
+          "n_states_from_here": 48,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 6,
+          "status": "OK",
+          "n_states_from_here": 24,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 7,
+          "status": "OK",
+          "n_states_from_here": 12,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 8,
+          "status": "OK",
+          "n_states_from_here": 8,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 9,
+          "status": "OK",
+          "n_states_from_here": 4,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 10,
+          "status": "OK",
+          "n_states_from_here": 2,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 11,
+          "status": "OK",
+          "n_states_from_here": 1,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        }
+      ],
+      "point_of_no_return_step": 5,
+      "triggering_node": "CyclinE1",
+      "is_sharp_single_step": true,
+      "status": "OK",
+      "branch": "branch_2",
+      "k": 1
+    },
+    {
+      "path_length": 10,
+      "step_reachability": [
+        {
+          "step": 0,
+          "status": "OK",
+          "n_states_from_here": 954,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 1,
+          "status": "OK",
+          "n_states_from_here": 852,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 2,
+          "status": "OK",
+          "n_states_from_here": 784,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 3,
+          "status": "OK",
+          "n_states_from_here": 712,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 4,
+          "status": "OK",
+          "n_states_from_here": 48,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 5,
+          "status": "OK",
+          "n_states_from_here": 24,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 6,
+          "status": "OK",
+          "n_states_from_here": 12,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 7,
+          "status": "OK",
+          "n_states_from_here": 8,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 8,
+          "status": "OK",
+          "n_states_from_here": 4,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 9,
+          "status": "OK",
+          "n_states_from_here": 2,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 10,
+          "status": "OK",
+          "n_states_from_here": 1,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        }
+      ],
+      "point_of_no_return_step": 4,
+      "triggering_node": "CyclinE1",
+      "is_sharp_single_step": true,
+      "status": "OK",
+      "branch": "branch_2",
+      "k": 2
+    },
+    {
+      "path_length": 6,
+      "step_reachability": [
+        {
+          "step": 0,
+          "status": "OK",
+          "n_states_from_here": 200,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 1,
+          "status": "OK",
+          "n_states_from_here": 188,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 2,
+          "status": "OK",
+          "n_states_from_here": 176,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 3,
+          "status": "OK",
+          "n_states_from_here": 152,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 4,
+          "status": "OK",
+          "n_states_from_here": 4,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 5,
+          "status": "OK",
+          "n_states_from_here": 2,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 6,
+          "status": "OK",
+          "n_states_from_here": 1,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        }
+      ],
+      "point_of_no_return_step": 4,
+      "triggering_node": "CyclinE1",
+      "is_sharp_single_step": true,
+      "status": "OK",
+      "branch": "branch_2",
+      "k": 3
+    },
+    {
+      "path_length": 3,
+      "step_reachability": [
+        {
+          "step": 0,
+          "status": "OK",
+          "n_states_from_here": 111,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 1,
+          "status": "OK",
+          "n_states_from_here": 108,
+          "reachable_fates": [
+            "GROWTH_ARREST",
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": true
+        },
+        {
+          "step": 2,
+          "status": "OK",
+          "n_states_from_here": 2,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        },
+        {
+          "step": 3,
+          "status": "OK",
+          "n_states_from_here": 1,
+          "reachable_fates": [
+            "PROLIFERATION"
+          ],
+          "growth_arrest_reachable": false
+        }
+      ],
+      "point_of_no_return_step": 2,
+      "triggering_node": "CyclinE1",
+      "is_sharp_single_step": true,
+      "status": "OK",
+      "branch": "branch_2",
+      "k": 4
+    }
+  ]
+}
