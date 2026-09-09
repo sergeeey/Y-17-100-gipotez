@@ -1,0 +1,494 @@
+{
+  "claim": "H-B7-25 -- p21CIP-specific starvation asymmetry along H-B7-22's own 8 confirmed SCHEDULE_FRAGILE shortest escaping paths",
+  "n_release_states_tested": 8,
+  "all_asymmetry_confirmed": false,
+  "verdict": "REJECTED",
+  "per_state_results": [
+    {
+      "pre_commitment_steps": [
+        {
+          "step": 0,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 1,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 2,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 3,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 4,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        }
+      ],
+      "p21CIP_always_unstable_pre_commitment": true,
+      "RBL2_always_stable_pre_commitment": true,
+      "asymmetry_confirmed": true,
+      "p21CIP_min_starvation_count": 5,
+      "branch": "branch_1",
+      "k": 1,
+      "point_of_no_return_step": 5,
+      "path_length": 11
+    },
+    {
+      "pre_commitment_steps": [
+        {
+          "step": 0,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 1,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 2,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 3,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        }
+      ],
+      "p21CIP_always_unstable_pre_commitment": true,
+      "RBL2_always_stable_pre_commitment": true,
+      "asymmetry_confirmed": true,
+      "p21CIP_min_starvation_count": 4,
+      "branch": "branch_1",
+      "k": 2,
+      "point_of_no_return_step": 4,
+      "path_length": 10
+    },
+    {
+      "pre_commitment_steps": [
+        {
+          "step": 0,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 1,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 2,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 3,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          }
+        }
+      ],
+      "p21CIP_always_unstable_pre_commitment": true,
+      "RBL2_always_stable_pre_commitment": false,
+      "asymmetry_confirmed": false,
+      "p21CIP_min_starvation_count": 4,
+      "branch": "branch_1",
+      "k": 3,
+      "point_of_no_return_step": 4,
+      "path_length": 6
+    },
+    {
+      "pre_commitment_steps": [
+        {
+          "step": 0,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          }
+        },
+        {
+          "step": 1,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          }
+        }
+      ],
+      "p21CIP_always_unstable_pre_commitment": true,
+      "RBL2_always_stable_pre_commitment": false,
+      "asymmetry_confirmed": false,
+      "p21CIP_min_starvation_count": 2,
+      "branch": "branch_1",
+      "k": 4,
+      "point_of_no_return_step": 2,
+      "path_length": 3
+    },
+    {
+      "pre_commitment_steps": [
+        {
+          "step": 0,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 1,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 2,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 3,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 4,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        }
+      ],
+      "p21CIP_always_unstable_pre_commitment": true,
+      "RBL2_always_stable_pre_commitment": true,
+      "asymmetry_confirmed": true,
+      "p21CIP_min_starvation_count": 5,
+      "branch": "branch_2",
+      "k": 1,
+      "point_of_no_return_step": 5,
+      "path_length": 11
+    },
+    {
+      "pre_commitment_steps": [
+        {
+          "step": 0,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 1,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 2,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 3,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        }
+      ],
+      "p21CIP_always_unstable_pre_commitment": true,
+      "RBL2_always_stable_pre_commitment": true,
+      "asymmetry_confirmed": true,
+      "p21CIP_min_starvation_count": 4,
+      "branch": "branch_2",
+      "k": 2,
+      "point_of_no_return_step": 4,
+      "path_length": 10
+    },
+    {
+      "pre_commitment_steps": [
+        {
+          "step": 0,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 1,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 2,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": false,
+            "unstable": false
+          }
+        },
+        {
+          "step": 3,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          }
+        }
+      ],
+      "p21CIP_always_unstable_pre_commitment": true,
+      "RBL2_always_stable_pre_commitment": false,
+      "asymmetry_confirmed": false,
+      "p21CIP_min_starvation_count": 4,
+      "branch": "branch_2",
+      "k": 3,
+      "point_of_no_return_step": 4,
+      "path_length": 6
+    },
+    {
+      "pre_commitment_steps": [
+        {
+          "step": 0,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          }
+        },
+        {
+          "step": 1,
+          "p21CIP": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          },
+          "RBL2": {
+            "value": false,
+            "rule_says": true,
+            "unstable": true
+          }
+        }
+      ],
+      "p21CIP_always_unstable_pre_commitment": true,
+      "RBL2_always_stable_pre_commitment": false,
+      "asymmetry_confirmed": false,
+      "p21CIP_min_starvation_count": 2,
+      "branch": "branch_2",
+      "k": 4,
+      "point_of_no_return_step": 2,
+      "path_length": 3
+    }
+  ]
+}
