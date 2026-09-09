@@ -939,6 +939,18 @@ nodes:
     source: "experiments/20260908-lakes-tda-ews-peaktau-symmetric-selection/decision.md"
     updated: 2026-09-08
 
+  - id: H-B3-2
+    type: hypothesis
+    title: "Is Bridge 3's existing H1-VR-on-Takens-embedding statistic genuinely blind to window time-reversal (Mechanism Claim Gate), and does a genuinely order-sensitive alternative (Baryshnikov 2022 PH_0 chirality-excess via merge-tree stem-pruning) show a cleaner early-warning pattern on the same 3-lake dataset than trend-slope and time-reversal-asymmetry baselines (user direction-scoping report, route 3, 'начни B3')?"
+    status: killed                 # 2026-09-10 decision.md: Mechanism Claim Gate HOLDS exactly (5/5 trials, byte-identical H1-VR diagrams under time-reversal) -- independent of the REJECT below. Primary chirality-excess claim: REJECTED. First implementation of merge_tree_bars (ad hoc iterative smallest-adjacent-diff-first pairing) passed 6/6 hand-verified tests and produced a clean CONFIRMED result (chirality V1-crossing uniquely fired on the positive control, Lower Zurich, 2.25yr lead, while staying silent on both negative controls) -- but an independently-invoked, narrowly-scoped Agent(reviewer) (FL Step 8a, exactly 2 checkable claims) found a real bug via a hand-constructed 7-point counter-example [2,8,0,9,1,7,3]: the algorithm silently dropped the window's GLOBAL MINIMUM whenever total extrema count was odd (~55%, 45/82, of real Lower Zurich windows affected). Re-implemented directly per Baryshnikov 2022 Sec 2.2.1 (global-min/max-first recursive stem-pruning, odd-leftover points explicitly reported via merge_tree_bars_full rather than silently dropped) and the FULL EXPERIMENT WAS RE-RUN. Result changed materially: chirality-excess now fires a FALSE ALARM on Windermere (V1-crossing index 7, a negative control) and its floor false-positive rate inverted from the LOWEST of the three tested statistics (26.7-36.7%) to the HIGHEST (53.3-63.3%, worse than trend_slope on 2/3 lakes). The clean discriminating pattern existed only under the buggy statistic. Direct bug-fix-and-rerun falsification, not an argued skeptic concern.
+    evidence: VERIFIED-REAL        # metrics/run.json (re-run under corrected merge_tree_bars); 7 tests incl. a dedicated regression test built from the reviewer's own adversarial counter-example and an exact-accounting replacement for the original count-invariant test (which used floor division and would have masked the bug)
+    l0_type: predictive
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if chirality-excess V1-crossing fires on the positive control (Lower Zurich) while staying silent on both negative controls (Windermere, Loch Leven), with a lower floor false-positive rate than both baselines -- RESULT under the corrected, bug-fixed implementation: fires on Windermere too (false alarm), floor FPR is the WORST of the three statistics. REJECTED. Mechanism Claim Gate (H1-VR is time-reversal-blind) evaluated separately and HOLDS regardless."
+    experiment_dir: "experiments/20260910-lakes-tda-ews-ph0-chirality-directed"
+    source: "experiments/20260910-lakes-tda-ews-ph0-chirality-directed/decision.md"
+    updated: 2026-09-10
+
   - id: ART-DIAGRAM-DISTANCE-IAAFT-RUN-20260906
     type: artifact
     title: "metrics/run.json — Wasserstein diagram-distance + IAAFT null, 9-series real run; completes the 2x2 design, falsifies the null-model-effect hypothesis"
@@ -1735,6 +1747,8 @@ edges:
   - {from: H-B3-1l, to: H-B3-1p, type: grounds, since: 2026-09-08, note: "H-B3-1l's own 6th skeptic pass found the classical-peak selection rule was asymmetric (oracle-informed for the positive case, symmetric for negative controls) but did not recompute under a fair rule -- pearl_registry (2026-09-07, impact 7) named the exact falsifiable prediction. H-B3-1p runs it."}
   - {from: H-B3-1p, to: H-B3-1l, type: invalidates, since: 2026-09-08, note: "Symmetric selection inverts H-B3-1l's CONFIRMED verdict to REJECTED (classical_peak becomes AC1=1999.25, TDA=2000.5 is now later, lead=-15.0mo not +50.0mo) -- the original 'TDA leads classical' claim never held under a fair, symmetric rule. H-B3-1l status: confirmed -> lead (H-B3-1n) -> killed (this edge)."}
   - {from: H-B3-1b, to: H-B3-1m, type: grounds, since: 2026-09-07, note: "H-B3-1b's own Relaxation Map Row 2 (change-point co-requirement via Pettitt's test) -- the last of its 3 originally-named fixes, this is that test"}
+  - {from: B3-MAY-TDA, to: H-B3-2, type: grounds, since: 2026-09-10, note: "Route 3 of the user's 2026-09-09 direction-scoping report ('начни B3'): tests whether Bridge 3's existing H1-VR statistic is genuinely blind to window time-reversal, and whether a genuinely order-sensitive alternative (Baryshnikov PH_0 chirality-excess) adds value on the same 3-lake dataset -- a structurally different statistic family from H-B3-1 through H-B3-1p's H1-VR arc, not a continuation of it"}
+  - {from: H-B3-1b, to: H-B3-2, type: grounds, since: 2026-09-10, note: "Reuses H-B3-1b's own 3-lake dataset (Lower Zurich/Windermere/Loch Leven), window/AR(1)-surrogate machinery, and V1 per-series calibrated detection rule verbatim (generalized to accept an arbitrary stat_fn) -- same population, new statistic"}
   - {from: H-B3-1c, to: H-B3-1f, type: grounds, since: 2026-09-06, note: "V1/AR(1) data reused verbatim"}
   - {from: H-B3-1d, to: H-B3-1f, type: grounds, since: 2026-09-06, note: "V1'/IAAFT data reused verbatim"}
   - {from: H-B3-1e, to: H-B3-1f, type: grounds, since: 2026-09-06, note: "V2'/detrend+IAAFT data reused verbatim"}
