@@ -121,6 +121,35 @@ regression test (`test_regression_theorem_would_catch_an_injected_wrong_row`) pr
 not vacuously true — the reviewer's role here is an independent spot-check on the highest-risk
 single case, not a from-scratch exhaustive re-derivation.
 
+## Addendum — Lean formalization pilot (2026-09-10)
+
+Per the user's explicit request following a discussion of external AI-mathematics research
+methodology (OpenAI GPT-6 Astra's `reasoning -> proof -> Lean certificate` pipeline), this
+experiment's own core theorem was formalized and machine-checked in Lean 4 — see `lean/
+HB721Core.lean` and `lean/README.md` for the full writeup.
+
+**Result: the abstract necessary-and-sufficient condition (Part A) is now PROVEN, not only
+exhaustively checked, for any table over any row type** — a strict strengthening from "verified
+for the 2984 concrete cases run.py checked" to "true for every possible instance of this shape,"
+via a from-scratch, dependency-free (no mathlib) Lean 4 proof of ~115 lines. The multi-node
+sufficiency corollary is proven the same way, for lists of arbitrary length (run.py checked one
+concrete 2-node case). A concrete instantiation on RBL2's real `.bnet` rule and
+`PROLIFERATION_STATE`'s real values is independently confirmed via Lean's `decide` kernel
+procedure — a different implementation (Lean's kernel, not `boolean.py`/CPython) reaching the
+same conclusion H-B7-17 found by direct Python enumeration.
+
+Both main theorems depend on exactly `[propext]` (checked via `#print axioms`) — no `sorry`, no
+`Classical.choice`, no `native_decide`. This is the project's first use of the "Strong" tier on
+`falsification-ladder.md`'s own Independent Verification Strength Ladder (Symbolic solver /
+Lean / Coq), previously only cited, never applied.
+
+**Honest scope:** the full 35-node network was NOT re-encoded in Lean — the abstract theorem's
+generality (over any Row type) is what makes that unnecessary for this specific claim, not a
+shortcut around it. A genuinely open/asymptotic project claim (Forsythe, Lovász) would need
+mathlib and a materially larger budget — Epoch AI's own reported 1.2M lines of Lean for a single
+18-page proof (independently verified this session by direct fetch of their `announcing-
+frontiermath-erdos` page) is the concrete data point behind that judgment, not a guess.
+
 ## Kill Analysis
 
 Not applicable in the classic REJECT sense (this is a CONFIRMED verdict), but per FL discipline,
