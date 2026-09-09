@@ -147,6 +147,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-09 10:55] `42a16d6` (local, branch `feature/h-b7-19-p21cip-ruleperturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-19 -- exhaustive p21CIP rule-perturbation robustness, ROBUST (15/16)
 - [2026-09-09 10:06] `2e382b8`: Merge: H-B7-18 mechanistic explanation of H-B7-17's CRITERION_INVALID finding
 - [2026-09-09 10:05] `bda7c03` (local, branch `feature/h-b7-18-fixedpoint-destabilization` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-18 -- mechanistic explanation of H-B7-17's CRITERION_INVALID finding
 - [2026-09-09 09:52] `00e0e95`: Merge: H-B7-17 rule-perturbation robustness, PARTIALLY-ROBUST, corrected mid-experiment
@@ -161,4 +162,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-09 06:51] `d58b79e` (local, branch `feature/h-b3-2-ph0-chirality-directed` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B3-2 -- PH0 chirality-excess, REJECT after bug-fix-and-rerun (Mechanism Claim Gate holds)
 - [2026-09-09 06:14] `7bbb4ad` (local, branch `feature/h-b2-3-transferable-dimensionless-predictor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-3 -- transferable dimensionless predictor test, REJECTED, real bug caught first
 - [2026-09-09 05:46] `883cbc6` (local, branch `feature/h-cat37-2-forsythe-s4-minimal-dimension` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT37-2 -- targeted search for s=4 Forsythe counterexample below dim 8, INFORMATIVE_NEGATIVE
-- [2026-09-09 05:34] `bdc00d6` (local, branch `docs/retroscan-h-cat37-1-forsythe-resolved` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext -- H-CAT37-1 retroscan summary (Forsythe resolved externally, own finding intact)
