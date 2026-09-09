@@ -55,6 +55,36 @@ network, for the transient `do(p21CIP=0, RBL2=0)` clamp starting from either kno
 
 This is the closed, complete statement H-B7-14's own sampled sweep could only gesture at.
 
+## Addendum — Minimality (2026-09-10, added after initial commit; no new computation required)
+
+The result above was originally stated as "j*=1 sufficiency," but the SAME committed metrics
+already contain the exhaustive j=0 result: `results_at_release_j0.candidate_M1_phenotypes_only =
+{n_collisions: 1, sufficient: false}`, computed over the IDENTICAL closed 12-state domain
+(`domain_size_j0: 12`) as the j=1 result. Since `j` ranges over non-negative integers and `j=0` is
+the only value smaller than `j=1`:
+
+> **j=0 is exhaustively INSUFFICIENT (1 collision, not a sample — every one of the 12 achievable
+> states checked) and j=1 is exhaustively SUFFICIENT (0 collisions, same 12 states) — therefore
+> j*=1 is not merely "a sufficient delay," it is the MINIMAL sufficient delay** for
+> `M1={Growth_arrest, Proliferation}` over this protocol's complete reachable domain.
+
+This was already independently verified by the FL Step 8a reviewer pass above — Check 2 explicitly
+re-derived BOTH the j=0 collision and the j=1 zero-collision result from raw function calls over
+the same k=1..6 (i.e. the full orbit, not a sample) range, on both branches. No further
+verification is needed to state minimality; it was a free consequence of evidence already
+collected and already independently confirmed, only the FRAMING was incomplete until now.
+
+**Sharpest defensible statement (narrow scope, as recommended and matching claim.md's own "What
+This Does NOT Mean" section exactly):**
+
+> For this Boolean model and this clamp-release protocol (synchronous update, `do(p21CIP=0,
+> RBL2=0)` from either known `Growth_arrest` fixed point), the pair `{Growth_arrest,
+> Proliferation}`, observed one synchronous update after release, is the MINIMAL-delay sufficient
+> observation for determining the eventual outcome, exhaustively verified over every reachable
+> release state. This does NOT establish biological universality, does NOT extend to asynchronous
+> or noisy updating, and does NOT extend to a different clamp target or starting state without a
+> separate check.
+
 ## Kill Analysis (Anti-Overfitting Gate)
 
 **What was killed (unchanged from H-B7-13):** instant observability (`j=0`) at these marker sets.
