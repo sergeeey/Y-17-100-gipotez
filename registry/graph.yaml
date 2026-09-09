@@ -1721,6 +1721,18 @@ nodes:
     source: "experiments/20260910-remy-tumorigenesis-branch-isomorphism-h27/decision.md"
     updated: 2026-09-10
 
+  - id: H-B7-28
+    type: hypothesis
+    title: "Does H-B7-27's own FGFR3=True/GRB2=False/EGFR=False invariant and phi=flip(EGFR_stimulus) branch isomorphism, confirmed for H-B7-26's own 10 conditions (k=1..5), extend to H-B7-22's own FULL originally-tested domain (k=1..40, both branches, 80 conditions)? Direct continuation under the user's own 'hold the mechanism' mission, testing H-B7-27's own explicitly-flagged open boundary."
+    status: confirmed              # 2026-09-10 decision.md: CONFIRMED, 80/80 conditions, 0 blocked. Invariant holds with 0 exceptions across 4516 total reachable states (both branches, k=1..40); isomorphism confirmed at all 40 k values; corollary escape-probability re-derivation matches at every k, and matches H-B7-27's own committed k=1..5 values exactly (regression). branch_2's reachable graph is branch_1's own graph at an inert EGFR_stimulus coordinate offset across the ENTIRE domain H-B7-22 originally tested, not just a narrow window.
+    evidence: VERIFIED-REAL        # metrics/run.json (80 conditions, 4516 states scanned, 0 violations, 0 STATE_CAP hits); 7 tests incl. a regression lock reproducing H-B7-27's own k=1..5 committed values exactly, and a sanity check that k>=5 (SCHEDULE_ROBUST per H-B7-22) gives exact probability 1.0
+    l0_type: descriptive           # exact boolean-invariant/graph-isomorphism question extended to a larger domain -- not causal
+    fl_tier: full
+    kill_criterion: "Invariant (0 exceptions) must hold across ALL 80 conditions; isomorphism (node-set bijection + bidirectional edge preservation) must hold at all 40 k values; no condition may hit STATE_CAP. RESULT: CONFIRMED, 80/80 on all checks, 0 STATE_CAP hits."
+    experiment_dir: "experiments/20260910-remy-tumorigenesis-full-domain-isomorphism-h28"
+    source: "experiments/20260910-remy-tumorigenesis-full-domain-isomorphism-h28/decision.md"
+    updated: 2026-09-10
+
   - id: ART-REMY-CROSSBRANCH-TRANSIENT-RUN-20260906
     type: artifact
     title: "metrics/run.json — transient do(p21CIP=0, RBL2=0) sweep k=1,3,4,5,6,9,10,30 on the second Remy 2015 branch; k*=5 exactly, later shown to be an arithmetic consequence of branch equivalence, not independent generalization evidence"
@@ -2047,6 +2059,7 @@ edges:
   - {from: H-B7-22, to: H-B7-26, type: grounds, since: 2026-09-10, note: "H-B7-26 reuses H-B7-22's build_reachability_graph/async_successors unchanged, and relies directly on H-B7-22's own exhaustive SCC analysis (0 cyclic attractors anywhere) to justify that standard absorbing-Markov-chain theory applies without modification"}
   - {from: H-B7-23, to: H-B7-26, type: grounds, since: 2026-09-10, note: "H-B7-26 solves H-B7-23's own uniform-random-among-unstable-nodes transition model EXACTLY via linear algebra instead of approximating it via Monte Carlo -- VALIDATES, not invalidates, H-B7-23's own prior estimates: oracle gate 10/10 passed, every exact probability falls inside H-B7-23's own committed 95% CI"}
   - {from: H-B7-26, to: H-B7-27, type: grounds, since: 2026-09-10, note: "H-B7-27 mechanistically explains H-B7-26's own unplanned observation (branch_1/branch_2 numerically identical exact probabilities at every k) -- user-proposed structural question, found and verified as a genuine graph automorphism (phi=flip(EGFR_stimulus)) caused by a zero-exception FGFR3/GRB2/EGFR invariant, reusing H-B7-22's build_reachability_graph and H-B7-26's solve_absorption unchanged"}
+  - {from: H-B7-27, to: H-B7-28, type: grounds, since: 2026-09-10, note: "H-B7-28 extends H-B7-27's own mechanism (unchanged: same invariant, same phi) from H-B7-26's 10 conditions (k=1..5) to H-B7-22's full originally-tested domain (k=1..40, 80 conditions) -- direct continuation under the user's own 'hold the mechanism' mission, reusing H-B7-27's check_isomorphism/check_invariant/build_phi and H-B7-26's solve_absorption entirely unchanged"}
 
   # ───────────────────────── Bridge 8 (proposed, 2026-09-09) ─────────────────────────
   - {from: PROB-UDE-IDENTIFIABILITY-2025, to: BRIDGE-8-UDE-IDENTIFIABILITY, type: grounds, since: 2026-09-09, note: "npj Sys Biol Appl 2025 names this open problem directly"}
