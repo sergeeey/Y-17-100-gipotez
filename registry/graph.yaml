@@ -1757,6 +1757,18 @@ nodes:
     source: "experiments/20260910-remy-tumorigenesis-exact-large-deviation-h30/decision.md"
     updated: 2026-09-10
 
+  - id: H-B7-31
+    type: hypothesis
+    title: "Formalizes and corrects an earlier informal, never-registered sci-hypothesis-skill finding ('H9-B: n_states_visited is a cheap discriminator of SCHEDULE_FRAGILE vs SCHEDULE_ROBUST') that was circular on inspection -- computing n_states_visited already requires the same exhaustive BFS the classification itself needs. Tests the genuinely cheaper alternative: does early-exit BFS (stop once both fates are confirmed reachable) give a real, substantial saving for FRAGILE conditions, with zero false positives on ROBUST? Closes item 5 (lowest priority) of the original H-B7-26 priority list."
+    status: confirmed              # 2026-09-10 decision.md: CONFIRMED, 10/10. 8/8 FRAGILE conditions show 84.2%-90.0% state-visitation savings (well above the pre-registered 50% bar), 2/2 ROBUST conditions correctly show zero false positives (only PROLIFERATION ever found). Honest structural asymmetry: the saving applies ONLY to confirming FRAGILE -- ROBUST classification cannot be sped up this way, since ruling out the other fate requires exhausting the entire reachable set by definition.
+    evidence: VERIFIED-REAL        # metrics/run.json (10 conditions, exact state-visitation counts at early-exit vs exhaustive completion); 7 tests incl. a regression lock against H-B7-26's own committed n_states_in_graph values, a cross-branch identity check per H-B7-27/28's isomorphism, and a sanity check confirming the BFS tracker can report a single-fate case (not vacuously always finding both)
+    l0_type: descriptive           # exact computational-cost comparison on a fully specified deterministic system -- not causal
+    fl_tier: full
+    kill_criterion: "Savings must exceed 50% for ALL 8 FRAGILE conditions; zero false positives on the 2 ROBUST conditions. RESULT: CONFIRMED -- actual savings 84.2%-90.0%, 0 false positives."
+    experiment_dir: "experiments/20260910-remy-tumorigenesis-early-exit-bfs-h31"
+    source: "experiments/20260910-remy-tumorigenesis-early-exit-bfs-h31/decision.md"
+    updated: 2026-09-10
+
   - id: ART-REMY-CROSSBRANCH-TRANSIENT-RUN-20260906
     type: artifact
     title: "metrics/run.json — transient do(p21CIP=0, RBL2=0) sweep k=1,3,4,5,6,9,10,30 on the second Remy 2015 branch; k*=5 exactly, later shown to be an arithmetic consequence of branch equivalence, not independent generalization evidence"
@@ -2088,6 +2100,8 @@ edges:
   - {from: H-B7-26, to: H-B7-30, type: grounds, since: 2026-09-10, note: "H-B7-30 re-fits the large-deviation-style regression using H-B7-26's own exact escape probabilities instead of H-B7-23's Monte Carlo estimates, directly executing the user's own explicit priority item 4 (deferred through H-B7-27/28/29)"}
   - {from: H-B7-24, to: H-B7-30, type: grounds, since: 2026-09-10, note: "H-B7-30 reuses H-B7-24's own committed point_of_no_return_step values as the primary regression x-axis, unchanged"}
   - {from: H-B7-28, to: H-B7-30, type: grounds, since: 2026-09-10, note: "H-B7-30 uses H-B7-28's own full k=1..40 domain to establish that 36/40 conditions are trivial (P=1.0), directly supporting the data-geometry-limitation finding"}
+  - {from: H-B7-22, to: H-B7-31, type: grounds, since: 2026-09-10, note: "H-B7-31 reuses H-B7-22's own async_successors unchanged, testing an early-exit variant of the same exhaustive BFS H-B7-22 runs -- corrects an earlier informal, never-registered finding that misidentified H-B7-22's own n_states_visited as a 'cheap' discriminator when it is actually circular"}
+  - {from: H-B7-24, to: H-B7-31, type: grounds, since: 2026-09-10, note: "H-B7-31's own mechanism explanation (why early-exit gives large savings) directly cites H-B7-24's own point-of-no-return finding -- the decisive commitment step happens within the first 2-5 steps, long before the reachable set is exhausted"}
 
   # ───────────────────────── Bridge 8 (proposed, 2026-09-09) ─────────────────────────
   - {from: PROB-UDE-IDENTIFIABILITY-2025, to: BRIDGE-8-UDE-IDENTIFIABILITY, type: grounds, since: 2026-09-09, note: "npj Sys Biol Appl 2025 names this open problem directly"}
