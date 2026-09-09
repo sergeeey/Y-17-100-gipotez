@@ -1,0 +1,101 @@
+{
+  "claim": "H-B7-16 asynchronous-update robustness of j*=1 observability",
+  "n_trials_per_condition": 200,
+  "tested_k": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "readout_rounds": 30,
+  "domain_size": 2400,
+  "fate_distribution_by_k_at_j1": {
+    "branch_1_k1": {
+      "GROWTH_ARREST": 186,
+      "PROLIFERATION": 14
+    },
+    "branch_1_k2": {
+      "GROWTH_ARREST": 163,
+      "PROLIFERATION": 37
+    },
+    "branch_1_k3": {
+      "GROWTH_ARREST": 107,
+      "PROLIFERATION": 93
+    },
+    "branch_1_k4": {
+      "GROWTH_ARREST": 79,
+      "PROLIFERATION": 121
+    },
+    "branch_1_k5": {
+      "PROLIFERATION": 150,
+      "GROWTH_ARREST": 50
+    },
+    "branch_1_k6": {
+      "GROWTH_ARREST": 35,
+      "PROLIFERATION": 165
+    },
+    "branch_2_k1": {
+      "GROWTH_ARREST": 185,
+      "PROLIFERATION": 15
+    },
+    "branch_2_k2": {
+      "GROWTH_ARREST": 164,
+      "PROLIFERATION": 36
+    },
+    "branch_2_k3": {
+      "PROLIFERATION": 78,
+      "GROWTH_ARREST": 122
+    },
+    "branch_2_k4": {
+      "PROLIFERATION": 117,
+      "GROWTH_ARREST": 83
+    },
+    "branch_2_k5": {
+      "GROWTH_ARREST": 52,
+      "PROLIFERATION": 148
+    },
+    "branch_2_k6": {
+      "PROLIFERATION": 172,
+      "GROWTH_ARREST": 28
+    }
+  },
+  "results_at_j0": {
+    "floor_DNA_damage_only": {
+      "n_groups": 1,
+      "overall_accuracy": 0.5225
+    },
+    "ceiling_full_state": {
+      "n_groups": 295,
+      "overall_accuracy": 0.91875
+    },
+    "candidate_M1_phenotypes_only": {
+      "n_groups": 4,
+      "overall_accuracy": 0.79375
+    },
+    "candidate_M2_phenotypes_plus_clamp_targets": {
+      "n_groups": 4,
+      "overall_accuracy": 0.79375
+    }
+  },
+  "results_at_j1": {
+    "floor_DNA_damage_only": {
+      "n_groups": 1,
+      "overall_accuracy": 0.5225
+    },
+    "ceiling_full_state": {
+      "n_groups": 507,
+      "overall_accuracy": 0.9858333333333333
+    },
+    "candidate_M1_phenotypes_only": {
+      "n_groups": 4,
+      "overall_accuracy": 0.8829166666666667
+    },
+    "candidate_M2_phenotypes_plus_clamp_targets": {
+      "n_groups": 16,
+      "overall_accuracy": 0.9495833333333333
+    }
+  },
+  "M1_accuracy_improvement_j0_to_j1": 0.08916666666666673
+}
