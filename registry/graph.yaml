@@ -1529,6 +1529,18 @@ nodes:
     source: "experiments/20260906-remy-tumorigenesis-crossbranch-transient-h12/decision.md"
     updated: 2026-09-07
 
+  - id: H-B7-13
+    type: hypothesis
+    title: "Is the marker set {Growth_arrest, Proliferation} (this arc's own decision readouts), observed AT the instant the transient do(p21CIP=0, RBL2=0) clamp is released, sufficient to correctly decide whether release is safe (user's own 2026-09-10 direction-scoping follow-up, after B2/B3 both closed negative)?"
+    status: killed                 # 2026-09-10 decision.md: REJECTED for both candidate marker sets. Exact collision search (not sampled): 80 release-states enumerated in full (2 branches x k=1..40) via a new function (simulate_transient_clamp_multi_with_release_state) that captures the state AT release, before continuing to the eventual attractor -- extends H-B7-9's existing simulate_transient_clamp_multi, whose return value only exposed the FINAL post-release state. Floor sanity check (M={DNA_damage}, a branch input constant along any trajectory) correctly shows a collision (detector not vacuously permissive); ceiling sanity check (M=full 35-node state) correctly shows zero collisions (detector not vacuously restrictive, tautologically forced). Both candidates FAIL on the exact same collision: at release, both branches read (Growth_arrest=False, Proliferation=False) [+RBL2=False, p21CIP=False for the 4-marker candidate] for k=3, k=4 AND k=5 -- but k=3/4 relapse to GROWTH_ARREST while k=5 escapes to PROLIFERATION, exactly at H-B7-10/H-B7-12's own established threshold k*=5. Mechanistically: the CyclinE1/RBL2 feedback loop has not yet visibly diverged at the release instant itself, lagging the true committed fate by ~1 synchronous step. Honesty note: H-B7-12 already established the two branches are dynamically equivalent for this intervention (FGFR3_stimulus=1 gates EGFR regardless of EGFR_stimulus) -- the 80-state domain is effectively ~40 independent release-states, duplicated across branches; does not change the verdict.
+    evidence: VERIFIED-REAL        # metrics/run.json (exact enumeration, not sampled); 6 tests incl. a real-network integration check reproducing H-B7-10's own already-committed ground truth (k=4 GROWTH_ARREST, k=5 PROLIFERATION) via the new release-state-capturing function
+    l0_type: predictive
+    fl_tier: standard
+    kill_criterion: "CONFIRMED-SUFFICIENT for M1={Growth_arrest,Proliferation} if zero collisions across the full domain; if M1 REJECTED, CONFIRMED-SUFFICIENT for M2=M1+{p21CIP,RBL2} if M2 shows zero collisions; BOTH REJECTED if collisions persist even with M2. RESULT: BOTH REJECTED -- the identical collision (k=3,4 vs k=5, both branches) survives the augmentation from 2 to 4 markers, because p21CIP/RBL2 are ALSO both False at release for all three colliding k. Does NOT touch or re-test the k*=5 threshold's own existence (H-B7-10/H-B7-12 unaffected) -- tests only whether that threshold is LEGIBLE from these markers at the release instant."
+    experiment_dir: "experiments/20260910-remy-tumorigenesis-observability-h13"
+    source: "experiments/20260910-remy-tumorigenesis-observability-h13/decision.md"
+    updated: 2026-09-10
+
   - id: ART-REMY-CROSSBRANCH-TRANSIENT-RUN-20260906
     type: artifact
     title: "metrics/run.json — transient do(p21CIP=0, RBL2=0) sweep k=1,3,4,5,6,9,10,30 on the second Remy 2015 branch; k*=5 exactly, later shown to be an arithmetic consequence of branch equivalence, not independent generalization evidence"
@@ -1807,6 +1819,9 @@ edges:
   - {from: H-B7-9, to: H-B7-12, type: grounds, since: 2026-09-07, note: "H-B7-12 tests whether H-B7-10's exact k*=5 threshold generalizes to a second branch"}
   - {from: H-B7-12, to: H-B7-11, type: depends_on, since: 2026-09-07, note: "H-B7-12's own skeptic pass found the two branches tested in H-B7-11/H-B7-12 are dynamically equivalent (EGFR gated by FGFR3=1) -- corrects H-B7-11's 'generalization' framing via a dated addendum in H-B7-11's own decision.md, does not change H-B7-11's technical CONFIRMED verdict"}
   - {from: H-B7-12, to: ART-REMY-CROSSBRANCH-TRANSIENT-RUN-20260906, type: grounds, since: 2026-09-07, note: "experiment produced this artifact"}
+  - {from: B7-KAUFFMAN-ATTRACTORS, to: H-B7-13, type: grounds, since: 2026-09-10, note: "User's own 2026-09-10 direction-scoping follow-up, chosen after B2 and B3 both closed negative: a genuinely new observability/release-safety question on the same Remy network, not a continuation of H-B7-1..12's attractor-existence arc"}
+  - {from: H-B7-10, to: H-B7-13, type: grounds, since: 2026-09-10, note: "H-B7-13 tests whether H-B7-10's own established k*=5 threshold is LEGIBLE from a small marker set at release time, reusing the exact threshold and branch-1 constants as ground truth"}
+  - {from: H-B7-12, to: H-B7-13, type: grounds, since: 2026-09-10, note: "H-B7-13 also tests branch 2's release-states (H-B7-11/H-B7-12's constants), reusing H-B7-12's own k*=5-on-branch-2 confirmation as ground truth for the second half of the domain"}
   - {from: H-B7-11, to: H-B7-4, type: depends_on, since: 2026-09-07, note: "H-B7-11's Compute-First scoping found and corrected a minor factual error in H-B7-4's own original branch-count claim (7, not 8, of 16 branches multistable) -- documented as a dated correction addendum in H-B7-4's Data_README.md, H-B7-4's own verdict/status unaffected"}
 
   # ───────────────────────── Bridge 8 (proposed, 2026-09-09) ─────────────────────────

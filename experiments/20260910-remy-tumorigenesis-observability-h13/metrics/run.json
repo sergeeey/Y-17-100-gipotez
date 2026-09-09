@@ -1,0 +1,647 @@
+{
+  "claim": "H-B7-13 observability collision search",
+  "domain_size": 80,
+  "tested_durations_range": [
+    1,
+    40
+  ],
+  "branches_tested": [
+    "branch_1",
+    "branch_2"
+  ],
+  "domain_summary_sample": [
+    {
+      "branch": "branch_1",
+      "k": 1,
+      "fate": "GROWTH_ARREST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 4,
+      "fate": "GROWTH_ARREST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 5,
+      "fate": "PROLIFERATION"
+    },
+    {
+      "branch": "branch_1",
+      "k": 6,
+      "fate": "PROLIFERATION"
+    },
+    {
+      "branch": "branch_1",
+      "k": 40,
+      "fate": "PROLIFERATION"
+    },
+    {
+      "branch": "branch_2",
+      "k": 1,
+      "fate": "GROWTH_ARREST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 4,
+      "fate": "GROWTH_ARREST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 5,
+      "fate": "PROLIFERATION"
+    },
+    {
+      "branch": "branch_2",
+      "k": 6,
+      "fate": "PROLIFERATION"
+    },
+    {
+      "branch": "branch_2",
+      "k": 40,
+      "fate": "PROLIFERATION"
+    }
+  ],
+  "results": {
+    "floor_DNA_damage_only": {
+      "markers": [
+        "DNA_damage"
+      ],
+      "n_collisions": 1,
+      "sufficient": false,
+      "collisions": [
+        {
+          "marker_projection": [
+            {
+              "node": "DNA_damage",
+              "value": false
+            }
+          ],
+          "members": [
+            {
+              "branch": "branch_1",
+              "k": 1,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_1",
+              "k": 2,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_1",
+              "k": 3,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_1",
+              "k": 4,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_1",
+              "k": 5,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 6,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 7,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 8,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 9,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 10,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 11,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 12,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 13,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 14,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 15,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 16,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 17,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 18,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 19,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 20,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 21,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 22,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 23,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 24,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 25,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 26,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 27,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 28,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 29,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 30,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 31,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 32,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 33,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 34,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 35,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 36,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 37,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 38,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 39,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 40,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 1,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_2",
+              "k": 2,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_2",
+              "k": 3,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_2",
+              "k": 4,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_2",
+              "k": 5,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 6,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 7,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 8,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 9,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 10,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 11,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 12,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 13,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 14,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 15,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 16,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 17,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 18,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 19,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 20,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 21,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 22,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 23,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 24,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 25,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 26,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 27,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 28,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 29,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 30,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 31,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 32,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 33,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 34,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 35,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 36,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 37,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 38,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 39,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 40,
+              "fate": "PROLIFERATION"
+            }
+          ]
+        }
+      ]
+    },
+    "ceiling_full_state": {
+      "markers": [
+        "AKT",
+        "ATM_high",
+        "ATM_medium",
+        "Apoptosis_high",
+        "Apoptosis_medium",
+        "CDC25A",
+        "CHEK1_2_high",
+        "CHEK1_2_medium",
+        "CyclinA",
+        "CyclinD1",
+        "CyclinE1",
+        "DNA_damage",
+        "E2F1_high",
+        "E2F1_medium",
+        "E2F3_high",
+        "E2F3_medium",
+        "EGFR",
+        "EGFR_stimulus",
+        "FGFR3",
+        "FGFR3_stimulus",
+        "GRB2",
+        "Growth_arrest",
+        "Growth_inhibitors",
+        "MDM2",
+        "PI3K",
+        "PTEN",
+        "Proliferation",
+        "RAS",
+        "RB1",
+        "RBL2",
+        "SPRY",
+        "TP53",
+        "p14ARF",
+        "p16INK4a",
+        "p21CIP"
+      ],
+      "n_collisions": 0,
+      "sufficient": true,
+      "collisions": []
+    },
+    "candidate_M1_phenotypes_only": {
+      "markers": [
+        "Growth_arrest",
+        "Proliferation"
+      ],
+      "n_collisions": 1,
+      "sufficient": false,
+      "collisions": [
+        {
+          "marker_projection": [
+            {
+              "node": "Growth_arrest",
+              "value": false
+            },
+            {
+              "node": "Proliferation",
+              "value": false
+            }
+          ],
+          "members": [
+            {
+              "branch": "branch_1",
+              "k": 3,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_1",
+              "k": 4,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_1",
+              "k": 5,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 3,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_2",
+              "k": 4,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_2",
+              "k": 5,
+              "fate": "PROLIFERATION"
+            }
+          ]
+        }
+      ]
+    },
+    "candidate_M2_phenotypes_plus_clamp_targets": {
+      "markers": [
+        "Growth_arrest",
+        "Proliferation",
+        "RBL2",
+        "p21CIP"
+      ],
+      "n_collisions": 1,
+      "sufficient": false,
+      "collisions": [
+        {
+          "marker_projection": [
+            {
+              "node": "Growth_arrest",
+              "value": false
+            },
+            {
+              "node": "Proliferation",
+              "value": false
+            },
+            {
+              "node": "RBL2",
+              "value": false
+            },
+            {
+              "node": "p21CIP",
+              "value": false
+            }
+          ],
+          "members": [
+            {
+              "branch": "branch_1",
+              "k": 3,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_1",
+              "k": 4,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_1",
+              "k": 5,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 3,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_2",
+              "k": 4,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_2",
+              "k": 5,
+              "fate": "PROLIFERATION"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "floor_test_detects_insufficiency": true,
+  "ceiling_test_shows_no_spurious_collision": true
+}
