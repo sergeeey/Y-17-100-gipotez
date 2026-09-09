@@ -145,6 +145,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-09 10:05] `bda7c03` (local, branch `feature/h-b7-18-fixedpoint-destabilization` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-18 -- mechanistic explanation of H-B7-17's CRITERION_INVALID finding
 - [2026-09-09 09:52] `00e0e95`: Merge: H-B7-17 rule-perturbation robustness, PARTIALLY-ROBUST, corrected mid-experiment
 - [2026-09-09 09:52] `f81dec2` (local, branch `feature/h-b7-17-rule-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-17 -- rule-perturbation robustness, PARTIALLY-ROBUST, corrected mid-experiment
 - [2026-09-09 09:41] `4786056`: Merge: H-B7-16 async-update robustness, DEGRADED-BUT-INFORMATIVE, honest partial verification
@@ -159,4 +160,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-09 05:46] `883cbc6` (local, branch `feature/h-cat37-2-forsythe-s4-minimal-dimension` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT37-2 -- targeted search for s=4 Forsythe counterexample below dim 8, INFORMATIVE_NEGATIVE
 - [2026-09-09 05:34] `bdc00d6` (local, branch `docs/retroscan-h-cat37-1-forsythe-resolved` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext -- H-CAT37-1 retroscan summary (Forsythe resolved externally, own finding intact)
 - [2026-09-09 05:33] `50e4794` (local, branch `docs/retroscan-h-cat37-1-forsythe-resolved` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix: retroscan H-CAT37-1 -- Forsythe conjecture proven FALSE for s>=4 (external, arXiv:2609.04659)
-- [2026-09-09 05:03] `1debe23` (local, branch `docs/close-100-item-catalog` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: close full 100-item catalog -- 6 remaining clusters source-verified, not extrapolated
