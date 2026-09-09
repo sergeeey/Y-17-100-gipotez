@@ -1,0 +1,1141 @@
+{
+  "claim": "H-B7-22 -- does the async-reachable attractor set match the synchronous fate exactly, across H-B7-13's own k=1..40 release-state domain (both branches)?",
+  "state_cap": 30000,
+  "n_release_states_tested": 80,
+  "n_ok": 80,
+  "n_blocked_infrastructure": 0,
+  "n_schedule_robust": 72,
+  "n_schedule_fragile": 8,
+  "smallest_k_where_prolif_becomes_adversarially_reachable": 1,
+  "verdict": "REJECTED",
+  "per_state_results": [
+    {
+      "branch": "branch_1",
+      "k": 1,
+      "sync_fate": "GROWTH_ARREST",
+      "status": "OK",
+      "n_states_visited": 956,
+      "n_attractors": 3,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_FRAGILE"
+    },
+    {
+      "branch": "branch_1",
+      "k": 2,
+      "sync_fate": "GROWTH_ARREST",
+      "status": "OK",
+      "n_states_visited": 954,
+      "n_attractors": 3,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_FRAGILE"
+    },
+    {
+      "branch": "branch_1",
+      "k": 3,
+      "sync_fate": "GROWTH_ARREST",
+      "status": "OK",
+      "n_states_visited": 200,
+      "n_attractors": 2,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_FRAGILE"
+    },
+    {
+      "branch": "branch_1",
+      "k": 4,
+      "sync_fate": "GROWTH_ARREST",
+      "status": "OK",
+      "n_states_visited": 111,
+      "n_attractors": 2,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_FRAGILE"
+    },
+    {
+      "branch": "branch_1",
+      "k": 5,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 2,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 6,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 7,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 8,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 9,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 10,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 11,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 12,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 13,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 14,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 15,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 16,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 17,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 18,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 19,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 20,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 21,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 22,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 23,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 24,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 25,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 26,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 27,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 28,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 29,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 30,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 31,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 32,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 33,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 34,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 35,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 36,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 37,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 38,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 39,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_1",
+      "k": 40,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 1,
+      "sync_fate": "GROWTH_ARREST",
+      "status": "OK",
+      "n_states_visited": 956,
+      "n_attractors": 3,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_FRAGILE"
+    },
+    {
+      "branch": "branch_2",
+      "k": 2,
+      "sync_fate": "GROWTH_ARREST",
+      "status": "OK",
+      "n_states_visited": 954,
+      "n_attractors": 3,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_FRAGILE"
+    },
+    {
+      "branch": "branch_2",
+      "k": 3,
+      "sync_fate": "GROWTH_ARREST",
+      "status": "OK",
+      "n_states_visited": 200,
+      "n_attractors": 2,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_FRAGILE"
+    },
+    {
+      "branch": "branch_2",
+      "k": 4,
+      "sync_fate": "GROWTH_ARREST",
+      "status": "OK",
+      "n_states_visited": 111,
+      "n_attractors": 2,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_FRAGILE"
+    },
+    {
+      "branch": "branch_2",
+      "k": 5,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 2,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 6,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 7,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 8,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 9,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 10,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 11,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 12,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 13,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 14,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 15,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 16,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 17,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 18,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 19,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 20,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 21,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 22,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 23,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 24,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 25,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 26,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 27,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 28,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 29,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 30,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 31,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 32,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 33,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 34,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 35,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 36,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 37,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 38,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 39,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    },
+    {
+      "branch": "branch_2",
+      "k": 40,
+      "sync_fate": "PROLIFERATION",
+      "status": "OK",
+      "n_states_visited": 1,
+      "n_attractors": 1,
+      "n_cyclic_attractors": 0,
+      "n_ambiguous_attractors": 0,
+      "async_reachable_fates": [
+        "PROLIFERATION"
+      ],
+      "classification": "SCHEDULE_ROBUST"
+    }
+  ]
+}
