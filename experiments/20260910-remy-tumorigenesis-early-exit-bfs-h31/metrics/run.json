@@ -1,0 +1,140 @@
+{
+  "claim": "H-B7-31 -- early-exit BFS (stop once both fates are confirmed reachable) gives a real, substantial computational shortcut for SCHEDULE_FRAGILE classification, but NOT for SCHEDULE_ROBUST (which structurally requires exhaustive search) -- corrects the earlier informal, circular 'n_states_visited as cheap discriminator' framing",
+  "savings_bar": 0.5,
+  "n_conditions_tested": 10,
+  "n_fragile": 8,
+  "n_robust": 2,
+  "all_fragile_meet_savings_bar": true,
+  "no_false_positives_on_robust": true,
+  "verdict": "CONFIRMED",
+  "results": [
+    {
+      "branch": "branch_1",
+      "k": 1,
+      "classification": "SCHEDULE_FRAGILE",
+      "fates_seen": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "n_total_visited": 956,
+      "n_visited_at_early_exit": 151,
+      "savings_fraction": 0.8420502092050209,
+      "hit_cap": false
+    },
+    {
+      "branch": "branch_1",
+      "k": 2,
+      "classification": "SCHEDULE_FRAGILE",
+      "fates_seen": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "n_total_visited": 954,
+      "n_visited_at_early_exit": 149,
+      "savings_fraction": 0.8438155136268344,
+      "hit_cap": false
+    },
+    {
+      "branch": "branch_1",
+      "k": 3,
+      "classification": "SCHEDULE_FRAGILE",
+      "fates_seen": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "n_total_visited": 200,
+      "n_visited_at_early_exit": 20,
+      "savings_fraction": 0.9,
+      "hit_cap": false
+    },
+    {
+      "branch": "branch_1",
+      "k": 4,
+      "classification": "SCHEDULE_FRAGILE",
+      "fates_seen": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "n_total_visited": 111,
+      "n_visited_at_early_exit": 14,
+      "savings_fraction": 0.8738738738738738,
+      "hit_cap": false
+    },
+    {
+      "branch": "branch_1",
+      "k": 5,
+      "classification": "SCHEDULE_ROBUST",
+      "fates_seen": [
+        "PROLIFERATION"
+      ],
+      "n_total_visited": 2,
+      "n_visited_at_early_exit": null,
+      "savings_fraction": null,
+      "hit_cap": false
+    },
+    {
+      "branch": "branch_2",
+      "k": 1,
+      "classification": "SCHEDULE_FRAGILE",
+      "fates_seen": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "n_total_visited": 956,
+      "n_visited_at_early_exit": 151,
+      "savings_fraction": 0.8420502092050209,
+      "hit_cap": false
+    },
+    {
+      "branch": "branch_2",
+      "k": 2,
+      "classification": "SCHEDULE_FRAGILE",
+      "fates_seen": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "n_total_visited": 954,
+      "n_visited_at_early_exit": 149,
+      "savings_fraction": 0.8438155136268344,
+      "hit_cap": false
+    },
+    {
+      "branch": "branch_2",
+      "k": 3,
+      "classification": "SCHEDULE_FRAGILE",
+      "fates_seen": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "n_total_visited": 200,
+      "n_visited_at_early_exit": 20,
+      "savings_fraction": 0.9,
+      "hit_cap": false
+    },
+    {
+      "branch": "branch_2",
+      "k": 4,
+      "classification": "SCHEDULE_FRAGILE",
+      "fates_seen": [
+        "GROWTH_ARREST",
+        "PROLIFERATION"
+      ],
+      "n_total_visited": 111,
+      "n_visited_at_early_exit": 14,
+      "savings_fraction": 0.8738738738738738,
+      "hit_cap": false
+    },
+    {
+      "branch": "branch_2",
+      "k": 5,
+      "classification": "SCHEDULE_ROBUST",
+      "fates_seen": [
+        "PROLIFERATION"
+      ],
+      "n_total_visited": 2,
+      "n_visited_at_early_exit": null,
+      "savings_fraction": null,
+      "hit_cap": false
+    }
+  ]
+}
