@@ -1,0 +1,44 @@
+{
+  "claim": "H-B7-18: does flip_TF_drop_CyclinE1 destabilize the Proliferation fixed point",
+  "results_by_branch": {
+    "branch_1": {
+      "starting_state": "00000100101001010011001000110010110",
+      "CyclinD1_at_state": false,
+      "CyclinE1_at_state": true,
+      "RBL2_original_rule_eval": false,
+      "RBL2_perturbed_rule_eval": true,
+      "RBL2_consistent_with_state (state's own RBL2 must be False for Proliferation)": false,
+      "state_RBL2_value": false,
+      "is_still_fixed_point_under_perturbed_rules": false,
+      "destabilization_trajectory": {
+        "final_state": "00000000000000010011011000010110011",
+        "period": 1,
+        "type": "point",
+        "final_fate": "GROWTH_ARREST",
+        "matches_growth_arrest_state_1": false,
+        "matches_growth_arrest_state_2": false
+      }
+    },
+    "branch_2": {
+      "starting_state": "00000100101001010111001000110010110",
+      "CyclinD1_at_state": false,
+      "CyclinE1_at_state": true,
+      "RBL2_original_rule_eval": false,
+      "RBL2_perturbed_rule_eval": true,
+      "RBL2_consistent_with_state (state's own RBL2 must be False for Proliferation)": false,
+      "state_RBL2_value": false,
+      "is_still_fixed_point_under_perturbed_rules": false,
+      "destabilization_trajectory": {
+        "final_state": "00000000000000010111011000010110011",
+        "period": 1,
+        "type": "point",
+        "final_fate": "GROWTH_ARREST",
+        "matches_growth_arrest_state_1": false,
+        "matches_growth_arrest_state_2": false
+      }
+    }
+  },
+  "both_states_destabilized": true,
+  "both_relapse_to_growth_arrest": true,
+  "verdict": "CONFIRMED-SELF-DESTABILIZING"
+}
