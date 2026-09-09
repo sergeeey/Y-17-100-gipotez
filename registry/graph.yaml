@@ -1722,6 +1722,18 @@ nodes:
     source: "experiments/20260909-lovasz-theta-random-circulant-graphs/decision.md"
     updated: 2026-09-09
 
+  - id: H-CAT31-2
+    type: hypothesis
+    title: "Does the arithmetic class of n (near-prime vs highly-composite) leave a detectable trace in the TAIL structure of theta(G)/sqrt(n) for random dense circulant graphs, at matched n -- reports/2026-09-09-breakthrough-routes.md Route 2's own first bounded test"
+    status: lead                   # 2026-09-10 decision.md: REJECTED for this specific narrow test, not a hard kill -- honestly parked as weak_alive (Revival Condition given). Positive control passed cleanly (max |theta(G)*theta(Gbar)/n-1| = 6.4e-14, six orders below the pre-registered 1e-6 threshold, across 3000 sampled graphs). Reformulation (from the report, an exact algebraic identity given the p=1/2 ensemble's complementation symmetry): E[theta]/sqrt(n)-1 = E[cosh(X)-1] where X=log(theta(G)/sqrt(n)) -- tested whether prime-vs-composite n changes this distribution's TAIL (variance, top-decile contribution to E[cosh(X)-1]), not just its mean (H-CAT31-1 only ever reported the mean). Result on the report's own 3 pre-specified (prime,composite) pairs -- (127,129),(251,255),(509,511) -- N_REPS=500 per n: variance direction consistent (composite always slightly LOWER) but far from substantial (max deviation from 1.0 is 13.5%, pre-registered bar was >=50%); top-decile-contribution direction INCONSISTENT (2/3 pairs composite lower, 1/3 higher); every pair's 95% bootstrap CI overlaps its partner's. Neither pre-registered LEAD condition met -- REJECTED for this specific test. Closes only the narrow pre-registered question (binary prime/composite, these 3 pairs, N_REPS=500), NOT the report's broader Route 2 question (a continuous divisor-based feature, or a larger/wider sample, remains untested and is named as the Revival Condition). No FL Step 8a reviewer pass -- per the rule's own scope, not required for a clean null result with a passed positive control and a pre-registered decision rule, nothing surprising/PROMOTE-shaped to adversarially check.
+    evidence: VERIFIED-REAL        # metrics/run.json (3000 sampled graphs across 6 n values, full positive-control check on every graph, bootstrap CIs on the tail statistic); 10 tests incl. positive-control verification on independent small graphs and a regression test locking the pre-registered pair list
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "LEAD if EVERY one of the 3 pairs shows a consistent-direction, substantial (>=50% deviation from 1.0) difference in top-decile-contribution (with disjoint 95% CIs) OR in variance, between composite and prime partners. CRITERION_INVALID if the positive control fails. REJECTED otherwise. RESULT: REJECTED -- consistent-but-not-substantial variance direction, inconsistent top-decile direction, all CIs overlap."
+    experiment_dir: "experiments/20260910-lovasz-theta-tail-arithmetic-cat31-2"
+    source: "experiments/20260910-lovasz-theta-tail-arithmetic-cat31-2/decision.md"
+    updated: 2026-09-10
+
   - id: H-CAT37-2
     type: hypothesis
     title: "Targeted (differential-evolution) search for an s=4 Forsythe counterexample below the published dimension s+4=8: does one exist at n in {5,6,7}?"
@@ -1948,6 +1960,7 @@ edges:
   # ───────────────────────── scope expansion (2026-09-09, ADR-087) ─────────────────────────
   - {from: PROB-CAT-37, to: H-CAT37-1, type: grounds, since: 2026-09-09, note: "Problem 2.20 of arXiv:2602.05394 is the formal object this hypothesis tests"}
   - {from: PROB-CAT-31, to: H-CAT31-1, type: grounds, since: 2026-09-09, note: "Conjecture 18 of arXiv:2603.29571 is the formal object this hypothesis tests"}
+  - {from: H-CAT31-1, to: H-CAT31-2, type: grounds, since: 2026-09-10, note: "H-CAT31-2 reuses H-CAT31-1's own cross-validated theta_via_lp/sample_circulant_neighbors unchanged, and reframes H-CAT31-1's own mean-ratio finding as a statement about E[cosh(X)-1] whose tail structure H-CAT31-1 itself never examined"}
   - {from: PROB-CAT-37, to: H-CAT37-2, type: grounds, since: 2026-09-10, note: "the s+4 dimension / s+1..2s support-size facts of arXiv:2609.04659's Theorem 1.1 motivate the minimal-dimension question"}
   - {from: H-CAT37-1, to: H-CAT37-2, type: grounds, since: 2026-09-10, note: "H-CAT37-1's own retroscan (ADR-091) and its pearl_registry entry named this exact follow-up question"}
   - {from: H-B2-2, to: H-B2-3, type: grounds, since: 2026-09-10, note: "user's 2026-09-09 direction-scoping report (route 4) asked whether H-B2-2's K_ref predictor transfers across observation windows T and matrix families, not just fits in-sample"}
