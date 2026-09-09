@@ -1,0 +1,1214 @@
+{
+  "claim": "H-B7-28 -- FGFR3=True/GRB2=False/EGFR=False invariant and the resulting phi=flip(EGFR_stimulus) branch isomorphism, extended to H-B7-22's own full originally-tested domain (k=1..40, both branches, 80 conditions)",
+  "n_conditions_tested": 40,
+  "n_ok": 40,
+  "n_blocked_infrastructure": 0,
+  "n_states_scanned": 4516,
+  "all_isomorphisms_confirmed": true,
+  "all_phi_release_matches": true,
+  "all_invariants_hold": true,
+  "all_corollaries_match": true,
+  "verdict": "CONFIRMED",
+  "results": [
+    {
+      "status": "OK",
+      "k": 1,
+      "n_states_branch_1": 956,
+      "n_states_branch_2": 956,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 956,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 956,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 0.06886574074074076,
+      "exact_escape_probability_branch_2": 0.06886574074074076
+    },
+    {
+      "status": "OK",
+      "k": 2,
+      "n_states_branch_1": 954,
+      "n_states_branch_2": 954,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 954,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 954,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 0.1377314814814815,
+      "exact_escape_probability_branch_2": 0.1377314814814815
+    },
+    {
+      "status": "OK",
+      "k": 3,
+      "n_states_branch_1": 200,
+      "n_states_branch_2": 200,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 200,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 200,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 0.18518518518518517,
+      "exact_escape_probability_branch_2": 0.18518518518518517
+    },
+    {
+      "status": "OK",
+      "k": 4,
+      "n_states_branch_1": 111,
+      "n_states_branch_2": 111,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 111,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 111,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 0.3333333333333333,
+      "exact_escape_probability_branch_2": 0.3333333333333333
+    },
+    {
+      "status": "OK",
+      "k": 5,
+      "n_states_branch_1": 2,
+      "n_states_branch_2": 2,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 2,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 2,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 6,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 7,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 8,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 9,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 10,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 11,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 12,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 13,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 14,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 15,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 16,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 17,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 18,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 19,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 20,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 21,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 22,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 23,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 24,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 25,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 26,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 27,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 28,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 29,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 30,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 31,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 32,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 33,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 34,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 35,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 36,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 37,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 38,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 39,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    },
+    {
+      "status": "OK",
+      "k": 40,
+      "n_states_branch_1": 1,
+      "n_states_branch_2": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 1,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    }
+  ]
+}
