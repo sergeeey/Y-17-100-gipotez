@@ -1,0 +1,138 @@
+{
+  "claim": "H-B7-15 exhaustive verification of j*=1 sufficiency over the full clamped-trajectory orbit",
+  "orbit_info": {
+    "branch_1": {
+      "orbit_length": 7,
+      "cycle_start_index": 6,
+      "cycle_period": 1
+    },
+    "branch_2": {
+      "orbit_length": 7,
+      "cycle_start_index": 6,
+      "cycle_period": 1
+    }
+  },
+  "domain_size_j0": 12,
+  "domain_size_j1": 12,
+  "orbit_fully_within_previously_tested_k_1_to_40": true,
+  "results_at_release_j0": {
+    "floor_DNA_damage_only": {
+      "n_collisions": 1,
+      "sufficient": false
+    },
+    "ceiling_full_state": {
+      "n_collisions": 0,
+      "sufficient": true
+    },
+    "candidate_M1_phenotypes_only": {
+      "n_collisions": 1,
+      "sufficient": false
+    },
+    "candidate_M2_phenotypes_plus_clamp_targets": {
+      "n_collisions": 1,
+      "sufficient": false
+    }
+  },
+  "results_at_j1": {
+    "floor_DNA_damage_only": {
+      "n_collisions": 1,
+      "sufficient": false,
+      "collisions": [
+        {
+          "marker_projection": [
+            {
+              "node": "DNA_damage",
+              "value": false
+            }
+          ],
+          "members": [
+            {
+              "branch": "branch_1",
+              "k": 1,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_1",
+              "k": 2,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_1",
+              "k": 3,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_1",
+              "k": 4,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_1",
+              "k": 5,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_1",
+              "k": 6,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 1,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_2",
+              "k": 2,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_2",
+              "k": 3,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_2",
+              "k": 4,
+              "fate": "GROWTH_ARREST"
+            },
+            {
+              "branch": "branch_2",
+              "k": 5,
+              "fate": "PROLIFERATION"
+            },
+            {
+              "branch": "branch_2",
+              "k": 6,
+              "fate": "PROLIFERATION"
+            }
+          ]
+        }
+      ]
+    },
+    "ceiling_full_state": {
+      "n_collisions": 0,
+      "sufficient": true,
+      "collisions": []
+    },
+    "candidate_M1_phenotypes_only": {
+      "n_collisions": 0,
+      "sufficient": true,
+      "collisions": []
+    },
+    "candidate_M2_phenotypes_plus_clamp_targets": {
+      "n_collisions": 0,
+      "sufficient": true,
+      "collisions": []
+    }
+  },
+  "regression_check_overlap_k_1_to_40": {
+    "M1_n_collisions": 1,
+    "M2_n_collisions": 1,
+    "matches_h_b7_13_14": true
+  },
+  "theorem_level_verdict": {
+    "M1_sufficient_over_full_orbit_at_j1": true,
+    "M2_sufficient_over_full_orbit_at_j1": true
+  }
+}
