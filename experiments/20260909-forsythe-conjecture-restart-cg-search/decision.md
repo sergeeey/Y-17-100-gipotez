@@ -1,5 +1,64 @@
 # H-CAT37-1 — decision.md
 
+## Retroscan addendum (2026-09-10, ADR-091)
+
+**The general conjecture is now PROVEN FALSE for every s>=4.** Colbrook, Stepaniants, and
+Townsend, "A Complete Resolution of Forsythe's Conjecture for Restarted Conjugate
+Gradients", arXiv:2609.04659 (submitted 4 Sep 2026, five days after this experiment's
+2026-09-09 run) — verified real via `mcp__arxiv__download_paper` and the authors' own
+supplementary GitHub (`github.com/sgstepaniants/Forsythe`, Lean-formalized proof, verified
+by cloning and inspecting the repository directly, not taking the arXiv abstract alone).
+Sharp classification: TRUE for s in {1,2,3} (s=1 was already Akaike's 1959 theorem), FALSE
+for every s>=4, via an explicit diagonal SPD counterexample of dimension s+4.
+
+**Does this invalidate this experiment's 0/171 finding? No — and here is why, checked, not
+assumed.** The counterexample is NOT a simple closed-form matrix a search could stumble
+onto. It is constructed via a certified transverse-Hopf-bifurcation shadowing argument: the
+authors' own computer-assisted-proof stage uses exact rational arithmetic with numerators/
+denominators reaching magnitudes near 2^500000, and the paper's own scope note states that
+even *"Proposition C.1.2's particular epsilon_0, M, and N construction is outside the
+configured theorem set"* — i.e. the authors themselves have not reduced this to one clean,
+publishable floating-point example either. This experiment's random and adversarial
+(clustered/geometric-spectrum) sampling at n<=12, s<=11 was never capable of finding a
+construction this delicate — a near-measure-zero point in parameter space, reachable only
+via the specific analytic machinery of their proof. The 0/171 finding stands as exactly
+what claim.md always said it was (`## What this does NOT mean`, item 4): informative
+evidence that *this specific sampling strategy* found nothing at these n, s — never a claim
+about the general conjecture, which is now settled by an entirely different (and vastly
+more sophisticated) method.
+
+**What DOES need updating:** the `registry/graph.yaml` node status text, which previously
+read as if the conjecture itself remained open — corrected (see `PROB-CAT-37`/`H-CAT37-1`,
+updated 2026-09-10) to state the resolution explicitly and distinguish "this experiment's
+own narrow finding" from "the general theorem," which the original wording did not clearly
+separate.
+
+**A genuinely open, well-scoped follow-up this resolution creates:** the theorem states
+every nonterminating limiting orbit at restart length s is supported on between s+1 and 2s
+eigenvalues (for s=4: between 5 and 8). Their explicit construction uses dimension 8 (the
+upper end of that range). Whether a genuine s=4 counterexample exists at dimension 5, 6, or
+7 is not settled by the paper (they prove existence at s+4, not minimality). This is a
+concrete, well-posed, small-scope question — distinct from "reproduce their certificate"
+(assessed separately as disproportionate for a session-scale task, see below) — that a
+targeted (not random) numerical search could address. Not attempted in this addendum;
+flagged as the honest next step if pursued.
+
+**"Reproduce the author's certificate" — assessed, not just attempted.** Investigated
+whether this is a cheap first test as hoped: cloned the supplementary repository and read
+`NUMERICAL_TARGETS.md` and `computer-assisted-proof/README.md` directly. The certificate
+that IS reproducible cheaply (`bash computer-assisted-proof/verify.sh`) checks the finite
+algebraic/interval premises of a Hopf-bifurcation argument (root branches, tangent
+constructions, phase weights) — it is not itself an explicit test matrix, and running it
+would only confirm the authors' own certificate is internally consistent, not give this
+project a numeric example to test its own H-CAT37-1 code against. Extracting an actual
+finite floating-point counterexample matrix would require engaging with the periodic-orbit/
+shadowing analytic argument directly (the Lean proof's own scope note: this translation is
+"outside the configured theorem set" even for the authors). This is genuinely a
+multi-session-scale undertaking, not a quick verification — correcting the optimistic
+framing in the direction-scoping message that prompted this addendum.
+
+---
+
 ## Result
 
 ### First run (500 restarts) — a real bug caught before any claim was made

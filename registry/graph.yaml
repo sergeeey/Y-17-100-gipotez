@@ -1561,24 +1561,24 @@ nodes:
   - id: PROB-CAT-37
     type: problem
     title: "Forsythe conjecture (1968) for restarted s-step optimal-gradient method: for 2<=s<d(A), do the residual subsequences {y_2k},{y_2k+1} each have a single limit vector?"
-    status: open                     # general case (s>=3) remains open per the source's own August 2026 update; s=2 has 3 independent, not-yet-peer-reviewed claimed proofs (2026)
+    status: solved                   # RETROSCANNED 2026-09-10 (ADR-091): Colbrook, Stepaniants, Townsend, "A Complete Resolution of Forsythe's Conjecture for Restarted Conjugate Gradients", arXiv:2609.04659 (4 Sep 2026, verified real via mcp__arxiv__download_paper + the authors' own GitHub github.com/sgstepaniants/Forsythe, Lean-formalized proof). Sharp classification: TRUE for s in {1,2,3} (Akaike 1959 for s=1; this paper for s=2,3), FALSE for every s>=4 (explicit diagonal SPD counterexample, dimension s+4, constructed via a certified transverse-Hopf-bifurcation shadowing argument -- NOT a simple closed-form matrix, requires rational arithmetic with numerators up to ~2^500000). The catalog's "open" status and this project's own H-CAT37-1 experiment (2026-09-09) both predate this resolution by ~5 days.
     evidence: VERIFIED-REAL          # formal statement read directly from arXiv:2602.05394 Section 2.7 via mcp__arxiv__*, not the catalog's paraphrase
     catalog: "raw-100"
     catalog_ref: "#37"
-    source: "Amsel et al., Linear Systems and Eigenvalue Problems: Open Questions from a Simons Workshop, arXiv:2602.05394 (2026), Section 2.7, Problem 2.20"
-    updated: 2026-09-09
+    source: "Amsel et al., Linear Systems and Eigenvalue Problems: Open Questions from a Simons Workshop, arXiv:2602.05394 (2026), Section 2.7, Problem 2.20; resolution: Colbrook/Stepaniants/Townsend, arXiv:2609.04659 (2026)"
+    updated: 2026-09-10
 
   - id: H-CAT37-1
     type: hypothesis
     title: "Restarted s-step optimal-gradient iteration on SPD matrices (n<=12, s<=11, random/clustered/geometric spectra) shows no counterexample to the Forsythe conjecture, and independently, no plateau on s=2 (numerical check on 3 fresh Aug-2026 claimed proofs)"
-    status: confirmed                # numerical evidence on the tested sample is consistent with the conjecture; see decision.md -- 0/171 genuine counterexamples after correcting 2 real methodology bugs (threshold miscalibration, ill-conditioned raw-power-basis Krylov construction)
+    status: confirmed                # RETROSCANNED 2026-09-10 (see ADR-091): general conjecture now PROVEN FALSE for every s>=4 by Colbrook/Stepaniants/Townsend, arXiv:2609.04659 (4 Sep 2026) -- Lean-formalized, sharp classification: TRUE for s in {1,2,3}, FALSE for every s>=4 (explicit diagonal SPD counterexample at dimension s+4). This does NOT invalidate this experiment's own 0/171 finding -- random/adversarial sampling at n<=12 was never capable of finding the delicate near-Hopf-bifurcation construction their proof requires (their own certificate uses rational arithmetic with numerators/denominators up to ~2^500000, not floating point). Status kept `confirmed` for what was actually tested (random/adversarial search finds no counterexample at these n,s) -- NOT to be read as supporting the general conjecture, which is now known false. See decision.md addendum.
     evidence: VERIFIED-REAL
     l0_type: descriptive
-    kill_criterion: "CONFIRMED if every tested (A,s) pair's residual-gap d_k=max(||y_2k+2-y_2k||,||y_2k+3-y_2k+1||) either hits exact-solve or shows a confirmed negative log-linear decay slope within an extended restart budget; REJECTED (real counterexample) if any pair shows d_k plateaued or growing at non-trivial magnitude even after extended restarts. RESULT: 0/171 tested (n,mode,s,seed) combinations show a genuine plateau/growth -- 2 real implementation bugs (hard-threshold classification artifact; raw power-basis Krylov numerically singular at cond(V)~1e19 for ill-conditioned A) were caught via the Mechanism Claim Gate and fixed before any claim was made -- CONFIRMED."
+    kill_criterion: "CONFIRMED if every tested (A,s) pair's residual-gap d_k=max(||y_2k+2-y_2k||,||y_2k+3-y_2k+1||) either hits exact-solve or shows a confirmed negative log-linear decay slope within an extended restart budget; REJECTED (real counterexample) if any pair shows d_k plateaued or growing at non-trivial magnitude even after extended restarts. RESULT: 0/171 tested (n,mode,s,seed) combinations show a genuine plateau/growth -- 2 real implementation bugs (hard-threshold classification artifact; raw power-basis Krylov numerically singular at cond(V)~1e19 for ill-conditioned A) were caught via the Mechanism Claim Gate and fixed before any claim was made -- CONFIRMED (for the tested sample only; general conjecture separately proven FALSE for s>=4 by external work, see status note)."
     fl_tier: standard
     experiment_dir: "experiments/20260909-forsythe-conjecture-restart-cg-search"
     source: "experiments/20260909-forsythe-conjecture-restart-cg-search/decision.md"
-    updated: 2026-09-09
+    updated: 2026-09-10
 
   - id: PROB-CAT-31
     type: problem
