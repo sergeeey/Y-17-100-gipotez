@@ -145,6 +145,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-09 14:48] `dd10fe7` (local, branch `feature/h-b7-23-random-async-vulnerability` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-23 -- random-schedule escape frequency 6.7%->33.8% (k=1..4), confirms H-B7-22's vulnerability is substantial not rare
 - [2026-09-09 13:28] `5b345a5` (local, branch `feature/h-b7-22-adversarial-async` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-22 -- k*=5 release threshold is NOT schedule-independent, confirmed by adversarial async reachability + FL Step 8a reviewer
 - [2026-09-09 12:44] `3630559` (local, branch `feature/h-b7-21-lean-pilot` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: Lean 4 formalization pilot for H-B7-21 -- first Strong-tier verification in this project
 - [2026-09-09 12:26] `cbc885f` (local, branch `feature/h-cat31-2-lovasz-tail-arithmetic` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-2 -- tail/arithmetic structure of Lovasz theta, near-prime vs composite n, REJECTED (honest null)
@@ -159,4 +160,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-09 09:41] `4786056`: Merge: H-B7-16 async-update robustness, DEGRADED-BUT-INFORMATIVE, honest partial verification
 - [2026-09-09 09:40] `e215955` (local, branch `feature/h-b7-16-async-robustness` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-16 -- async-update robustness, DEGRADED-BUT-INFORMATIVE, honest partial verification
 - [2026-09-09 09:13] `75fac57`: Merge: H-B7-15 minimality addendum -- free consequence of already-committed exhaustive data
-- [2026-09-09 09:13] `d847b44` (local, branch `docs/h-b7-15-minimality-addendum` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: H-B7-15 -- minimality of j*=1 is a free consequence of already-committed exhaustive data
