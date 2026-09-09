@@ -149,6 +149,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-09 20:07] `2e221cf` (local, branch `feature/h-b7-30-exact-large-deviation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-30 -- exact probabilities do not rescue the large-deviation fit, CONFIRMED
 - [2026-09-09 19:01] `764e62f`: Merge: H-B7-29 -- FGFR3_stimulus asymmetry contrast test, CONFIRMED
 - [2026-09-09 19:01] `0a46297` (local, branch `feature/h-b7-29-stimulus-asymmetry` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-29 -- FGFR3_stimulus asymmetry contrast test vs EGFR_stimulus, CONFIRMED
 - [2026-09-09 18:28] `3e044b8`: Merge: H-B7-28 -- branch isomorphism mechanism extended to k=1..40 (80 conditions), CONFIRMED
@@ -163,4 +164,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-09 12:44] `3630559` (local, branch `feature/h-b7-21-lean-pilot` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: Lean 4 formalization pilot for H-B7-21 -- first Strong-tier verification in this project
 - [2026-09-09 12:26] `cbc885f` (local, branch `feature/h-cat31-2-lovasz-tail-arithmetic` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-2 -- tail/arithmetic structure of Lovasz theta, near-prime vs composite n, REJECTED (honest null)
 - [2026-09-09 12:10] `9aeb717` (local, branch `feature/h-b7-21-fixedpoint-condition` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-21 -- minimal necessary/sufficient condition for Proliferation attractor, exhaustive network-wide, closes B7 observability sub-arc
-- [2026-09-09 11:54] `3468d81` (local, branch `feature/h-b7-20-cycline1-ruleperturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-20 -- exhaustive CyclinE1 rule-perturbation robustness, PARTIALLY-ROBUST (28/32), closes three-way destabilization principle
