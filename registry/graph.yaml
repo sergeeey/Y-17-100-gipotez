@@ -1745,6 +1745,18 @@ nodes:
     source: "experiments/20260910-remy-tumorigenesis-stimulus-asymmetry-h29/decision.md"
     updated: 2026-09-10
 
+  - id: H-B7-30
+    type: hypothesis
+    title: "Directly executes the user's own explicit priority item 4 from the original H-B7-26 redirect (re-assess the large-deviation/Kramers claim), deferred through H-B7-27/28/29 while the branch-isomorphism mechanism was held: does replacing Monte Carlo escape-probability estimates with EXACT probabilities (H-B7-26/28's own committed values) change the strength of the log(P_escape)~PNR_step fit relative to the original informal report's own r^2=0.8913?"
+    status: confirmed              # 2026-09-10 decision.md: CONFIRMED for Hypothesis B (geometry problem persists, exactness does not rescue it). Exact-number fit gives r^2=0.8929 (Delta=+0.0016 vs the original Monte-Carlo-based r^2=0.8913 -- essentially unchanged), still n=4 points with only 3 distinct PNR-step values. Two alternative candidate x-axes (n_transient, expected_steps_to_absorption) both fit WORSE, not better. 36 of H-B7-22's own 40 originally-tested k values give exact_escape_probability=1.0 identically (SCHEDULE_ROBUST), carrying zero log-probability information regardless of measurement precision. The user's own original verdict ("LEAD, не PROMOTE") is confirmed on firmer footing, not overturned.
+    evidence: VERIFIED-REAL        # metrics/run.json (regression on already-committed exact H-B7-24/26/28 data, no new simulation); 9 tests incl. regression locks on the committed PNR-step and exact-probability values, and 2 sanity checks confirming the linreg helper can report both a near-perfect AND a weak fit (not vacuously always high)
+    l0_type: descriptive           # re-fitting a log-linear relationship on exact values -- not causal, not a new statistical estimate from sampling
+    fl_tier: full
+    kill_criterion: "Hypothesis A (exactness materially helps) CONFIRMED if r^2>0.95 OR distinct_x>=8; Hypothesis B (geometry problem persists) CONFIRMED if |delta_r^2|<0.05 AND distinct_x<=4 AND n_nontrivial<=4. RESULT: Hypothesis B confirmed -- r^2=0.8929 (delta=+0.0016), distinct_x=3, n_nontrivial=4."
+    experiment_dir: "experiments/20260910-remy-tumorigenesis-exact-large-deviation-h30"
+    source: "experiments/20260910-remy-tumorigenesis-exact-large-deviation-h30/decision.md"
+    updated: 2026-09-10
+
   - id: ART-REMY-CROSSBRANCH-TRANSIENT-RUN-20260906
     type: artifact
     title: "metrics/run.json — transient do(p21CIP=0, RBL2=0) sweep k=1,3,4,5,6,9,10,30 on the second Remy 2015 branch; k*=5 exactly, later shown to be an arithmetic consequence of branch equivalence, not independent generalization evidence"
@@ -2073,6 +2085,9 @@ edges:
   - {from: H-B7-26, to: H-B7-27, type: grounds, since: 2026-09-10, note: "H-B7-27 mechanistically explains H-B7-26's own unplanned observation (branch_1/branch_2 numerically identical exact probabilities at every k) -- user-proposed structural question, found and verified as a genuine graph automorphism (phi=flip(EGFR_stimulus)) caused by a zero-exception FGFR3/GRB2/EGFR invariant, reusing H-B7-22's build_reachability_graph and H-B7-26's solve_absorption unchanged"}
   - {from: H-B7-27, to: H-B7-28, type: grounds, since: 2026-09-10, note: "H-B7-28 extends H-B7-27's own mechanism (unchanged: same invariant, same phi) from H-B7-26's 10 conditions (k=1..5) to H-B7-22's full originally-tested domain (k=1..40, 80 conditions) -- direct continuation under the user's own 'hold the mechanism' mission, reusing H-B7-27's check_isomorphism/check_invariant/build_phi and H-B7-26's solve_absorption entirely unchanged"}
   - {from: H-B7-27, to: H-B7-29, type: grounds, since: 2026-09-10, note: "H-B7-29 is a contrast/control test for H-B7-27's own EGFR_stimulus-inertness mechanism -- tests the OTHER structurally-similar frozen self-loop node (FGFR3_stimulus), predicts and confirms it is NOT inert (unlike EGFR_stimulus), strengthening confidence H-B7-27/28's finding is mechanism-specific rather than a generic frozen-coordinate-flip artifact; reuses H-B7-27's build_phi/check_isomorphism entirely unchanged"}
+  - {from: H-B7-26, to: H-B7-30, type: grounds, since: 2026-09-10, note: "H-B7-30 re-fits the large-deviation-style regression using H-B7-26's own exact escape probabilities instead of H-B7-23's Monte Carlo estimates, directly executing the user's own explicit priority item 4 (deferred through H-B7-27/28/29)"}
+  - {from: H-B7-24, to: H-B7-30, type: grounds, since: 2026-09-10, note: "H-B7-30 reuses H-B7-24's own committed point_of_no_return_step values as the primary regression x-axis, unchanged"}
+  - {from: H-B7-28, to: H-B7-30, type: grounds, since: 2026-09-10, note: "H-B7-30 uses H-B7-28's own full k=1..40 domain to establish that 36/40 conditions are trivial (P=1.0), directly supporting the data-geometry-limitation finding"}
 
   # ───────────────────────── Bridge 8 (proposed, 2026-09-09) ─────────────────────────
   - {from: PROB-UDE-IDENTIFIABILITY-2025, to: BRIDGE-8-UDE-IDENTIFIABILITY, type: grounds, since: 2026-09-09, note: "npj Sys Biol Appl 2025 names this open problem directly"}
