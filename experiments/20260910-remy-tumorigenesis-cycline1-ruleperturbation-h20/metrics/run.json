@@ -1,0 +1,1268 @@
+{
+  "claim": "H-B7-20 exhaustive CyclinE1 rule-perturbation robustness of j*=1 sufficiency",
+  "n_perturbations_tested": 32,
+  "orbit_infos": {
+    "baseline_unperturbed": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FFFFF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FFFFT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FFFTF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FFFTT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FFTFF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FFTFT": {
+      "branch_1": {
+        "orbit_length": 6,
+        "cycle_period": 1,
+        "max_k_tested": 5
+      },
+      "branch_2": {
+        "orbit_length": 6,
+        "cycle_period": 1,
+        "max_k_tested": 5
+      }
+    },
+    "flip_FFTTF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FFTTT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FTFFF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FTFFT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FTFTF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FTFTT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FTTFF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FTTFT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FTTTF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_FTTTT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TFFFF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TFFFT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TFFTF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TFFTT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TFTFF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TFTFT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TFTTF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TFTTT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TTFFF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TTFFT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TTFTF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TTFTT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TTTFF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TTTFT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TTTTF": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    },
+    "flip_TTTTT": {
+      "branch_1": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      },
+      "branch_2": {
+        "orbit_length": 7,
+        "cycle_period": 1,
+        "max_k_tested": 6
+      }
+    }
+  },
+  "classification": {
+    "flip_FFFFF": "FRAGILE",
+    "flip_FFFFT": "ROBUST",
+    "flip_FFFTF": "ROBUST",
+    "flip_FFFTT": "ROBUST",
+    "flip_FFTFF": "ROBUST",
+    "flip_FFTFT": "ROBUST",
+    "flip_FFTTF": "ROBUST",
+    "flip_FFTTT": "CRITERION_INVALID_no_transition",
+    "flip_FTFFF": "ROBUST",
+    "flip_FTFFT": "ROBUST",
+    "flip_FTFTF": "ROBUST",
+    "flip_FTFTT": "ROBUST",
+    "flip_FTTFF": "ROBUST",
+    "flip_FTTFT": "ROBUST",
+    "flip_FTTTF": "ROBUST",
+    "flip_FTTTT": "ROBUST",
+    "flip_TFFFF": "ROBUST",
+    "flip_TFFFT": "ROBUST",
+    "flip_TFFTF": "ROBUST",
+    "flip_TFFTT": "ROBUST",
+    "flip_TFTFF": "ROBUST",
+    "flip_TFTFT": "ROBUST",
+    "flip_TFTTF": "ROBUST",
+    "flip_TFTTT": "ROBUST",
+    "flip_TTFFF": "ROBUST",
+    "flip_TTFFT": "ROBUST",
+    "flip_TTFTF": "ROBUST",
+    "flip_TTFTT": "ROBUST",
+    "flip_TTTFF": "FRAGILE",
+    "flip_TTTFT": "ROBUST",
+    "flip_TTTTF": "ROBUST",
+    "flip_TTTTT": "FRAGILE"
+  },
+  "robust_perturbations": [
+    "flip_FFFFT",
+    "flip_FFFTF",
+    "flip_FFFTT",
+    "flip_FFTFF",
+    "flip_FFTFT",
+    "flip_FFTTF",
+    "flip_FTFFF",
+    "flip_FTFFT",
+    "flip_FTFTF",
+    "flip_FTFTT",
+    "flip_FTTFF",
+    "flip_FTTFT",
+    "flip_FTTTF",
+    "flip_FTTTT",
+    "flip_TFFFF",
+    "flip_TFFFT",
+    "flip_TFFTF",
+    "flip_TFFTT",
+    "flip_TFTFF",
+    "flip_TFTFT",
+    "flip_TFTTF",
+    "flip_TFTTT",
+    "flip_TTFFF",
+    "flip_TTFFT",
+    "flip_TTFTF",
+    "flip_TTFTT",
+    "flip_TTTFT",
+    "flip_TTTTF"
+  ],
+  "fragile_perturbations": [
+    "flip_FFFFF",
+    "flip_TTTFF",
+    "flip_TTTTT"
+  ],
+  "criterion_invalid_perturbations": [
+    "flip_FFTTT"
+  ],
+  "n_robust": 28,
+  "n_fragile": 3,
+  "n_criterion_invalid": 1,
+  "self_destabilizing_perturbations": [
+    "flip_FFTTT"
+  ],
+  "observability_only_perturbations": [
+    "flip_FFFFF",
+    "flip_TTTFF",
+    "flip_TTTTT"
+  ],
+  "destabilization_checks": {
+    "flip_FFFFF": {
+      "per_branch": {
+        "branch_1": {
+          "is_fixed_point_under_perturbed_rules": true,
+          "trajectory_fate_if_destabilized": null
+        },
+        "branch_2": {
+          "is_fixed_point_under_perturbed_rules": true,
+          "trajectory_fate_if_destabilized": null
+        }
+      },
+      "self_destabilizing": false
+    },
+    "flip_FFTTT": {
+      "per_branch": {
+        "branch_1": {
+          "is_fixed_point_under_perturbed_rules": false,
+          "trajectory_fate_if_destabilized": "GROWTH_ARREST"
+        },
+        "branch_2": {
+          "is_fixed_point_under_perturbed_rules": false,
+          "trajectory_fate_if_destabilized": "GROWTH_ARREST"
+        }
+      },
+      "self_destabilizing": true
+    },
+    "flip_TTTFF": {
+      "per_branch": {
+        "branch_1": {
+          "is_fixed_point_under_perturbed_rules": true,
+          "trajectory_fate_if_destabilized": null
+        },
+        "branch_2": {
+          "is_fixed_point_under_perturbed_rules": true,
+          "trajectory_fate_if_destabilized": null
+        }
+      },
+      "self_destabilizing": false
+    },
+    "flip_TTTTT": {
+      "per_branch": {
+        "branch_1": {
+          "is_fixed_point_under_perturbed_rules": true,
+          "trajectory_fate_if_destabilized": null
+        },
+        "branch_2": {
+          "is_fixed_point_under_perturbed_rules": true,
+          "trajectory_fate_if_destabilized": null
+        }
+      },
+      "self_destabilizing": false
+    }
+  },
+  "verdict": "PARTIALLY-ROBUST",
+  "results_by_perturbation": {
+    "baseline_unperturbed": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FFFFF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      }
+    },
+    "flip_FFFFT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FFFTF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FFFTT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FFTFF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FFTFT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FFTTF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FFTTT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FTFFF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FTFFT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FTFTF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FTFTT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FTTFF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FTTFT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FTTTF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FTTTT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TFFFF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TFFFT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TFFTF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TFFTT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TFTFF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TFTFT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TFTTF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TFTTT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TTFFF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TTFFT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TTFTF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TTFTT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TTTFF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TTTFT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TTTTF": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TTTTT": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    }
+  }
+}
