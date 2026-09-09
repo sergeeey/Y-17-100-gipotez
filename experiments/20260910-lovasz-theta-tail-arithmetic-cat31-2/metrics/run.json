@@ -1,0 +1,125 @@
+{
+  "claim": "H-CAT31-2 -- tail/arithmetic structure of Lovasz theta, near-prime vs composite n",
+  "pairs": [
+    {
+      "prime_n": 127,
+      "composite_n": 129,
+      "prime": {
+        "n": 127,
+        "n_reps": 500,
+        "mean_X": -0.002824218638070285,
+        "var_X": 0.03662015649222261,
+        "range_X": 1.3294586615975257,
+        "top_decile_contribution": 0.460277476686443,
+        "top_decile_contribution_ci95": [
+          0.41768297245287866,
+          0.5009625173928249
+        ],
+        "max_positive_control_violation": 2.731148640577885e-14,
+        "mean_theta_over_sqrt_n": 1.0156195751000905
+      },
+      "composite": {
+        "n": 129,
+        "n_reps": 500,
+        "mean_X": -0.0054813609714070245,
+        "var_X": 0.03647783823605235,
+        "range_X": 1.1560405158941438,
+        "top_decile_contribution": 0.4492492710731342,
+        "top_decile_contribution_ci95": [
+          0.4129159826187716,
+          0.4858291035368962
+        ],
+        "max_positive_control_violation": 3.552713678800501e-14,
+        "mean_theta_over_sqrt_n": 1.0129853020506467
+      },
+      "composite_over_prime_var_ratio": 0.9961136633536646,
+      "composite_over_prime_top_decile_ratio": 0.9760400928311738,
+      "top_decile_ci95_overlap": true,
+      "composite_has_higher_var": false,
+      "composite_has_higher_top_decile": false
+    },
+    {
+      "prime_n": 251,
+      "composite_n": 255,
+      "prime": {
+        "n": 251,
+        "n_reps": 500,
+        "mean_X": -0.0005437679011608729,
+        "var_X": 0.02195940360300993,
+        "range_X": 1.0431110776118924,
+        "top_decile_contribution": 0.45722280814236127,
+        "top_decile_contribution_ci95": [
+          0.41448124800584357,
+          0.4967858515422794
+        ],
+        "max_positive_control_violation": 5.81756864903582e-14,
+        "mean_theta_over_sqrt_n": 1.0104362716183473
+      },
+      "composite": {
+        "n": 255,
+        "n_reps": 500,
+        "mean_X": 0.0017559547841434475,
+        "var_X": 0.018996614788026656,
+        "range_X": 0.8177755810481996,
+        "top_decile_contribution": 0.3995714869416585,
+        "top_decile_contribution_ci95": [
+          0.36291805415425665,
+          0.4327219716632604
+        ],
+        "max_positive_control_violation": 5.6288307348495437e-14,
+        "mean_theta_over_sqrt_n": 1.0112782905517113
+      },
+      "composite_over_prime_var_ratio": 0.8650788123145035,
+      "composite_over_prime_top_decile_ratio": 0.8739097871452808,
+      "top_decile_ci95_overlap": true,
+      "composite_has_higher_var": false,
+      "composite_has_higher_top_decile": false
+    },
+    {
+      "prime_n": 509,
+      "composite_n": 511,
+      "prime": {
+        "n": 509,
+        "n_reps": 500,
+        "mean_X": -0.0003624926666957409,
+        "var_X": 0.00979600242693495,
+        "range_X": 0.5908278821732069,
+        "top_decile_contribution": 0.4367793242412977,
+        "top_decile_contribution_ci95": [
+          0.40100383380379057,
+          0.46903345738012686
+        ],
+        "max_positive_control_violation": 6.372680161348399e-14,
+        "mean_theta_over_sqrt_n": 1.0045165802066283
+      },
+      "composite": {
+        "n": 511,
+        "n_reps": 500,
+        "mean_X": 0.006855005958293953,
+        "var_X": 0.009643442179937544,
+        "range_X": 0.5820539885290864,
+        "top_decile_contribution": 0.447636589797376,
+        "top_decile_contribution_ci95": [
+          0.41147648545298227,
+          0.48440036139572085
+        ],
+        "max_positive_control_violation": 5.861977570020827e-14,
+        "mean_theta_over_sqrt_n": 1.0117466761922893
+      },
+      "composite_over_prime_var_ratio": 0.9844262750917733,
+      "composite_over_prime_top_decile_ratio": 1.0248575538114992,
+      "top_decile_ci95_overlap": true,
+      "composite_has_higher_var": false,
+      "composite_has_higher_top_decile": true
+    }
+  ],
+  "positive_control": {
+    "max_violation_of_theta_times_thetabar_over_n": 6.372680161348399e-14,
+    "threshold": 1e-06,
+    "passed": true
+  },
+  "consistent_var_direction_across_pairs": true,
+  "consistent_top_decile_direction_across_pairs": false,
+  "all_top_decile_ci95_disjoint": false,
+  "verdict": "REJECTED"
+}
