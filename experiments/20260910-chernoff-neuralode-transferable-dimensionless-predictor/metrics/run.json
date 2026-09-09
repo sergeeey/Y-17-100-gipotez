@@ -1,0 +1,48 @@
+{
+  "claim": "H-B2-3 transferable dimensionless predictor",
+  "fit": {
+    "intercept": 1.2728621167696672,
+    "exponent": 0.6704992082263844
+  },
+  "transfer_a_same_family_new_T": {
+    "0.1": {
+      "rmse_log": 3.940605383576928,
+      "n": 30
+    },
+    "0.3": {
+      "rmse_log": 2.276651355550509,
+      "n": 30
+    },
+    "1.0": {
+      "rmse_log": 0.5229601207960012,
+      "n": 30
+    },
+    "3.0": {
+      "rmse_log": 1.1047209601467167,
+      "n": 30
+    },
+    "10.0": {
+      "rmse_log": 1.1876660943215542,
+      "n": 30
+    }
+  },
+  "transfer_b_new_family_T1": {
+    "rmse_log": 1.752744867527249,
+    "n": 40
+  },
+  "transfer_c_new_family_new_T": {
+    "0.3": {
+      "rmse_log": 5.831573380055715,
+      "n": 40
+    },
+    "3.0": {
+      "rmse_log": 3.6112635149844263,
+      "n": 40
+    }
+  },
+  "compute_cost_seconds": {
+    "predictor_path_one_matrix": 0.05302250000022468,
+    "direct_grid_path_one_matrix": 1.0004441000000952,
+    "n_grid_used_for_direct": 1000
+  }
+}

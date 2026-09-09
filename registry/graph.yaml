@@ -1614,6 +1614,18 @@ nodes:
     source: "experiments/20260910-forsythe-s4-minimal-dimension-search/decision.md"
     updated: 2026-09-10
 
+  - id: H-B2-3
+    type: hypothesis
+    title: "Does the K_ref-based transient-growth predictor (H-B2-2), refit once as a dimensionless K_ref(T(A-WI)) feature, transfer WITHOUT refitting to new observation windows T and to a structurally different matrix family?"
+    status: killed                   # REJECTED per own pre-registered criterion -- see decision.md. Not `lead`: this specific claim (one fit transfers universally) is closed, not merely inconclusive
+    evidence: VERIFIED-REAL
+    l0_type: predictive
+    kill_criterion: "CONFIRMED (transferable) if RMSE on new-family/new-T conditions stays same order of magnitude as the T=1 same-family baseline; REJECTED if RMSE degrades by an order of magnitude or more on any new-family condition, OR the predictor costs more compute than direct approximation. RESULT: compute cost favors the predictor (~19x faster, 0.053s vs 1.00s/matrix) -- that half of the claim holds. Accuracy: same-family T=1 baseline RMSE_log=0.52; same-family extrapolation to small T (0.1,0.3) degrades ~7-30x (asymmetric -- large-T extrapolation only ~2x); new-family T=1 degrades ~3.4x (moderate); new-family+new-T (double extrapolation) degrades ~22-200x, clearing the pre-registered order-of-magnitude REJECTED threshold. A real construction bug (element-wise vs block-upper-triangular coupling mask corrupting the new family's intended eigenvalues, producing inf K_ref values) was caught via direct diagnosis and fixed BEFORE this verdict was drawn, not after. The dimensionless reduction identity M_T,W(B)=M_1,0(T(B-WI)) itself is exact algebra, verified numerically to 1e-6 -- NOT what failed; what failed is the specific fitted power-law transferring without refitting."
+    fl_tier: standard
+    experiment_dir: "experiments/20260910-chernoff-neuralode-transferable-dimensionless-predictor"
+    source: "experiments/20260910-chernoff-neuralode-transferable-dimensionless-predictor/decision.md"
+    updated: 2026-09-10
+
 edges:
   # grounding of bridges
   - {from: PRJ-H7-TAD,        to: B1-RMT-RIEMANN-HIC, type: grounds,   since: 2026-09-06}
@@ -1792,3 +1804,4 @@ edges:
   - {from: PROB-CAT-31, to: H-CAT31-1, type: grounds, since: 2026-09-09, note: "Conjecture 18 of arXiv:2603.29571 is the formal object this hypothesis tests"}
   - {from: PROB-CAT-37, to: H-CAT37-2, type: grounds, since: 2026-09-10, note: "the s+4 dimension / s+1..2s support-size facts of arXiv:2609.04659's Theorem 1.1 motivate the minimal-dimension question"}
   - {from: H-CAT37-1, to: H-CAT37-2, type: grounds, since: 2026-09-10, note: "H-CAT37-1's own retroscan (ADR-091) and its pearl_registry entry named this exact follow-up question"}
+  - {from: H-B2-2, to: H-B2-3, type: grounds, since: 2026-09-10, note: "user's 2026-09-09 direction-scoping report (route 4) asked whether H-B2-2's K_ref predictor transfers across observation windows T and matrix families, not just fits in-sample"}
