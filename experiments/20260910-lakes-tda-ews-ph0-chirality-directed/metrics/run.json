@@ -1,0 +1,63 @@
+{
+  "claim": "H-B3-2 PH_0 chirality-excess vs trend/TR-asymmetry baselines",
+  "lower_zurich": {
+    "role": "positive",
+    "n_points": 161,
+    "window": 80,
+    "first_crossing_index": {
+      "chirality_excess": 13,
+      "trend_slope": null,
+      "time_reversal_asymmetry": null
+    },
+    "v1_per_series_calibrated_crossing_index": {
+      "chirality_excess": 13,
+      "trend_slope": null,
+      "time_reversal_asymmetry": null
+    },
+    "floor_false_positive_rate": {
+      "chirality_excess": 0.5333333333333333,
+      "trend_slope": 0.6333333333333333,
+      "time_reversal_asymmetry": 0.4666666666666667
+    }
+  },
+  "windermere": {
+    "role": "negative",
+    "n_points": 244,
+    "window": 122,
+    "first_crossing_index": {
+      "chirality_excess": 7,
+      "trend_slope": 83,
+      "time_reversal_asymmetry": 37
+    },
+    "v1_per_series_calibrated_crossing_index": {
+      "chirality_excess": 7,
+      "trend_slope": 90,
+      "time_reversal_asymmetry": null
+    },
+    "floor_false_positive_rate": {
+      "chirality_excess": 0.6,
+      "trend_slope": 0.6333333333333333,
+      "time_reversal_asymmetry": 0.4666666666666667
+    }
+  },
+  "loch_leven": {
+    "role": "negative",
+    "n_points": 152,
+    "window": 76,
+    "first_crossing_index": {
+      "chirality_excess": null,
+      "trend_slope": 42,
+      "time_reversal_asymmetry": 12
+    },
+    "v1_per_series_calibrated_crossing_index": {
+      "chirality_excess": null,
+      "trend_slope": null,
+      "time_reversal_asymmetry": 10
+    },
+    "floor_false_positive_rate": {
+      "chirality_excess": 0.6333333333333333,
+      "trend_slope": 0.5666666666666667,
+      "time_reversal_asymmetry": 0.3333333333333333
+    }
+  }
+}
