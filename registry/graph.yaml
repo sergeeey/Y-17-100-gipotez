@@ -1733,6 +1733,18 @@ nodes:
     source: "experiments/20260910-remy-tumorigenesis-full-domain-isomorphism-h28/decision.md"
     updated: 2026-09-10
 
+  - id: H-B7-29
+    type: hypothesis
+    title: "Contrast/control test (Mechanism Development Mode question 5, structural asymmetry) for H-B7-27/28's own EGFR_stimulus-inertness finding: is FGFR3_stimulus -- the OTHER frozen self-loop exogenous stimulus node in this model -- ALSO causally inert, or is it load-bearing (predicted: load-bearing, since FGFR3's own rule reads it unconditionally, unlike EGFR's conditional read of EGFR_stimulus)?"
+    status: confirmed              # 2026-09-10 decision.md: CONFIRMED, 10/10 conditions. Flipping FGFR3_stimulus is NOT structure-preserving anywhere tested -- hits STATE_CAP=30000 on EVERY condition (1-2 orders of magnitude graph-size explosion vs the original, including k=5 where the original graph has only 2 states yet the flipped graph exceeds 31000). Strengthens confidence H-B7-27/28's own EGFR_stimulus finding is mechanism-specific (algebraically explained), not a generic "any frozen coordinate flip is safe" artifact.
+    evidence: VERIFIED-REAL        # metrics/run.json (10 conditions, cap-independent size-based non-bijection check for every condition, honest BLOCKED-INFRASTRUCTURE handling per FL Step 2a -- no exact counts fabricated for capped conditions); 8 tests incl. a direct cross-experiment contrast test against H-B7-27's own committed data (same k/branch: EGFR_stimulus flip IS isomorphic, FGFR3_stimulus flip is NOT)
+    l0_type: descriptive           # exact graph-structural contrast question -- not causal
+    fl_tier: full
+    kill_criterion: "phi'=flip(FGFR3_stimulus) must fail node-set bijection for ALL 10 conditions (predicted asymmetry); STATE_CAP explicitly not a pass/fail criterion, handled as BLOCKED-INFRASTRUCTURE for exact counts only, evaluated independently from the cap-independent size-differs check. RESULT: CONFIRMED, 10/10, dramatic (1-2 orders of magnitude) graph-size explosion on every condition."
+    experiment_dir: "experiments/20260910-remy-tumorigenesis-stimulus-asymmetry-h29"
+    source: "experiments/20260910-remy-tumorigenesis-stimulus-asymmetry-h29/decision.md"
+    updated: 2026-09-10
+
   - id: ART-REMY-CROSSBRANCH-TRANSIENT-RUN-20260906
     type: artifact
     title: "metrics/run.json — transient do(p21CIP=0, RBL2=0) sweep k=1,3,4,5,6,9,10,30 on the second Remy 2015 branch; k*=5 exactly, later shown to be an arithmetic consequence of branch equivalence, not independent generalization evidence"
@@ -2060,6 +2072,7 @@ edges:
   - {from: H-B7-23, to: H-B7-26, type: grounds, since: 2026-09-10, note: "H-B7-26 solves H-B7-23's own uniform-random-among-unstable-nodes transition model EXACTLY via linear algebra instead of approximating it via Monte Carlo -- VALIDATES, not invalidates, H-B7-23's own prior estimates: oracle gate 10/10 passed, every exact probability falls inside H-B7-23's own committed 95% CI"}
   - {from: H-B7-26, to: H-B7-27, type: grounds, since: 2026-09-10, note: "H-B7-27 mechanistically explains H-B7-26's own unplanned observation (branch_1/branch_2 numerically identical exact probabilities at every k) -- user-proposed structural question, found and verified as a genuine graph automorphism (phi=flip(EGFR_stimulus)) caused by a zero-exception FGFR3/GRB2/EGFR invariant, reusing H-B7-22's build_reachability_graph and H-B7-26's solve_absorption unchanged"}
   - {from: H-B7-27, to: H-B7-28, type: grounds, since: 2026-09-10, note: "H-B7-28 extends H-B7-27's own mechanism (unchanged: same invariant, same phi) from H-B7-26's 10 conditions (k=1..5) to H-B7-22's full originally-tested domain (k=1..40, 80 conditions) -- direct continuation under the user's own 'hold the mechanism' mission, reusing H-B7-27's check_isomorphism/check_invariant/build_phi and H-B7-26's solve_absorption entirely unchanged"}
+  - {from: H-B7-27, to: H-B7-29, type: grounds, since: 2026-09-10, note: "H-B7-29 is a contrast/control test for H-B7-27's own EGFR_stimulus-inertness mechanism -- tests the OTHER structurally-similar frozen self-loop node (FGFR3_stimulus), predicts and confirms it is NOT inert (unlike EGFR_stimulus), strengthening confidence H-B7-27/28's finding is mechanism-specific rather than a generic frozen-coordinate-flip artifact; reuses H-B7-27's build_phi/check_isomorphism entirely unchanged"}
 
   # ───────────────────────── Bridge 8 (proposed, 2026-09-09) ─────────────────────────
   - {from: PROB-UDE-IDENTIFIABILITY-2025, to: BRIDGE-8-UDE-IDENTIFIABILITY, type: grounds, since: 2026-09-09, note: "npj Sys Biol Appl 2025 names this open problem directly"}

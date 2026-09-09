@@ -1,0 +1,180 @@
+{
+  "claim": "H-B7-29 -- unlike EGFR_stimulus (H-B7-27/28), FGFR3_stimulus is NOT causally inert: flipping it breaks the isomorphism, confirming a genuine structural asymmetry between the two structurally-similar frozen self-loop stimulus nodes",
+  "flip_node": "FGFR3_stimulus",
+  "n_conditions_tested": 10,
+  "n_hit_state_cap": 10,
+  "all_asymmetry_confirmed": true,
+  "verdict": "CONFIRMED",
+  "results": [
+    {
+      "branch": "branch_1",
+      "k": 1,
+      "n_states_original": 956,
+      "n_states_flipped_capped": 40528,
+      "flipped_hit_cap": true,
+      "size_alone_rules_out_bijection": true,
+      "isomorphism": {
+        "node_set_bijection": false,
+        "edges_g1_to_g2_preserved": null,
+        "edges_g2_to_g1_preserved": null,
+        "isomorphism_confirmed": false
+      },
+      "isomorphism_confirmed": false,
+      "n_fgfr3_false_in_flipped_graph": null,
+      "asymmetry_confirmed_this_condition": true
+    },
+    {
+      "branch": "branch_1",
+      "k": 2,
+      "n_states_original": 954,
+      "n_states_flipped_capped": 40375,
+      "flipped_hit_cap": true,
+      "size_alone_rules_out_bijection": true,
+      "isomorphism": {
+        "node_set_bijection": false,
+        "edges_g1_to_g2_preserved": null,
+        "edges_g2_to_g1_preserved": null,
+        "isomorphism_confirmed": false
+      },
+      "isomorphism_confirmed": false,
+      "n_fgfr3_false_in_flipped_graph": null,
+      "asymmetry_confirmed_this_condition": true
+    },
+    {
+      "branch": "branch_1",
+      "k": 3,
+      "n_states_original": 200,
+      "n_states_flipped_capped": 35699,
+      "flipped_hit_cap": true,
+      "size_alone_rules_out_bijection": true,
+      "isomorphism": {
+        "node_set_bijection": false,
+        "edges_g1_to_g2_preserved": null,
+        "edges_g2_to_g1_preserved": null,
+        "isomorphism_confirmed": false
+      },
+      "isomorphism_confirmed": false,
+      "n_fgfr3_false_in_flipped_graph": null,
+      "asymmetry_confirmed_this_condition": true
+    },
+    {
+      "branch": "branch_1",
+      "k": 4,
+      "n_states_original": 111,
+      "n_states_flipped_capped": 32400,
+      "flipped_hit_cap": true,
+      "size_alone_rules_out_bijection": true,
+      "isomorphism": {
+        "node_set_bijection": false,
+        "edges_g1_to_g2_preserved": null,
+        "edges_g2_to_g1_preserved": null,
+        "isomorphism_confirmed": false
+      },
+      "isomorphism_confirmed": false,
+      "n_fgfr3_false_in_flipped_graph": null,
+      "asymmetry_confirmed_this_condition": true
+    },
+    {
+      "branch": "branch_1",
+      "k": 5,
+      "n_states_original": 2,
+      "n_states_flipped_capped": 31256,
+      "flipped_hit_cap": true,
+      "size_alone_rules_out_bijection": true,
+      "isomorphism": {
+        "node_set_bijection": false,
+        "edges_g1_to_g2_preserved": null,
+        "edges_g2_to_g1_preserved": null,
+        "isomorphism_confirmed": false
+      },
+      "isomorphism_confirmed": false,
+      "n_fgfr3_false_in_flipped_graph": null,
+      "asymmetry_confirmed_this_condition": true
+    },
+    {
+      "branch": "branch_2",
+      "k": 1,
+      "n_states_original": 956,
+      "n_states_flipped_capped": 39624,
+      "flipped_hit_cap": true,
+      "size_alone_rules_out_bijection": true,
+      "isomorphism": {
+        "node_set_bijection": false,
+        "edges_g1_to_g2_preserved": null,
+        "edges_g2_to_g1_preserved": null,
+        "isomorphism_confirmed": false
+      },
+      "isomorphism_confirmed": false,
+      "n_fgfr3_false_in_flipped_graph": null,
+      "asymmetry_confirmed_this_condition": true
+    },
+    {
+      "branch": "branch_2",
+      "k": 2,
+      "n_states_original": 954,
+      "n_states_flipped_capped": 39470,
+      "flipped_hit_cap": true,
+      "size_alone_rules_out_bijection": true,
+      "isomorphism": {
+        "node_set_bijection": false,
+        "edges_g1_to_g2_preserved": null,
+        "edges_g2_to_g1_preserved": null,
+        "isomorphism_confirmed": false
+      },
+      "isomorphism_confirmed": false,
+      "n_fgfr3_false_in_flipped_graph": null,
+      "asymmetry_confirmed_this_condition": true
+    },
+    {
+      "branch": "branch_2",
+      "k": 3,
+      "n_states_original": 200,
+      "n_states_flipped_capped": 35417,
+      "flipped_hit_cap": true,
+      "size_alone_rules_out_bijection": true,
+      "isomorphism": {
+        "node_set_bijection": false,
+        "edges_g1_to_g2_preserved": null,
+        "edges_g2_to_g1_preserved": null,
+        "isomorphism_confirmed": false
+      },
+      "isomorphism_confirmed": false,
+      "n_fgfr3_false_in_flipped_graph": null,
+      "asymmetry_confirmed_this_condition": true
+    },
+    {
+      "branch": "branch_2",
+      "k": 4,
+      "n_states_original": 111,
+      "n_states_flipped_capped": 32369,
+      "flipped_hit_cap": true,
+      "size_alone_rules_out_bijection": true,
+      "isomorphism": {
+        "node_set_bijection": false,
+        "edges_g1_to_g2_preserved": null,
+        "edges_g2_to_g1_preserved": null,
+        "isomorphism_confirmed": false
+      },
+      "isomorphism_confirmed": false,
+      "n_fgfr3_false_in_flipped_graph": null,
+      "asymmetry_confirmed_this_condition": true
+    },
+    {
+      "branch": "branch_2",
+      "k": 5,
+      "n_states_original": 2,
+      "n_states_flipped_capped": 31245,
+      "flipped_hit_cap": true,
+      "size_alone_rules_out_bijection": true,
+      "isomorphism": {
+        "node_set_bijection": false,
+        "edges_g1_to_g2_preserved": null,
+        "edges_g2_to_g1_preserved": null,
+        "isomorphism_confirmed": false
+      },
+      "isomorphism_confirmed": false,
+      "n_fgfr3_false_in_flipped_graph": null,
+      "asymmetry_confirmed_this_condition": true
+    }
+  ]
+}
