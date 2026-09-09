@@ -1,0 +1,151 @@
+{
+  "claim": "H-B7-17 rule-perturbation robustness of j*=1 sufficiency (RBL2 single-bit flips)",
+  "tested_k": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "perturbations_tested": [
+    "baseline_unperturbed",
+    "flip_FF_constant_false",
+    "flip_FT_drop_CyclinD1",
+    "flip_TF_drop_CyclinE1",
+    "flip_TT_xnor"
+  ],
+  "orbit_lengths_seen": [
+    12
+  ],
+  "substrate_check_orbit_unchanged_across_all_conditions": true,
+  "results_by_perturbation": {
+    "baseline_unperturbed": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_FF_constant_false": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      }
+    },
+    "flip_FT_drop_CyclinD1": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TF_drop_CyclinE1": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    },
+    "flip_TT_xnor": {
+      "floor_DNA_damage_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 1,
+        "sufficient_at_j1": false
+      },
+      "ceiling_full_state": {
+        "n_collisions_j0": 0,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M1_phenotypes_only": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      },
+      "candidate_M2_phenotypes_plus_clamp_targets": {
+        "n_collisions_j0": 1,
+        "n_collisions_j1": 0,
+        "sufficient_at_j1": true
+      }
+    }
+  },
+  "per_perturbation_classification": {
+    "flip_FF_constant_false": "FRAGILE",
+    "flip_FT_drop_CyclinD1": "ROBUST",
+    "flip_TF_drop_CyclinE1": "CRITERION_INVALID_no_transition",
+    "flip_TT_xnor": "ROBUST"
+  },
+  "genuinely_robust_perturbations": [
+    "flip_FT_drop_CyclinD1",
+    "flip_TT_xnor"
+  ],
+  "genuinely_fragile_perturbations": [
+    "flip_FF_constant_false"
+  ],
+  "criterion_invalid_perturbations": [
+    "flip_TF_drop_CyclinE1"
+  ],
+  "verdict": "PARTIALLY-ROBUST"
+}
