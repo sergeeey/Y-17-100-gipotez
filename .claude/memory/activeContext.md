@@ -147,6 +147,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-09 18:28] `564d8db` (local, branch `feature/h-b7-28-full-domain-isomorphism` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-28 -- branch isomorphism mechanism extended to H-B7-22's full domain (k=1..40), CONFIRMED
 - [2026-09-09 18:19] `365621c` (local, branch `feature/h-b7-27-branch-isomorphism` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-27 -- branch_1/branch_2 exact-probability equality explained as graph automorphism, CONFIRMED
 - [2026-09-09 17:51] `158831b` (local, branch `feature/h-b7-26-exact-absorption` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-26 -- exact asynchronous escape probability via absorbing Markov chain, CONFIRMED
 - [2026-09-09 17:10] `d0ecd80` (local, branch `feature/h-b2-4-multiseed-permutation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-4 -- multi-seed + permutation test finds M1(N_DIM) perfectly monotonic, closing H-B2-1k's own named CRITERION_INVALID gap
@@ -161,4 +162,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-09 10:55] `97f95af`: Merge: H-B7-19 exhaustive p21CIP rule-perturbation robustness, ROBUST (15/16)
 - [2026-09-09 10:55] `42a16d6` (local, branch `feature/h-b7-19-p21cip-ruleperturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-19 -- exhaustive p21CIP rule-perturbation robustness, ROBUST (15/16)
 - [2026-09-09 10:06] `2e382b8`: Merge: H-B7-18 mechanistic explanation of H-B7-17's CRITERION_INVALID finding
-- [2026-09-09 10:05] `bda7c03` (local, branch `feature/h-b7-18-fixedpoint-destabilization` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-18 -- mechanistic explanation of H-B7-17's CRITERION_INVALID finding
