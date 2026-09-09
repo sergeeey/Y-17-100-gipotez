@@ -1,0 +1,182 @@
+{
+  "claim": "H-B7-26 -- exact asynchronous escape probability via absorbing Markov chain, validated against H-B7-23's own Monte Carlo CIs as an oracle gate",
+  "n_conditions_tested": 10,
+  "n_ok": 10,
+  "n_oracle_checked": 10,
+  "n_oracle_passed": 10,
+  "oracle_gate_all_passed": true,
+  "k5_positive_control_all_exactly_one": true,
+  "verdict": "CONFIRMED",
+  "results": [
+    {
+      "status": "OK",
+      "n_transient": 953,
+      "n_absorbing_prolif": 1,
+      "n_absorbing_ga": 2,
+      "exact_escape_probability": 0.06886574074074076,
+      "expected_steps_to_absorption": 8.876515077944157,
+      "branch": "branch_1",
+      "k": 1,
+      "n_states_in_graph": 956,
+      "monte_carlo_estimate": 0.06766666666666667,
+      "monte_carlo_ci95": [
+        0.05922021279197505,
+        0.07721893899285943
+      ],
+      "oracle_gate_passed": true
+    },
+    {
+      "status": "OK",
+      "n_transient": 951,
+      "n_absorbing_prolif": 1,
+      "n_absorbing_ga": 2,
+      "exact_escape_probability": 0.1377314814814815,
+      "expected_steps_to_absorption": 10.36407182255498,
+      "branch": "branch_1",
+      "k": 2,
+      "n_states_in_graph": 954,
+      "monte_carlo_estimate": 0.14333333333333334,
+      "monte_carlo_ci95": [
+        0.13124984596302197,
+        0.15632909961120542
+      ],
+      "oracle_gate_passed": true
+    },
+    {
+      "status": "OK",
+      "n_transient": 198,
+      "n_absorbing_prolif": 1,
+      "n_absorbing_ga": 1,
+      "exact_escape_probability": 0.18518518518518517,
+      "expected_steps_to_absorption": 7.984953703703703,
+      "branch": "branch_1",
+      "k": 3,
+      "n_states_in_graph": 200,
+      "monte_carlo_estimate": 0.18733333333333332,
+      "monte_carlo_ci95": [
+        0.17377403227419322,
+        0.20169237048153135
+      ],
+      "oracle_gate_passed": true
+    },
+    {
+      "status": "OK",
+      "n_transient": 109,
+      "n_absorbing_prolif": 1,
+      "n_absorbing_ga": 1,
+      "exact_escape_probability": 0.3333333333333333,
+      "expected_steps_to_absorption": 5.541666666666667,
+      "branch": "branch_1",
+      "k": 4,
+      "n_states_in_graph": 111,
+      "monte_carlo_estimate": 0.3383333333333333,
+      "monte_carlo_ci95": [
+        0.3216184657352807,
+        0.35546171052967285
+      ],
+      "oracle_gate_passed": true
+    },
+    {
+      "status": "OK",
+      "n_transient": 1,
+      "n_absorbing_prolif": 1,
+      "n_absorbing_ga": 0,
+      "exact_escape_probability": 1.0,
+      "expected_steps_to_absorption": 1.0,
+      "branch": "branch_1",
+      "k": 5,
+      "n_states_in_graph": 2,
+      "monte_carlo_estimate": 1.0,
+      "monte_carlo_ci95": [
+        0.9987211043351955,
+        1.0000000000000002
+      ],
+      "oracle_gate_passed": true
+    },
+    {
+      "status": "OK",
+      "n_transient": 953,
+      "n_absorbing_prolif": 1,
+      "n_absorbing_ga": 2,
+      "exact_escape_probability": 0.06886574074074076,
+      "expected_steps_to_absorption": 8.876515077944157,
+      "branch": "branch_2",
+      "k": 1,
+      "n_states_in_graph": 956,
+      "monte_carlo_estimate": 0.065,
+      "monte_carlo_ci95": [
+        0.05672261283041927,
+        0.07439002639796083
+      ],
+      "oracle_gate_passed": true
+    },
+    {
+      "status": "OK",
+      "n_transient": 951,
+      "n_absorbing_prolif": 1,
+      "n_absorbing_ga": 2,
+      "exact_escape_probability": 0.1377314814814815,
+      "expected_steps_to_absorption": 10.36407182255498,
+      "branch": "branch_2",
+      "k": 2,
+      "n_states_in_graph": 954,
+      "monte_carlo_estimate": 0.134,
+      "monte_carlo_ci95": [
+        0.12227679764023063,
+        0.14665935398640648
+      ],
+      "oracle_gate_passed": true
+    },
+    {
+      "status": "OK",
+      "n_transient": 198,
+      "n_absorbing_prolif": 1,
+      "n_absorbing_ga": 1,
+      "exact_escape_probability": 0.18518518518518517,
+      "expected_steps_to_absorption": 7.984953703703703,
+      "branch": "branch_2",
+      "k": 3,
+      "n_states_in_graph": 200,
+      "monte_carlo_estimate": 0.18133333333333335,
+      "monte_carlo_ci95": [
+        0.16795609543401943,
+        0.19552565406968284
+      ],
+      "oracle_gate_passed": true
+    },
+    {
+      "status": "OK",
+      "n_transient": 109,
+      "n_absorbing_prolif": 1,
+      "n_absorbing_ga": 1,
+      "exact_escape_probability": 0.3333333333333333,
+      "expected_steps_to_absorption": 5.541666666666667,
+      "branch": "branch_2",
+      "k": 4,
+      "n_states_in_graph": 111,
+      "monte_carlo_estimate": 0.33866666666666667,
+      "monte_carlo_ci95": [
+        0.32194730986680964,
+        0.35579868046770075
+      ],
+      "oracle_gate_passed": true
+    },
+    {
+      "status": "OK",
+      "n_transient": 1,
+      "n_absorbing_prolif": 1,
+      "n_absorbing_ga": 0,
+      "exact_escape_probability": 1.0,
+      "expected_steps_to_absorption": 1.0,
+      "branch": "branch_2",
+      "k": 5,
+      "n_states_in_graph": 2,
+      "monte_carlo_estimate": 1.0,
+      "monte_carlo_ci95": [
+        0.9987211043351955,
+        1.0000000000000002
+      ],
+      "oracle_gate_passed": true
+    }
+  ]
+}
