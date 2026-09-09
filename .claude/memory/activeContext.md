@@ -145,6 +145,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-09 17:51] `158831b` (local, branch `feature/h-b7-26-exact-absorption` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-26 -- exact asynchronous escape probability via absorbing Markov chain, CONFIRMED
 - [2026-09-09 17:10] `d0ecd80` (local, branch `feature/h-b2-4-multiseed-permutation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-4 -- multi-seed + permutation test finds M1(N_DIM) perfectly monotonic, closing H-B2-1k's own named CRITERION_INVALID gap
 - [2026-09-09 16:00] `d06d21d` (local, branch `feature/h-b7-25-starvation-asymmetry` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-25 -- p21CIP-specific starvation confirmed 8/8, RBL2-passive framing rejected at k=3,4 -- honest partial survival
 - [2026-09-09 15:26] `54ec343` (local, branch `feature/h-b7-24-point-of-no-return` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-24 -- sharp point of no return along async escape, always CyclinE1's own firing, confirmed by FL Step 8a reviewer
@@ -159,4 +160,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-09 10:06] `2e382b8`: Merge: H-B7-18 mechanistic explanation of H-B7-17's CRITERION_INVALID finding
 - [2026-09-09 10:05] `bda7c03` (local, branch `feature/h-b7-18-fixedpoint-destabilization` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-18 -- mechanistic explanation of H-B7-17's CRITERION_INVALID finding
 - [2026-09-09 09:52] `00e0e95`: Merge: H-B7-17 rule-perturbation robustness, PARTIALLY-ROBUST, corrected mid-experiment
-- [2026-09-09 09:52] `f81dec2` (local, branch `feature/h-b7-17-rule-perturbation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-17 -- rule-perturbation robustness, PARTIALLY-ROBUST, corrected mid-experiment
