@@ -1709,6 +1709,18 @@ nodes:
     source: "experiments/20260910-remy-tumorigenesis-exact-absorption-h26/decision.md"
     updated: 2026-09-10
 
+  - id: H-B7-27
+    type: hypothesis
+    title: "Mechanistic explanation of H-B7-26's own unplanned observation (branch_1/branch_2 give numerically identical exact escape probabilities at every k): is phi=flip(EGFR_stimulus) a genuine graph automorphism-inducing bijection between the two branches' reachable graphs, caused by a zero-exception FGFR3=True/GRB2=False invariant across the entire reachable region -- user-proposed structural question after noticing every summary statistic (not just escape probability) matched exactly between branches in H-B7-26's own committed data."
+    status: confirmed              # 2026-09-10 decision.md: CONFIRMED, 5/5 k values. Mechanism found and verified exhaustively (Compute-First Check, then full run): GROWTH_ARREST_STATE_1/_2 differ at exactly one node (EGFR_stimulus); EGFR's own rule only reads EGFR_stimulus when !GRB2&!FGFR3 holds; FGFR3=True/GRB2=False/EGFR=False hold with 0 exceptions across ~4422 reachable states (both branches, k=1..5); phi=flip(EGFR_stimulus) is therefore a graph automorphism by construction, not coincidence -- branch_2's reachable graph IS branch_1's own graph at an inert coordinate offset.
+    evidence: VERIFIED-REAL        # metrics/run.json (5 k-values, node-set bijection + bidirectional edge-preservation checks + zero-exception invariant checks + corollary re-derivation matching H-B7-26's own committed values to 1e-9); 9 tests incl. 2 sanity checks confirming the isomorphism/invariant checkers can actually detect a violation (not vacuous)
+    l0_type: descriptive           # exact graph-isomorphism/invariant question on a fully specified deterministic system -- not causal
+    fl_tier: full
+    kill_criterion: "Isomorphism (phi maps node-set + edges both directions) must hold for ALL 5 k values; mechanism (zero-exception FGFR3=True/GRB2=False invariant) must hold across every reachable state, both branches, all k; corollary re-derivation of exact escape probability on independently-built graphs must match H-B7-26's own committed values to 1e-9. RESULT: CONFIRMED, 5/5 on all three checks."
+    experiment_dir: "experiments/20260910-remy-tumorigenesis-branch-isomorphism-h27"
+    source: "experiments/20260910-remy-tumorigenesis-branch-isomorphism-h27/decision.md"
+    updated: 2026-09-10
+
   - id: ART-REMY-CROSSBRANCH-TRANSIENT-RUN-20260906
     type: artifact
     title: "metrics/run.json — transient do(p21CIP=0, RBL2=0) sweep k=1,3,4,5,6,9,10,30 on the second Remy 2015 branch; k*=5 exactly, later shown to be an arithmetic consequence of branch equivalence, not independent generalization evidence"
@@ -2034,6 +2046,7 @@ edges:
   - {from: H-B7-24, to: H-B7-25, type: grounds, since: 2026-09-10, note: "H-B7-25 tests a p21CIP/RBL2 stability asymmetry noticed while investigating H-B7-24's own point-of-no-return step, reusing H-B7-24's shortest-path construction and PNR step index unchanged; closes H-B7-22's own remaining Relaxation Map item (bounded-delay fairness) via the p21CIP_min_starvation_count = PNR step quantity"}
   - {from: H-B7-22, to: H-B7-26, type: grounds, since: 2026-09-10, note: "H-B7-26 reuses H-B7-22's build_reachability_graph/async_successors unchanged, and relies directly on H-B7-22's own exhaustive SCC analysis (0 cyclic attractors anywhere) to justify that standard absorbing-Markov-chain theory applies without modification"}
   - {from: H-B7-23, to: H-B7-26, type: grounds, since: 2026-09-10, note: "H-B7-26 solves H-B7-23's own uniform-random-among-unstable-nodes transition model EXACTLY via linear algebra instead of approximating it via Monte Carlo -- VALIDATES, not invalidates, H-B7-23's own prior estimates: oracle gate 10/10 passed, every exact probability falls inside H-B7-23's own committed 95% CI"}
+  - {from: H-B7-26, to: H-B7-27, type: grounds, since: 2026-09-10, note: "H-B7-27 mechanistically explains H-B7-26's own unplanned observation (branch_1/branch_2 numerically identical exact probabilities at every k) -- user-proposed structural question, found and verified as a genuine graph automorphism (phi=flip(EGFR_stimulus)) caused by a zero-exception FGFR3/GRB2/EGFR invariant, reusing H-B7-22's build_reachability_graph and H-B7-26's solve_absorption unchanged"}
 
   # ───────────────────────── Bridge 8 (proposed, 2026-09-09) ─────────────────────────
   - {from: PROB-UDE-IDENTIFIABILITY-2025, to: BRIDGE-8-UDE-IDENTIFIABILITY, type: grounds, since: 2026-09-09, note: "npj Sys Biol Appl 2025 names this open problem directly"}

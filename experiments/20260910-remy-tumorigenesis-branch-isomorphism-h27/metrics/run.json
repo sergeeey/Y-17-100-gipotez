@@ -1,0 +1,146 @@
+{
+  "claim": "H-B7-27 -- phi=flip(EGFR_stimulus) is a graph automorphism-inducing bijection between branch_1 and branch_2's reachable graphs, mechanistically caused by a zero-exception FGFR3=True/GRB2=False invariant across the entire reachable region",
+  "n_conditions_tested": 5,
+  "all_isomorphisms_confirmed": true,
+  "all_phi_release_matches": true,
+  "all_invariants_hold": true,
+  "all_corollaries_match": true,
+  "verdict": "CONFIRMED",
+  "results": [
+    {
+      "k": 1,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 956,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 956,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 0.06886574074074076,
+      "exact_escape_probability_branch_2": 0.06886574074074076
+    },
+    {
+      "k": 2,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 954,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 954,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 0.1377314814814815,
+      "exact_escape_probability_branch_2": 0.1377314814814815
+    },
+    {
+      "k": 3,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 200,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 200,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 0.18518518518518517,
+      "exact_escape_probability_branch_2": 0.18518518518518517
+    },
+    {
+      "k": 4,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 111,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 111,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 0.3333333333333333,
+      "exact_escape_probability_branch_2": 0.3333333333333333
+    },
+    {
+      "k": 5,
+      "phi_release_1_equals_release_2": true,
+      "isomorphism": {
+        "node_set_bijection": true,
+        "edges_g1_to_g2_preserved": true,
+        "edges_g2_to_g1_preserved": true,
+        "isomorphism_confirmed": true
+      },
+      "invariant_branch_1": {
+        "n_states": 2,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "invariant_branch_2": {
+        "n_states": 2,
+        "n_fgfr3_false": 0,
+        "n_grb2_true": 0,
+        "n_egfr_true": 0,
+        "invariant_holds": true
+      },
+      "corollary_escape_probability_matches": true,
+      "exact_escape_probability_branch_1": 1.0,
+      "exact_escape_probability_branch_2": 1.0
+    }
+  ]
+}
