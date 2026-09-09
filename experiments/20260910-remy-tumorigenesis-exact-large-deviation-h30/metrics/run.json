@@ -1,0 +1,58 @@
+{
+  "claim": "H-B7-30 -- exact probabilities do not rescue the large-deviation fit's own data-geometry limitation (few distinct PNR-step values, small effective sample size); the original r^2 was never a Monte Carlo noise artifact",
+  "original_report_r_squared": 0.8913,
+  "fit_primary_pnr_step": {
+    "n": 4,
+    "n_distinct_x": 3,
+    "slope": -0.49244970999201804,
+    "r": -0.9449471076224893,
+    "r_squared": 0.8929250362041085
+  },
+  "fit_alternative_n_transient": {
+    "n": 4,
+    "n_distinct_x": 4,
+    "slope": -0.001207452051853048,
+    "r": -0.8515084265676968,
+    "r_squared": 0.7250666005157946
+  },
+  "fit_alternative_expected_steps_to_absorption": {
+    "n": 4,
+    "n_distinct_x": 4,
+    "slope": -0.234880682986244,
+    "r": -0.723898726446971,
+    "r_squared": 0.5240293661515465
+  },
+  "delta_r_squared_vs_original_report": 0.0016250362041084765,
+  "n_nontrivial_conditions_in_full_h_b7_22_domain": 4,
+  "n_trivial_conditions_in_full_h_b7_22_domain": 36,
+  "n_total_conditions_in_full_h_b7_22_domain": 40,
+  "hypothesis_a_exactness_helps_confirmed": false,
+  "hypothesis_b_geometry_problem_persists_confirmed": true,
+  "verdict": "CONFIRMED",
+  "per_k_detail": [
+    {
+      "k": 1,
+      "exact_escape_probability": 0.06886574074074076,
+      "log_p": -2.6755964562524714,
+      "pnr_step": 5
+    },
+    {
+      "k": 2,
+      "exact_escape_probability": 0.1377314814814815,
+      "log_p": -1.982449275692526,
+      "pnr_step": 4
+    },
+    {
+      "k": 3,
+      "exact_escape_probability": 0.18518518518518517,
+      "log_p": -1.6863989535702288,
+      "pnr_step": 4
+    },
+    {
+      "k": 4,
+      "exact_escape_probability": 0.3333333333333333,
+      "log_p": -1.0986122886681098,
+      "pnr_step": 2
+    }
+  ]
+}
