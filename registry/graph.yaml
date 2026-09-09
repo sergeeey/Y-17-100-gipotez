@@ -1541,6 +1541,18 @@ nodes:
     source: "experiments/20260910-remy-tumorigenesis-observability-h13/decision.md"
     updated: 2026-09-10
 
+  - id: H-B7-14
+    type: hypothesis
+    title: "Minimal Relaxation Rule variant of H-B7-13 (ONE assumption changed, user's own direct instruction 2026-09-10: 'наблюдай маркеры через j шагов после снятия клэмпа'): does observing M1/M2 j synchronous wild-type steps AFTER release, instead of AT the instant of release, restore observability?"
+    status: confirmed              # 2026-09-10 decision.md: CONFIRMED-REAL, FL Step 8a independent reviewer pass, 2 narrowly-scoped checks, both CONFIRMED (not just re-read the output file -- independently re-derived both the j=0 collision and the full j=1 80-row domain from the raw functions). j=0 exactly reproduces H-B7-13's own committed collision (regression check passed). Sweep j=0,1,2,3,4,5,7,10: BOTH M1={Growth_arrest,Proliferation} and M2=M1+{p21CIP,RBL2} become fully sufficient (zero collisions) starting at j*=1 -- RESOLVED-QUICKLY per claim.md's own pre-registered kill criterion (j*<=3). Directly verified on raw output (diag_h14_verify_j1.py, scratchpad): Proliferation flips False->True for k=5 specifically at j=1, staying False for k=3/4 -- a real, directly-observed divergence, not an artifact of the aggregate collision-counting logic. Notably the SMALLER marker set (M1, 2 markers) resolves at the same j* as the augmented M2 -- H-B7-13's own p21CIP/RBL2 augmentation was not the missing ingredient; the missing ingredient was waiting one more step.
+    evidence: VERIFIED-REAL        # metrics/run.json (full j-sweep, exact enumeration); 4 tests incl. a mandatory j=0 regression check against H-B7-13's own committed output (byte-identical release_state/final_state) and a large-j edge case (observed_state==final_state once the trajectory has already converged)
+    l0_type: predictive
+    fl_tier: standard
+    kill_criterion: "RESOLVED-QUICKLY if M1 and/or M2 reach zero collisions at j<=3; RESOLVED-SLOWLY if first j with zero collisions is >3; UNRESOLVED if collisions persist for both across the full j=0..10 sweep. RESULT: RESOLVED-QUICKLY, j*=1 for BOTH M1 and M2 -- almost exactly matches H-B7-13's own mechanistic prediction ('one-step CyclinE1 race')."
+    experiment_dir: "experiments/20260910-remy-tumorigenesis-observability-delayed-h14"
+    source: "experiments/20260910-remy-tumorigenesis-observability-delayed-h14/decision.md"
+    updated: 2026-09-10
+
   - id: ART-REMY-CROSSBRANCH-TRANSIENT-RUN-20260906
     type: artifact
     title: "metrics/run.json — transient do(p21CIP=0, RBL2=0) sweep k=1,3,4,5,6,9,10,30 on the second Remy 2015 branch; k*=5 exactly, later shown to be an arithmetic consequence of branch equivalence, not independent generalization evidence"
@@ -1822,6 +1834,8 @@ edges:
   - {from: B7-KAUFFMAN-ATTRACTORS, to: H-B7-13, type: grounds, since: 2026-09-10, note: "User's own 2026-09-10 direction-scoping follow-up, chosen after B2 and B3 both closed negative: a genuinely new observability/release-safety question on the same Remy network, not a continuation of H-B7-1..12's attractor-existence arc"}
   - {from: H-B7-10, to: H-B7-13, type: grounds, since: 2026-09-10, note: "H-B7-13 tests whether H-B7-10's own established k*=5 threshold is LEGIBLE from a small marker set at release time, reusing the exact threshold and branch-1 constants as ground truth"}
   - {from: H-B7-12, to: H-B7-13, type: grounds, since: 2026-09-10, note: "H-B7-13 also tests branch 2's release-states (H-B7-11/H-B7-12's constants), reusing H-B7-12's own k*=5-on-branch-2 confirmation as ground truth for the second half of the domain"}
+  - {from: H-B7-13, to: H-B7-14, type: grounds, since: 2026-09-10, note: "Minimal Relaxation Rule variant of H-B7-13's own REJECT: H-B7-13's own Revival Condition named 'observe markers j steps after release instead of at the instant' as the cheapest, most-likely-to-succeed next step; user confirmed directly. H-B7-14 runs it, changing ONE assumption (observation timing) while holding everything else fixed."}
+  - {from: H-B7-14, to: H-B7-13, type: depends_on, since: 2026-09-10, note: "H-B7-14's own regression check (j=0) depends on exactly reproducing H-B7-13's own committed release-state and collision output -- independently re-verified by an FL Step 8a reviewer pass, not just asserted"}
   - {from: H-B7-11, to: H-B7-4, type: depends_on, since: 2026-09-07, note: "H-B7-11's Compute-First scoping found and corrected a minor factual error in H-B7-4's own original branch-count claim (7, not 8, of 16 branches multistable) -- documented as a dated correction addendum in H-B7-4's Data_README.md, H-B7-4's own verdict/status unaffected"}
 
   # ───────────────────────── Bridge 8 (proposed, 2026-09-09) ─────────────────────────
