@@ -150,6 +150,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-09 20:18] `89907fe`: Merge: H-B7-31 -- early-exit BFS as an honest, asymmetric cheap discriminator, CONFIRMED
 - [2026-09-09 20:16] `c9086a6` (local, branch `feature/h-b7-31-early-exit-bfs` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-31 -- early-exit BFS as an honest, asymmetric cheap discriminator, CONFIRMED
 - [2026-09-09 20:08] `963ee58`: Merge: H-B7-30 -- exact probabilities do not rescue the large-deviation fit, CONFIRMED
 - [2026-09-09 20:07] `2e221cf` (local, branch `feature/h-b7-30-exact-large-deviation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-30 -- exact probabilities do not rescue the large-deviation fit, CONFIRMED
@@ -164,4 +165,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-09 15:26] `54ec343` (local, branch `feature/h-b7-24-point-of-no-return` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-24 -- sharp point of no return along async escape, always CyclinE1's own firing, confirmed by FL Step 8a reviewer
 - [2026-09-09 14:48] `dd10fe7` (local, branch `feature/h-b7-23-random-async-vulnerability` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-23 -- random-schedule escape frequency 6.7%->33.8% (k=1..4), confirms H-B7-22's vulnerability is substantial not rare
 - [2026-09-09 13:28] `5b345a5` (local, branch `feature/h-b7-22-adversarial-async` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-22 -- k*=5 release threshold is NOT schedule-independent, confirmed by adversarial async reachability + FL Step 8a reviewer
-- [2026-09-09 12:44] `3630559` (local, branch `feature/h-b7-21-lean-pilot` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: Lean 4 formalization pilot for H-B7-21 -- first Strong-tier verification in this project
