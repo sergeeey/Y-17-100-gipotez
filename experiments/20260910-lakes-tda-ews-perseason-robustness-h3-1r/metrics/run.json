@@ -1,0 +1,218 @@
+{
+  "claim": "H-B3-1r -- robustness check: does H-B3-1q's own pooled cross-variable coherence pattern replicate when computed per-season (2008/2009/2010) instead of pooled? RESULT: does not replicate cleanly -- 2008 shows the opposite pattern, 2010 (transition-completion year) is weaker than 2009, not stronger",
+  "per_season_results": {
+    "2008": {
+      "Peter": {
+        "n_daily_by_var": {
+          "chl": 107,
+          "pH": 107,
+          "doSat": 107
+        },
+        "pairs": [
+          {
+            "var1": "chl",
+            "var2": "pH",
+            "rho": -0.24040240518038855,
+            "p": 0.10358720658017821,
+            "n": 47
+          },
+          {
+            "var1": "chl",
+            "var2": "doSat",
+            "rho": -0.145004625346901,
+            "p": 0.3308091740742223,
+            "n": 47
+          },
+          {
+            "var1": "pH",
+            "var2": "doSat",
+            "rho": 0.23485198889916745,
+            "p": 0.11205512955291914,
+            "n": 47
+          }
+        ],
+        "n_positive_of_3": 1
+      },
+      "Paul": {
+        "n_daily_by_var": {
+          "chl": 107,
+          "pH": 107,
+          "doSat": 107
+        },
+        "pairs": [
+          {
+            "var1": "chl",
+            "var2": "pH",
+            "rho": 0.8271276595744682,
+            "p": 7.758935307217472e-13,
+            "n": 47
+          },
+          {
+            "var1": "chl",
+            "var2": "doSat",
+            "rho": -0.8238559166230676,
+            "p": 1.140551226283661e-12,
+            "n": 47
+          },
+          {
+            "var1": "pH",
+            "var2": "doSat",
+            "rho": -0.9816426242140811,
+            "p": 5.0052777526298335e-34,
+            "n": 47
+          }
+        ],
+        "n_positive_of_3": 1
+      }
+    },
+    "2009": {
+      "Peter": {
+        "n_daily_by_var": {
+          "chl": 114,
+          "pH": 114,
+          "doSat": 114
+        },
+        "pairs": [
+          {
+            "var1": "chl",
+            "var2": "pH",
+            "rho": 0.8401809954751132,
+            "p": 1.272776247991462e-14,
+            "n": 51
+          },
+          {
+            "var1": "chl",
+            "var2": "doSat",
+            "rho": 0.5909502262443438,
+            "p": 4.983164048031405e-06,
+            "n": 51
+          },
+          {
+            "var1": "pH",
+            "var2": "doSat",
+            "rho": 0.7468778280542986,
+            "p": 3.1037213696027514e-10,
+            "n": 51
+          }
+        ],
+        "n_positive_of_3": 3
+      },
+      "Paul": {
+        "n_daily_by_var": {
+          "chl": 114,
+          "pH": 114,
+          "doSat": 114
+        },
+        "pairs": [
+          {
+            "var1": "chl",
+            "var2": "pH",
+            "rho": -0.7292307692307691,
+            "p": 1.2901231496307665e-09,
+            "n": 51
+          },
+          {
+            "var1": "chl",
+            "var2": "doSat",
+            "rho": -0.38009049773755654,
+            "p": 0.005938065929623737,
+            "n": 51
+          },
+          {
+            "var1": "pH",
+            "var2": "doSat",
+            "rho": 0.7247058823529411,
+            "p": 1.8264664239300718e-09,
+            "n": 51
+          }
+        ],
+        "n_positive_of_3": 1
+      }
+    },
+    "2010": {
+      "Peter": {
+        "n_daily_by_var": {
+          "chl": 113,
+          "pH": 113,
+          "doSat": 113
+        },
+        "pairs": [
+          {
+            "var1": "chl",
+            "var2": "pH",
+            "rho": -0.39538461538461533,
+            "p": 0.004083547829506709,
+            "n": 51
+          },
+          {
+            "var1": "chl",
+            "var2": "doSat",
+            "rho": 0.5211764705882352,
+            "p": 8.80748350297036e-05,
+            "n": 51
+          },
+          {
+            "var1": "pH",
+            "var2": "doSat",
+            "rho": 0.2100452488687783,
+            "p": 0.13903463112939354,
+            "n": 51
+          }
+        ],
+        "n_positive_of_3": 2
+      },
+      "Paul": {
+        "n_daily_by_var": {
+          "chl": 113,
+          "pH": 113,
+          "doSat": 113
+        },
+        "pairs": [
+          {
+            "var1": "chl",
+            "var2": "pH",
+            "rho": -0.16968325791855202,
+            "p": 0.23389116168139215,
+            "n": 51
+          },
+          {
+            "var1": "chl",
+            "var2": "doSat",
+            "rho": -0.1890497737556561,
+            "p": 0.183969304062907,
+            "n": 51
+          },
+          {
+            "var1": "pH",
+            "var2": "doSat",
+            "rho": -0.026425339366515834,
+            "p": 0.8539598921554693,
+            "n": 51
+          }
+        ],
+        "n_positive_of_3": 0
+      }
+    }
+  },
+  "season_verdicts": {
+    "2008": {
+      "peter_n_positive": 1,
+      "paul_n_positive": 1,
+      "peter_more_consistent": false
+    },
+    "2009": {
+      "peter_n_positive": 3,
+      "paul_n_positive": 1,
+      "peter_more_consistent": true
+    },
+    "2010": {
+      "peter_n_positive": 2,
+      "paul_n_positive": 0,
+      "peter_more_consistent": true
+    }
+  },
+  "all_seasons_show_peter_more_consistent": false,
+  "pattern_strengthens_toward_2010": false,
+  "verdict": "REJECTED-FOR-SEASON-ROBUSTNESS",
+  "interpretation": "Does NOT invalidate H-B3-1q's own pooled correlation numbers (those remain correctly computed) -- weakens confidence that the pooled pattern reflects a genuine, season-independent ecological coherence signal rather than partly an artifact of pooling multiple seasons onto one continuous expanding-window timeline before computing the statistic."
+}
