@@ -1,0 +1,72 @@
+{
+  "claim": "H-B3-1q -- H-B3-1o's own revival condition attempted directly (pH-vs-doSat trajectory alignment, stays inconclusive); the attempt's own mandatory floor check surfaced a different, cleanly-discriminating signal instead: cross-variable tau-trajectory coherence separates Peter (real transition) from Paul (no transition)",
+  "crossvar_results": {
+    "Peter": [
+      {
+        "var1": "chl",
+        "var2": "pH",
+        "rho": 0.712980216241086,
+        "p": 2.705279012930378e-26,
+        "n": 161
+      },
+      {
+        "var1": "chl",
+        "var2": "doSat",
+        "rho": 0.8178628939498506,
+        "p": 5.2885625466879834e-40,
+        "n": 161
+      },
+      {
+        "var1": "pH",
+        "var2": "doSat",
+        "rho": 0.8407234874626179,
+        "p": 3.254219070139936e-44,
+        "n": 161
+      }
+    ],
+    "Paul": [
+      {
+        "var1": "chl",
+        "var2": "pH",
+        "rho": -0.33744536461927765,
+        "p": 1.2008569293265223e-05,
+        "n": 161
+      },
+      {
+        "var1": "chl",
+        "var2": "doSat",
+        "rho": 0.37508626639061426,
+        "p": 9.466567521977365e-07,
+        "n": 161
+      },
+      {
+        "var1": "pH",
+        "var2": "doSat",
+        "rho": -0.9057050839659536,
+        "p": 3.795146656148465e-61,
+        "n": 161
+      }
+    ]
+  },
+  "peter_all_pairs_positive": true,
+  "paul_n_positive_of_3": 1,
+  "floor_check_passed": true,
+  "original_h_b3_1o_question": {
+    "unaligned_ph_vs_dosat": {
+      "rho": 0.8407234874626179,
+      "p": 3.254219070139936e-44,
+      "n": 161
+    },
+    "aligned_ph_vs_dosat": {
+      "rho": 0.6175824175824175,
+      "p": 0.018604674280708423,
+      "n": 14,
+      "shift_days": 147
+    },
+    "min_overlap_required": 30,
+    "conclusive": false,
+    "supports_genuine_delay_if_conclusive": false
+  },
+  "verdict": "CONFIRMED-CROSSVAR-COHERENCE-LEAD",
+  "sample_size_caveat": "n=1 lake-pair (Peter/Paul), 3 non-independent within-lake variable-pairs -- LEAD, not PROMOTE, regardless of pattern cleanliness"
+}
