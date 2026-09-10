@@ -90,3 +90,34 @@ pass on this experiment's core search logic)
 Direct follow-up from H-CAT37-1's retroscan (ADR-091), registered as `H-CAT37-2`, grounded
 from `H-CAT37-1` and the `pearl_registry/INDEX.md` entry (2026-09-10) that named this
 specific, well-posed open sub-question.
+
+## ADDENDUM (2026-09-10, Track 2 of the deep external novelty audit,
+`reports/2026-09-10-deep-external-novelty-audit.md`) — primary source confirms the question is genuinely open
+
+Opened `arXiv:2609.04659` (Colbrook, Stepaniants, Townsend, "A Complete Resolution of
+Forsythe's Conjecture for Restarted Conjugate Gradients") directly via `mcp__arxiv__read_paper`
+and read its own "Consequences and further questions" section verbatim:
+
+> "The counterexamples have dimension s+4. **Natural questions include the smallest
+> dimension in which nonconvergence can occur at each restart length**, and whether the
+> Hopf mechanism persists when the spectra are subject to additional structure."
+
+This is a direct, primary-source confirmation that the authors themselves treat `s+4`
+minimality as OPEN, not established — settling the audit's own earlier flagged uncertainty
+(previously `[UNKNOWN-BLOCKED]`, no tool access to verify). The internal-audit criticisms of
+THIS experiment's own search design (search space clipped at `LOG_BOUND=3.0` with the
+optimum pinned to that boundary; the objective's own Hopf-branch term never executed for the
+three final candidates — see the earlier B7/Forsythe internal-audit findings, same report)
+still stand and are not resolved by this citation — they describe a real gap between "this
+heuristic search found nothing" and "a theory-informed search found nothing," exactly as the
+Revival Condition above already states. What changes is that the underlying QUESTION this
+experiment probed is now confirmed, by the people who proved the theorem, to be a real open
+problem worth a better search, not a settled non-question.
+
+**Novelty status for this cluster, finalized:** `H-CAT37-1`'s own `NO-NOVELTY` classification
+(numeric search on a now-resolved conjecture) stands. `H-CAT37-2`'s question ("is dimension
+8 minimal for s=4?") is `POSSIBLE-NOVEL-SPECIAL-CASE` in the sense that it targets a
+confirmed-open primary-source question — but THIS experiment's own specific search (as the
+internal audit found) is not yet a decisive attempt at it, so the experiment's own result
+stays `INFORMATIVE_NEGATIVE` / not yet contributory. A theory-informed search (per the
+Revival Condition) remains the honest next step, not a literature-search dead end.

@@ -84,6 +84,36 @@ supports the tight conjecture over the weak fallback bound) -- what changes is t
 what looked like an open numerical question is actually a proven fact, and should not be
 re-presented as if the numerics alone established it.
 
+**ADDENDUM (2026-09-10, Track 2 of the deep external novelty audit,
+`reports/2026-09-10-deep-external-novelty-audit.md`) — the exact inequality above is ALREADY
+PUBLISHED, confirmed by opening the primary source directly.** The companion work cited in
+`PROB-CAT-31`'s own source (Bandeira, Blasiok, Dmitriev, Faure, Kireeva, Kunisky, "The
+Lovasz number of random circulant graphs," `arXiv:2502.16227`, Feb 2025 -- ~7 months before
+this experiment) contains, verbatim (Proof of Theorem 1):
+
+> "We begin with the lower bound E theta(G) >= sqrt(n). Since G is vertex-transitive, it
+> holds that theta(G)theta(Gbar) = n, see [18, Theorem 8]. Therefore, log n = E log
+> theta(G)theta(Gbar) = 2 E log theta(G) <= 2 log E theta(G), where we used the fact that G
+> equals in distribution to Gbar together with Jensen's inequality and linearity of the
+> expected value. Upon exponentiating we obtain E theta(G) >= sqrt(n)."
+
+This is the SAME theorem (theta(G)theta(Gbar)=n for vertex-transitive graphs + G =d Gbar at
+p=1/2), reached via Jensen's inequality on the log rather than this experiment's own AM-GM
+route -- an equivalent, independently-arrived-at proof of the identical exact inequality.
+Their full Theorem 1 states `sqrt(n) <= E theta(G) <= C*sqrt(n log log n)`, i.e. the SAME
+open gap (tight `(1+o(1))sqrt(n)` conjecture vs the weaker proven upper bound) that
+`PROB-CAT-31`/Conjecture 18 describes, confirming this experiment's own citation was accurate.
+
+**Novelty status for `E[theta]>=sqrt(n)`, finalized: `KNOWN-BY-GENERAL-THEOREM`, high
+confidence, directly verified against the primary source (not memory).** This does not
+change the CONFIRMED verdict below (the exact inequality was never claimed as this
+experiment's own contribution -- it explains why the "ratio near 1" pattern is naturally
+one-sided, per the internal-audit addendum above). The companion paper's own text does not
+discuss variance or the rate of convergence of `theta(G)/sqrt(n) - 1` at all -- so the
+audit's separately-derived `Var(log theta/sqrt(n)) ~ n^-0.96` finding (see the master audit
+report, § Top-3 novel candidates) remains unaddressed by this primary source and stays the
+live candidate in this cluster, not this exact-inequality identity.
+
 ## Verdict
 
 **CONFIRMED** — numerical evidence over the tested range (n up to 2560) is directly

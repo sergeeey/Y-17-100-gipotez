@@ -100,3 +100,25 @@ Per claim.md's own "What This Does NOT Mean" section — unchanged and reaffirme
 ## MCID
 
 Not formally applicable (`n=1`) — the qualitative bar (clean floor-check separation) is met.
+
+## ADDENDUM (2026-09-10, Track 2 of the deep external novelty audit,
+`reports/2026-09-10-deep-external-novelty-audit.md`)
+
+Checked directly against Dynamic Network Biomarker theory (Chen, Liu, Liu, Li, Aihara 2012,
+Sci Rep, PMID 22461973 -- opened via PMC3314989, open access, not a snippet), which the
+audit flagged as this cluster's single highest-value external check. DNB's three published
+criteria (simultaneous, within one system, over time): (1) intra-group correlation
+drastically increases, (2) inter-group correlation drastically decreases, (3) group members'
+standard deviation drastically increases. The paper states explicitly this is "an
+individual-based prediction" using "time-course... data" for ONE system -- not a comparison
+between a manipulated and a separate reference system.
+
+**This project's own design does not match**: no inter-group decorrelation term is computed,
+no SD-growth term is computed, and the core comparison is BETWEEN Peter (manipulated) and
+Paul (reference) lakes, not a within-lake temporal emergence of a dominant correlated group.
+**Novelty status resolved: this claim is NOT `KNOWN-SAME-RESULT-DIFFERENT-LANGUAGE` via
+DNB** -- the general theme (multivariate correlation as an early-warning mechanism) is a
+known broad category, but the specific mechanism here does not reformulate DNB's published
+criteria closely enough to call it the same result. Full detail in
+`experiments/20260910-lakes-tda-ews-ph0-chirality-directed/decision.md` ADDENDUM 2 (the
+cluster's shared Track 2 write-up). Does not change this experiment's own `LEAD` verdict.
