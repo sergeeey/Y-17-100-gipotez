@@ -222,6 +222,8 @@ nodes:
     evidence: VERIFIED-REAL       # metrics/run.json: r_mean 0.61092 (SE 0.0005–0.0009), in band (+0.0083 vs 0.602658)
     skeptic: WEAKENED             # Step 8a, asymmetric; 3 concerns → 2 accepted, 1 mitigated (decision.md)
     verdict_note: "pipeline VALIDATED; scientific replication marginal-as-expected at height <= 7.5e4: +0.0103 (z>=10) above matched empirical GUE = known finite-height correction (Forrester–Mays 2015, Nishigaki 2026). efficiency 1.038 -> CEILING_MISSPECIFIED"
+    evidence_mode: empirical      # ADR-122: real computed zeta-zero dataset, statistical comparison against GUE prediction
+    verification_strength: medium # ADR-122: FL Step 8a same-model isolated review, 3 real concerns engaged (2 accepted, 1 mitigated) -- not just rubber-stamp, but not a different model/tool either
     l0_type: descriptive
     fl_tier: full                 # намеренно Full: пилот всего стека, хотя задача — репликация
     kill_criterion: "|r_mean − 0.6027| ≥ 0.01 on Odlyzko zeros1 (first ~100k zeros) → KILLED (pipeline broken, NOT a scientific result)"
@@ -234,6 +236,8 @@ nodes:
     title: "Known-answer test #2: finite-height excess of <r> over the exact sine-kernel limit for the first 100k zeta zeros matches Nishigaki (2025) PTEP finite-N_eff CUE fit"
     status: confirmed          # decision.md 2026-09-06: PROMOTE, ratio 1.05 (cumulative) / 0.88 (window), both in pre-registered [1/3,3]
     evidence: VERIFIED-REAL    # metrics/run.json; formulas VERIFIED against primary-source PDF, not a WebSearch summary
+    evidence_mode: empirical      # ADR-122: real computed zeta-zero dataset, ratio against a published fit
+    verification_strength: weak   # ADR-122: no FL Step 8a reviewer pass recorded for this node
     l0_type: descriptive
     fl_tier: standard
     kill_criterion: "ratio_observed_to_predicted (observed relative deviation of <r> from sine-kernel limit 0.5997504209, vs Nishigaki Eq.42/Fig.6 fit 0.1896*N_eff(T)^-3.081) outside [1/3, 3] -> KILLED. RESULT: 1.054 (cumulative first 100k) and 0.884 (last-50k window) -- both well inside band"
@@ -600,6 +604,8 @@ nodes:
     title: "Direct verification of the Kreiss Matrix Theorem inequality K(A) <= sup_t||exp(tA)|| <= e*n*K(A) on this arc's own matrices (user's own Priority 3, mechanistic analysis)"
     status: lead                 # 2026-09-08 decision.md: MECHANISM_VERIFIED, 20/20 matrices (10 seeds x N_DIM in {40,50}) satisfy the proven upper bound after a self-caught bug/fix. First draft's EPS_VALUES=(0.5..3.0) with the arc-wide grid produced 1/20 apparent violations (seed=301, N=50: growth=11025.75 > ceiling=3104.06) -- investigated per Causal Debugging Protocol rather than reported as-is: this matrix family (diagonal + strictly-upper-triangular random coupling, near-nilpotent) has its true Kreiss-constant supremum in the SMALL-eps regime (eps=0.02 gave ratio=259.78 vs 22.84 at eps=0.5-3.0, an 11x jump), which the first-draft EPS_VALUES never sampled -- a sampling gap in this experiment's OWN new code, not a bug in the twice-independently-verified pseudospectral_abscissa (H-B2-1r/H-B2-1s) and not evidence against the theorem. Fixed by widening EPS_VALUES to (0.02,0.05,0.1,0.2,0.5,1.0,2.0) with a dedicated local grid centered on alpha(A). Re-run: 0/20 violations. CORRECTION (mandatory reviewer P1, verified 2026-09-08): k_estimate is a DEMONSTRATED LOWER BOUND, not converged -- ratio was still climbing steeply at eps down to 0.001 on the worst-case matrix (262.9->2208.5 across 5 octaves), no plateau found; a structural limit of grid-search (needs grid step << eps, unbounded resolution as eps->0), not fixable by more EPS_VALUES. Consequence: MECHANISM_VERIFIED is UNAFFECTED (underestimated K only tightens the check), but the reported efficiency ratios (median 3.7-6.3%, max 31%) are UPPER bounds on the true (even lower/looser) efficiency, and the N=50 "31% outlier" is very likely an artifact of uneven undershoot across matrices, not a real per-matrix difference (at eps=0.001 that same matrix's efficiency drops to ~3.7%, in line with the other 19). Status LEAD (not "confirmed"): a proven theorem cannot be confirmed by data, only have its computation verified -- the substantive, genuinely new content is the qualitative "bound holds but is loose" finding (strengthened, not weakened, by the convergence caveat), contextualizing (not undermining) H-B2-1r/1s/1t's correlational results.
     evidence: VERIFIED-REAL       # metrics/run.json (20 matrices, per-seed K_estimate/growth/ceiling/efficiency); 9 tests incl. a regression test locking in the exact bug/fix matrix (seed=301, N=50); diagnostic scripts kept at tooling-eval/diagnostics/ (initial bug scan + convergence-check follow-up); mandatory reviewer found and this session verified a real P1 (unconverged eps floor) before merge
+    evidence_mode: deductive       # ADR-122: verifying a PROVEN theorem's inequality on this arc's own matrices -- "a proven theorem cannot be confirmed by data, only have its computation verified" (own status note)
+    verification_strength: medium  # ADR-122: mandatory reviewer found and this session independently verified a real P1 (unconverged eps floor) before merge -- same-model, but genuine adversarial engagement
     l0_type: descriptive
     fl_tier: standard
     kill_criterion: "The proven upper bound raw_transient_growth(A) <= e*n*K_estimate(A) must hold for every sampled matrix (violation would indicate a real code bug, not a normal REJECT -- theorem cannot be falsified by correct data). RESULT after bug/fix: 0/20 violations -> MECHANISM_VERIFIED. Lower bound (diagnostic only, not part of kill criterion per the honest T_MAX caveat) also held for all 20. Full bug/fix history and efficiency table in decision.md."
@@ -612,6 +618,8 @@ nodes:
     title: "Independent cross-implementation check of H-B2-1u's small-eps Kreiss constant growth via pseudopy.NonnormalAuto (user's own corrected Priority: cross-check the genuinely open small-eps gap, not the already-validated eps~1 regime)"
     status: confirmed            # 2026-09-08 decision.md: CONFIRMED (nuanced, per-matrix reading -- raw JSON verdict field is a disclosed, superseded mislabel, see below). On 3 matrices spanning H-B2-1u's K-magnitude range, pseudopy.NonnormalAuto (adaptive circles around each eigenvalue, NOT a box grid or H-B2-1s's NonnormalMeshgrid) independently reproduces H-B2-1u's grid-search growth pattern: <1% agreement with H-B2-1u's own diagnostic follow-up at every eps down to 0.001 on the worst-case matrix (seed=301,N=50), and NO plateau on that matrix or a mid-K matrix (seed=304,N=50) through eps=0.0001 -- confirms the non-convergent growth is a genuine matrix property, not a grid-search artifact. The lowest-K matrix in the population (seed=307,N=40) DOES show a genuine pseudopy-confirmed plateau (K converges to ~47) -- consistent with (not contradicting) the large-K non-convergence: convergence depth scales with the matrix's own true K(A). EXTRACTION BUG found and fixed mid-pilot (Gate 3 doing its job): first-draft points/vals masking gave a systematic ~16% undershoot on a positive control (should be exactly 1.0); fixed via direct matplotlib.tricontour extraction (bypassing pseudopy's own broken .collections access), verified to ratio=0.9998-1.0000 on the same control before trusting any comparison.
     evidence: VERIFIED-REAL       # metrics/run.json (3 matrices x 7 eps values, grid-vs-pseudopy comparison + plateau check); 7 tests incl. a positive-control test that caught and locked in the extraction-bug fix; 3 new pseudopy compat shims documented (shapely rename, np.Inf removal, matplotlib .collections removal) -- all applied at call site, not by patching the installed package
+    evidence_mode: deductive       # ADR-122: cross-checking a numeric growth pattern via a genuinely independent library (pseudopy), not new empirical data about a real-world system
+    verification_strength: strong  # ADR-122: pseudopy.NonnormalAuto is a genuinely independent codebase/algorithm (adaptive circles, not grid-search) -- the flagship example of real cross-implementation this project has, per the audit
     l0_type: descriptive
     fl_tier: standard
     kill_criterion: "EITHER (a) pseudopy shows the same non-convergent growth as grid-search, agreeing within ~10-20%, confirming a genuine matrix property; OR (b) pseudopy shows a plateau grid-search did not, meaning grid-search itself needs correction. RESULT: BOTH occurred, on DIFFERENT matrices, coherently explained by convergence depth scaling with K(A) magnitude -- not a contradiction. The mechanical verdict field in metrics/run.json (GRID_SEARCH_ARTIFACT_SUSPECTED) is a disclosed labeling-logic limitation (any_plateau triggered by the SMALL-K matrix's genuine convergence, not evidence against the LARGE-K matrices' non-convergence) -- decision.md's per-matrix table is the actual result, not the raw enum."
@@ -956,6 +964,8 @@ nodes:
     title: "Revives H-B3-1o's own named revival condition (compare the expanding-tau TRAJECTORY, not raw value, between Peter pH and doSat). Attempted directly -- stays inconclusive (aligned comparison on too few overlapping points). The attempt's own mandatory floor check (per this arc's established discipline) surfaced a different, cleanly-discriminating signal instead: does cross-variable tau-trajectory correlation separate the manipulated lake (Peter) from the reference lake (Paul)?"
     status: lead                   # 2026-09-10 decision.md: CONFIRMED-CROSSVAR-COHERENCE-LEAD, explicitly LEAD not PROMOTE. Floor check passes cleanly on POOLED data: Peter 3/3 pairwise tau-trajectory correlations positive (chl-pH=+0.71, chl-doSat=+0.82, pH-doSat=+0.84); Paul only 1/3 positive, mixed signs incl. -0.91. H-B3-1o's own original delay-vs-artifact question stays genuinely UNRESOLVED. Honest small-sample caveat: n=1 lake-pair, 3 non-independent within-lake comparisons. First approach in the entire B3 arc whose floor check actually passes cleanly on POOLED data. **RETROSCAN 2026-09-10 (H-B3-1r, same session, per Anti-Overfitting Gate/immediate-retroscan principle): the pooled pattern does NOT cleanly replicate when decomposed per field season (2008/2009/2010) -- 2008 TIES Peter-vs-Paul (1/3 each) rather than favoring Peter, and Peter's own count DROPS from 3/3 (2009) to 2/3 (2010, the documented transition-completion year) instead of strengthening. Peter never falls BELOW Paul in any single season (direction never reverses), but the "genuine season-independent signal that intensifies toward transition completion" interpretation is REJECTED -- pooling-induced shared multi-season drift across variables remains a live, undistinguished alternative explanation for the pooled number. Confidence substantially downgraded; status kept `lead` (not killed -- pooled numbers remain correctly computed and the direction never reverses) but the "clean floor-check pass" framing above must be read together with H-B3-1r's own finding, not in isolation.**
     evidence: VERIFIED-REAL        # metrics/run.json (6 pairwise correlations, 2 lakes x 3 variable-pairs, plus the original H-B3-1o aligned/unaligned comparison); 9 tests incl. a regression lock on both headline numbers and a sanity check confirming the correlation helper can detect a negative case. See H-B3-1r for a same-session robustness retroscan that substantially weakens (without invalidating) this finding's own interpretation.
+    evidence_mode: empirical        # ADR-122: real field data, single manipulated/reference lake pair
+    verification_strength: medium   # ADR-122: FL Step 8a same-model isolated reviewer, TWO independent computation methods (scipy + hand rank-transform) within one review -- not a different model/tool
     l0_type: descriptive           # comparing statistical trajectories between real time series from an already-documented field manipulation -- not a new causal estimate
     fl_tier: standard
     kill_criterion: "Floor check: ALL 3 Peter pairs must be positive AND Paul must NOT show the same consistent-positive pattern. RESULT: PASSES on pooled data (Peter 3/3 positive 0.71-0.84; Paul 1/3 positive, mixed signs incl. -0.91). Sample-size caveat mandatory regardless of pattern cleanliness (n=1 lake-pair) -- LEAD, not PROMOTE. H-B3-1r's own per-season retroscan (same session) found this does NOT cleanly replicate/intensify across the 3 individual seasons -- see H-B3-1r for the full robustness result."
@@ -968,6 +978,8 @@ nodes:
     title: "Robustness check on H-B3-1q's own pooled cross-variable tau-trajectory coherence pattern: does it replicate/strengthen toward transition completion when computed SEPARATELY per field season (2008/2009/2010), instead of pooled onto one continuous season_time axis? Found while searching for external replicate data (consolidation-phase ADR-118 priority item 2) -- the dataset already used spans 4 field seasons with a year column, not yet exploited at this grain."
     status: killed                 # 2026-09-10 decision.md: REJECTED-FOR-SEASON-ROBUSTNESS. 2008 TIES Peter-vs-Paul (1/3 each) rather than favoring Peter; Peter's own count DROPS from 3/3 (2009) to 2/3 (2010, the documented transition-completion year, day 230/2010 per Carpenter et al. 2011) instead of strengthening. Direction never reverses (Peter never falls below Paul in any season), but the "genuine season-independent signal that intensifies toward completion" interpretation is REJECTED. Kill Analysis: does NOT invalidate H-B3-1q's own pooled correlation numbers (remain correctly computed) -- kills the specific interpretation that the pooled pattern reflects genuine transition-tracking rather than partly a pooling artifact (concatenating seasons onto one expanding-window timeline can create shared multi-season drift across variables independent of within-season coupling).
     evidence: VERIFIED-REAL        # metrics/run.json (3 seasons x 2 lakes x 3 variable-pairs = 18 correlations); 8 tests incl. regression locks on the 2009/2010 headline numbers; FL Step 8a reviewer independently reconstructed both load-bearing numbers (2009 pH-doSat, 2010 chl-pH incl. its sign) from fully independent code, exact match
+    evidence_mode: empirical        # ADR-122: real field data, same lake pair as H-B3-1q at a finer (per-season) grain
+    verification_strength: medium   # ADR-122: FL Step 8a same-model isolated reviewer, fully independent code (not calling this experiment's own functions), exact match incl. sign -- not a different model/tool
     l0_type: descriptive
     fl_tier: standard
     kill_criterion: "Pattern must replicate in ALL 3 seasons (Peter strictly more consistent than Paul) AND strengthen toward 2010. RESULT: FAILS both -- 2008 ties, 2010 (2/3) is weaker than 2009 (3/3). REJECTED-FOR-SEASON-ROBUSTNESS."
@@ -1737,6 +1749,8 @@ nodes:
     title: "For H-B7-22's own async reachability graph restricted to any one release-state's reachable component -- a finite absorbing Markov chain under H-B7-23's own uniform-random-among-unstable-nodes transition model -- does the exact absorption probability into PROLIFERATION (solved via (I-Q)q=b, Kemeny & Snell 1960) fall inside H-B7-23's own committed 95% Monte Carlo CI for all 10 tested (branch,k) conditions -- user-redirected after a cross-domain/sci-hypothesis report's own R^2=0.89 headline result was found to rest on only 3 distinct barrier levels with correlated branches, and after a literature check found async-BN-as-Markov-chain already established (reducing the informal Kramers framing's own novelty)."
     status: confirmed              # 2026-09-10 decision.md: CONFIRMED. Oracle gate 10/10 passed -- every exact probability (branch_1/branch_2, k=1..5) falls inside H-B7-23's own 95% Monte Carlo CI; k=5 positive control gives exactly 1.0 both branches. Exact values: k=1 0.068866, k=2 0.137731, k=3 0.185185, k=4 0.333333, k=5 1.0 (IDENTICAL on both branches despite genuinely distinct release states -- flagged as an unexplained observation in decision.md, not investigated further here). Replaces H-B7-23's own Monte Carlo point estimates with exact numbers at negligible compute cost (0.03s linear solve vs 3000 simulated trajectories), plus expected steps to absorption as a free byproduct of the same linear system.
     evidence: VERIFIED-REAL        # metrics/run.json (10 conditions, exact linear-algebra solve, oracle-gate comparison against H-B7-23's own committed CIs); 7 tests incl. a regression lock on the pre-verified branch_1/k=1 value, k=5-gives-exactly-1.0 both branches, oracle-gate-pass verification, a synthetic 3-state sanity check on the transition-matrix construction, and a regression lock on branch_1 != branch_2 release states; FL Step 8a independent reviewer reconstructed branch_1/k=2 from scratch
+    evidence_mode: exhaustive       # ADR-122: exact linear-algebra solve on a fully-specified finite absorbing Markov chain, no sampling
+    verification_strength: medium   # ADR-122: FL Step 8a same-model isolated review, independently reconstructed from scratch -- not a different model/tool
     l0_type: descriptive           # exact computation on a fully specified finite deterministic-transition-structure system -- not causal, not a statistical estimate
     fl_tier: full
     kill_criterion: "Oracle gate (mandatory, checked first): for ALL 10 conditions, the exact probability must fall inside H-B7-23's own reported 95% CI -- if not, STOP and diagnose (Monte Carlo semantics mismatch / wrong transition matrix / misclassified absorbing state). k=5 positive control: exact probability must equal exactly 1.0 both branches. RESULT: CONFIRMED -- 10/10 oracle-gate passes, k=5 exact 1.0 both branches. Does NOT itself resolve the large-deviation/Kramers question (deliberately deferred, per the user's own explicit priority order) -- only replaces Monte Carlo estimates with exact numbers and computes expected absorption time."
@@ -1749,6 +1763,8 @@ nodes:
     title: "Mechanistic explanation of H-B7-26's own unplanned observation (branch_1/branch_2 give numerically identical exact escape probabilities at every k): is phi=flip(EGFR_stimulus) a genuine graph automorphism-inducing bijection between the two branches' reachable graphs, caused by a zero-exception FGFR3=True/GRB2=False invariant across the entire reachable region -- user-proposed structural question after noticing every summary statistic (not just escape probability) matched exactly between branches in H-B7-26's own committed data."
     status: confirmed              # 2026-09-10 decision.md: CONFIRMED, 5/5 k values. Mechanism found and verified exhaustively (Compute-First Check, then full run): GROWTH_ARREST_STATE_1/_2 differ at exactly one node (EGFR_stimulus); EGFR's own rule only reads EGFR_stimulus when !GRB2&!FGFR3 holds; FGFR3=True/GRB2=False/EGFR=False hold with 0 exceptions across ~4422 reachable states (both branches, k=1..5); phi=flip(EGFR_stimulus) is therefore a graph automorphism by construction, not coincidence -- branch_2's reachable graph IS branch_1's own graph at an inert coordinate offset.
     evidence: VERIFIED-REAL        # metrics/run.json (5 k-values, node-set bijection + bidirectional edge-preservation checks + zero-exception invariant checks + corollary re-derivation matching H-B7-26's own committed values to 1e-9); 9 tests incl. 2 sanity checks confirming the isomorphism/invariant checkers can actually detect a violation (not vacuous)
+    evidence_mode: exhaustive       # ADR-122: exhaustive check across ~4422 reachable states, both branches, all k -- no sampling
+    verification_strength: medium   # ADR-122: FL Step 8a same-model isolated review with independently-written code (per decision.md, first attempt BLOCKED-INFRASTRUCTURE, retry CONFIRMED-REAL) -- not a different model/tool
     l0_type: descriptive           # exact graph-isomorphism/invariant question on a fully specified deterministic system -- not causal
     fl_tier: full
     kill_criterion: "Isomorphism (phi maps node-set + edges both directions) must hold for ALL 5 k values; mechanism (zero-exception FGFR3=True/GRB2=False invariant) must hold across every reachable state, both branches, all k; corollary re-derivation of exact escape probability on independently-built graphs must match H-B7-26's own committed values to 1e-9. RESULT: CONFIRMED, 5/5 on all three checks."
@@ -1761,6 +1777,8 @@ nodes:
     title: "Does H-B7-27's own FGFR3=True/GRB2=False/EGFR=False invariant and phi=flip(EGFR_stimulus) branch isomorphism, confirmed for H-B7-26's own 10 conditions (k=1..5), extend to H-B7-22's own FULL originally-tested domain (k=1..40, both branches, 80 conditions)? Direct continuation under the user's own 'hold the mechanism' mission, testing H-B7-27's own explicitly-flagged open boundary."
     status: confirmed              # 2026-09-10 decision.md: CONFIRMED, 80/80 conditions, 0 blocked. Invariant holds with 0 exceptions across 4516 total reachable states (both branches, k=1..40); isomorphism confirmed at all 40 k values; corollary escape-probability re-derivation matches at every k, and matches H-B7-27's own committed k=1..5 values exactly (regression). branch_2's reachable graph is branch_1's own graph at an inert EGFR_stimulus coordinate offset across the ENTIRE domain H-B7-22 originally tested, not just a narrow window.
     evidence: VERIFIED-REAL        # metrics/run.json (80 conditions, 4516 states scanned, 0 violations, 0 STATE_CAP hits); 7 tests incl. a regression lock reproducing H-B7-27's own k=1..5 committed values exactly, and a sanity check that k>=5 (SCHEDULE_ROBUST per H-B7-22) gives exact probability 1.0
+    evidence_mode: exhaustive       # ADR-122: exhaustive check across 4516 reachable states, both branches, k=1..40 -- no sampling
+    verification_strength: medium   # ADR-122: FL Step 8a same-model isolated reviewer sample (k=1/20/40 both branches) -- not a different model/tool
     l0_type: descriptive           # exact boolean-invariant/graph-isomorphism question extended to a larger domain -- not causal
     fl_tier: full
     kill_criterion: "Invariant (0 exceptions) must hold across ALL 80 conditions; isomorphism (node-set bijection + bidirectional edge preservation) must hold at all 40 k values; no condition may hit STATE_CAP. RESULT: CONFIRMED, 80/80 on all checks, 0 STATE_CAP hits."
@@ -1773,6 +1791,8 @@ nodes:
     title: "Contrast/control test (Mechanism Development Mode question 5, structural asymmetry) for H-B7-27/28's own EGFR_stimulus-inertness finding: is FGFR3_stimulus -- the OTHER frozen self-loop exogenous stimulus node in this model -- ALSO causally inert, or is it load-bearing (predicted: load-bearing, since FGFR3's own rule reads it unconditionally, unlike EGFR's conditional read of EGFR_stimulus)?"
     status: confirmed              # 2026-09-10 decision.md: CONFIRMED, 10/10 conditions. Flipping FGFR3_stimulus is NOT structure-preserving anywhere tested -- hits STATE_CAP=30000 on EVERY condition (1-2 orders of magnitude graph-size explosion vs the original, including k=5 where the original graph has only 2 states yet the flipped graph exceeds 31000). Strengthens confidence H-B7-27/28's own EGFR_stimulus finding is mechanism-specific (algebraically explained), not a generic "any frozen coordinate flip is safe" artifact.
     evidence: VERIFIED-REAL        # metrics/run.json (10 conditions, cap-independent size-based non-bijection check for every condition, honest BLOCKED-INFRASTRUCTURE handling per FL Step 2a -- no exact counts fabricated for capped conditions); 8 tests incl. a direct cross-experiment contrast test against H-B7-27's own committed data (same k/branch: EGFR_stimulus flip IS isomorphic, FGFR3_stimulus flip is NOT)
+    evidence_mode: exhaustive       # ADR-122: exact structural check on every condition (size-based, cap-independent) -- no sampling
+    verification_strength: medium   # ADR-122: FL Step 8a same-model isolated reviewer, branch_1/k=5 -- not a different model/tool
     l0_type: descriptive           # exact graph-structural contrast question -- not causal
     fl_tier: full
     kill_criterion: "phi'=flip(FGFR3_stimulus) must fail node-set bijection for ALL 10 conditions (predicted asymmetry); STATE_CAP explicitly not a pass/fail criterion, handled as BLOCKED-INFRASTRUCTURE for exact counts only, evaluated independently from the cap-independent size-differs check. RESULT: CONFIRMED, 10/10, dramatic (1-2 orders of magnitude) graph-size explosion on every condition."
@@ -1785,6 +1805,8 @@ nodes:
     title: "Directly executes the user's own explicit priority item 4 from the original H-B7-26 redirect (re-assess the large-deviation/Kramers claim), deferred through H-B7-27/28/29 while the branch-isomorphism mechanism was held: does replacing Monte Carlo escape-probability estimates with EXACT probabilities (H-B7-26/28's own committed values) change the strength of the log(P_escape)~PNR_step fit relative to the original informal report's own r^2=0.8913?"
     status: confirmed              # 2026-09-10 decision.md: CONFIRMED for Hypothesis B (geometry problem persists, exactness does not rescue it). Exact-number fit gives r^2=0.8929 (Delta=+0.0016 vs the original Monte-Carlo-based r^2=0.8913 -- essentially unchanged), still n=4 points with only 3 distinct PNR-step values. Two alternative candidate x-axes (n_transient, expected_steps_to_absorption) both fit WORSE, not better. 36 of H-B7-22's own 40 originally-tested k values give exact_escape_probability=1.0 identically (SCHEDULE_ROBUST), carrying zero log-probability information regardless of measurement precision. The user's own original verdict ("LEAD, не PROMOTE") is confirmed on firmer footing, not overturned.
     evidence: VERIFIED-REAL        # metrics/run.json (regression on already-committed exact H-B7-24/26/28 data, no new simulation); 9 tests incl. regression locks on the committed PNR-step and exact-probability values, and 2 sanity checks confirming the linreg helper can report both a near-perfect AND a weak fit (not vacuously always high)
+    evidence_mode: deductive        # ADR-122: re-fitting a curve on already-exact, already-exhaustive data -- no new sampling, a computation on known values
+    verification_strength: medium   # ADR-122: FL Step 8a same-model isolated reviewer, independent hand regression (no numpy), bit-for-bit match -- not a different model/tool
     l0_type: descriptive           # re-fitting a log-linear relationship on exact values -- not causal, not a new statistical estimate from sampling
     fl_tier: full
     kill_criterion: "Hypothesis A (exactness materially helps) CONFIRMED if r^2>0.95 OR distinct_x>=8; Hypothesis B (geometry problem persists) CONFIRMED if |delta_r^2|<0.05 AND distinct_x<=4 AND n_nontrivial<=4. RESULT: Hypothesis B confirmed -- r^2=0.8929 (delta=+0.0016), distinct_x=3, n_nontrivial=4."
@@ -1797,6 +1819,8 @@ nodes:
     title: "Formalizes and corrects an earlier informal, never-registered sci-hypothesis-skill finding ('H9-B: n_states_visited is a cheap discriminator of SCHEDULE_FRAGILE vs SCHEDULE_ROBUST') that was circular on inspection -- computing n_states_visited already requires the same exhaustive BFS the classification itself needs. Tests the genuinely cheaper alternative: does early-exit BFS (stop once both fates are confirmed reachable) give a real, substantial saving for FRAGILE conditions, with zero false positives on ROBUST? Closes item 5 (lowest priority) of the original H-B7-26 priority list."
     status: confirmed              # 2026-09-10 decision.md: CONFIRMED, 10/10. 8/8 FRAGILE conditions show 84.2%-90.0% state-visitation savings (well above the pre-registered 50% bar), 2/2 ROBUST conditions correctly show zero false positives (only PROLIFERATION ever found). Honest structural asymmetry: the saving applies ONLY to confirming FRAGILE -- ROBUST classification cannot be sped up this way, since ruling out the other fate requires exhausting the entire reachable set by definition.
     evidence: VERIFIED-REAL        # metrics/run.json (10 conditions, exact state-visitation counts at early-exit vs exhaustive completion); 7 tests incl. a regression lock against H-B7-26's own committed n_states_in_graph values, a cross-branch identity check per H-B7-27/28's isomorphism, and a sanity check confirming the BFS tracker can report a single-fate case (not vacuously always finding both)
+    evidence_mode: exhaustive       # ADR-122: exact state-visitation counts, early-exit vs exhaustive, no sampling
+    verification_strength: medium   # ADR-122: FL Step 8a same-model isolated reviewer, deliberately varied branch-check order (independence technique, not just independent code) -- not a different model/tool
     l0_type: descriptive           # exact computational-cost comparison on a fully specified deterministic system -- not causal
     fl_tier: full
     kill_criterion: "Savings must exceed 50% for ALL 8 FRAGILE conditions; zero false positives on the 2 ROBUST conditions. RESULT: CONFIRMED -- actual savings 84.2%-90.0%, 0 false positives."
@@ -1860,6 +1884,8 @@ nodes:
     title: "Restarted s-step optimal-gradient iteration on SPD matrices (n<=12, s<=11, random/clustered/geometric spectra) shows no counterexample to the Forsythe conjecture, and independently, no plateau on s=2 (numerical check on 3 fresh Aug-2026 claimed proofs)"
     status: confirmed                # RETROSCANNED 2026-09-10 (see ADR-091): general conjecture now PROVEN FALSE for every s>=4 by Colbrook/Stepaniants/Townsend, arXiv:2609.04659 (4 Sep 2026) -- Lean-formalized, sharp classification: TRUE for s in {1,2,3}, FALSE for every s>=4 (explicit diagonal SPD counterexample at dimension s+4). This does NOT invalidate this experiment's own 0/171 finding -- random/adversarial sampling at n<=12 was never capable of finding the delicate near-Hopf-bifurcation construction their proof requires (their own certificate uses rational arithmetic with numerators/denominators up to ~2^500000, not floating point). Status kept `confirmed` for what was actually tested (random/adversarial search finds no counterexample at these n,s) -- NOT to be read as supporting the general conjecture, which is now known false. See decision.md addendum.
     evidence: VERIFIED-REAL
+    evidence_mode: simulation        # ADR-122: random/adversarial sampling over (A,s) pairs, not exhaustive, not a real-world dataset
+    verification_strength: none      # ADR-122: no FL Step 8a reviewer pass recorded for this node
     l0_type: descriptive
     kill_criterion: "CONFIRMED if every tested (A,s) pair's residual-gap d_k=max(||y_2k+2-y_2k||,||y_2k+3-y_2k+1||) either hits exact-solve or shows a confirmed negative log-linear decay slope within an extended restart budget; REJECTED (real counterexample) if any pair shows d_k plateaued or growing at non-trivial magnitude even after extended restarts. RESULT: 0/171 tested (n,mode,s,seed) combinations show a genuine plateau/growth -- 2 real implementation bugs (hard-threshold classification artifact; raw power-basis Krylov numerically singular at cond(V)~1e19 for ill-conditioned A) were caught via the Mechanism Claim Gate and fixed before any claim was made -- CONFIRMED (for the tested sample only; general conjecture separately proven FALSE for s>=4 by external work, see status note)."
     fl_tier: standard
@@ -1882,6 +1908,8 @@ nodes:
     title: "Random dense circulant graphs (n=10..2560, p=0.5): theta(G)/sqrt(n) stays close to 1 across ~3 orders of magnitude in n, consistent with the tight Conjecture 18 rather than only the weaker published O(sqrt(n log log n)) upper bound"
     status: confirmed                # see decision.md -- log-log slope of ratio vs n = -0.035 (flat/mildly negative), ratio in [0.97,1.02] for n>=40
     evidence: VERIFIED-REAL
+    evidence_mode: simulation        # ADR-122: random dense circulant graphs, sampled across n -- not exhaustive, not a real-world dataset
+    verification_strength: none      # ADR-122: no FL Step 8a reviewer pass recorded for this node
     l0_type: descriptive
     kill_criterion: "CONFIRMED if theta(G)/sqrt(n) shows no systematic growth trend across n in [10,2560] (flat or converging); a systematic positive log-log-slope trend matching only the weaker O(sqrt(log log n)) bound would be INCONCLUSIVE (not REJECTED -- neither outcome disproves anything, both are informative). RESULT: measured log-log slope -0.035, ratio 0.97-1.02 for n>=40 -- CONFIRMED, consistent with the tight conjecture over the tested range. Two real bugs caught via Mechanism Claim Gate BEFORE trusting this number: (1) a memory-recalled eigenvalue formula for theta(G) on vertex-transitive graphs was independently confirmed WRONG for dense circulant graphs (verified via a C_9-isomorphic-complement cross-check + the theta(G)*theta(Gbar)=n identity), discarded in favor of the paper's own directly-sourced LP; (2) the LP's O(n^2) DFT-matrix construction was rewritten from a Python double-loop to a vectorized numpy outer product after an initial run exceeded 3 minutes with no output."
     fl_tier: standard
@@ -1923,6 +1951,66 @@ nodes:
     fl_tier: standard
     experiment_dir: "experiments/20260910-chernoff-neuralode-transferable-dimensionless-predictor"
     source: "experiments/20260910-chernoff-neuralode-transferable-dimensionless-predictor/decision.md"
+    updated: 2026-09-10
+
+  # ───────────────────────── substrates (ADR-122, 2026-09-10) ─────────────────────────
+  # Не новые узлы-гипотезы -- независимые аудит нашёл, что 153 узла-гипотезы концентрируются
+  # на ~4-6 РЕАЛЬНО независимых объектах мира. Эти substrate-узлы делают это видимым через
+  # рёбра `tested_on`, вместо того чтобы node-count маскировал широту. Ретроактивный backfill
+  # НЕ полный -- см. ADR-122: помечены только flagship-узлы, явно названные аудитом.
+
+  - id: SUB-ODLYZKO-ZETA-ZEROS
+    type: substrate
+    title: "Odlyzko's computed Riemann zeta zeros (first ~100k, height <= 7.5e4) -- real computed mathematical dataset, not synthetic"
+    category: dataset
+    status: active                # only lightly used (2 confirmed hypotheses); further use blocked by H-B1-1b's external Option A dependency, not by exhaustion
+    evidence: VERIFIED-REAL
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Phase 1a"
+    updated: 2026-09-10
+
+  - id: SUB-CHERNOFF-KREISS-MATRICES
+    type: substrate
+    title: "Chernoff/Kreiss Matrix Theorem + synthetic random matrix family (diagonal + strictly-upper-triangular random coupling, near-nilpotent) used across the entire B2 arc"
+    category: theorem_family
+    status: exhausted             # ADR-118/121: "cheap internal hypothesis pool ~exhausted" names this arc explicitly
+    evidence: VERIFIED-REAL
+    source: "02-related-projects-context/ (ChernoffPy)"
+    updated: 2026-09-10
+
+  - id: SUB-REMY2015-BOOLEAN-MODEL
+    type: substrate
+    title: "Remy et al. 2015 Boolean tumorigenesis network model (RBL2/p21CIP/CyclinE1/CyclinA/FGFR3/EGFR etc., 35 nodes, 2 bistable branches) -- the ENTIRE B7 arc (H-B7-1..31, ~20+ confirmed) runs on this one model"
+    category: model
+    status: exhausted              # ADR-119 (B7 external novelty audit): established techniques applied to this one model, not new theory
+    evidence: VERIFIED-REAL
+    source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Bridge 7; Remy et al. 2015"
+    updated: 2026-09-10
+
+  - id: SUB-PETER-PAUL-LAKES-2008-2011
+    type: substrate
+    title: "Carpenter et al. 2011 Peter/Paul Lake whole-ecosystem bass-manipulation field experiment, 2008-2011 (squealSondesMet_08to11_forOPUS.csv) -- the ENTIRE B3 arc (H-B3-1..1r, 0 confirmed / many killed) runs on this one lake-pair, n=1"
+    category: dataset
+    status: exhausted              # ADR-121: B3-1q external-data search did not find a genuinely new dataset; per-season grain of the SAME file was the only cheap remaining test, and it REJECTED the surviving lead (H-B3-1r)
+    evidence: VERIFIED-REAL
+    source: "experiments/20260906-may1972-tda-ews-peterlake/data/; Carpenter et al. 2011, Science"
+    updated: 2026-09-10
+
+  - id: SUB-RANDOM-CIRCULANT-GRAPHS
+    type: substrate
+    title: "Random dense circulant graphs (n=10..2560, p=0.5), theta(G) via LP -- PROB-CAT-31 (Bandeira et al. 2026 Conjecture 18)"
+    category: open_problem
+    status: active
+    evidence: VERIFIED-REAL
+    source: "arXiv:2603.29571, Entry 9, Conjecture 18"
+    updated: 2026-09-10
+
+  - id: SUB-RESTARTED-KRYLOV-SPD-MATRICES
+    type: substrate
+    title: "Restarted s-step optimal-gradient iteration on SPD matrices (random/clustered/geometric spectra) -- PROB-CAT-37 (Forsythe conjecture, Problem 2.20 of arXiv:2602.05394)"
+    category: open_problem
+    status: active
+    evidence: VERIFIED-REAL
+    source: "arXiv:2602.05394, Problem 2.20; arXiv:2609.04659 (external resolution)"
     updated: 2026-09-10
 
 edges:
@@ -2157,3 +2245,24 @@ edges:
   - {from: PROB-CAT-37, to: H-CAT37-2, type: grounds, since: 2026-09-10, note: "the s+4 dimension / s+1..2s support-size facts of arXiv:2609.04659's Theorem 1.1 motivate the minimal-dimension question"}
   - {from: H-CAT37-1, to: H-CAT37-2, type: grounds, since: 2026-09-10, note: "H-CAT37-1's own retroscan (ADR-091) and its pearl_registry entry named this exact follow-up question"}
   - {from: H-B2-2, to: H-B2-3, type: grounds, since: 2026-09-10, note: "user's 2026-09-09 direction-scoping report (route 4) asked whether H-B2-2's K_ref predictor transfers across observation windows T and matrix families, not just fits in-sample"}
+
+  # ───────────────────────── substrate tagging (ADR-122, 2026-09-10) ─────────────────────────
+  # Partial, flagship-node backfill -- see ADR-122. NOT exhaustive: most of the 153 nodes are
+  # not yet tagged (see substrate-diversity report in `lab_check.py` output for the exact count).
+  - {from: H-B1-1a, to: SUB-ODLYZKO-ZETA-ZEROS, type: tested_on, since: 2026-09-10}
+  - {from: H-B1-1c, to: SUB-ODLYZKO-ZETA-ZEROS, type: tested_on, since: 2026-09-10}
+  - {from: H-B2-1u, to: SUB-CHERNOFF-KREISS-MATRICES, type: tested_on, since: 2026-09-10}
+  - {from: H-B2-1v, to: SUB-CHERNOFF-KREISS-MATRICES, type: tested_on, since: 2026-09-10}
+  - {from: H-B2-3, to: SUB-CHERNOFF-KREISS-MATRICES, type: tested_on, since: 2026-09-10}
+  - {from: H-B7-26, to: SUB-REMY2015-BOOLEAN-MODEL, type: tested_on, since: 2026-09-10}
+  - {from: H-B7-27, to: SUB-REMY2015-BOOLEAN-MODEL, type: tested_on, since: 2026-09-10}
+  - {from: H-B7-28, to: SUB-REMY2015-BOOLEAN-MODEL, type: tested_on, since: 2026-09-10}
+  - {from: H-B7-29, to: SUB-REMY2015-BOOLEAN-MODEL, type: tested_on, since: 2026-09-10}
+  - {from: H-B7-30, to: SUB-REMY2015-BOOLEAN-MODEL, type: tested_on, since: 2026-09-10}
+  - {from: H-B7-31, to: SUB-REMY2015-BOOLEAN-MODEL, type: tested_on, since: 2026-09-10}
+  - {from: H-B3-1q, to: SUB-PETER-PAUL-LAKES-2008-2011, type: tested_on, since: 2026-09-10}
+  - {from: H-B3-1r, to: SUB-PETER-PAUL-LAKES-2008-2011, type: tested_on, since: 2026-09-10}
+  - {from: H-CAT31-1, to: SUB-RANDOM-CIRCULANT-GRAPHS, type: tested_on, since: 2026-09-10}
+  - {from: H-CAT31-2, to: SUB-RANDOM-CIRCULANT-GRAPHS, type: tested_on, since: 2026-09-10}
+  - {from: H-CAT37-1, to: SUB-RESTARTED-KRYLOV-SPD-MATRICES, type: tested_on, since: 2026-09-10}
+  - {from: H-CAT37-2, to: SUB-RESTARTED-KRYLOV-SPD-MATRICES, type: tested_on, since: 2026-09-10}
