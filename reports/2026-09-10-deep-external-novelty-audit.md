@@ -151,26 +151,94 @@ number of genuinely new quantitative facts hiding inside data the project alread
 deductive reanalysis, not by running new experiments or waiting for a new substrate. That is arguably a
 5th, cheaper resume condition worth adding explicitly.
 
-## 6. Recommended next steps (not yet executed — pending user decision)
+## 6. Track 1 — local decisive checks (executed 2026-09-10, no external tools needed)
 
-**Track 1 — local decisive checks (no external tools needed, can run now):**
-- Recompute Lovász slope on n≥40 only; state E[θ]≥√n explicitly in both CAT31 decision.md files.
-- One-line check: is K_ref(C) identical across T in H-B2-3's saved run.json?
-- Fix "1-2 orders of magnitude" claim in H-B7-29's decision.md/graph.yaml (actual: ≥4 orders at k=5).
-- Verify both H-B7-31 "ROBUST" test conditions are 2-state graphs (near-vacuous floor check).
-- Re-solve H-B7-26's absorption probabilities in `fractions.Fraction` — is P(k=2)=2·P(k=1) exact?
-- Correlate H-B3-2's chirality_excess trace against its own rolling-slope trace.
-- Run pystablemotifs/PyBoolNet `percolate` on one Remy-model release-state (resolves 3-4 B7 claims at once).
+All 7 items executed directly in the main session (not delegated, given § 0's tool-inheritance
+failure). Full detail in each experiment's own decision.md ADDENDUM; summary:
 
-**Track 2 — external literature verification (needs an agent type with confirmed WebFetch/arXiv access,
-e.g. `general-purpose` or `verifier` — NOT `analyst` as configured in this environment):**
-- arXiv:2609.04659 (Forsythe resolution) — Theorem 1.1 exact statement, counterexample-set measure,
-  "minimal dimension" open-question status.
-- Bandeira et al. companion work (cited inside arXiv:2603.29571) — lower-bound proof technique.
-- Chen/Liu/Aihara/Chen 2012 (PMID 22461973, DNB) — criterion 1 vs H-B3-1q's core claim.
-- Baryshnikov 2022 (chirality) — Definition 2.5/2.6 exact match to implementation; §4's prediction.
-- Trefethen & Embree "Spectra and Pseudospectra" Ch. 16 — verify the citation in H-B2-1u/decision.md
-  (currently unquoted, possibly `[MEMORY]` passed off as `[DOCS]`).
-- Kreiss-constant certified-accuracy numerical algorithms (criss-cross/level-set methods).
+- **Lovász slope recomputed on n≥40 only: -0.0002 (≈flat), not -0.035.** The E[θ]≥√n exact
+  inequality (Lovász 1979 + AM-GM) verified algebraically and numerically (5/9 sample means below
+  1.0 are noise: SE at n=2560 is 0.0143, observed 0.975 is only 1.74σ below 1.0).
+- **K_ref(C) is proven exactly homogeneous of degree 0** (algebraic proof from the Kreiss-constant
+  definition). Numerically confirmed the implementation's FIXED `[X_FLOOR=1e-4, X_HI=60]` search
+  range breaks this invariance at extreme scale (verified on a synthetic matrix: exact match for
+  c∈[1e-4,10], ~40% error at c=1000) — a second, independent mechanism behind the "asymmetric
+  transfer degradation" finding, alongside the already-known constant-predictor-vs-varying-target
+  arithmetic.
+- **H-B7-29's "1-2 orders of magnitude" corrected to exact 1.6–4.2** (verified against
+  `metrics/run.json`: ratios 41.4x–15628x across the 10 conditions).
+- **H-B7-31's ROBUST floor check confirmed near-vacuous**: both tested ROBUST conditions
+  (branch_1/2, k=5) are exactly 2-state graphs — verified directly against `metrics/run.json`.
+- **H-B7-26: found and Pearl-registered an exact rational relation**, `P(k=2)=2·P(k=1)` —
+  `119/864 = 2×119/1728` exactly (`fractions.Fraction`, matched to full float64 precision across
+  two independently-solved linear systems of different sizes). Mechanism unexplained, flagged.
+- **H-B3-2: tested and REFUTED** the hypothesis that `chirality_excess` simply re-tests baseline #1
+  (`trend_slope`) — correlation moderate (|r|=0.40–0.57) and sign-inconsistent across lakes, not
+  the strong uniform correlation a disguised-baseline statistic would show.
+- **H-B7-27: branch automorphism independently confirmed via `pyboolnet`'s trap-space solver**
+  (genuinely independent tool, ASP-based, no dependency on this project's own BFS) — flipping
+  `EGFR_stimulus` in the release-state gives an identical minimal trap space on all 21 other
+  dimensions. `verification_strength` upgraded `medium`→`strong`.
 
-Total cost so far: 6 agents, ~1.17M combined subagent tokens, ~45 minutes wall-clock (parallel).
+## 7. Track 2 — external literature verification (executed 2026-09-10, WebFetch/arXiv/Semantic
+Scholar loaded directly into the main session via `ToolSearch`, not delegated to a subagent again)
+
+4 of 6 planned checks completed, all against primary sources opened directly (not snippets):
+
+- **arXiv:2609.04659 (Forsythe resolution) — CONFIRMED via direct quote.** The paper's own
+  "Consequences and further questions" section states verbatim: *"Natural questions include the
+  smallest dimension in which nonconvergence can occur at each restart length."* The `s+4=8`
+  minimality question H-CAT37-2 probed is confirmed OPEN by the theorem's own authors — resolves
+  the earlier `[UNKNOWN-BLOCKED]` status. Theorem 1.1's exact statement also confirmed: every
+  nonterminating orbit's limit "has support between s+1 and 2s nodes," matching the project's own
+  citation exactly.
+- **Bandeira et al. companion work — FOUND and CONFIRMED: `arXiv:2502.16227`, "The Lovász number
+  of random circulant graphs" (Feb 2025, ~7 months before this project's work).** Its Theorem 1,
+  verbatim: `√n ≤ E θ(G) ≤ C√(n log log n)`. The lower-bound proof, verbatim: the SAME argument
+  this project's own audit independently derived (`θ(G)θ(Ḡ)=n` for vertex-transitive graphs + `G
+  =d Ḡ` at p=1/2), reached via Jensen's inequality on the log rather than AM-GM — an equivalent
+  route to the identical exact result. **`E[θ]≥√n` is definitively `KNOWN-BY-GENERAL-THEOREM`,
+  already published.** The companion paper does NOT discuss variance/concentration of
+  `θ(G)/√n - 1` at all, so the audit's own `Var(log θ/√n) ∝ n^-0.96` finding (§ 2, still the
+  strongest single novel candidate in this whole audit) remains unaddressed by this primary source.
+- **Chen/Liu/Liu/Li/Aihara 2012 (DNB, PMID 22461973) — OPENED (PMC3314989, open access) and
+  CHECKED: structural mismatch found.** DNB's 3 published criteria (intra-group correlation up,
+  inter-group correlation down, group SD up) are tracked WITHIN ONE SYSTEM over time ("an
+  individual-based prediction," the paper's own words) — NOT a comparison between a manipulated
+  and a reference system. H-B3-1q's actual design (static/per-season sign-count comparison BETWEEN
+  Peter and Paul lakes) does not track any of DNB's three specific conditions. **Resolved: NOT
+  `KNOWN-SAME-RESULT-DIFFERENT-LANGUAGE` via DNB** — the earlier `INCONCLUSIVE-LITERATURE-COLLISION`
+  flag for this specific candidate is closed (a closer match may still exist elsewhere, unsearched).
+- **Baryshnikov 2022 (chirality, `arXiv:1909.09846`) — OPENED directly.** Definition 2.6 confirmed
+  to match the project's own implementation exactly (project's `L`/`N` = paper's `N`/`N̄`, same
+  `s<t`/`s>t` split, correctly renamed not incorrectly redefined). Remark 2.7, verbatim: positive
+  drift should produce more `N`-bars (paper's notation) than `N̄`-bars — translating to this
+  project's labels, `chirality_excess` should DECREASE (correlate NEGATIVELY) with positive trend.
+  Checked against Track 1's own correlation measurements: **2 of 3 lakes match this prediction in
+  sign** (lower_zurich, windermere both negative) **but loch_leven does not** (positive) — a
+  partial match consistent with real ecological data (seasonal, non-stationary) not behaving like
+  the paper's idealized constant-drift Brownian motion, and further supporting (not contradicting)
+  Track 1's finding that chirality is not simply trend-slope renamed.
+
+**Not completed** (diminishing returns given session scope — flagged for a future session if
+pursued): Trefethen & Embree "Spectra and Pseudospectra" Ch. 16 citation verification (currently
+unquoted in H-B2-1u/decision.md, possibly `[MEMORY]` passed off as `[DOCS]`); a literature search
+for certified-accuracy Kreiss-constant numerical algorithms (criss-cross/level-set methods) that
+might make the arc's own non-converging grid-search moot.
+
+## 8. Updated final verdict (supersedes § 5 for the checked clusters)
+
+The Lovász and Forsythe clusters' remaining open items are now resolved by primary sources rather
+than `[UNKNOWN-BLOCKED]`: `E[θ]≥√n` is confirmed published (not novel); the Forsythe "minimal
+dimension" question is confirmed genuinely open (not settled) but this project's own search of it
+remains methodologically inconclusive, not decisive. Neither changes § 5's overall verdict — the
+project has zero confirmed new external contributions among currently registered results — but
+both now rest on primary-source verification instead of an infrastructure gap. **The single
+strongest surviving novelty candidate across both audit tracks remains `Var(log θ/√n) ∝ n^-0.96`**
+(§ 2) — found by re-analyzing already-collected data, unaddressed by the one primary source that
+studies the exact same quantity, and cheap to strengthen (a wider-range re-run, not a new
+experiment design).
+
+Total cost: 6 agents (~1.17M combined subagent tokens, ~45 min wall-clock parallel, Track "0")
++ Track 1 (7 local checks, main session) + Track 2 (4 of 6 external checks, main session,
+~10 tool calls to arXiv/PMC/Semantic Scholar).

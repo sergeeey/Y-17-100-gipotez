@@ -222,9 +222,59 @@ holds crossing indices and floor rates, not the raw series):
 version (negative on lower_zurich/windermere, positive on loch_leven).** A statistic that were
 simply `chirality_excess ~ trend_slope` under a different name would show a strong, consistently-
 signed correlation across all three lakes -- it does not. This is evidence AGAINST the
-`KNOWN-SAME-RESULT-DIFFERENT-LANGUAGE` concern the audit raised for this specific mechanism (it
-does not settle the separate, still-open question of whether `Baryshnikov 2022`'s own source
-paper predicts this REJECT outcome via its own Section 4 -- that check still requires opening the
-primary source and was not attempted here). Does not change the REJECT verdict (unrelated to
-this check) -- documents that the "just re-testing the baseline" concern was checked and did not
-hold, rather than left unexamined.
+`KNOWN-SAME-RESULT-DIFFERENT-LANGUAGE` concern the audit raised for this specific mechanism.
+Does not change the REJECT verdict (unrelated to this check) -- documents that the "just
+re-testing the baseline" concern was checked and did not hold, rather than left unexamined.
+
+## ADDENDUM 2 (2026-09-10, Track 2 of the deep external novelty audit) -- primary sources opened directly
+
+**Baryshnikov 2022 (`arXiv:1909.09846`, "Time Series, Persistent Homology and Chirality") opened
+directly** (`mcp__arxiv__read_paper`), not the earlier `[UNKNOWN-BLOCKED]` snippet-only citation.
+Definition 2.6, verbatim: "A bar (b,d)=(f(s),f(t))... is an N, if the local maximum follows local
+minimum, i.e. if s<t, and an N-bar, otherwise -- i.e. if s>t." **This project's own `run.py`
+implementation (`chirality_excess`, `merge_tree_bars`) matches exactly** -- `L: min precedes max
+(s<t)` = the paper's "N"; `N: max precedes min (s>t)` = the paper's "N-bar" (own comment cites
+"Definition 2.6, Baryshnikov 2022" and the mapping checks out; the project's L/N labels are simply
+renamed from the paper's own N/N-bar, not a different definition). No implementation mismatch found.
+
+Remark 2.7, verbatim, gives the theoretical direction this ADDENDUM's Track-1 correlation check
+above should be read against: **"if started with a random function invariant with respect to
+time reversal, one would expect that a tilt with positive slope would generate more N's than
+N-bar's."** In this project's own labels (L=paper's N, N=paper's N-bar): positive drift should
+produce MORE L-bars relative to N-bars, i.e. `chirality_excess = (n_N - n_L)/total` should
+DECREASE (trend negative) under positive drift -- **a specific, primary-source-derived
+prediction: correlation(chirality_excess, trend_slope) should be NEGATIVE.**
+
+Checking Track-1's own measured correlations against this prediction: **2 of 3 lakes match**
+(lower_zurich tau-trajectory r=-0.40, windermere r=-0.57 -- both negative, as predicted) **but
+loch_leven does not** (r=+0.42, wrong sign). The paper's own theoretical setting is Brownian
+motion with CONSTANT drift -- real lake PCA1 series have seasonal structure, non-stationarity,
+and autocorrelation well beyond a simple constant-drift model, so a partial (2/3) match to the
+qualitative prediction, not a clean 3/3, is itself informative: it suggests chirality genuinely
+tracks something related to but not reducible to simple trend on real ecological data, consistent
+with (not contradicting) Track 1's conclusion that this is not "trend_slope under a different
+name," while also explaining WHY the correlation exists in the two lakes where it does (the
+paper's own predicted mechanism partially applies) rather than leaving it as an unexplained
+coincidence.
+
+**DNB (Chen, Liu, Liu, Li, Aihara 2012, Sci Rep, PMID 22461973) opened directly**
+(PMC3314989, open access). Its three criteria, verbatim: (1) "average Pearson's correlation
+coefficients (PCCs) of molecules [within a dominant group] drastically increase in absolute
+value," (2) "average PCCs... between this group and any others... drastically decrease," (3)
+"average standard deviations (SDs) of molecules in this group drastically increase" --
+**simultaneously, tracked over time WITHIN ONE SYSTEM.** The paper states explicitly: "detecting
+the pre-disease state must be an individual-based prediction," using "time-course high-throughput
+omic data" -- **not a comparison between a treatment/manipulated system and a separate
+reference/control system.**
+
+**This is a structural mismatch with H-B3-1q's actual design** (a static/per-season count of
+pairwise cross-variable correlation SIGNS, compared BETWEEN Peter/manipulated and Paul/reference
+lakes -- see `experiments/20260910-lakes-tda-ews-crossvar-coherence-h3-1q/decision.md`), which
+tracks none of DNB's three specific conditions (no inter-group decorrelation term, no SD-growth
+term, and the core comparison is between-lake rather than within-lake-over-time).
+**Novelty status for H-B3-1q, resolved: NOT `KNOWN-SAME-RESULT-DIFFERENT-LANGUAGE` via DNB** --
+the general theme (multivariate correlation as an EWS mechanism) is broadly known, but the
+SPECIFIC design does not match DNB's published criteria closely enough to call it a
+reformulation. This resolves the audit's own earlier `INCONCLUSIVE-LITERATURE-COLLISION` flag
+for this specific candidate match (a different, closer match may still exist and was not
+searched further).
