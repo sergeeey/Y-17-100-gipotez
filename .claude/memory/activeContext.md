@@ -144,6 +144,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-10 22:16] `0f55ec9` (local, branch `docs/deep-novelty-audit-track1-decisive-checks` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: activeContext.md update -- deep novelty audit + Track 1 summary
 - [2026-09-10 22:15] `acfe738` (local, branch `docs/deep-novelty-audit-track1-decisive-checks` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: deep external novelty audit + 7 decisive checks (Track 1)
 - [2026-09-10 18:50] `009aab2` (local, branch `docs/adr-122-evidence-mode-verification-strength-substrate` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: ADR-122 -- evidence_mode/verification_strength/substrate schema package
 - [2026-09-10 17:04] `b3e4633`: Merge: auto-log entry for LEDGER-fix merge commit
@@ -158,4 +159,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-09 20:07] `2e221cf` (local, branch `feature/h-b7-30-exact-large-deviation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-30 -- exact probabilities do not rescue the large-deviation fit, CONFIRMED
 - [2026-09-09 19:01] `764e62f`: Merge: H-B7-29 -- FGFR3_stimulus asymmetry contrast test, CONFIRMED
 - [2026-09-09 19:01] `0a46297` (local, branch `feature/h-b7-29-stimulus-asymmetry` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-29 -- FGFR3_stimulus asymmetry contrast test vs EGFR_stimulus, CONFIRMED
-- [2026-09-09 18:28] `3e044b8`: Merge: H-B7-28 -- branch isomorphism mechanism extended to k=1..40 (80 conditions), CONFIRMED
