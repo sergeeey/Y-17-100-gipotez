@@ -37,6 +37,23 @@ definition requires exhausting the entire reachable set (visiting fewer states c
 that an unvisited one reaches the missing fate). This is a genuine, structurally-forced asymmetry,
 not an implementation gap.
 
+**CAVEAT (2026-09-10, decisive check from the deep external novelty audit,
+`reports/2026-09-10-deep-external-novelty-audit.md`):** verified against `metrics/run.json` that
+both `SCHEDULE_ROBUST` conditions tested (branch_1/k=5, branch_2/k=5) are graphs of exactly
+`n_total_visited=2` states. On a 2-state graph, early-exit and exhaustive traversal coincide
+trivially — there is no meaningful savings distinction to be made, and "zero false positives"
+on 2 states is a near-vacuous check, not the "genuine floor check" this arc's own methodology
+elsewhere requires (e.g. H-B3 arc's negative controls run on full-scale real data, not a
+2-element degenerate case). The ∃-vs-∀ asymmetry argument itself (§ above) is sound and does not
+depend on this — it is a structural fact about quantifiers over finite sets, true regardless of
+which ROBUST conditions were tested. But the specific "2/2 ROBUST conditions correctly show zero
+false positives" sentence should not be cited as independent empirical support for the asymmetry
+claim; it supports only that the (already-exhaustively-known-correct) H-B7-22 classification was
+not contradicted on these 2 particular, structurally trivial instances. This arc's domain
+(H-B7-22, k=1..40, both branches) includes larger ROBUST conditions (k=6..40) that were never
+early-exit-tested — doing so would be a stronger, non-degenerate floor check, cheap to add if
+this arc is revisited.
+
 **Practical implication:** for a much larger network where `n_states_visited` could be in the
 millions, an early-exit BFS variant would give substantial real savings for confirming schedule-
 fragility exists, but would offer NO speedup for confirming schedule-robustness — a useful,

@@ -55,12 +55,34 @@ theta(G)/sqrt(n), random dense circulant graphs (p=0.5), n from 10 to 2560:
 
 **The ratio stays within a tight band around 1.0 across nearly 3 orders of magnitude in
 n** (excluding the smallest n=10,20 where finite-size effects are expected and visible --
-1.25 and 1.19 respectively, converging toward ~1.0 by n=40 and staying there). Log-log
-regression of the ratio against n over the full range gives slope **-0.035** — essentially
-flat, mildly negative, not the positive growth trend that would be expected if the true
-behavior tracked only the paper's own weaker published upper bound
-(O(sqrt(n log log n)), which implies ratio ~ sqrt(log log n), a slow but clearly positive
-log-log slope at these n).
+1.25 and 1.19 respectively, converging toward ~1.0 by n=40 and staying there).
+
+**CORRECTION ADDENDUM (2026-09-10, decisive check from the deep external novelty audit,
+`reports/2026-09-10-deep-external-novelty-audit.md`):** the originally-reported log-log
+slope **-0.035** was computed over the FULL range including n=10,20 -- the two points this
+same section already excludes as finite-size effects. Recomputed on n>=40 only (the 7
+points actually used to support the "tight band" claim): **slope = -0.0002**, i.e.
+indistinguishable from exactly flat. -0.035 must not be cited going forward; it mixed the
+excluded finite-size points back into the regression.
+
+**A stronger, exact result was found that the original write-up missed:** for
+vertex-transitive G, theta(G)*theta(Gbar) = n exactly (Lovasz 1979). At p=0.5 the ensemble
+is self-complementary in distribution (each offset independently included with probability
+0.5, so the excluded-offset complement graph has the identical distribution as G itself),
+so E[theta(G)] = E[theta(Gbar)]. By AM-GM, (theta(G)+theta(Gbar))/2 >= sqrt(theta(G)*theta(Gbar))
+= sqrt(n) pointwise for every realization, hence **E[theta(G)] >= sqrt(n) EXACTLY, for every
+n, with no o(1) term** -- not an asymptotic claim, not something this experiment needed to
+measure. This has two consequences for how this result should be read: (1) the "ratio stays
+near 1" headline is HALF forced by this exact inequality (only deviations ABOVE 1 are
+informative; the 5/9 sample means below 1.0, including 0.975 at n=2560, are finite-sample
+noise around a population mean that is provably >=1 -- verified: SE at n=2560 is 0.0143, so
+0.975 is only 1.74 SE below 1.0, well within noise); (2) a negative log-log slope of the
+ratio is impossible in expectation given this inequality, which independently confirms the
+corrected ~0 slope above and further undermines the original -0.035 reading. Kill-criterion
+and CONFIRMED verdict below are UNCHANGED by this correction (the numeric evidence still
+supports the tight conjecture over the weak fallback bound) -- what changes is that part of
+what looked like an open numerical question is actually a proven fact, and should not be
+re-presented as if the numerics alone established it.
 
 ## Verdict
 

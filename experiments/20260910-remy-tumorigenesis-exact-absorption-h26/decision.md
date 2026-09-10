@@ -42,6 +42,15 @@ specific model's parameter values. **Not investigated further here** — flagged
 candidate (see below), not chased down within this experiment's own scope, per the Kill Criterion's
 explicit deferral of path-decomposition/mechanism work to a later experiment.
 
+**ADDENDUM (2026-09-10, decisive check from the deep external novelty audit,
+`reports/2026-09-10-deep-external-novelty-audit.md`):** a second, distinct unexplained numeric
+fact was found and verified in the SAME branch_1 sequence: `P(k=1)=119/1728`, `P(k=2)=119/864 =
+2*119/1728` exactly (`fractions.Fraction.limit_denominator`, match to full float64 precision --
+not plausible as coincidence given the two values come from independently solved linear systems
+of different sizes). `P(k=3)=5/27`, `P(k=4)=1/3` are also clean small fractions. No mechanism for
+the exact P(k=2)=2*P(k=1) doubling is claimed or tested here -- flagged as a second Pearl Registry
+entry (`pearl_registry/INDEX.md`, 2026-09-10 row), not chased down within this addendum's scope.
+
 ## FL Step 8a — Independent Reviewer
 
 Full-tier claim that reshapes trust in H-B7-23's own prior Monte Carlo numbers by replacing them

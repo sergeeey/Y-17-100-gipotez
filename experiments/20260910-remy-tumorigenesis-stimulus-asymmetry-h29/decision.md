@@ -20,9 +20,28 @@
 **10/10 conditions confirm the asymmetry, dramatically.** Flipping `FGFR3_stimulus` hits
 `STATE_CAP=30000` on EVERY single condition, including `k=5` — where the ORIGINAL graph has only
 **2 states** (H-B7-22's own SCHEDULE_ROBUST classification), yet the flipped graph explodes past
-31000 states. This is not a subtle effect: the reachable universe grows by **1-2 orders of
-magnitude** the instant `FGFR3_stimulus` is flipped, in every tested condition, while flipping
-`EGFR_stimulus` (H-B7-27/28) never changed graph size by even a single state.
+31000 states. This is not a subtle effect: the reachable universe grows by **1.6 to 4.2 orders of
+magnitude** the instant `FGFR3_stimulus` is flipped (exact per-condition ratios below), while
+flipping `EGFR_stimulus` (H-B7-27/28) never changed graph size by even a single state.
+
+**CORRECTION (2026-09-10, decisive check from the deep external novelty audit,
+`reports/2026-09-10-deep-external-novelty-audit.md`):** the original wording "1-2 orders of
+magnitude" understated the k=5 condition and did not match the committed `metrics/run.json`.
+Recomputed exactly from `n_states_flipped_capped / n_states_original`:
+
+| branch | k | ratio | log10(ratio) |
+|---|---|---:|---:|
+| branch_1 | 1 | 42.4x | 1.63 |
+| branch_1 | 2 | 42.3x | 1.63 |
+| branch_1 | 3 | 178.5x | 2.25 |
+| branch_1 | 4 | 291.9x | 2.47 |
+| branch_1 | 5 | 15628.0x | **4.19** |
+| branch_2 | 1-5 | (matching within <1%) | 1.62-4.19 |
+
+k=1,2 are indeed ~1.6 orders ("1-2" as originally stated); k=5 is ~4.2 orders — nearly triple
+the originally-quoted upper bound. This does not change the verdict (asymmetry is still
+confirmed 10/10, and even the smallest ratio, 41x, is far beyond any subtle effect) — only the
+magnitude description, which should not be re-cited as "1-2 orders" going forward.
 
 ## Mandatory checks against claim.md's own Kill Criterion
 

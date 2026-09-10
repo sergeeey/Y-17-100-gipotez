@@ -80,6 +80,37 @@ its own separate FL Step 8a history (H-B7-22's reviewer independently reconstruc
 exact 956-state match) — this experiment reasonably relies on that prior verification rather than
 re-deriving it.
 
+### ADDENDUM (2026-09-10, decisive check from the deep external novelty audit,
+`reports/2026-09-10-deep-external-novelty-audit.md`) — closes the reviewer's own named gap above
+
+The audit's B7-structural agent reclassified the mechanism from "symmetry reduction" (a search
+technique) to "trap-space percolation" (a constructive procedure) and proposed a decisive test:
+run an established, independent tool's percolation/trap-space computation on one release-state
+and check if `EGFR_stimulus` drops out automatically. Run for real, using **`pyboolnet`
+(`pyboolnet.trap_spaces.compute_trapspaces_that_contain_state`, `pyboolnet.file_exchange.bnet2primes`
+on the original `data/remy_tumorigenesis.bnet`)** — a genuinely independent tool that does NOT
+depend on `h22.build_reachability_graph` at all (it computes trap spaces from the model's own
+prime implicants via an ASP solver, not from this project's custom BFS), directly closing the one
+gap the reviewer itself flagged above.
+
+Reconstructed the exact branch_1/k=1 release-state via this experiment's own upstream
+`h13.simulate_transient_clamp_multi_with_release_state` (unchanged), then:
+1. `compute_trapspaces_that_contain_state(primes, release_state, type_="min")` finds a 21-variable
+   minimal trap space fixing `FGFR3=1, GRB2=0, EGFR=0` (plus 18 other nodes), matching this
+   experiment's own invariant exactly.
+2. **Flipped `EGFR_stimulus` in the release-state and re-ran the same query: the resulting minimal
+   trap space is IDENTICAL on all 21 other fixed dimensions** (`FGFR3=1, GRB2=0, EGFR=0` unchanged,
+   every other value unchanged) — only `EGFR_stimulus` itself differs between the two trap spaces.
+
+This is a second, tool-independent, mechanism-independent confirmation of the automorphism claim
+(not merely of the invariant-checking logic, per the reviewer's own scoping above) — `pyboolnet`'s
+own percolation-based trap-space solver, built for general Boolean-network analysis with no
+knowledge of this project's own BFS code, arrives at the same conclusion via ASP-based
+constraint solving. `verification_strength` upgraded from `medium` to `strong`
+(`registry/graph.yaml`) per the project's own Independent Verification Strength Ladder — this is
+an independently-built, general-purpose tool cross-check, not a same-model isolated-context
+re-derivation.
+
 ## Skeptic Concerns
 
 No `[FALSIFIED]` concerns raised. Reviewer's own adversarial challenge #1 (shared-substrate blind
