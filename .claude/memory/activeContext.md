@@ -3,10 +3,11 @@
 ## Scope Fence
 - **Goal:** [PLAN, не факт] Оценить и начать проверку cross-domain мостов между каталогом ~141 открытых научных задач и реальными проектами (H-7 chromatin, ChernoffPy, May 1972)
 - **[2026-09-09, ADR-087] Scope расширен пользователем явно:** пятый источник гипотез — сам 100-item каталог напрямую, без требования тематической связи с исходными 4 якорями. Не отменяет исходные якоря, добавляет к ним.
-- **[2026-09-10, ADR-118] CONSOLIDATION PHASE — активный режим, читать первым.** Пользователь явно остановил генерацию новых H-узлов на существующих внутренних данных (не потому что идеи кончились — cheap internal hypothesis pool исчерпан, дальше значило бы полировать 2 точки данных). Главный вопрос сместился с «что ещё прогнать на имеющихся данных?» на «что из найденного заслуживает внешней проверки?». **Приоритет следующей сессии: (1) B7 external novelty audit — независимая Boolean-модель для transfer, проверка новизны механизма H-B7-26…31 вовне; (2) B3-1q external-data search — другие системы с несколькими переменными/переходом/негативным контролем, чтобы уйти от n=1 пары озёр; (3) ТОЛЬКО если 1-2 не дают пути — снова cross-domain/sci-hypothesis на обновлённом графе.** Не начинать новый `H-B*-N` без явного запроса пользователя.
+- **[2026-09-10, ADR-118 → ADR-121] CONSOLIDATION PHASE ЗАВЕРШЕНА, STOP-RULE АКТИВЕН — читать первым.** Пункты 1-2 ADR-118 выполнены: (1) B7 external novelty audit — методы вокруг H-B7-26…31 в основном устоявшиеся в литературе (не новая теория, хорошо проверенный case-study); (2) B3-1q external-data search — per-season разрез (H-B3-1r) ослабил интерпретацию H-B3-1q, красивый LEAD не выдержал робастность-проверки. Пользователь явно остановил пункт 3 (снова cross-domain/sci-hypothesis) — ADR-121. **Текущий правильный статус: НЕ «у нас ничего нет», а «есть несколько хорошо проверенных результатов, пока нет убедительно подтверждённого внешне нового открытия».** Новый цикл гипотез запускать ТОЛЬКО при появлении: (1) новой независимой модели (не Remy 2015, не Peter/Paul Lakes); (2) нового датасета (генуинно другая манипулированная/контрольная система); (3) новой теоремы/литературной щели, которую B7/B3-аудиты не нашли устоявшейся; (4) внешнего open problem с чётким structural foothold. НЕ валидное основание: «граф умеет родить ещё один H-номер». Не начинать новый `H-B*-N` без явного запроса пользователя и без одного из этих 4 условий.
 - **Boundary:** Эта папка + чтение (не запись) в исходный vault `C:\Users\serge\.claude\memory\` при необходимости сверки
 - **Done when:** Хотя бы один мост прошёл полный цикл kill-criterion → эксперимент → KILLED/CONFIRMED/LEAD
 - **NOT NOW:** Frontier R&D / TOFT / RAF — постоянно `unverified_source` (пользователь подтвердил 2026-09-07: возможно на другой машине, доступа нет); полный Hypothesis Portfolio (128+ гипотез из ARCHCODE и др.) — отдельный, не связанный проект
+
 
 
 
@@ -42,26 +43,9 @@
 **[VERIFIED — 2026-09-10, ADR-102] H-B7-20 (третий и последний feedback-loop узел, CyclinE1, 32-строчное exhaustive возмущение, по явному запросу пользователя): PARTIALLY-ROBUST, замыкает тройное сравнение RBL2/p21CIP/CyclinE1 и общий принцип дестабилизации.** Реальное структурное отличие от H-B7-17/19: CyclinE1 НЕ клэмпится, орбита клэмп-фазы перестроена заново для каждого возмущения (новые функции). Substrate-проверка через ДРУГОЙ путь кода подтвердила орбиту H-B7-15 точно (7 состояний/ветвь). Результат: 28 ROBUST, 3 FRAGILE, 1 CRITERION_INVALID из 32. По прямому запросу пользователя добавлен систематический слой (не на одном отобранном случае): КАЖДАЯ fragile/invalid строка проверена H-B7-18's методологией на дестабилизацию самого аттрактора — единственная CRITERION_INVALID строка (`flip_FFTTT`) дестабилизирует аттрактор сам (обе ветви), все 3 FRAGILE строки — только-наблюдаемость. Общий принцип теперь подтверждён ТРИЖДЫ вычислительно (RBL2, p21CIP независимо перепроверен скретч-скриптом в рамках этого эксперимента, CyclinE1): дестабилизирующее возмущение узла всегда точно совпадает со строкой, соответствующей собственной входной конфигурации `PROLIFERATION_STATE` для этого узла. Отклонена (до фиксации в артефактах) ложная рабочая гипотеза «направление flip коррелирует с хрупкостью» — RBL2 добавленная строка, CyclinE1 удалённая, противоположные паттерны. Пойман и исправлен ДО запуска пробел дизайна: изначальная проверка дестабилизации не покрывала CRITERION_INVALID строки, хотя оригинальное расследование H-B7-18 было именно про CRITERION_INVALID случай RBL2 — расширено на все fragile-or-invalid строки. `graph.yaml`: 137 узлов, 172 ребра, `H-B7-20` статус `lead`, рёбра `grounds` от H-B7-15/17/18/19. **Следующий шаг (прямая инструкция пользователя): H-B7-21 — синтез sensitivity-профилей всех трёх узлов + попытка вывести минимальное необходимое/достаточное условие существования аттрактора Proliferation, продолжать автономно до полного закрытия темы.**
 [summarized] **B1/B2/B3 arc (H-B3-1 through H-B3-1k, ADR-010–027) archived to `history/activeContext-archive-20260906-b1b2b3.md`**
 [summarized] **[2026-09-09, продолжение] Bridge 8 (UDE identifiability ↔ PRJ-CHERNOFFPY) зарегистрирован proposed → в тот же день...
+
 [summarized] **[VERIFIED — 2026-09-09, по прямому запросу пользователя «посмотри на 100-item каталог, какие ещё есть кандидаты»]...
-[summarized] **[VERIFIED, побочно, честно зафиксировано]** 4 фоновых `pytest -q` прогона на весь репозиторий накопились за...
-[summarized] **[VERIFIED — 2026-09-09] H-CAT37-1 (первый эксперимент под расширенным scope, ADR-087/088): Forsythe conjecture...
-[summarized] **[VERIFIED — 2026-09-09] H-CAT31-1 (второй эксперимент под расширенным scope, ADR-089): Lovász theta случайных...
-[summarized] **[VERIFIED — 2026-09-09] Оставшиеся 6 кластеров каталога реально проверены (не «паттерн предсказывает»), все...
-[summarized] **[VERIFIED — 2026-09-10, ADR-101] H-B7-19 (второй клэмп-узел p21CIP, exhaustive 16-строчное возмущение через...
-[summarized] **[VERIFIED — 2026-09-10, ADR-100] H-B7-18 (продолжение открытого вопроса из H-B7-17): почему flip_TF_drop_CyclinE1...
-[summarized] **[VERIFIED — 2026-09-10, ADR-099] H-B7-17 (вторая половина option 2: rule perturbations на RBL2): PARTIALLY-ROBUST,...
-
-
 [summarized] **[VERIFIED — 2026-09-10, ADR-091] Ретроскан H-CAT37-1: гипотеза Форсайта разрешена ИЗВНЕ**...
-[summarized] **[VERIFIED — 2026-09-10, ADR-092] H-CAT37-2 (целенаправленный поиск того же дня): INFORMATIVE_NEGATIVE, с реальным...
-[summarized] **[VERIFIED — 2026-09-10, ADR-093] H-B2-3 («начни B2», route 4 отчёта): transferability B2-предиктора — REJECTED,...
-[summarized] **[VERIFIED — 2026-09-10, ADR-094] H-B3-2 («начни B3», route 3 отчёта): PH₀ chirality-excess (Baryshnikov 2022) —...
-[summarized] **[VERIFIED — 2026-09-10, ADR-095] H-B7-13 (согласованный пользователем узкий следующий шаг после B2/B3):...
-[summarized] **[VERIFIED — 2026-09-10, ADR-096] H-B7-14 (Minimal Relaxation Rule на H-B7-13, по прямой инструкции пользователя...
-[summarized] **[VERIFIED — 2026-09-10, ADR-097] H-B7-15 (по прямой просьбе пользователя поднять H-B7-14 до «model-level...
-[summarized] **[VERIFIED — 2026-09-10, ADR-097a] H-B7-15 addendum: минимальность j*=1 — бесплатное следствие уже собранных...
-[summarized] **[VERIFIED — 2026-09-10, ADR-098] H-B7-16 (второй из двух вариантов пользователя после H-B7-15: robustness к...
-[summarized] **[VERIFIED — 2026-09-09, завершение] Весь 100-item каталог просмотрен (100/100), не только 7 кандидатов.** Ключевая...
 
 ## Project State
 - **Repo:** https://github.com/sergeeey/Y-17-100-gipotez — PUBLIC, created 2026-09-06, commit d50597f (initial import). [VERIFIED]
@@ -72,6 +56,7 @@
 - **Files transferred:** 15 (2026-09-06)
 - **Bridges scoped:** 3, все терминальны (2026-09-09): RMT/Riemann — Phase 1a READY, 1b BLOCKED (external Option A); ChernoffPy/UDE — CONFIRMED-WITH-CAVEATS, арка H-B2-1→1v закрыта 2026-09-08; May1972/TDA — CLOSED 2026-09-09 как informative negative (0 confirmed / 8 killed / 1 parked из 15 под-гипотез), арка H-B3-1→1p. **[2026-09-10] H-B3-2** (новая статья, PH₀ chirality-excess, route 3 отчёта) добавлена к той же закрытой Bridge 3 — REJECT после bug-fix-and-rerun, не реоткрывает мост (по-прежнему 0 confirmed на этой линии); Mechanism Claim Gate внутри неё — единственный устоявший позитивный побочный результат.
 - **Bridges permanently `unverified_source`** (answered 2026-09-07, not pending): 3 (Frontier R&D, TOFT/SMT, RAF Theory)
+
 
 
 
@@ -105,6 +90,7 @@
 
 
 
+
 ## Quick Commands
 ```bash
 pip install -r requirements.txt
@@ -114,6 +100,7 @@ python -m ruff check scripts/ tests/ # lint (line-length=100 pinned in pyproject
 # LEDGER summary — count by grep, never by hand:
 grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ /,"",$6); print $6}' | sort | uniq -c
 ```
+
 
 
 
@@ -153,7 +140,9 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 
+
 ## Auto-commit log
+- [2026-09-10 16:16] `8d7da96` (local, branch `docs/adr-121-consolidation-stop-rule` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: ADR-121 -- stop-rule for consolidation phase, explicit resume conditions
 - [2026-09-10 12:23] `45fc709` (local, branch `feature/h-b3-1r-perseason-robustness` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B3-1r -- per-season retroscan rejects H-B3-1q's pooled-pattern interpretation
 - [2026-09-10 12:13] `1d407de` (local, branch `feature/b7-external-novelty-audit` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: B7 external novelty audit -- established techniques, not new science (FL Step -3)
 - [2026-09-10 12:02] `78e6d87` (local, branch `feature/h-b3-1q-crossvar-coherence` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B3-1q -- H-B3-1o revival finds a different, floor-tested cross-var signal, LEAD
@@ -168,4 +157,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-09 18:19] `365621c` (local, branch `feature/h-b7-27-branch-isomorphism` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-27 -- branch_1/branch_2 exact-probability equality explained as graph automorphism, CONFIRMED
 - [2026-09-09 17:51] `158831b` (local, branch `feature/h-b7-26-exact-absorption` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-26 -- exact asynchronous escape probability via absorbing Markov chain, CONFIRMED
 - [2026-09-09 17:10] `d0ecd80` (local, branch `feature/h-b2-4-multiseed-permutation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B2-4 -- multi-seed + permutation test finds M1(N_DIM) perfectly monotonic, closing H-B2-1k's own named CRITERION_INVALID gap
-- [2026-09-09 16:00] `d06d21d` (local, branch `feature/h-b7-25-starvation-asymmetry` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-25 -- p21CIP-specific starvation confirmed 8/8, RBL2-passive framing rejected at k=3,4 -- honest partial survival
