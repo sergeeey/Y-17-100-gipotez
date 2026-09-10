@@ -233,12 +233,47 @@ than `[UNKNOWN-BLOCKED]`: `E[θ]≥√n` is confirmed published (not novel); the
 dimension" question is confirmed genuinely open (not settled) but this project's own search of it
 remains methodologically inconclusive, not decisive. Neither changes § 5's overall verdict — the
 project has zero confirmed new external contributions among currently registered results — but
-both now rest on primary-source verification instead of an infrastructure gap. **The single
-strongest surviving novelty candidate across both audit tracks remains `Var(log θ/√n) ∝ n^-0.96`**
-(§ 2) — found by re-analyzing already-collected data, unaddressed by the one primary source that
-studies the exact same quantity, and cheap to strengthen (a wider-range re-run, not a new
-experiment design).
+both now rest on primary-source verification instead of an infrastructure gap.
+
+## 9. Deepening the top candidate (H-CAT31-3, executed 2026-09-10, same session) — REJECTED for
+the clean `-1` exponent, but the phenomenon survives as a precise, still-unexplained measurement
+
+Per direct user request, the single strongest surviving candidate from §§ 2/8
+(`Var(log θ/√n) ∝ n^-0.96`, estimated on 9 noisy points with reps tapering to 6 at the largest
+`n`) was deepened: a new experiment (`H-CAT31-3`, `experiments/20260910-lovasz-theta-variance-
+scaling-cat31-3/`) re-ran the same, already-verified `theta_via_lp` primitive on a wider range
+(`n=32..3000`, capped below the originally-requested 4096 by a disclosed compute-cost finding —
+LP solve time scales closer to `O(n^3)`-`O(n^4)` than assumed in this regime, benchmarked
+directly: 0.17s/0.94s/6.68s/34.38s/88.68s at n=500/1000/2000/3000/4096) with far more replicates
+(40-300 per point, vs the original's 6-25) and a pre-registered kill criterion (95% CI must
+contain `-1.0` AND exclude both `-0.5` and `-2.0` to count as `CONFIRMED`).
+
+**Result: weighted-OLS slope `-0.9126`, SE `0.0264`, 95% CI `[-0.9751, -0.8501]` — excludes
+`-1.0` cleanly.** `REJECTED` per the pre-registered criterion. A stability check (slope on the
+`n=32..1024` half `-0.900` vs the `n=256..3000` half `-0.897`) shows no drift toward `-1` as `n`
+grows, arguing against a simple "true asymptotic exponent is `-1`, finite-size correction still
+visible in this range" explanation.
+
+**This is a genuine, well-powered negative result, not an inconclusive one** — the CI is tight
+enough (half-width ~0.06) to discriminate `-1` from its neighbors, not merely too wide to say
+anything. The underlying phenomenon survives at a more precisely measured, but no longer
+"clean-looking," exponent (`~-0.91`, not `~-1`). Per the audit's own novelty vocabulary, this
+downgrades the finding from `POSSIBLE-NOVEL-SPECIAL-CASE` (§ 2's preliminary framing) to
+`BENCHMARK-SPECIFIC-NUMERIC-RESULT` — a precise empirical number without an accompanying
+structural explanation or candidate theorem, per `research-methodology.md`'s own Q6 discipline
+(a numeric fact only becomes a special case once something explains why the number is what it
+is). Full detail, Kill Analysis, and a Relaxation Map for what could be tried next (a two-sided
+`O(n^-0.8)`/`Omega(n^-1)` bracket claim instead of a point estimate; a structured ansatz with a
+correction term; a genuinely different `n` range) in `experiments/20260910-lovasz-theta-variance-
+scaling-cat31-3/decision.md`.
+
+**Revised final verdict:** among ~33+1 audited claims across this whole exercise, there is still
+no confirmed new external scientific contribution — but the project's own single best novelty
+candidate has now been tested as rigorously as this session's compute budget allows, and did not
+survive as a clean result. This is the correct, honest outcome of taking a candidate seriously
+enough to try to kill it, not a failure of the audit.
 
 Total cost: 6 agents (~1.17M combined subagent tokens, ~45 min wall-clock parallel, Track "0")
 + Track 1 (7 local checks, main session) + Track 2 (4 of 6 external checks, main session,
-~10 tool calls to arXiv/PMC/Semantic Scholar).
+~10 tool calls to arXiv/PMC/Semantic Scholar) + Track 3/§9 (1 new Standard-Ladder experiment,
+`H-CAT31-3`, ~48 min wall-clock LP-solve compute, background, main session).
