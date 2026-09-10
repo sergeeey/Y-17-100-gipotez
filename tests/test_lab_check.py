@@ -80,3 +80,81 @@ def test_dangling_edge_and_bad_status_detected(tmp_path: Path, capsys) -> None:
     out = capsys.readouterr().out
     assert "dangling" in out
     assert "not allowed" in out
+
+
+# ADR-122: evidence_mode / verification_strength / substrate node type / tested_on edge
+
+
+def test_substrate_node_valid_passes(tmp_path: Path) -> None:
+    nodes = [
+        _node("B", "bridge", "verified_grounding"),
+        _node("H", "hypothesis", "confirmed"),
+        _node("SUB", "substrate", "active", category="model"),
+    ]
+    edges = [
+        {"from": "B", "to": "H", "type": "grounds"},
+        {"from": "H", "to": "SUB", "type": "tested_on"},
+    ]
+    assert lab_check.main(_write(tmp_path, nodes, edges)) == 0
+
+
+def test_substrate_bad_category_detected(tmp_path: Path, capsys) -> None:
+    nodes = [_node("SUB", "substrate", "active", category="vibes")]
+    assert lab_check.main(_write(tmp_path, nodes, [])) == 1
+    assert "category" in capsys.readouterr().out
+
+
+def test_evidence_mode_bad_value_detected(tmp_path: Path, capsys) -> None:
+    nodes = [
+        _node("B", "bridge", "verified_grounding"),
+        _node("H", "hypothesis", "confirmed", evidence_mode="vibes"),
+    ]
+    edges = [{"from": "B", "to": "H", "type": "grounds"}]
+    assert lab_check.main(_write(tmp_path, nodes, edges)) == 1
+    assert "evidence_mode" in capsys.readouterr().out
+
+
+def test_verification_strength_bad_value_detected(tmp_path: Path, capsys) -> None:
+    nodes = [
+        _node("B", "bridge", "verified_grounding"),
+        _node("H", "hypothesis", "confirmed", verification_strength="super-strong"),
+    ]
+    edges = [{"from": "B", "to": "H", "type": "grounds"}]
+    assert lab_check.main(_write(tmp_path, nodes, edges)) == 1
+    assert "verification_strength" in capsys.readouterr().out
+
+
+def test_evidence_mode_and_verification_strength_optional(tmp_path: Path) -> None:
+    """A node that omits both new fields must still pass -- they are opt-in, not required."""
+    nodes = [
+        _node("B", "bridge", "verified_grounding"),
+        _node("H", "hypothesis", "confirmed"),
+    ]
+    edges = [{"from": "B", "to": "H", "type": "grounds"}]
+    assert lab_check.main(_write(tmp_path, nodes, edges)) == 0
+
+
+def test_substrate_diversity_report_printed(tmp_path: Path, capsys) -> None:
+    nodes = [
+        _node("B", "bridge", "verified_grounding"),
+        _node("H", "hypothesis", "confirmed"),
+        _node("SUB", "substrate", "active", category="dataset"),
+    ]
+    edges = [
+        {"from": "B", "to": "H", "type": "grounds"},
+        {"from": "H", "to": "SUB", "type": "tested_on"},
+    ]
+    assert lab_check.main(_write(tmp_path, nodes, edges)) == 0
+    out = capsys.readouterr().out
+    assert "substrate diversity: 1 substrate(s), 1/1 hypothesis/artifact node(s) tagged" in out
+    assert "SUB: 1 node(s) tested_on" in out
+
+
+def test_real_graph_has_substrate_nodes_and_tested_on_edges() -> None:
+    """Positive control for ADR-122's own real backfill -- not just a synthetic graph check."""
+    g = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    substrate_ids = {n["id"] for n in g["nodes"] if n["type"] == "substrate"}
+    assert len(substrate_ids) >= 4  # the audit named ~4-6 real substrates
+    tested_on_targets = {e["to"] for e in g["edges"] if e["type"] == "tested_on"}
+    assert tested_on_targets, "at least one tested_on edge must exist in the real graph"
+    assert tested_on_targets <= substrate_ids  # every tested_on edge points at a real substrate
