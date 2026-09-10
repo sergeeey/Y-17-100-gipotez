@@ -144,6 +144,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-10 22:25] `679d850` (local, branch `docs/deep-novelty-audit-track2-external-verification` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: activeContext.md update -- Track 2 external verification complete
 - [2026-09-10 22:24] `460b31e` (local, branch `docs/deep-novelty-audit-track2-external-verification` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: Track 2 -- primary-source external novelty verification
 - [2026-09-10 22:16] `0f55ec9` (local, branch `docs/deep-novelty-audit-track1-decisive-checks` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: activeContext.md update -- deep novelty audit + Track 1 summary
 - [2026-09-10 22:15] `acfe738` (local, branch `docs/deep-novelty-audit-track1-decisive-checks` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: deep external novelty audit + 7 decisive checks (Track 1)
@@ -158,4 +159,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-09 20:16] `c9086a6` (local, branch `feature/h-b7-31-early-exit-bfs` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-31 -- early-exit BFS as an honest, asymmetric cheap discriminator, CONFIRMED
 - [2026-09-09 20:08] `963ee58`: Merge: H-B7-30 -- exact probabilities do not rescue the large-deviation fit, CONFIRMED
 - [2026-09-09 20:07] `2e221cf` (local, branch `feature/h-b7-30-exact-large-deviation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-30 -- exact probabilities do not rescue the large-deviation fit, CONFIRMED
-- [2026-09-09 19:01] `764e62f`: Merge: H-B7-29 -- FGFR3_stimulus asymmetry contrast test, CONFIRMED
