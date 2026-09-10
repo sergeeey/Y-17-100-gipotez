@@ -201,3 +201,30 @@ REJECT. This is Bridge 3's second REJECT-with-full-Kill-Analysis in its history 
 sub-experiments of H-B3-1 through H-B3-1p were informative negatives of a different, earlier
 kind) — and the first case in this session where a bug fix, not an argued skeptic concern, was
 the direct falsifying mechanism.
+
+## ADDENDUM (2026-09-10, decisive check from the deep external novelty audit,
+`reports/2026-09-10-deep-external-novelty-audit.md`)
+
+**Checked and REFUTED a hypothesis raised by the audit: that `chirality_excess` might simply be
+re-testing baseline #1 (`trend_slope`) under a different name**, which would have reclassified
+this whole experiment's novelty status. Reused this experiment's own `chirality_excess_series`
+and `trend_slope_series` functions unchanged, on the same three lakes' same PCA1 series, and
+computed the correlation directly (not previously computed or stored -- `metrics/run.json` only
+holds crossing indices and floor rates, not the raw series):
+
+| lake | role | raw-series Pearson r | tau-trajectory Pearson r |
+|---|---|---:|---:|
+| lower_zurich | positive | -0.48 (p=4.8e-6) | -0.40 (p=3.6e-4) |
+| windermere | negative | -0.01 (p=0.90) | -0.57 (p=1.5e-11) |
+| loch_leven | negative | -0.01 (p=0.96) | **+0.42** (p=3.5e-4) |
+
+**The correlation is moderate at best, and its SIGN flips between lakes for the tau-trajectory
+version (negative on lower_zurich/windermere, positive on loch_leven).** A statistic that were
+simply `chirality_excess ~ trend_slope` under a different name would show a strong, consistently-
+signed correlation across all three lakes -- it does not. This is evidence AGAINST the
+`KNOWN-SAME-RESULT-DIFFERENT-LANGUAGE` concern the audit raised for this specific mechanism (it
+does not settle the separate, still-open question of whether `Baryshnikov 2022`'s own source
+paper predicts this REJECT outcome via its own Section 4 -- that check still requires opening the
+primary source and was not attempted here). Does not change the REJECT verdict (unrelated to
+this check) -- documents that the "just re-testing the baseline" concern was checked and did not
+hold, rather than left unexamined.

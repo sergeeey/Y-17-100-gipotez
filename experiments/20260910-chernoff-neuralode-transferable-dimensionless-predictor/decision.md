@@ -48,6 +48,60 @@ call). Direct grid path: 1.00s per matrix (1000-point `expm` sweep, matching the
 `n_grid` convention). The predictor is **~19x faster**, unaffected by the accuracy
 findings above -- the cost half of the claim is not the part that fails.
 
+### CORRECTION ADDENDUM (2026-09-10, decisive check from the deep external novelty audit,
+`reports/2026-09-10-deep-external-novelty-audit.md`)
+
+**The feature `K_ref(C)`, `C = T(B-WI)`, is EXACTLY homogeneous of degree 0 in `C` --
+proven algebraically, then confirmed numerically against this experiment's own
+`resolvent_reference_k` implementation (`experiments/20260908-.../kreiss-resolvent-reference/run.py`).**
+
+Proof: `kappa_lambda1` (Wilkinson eigenvalue condition number, a ratio of unit-normalized
+eigenvectors) does not depend on the scale of the matrix at all -- `kappa_lambda1(c*A) =
+kappa_lambda1(A)` exactly, for any `c>0`. The line-search term `x/sigma_min((alpha+x)I-A)`
+is also exactly homogeneous of degree 0 under the substitution `x -> c*x'`, since
+`sigma_min` scales linearly with `c`: `sigma_min(c*M) = c*sigma_min(M)`. So
+`K_ref(c*A) = K_ref(A)` for every `c>0`, in exact arithmetic over an UNBOUNDED search
+range for `x`.
+
+**Consequence for the "asymmetric transfer degradation" framing above:** at fixed `W`,
+this means `K_ref(T(A-WI))` should be IDENTICAL for every `T`, and the predicted
+`log(M)` from the fitted power law should therefore also be constant across `T` -- the
+observed multiplicative degradation (30x at T=0.1, 2x at T=10) is then largely an
+**arithmetic consequence of comparing a near-constant predicted value against a target
+`M_{T,W}` that varies genuinely with `T`** (provably `M_{T,W}->1` as `T->0`, as already
+noted above), not new information about which direction of extrapolation is "worse" for
+this class of predictor as such.
+
+**However, the numerical IMPLEMENTATION of `K_ref` is NOT exactly degree-0 homogeneous,
+because `line_search_floored` searches `x` over a FIXED absolute range
+`[X_FLOOR=1e-4, X_HI=60]`, not a range that scales with `T`.** Verified directly (not
+against this experiment's own saved data, which did not persist per-matrix `K_ref` values
+per `T` -- verified instead on a freshly constructed representative near-nilpotent test
+matrix using the real `resolvent_reference_k`/`line_search_floored` code, where the
+line-search term dominates `kappa_lambda1`, matching the "line_search_dominates" case
+this arc's own H-B2-1u/1y already documented for a nontrivial fraction of real matrices):
+scaling that matrix by `c` and recomputing `k_ref(c*A)` gives an EXACTLY constant value
+across `c in [1e-4, 10]` (as the algebra predicts), but the value systematically degrades
+for `c` outside that range -- at `c=100` the true optimal search point falls just past
+`X_HI=60` (mild ~0.3% error); at `c=1000` it falls far past `X_HI`, and `k_ref` collapses
+back to the (smaller, wrong) `kappa_lambda1` value, a ~40% underestimate on this test
+matrix. The floor `X_FLOOR=1e-4` is symmetric risk at small `c`.
+
+**What this changes and what it does not:** the REJECT verdict for this experiment's own
+pre-registered criterion (order-of-magnitude threshold met on new-family+new-T) is
+UNCHANGED -- both the provable degree-0 homogeneity (predictor carries no T information)
+and the numerical floor/ceiling artifact (predictor's OWN reported value can additionally
+drift at extreme T) point the same direction: away from trusting this predictor's T-
+extrapolation, for two independent reasons rather than one. What changes is the
+INTERPRETATION: "asymmetric degradation, worse toward small T" is not an empirical
+discovery about transient-growth predictors in general -- it is arithmetic (constant
+prediction vs a target that provably shrinks toward 1) plus, potentially, a specific,
+fixable implementation bug (scale the search bounds with the matrix, e.g.
+`X_FLOOR/X_HI -> X_FLOOR/X_HI * (spectral scale of A)`) whose exact contribution to the
+numbers above was NOT isolated this session (would require re-instrumenting
+`resolvent_reference_k` to persist per-matrix, per-T `K_ref` values, which the original
+run did not do). Flagged as a concrete, cheap follow-up if this arc is ever revisited.
+
 ## Verdict
 
 **REJECTED**, per claim.md's own pre-registered closure criterion ("the advantage vanishes
