@@ -143,6 +143,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-10 18:50] `009aab2` (local, branch `docs/adr-122-evidence-mode-verification-strength-substrate` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: ADR-122 -- evidence_mode/verification_strength/substrate schema package
 - [2026-09-10 17:04] `b3e4633`: Merge: auto-log entry for LEDGER-fix merge commit
 - [2026-09-10 17:04] `50ab41b` (local, branch `chore/ledger-h-b3-1r-reviewer-entry` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: add missing LEDGER entry for H-B3-1r reviewer independent re-derivation
 - [2026-09-10 16:16] `8d7da96` (local, branch `docs/adr-121-consolidation-stop-rule` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: ADR-121 -- stop-rule for consolidation phase, explicit resume conditions
@@ -157,4 +158,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-09 19:01] `0a46297` (local, branch `feature/h-b7-29-stimulus-asymmetry` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-29 -- FGFR3_stimulus asymmetry contrast test vs EGFR_stimulus, CONFIRMED
 - [2026-09-09 18:28] `3e044b8`: Merge: H-B7-28 -- branch isomorphism mechanism extended to k=1..40 (80 conditions), CONFIRMED
 - [2026-09-09 18:28] `564d8db` (local, branch `feature/h-b7-28-full-domain-isomorphism` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-28 -- branch isomorphism mechanism extended to H-B7-22's full domain (k=1..40), CONFIRMED
-- [2026-09-09 18:19] `365621c` (local, branch `feature/h-b7-27-branch-isomorphism` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B7-27 -- branch_1/branch_2 exact-probability equality explained as graph automorphism, CONFIRMED
