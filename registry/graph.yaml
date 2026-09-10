@@ -1929,6 +1929,20 @@ nodes:
     source: "experiments/20260910-lovasz-theta-tail-arithmetic-cat31-2/decision.md"
     updated: 2026-09-10
 
+  - id: H-CAT31-3
+    type: hypothesis
+    title: "Direct follow-up from the deep external novelty audit's own Track 1 finding (re-analysis of H-CAT31-1's committed data suggested Var(log(theta(G)/sqrt(n))) ~ n^-0.96): on a wider n range (32..3000, up from 10..2560) with more replicates (40-300 vs the original's tapering 25->6), is the exponent consistent with exactly -1 (Var =~ C/n)?"
+    status: lead                   # 2026-09-10 decision.md: REJECTED for the pre-registered exponent=-1 hypothesis specifically, but the underlying phenomenon (variance shrinks with n as a stable, precisely-measured power law) survives -- Kill Analysis distinguishes the two. Weighted-OLS fit across 9 points (n=32..3000, 40-300 reps each): slope=-0.9126, SE=0.0264, 95% CI=[-0.9751,-0.8501] -- excludes -1.0 (and -0.5, -2.0) with real precision, not a wide inconclusive interval. Stability check (slope on n=32..1024 subset = -0.900 vs n=256..3000 subset = -0.897) shows no drift toward -1 as n grows, arguing against a simple finite-size-correction-toward-(-1) explanation. Substrate gate (theta(C_5)=sqrt(5) exact, theta(G)*theta(Gbar)=9 exact) and negative control (p=0 gives Var=0.0 exactly) both passed before trusting any new large-n solve.
+    evidence: VERIFIED-REAL        # metrics/run.json (9 n-values, 40-300 reps each, bootstrap 95% CIs on variance, weighted+unweighted OLS fit); 8 tests incl. synthetic-ground-truth sanity checks confirming fit_exponent() correctly recovers a known -1 exponent AND correctly rejects a -2 exponent (not vacuously always CONFIRMED), plus a seed-collision check against H-CAT31-1/2
+    evidence_mode: simulation      # ADR-122: Monte Carlo sampling of the random-circulant-graph ensemble, not exhaustive, not a real-world dataset
+    verification_strength: none    # ADR-122: no FL Step 8a reviewer pass -- Standard-tier self-review only (substrate gate + negative control + post-hoc stability check substitute, per claim.md's own Skeptic Concerns section)
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "CONFIRMED if weighted-OLS 95% CI for the log-log slope contains -1.0 AND excludes both -0.5 and -2.0 (real discrimination, not just failure-to-reject). WEAKENED-INCONCLUSIVE if CI contains -1.0 but also -0.5 or -2.0. REJECTED if CI excludes -1.0 entirely. RESULT: REJECTED -- CI=[-0.9751,-0.8501] excludes -1.0 cleanly while also excluding -0.5 and -2.0, i.e. a precise measurement of a DIFFERENT exponent (~-0.91), not an inconclusive one."
+    experiment_dir: "experiments/20260910-lovasz-theta-variance-scaling-cat31-3"
+    source: "experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md"
+    updated: 2026-09-10
+
   - id: H-CAT37-2
     type: hypothesis
     title: "Targeted (differential-evolution) search for an s=4 Forsythe counterexample below the published dimension s+4=8: does one exist at n in {5,6,7}?"
@@ -2242,6 +2256,8 @@ edges:
   - {from: PROB-CAT-37, to: H-CAT37-1, type: grounds, since: 2026-09-09, note: "Problem 2.20 of arXiv:2602.05394 is the formal object this hypothesis tests"}
   - {from: PROB-CAT-31, to: H-CAT31-1, type: grounds, since: 2026-09-09, note: "Conjecture 18 of arXiv:2603.29571 is the formal object this hypothesis tests"}
   - {from: H-CAT31-1, to: H-CAT31-2, type: grounds, since: 2026-09-10, note: "H-CAT31-2 reuses H-CAT31-1's own cross-validated theta_via_lp/sample_circulant_neighbors unchanged, and reframes H-CAT31-1's own mean-ratio finding as a statement about E[cosh(X)-1] whose tail structure H-CAT31-1 itself never examined"}
+  - {from: H-CAT31-1, to: H-CAT31-3, type: grounds, since: 2026-09-10, note: "H-CAT31-3 reuses H-CAT31-1's own cross-validated theta_via_lp/sample_circulant_neighbors unchanged, on a wider n range and more replicates, to deepen the deep-external-novelty-audit's own Track 1 finding (Var(log(theta/sqrt(n)))~n^-0.96 on H-CAT31-1's original 9 noisier points)"}
+  - {from: H-CAT31-3, to: SUB-RANDOM-CIRCULANT-GRAPHS, type: tested_on, since: 2026-09-10}
   - {from: PROB-CAT-37, to: H-CAT37-2, type: grounds, since: 2026-09-10, note: "the s+4 dimension / s+1..2s support-size facts of arXiv:2609.04659's Theorem 1.1 motivate the minimal-dimension question"}
   - {from: H-CAT37-1, to: H-CAT37-2, type: grounds, since: 2026-09-10, note: "H-CAT37-1's own retroscan (ADR-091) and its pearl_registry entry named this exact follow-up question"}
   - {from: H-B2-2, to: H-B2-3, type: grounds, since: 2026-09-10, note: "user's 2026-09-09 direction-scoping report (route 4) asked whether H-B2-2's K_ref predictor transfers across observation windows T and matrix families, not just fits in-sample"}
