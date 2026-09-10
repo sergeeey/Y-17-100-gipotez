@@ -963,6 +963,17 @@ nodes:
     source: "experiments/20260910-lakes-tda-ews-crossvar-coherence-h3-1q/decision.md"
     updated: 2026-09-10
 
+  - id: ART-B7-EXTERNAL-NOVELTY-AUDIT-20260910
+    type: artifact
+    title: "External novelty audit of the H-B7-26...31 mechanism cluster (FL Step -3 Novelty Check, per consolidation-phase ADR-118 priority item 1) -- 4 real WebSearch rounds + 1 direct WebFetch verification on the most directly relevant candidate paper (CABEAN)"
+    status: valid
+    evidence: VERIFIED-REAL         # every cited source actually fetched/read this session, not from training-data memory
+    date_created: 2026-09-10
+    provenance: measurement          # external literature search + direct fetch verification, not a prediction/fit/illustration
+    source: "reports/2026-09-10-b7-external-novelty-audit.md"
+    updated: 2026-09-10
+    note: "VERDICT: all 4 distinct H-B7-26...31 claims (absorbing Markov chain probabilities, graph-automorphism branch isomorphism, canalization-driven contextual input redundancy, early-exit reachability asymmetry) are correctly-derived, tool-verified APPLICATIONS of already-established general techniques (absorbing-Markov-chain theory for Boolean networks -- superseded by an even more general 2026 method; state-space symmetry reduction; canalization/contextual redundancy; existential-vs-universal reachability asymmetry) to one real benchmark model (Remy 2015) -- NOT novel contributions to the underlying theory. Does NOT invalidate any H-B7-26...31 finding's internal correctness (all remain confirmed, independently reviewer-verified) -- converts their own already-stated novelty caveats from self-assessed [HYPOTHESIS] to externally-verified [VERIFIED-REAL]. CABEAN directly checked via WebFetch: no overlap with the specific numeric results. Recommendation: do not pursue publication as a novel finding; genuinely novel next step would require either a new technique or testing the 'dynamically redundant input' phenomenon's prevalence across independent Boolean network models (not attempted here, larger scope than this audit)."
+
   - id: H-B3-2
     type: hypothesis
     title: "Is Bridge 3's existing H1-VR-on-Takens-embedding statistic genuinely blind to window time-reversal (Mechanism Claim Gate), and does a genuinely order-sensitive alternative (Baryshnikov 2022 PH_0 chirality-excess via merge-tree stem-pruning) show a cleaner early-warning pattern on the same 3-lake dataset than trend-slope and time-reversal-asymmetry baselines (user direction-scoping report, route 3, 'начни B3')?"
@@ -2113,6 +2124,11 @@ edges:
   - {from: H-B7-26, to: H-B7-30, type: grounds, since: 2026-09-10, note: "H-B7-30 re-fits the large-deviation-style regression using H-B7-26's own exact escape probabilities instead of H-B7-23's Monte Carlo estimates, directly executing the user's own explicit priority item 4 (deferred through H-B7-27/28/29)"}
   - {from: H-B7-24, to: H-B7-30, type: grounds, since: 2026-09-10, note: "H-B7-30 reuses H-B7-24's own committed point_of_no_return_step values as the primary regression x-axis, unchanged"}
   - {from: H-B7-28, to: H-B7-30, type: grounds, since: 2026-09-10, note: "H-B7-30 uses H-B7-28's own full k=1..40 domain to establish that 36/40 conditions are trivial (P=1.0), directly supporting the data-geometry-limitation finding"}
+  - {from: ART-B7-EXTERNAL-NOVELTY-AUDIT-20260910, to: H-B7-26, type: grounds, since: 2026-09-10, note: "Audit externally verifies (WebSearch, 2026-09-10) that H-B7-26's own already-stated caveat (does NOT claim the method is novel) is correct -- a more general succession-diagram-based Markov chain method was already published, npj Systems Biology April 2026"}
+  - {from: ART-B7-EXTERNAL-NOVELTY-AUDIT-20260910, to: H-B7-27, type: grounds, since: 2026-09-10, note: "Audit finds H-B7-27's own graph-automorphism finding is a named, established formal-verification technique (state-space symmetry reduction) and its own contextual-input-redundancy mechanism is already described in the canalization literature (edges 'contextually redundant... in different dynamical trajectories')"}
+  - {from: ART-B7-EXTERNAL-NOVELTY-AUDIT-20260910, to: H-B7-28, type: grounds, since: 2026-09-10, note: "Same audit verdict as H-B7-27 applies to H-B7-28's own full-domain extension -- same underlying mechanism, established technique"}
+  - {from: ART-B7-EXTERNAL-NOVELTY-AUDIT-20260910, to: H-B7-29, type: grounds, since: 2026-09-10, note: "H-B7-29's own contrast test is a correct confirmation exercise within the already-established canalization/symmetry-reduction framework, not a new finding about the framework itself"}
+  - {from: ART-B7-EXTERNAL-NOVELTY-AUDIT-20260910, to: H-B7-31, type: grounds, since: 2026-09-10, note: "Audit finds H-B7-31's own early-exit asymmetry is a correctly-quantified instance of the classical existential-vs-universal reachability-check asymmetry in verification theory, not a novel algorithmic insight"}
   - {from: H-B7-22, to: H-B7-31, type: grounds, since: 2026-09-10, note: "H-B7-31 reuses H-B7-22's own async_successors unchanged, testing an early-exit variant of the same exhaustive BFS H-B7-22 runs -- corrects an earlier informal, never-registered finding that misidentified H-B7-22's own n_states_visited as a 'cheap' discriminator when it is actually circular"}
   - {from: H-B7-24, to: H-B7-31, type: grounds, since: 2026-09-10, note: "H-B7-31's own mechanism explanation (why early-exit gives large savings) directly cites H-B7-24's own point-of-no-return finding -- the decisive commitment step happens within the first 2-5 steps, long before the reachable set is exhausted"}
 
