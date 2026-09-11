@@ -914,10 +914,18 @@ finding of this whole investigation, and not a comfortable one.**
 
 Decomposed `E[delta^2] = sum_q w_q*A_q^2 + sum_q w_q*C_q` (`w_q=C(m-1,q)/2^(m-1)`, the ACTUAL
 Hamming-layer probability, not just `A_q`/`C_q`'s own values) using the validated
-necklace-orbit method uniformly across `n=11..43` (extended from `n=37` to `n=41,43` per a
-direct follow-up user request; `n=41` cost `52,488` LP solves — even `m=20`, no complement
-halving — `n=43` cost `~49,940` — odd `m=21`, halving applied; `check_density_vs_shape_
-decomposition.py`):
+necklace-orbit method uniformly across `n=11..53` (extended in three follow-up rounds per direct
+user request: `n=37->41,43`, then `n=41,43->47`, then `n=47->53`; LP-solve counts grow steeply
+with `m`: `n=41` cost `52,488` LP solves (even `m=20`, no complement halving), `n=43`
+`~49,940` (odd `m=21`, halving applied), `n=47` and `n=53` (`m=23,26`, both odd, halving
+applied) cost on the order of several hundred thousand and `~1.3M` LP solves respectively —
+`check_density_vs_shape_decomposition.py` for `n<=47`, `extend_n53_only.py` (reuses
+`run_one_n()` unchanged, only avoids recomputing already-verified `n<53`) for `n=53`. **The
+series was explicitly stopped at `n=53` by direct user decision** after being shown the
+projected cost of `n=59` (`m=29`: `2^29~=537M` subsets in the reconstruction loop vs `67M` at
+`n=53`, ~`9M` LP solves vs `~1.3M`, and an estimated memory footprint of `9-15GB+` for the main
+arrays vs the `~3.1GB` observed at `n=53`) — this is a deliberate cost/information stopping
+point per the Cheapest Differentiating Test Protocol, not a computational failure.):
 
 | n | n²·(density part) | n²·(shape part) | shape fraction of `E[δ²]` |
 |---:|---:|---:|---:|
@@ -931,21 +939,27 @@ decomposition.py`):
 | 37 | 21.46 | 21.36 | 0.499 |
 | 41 | 21.88 | 23.24 | 0.515 |
 | 43 | 22.10 | 24.03 | 0.521 |
+| 47 | 22.51 | 25.55 | 0.532 |
+| 53 | 23.08 | 27.54 | 0.544 |
 
-**The density part (`n²·sum_q w_q A_q^2`) remains nearly flat (`19.2 -> 22.1`, a 15% drift
-over the FULL `n=11..43` range, growth visibly slowing in the last few points) — genuinely
+**The density part (`n²·sum_q w_q A_q^2`) remains nearly flat (`19.2 -> 23.1`, a 20% drift
+over the FULL `n=11..53` range, growth visibly slowing in the last several points) — genuinely
 consistent with `O(1)`, matching the density-response experiment's own earlier finding (point
 5) that the bulk decrement `A_q ~ 4-5/n`.** The shape part is NOT flat and, extending the
-`n=37` finding, has now clearly CROSSED OVER: shape exceeds density at both new points
-(`23.24>21.88` at `n=41`, `24.03>22.10` at `n=43`) — **shape is now the dominant contributor
-to `E[delta^2]`, not merely caught up to parity.** The shape fraction continues past `50%`
-(`51.5%` at `n=41`, `52.1%` at `n=43`), but its own rate of increase has visibly slowed
-(increments `0.029,0.137,0.030,0.058,0.049,0.011,0.029,0.016,0.006` — the last increment,
-`0.006`, is the smallest in the whole sequence). **This slowdown is noted honestly as a
-possible early sign of the shape fraction leveling off somewhere past `50%`, not as
-established fact — 2 new points is thin evidence for a trend change, and the sequence is not
-monotonically decelerating (`0.011` was smaller than the preceding `0.049` but then `0.029`
-ticked back up before falling to `0.016` then `0.006`).**
+`n=37` crossover finding, remains clearly and increasingly above density at every point past
+`n=37` (`27.54>23.08` at `n=53`) — **shape is now the dominant contributor to `E[delta^2]`, not
+merely caught up to parity.** The shape fraction continues past `50%`, reaching `54.4%` at
+`n=53`. Its raw increments are `0.029,0.137,0.030,0.058,0.049,0.011,0.029,0.016,0.006,0.011,
+0.012,0.013` — not monotonic and not by themselves informative, because the `n`-gaps between
+successive prime points are uneven (`2,4,2,4,6,2,6,4,2,4,4,6`). **Normalizing by the gap
+(increment per unit `n`) over the most recent, evenly-spaced tail gives a cleaner signal:
+`41->43`: `0.00295`/unit, `43->47`: `0.002675`/unit, `47->53`: `0.002083`/unit — this specific
+normalized sub-sequence IS monotonically decreasing across all three most recent points.** This
+is noted honestly as a somewhat firmer (but still thin — 4 points, `n=41..53`, one specific
+normalization choice) sign that the shape fraction's growth RATE may be slowing, not that the
+fraction itself is bounded below `1` or has a known limit — the possibility that it keeps
+climbing slowly toward `1` (all of `E[delta^2]` eventually shape-dominated) is not excluded by
+this data.**
 
 **This precisely localizes where any `L(n)` in `V_n=L(n)/n` would have to live: not in the
 mean single-generator response (well-behaved, looks `O(1)`), but in how much that response
@@ -958,17 +972,21 @@ alone).** This is a real, if sobering, answer to a concrete question: the obstru
 shape-heterogeneity term, it has now overtaken the density term in absolute size, and whether
 it is itself bounded remains open.
 
-**Honest calibration:** 10 points, `n=11..43`, still small by the standard of what would be
+**Honest calibration:** 12 points, `n=11..53`, still small by the standard of what would be
 needed to distinguish `L(n)=O(1)` (with a slowly-approached asymptotic shape fraction) from
 `L(n)=O(log log n)` or similar slow growth (shape fraction still climbing at larger `n`) — this
-localizes WHERE the open question lives and adds a first hint (not proof) that the shape
-fraction's own growth rate may be slowing, but does not resolve the underlying question. No
-further attempt at a proof is made here; per the Cheapest Differentiating Test, the next
-informative step would be either (a) extending this exact weighted decomposition further in
-prime `n` (the necklace method's LP-solve count is already `~50,000` at `n=41,43`; `n~50-60`
-is plausible but would need materially more compute than this session's increments), or (b) a
-genuine new theoretical tool for bounding within-layer LP-optimum variance — neither attempted
-further this session.
+localizes WHERE the open question lives and adds a somewhat firmer (still not proof) hint that
+the shape fraction's own growth RATE may be slowing, but does not resolve the underlying
+question, and does not bound the shape fraction itself away from `1`. **The series is stopped
+at `n=53` by explicit user decision** (see cost note above) — this was a deliberate
+cost/information tradeoff call, not a claim that `n=53` is a natural or theoretically motivated
+stopping point. No further attempt at a proof is made here; per the Cheapest Differentiating
+Test, the next informative step, if resumed, would be either (a) extending this exact weighted
+decomposition further in prime `n` (cost grows roughly as `2^((n-1)/2)`, so each further step is
+substantially more expensive than the last — `n=59` alone was estimated at `~9M` LP solves and
+`9-15GB+` memory versus `~1.3M` LP solves and `~3.1GB` at `n=53`), or (b) a genuine new
+theoretical tool for bounding within-layer LP-optimum variance — neither attempted further this
+session.
 
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
@@ -980,7 +998,8 @@ further this session.
 (+`verify_seventh_angle_output.log`), `check_hamming_layer_decomposition.py`
 (+`hamming_layer_output.log`), `check_necklace_orbit_reduction.py`
 (+`necklace_orbit_output.log`), `check_density_vs_shape_decomposition.py`
-(+`density_vs_shape_output.log`)
+(+`density_vs_shape_output.log`), `extend_n53_only.py` (n=53 only, reuses `run_one_n()`
+unchanged to avoid recomputing already-verified `n<53`)
 (+`verify_delta_g_output.log`)
 (+`verify_lp_sensitivity_output.log`), and their outputs in `metrics/` (`cosh_bound_check.json`,
 `q_proxy_diagnostic.json`, `q_proxy_diagnostic_n3000.json`, `single_generator_sensitivity.json`,
