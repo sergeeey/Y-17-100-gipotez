@@ -699,7 +699,15 @@ lookup once all `2^m` values are known):
 
 **`n·Var(X_n)` rises from `n=9` to `n=21` and then visibly stabilizes (`3.01 -> 2.80 -> 2.79`
 at `n=21,23,25`) — a real, ZERO-noise signal of `Var(X_n)` converging toward a `C/n` law, not
-an artifact of Monte Carlo sampling error (there is none here).** `n·(ES bound)` shows the same
+an artifact of Monte Carlo sampling error (there is none here).** **CALIBRATION CORRECTION
+(added after point 12's independent check, user-caught mixing of arithmetic classes): this
+"stabilization" reading mixes prime and composite `n` (21=3·7, 25=5²). Point 12 below shows
+the PRIME-ONLY subsequence (`n=11,13,17,19,23`) is still cleanly RISING, not stabilizing, over
+this exact same range (`n·Var(X_n) = 2.15, 2.25, 2.49, 2.61, 2.80` — monotonic, no plateau).
+The apparent stabilization at `n=21,23,25` is a coincidence of which arithmetic classes those
+3 values happen to be, not a real trend break — read the prime-only sequence in point 12 as
+the more reliable signal, and the "visibly stabilizes" framing here as premature.** `n·(ES
+bound)` shows the same
 qualitative pattern (rises then wobbles in a bounded range, `4.0-4.6`, rather than growing),
 and the ratio between the two stays bounded (`1.20-1.57`) across the whole range, consistent
 with BOTH quantities being `Theta(1/n)` together. **This is the cleanest evidence gathered in
@@ -778,13 +786,79 @@ even levels), noisy large-`n` Monte Carlo evidence (points 3, 9b), and noise-fre
 exact evidence (points 10-11) — all pointing the same direction, none of them a proof of the
 upper bound itself.
 
+**12. Seventh angle: three concrete claims from a user-supplied external analysis, all
+INDEPENDENTLY VERIFIED against this project's own exact data before being accepted — none
+taken on the external text's say-so (`verify_seventh_angle_claims.py`, re-derives theta arrays
+for n=9..25, cross-checks against points 10-11's already-stored summaries).**
+
+**(a) Sharpened Efron-Stein — real, verified algebraic tightening.** Since point 11 proved
+`W_{2j}=0` exactly, `B_n - W_1 = sum_{k odd>=3} k*W_k >= 3*sum_{k odd>=3} W_k = 3*(V_n-W_1)`
+(each odd `k>=3` term is weighted by `k>=3`, not just `>=1`), giving
+
+```
+V_n <= (B_n + 2*W_1) / 3
+```
+
+— strictly tighter than the standard Efron-Stein `V_n<=B_n` whenever `W_1>0` (it is, always).
+**Verified: holds at every tested `n=9..25`, no exceptions.**
+
+**(b) For prime `n`, the level-1 Cauchy-Schwarz lower bound (point 7) is an EXACT EQUALITY,
+not just a lower bound — independently re-derived, then verified to machine precision.**
+Re-derivation: the prime-`n` symmetry theorem (point 4) already proves
+`theta(G_S)=theta(G_{aS})` for every unit `a`; this extends from single-generator flips to the
+FULL vector, giving `X(pi_a . epsilon) = X(epsilon)` identically (`pi_a` = the coordinate
+permutation induced by multiplying generator indices by `a`). This forces
+`X_hat({i}) = X_hat({j})` whenever `i,j` are in the same `Z_n^x`-orbit — for prime `n`, ALL of
+them, since the action is transitive. Equal singleton coefficients is exactly Cauchy-Schwarz's
+equality condition (proportionality between the coefficient vector and `Q`'s own uniform
+weights), so `W_1 = M_n'(1/2)^2/(4m)` EXACTLY for prime `n`.
+
+**Verified: at every prime `n` in {11,13,17,19,23}, the gap between `W_1` and
+`M_n'(1/2)^2/(4m)` is `~1e-17` to exactly `0` (machine precision), and the spread across
+singleton coefficients (`max-min`) is `~1e-16` (machine zero).** At composite `n` in
+{9,15,21,25}, the gap is real and nonzero (`0.001-0.008`) and the singleton spread is
+substantial (`0.03-0.09`) — confirming the equality is genuinely specific to primality, not a
+generic small-`n` artifact.
+
+**(c) Calibration correction to point 10's "stabilization" claim — the prime-only
+subsequence is still rising, not stabilizing.** Point 10 read `n·Var(X_n)` as stabilizing at
+`n=21,23,25` (`3.01→2.80→2.79`). Those three `n` mix arithmetic classes (`21=3·7`, `25=5²`,
+only `23` prime). Filtering to PRIME `n` only:
+
+| n (prime) | n·Var(X) | n·W1 | kappa_n = B_n/W_1 |
+|---:|---:|---:|---:|
+| 11 | 2.154 | 1.951 | 1.327 |
+| 13 | 2.249 | 2.027 | 1.352 |
+| 17 | 2.494 | 2.145 | 1.561 |
+| 19 | 2.608 | 2.217 | 1.606 |
+| 23 | 2.805 | 2.326 | 1.733 |
+
+**All three quantities are MONOTONICALLY RISING across the prime subsequence, with no visible
+plateau** — the point-10 "stabilization" reading is corrected: it was reading a coincidence of
+which specific `n` happened to land at 21/23/25, not a real trend break. This does not refute
+`Theta(1/n)` (small-`n` monotonic rise before an eventual plateau is entirely consistent with
+it — the same qualitative shape as points 3/9b's noisy large-`n` data, which also needed
+`n>~500` before visibly flattening), but it does mean point 10's specific "stabilizes by
+`n=25`" claim was premature and is retracted in favor of "rises through the entire tested
+range, plateau (if any) lies beyond `n=25`."
+
+**What remains genuinely open, stated precisely using the new machinery:** whether
+`|M_n'(1/2)|=O(1)` and `kappa_n=O(1)` as `n->infinity` (which together would give
+`Var(X_n)=O(1/n)` via (a) and (b) combined) is NOT established by 5 rising prime data points
+— it requires either a proof, or exact data at meaningfully larger prime `n` than `23`, which
+was not attempted here (the external analysis's own suggested necklace/orbit-reduction
+technique for prime `n`, exploiting that `X` is constant on `Z_n^x`-orbits of generator
+subsets to cut the `2^m` enumeration by a factor of `~m`, is a genuine, credible way to reach
+larger prime `n` exactly — named as a concrete next step, not attempted this session).
+
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
 `check_prime_symmetry_homogeneity.py`, `verify_prime_isomorphism_exhaustive.py`,
 `check_density_response.py`, `verify_lp_sensitivity_concavity.py`, `verify_delta_g_bound.py`,
 `analyze_own_data_for_upper_bound_signal.py`, `check_exact_enumeration_small_n.py`
 (+`exact_enumeration_output.log`), `check_exact_walsh_decomposition.py`
-(+`exact_walsh_output.log`)
+(+`exact_walsh_output.log`), `verify_seventh_angle_claims.py`
+(+`verify_seventh_angle_output.log`)
 (+`verify_delta_g_output.log`)
 (+`verify_lp_sensitivity_output.log`), and their outputs in `metrics/` (`cosh_bound_check.json`,
 `q_proxy_diagnostic.json`, `q_proxy_diagnostic_n3000.json`, `single_generator_sensitivity.json`,

@@ -1,0 +1,16 @@
+n=  9 prime=False Var_X=0.203289 <= sharpened_bound=0.203289 [OK] | W1=0.178660 vs identity=0.172107 gap=6.55e-03 singleton_spread=9.35e-02 | kappa_n=1.4136 n*Var_X=1.8296 n*W1=1.6079
+n= 11 prime=True  Var_X=0.195833 <= sharpened_bound=0.196693 [OK] | W1=0.177389 vs identity=0.177389 gap=2.78e-17 singleton_spread=5.00e-16 | kappa_n=1.3265 n*Var_X=2.1542 n*W1=1.9513
+n= 13 prime=True  Var_X=0.172967 <= sharpened_bound=0.174205 [OK] | W1=0.155929 vs identity=0.155929 gap=2.78e-17 singleton_spread=4.16e-16 | kappa_n=1.3516 n*Var_X=2.2486 n*W1=2.0271
+n= 15 prime=False Var_X=0.156457 <= sharpened_bound=0.160339 [OK] | W1=0.121495 vs identity=0.113607 gap=7.89e-03 singleton_spread=7.69e-02 | kappa_n=1.9592 n*Var_X=2.3469 n*W1=1.8224
+n= 17 prime=True  Var_X=0.146731 <= sharpened_bound=0.149783 [OK] | W1=0.126182 vs identity=0.126182 gap=2.78e-17 singleton_spread=5.55e-16 | kappa_n=1.5611 n*Var_X=2.4944 n*W1=2.1451
+n= 19 prime=True  Var_X=0.137251 <= sharpened_bound=0.140277 [OK] | W1=0.116708 vs identity=0.116708 gap=0.00e+00 singleton_spread=7.08e-16 | kappa_n=1.6058 n*Var_X=2.6078 n*W1=2.2175
+n= 21 prime=False Var_X=0.143186 <= sharpened_bound=0.147682 [OK] | W1=0.111070 vs identity=0.105067 gap=6.00e-03 singleton_spread=5.39e-02 | kappa_n=1.9889 n*Var_X=3.0069 n*W1=2.3325
+n= 23 prime=True  Var_X=0.121949 <= sharpened_bound=0.125829 [OK] | W1=0.101121 vs identity=0.101121 gap=1.39e-17 singleton_spread=5.97e-16 | kappa_n=1.7330 n*Var_X=2.8048 n*W1=2.3258
+n= 25 prime=False Var_X=0.111527 <= sharpened_bound=0.116734 [OK] | W1=0.087655 vs identity=0.086543 gap=1.11e-03 singleton_spread=2.58e-02 | kappa_n=1.9952 n*Var_X=2.7882 n*W1=2.1914
+
+--- PRIME-ONLY subsequence (n*Var_X, n*W1, kappa_n) ---
+  n= 11  n*Var_X=2.1542  n*W1=1.9513  kappa_n=1.3265
+  n= 13  n*Var_X=2.2486  n*W1=2.0271  kappa_n=1.3516
+  n= 17  n*Var_X=2.4944  n*W1=2.1451  kappa_n=1.5611
+  n= 19  n*Var_X=2.6078  n*W1=2.2175  kappa_n=1.6058
+  n= 23  n*Var_X=2.8048  n*W1=2.3258  kappa_n=1.7330
