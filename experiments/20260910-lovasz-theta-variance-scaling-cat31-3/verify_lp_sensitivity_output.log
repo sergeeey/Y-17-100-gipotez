@@ -1,0 +1,12 @@
+n: 11
+S: [1, 4, 5]
+i_drop: 1
+S_rest: [4, 5]
+theta(G_S) = V(0): 2.4082237465961445
+max_t V(t) [grid]: 4.554118256083617
+t* [grid]: 0.75
+theta(G_S_rest) [direct, independent]: 4.567681892327378
+grid_vs_direct_relative_gap: 0.002969479172037796
+max_second_diff: 6.217248937900877e-15
+min_second_diff: -0.278918717879475
+confirms_piecewise_linear_with_kink: True
