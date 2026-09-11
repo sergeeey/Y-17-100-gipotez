@@ -148,7 +148,7 @@ if __name__ == "__main__":
 
     print("\n=== Step 2: extend to n where dense diagonalization was infeasible ===")
     out = {}
-    for n in [37, 41, 43]:
+    for n in [37, 41, 43, 47]:
         print(f"\n--- n={n} ---")
         out[n] = marginal_l1_energy_per_layer(n)
 
