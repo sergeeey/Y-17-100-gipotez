@@ -623,10 +623,62 @@ verdict on exponent `=-1` stands unchanged throughout — this entire investigat
 is exploratory Mechanism Development Mode work on WHY the `-0.91` exponent might or might not
 be a finite-size transient, not a re-litigation of the pre-registered falsification result.
 
+**9. Fourth check, per direct user request to keep trying: one reformulation ruled out, and a
+genuine (non-proof) empirical synthesis of already-collected data that had not been stated
+explicitly before.**
+
+**(a) Checked whether the paper's OTHER primal/dual LP pair offers an escape — it does not,
+and this is a ruled-out check, not a new open attempt.** arXiv:2502.16227's own Table 1 lists 4
+equivalent LPs for `theta(G)` (`time`/`frequency` domain × primal/dual). Points 6 and 8 both
+used the `frequency`-domain primal (`y`, objective `<y,g>`). The `time`-domain primal
+(`max sum(x_i)` s.t. `Fx>=0`, `x_0=1`, `x_k=0` for edges) looked promising because dropping a
+generator there means FREEING a variable (`x_i` no longer fixed at `0`) rather than removing an
+orthogonality constraint — a more classical-looking LP sensitivity question. Reasoned through
+(not computed, since the reasoning alone is sufficient to rule it out): freeing `x_i` is still
+governed by a value function `V(t)=max{sum(x): x feasible, x_i=t}` that is concave and
+piecewise-linear in `t` for exactly the same reason as before (LP duality, point 6) — same kind
+of vertex-jump obstruction, just relabeled. The 4 LPs are connected by an invertible linear map
+(the Fourier transform, `y:=Fx`) and by strong LP duality, both of which preserve the OPTIMAL
+VALUE exactly but do nothing to trivialize how far an optimal VERTEX moves under a one-
+constraint change. **No escape found via this reformulation — ruled out, not left open.**
+
+**(b) Reframing this investigation's OWN already-collected data (`single_generator_
+sensitivity.json`, no new computation) as evidence — explicitly distinguished from a proof.**
+`n*(Efron-Stein bound)`, computed directly from point 3's own numbers
+(`analyze_own_data_for_upper_bound_signal.py`):
+
+| n | ES bound | n·(ES bound) |
+|---:|---:|---:|
+| 128 | 0.08125 | 10.40 |
+| 512 | 0.01476 | 7.55 |
+| 1536 | 0.00493 | 7.58 |
+
+**This is exactly the signature the O(1/n) upper bound would produce: `n*(ES bound)` drops
+from a finite-size value at `n=128` and then stabilizes (`7.55 -> 7.58`) at `n=512,1536`,**
+consistent with `Sum_i E[(Delta_i X)^2] = Theta(1/n)`. This was already implicit in point 3's
+table but had not been stated in these terms — it is real, honest EMPIRICAL support for the
+target upper bound, gathered across 3 points, not a fourth data point beyond what exists. **It
+remains exactly what it is: numerical evidence, not a proof.** The `n=3000` extension of the
+same measurement (point 3) was too underpowered (8 replicates) to extend this table reliably,
+and re-running it with proper power was not attempted here (would cost real compute, and per
+the Cheapest Differentiating Test this is a confirmatory re-measurement, not a new
+differentiating check).
+
+**Updated final assessment after 4 honest attempts (3 proof attempts in points 6/8 plus this
+reformulation check, all ruled out or unsuccessful for a PROOF; one genuine empirical-evidence
+synthesis in 9b):** the O(1/n) upper bound is not proven, is assessed as requiring
+research-level insight beyond the tools available here, AND is now supported by real (if
+modest) numerical evidence from data already on disk. The honest, complete current status:
+`Var(X_n) >= M_n'(1/2)^2/(4m)` (proved, unconditional), `Var(X_n)=Omega(1/n)` (conditional on
+an unproven but empirically-consistent nondegeneracy condition), `Var(X_n)=O(1/n)` (not proven,
+but the specific quantity that would need to be `O(1/n)` — the Efron-Stein sum — shows exactly
+the right empirical signature across the 3 well-powered points measured).
+
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
 `check_prime_symmetry_homogeneity.py`, `verify_prime_isomorphism_exhaustive.py`,
-`check_density_response.py`, `verify_lp_sensitivity_concavity.py`, `verify_delta_g_bound.py`
+`check_density_response.py`, `verify_lp_sensitivity_concavity.py`, `verify_delta_g_bound.py`,
+`analyze_own_data_for_upper_bound_signal.py`
 (+`verify_delta_g_output.log`)
 (+`verify_lp_sensitivity_output.log`), and their outputs in `metrics/` (`cosh_bound_check.json`,
 `q_proxy_diagnostic.json`, `q_proxy_diagnostic_n3000.json`, `single_generator_sensitivity.json`,
