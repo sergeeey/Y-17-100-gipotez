@@ -383,10 +383,72 @@ fixed `p`, and a direct response to varying `p`) agree closely once the sign/sca
 done correctly — real, non-circular consistency evidence for the underlying density-driven
 mechanism, not an artifact of either method alone.**
 
+**6. Attempted formal proof of `E[(Delta_i theta)^2]=O(1/n)` — real partial progress, gap
+explicitly NOT closed.** Per direct user request to continue the Efron–Stein target toward a
+formal proof. Honest verdict up front, so it cannot be missed: **a full proof was NOT achieved
+this session.** What follows is the actual mechanism identified, tool-verified where possible,
+with the precise remaining gap named — not a disguised negative result, but real progress on
+what to prove next.
+
+**The mechanism (standard LP theory, independently derived, then numerically verified — not
+copied from any external source).** Fix the generator set `S` and index `i in S`. Define
+`S_rest = S \ {i}` and the one-parameter family of LPs
+
+```
+V(t) = max{ <y,g> : y feasible for S_rest, <y,f_i> = t }
+```
+
+so `theta(G_S) = V(0)` and `theta(G_{S_rest}) = max_t V(t)` (dropping generator `i` is exactly
+relaxing the RHS of its constraint from a fixed `0` to "free," then taking the best achievable
+value). By LP duality, `V(t)` equals the pointwise infimum, over the (compact) dual-feasible
+set, of an affine function of `t` — hence **`V(t)` is concave and piecewise-linear in `t`**, a
+completely standard parametric-LP fact, not specific to this problem. This gives, via the
+concave function's tangent-line property at `t=0`, a genuine (if qualitative) sensitivity bound
+connecting `Delta_i theta = V(t*) - V(0)` to the LP's dual variable (shadow price) for
+constraint `i` and the distance `t*` that the relaxed optimum wants to move.
+
+**Verified, not just asserted:** `verify_lp_sensitivity_concavity.py` (n=11 toy case, 3
+generators, drop one, sweep `t` over `[-1,1]`) confirms all three predicted structural facts:
+(a) piecewise-linearity — second differences are `~1e-15` (floating-point noise) within each
+linear segment; (b) a genuine concave kink — the swept `V(t)` rises then falls, `min` second
+difference `-0.28` marks the kink; (c) `max_t V(t)` from the grid sweep (`4.5541`) matches
+`theta(G_{S_rest})` computed completely independently via `theta_via_lp` on the reduced
+generator set directly (`4.5677`, `0.30%` grid-resolution gap, not a discrepancy in the
+mechanism). The mechanism is real.
+
+**Why this does NOT close the gap to `O(1/n)`.** The tangent-line bound, on its own, only
+converts the question "how much does `theta` change" into two DIFFERENT unknowns — the dual
+variable (shadow price) magnitude at `i`, and how far `t*` sits from `0` — and bounding EITHER
+of those TIGHTLY for the specific RANDOM ensemble here is exactly as hard as the original
+question. A crude bound using only `||y||_1=1` and `|f_i(k)|<=1` (Hölder/Cauchy–Schwarz) gives
+`|t*|<=1` and a shadow-price magnitude that, summed "conservatively" across the `~n/2`
+generators, is consistent with an aggregate change of order `n` (matching, e.g., the full range
+`theta(empty)-theta(complete) = n-1`) — spread evenly across `~n/2` generators that is `O(1)`
+PER GENERATOR, not the `O(1/n)` needed. **Getting from `O(1)` per generator down to `O(1/n)`
+requires a genuine concentration/cancellation argument on the dual solution specific to the
+random ensemble** — structurally the same kind of restricted-isometry-property (RIP) argument
+arXiv:2502.16227 uses for its OWN (still only qualitative, `E[theta]=(1+o(1))*sqrt(n)`,
+unresolved) conjecture about the mean. That argument is not established in the one primary
+source directly verified this session, and deriving it from scratch here would be new research,
+not a routine continuation.
+
+**What is honestly claimed:** (1) a real, verified mechanism connecting single-generator
+sensitivity to LP dual variables via a standard, correctly-applied parametric-LP concavity
+argument; (2) a precisely-named missing ingredient (concentration of the dual/shadow-price
+structure across generators) required to turn this into `O(1/n)`; (3) an explicit statement
+that closing this gap is NOT achieved here and is adjacent to, or requires resolving, genuinely
+open research (the paper's own mean conjecture is unresolved, and variance is a harder,
+unaddressed question in it). This is not a disguised failure — it converts a vague ask ("prove
+Efron-Stein O(1/n)") into a precise, well-defined open sub-problem (characterize the dual
+variable's typical magnitude and the relaxed-optimum's typical correlation `t*` with a dropped
+constraint, for the random circulant ensemble), which is real, if incomplete, mathematical
+progress.
+
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`),
 `check_prime_symmetry_homogeneity.py`, `verify_prime_isomorphism_exhaustive.py`,
-`check_density_response.py`, and their outputs in `metrics/` (`cosh_bound_check.json`,
+`check_density_response.py`, `verify_lp_sensitivity_concavity.py`
+(+`verify_lp_sensitivity_output.log`), and their outputs in `metrics/` (`cosh_bound_check.json`,
 `q_proxy_diagnostic.json`, `q_proxy_diagnostic_n3000.json`, `single_generator_sensitivity.json`,
 `single_generator_sensitivity_n3000.json`, `prime_symmetry_homogeneity.json`,
 `density_response.json`) plus `verify_prime_isomorphism_output.log`,
