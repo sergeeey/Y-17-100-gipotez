@@ -1157,8 +1157,8 @@ experiment's `mu_j=Cov(delta,x_j)` route and the pasted analysis's `a_j=E[f|j∈
 — are ALSO algebraically identical (`mu_j = q(N-q)/N^2 * a_j`, verified on synthetic data, 5/5
 random cases), a genuine independent-derivation cross-check on top of the empirical one.
 
-**Extended to `n=37,41,43` (previously inaccessible to point 15a's dense diagonalization) —
-the aggregate weighted `l=1` fraction continues DECREASING, now across 6 points, not 3:**
+**Extended to `n=37,41,43,47` (previously inaccessible to point 15a's dense diagonalization) —
+the aggregate weighted `l=1` fraction continues DECREASING, now across 7 points, not 3:**
 
 | n | aggregate `l=1` fraction of weighted `S_n` |
 |---:|---:|
@@ -1168,17 +1168,28 @@ the aggregate weighted `l=1` fraction continues DECREASING, now across 6 points,
 | 37 | 1.41% |
 | 41 | 1.04% |
 | 43 | 0.90% |
+| 47 | 0.72% |
 
-**Monotonically decreasing across all 6 tested points, and the decrements are themselves
+**Monotonically decreasing across all 7 tested points, and the decrements are themselves
 shrinking (roughly halving n=23→31, then dropping to sub-1.5% territory by n=37+)** — a
-substantially firmer trend than the 3-point check. **This still does NOT constitute a new
-independent proof of anything about `V_n`'s asymptotics** — `mu_j` (hence the whole `l=1`-energy
-computation) is derived from the SAME `delta` data that determines `C_q` itself; using the
-observed fraction to "tighten" a bound on `C_q` remains circular, exactly as noted in point 15a.
-What this DOES establish: the trend is real (not a diagonalization artifact of small `N`, since
-it continues under a completely different, cheaper computational route), and the door is now open
-to check even larger `n` (`n=47,53` are feasible with this cheap method, not attempted this
-session) without needing dense diagonalization at all.
+substantially firmer trend than the 3-point check. **`n=47` was independently recomputed by
+this experiment's own already-validated pipeline (`verify_marginal_effect_l1_predictor.py`,
+NOT taken from a pasted external claim) — a pasted external analysis had separately claimed
+`0.7230335%` for `n=47`; this experiment's own independent recomputation gives `0.7230%`,
+matching to 4 significant figures. Per `audit-verification-gate.md` ("their [VERIFIED] = my
+[INFERRED]"), the external number was NOT recorded until reproduced independently — the value
+now in this table is this experiment's own computed result, the external claim served only as a
+target to check against, and the internal-consistency detail the external analysis cited (its
+local recomputation of `S_47` matching this repo's already-published value) is explained simply:
+this project's repository is public, so that value was directly readable, not independently
+re-derived by them.** **This still does NOT constitute a new independent proof of anything about
+`V_n`'s asymptotics** — `mu_j` (hence the whole `l=1`-energy computation) is derived from the
+SAME `delta` data that determines `C_q` itself; using the observed fraction to "tighten" a bound
+on `C_q` remains circular, exactly as noted in point 15a. What this DOES establish: the trend is
+real (not a diagonalization artifact of small `N`, since it continues under a completely
+different, cheaper computational route), and the door is now open to check even larger `n`
+(`n=53` is feasible with this cheap method, not attempted this session) without needing dense
+diagonalization at all.
 
 **Artifacts (this point):** `check_johnson_swap_energy.py` (+`metrics/johnson_swap_energy.json`),
 `verify_johnson_spectral_gap.py` (+`metrics/johnson_spectral_gap_verification.json`,
