@@ -74,3 +74,61 @@ theorem/conjecture reverified directly from LaTeX source (exact match); the "Fau
 already attempted" claim from the pasted analyses is `[WEAK]` (ResearchGate 403'd, only a search
 engine's paraphrase available), explicitly not required for the math above to hold. Full writeup:
 `experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum (2026-09-11).
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 9 — fourth upper-bound check, per user request
+to keep trying.** (a) Ruled out the paper's alternate 'time-domain' LP pair as an escape from
+the vertex-stability obstruction (freeing a fixed variable = same concave-PL value-function
+mechanism; the 4 LPs are linked by an invertible Fourier map + strong duality, neither
+trivializes vertex movement) — reasoned through, not a new open avenue. (b) Reframed OWN
+already-collected `single_generator_sensitivity.json` (no new compute): `n*(ES bound)` =
+10.40, 7.55, 7.58 at n=128/512/1536 — exactly the signature `O(1/n)` would produce
+(finite-size drop then stabilization). Explicitly labeled EMPIRICAL SUPPORT, not a proof.
+**Still not achieved as a proof; now has real numerical evidence behind it.** Full writeup:
+`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum point 9.
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 §7/§8 — CALIBRATION FIX, user-caught overclaim
+(same discipline as the earlier 2026-09-10 calibration fix).** Earlier text said
+"`Var(X_n)=Omega(1/n)` is established" — dropped the condition point 7 itself already named
+(`liminf|M_n'(1/2)|>0`, unproven, only empirically consistent with 2 tested points). Corrected
+throughout `decision.md`: the exact inequality `Var(X_n)>=M_n'(1/2)^2/(4m)` is unconditionally
+proved; `Omega(1/n)` is a CONDITIONAL consequence, not itself established. Also fixed: the
+density-response table's numbers used finite-difference `λ̂`, not the true derivative
+`M_n'(1/2)` — relabeled as a diagnostic plug-in estimate, not a certified bound. Fixed a
+mislabeling of point 7 as a "failed upper-bound variant" (it's the separate, successful
+lower-bound result) and softened an unverified "variance is harder than the mean question"
+comparative claim to explicitly not-established. No new math — pure calibration of language
+already-derived results are described with. Full fix: `experiments/20260910-lovasz-theta-
+variance-scaling-cat31-3/decision.md`, commit `5bf591d`.
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 8 — THIRD and final upper-bound attempt, per
+direct user request to try harder. HONEST FINAL VERDICT: O(1/n) upper bound NOT achieved.**
+Went back to arXiv:2502.16227's own proof (LaTeX, primary source) for unused structure. Found
++ numerically verified (n=3000, `verify_delta_g_bound.py`, matches to ~1e-12) a genuine new
+fact: flipping one generator perturbs the LP objective `g` by EXACTLY
+`Delta_g_k=+-4cos(2*pi*k*i/n)`, so `|Delta_g_k|<=4` for ALL n (bound doesn't grow with n,
+unlike g itself). Combined with the paper's own RIP lemma via Cauchy-Schwarz/Hölder, still
+only gives `O(sqrt(n)*polylog(n))`, not `O(1/n)` — obstruction is structural (bounding how far
+the LP OPTIMIZER's vertex moves under a one-constraint perturbation, not the perturbation's
+own size), same wall hit by all 3 independent attempts (LP concavity § 6, Cauchy-Schwarz upper
+variant, this Delta_g attempt). **Assessed as requiring research-level new insight, not a
+routine continuation — stopped here per Cheapest Differentiating Test (4th attempt without a
+qualitatively new idea has low expected value).** `Omega(1/n)` (§ 7) stands as the real result;
+`O(1/n)` remains genuinely open, matching the primary source's own unresolved mean question.
+REJECTED verdict for exponent=-1 unchanged throughout §§1-8. Full writeup:
+`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum point 8.
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 7 — exact Cauchy-Schwarz lower bound
+`Var(X_n)=Omega(1/n)`, REAL progress (stronger than § 6's LP-sensitivity attempt).**
+Independently re-derived a standard score-function identity `M_n'(1/2)=4*Cov(X_n,Q)` (not
+accepted from the external text that suggested it), combined with Cauchy-Schwarz +
+`Var(Q)=m/4` to get an EXACT (no heuristic) bound `Var(X_n)>=M_n'(1/2)^2/(4m)`. Applied to
+this experiment's OWN already-verified `check_density_response.py` data: bound captures
+59-93%+ of measured variance at n=128/512 (n=512,h=0.05: ratio 0.926) — real `Omega(1/n)`,
+conditional on `lambda_n` staying bounded away from 0 (consistent with 2 tested points, not
+proven for all n). **Critical provenance handling:** the SAME external message also pasted an
+unverifiable "new n=3000 experiment" (specific numbers, no output log, ~4.6h compute
+implausible for the claimed window) — EXPLICITLY examined and REJECTED as evidence, not
+incorporated anywhere, per audit-verification-gate.md/skeptic-triggers.md. Separately, 3 REAL
+code issues the same text correctly flagged in this project's own scripts were verified
+directly and documented honestly (antipodal generator bit excluded from Efron-Stein sum;
+flip_generator no-op bug for i=n/2, never triggered here; SE pseudo-replication in pooled
+indices) — checked on their own merits, not defensively dismissed for arriving via an
+untrusted source, and not accepted just because the source also had good math elsewhere. Full
+writeup: `experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum
+point 7.
