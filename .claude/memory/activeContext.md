@@ -27,24 +27,31 @@
 
 
 ## Current Focus
-**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 15a: layer-adaptive follow-up finds WHY the
-naive Johnson-graph bound is loose (real diagnostic), still NOT a new provable bound.** Per
-direct user request ("попробуй послойно-адаптивную версию границы"), decomposed `C_q` exactly
-by Johnson-scheme eigenspace (diagonalization + projection, Parseval verified exact at every
-layer). **The worst-gap (l=1) eigenspace's share of weighted `S_n` DECREASES monotonically:
-6.31% (n=23) → 3.39% (n=29) → 2.51% (n=31)** — explains the naive bound's looseness (it weights
-l=1 at 100%) but is NOT yet an independent bound (fractions derived FROM known `C_q`, using them
-to "tighten" would be circular) — recorded as a genuine LEAD (pearl_registry/INDEX.md, 3/3
-monotonic points, n=37 infeasible with dense diagonalization, `C(17,8)=24310`). Full writeup:
-decision.md § Addendum point 15a.
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 15/15b UPGRADED: gap formula now has an analytic
+derivation (not just diagonalization), and the l=1-suppression trend extends to 6 points via a
+new cheap closed-form predictor.** (1) Point 15's `gap(N,q)=N/(q(N-q))` upgraded from "verified
+by diagonalization" to "derived from the Johnson scheme's Eberlein-polynomial spectrum
+`lambda_j=(q-j)(N-q-j)-j`" — a pasted external analysis supplied the analytic route, independently
+RE-verified (not taken on citation) against this experiment's own full stored spectra: 34/34
+`(n,q)` layers at `N=10,13,14` match the general formula for EVERY level `j`, not just `j=1`.
+Diagonalization is now correctly framed as verification of the derivation, not the only evidence.
+(2) Point 15b, per direct follow-up user request for an independent l=1-share predictor: found an
+EXACT closed-form `Energy_l1=||mu||^2*N(N-1)/(q(N-q))` via per-element "marginal effects"
+`mu_j=Cov(delta,x_j)` — cheap (no `C(N,q)`-size diagonalization), cross-validated 34/34 EXACT
+against point 15a's diagonalization method at n=23,29,31, then used to extend the l=1-fraction
+trend to n=37,41,43 (previously infeasible for dense diagononalization). **Trend now 6 points, all
+monotonically decreasing: 6.31%→3.39%→2.51%→1.41%→1.04%→0.90%** — still NOT an independent bound
+on `C_q` (mu_j derived from the same delta data, circular to use directly), but a substantially
+firmer diagnostic than the earlier 3-point check. (3) Diagonalization REMOVED from the trust
+chain entirely: `verify_l1_projection_rigorous.py` constructs the actual degree-1 projection
+`P_1(delta)` and directly verifies `E[(P_1f)^2]=Energy_l1` + residual orthogonality to every
+`x_j` — both to `~1e-18` at every tested layer, INCLUDING the two layers (`n=29,q=5`; `n=31,q=2`)
+that showed `~1%` mismatch under the earlier pseudo-inverse route, now proven to be a
+diagonalization-grouping artifact, not a formula error. Two independent parametrizations
+(`mu_j=Cov(f,x_j)` vs a pasted analysis's `a_j=E[f|j∈S]-E[f|j∉S]`) also verified algebraically
+identical. Full writeup: decision.md § Addendum points 15/15a/15b, pearl_registry/INDEX.md status
+updated in place.
 
-[summarized] **[VERIFIED] H-CAT31-3 § 15: Johnson-graph swap-Poincaré theorem found and
-verified (real result), naive aggregate application is a NULL result for O(1/n).** Closed-form
-spectral gap `gap(N,q)=N/(q(N-q))` verified by direct diagonalization (30+ cases, N=6,8,10,13,
-machine precision) → Poincaré inequality `C_q<=T_q*q(N-q)/(2N)`. Aggregate across n=23,29,31,37:
-bound real but grows faster than `C_q` (+102% vs +55%), tightness 0.521→0.459→0.441→0.399 —
-honest null for the naive uniformly-weighted form; superseded in importance by § 15a above,
-full text in decision.md § Addendum point 15.
 
 [summarized] **[VERIFIED] H-CAT31-3 § 14 state as of 2026-09-11: series extended to n=47,53 then explicitly
 STOPPED by user decision (n=59 cost too high: ~9M LP solves/9-15GB+ vs ~1.3M/~3.1GB at n=53);
@@ -170,6 +177,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-11 23:30] `fdafc93` (local, branch `feature/h-cat31-3-marginal-effect-l1-predictor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record H-CAT31-3 point 15/15b upgrade (analytic derivation + rigorous projection check)
+- [2026-09-11 23:30] `470b13f` (local, branch `feature/h-cat31-3-marginal-effect-l1-predictor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 point 15 upgraded to analytic derivation + point 15b marginal-effect l1 predictor, extended to n=43
 - [2026-09-11 21:06] `6890d14` (local, branch `feature/h-cat31-3-johnson-graph-swap-poincare` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record H-CAT31-3 point 15/15a (Johnson-graph swap-Poincare)
 - [2026-09-11 21:06] `b47ce8b` (local, branch `feature/h-cat31-3-johnson-graph-swap-poincare` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- Johnson-graph swap-Poincare theorem (point 15) + layer-adaptive diagnostic (15a)
 - [2026-09-11 18:41] `a7530c6` (local, branch `docs/h-cat31-3-efron-stein-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record H-CAT31-3 Efron-Stein calibration fix
@@ -183,5 +192,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-11 13:33] `931983d` (local, branch `feature/h-cat31-3-necklace-orbit-extension` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record necklace-orbit extension and the bug it caught
 - [2026-09-11 13:33] `8a8058c` (local, branch `feature/h-cat31-3-necklace-orbit-extension` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- Hamming-layer decomposition + necklace-orbit extension to n=29,31,37
 - [2026-09-11 13:21] `393f855` (local, branch `feature/h-cat31-3-seventh-angle-verified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record verified 7th angle, self-correction to §10
-- [2026-09-11 13:21] `c51bccd` (local, branch `feature/h-cat31-3-seventh-angle-verified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- verified 3 external claims: sharpened ES bound, exact prime W1 identity, calibration correction
-- [2026-09-11 12:59] `28c555c` (local, branch `feature/h-cat31-3-exact-walsh-decomposition` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record the vanishing-even-Fourier-levels theorem

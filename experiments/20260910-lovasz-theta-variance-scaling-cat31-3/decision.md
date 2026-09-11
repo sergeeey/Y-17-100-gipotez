@@ -1012,20 +1012,38 @@ earlier LP-sensitivity attempt (points 6, 8, 9a) only ever moved ONE coordinate 
 moves two at once, which is exactly the mixed second-difference `Delta_i Delta_j X` structure the
 pasted external analysis pointed at.
 
-**Theorem (verified by direct diagonalization, not recalled from memory — `integrity.md`'s
-"no phantom formulas" rule):** the spectral gap of the single-swap random walk's normalized
-transition operator on `J(N,q)` equals exactly
+**Theorem, with an actual analytic derivation (upgraded 2026-09-11 — originally stated here as
+"verified by diagonalization", which is a correct but weaker claim; a pasted external analysis
+supplied the analytic route, independently re-verified against this experiment's own data before
+accepting it — `audit-verification-gate.md`, "their [VERIFIED] = my [INFERRED]" — not taken on
+the citation's word):** `J(N,q)`'s swap-adjacency graph is a classical association scheme (the
+Johnson scheme); its eigenvalues are the standard Eberlein-polynomial values
 
 ```
-gap(N,q) = N / (q*(N-q))
+lambda_j = (q-j)*(N-q-j) - j     for j = 0, 1, ..., min(q, N-q)
 ```
 
-Verified to machine precision (`max err ~1.4e-15`) against `numpy.linalg.eigvalsh` on the ACTUAL
-transition matrix, independently at `N=6,8,10,13` and every `q` in each — 30+ independently
-diagonalized cases, not a fit to one case (`verify_johnson_spectral_gap.py`). At `q=1` (and
-`q=N-1`) the swap-graph is exactly the complete graph `K_N`, giving the standard identity
-`Var(f)=(1/2)E[(f(X)-f(Y))^2]` for iid `X,Y` — the formula reduces to this analytically-known
-case exactly, a structural sanity check beyond pure numeric coincidence.
+(`lambda_0 = q(N-q) = d`, the degree, as required for the trivial/constant eigenspace). At `j=1`:
+`lambda_1 = (q-1)*(N-q-1) - 1`, which expands algebraically to exactly `d - N` (verified by hand
+and independently by direct diagonalization, see below) — giving the normalized-walk gap
+
+```
+gap(N,q) = 1 - lambda_1/d = N / (q*(N-q))
+```
+
+**Cross-check performed against this experiment's OWN already-computed full spectra (not the
+external source's say-so):** every distinct eigenvalue level found by direct diagonalization at
+`N=10,13,14` (34 tested `(n,q)` layers, `check_johnson_eigenspace_decomposition.py`'s output)
+matches the FULL Eberlein-polynomial formula above for EVERY level `j`, not just `j=1` — exact
+match at all 34 layers, not a fit. Additionally verified to machine precision (`max err
+~1.4e-15`) via direct `numpy.linalg.eigvalsh` on the actual transition matrix at `N=6,8,10,13`
+and every `q` in each — 30+ independently diagonalized cases specifically for the `j=1`/gap value
+(`verify_johnson_spectral_gap.py`). At `q=1` (and `q=N-1`) the swap-graph is exactly the complete
+graph `K_N`, giving the standard identity `Var(f)=(1/2)E[(f(X)-f(Y))^2]` for iid `X,Y` — the
+formula reduces to this analytically-known case exactly, a structural sanity check beyond pure
+numeric coincidence. **The diagonalization is now correctly understood as verification OF the
+analytic derivation (catching an implementation bug, confirming the right matrix/normalization
+convention was used), not as the sole evidence for the formula.**
 
 **Corollary (Poincaré inequality, standard for a reversible walk with this spectral gap):**
 
@@ -1088,18 +1106,87 @@ computing `C_q` — analogous to how point 11's vanishing-even-Fourier-levels th
 Boolean cube started as an empirical pattern before being PROVEN from the antisymmetry
 structure. No such independent argument was found or attempted this session.
 
-**Honest calibration:** 3 points (`n=23,29,31`), a monotonic and encouraging trend, but thin —
-`n=37`'s per-layer dense diagonalization (`C(17,8)=24310`) is computationally infeasible with
-this direct approach, so the trend could not be checked further within this session's scope.
-This is recorded as a genuine LEAD (per `falsification-ladder.md` § Pearl Registry criteria: a
-falsifiable prediction exists — "the l=1 aggregate fraction continues decreasing past n=31" —
-and a next check is named), not a result to build further claims on yet.
+**Honest calibration (as of the 3-point check):** `n=23,29,31`, a monotonic and encouraging
+trend, but thin — `n=37`'s per-layer dense diagonalization (`C(17,8)=24310`) is computationally
+infeasible with the direct eigendecomposition approach, so the trend could not be checked further
+by that method within this session's scope. **Extended past this limit in point 15b below.**
+
+**15b. An actual independent, cheap predictor of the `l=1` share — extends the trend to 6 points,
+still monotonic, per direct follow-up user request ("попробуй адаптивную границу с независимым
+предсказанием l=1-доли").**
+
+The `l=1` (degree-1) eigenspace of functions on the Johnson slice is exactly the span of the
+CENTERED single-element indicators `x_j(S) = 1[j in S] - q/N` (`j` ranging over the `N`-element
+ground set). Its energy (the `l=1` contribution to `C_q`) is the L2 norm of the best linear fit
+of `delta` onto `span{x_j}` — computable from just `N` cheap per-element "marginal effect"
+statistics `mu_j = Cov(delta, x_j)`, **not** the full `C(N,q)`-dimensional eigendecomposition
+point 15a needed. Using the closed form of the centered-indicator covariance matrix (`Sigma_jj =
+q(N-q)/N^2`, `Sigma_jk = -q(N-q)/(N^2(N-1))` for `j≠k`, itself verified against the empirical
+covariance to `~1e-16` at every tested layer) and the fact that `mu` lives entirely in the
+sum-zero subspace where `Sigma` acts as a SCALAR multiple of the identity (`J` annihilates that
+subspace), the projection collapses to an EXACT closed form, no numerical pseudo-inverse needed:
+
+```
+Energy_l1 = ||mu||^2 * N*(N-1) / (q*(N-q))
+```
+
+**Cross-validated against the exact diagonalization-based `l=1` energy (point 15a) at every
+tested layer, `n=23,29,31` — 34/34 exact matches (`rel_err=0.0000` at every layer)**, confirming
+this cheap closed form is the SAME quantity computed a completely different way, not merely
+correlated with it. This is the mandatory positive control (`falsification-ladder.md` § 2a)
+before trusting the method on `n` where the expensive diagonalization is infeasible.
+
+**Removed diagonalization from the trust chain entirely (2026-09-11, per a pasted external
+analysis's proposed algebraic check — independently re-derived and re-verified, not accepted on
+its word): `verify_l1_projection_rigorous.py` constructs the ACTUAL projection function
+`P_1f(S) = sum_j c_j*x_j(S)` (`c_j = mu_j*N(N-1)/(q(N-q))`) and checks its two DEFINING
+properties directly against the raw exact `delta` data, with no eigendecomposition anywhere:**
+
+```
+E[(P_1 f)^2]              == Energy_l1 (the closed-form scalar)   -- matched to 1e-9 or better
+E[(f - P_1 f) * x_j] ~= 0  for every ground element j              -- max violation ~1e-18
+```
+
+Checked at all 9 layers of `n=23` and, specifically, the two layers that showed a `~1%`
+discrepancy under the earlier numerical-pseudo-inverse route (`n=29,q=5`; `n=31,q=2`) — **both
+now match to machine precision** (`n=29,q=5`: closed-form `0.00050674` = direct `0.00050674`;
+`n=31,q=2`: closed-form `0.00836220` = direct `0.00836220`), confirming the earlier `~1%` gap was
+an eigenvalue-grouping artifact of `check_johnson_eigenspace_decomposition.py`'s diagonalization
+method (as suspected), not a formula error. The two independent parametrizations — this
+experiment's `mu_j=Cov(delta,x_j)` route and the pasted analysis's `a_j=E[f|j∈S]-E[f|j∉S]` route
+— are ALSO algebraically identical (`mu_j = q(N-q)/N^2 * a_j`, verified on synthetic data, 5/5
+random cases), a genuine independent-derivation cross-check on top of the empirical one.
+
+**Extended to `n=37,41,43` (previously inaccessible to point 15a's dense diagonalization) —
+the aggregate weighted `l=1` fraction continues DECREASING, now across 6 points, not 3:**
+
+| n | aggregate `l=1` fraction of weighted `S_n` |
+|---:|---:|
+| 23 | 6.31% |
+| 29 | 3.39% |
+| 31 | 2.51% |
+| 37 | 1.41% |
+| 41 | 1.04% |
+| 43 | 0.90% |
+
+**Monotonically decreasing across all 6 tested points, and the decrements are themselves
+shrinking (roughly halving n=23→31, then dropping to sub-1.5% territory by n=37+)** — a
+substantially firmer trend than the 3-point check. **This still does NOT constitute a new
+independent proof of anything about `V_n`'s asymptotics** — `mu_j` (hence the whole `l=1`-energy
+computation) is derived from the SAME `delta` data that determines `C_q` itself; using the
+observed fraction to "tighten" a bound on `C_q` remains circular, exactly as noted in point 15a.
+What this DOES establish: the trend is real (not a diagonalization artifact of small `N`, since
+it continues under a completely different, cheaper computational route), and the door is now open
+to check even larger `n` (`n=47,53` are feasible with this cheap method, not attempted this
+session) without needing dense diagonalization at all.
 
 **Artifacts (this point):** `check_johnson_swap_energy.py` (+`metrics/johnson_swap_energy.json`),
 `verify_johnson_spectral_gap.py` (+`metrics/johnson_spectral_gap_verification.json`,
 `metrics/johnson_gap_formula_generalization_check.json`), `aggregate_johnson_bound.py`
 (+`metrics/johnson_bound_aggregate.json`), `check_johnson_eigenspace_decomposition.py`
-(+`metrics/johnson_eigenspace_decomposition.json`), `analyze_l1_energy_fraction.py`.
+(+`metrics/johnson_eigenspace_decomposition.json`), `analyze_l1_energy_fraction.py`,
+`verify_marginal_effect_l1_predictor.py` (+`metrics/marginal_l1_predictor_extension.json`),
+`verify_l1_projection_rigorous.py`.
 
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
