@@ -909,6 +909,53 @@ points `n=9..37`, not obviously trending) — suggesting that WHATEVER is drivin
 of `nV_n` affects level 1 and the level≥3 residual in roughly the same proportion, rather than
 one specific level runaway-growing relative to the others.
 
+**14. Density-vs-shape localization, per direct user request — the sharpest structural
+finding of this whole investigation, and not a comfortable one.**
+
+Decomposed `E[delta^2] = sum_q w_q*A_q^2 + sum_q w_q*C_q` (`w_q=C(m-1,q)/2^(m-1)`, the ACTUAL
+Hamming-layer probability, not just `A_q`/`C_q`'s own values) using the validated
+necklace-orbit method uniformly across `n=11..37`
+(`check_density_vs_shape_decomposition.py`):
+
+| n | n²·(density part) | n²·(shape part) | shape fraction of `E[δ²]` |
+|---:|---:|---:|---:|
+| 11 | 19.22 | 3.56 | 0.156 |
+| 13 | 19.36 | 4.39 | 0.185 |
+| 17 | 19.30 | 9.16 | 0.322 |
+| 19 | 19.50 | 10.57 | 0.352 |
+| 23 | 19.89 | 13.82 | 0.410 |
+| 29 | 20.55 | 17.45 | 0.459 |
+| 31 | 20.80 | 18.46 | 0.470 |
+| 37 | 21.46 | 21.36 | 0.499 |
+
+**The density part (`n²·sum_q w_q A_q^2`) is nearly flat (`19.2 -> 21.5`, a 12% drift over
+`n=11..37`) — genuinely consistent with `O(1)`, matching the density-response experiment's
+own earlier finding (point 5) that the bulk decrement `A_q ~ 4-5/n`.** The shape part
+(`n²·sum_q w_q C_q`, the properly Hamming-weighted within-layer variance of the decrement) is
+NOT flat — it grows by roughly `6x` over the same range and, by `n=37`, has caught up to and
+essentially equals the density part (`21.36` vs `21.46`). **The shape fraction of `E[delta^2]`
+rises monotonically from `16%` at `n=11` to essentially `50%` at `n=37`, with no sign of
+leveling off.**
+
+**This precisely localizes where any `L(n)` in `V_n=L(n)/n` would have to live: not in the
+mean single-generator response (well-behaved, looks `O(1)`), but in how much that response
+VARIES across graphs at a given density — genuine LP-geometry heterogeneity within the bulk,
+not a rare-tail effect (consistent with point 13a's earlier, cruder observation that `C_q`
+peaks off-center; this weighted version makes the same point rigorously, using the actual
+layer probabilities rather than the raw `C_q` values alone).** This is a real, if sobering,
+answer to a concrete question: the obstruction to `O(1/n)` is not evenly spread or vaguely
+"complicated" — it is specifically the shape-heterogeneity term, and it is not yet showing
+any sign of being bounded over the tested range.
+
+**Honest calibration:** 8 points, `n=11..37`, still small by the standard of what would be
+needed to distinguish `L(n)=O(1)` from `L(n)=O(log log n)` or similar slow growth — this
+localizes WHERE the open question lives, it does not answer it. No further attempt at a proof
+is made here; per the Cheapest Differentiating Test, the next informative step would be
+either (a) extending this exact weighted decomposition further in prime `n` (the necklace
+method scales to at least `n~50-60` before LP-solve counts become unwieldy), or (b) a genuine
+new theoretical tool for bounding within-layer LP-optimum variance — neither attempted this
+session.
+
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
 `check_prime_symmetry_homogeneity.py`, `verify_prime_isomorphism_exhaustive.py`,
@@ -918,7 +965,8 @@ one specific level runaway-growing relative to the others.
 (+`exact_walsh_output.log`), `verify_seventh_angle_claims.py`
 (+`verify_seventh_angle_output.log`), `check_hamming_layer_decomposition.py`
 (+`hamming_layer_output.log`), `check_necklace_orbit_reduction.py`
-(+`necklace_orbit_output.log`)
+(+`necklace_orbit_output.log`), `check_density_vs_shape_decomposition.py`
+(+`density_vs_shape_output.log`)
 (+`verify_delta_g_output.log`)
 (+`verify_lp_sensitivity_output.log`), and their outputs in `metrics/` (`cosh_bound_check.json`,
 `q_proxy_diagnostic.json`, `q_proxy_diagnostic_n3000.json`, `single_generator_sensitivity.json`,
