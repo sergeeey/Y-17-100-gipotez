@@ -26,6 +26,19 @@
 
 
 ## Current Focus
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 §7/§8 — CALIBRATION FIX, user-caught overclaim
+(same discipline as the earlier 2026-09-10 calibration fix).** Earlier text said
+"`Var(X_n)=Omega(1/n)` is established" — dropped the condition point 7 itself already named
+(`liminf|M_n'(1/2)|>0`, unproven, only empirically consistent with 2 tested points). Corrected
+throughout `decision.md`: the exact inequality `Var(X_n)>=M_n'(1/2)^2/(4m)` is unconditionally
+proved; `Omega(1/n)` is a CONDITIONAL consequence, not itself established. Also fixed: the
+density-response table's numbers used finite-difference `λ̂`, not the true derivative
+`M_n'(1/2)` — relabeled as a diagnostic plug-in estimate, not a certified bound. Fixed a
+mislabeling of point 7 as a "failed upper-bound variant" (it's the separate, successful
+lower-bound result) and softened an unverified "variance is harder than the mean question"
+comparative claim to explicitly not-established. No new math — pure calibration of language
+already-derived results are described with. Full fix: `experiments/20260910-lovasz-theta-
+variance-scaling-cat31-3/decision.md`, commit `5bf591d`.
 **[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 8 — THIRD and final upper-bound attempt, per
 direct user request to try harder. HONEST FINAL VERDICT: O(1/n) upper bound NOT achieved.**
 Went back to arXiv:2502.16227's own proof (LaTeX, primary source) for unused structure. Found
@@ -171,6 +184,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-11 12:31] `d29baa7` (local, branch `docs/h-cat31-3-conditional-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record the Omega(1/n)-is-conditional calibration fix
+- [2026-09-11 12:31] `5bf591d` (local, branch `docs/h-cat31-3-conditional-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: H-CAT31-3 -- calibration fix, Omega(1/n) is conditional not established
 - [2026-09-11 12:24] `aefb1ea` (local, branch `feature/h-cat31-3-delta-g-final-attempt` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record final upper-bound verdict, consolidate H-CAT31-3 §§1-6
 - [2026-09-11 12:23] `2c2d5e5` (local, branch `feature/h-cat31-3-delta-g-final-attempt` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: H-CAT31-3 -- third and final upper-bound attempt, honest verdict: not achieved
 - [2026-09-11 12:16] `6f9064a` (local, branch `feature/h-cat31-3-cauchy-schwarz-lower-bound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record Cauchy-Schwarz lower bound, dedupe archived B7 entries
@@ -184,5 +199,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-11 10:59] `14312da` (local, branch `feature/h-cat31-3-mechanism-addendum` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- mechanism-level addendum (Efron-Stein sensitivity, Q-proxy, cosh bound)
 - [2026-09-11 10:01] `23914c0` (local, branch `docs/h-cat31-3-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: activeContext.md -- record the H-CAT31-3 calibration fix
 - [2026-09-11 10:00] `30dc754` (local, branch `docs/h-cat31-3-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: calibration fix -- H-CAT31-3 stability-check overclaim, user-caught
-- [2026-09-10 23:27] `be1f280` (local, branch `feature/h-cat31-3-variance-scaling-deepened` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- deepened Var(log theta/sqrt(n)) exponent check, REJECTED for -1
-- [2026-09-10 22:25] `679d850` (local, branch `docs/deep-novelty-audit-track2-external-verification` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: activeContext.md update -- Track 2 external verification complete
