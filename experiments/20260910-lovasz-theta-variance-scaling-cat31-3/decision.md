@@ -305,7 +305,53 @@ extends without contradicting, the CORRECTED CALIBRATION note above (`Var(X_n)=C
 remains the leading un-excluded alternative to a genuine `n^-0.91` law; this addendum names a
 concrete candidate mechanism for why such an `L(n)` could exist and shrink toward 1).
 
+**4. Prime-n generator homogeneity — an exact identity, independently proved here (not merely
+cited from the pasted external analysis).** The externally-suggested claim was that prime `n`
+"should" give homogeneous single-generator sensitivity across indices `i`, via a `Z_n^x`
+symmetry heuristic. Re-derived rigorously rather than accepted as a heuristic:
+
+For prime `n`, multiplication by any unit `a in Z_n^x` (i.e. any `a` coprime to `n`, which for
+prime `n` is every `a` in `1..n-1`) is a graph automorphism of the underlying labeling — the
+random circulant graph on generator set `S subset {1..m}` and the graph on `a*S mod n` (reduced
+to `{1..m}` via the `+/-` identification) are ALWAYS isomorphic for any FIXED `S`, so
+`theta(G_S) = theta(G_{aS})` deterministically. Since `S` is drawn from i.i.d. Bernoulli(1/2)
+bits, and `S -> aS` is a measure-preserving bijection of the sample space (a is invertible mod
+`n`), it follows that `E_S[(theta(G_S)-theta(G_{S xor {i}}))^2] = E_S[(theta(G_S)-theta(G_{S xor
+{j}}))^2]` EXACTLY whenever `j = a*i mod n` for some unit `a` — i.e. whenever `i` and `j` are in
+the same `Z_n^x`-orbit. For prime `n`, `Z_n^x` acts transitively on `{1,...,n-1}`, hence (via
+`+/-` identification, since `-1` is always a unit) transitively on `{1,...,m}`. **Conclusion:
+for prime `n`, `E[(Delta_i theta)^2]` is EXACTLY equal for every generator index `i` — an exact
+symmetry theorem, not an approximation or a heuristic.**
+
+The load-bearing deterministic half of this argument (`theta(G_S)=theta(G_{aS})` for every FIXED
+`S`) was checked EXHAUSTIVELY, not by sampling, at `n=7` (prime, `m=3`, `a=3`):
+`verify_prime_isomorphism_exhaustive.py` enumerates all `2^3=8` subsets `S` and confirms
+`|theta(G_S)-theta(G_{aS})|` is `~5e-15` (floating-point noise) in every case — a real,
+tool-verified positive control on the theorem's deterministic core, not merely a symbolic
+argument taken on faith.
+
+Checked empirically (`check_prime_symmetry_homogeneity.py`, `n=127` prime vs `n=128` composite,
+150 reps × 7 spread indices each, seeds `334000+`): the observed across-index CV came out
+**higher** for the prime case (`0.231`) than the composite case (`0.132`) — the OPPOSITE
+direction from a naive reading of "symmetry implies less variability." This is **not a
+refutation of the theorem above** (which is proven, not conjectured) — per-index standard
+errors at this replicate count (~15-25% relative, `n=127`, 150 reps) are large enough that a
+*true* CV of exactly 0 (as the theorem requires for prime `n`) is fully consistent with an
+*observed* CV of 0.23 from sampling noise alone. **This diagnostic, as run, lacks the power to
+detect the proven identity — it neither confirms nor refutes it; it establishes that 150 reps at
+this `n` is not enough, not that the symmetry is absent.**
+
+**Practical implication for future work (not executed here):** since the identity is exact for
+prime `n`, any future well-powered sensitivity measurement should (a) use prime `n` to get the
+Efron–Stein sum from a SINGLE generator index instead of averaging over several (removes the
+composite-n heterogeneity confound entirely, and roughly halves the per-replicate cost versus
+the 3-index design used above), and (b) put replicate budget into that one index's precision
+rather than splitting it across multiple indices to "check" homogeneity that is already proven.
+
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
-`check_single_generator_sensitivity.py` (+`_n3000.py`), and their outputs in `metrics/`
-(`cosh_bound_check.json`, `q_proxy_diagnostic.json`, `q_proxy_diagnostic_n3000.json`,
-`single_generator_sensitivity.json`, `single_generator_sensitivity_n3000.json`).
+`check_single_generator_sensitivity.py` (+`_n3000.py`),
+`check_prime_symmetry_homogeneity.py`, `verify_prime_isomorphism_exhaustive.py`, and their
+outputs in `metrics/` (`cosh_bound_check.json`, `q_proxy_diagnostic.json`,
+`q_proxy_diagnostic_n3000.json`, `single_generator_sensitivity.json`,
+`single_generator_sensitivity_n3000.json`, `prime_symmetry_homogeneity.json`) plus
+`verify_prime_isomorphism_output.log`.

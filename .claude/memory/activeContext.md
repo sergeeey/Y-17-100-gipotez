@@ -26,6 +26,19 @@
 
 
 ## Current Focus
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 mechanism addendum § 4 — prime-n generator
+homogeneity, a small theorem PROVED here (not cited from external text).** Derived and
+exhaustively verified (`verify_prime_isomorphism_exhaustive.py`, n=7 prime, all 8 subsets,
+diff~5e-15): for prime `n`, `theta(G_S)=theta(G_{aS})` exactly for any unit `a` (graph
+automorphism via vertex relabeling), and since `S -> aS` is measure-preserving under i.i.d.
+Bernoulli(1/2) generator bits, `E[(Delta_i theta)^2]` is EXACTLY equal across all generator
+indices `i` for prime `n` — not a heuristic. Empirical check at n=127 (prime) vs n=128
+(composite), 150 reps × 7 indices, gave CV=0.231 vs 0.132 — OPPOSITE direction from the naive
+prediction, but NOT a refutation: per-index SE (~15-25%) at this rep count is fully consistent
+with a true CV of 0. Honest reading: the diagnostic lacks power to detect the proven identity,
+neither confirms nor refutes it. Practical upshot for future work: prime n + single-index
+measurement (not averaging over 3) would both remove the composite-n heterogeneity confound
+and roughly halve per-replicate cost for any future Efron-Stein sensitivity sweep.
 **[VERIFIED — 2026-09-11] H-CAT31-3 mechanism-level addendum (Mechanism Development Mode,
 triggered by user-supplied external AI analyses, independently re-checked, NOT trusted at face
 value).** Three diagnostics, all reusing the experiment's own verified substrate, none reopening
