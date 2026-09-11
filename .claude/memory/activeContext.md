@@ -27,30 +27,28 @@
 
 
 ## Current Focus
-**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 15/15b UPGRADED: gap formula now has an analytic
-derivation (not just diagonalization), and the l=1-suppression trend extends to 6 points via a
-new cheap closed-form predictor.** (1) Point 15's `gap(N,q)=N/(q(N-q))` upgraded from "verified
-by diagonalization" to "derived from the Johnson scheme's Eberlein-polynomial spectrum
-`lambda_j=(q-j)(N-q-j)-j`" — a pasted external analysis supplied the analytic route, independently
-RE-verified (not taken on citation) against this experiment's own full stored spectra: 34/34
-`(n,q)` layers at `N=10,13,14` match the general formula for EVERY level `j`, not just `j=1`.
-Diagonalization is now correctly framed as verification of the derivation, not the only evidence.
-(2) Point 15b, per direct follow-up user request for an independent l=1-share predictor: found an
-EXACT closed-form `Energy_l1=||mu||^2*N(N-1)/(q(N-q))` via per-element "marginal effects"
-`mu_j=Cov(delta,x_j)` — cheap (no `C(N,q)`-size diagonalization), cross-validated 34/34 EXACT
-against point 15a's diagonalization method at n=23,29,31, then used to extend the l=1-fraction
-trend to n=37,41,43 (previously infeasible for dense diagononalization). **Trend now 6 points, all
-monotonically decreasing: 6.31%→3.39%→2.51%→1.41%→1.04%→0.90%** — still NOT an independent bound
-on `C_q` (mu_j derived from the same delta data, circular to use directly), but a substantially
-firmer diagnostic than the earlier 3-point check. (3) Diagonalization REMOVED from the trust
-chain entirely: `verify_l1_projection_rigorous.py` constructs the actual degree-1 projection
-`P_1(delta)` and directly verifies `E[(P_1f)^2]=Energy_l1` + residual orthogonality to every
-`x_j` — both to `~1e-18` at every tested layer, INCLUDING the two layers (`n=29,q=5`; `n=31,q=2`)
-that showed `~1%` mismatch under the earlier pseudo-inverse route, now proven to be a
-diagonalization-grouping artifact, not a formula error. Two independent parametrizations
-(`mu_j=Cov(f,x_j)` vs a pasted analysis's `a_j=E[f|j∈S]-E[f|j∉S]`) also verified algebraically
-identical. Full writeup: decision.md § Addendum points 15/15a/15b, pearl_registry/INDEX.md status
-updated in place.
+**[VERIFIED — 2026-09-12] H-CAT31-3 § 15b extended to n=47 (7th point) — trend still
+monotonically decreasing, and this session INDEPENDENTLY REPRODUCED an externally-pasted claim
+rather than accepting it on citation.** A pasted external analysis claimed `n=47`'s aggregate
+`l=1` fraction = `0.7230335%`. Per `audit-verification-gate.md` ("their [VERIFIED] = my
+[INFERRED]"), did NOT record this until this experiment's own already-validated pipeline
+(`verify_marginal_effect_l1_predictor.py`) recomputed it independently: **got `0.7230%`,
+matching to 4 significant figures.** The external analysis's own "control check" (reproducing
+this repo's already-published `S_47` value) is not independent evidence — the repo is public,
+that value was directly readable, not re-derived. Trend now 7 points, all monotonically
+decreasing: `6.31%→3.39%→2.51%→1.41%→1.04%→0.90%→0.72%` (n=23,29,31,37,41,43,47). Full writeup:
+decision.md § Addendum point 15b (extended), pearl_registry/INDEX.md status updated in place.
+
+[summarized] **[VERIFIED — 2026-09-11] H-CAT31-3 §§15/15a/15b established: point 15's
+`gap(N,q)=N/(q(N-q))` upgraded to an analytic derivation (Eberlein-polynomial spectrum,
+independently re-verified 34/34 against own stored data, not taken on a pasted citation);
+point 15b found the exact closed-form `Energy_l1=||mu||^2*N(N-1)/(q(N-q))` marginal-effect
+predictor (cheap, no dense diagonalization), cross-validated 34/34 exact against diagonalization
+at n=23,29,31, THEN diagonalization removed from the trust chain entirely via direct
+construction+orthogonality-check of the actual degree-1 projection (`~1e-18` match, also
+resolved 2 earlier `~1%` discrepancies as diagonalization-grouping artifacts, not formula
+errors). Two independent parametrizations (`mu_j` vs a pasted analysis's `a_j`) verified
+algebraically identical. Archived detail in decision.md itself, not further condensed here.**
 
 
 [summarized] **[VERIFIED] H-CAT31-3 § 14 state as of 2026-09-11: series extended to n=47,53 then explicitly
@@ -177,6 +175,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-12 04:09] `7ce1cea` (local, branch `feature/h-cat31-3-n47-independent-confirmation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 point 15b extended to n=47, independently reproduces a pasted external claim
 - [2026-09-11 23:30] `fdafc93` (local, branch `feature/h-cat31-3-marginal-effect-l1-predictor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record H-CAT31-3 point 15/15b upgrade (analytic derivation + rigorous projection check)
 - [2026-09-11 23:30] `470b13f` (local, branch `feature/h-cat31-3-marginal-effect-l1-predictor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 point 15 upgraded to analytic derivation + point 15b marginal-effect l1 predictor, extended to n=43
 - [2026-09-11 21:06] `6890d14` (local, branch `feature/h-cat31-3-johnson-graph-swap-poincare` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record H-CAT31-3 point 15/15a (Johnson-graph swap-Poincare)
@@ -191,4 +190,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-11 13:40] `43b0f44` (local, branch `feature/h-cat31-3-density-shape-localization` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- density-vs-shape localization, sharpest finding yet, sobering not comforting
 - [2026-09-11 13:33] `931983d` (local, branch `feature/h-cat31-3-necklace-orbit-extension` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record necklace-orbit extension and the bug it caught
 - [2026-09-11 13:33] `8a8058c` (local, branch `feature/h-cat31-3-necklace-orbit-extension` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- Hamming-layer decomposition + necklace-orbit extension to n=29,31,37
-- [2026-09-11 13:21] `393f855` (local, branch `feature/h-cat31-3-seventh-angle-verified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record verified 7th angle, self-correction to §10
