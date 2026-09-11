@@ -43,11 +43,24 @@ SE     =  0.0264
 
 **Stability check (not pre-registered, run after the fact as a sanity diagnostic):** slope on
 the first 6 points (`n=32..1024`) = **-0.900**; slope on the last 6 points (`n=256..3000`) =
-**-0.897** — near-identical across the two halves of the range, no curvature/drift toward -1 as
-`n` grows. This argues against "the true asymptotic exponent is -1 with a slowly-decaying
-finite-size correction visible in this range" as an explanation for the CI's exclusion of -1
-(a genuine finite-size correction converging to -1 would show the large-n subset's slope closer
-to -1 than the small-n subset's; it does not).
+**-0.897** — near-identical across the two halves of the range.
+
+**CORRECTED CALIBRATION (2026-09-10, user-caught overclaim in the first version of this
+section):** the original wording here said the stability check "argues against" / "excludes" a
+finite-size-correction-toward-`-1` explanation. That is stronger than the data supports and has
+been walked back. The precise, defensible statement is:
+
+> No detectable drift toward -1 over `n=32..3000`; a *simple* finite-range correction
+> explanation is disfavored, but an asymptotic `-1` beyond the observed range is NOT ruled out.
+
+Specifically NOT excluded by this check: a slowly-varying correction of the form
+`Var(X_n) = C*n^-1*L(n)` where `L(n)` changes slowly enough that the *effective* exponent stays
+near `-0.9` across several decades of `n` (a well-known phenomenon in statistical mechanics and
+number theory — e.g. `L(n) ~ (log n)^p` or similar — would be invisible to a same-slope check
+over only ~2 orders of magnitude). A genuine crossover to `-1` at `n >> 3000` is also not
+excluded. The split-half check only rules out the SPECIFIC, simplest story (a correction term
+that has mostly decayed away by `n=1024` and continues decaying at the same visible rate) — it
+is one falsified sub-hypothesis among several possible explanations, not a general exclusion.
 
 ## Verdict
 
@@ -78,10 +91,13 @@ exactly `-1`) for this ensemble (`p=0.5` random dense circulant graphs), tested 
 2. `E[theta(G)] >= sqrt(n)` and the mean-ratio convergence to 1 — unaffected, already
    `KNOWN-BY-GENERAL-THEOREM` per the audit's own Track 2, unrelated to this variance question.
 3. The possibility that the TRUE asymptotic exponent is exactly `-1` at `n` far beyond this
-   experiment's reach (`n >> 3000`) — not ruled out, only that it is not `-1` (or is `-1` with a
-   correction term that has not decayed away) within the tested range. The stability check above
-   makes a SIMPLE finite-size-correction-toward-(-1) explanation less likely, but does not
-   exclude a more complex one.
+   experiment's reach (`n >> 3000`), reached via a slowly-varying correction
+   `Var(X_n) = C*n^-1*L(n)` (e.g. a logarithmic factor) that would produce an effective exponent
+   near `-0.9` across several decades of `n` without the split-half slope showing any drift —
+   this is NOT distinguishable from a genuine `n^-0.91` law using only same-functional-form OLS
+   on 9 points. The stability check rules out only the SIMPLEST alternative story (a correction
+   already mostly decayed by `n=1024`, still visibly decaying at the same rate thereafter) — see
+   the CORRECTED CALIBRATION note above.
 
 **Relaxation Map for the surviving phenomenon** (per Minimal Relaxation Rule — one change per
 variant, not attempted here):
@@ -92,10 +108,16 @@ variant, not attempted here):
   `Var = Omega(n^-1)` simultaneously defensible as a two-sided bound, without committing to one
   point estimate? Cheaper than resolving the exact value, and may be the more honest claim to
   carry forward.
-- **Replace** the empirical power-law model with a more structured ansatz (e.g.
-  `Var(n) = C/n + D/n^{1+eps}` or a `1/(n-a)`-type correction) fit to the same 9 points — could
-  distinguish "truly not -1" from "-1 plus a persistent correction," which the current pure
-  power-law fit cannot separate given only 9 points.
+- **Replace** the empirical power-law model with a more structured ansatz fit to the SAME
+  already-collected 9 points (NOT a bigger sweep at larger `n` — the recommended next cheap step,
+  per explicit user direction) — e.g. `Var(n) = C*log(n)/n` or `C*(log n)^p/n` against the plain
+  `C*n^-alpha` fit already done here. **Hard constraint on this comparison, stated explicitly so
+  it is not silently violated later:** a correction model is only admissible here if it can be
+  motivated from the actual structure of the problem (the random-circulant/DFT representation
+  `theta_via_lp` itself uses, or a known mechanism from concentration-of-measure theory for
+  similar LP/SDP relaxations) — NOT chosen by trying several functional forms on these 9 points
+  and picking whichever fits best. An unmotivated multi-model fit on 9 points is a beauty
+  contest among curves, not a scientific comparison, and must not be reported as one.
 
 ## Skeptic Concerns (self-review, FL Step 8a — Standard-tier, not causal/architectural; the
 substrate gate + negative control + post-hoc stability check substitute for an external
@@ -148,6 +170,14 @@ project's own hard rule (`falsification-ladder.md`, `research-methodology.md` Q6
 fact without a structural explanation is a benchmark measurement, not a special case of anything
 identifiable yet — promoting it further would require the theoretical work in the Relaxation Map
 above, not more compute at larger `n` alone.
+
+**Final one-line status (user-refined, 2026-09-10):** a robust, unexplained empirical
+concentration law on random circulant Lovász theta, with the natural `n^-1` law falsified over
+the tested range — `BENCHMARK-SPECIFIC-NUMERIC-RESULT` / graph status `lead`. Not a discovery,
+not a failure: the project's single strongest surviving novelty candidate was given a real,
+pre-registered chance to die by its own named criterion, and did — which is a stronger
+demonstration of this project's own methodology working correctly than a CI that happened to
+land on `[-1.02, -0.98]` and got waved through would have been.
 
 ## MCID
 
