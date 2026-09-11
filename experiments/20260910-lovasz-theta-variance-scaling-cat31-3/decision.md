@@ -914,8 +914,10 @@ finding of this whole investigation, and not a comfortable one.**
 
 Decomposed `E[delta^2] = sum_q w_q*A_q^2 + sum_q w_q*C_q` (`w_q=C(m-1,q)/2^(m-1)`, the ACTUAL
 Hamming-layer probability, not just `A_q`/`C_q`'s own values) using the validated
-necklace-orbit method uniformly across `n=11..37`
-(`check_density_vs_shape_decomposition.py`):
+necklace-orbit method uniformly across `n=11..43` (extended from `n=37` to `n=41,43` per a
+direct follow-up user request; `n=41` cost `52,488` LP solves — even `m=20`, no complement
+halving — `n=43` cost `~49,940` — odd `m=21`, halving applied; `check_density_vs_shape_
+decomposition.py`):
 
 | n | n²·(density part) | n²·(shape part) | shape fraction of `E[δ²]` |
 |---:|---:|---:|---:|
@@ -927,34 +929,46 @@ necklace-orbit method uniformly across `n=11..37`
 | 29 | 20.55 | 17.45 | 0.459 |
 | 31 | 20.80 | 18.46 | 0.470 |
 | 37 | 21.46 | 21.36 | 0.499 |
+| 41 | 21.88 | 23.24 | 0.515 |
+| 43 | 22.10 | 24.03 | 0.521 |
 
-**The density part (`n²·sum_q w_q A_q^2`) is nearly flat (`19.2 -> 21.5`, a 12% drift over
-`n=11..37`) — genuinely consistent with `O(1)`, matching the density-response experiment's
-own earlier finding (point 5) that the bulk decrement `A_q ~ 4-5/n`.** The shape part
-(`n²·sum_q w_q C_q`, the properly Hamming-weighted within-layer variance of the decrement) is
-NOT flat — it grows by roughly `6x` over the same range and, by `n=37`, has caught up to and
-essentially equals the density part (`21.36` vs `21.46`). **The shape fraction of `E[delta^2]`
-rises monotonically from `16%` at `n=11` to essentially `50%` at `n=37`, with no sign of
-leveling off.**
+**The density part (`n²·sum_q w_q A_q^2`) remains nearly flat (`19.2 -> 22.1`, a 15% drift
+over the FULL `n=11..43` range, growth visibly slowing in the last few points) — genuinely
+consistent with `O(1)`, matching the density-response experiment's own earlier finding (point
+5) that the bulk decrement `A_q ~ 4-5/n`.** The shape part is NOT flat and, extending the
+`n=37` finding, has now clearly CROSSED OVER: shape exceeds density at both new points
+(`23.24>21.88` at `n=41`, `24.03>22.10` at `n=43`) — **shape is now the dominant contributor
+to `E[delta^2]`, not merely caught up to parity.** The shape fraction continues past `50%`
+(`51.5%` at `n=41`, `52.1%` at `n=43`), but its own rate of increase has visibly slowed
+(increments `0.029,0.137,0.030,0.058,0.049,0.011,0.029,0.016,0.006` — the last increment,
+`0.006`, is the smallest in the whole sequence). **This slowdown is noted honestly as a
+possible early sign of the shape fraction leveling off somewhere past `50%`, not as
+established fact — 2 new points is thin evidence for a trend change, and the sequence is not
+monotonically decelerating (`0.011` was smaller than the preceding `0.049` but then `0.029`
+ticked back up before falling to `0.016` then `0.006`).**
 
 **This precisely localizes where any `L(n)` in `V_n=L(n)/n` would have to live: not in the
 mean single-generator response (well-behaved, looks `O(1)`), but in how much that response
 VARIES across graphs at a given density — genuine LP-geometry heterogeneity within the bulk,
-not a rare-tail effect (consistent with point 13a's earlier, cruder observation that `C_q`
-peaks off-center; this weighted version makes the same point rigorously, using the actual
-layer probabilities rather than the raw `C_q` values alone).** This is a real, if sobering,
-answer to a concrete question: the obstruction to `O(1/n)` is not evenly spread or vaguely
-"complicated" — it is specifically the shape-heterogeneity term, and it is not yet showing
-any sign of being bounded over the tested range.
+now the DOMINANT half of the mechanism, not a rare-tail effect (consistent with point 13a's
+earlier, cruder observation that `C_q` peaks off-center; this weighted version makes the same
+point rigorously, using the actual layer probabilities rather than the raw `C_q` values
+alone).** This is a real, if sobering, answer to a concrete question: the obstruction to
+`O(1/n)` is not evenly spread or vaguely "complicated" — it is specifically the
+shape-heterogeneity term, it has now overtaken the density term in absolute size, and whether
+it is itself bounded remains open.
 
-**Honest calibration:** 8 points, `n=11..37`, still small by the standard of what would be
-needed to distinguish `L(n)=O(1)` from `L(n)=O(log log n)` or similar slow growth — this
-localizes WHERE the open question lives, it does not answer it. No further attempt at a proof
-is made here; per the Cheapest Differentiating Test, the next informative step would be
-either (a) extending this exact weighted decomposition further in prime `n` (the necklace
-method scales to at least `n~50-60` before LP-solve counts become unwieldy), or (b) a genuine
-new theoretical tool for bounding within-layer LP-optimum variance — neither attempted this
-session.
+**Honest calibration:** 10 points, `n=11..43`, still small by the standard of what would be
+needed to distinguish `L(n)=O(1)` (with a slowly-approached asymptotic shape fraction) from
+`L(n)=O(log log n)` or similar slow growth (shape fraction still climbing at larger `n`) — this
+localizes WHERE the open question lives and adds a first hint (not proof) that the shape
+fraction's own growth rate may be slowing, but does not resolve the underlying question. No
+further attempt at a proof is made here; per the Cheapest Differentiating Test, the next
+informative step would be either (a) extending this exact weighted decomposition further in
+prime `n` (the necklace method's LP-solve count is already `~50,000` at `n=41,43`; `n~50-60`
+is plausible but would need materially more compute than this session's increments), or (b) a
+genuine new theoretical tool for bounding within-layer LP-optimum variance — neither attempted
+further this session.
 
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,

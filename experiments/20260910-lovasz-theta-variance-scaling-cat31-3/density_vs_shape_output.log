@@ -6,6 +6,8 @@ n= 23 m=11 n^2*density=19.8925 n^2*shape=13.8182 shape_frac=0.4099 B_n_check=0.1
 n= 29 m=14 n^2*density=20.5542 n^2*shape=17.4473 shape_frac=0.4591 B_n_check=0.158151
 n= 31 m=15 n^2*density=20.7952 n^2*shape=18.4612 shape_frac=0.4703 B_n_check=0.153186
 n= 37 m=18 n^2*density=21.4550 n^2*shape=21.3646 shape_frac=0.4989 B_n_check=0.140751
+n= 41 m=20 n^2*density=21.8847 n^2*shape=23.2379 shape_frac=0.5150 B_n_check=0.134214
+n= 43 m=21 n^2*density=22.1031 n^2*shape=24.0346 shape_frac=0.5209 B_n_check=0.131002
 
 --- summary: n^2*density_part vs n^2*shape_part across prime n ---
   n= 11  n^2*density=19.2168  n^2*shape=3.5603
@@ -16,3 +18,5 @@ n= 37 m=18 n^2*density=21.4550 n^2*shape=21.3646 shape_frac=0.4989 B_n_check=0.1
   n= 29  n^2*density=20.5542  n^2*shape=17.4473
   n= 31  n^2*density=20.7952  n^2*shape=18.4612
   n= 37  n^2*density=21.4550  n^2*shape=21.3646
+  n= 41  n^2*density=21.8847  n^2*shape=23.2379
+  n= 43  n^2*density=22.1031  n^2*shape=24.0346

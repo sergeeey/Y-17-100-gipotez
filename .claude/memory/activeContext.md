@@ -26,19 +26,16 @@
 
 
 ## Current Focus
-**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 14 — density-vs-shape localization, sharpest
-finding of the whole investigation (sobering, not comforting).** Decomposed
-`E[delta^2] = sum_q w_q*A_q^2 + sum_q w_q*C_q` using ACTUAL Hamming-layer probability
-`w_q=C(m-1,q)/2^(m-1)` across prime n=11..37 (necklace-orbit method, validated). **Density
-part (`n^2*sum w_q A_q^2`) nearly flat (19.2→21.5, +12%) — genuinely `O(1)`-consistent,
-matching point 5's own `A_q~4-5/n` finding. Shape part is NOT flat — grows ~6x over the same
-range and essentially CATCHES UP to the density part by n=37 (21.36 vs 21.46). Shape fraction
-of `E[delta^2]` rises monotonically 16%→50%, no sign of leveling off.** Precisely localizes
-the `O(1/n)` obstruction to WITHIN-Hamming-layer LP-optimum heterogeneity (shape/bulk LP
-geometry), not the mean single-generator response (density, well-behaved). Honest
-calibration: 8 points still small for distinguishing `L(n)=O(1)` from slow growth — localizes
-WHERE the question lives, doesn't resolve it. Full writeup: `experiments/20260910-lovasz-
-theta-variance-scaling-cat31-3/decision.md` § Addendum point 14.
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 14 extended to n=41,43 — shape term now
+DOMINANT, not just at parity.** Per follow-up user request, extended the density-vs-shape
+decomposition to n=41 (m=20, 52488 LP solves) and n=43 (m=21, ~49940 solves). **Shape part
+CROSSES OVER density at both (23.24>21.88 at n=41, 24.03>22.10 at n=43)** — shape fraction of
+`E[delta^2]` continues past 50% (51.5%, 52.1%), but its growth rate visibly slows at the last
+step (smallest increment in the full 10-point sequence) — noted as a possible early leveling
+sign, NOT established (thin evidence, non-monotonic deceleration). Density part stays
+`O(1)`-consistent across the full n=11..43 range (19.2→22.1, +15%, also slowing). Full
+writeup: `experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum
+point 14 (updated in place, not a new numbered point).
 [summarized] **H-CAT31-3 §§10-13 (exact small-n enumeration, vanishing-even-levels theorem, 7th-angle verification, necklace-orbit extension) archived to `history/activeContext-archive-20260911-b7-mission.md`.** Superseded by §14 (kept above, sharpest finding: density-vs-shape localization). One-line-each: §10 exact enumeration n=9-25 (n*Var(X) initially read as stabilizing, later corrected); §11 PROVED theorem -- all even Fourier-Walsh levels vanish exactly (from antisymmetry); §12 3 external claims independently verified to machine precision (sharpened ES bound, exact prime W1=Mn(1/2)^2/4m identity, self-correction: prime-only sequence still rising not stabilizing); §13 necklace-orbit method implemented (a real bug caught by positive control, fixed, re-validated to 8.88e-14), extended exact data to n=29,31,37 -- n*Var(X) and kappa_n keep rising, no plateau.
 [summarized] **H-CAT31-3 §§7-9 (exact Cauchy-Schwarz lower bound, calibration fix, LP-sensitivity/Delta_g upper-bound attempts, fourth check) archived to `history/activeContext-archive-20260911-b7-mission.md`.** Superseded by §10 (kept above, cleanest evidence: exact enumeration, no proof yet). One-line-each: §7 Var(X_n)>=M_n(1/2)^2/(4m) proved unconditionally (Cauchy-Schwarz + score-function identity), Omega(1/n) only CONDITIONAL on unproven liminf|M_n(1/2)|>0; §8 third upper-bound attempt (Delta_g_k=4cos(2pi ki/n) exact bound found+verified, still only gives O(sqrt(n)polylog(n)) not O(1/n) -- same LP-vertex-movement wall as §6); calibration fix (user caught "established" overclaim, fixed to explicitly conditional throughout); §9 fourth check (time-domain LP reformulation ruled out as an escape; own data reframed as n*(ES bound) empirical signal).
 [summarized] **H-CAT31-3 mechanism investigation §§1-6 (2026-09-11: cosh bound, Q-proxy, single-generator sensitivity, prime-n homogeneity theorem, density-response, LP-sensitivity attempt) archived to `history/activeContext-archive-20260911-b7-mission.md`.** Superseded by §7 (real Omega(1/n) result, kept above) and §8 (final honest verdict, kept above); full text remains in decision.md. One-line-each: §1 mechanism addendum (cosh bound holds 7/9, Q-proxy explains 66-86% variance, ES bound tightens 2.57->1.27 at n=128/512/1536 then inconclusive at n=3000); §4 prime-n homogeneity theorem (proved+exhaustively verified, not just heuristic); §5 density-response (exact symmetry confirmed, sign-corrected cross-check with Q-proxy agrees to 0.3-1.5%); §6 LP-concavity attempt at O(1/n) upper bound (real mechanism found, verified numerically, but only gives O(1) per generator not O(1/n) -- first of 3 attempts that all hit the same wall, see §8).
@@ -151,6 +148,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-11 14:00] `9f61f75` (local, branch `feature/h-cat31-3-extend-to-n41-n43` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record n=41,43 extension, shape term now dominant
+- [2026-09-11 13:59] `0a5f430` (local, branch `feature/h-cat31-3-extend-to-n41-n43` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- extend density-vs-shape localization to n=41,43, shape now dominant
 - [2026-09-11 13:41] `c3331ea` (local, branch `feature/h-cat31-3-density-shape-localization` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record density-vs-shape localization, consolidate §§10-13
 - [2026-09-11 13:40] `43b0f44` (local, branch `feature/h-cat31-3-density-shape-localization` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- density-vs-shape localization, sharpest finding yet, sobering not comforting
 - [2026-09-11 13:33] `931983d` (local, branch `feature/h-cat31-3-necklace-orbit-extension` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record necklace-orbit extension and the bug it caught
@@ -164,5 +163,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-11 12:36] `ae0ff4d` (local, branch `feature/h-cat31-3-fourth-upper-bound-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record fourth upper-bound check (empirical support, still not proven)
 - [2026-09-11 12:36] `b281288` (local, branch `feature/h-cat31-3-fourth-upper-bound-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: H-CAT31-3 -- fourth upper-bound check, per user request to keep trying
 - [2026-09-11 12:31] `d29baa7` (local, branch `docs/h-cat31-3-conditional-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record the Omega(1/n)-is-conditional calibration fix
-- [2026-09-11 12:31] `5bf591d` (local, branch `docs/h-cat31-3-conditional-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: H-CAT31-3 -- calibration fix, Omega(1/n) is conditional not established
-- [2026-09-11 12:24] `aefb1ea` (local, branch `feature/h-cat31-3-delta-g-final-attempt` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record final upper-bound verdict, consolidate H-CAT31-3 §§1-6
