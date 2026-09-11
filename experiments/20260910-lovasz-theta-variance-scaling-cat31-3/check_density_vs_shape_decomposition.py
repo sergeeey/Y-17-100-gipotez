@@ -40,7 +40,7 @@ necklace_mod = importlib.util.spec_from_file_location(
 nm = importlib.util.module_from_spec(necklace_mod)
 necklace_mod.loader.exec_module(nm)
 
-PRIME_N = [11, 13, 17, 19, 23, 29, 31, 37]
+PRIME_N = [11, 13, 17, 19, 23, 29, 31, 37, 41, 43]
 
 
 def popcount(x: int) -> int:
