@@ -727,12 +727,64 @@ noisy large-`n` Monte Carlo (points 3, 9b) AND noise-free small-`n` exact enumer
 point) both show the same `Theta(1/n)`-consistent signature. `Var(X_n) >= M_n'(1/2)^2/(4m)`
 remains the one unconditionally PROVED result from this whole investigation.
 
+**11. Sixth angle, per direct user request to try yet again: EXACT Walsh-Hadamard
+decomposition of the small-`n` data from point 10 — a genuine new PROVED theorem, still not
+closing the upper-bound gap.**
+
+Rather than another abstract argument or estimate, this computes the FULL exact Fourier-Walsh
+spectrum of `X_n` (all `2^m` coefficients `X_hat(S)`, `S subset {1,...,m}`) at each `n=9..25`
+via a fast Walsh-Hadamard transform on the already-exact population from point 10
+(`check_exact_walsh_decomposition.py`). Self-check: Parseval's identity
+(`sum_S X_hat(S)^2 = E[X^2]`) holds to `~1e-15` at every `n` — the transform is verified
+correct, not merely trusted.
+
+**A genuine new theorem fell out, independently derived (not the goal of running this check,
+but a real consequence of it):** at EVERY `n` tested, `sum_{|S|=k} X_hat(S)^2 ~ 0` (machine
+precision, `~1e-31`) for every EVEN `k`. This is not a numerical coincidence — it follows
+directly from the exact antisymmetry already proved in point 5
+(`X_n(1-p) =d= -X_n(p)`, equivalently `X(-epsilon)=-X(epsilon)` under the GLOBAL sign flip of
+all `m` generator bits). Proof: `X_hat(S) = E[X(epsilon)chi_S(epsilon)]`, and relabeling
+`epsilon -> -epsilon` (same distribution, since each `epsilon_i` is symmetric `+-1`) combined
+with `X(-epsilon)=-X(epsilon)` and `chi_S(-epsilon)=(-1)^{|S|}chi_S(epsilon)` gives
+`X_hat(S) = -(-1)^{|S|} X_hat(S)`, forcing `X_hat(S)=0` whenever `|S|` is EVEN (no constraint
+when `|S|` is odd). **`Var(X_n)` is carried ENTIRELY by odd-degree Fourier levels** — an
+exact, general, `n`-independent structural fact about this specific ensemble.
+
+**What this changes for the upper-bound program:** the "unknown" part of `Var(X_n)` beyond
+level 1 (already lower-bounded via Cauchy-Schwarz in point 7) is now provably confined to
+`k=3,5,7,...` only — HALF the levels are eliminated for free. The exact data shows level 3
+dominates the remainder at every tested `n` (e.g. `n=25`: level 3 weight `0.0171` vs level 5
+`0.0058`, level 7 `0.00093`, level 9 `0.0000627` — rapid decay), and `n*(level-3 weight)`
+stays in a bounded range (`0.19-0.55`) across `n=9..25`, the same qualitative signature as
+levels 1 and total `Var(X)`.
+
+**Why the level-1 Cauchy-Schwarz trick does NOT generalize to an upper bound, stated
+precisely so this avenue is not silently re-attempted later:** the same technique applies to
+level 3 via a natural test statistic (the elementary symmetric polynomial
+`e_3(epsilon)=sum_{i<j<k} epsilon_i epsilon_j epsilon_k`), giving
+`W^3[X] >= Cov(X,e_3)^2 / C(m,3)` — ANOTHER exact LOWER bound (strengthening `Omega(1/n)`
+further, if `Cov(X,e_3)` can be shown bounded away from 0, not attempted here), but
+Cauchy-Schwarz structurally can only lower-bound a sum-of-squares from a single linear
+functional's correlation — it has no upper-bound analogue. This clarifies, precisely, why
+this entire family of test-statistic tricks (used successfully for point 7's lower bound) is
+the wrong tool for the upper bound regardless of which level it is applied to, closing off a
+plausible-looking "just do the same trick at every level" idea before it wastes a future
+session's time.
+
+**Updated status after 6 honest attempts:** `Var(X_n)=O(1/n)` still not proven. But this
+session's investigation has now produced: one unconditionally PROVED lower bound (point 7),
+one unconditionally PROVED structural theorem about the Fourier spectrum (this point, vanishing
+even levels), noisy large-`n` Monte Carlo evidence (points 3, 9b), and noise-free small-`n`
+exact evidence (points 10-11) — all pointing the same direction, none of them a proof of the
+upper bound itself.
+
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
 `check_prime_symmetry_homogeneity.py`, `verify_prime_isomorphism_exhaustive.py`,
 `check_density_response.py`, `verify_lp_sensitivity_concavity.py`, `verify_delta_g_bound.py`,
 `analyze_own_data_for_upper_bound_signal.py`, `check_exact_enumeration_small_n.py`
-(+`exact_enumeration_output.log`)
+(+`exact_enumeration_output.log`), `check_exact_walsh_decomposition.py`
+(+`exact_walsh_output.log`)
 (+`verify_delta_g_output.log`)
 (+`verify_lp_sensitivity_output.log`), and their outputs in `metrics/` (`cosh_bound_check.json`,
 `q_proxy_diagnostic.json`, `q_proxy_diagnostic_n3000.json`, `single_generator_sensitivity.json`,
