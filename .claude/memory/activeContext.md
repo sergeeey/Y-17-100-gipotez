@@ -26,6 +26,19 @@
 
 
 ## Current Focus
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 mechanism addendum § 4 — prime-n generator
+homogeneity, a small theorem PROVED here (not cited from external text).** Derived and
+exhaustively verified (`verify_prime_isomorphism_exhaustive.py`, n=7 prime, all 8 subsets,
+diff~5e-15): for prime `n`, `theta(G_S)=theta(G_{aS})` exactly for any unit `a` (graph
+automorphism via vertex relabeling), and since `S -> aS` is measure-preserving under i.i.d.
+Bernoulli(1/2) generator bits, `E[(Delta_i theta)^2]` is EXACTLY equal across all generator
+indices `i` for prime `n` — not a heuristic. Empirical check at n=127 (prime) vs n=128
+(composite), 150 reps × 7 indices, gave CV=0.231 vs 0.132 — OPPOSITE direction from the naive
+prediction, but NOT a refutation: per-index SE (~15-25%) at this rep count is fully consistent
+with a true CV of 0. Honest reading: the diagnostic lacks power to detect the proven identity,
+neither confirms nor refutes it. Practical upshot for future work: prime n + single-index
+measurement (not averaging over 3) would both remove the composite-n heterogeneity confound
+and roughly halve per-replicate cost for any future Efron-Stein sensitivity sweep.
 **[VERIFIED — 2026-09-11] H-CAT31-3 mechanism-level addendum (Mechanism Development Mode,
 triggered by user-supplied external AI analyses, independently re-checked, NOT trusted at face
 value).** Three diagnostics, all reusing the experiment's own verified substrate, none reopening
@@ -169,6 +182,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-11 11:15] `2ee15a6` (local, branch `feature/h-cat31-3-prime-symmetry-theorem` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- prime-n generator homogeneity theorem, proved and exhaustively verified
 - [2026-09-11 11:02] `a572df5` (local, branch `feature/h-cat31-3-mechanism-addendum` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: fix dangling docstring reference in check_q_proxy_diagnostic_n3000.py
 - [2026-09-11 10:59] `14312da` (local, branch `feature/h-cat31-3-mechanism-addendum` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- mechanism-level addendum (Efron-Stein sensitivity, Q-proxy, cosh bound)
 - [2026-09-11 10:01] `23914c0` (local, branch `docs/h-cat31-3-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: activeContext.md -- record the H-CAT31-3 calibration fix
@@ -183,4 +197,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-10 17:04] `50ab41b` (local, branch `chore/ledger-h-b3-1r-reviewer-entry` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: add missing LEDGER entry for H-B3-1r reviewer independent re-derivation
 - [2026-09-10 16:16] `8d7da96` (local, branch `docs/adr-121-consolidation-stop-rule` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: ADR-121 -- stop-rule for consolidation phase, explicit resume conditions
 - [2026-09-10 12:23] `45fc709` (local, branch `feature/h-b3-1r-perseason-robustness` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-B3-1r -- per-season retroscan rejects H-B3-1q's pooled-pattern interpretation
-- [2026-09-10 12:13] `1d407de` (local, branch `feature/b7-external-novelty-audit` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: B7 external novelty audit -- established techniques, not new science (FL Step -3)
