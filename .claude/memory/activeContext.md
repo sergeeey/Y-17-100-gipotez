@@ -26,6 +26,27 @@
 
 
 ## Current Focus
+**[VERIFIED — 2026-09-11] H-CAT31-3 mechanism-level addendum (Mechanism Development Mode,
+triggered by user-supplied external AI analyses, independently re-checked, NOT trusted at face
+value).** Three diagnostics, all reusing the experiment's own verified substrate, none reopening
+the REJECTED verdict for exponent=-1: (1) exact inequality `V_n<=2(E[theta]/sqrt(n)-1)` derived
+independently from the Lovász identity + `cosh(x)>=1+x^2/2`, holds on 7/9 sweep points, 2
+"violations" explained by sampling noise; (2) Q-proxy diagnostic (density-only proxy `D_n`
+explains 66-86% of `Var(X_n)` across n=32..3000, not the ~100% a stronger externally-suggested
+hypothesis implied); (3) single-generator sensitivity / Efron-Stein bound — the striking result:
+`n^2*E[(Delta_i X)^2]` nearly IDENTICAL at n=512/1536 (60.7, 60.7) after a finite-size drop from
+n=128 (84.5), and bound/measured-V_n ratio shrinks 2.57→1.67→1.27 (tightening toward 1) —
+suggestive that the true asymptotic could be exponent=-1 with `-0.91` a finite-size transient,
+consistent with the CORRECTED CALIBRATION's un-excluded `L(n)` alternative. **NOT confirmed at
+n=3000** — extension used only 8 reps (cost-limited), SE on the key statistic is ~49% relative,
+point estimate (121.4) statistically indistinguishable from continuing OR breaking the trend.
+**Verdict: genuinely open, sharpened not resolved.** Concrete next decisive step named but not
+run: a well-powered (not 8-replicate) single-generator sensitivity measurement at n>=3000, or a
+formal proof of `E[(Delta_i theta)^2]=O(1/n)`. Literature calibration: arXiv:2502.16227's
+theorem/conjecture reverified directly from LaTeX source (exact match); the "Faure sensitivity
+already attempted" claim from the pasted analyses is `[WEAK]` (ResearchGate 403'd, only a search
+engine's paraphrase available), explicitly not required for the math above to hold. Full writeup:
+`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum (2026-09-11).
 [summarized] **[VERIFIED — 2026-09-10, ADR-120] H-B3-1r (consolidation phase, приоритет 2 — B3-1q external-data search): REJECT —...
 
 **[VERIFIED — 2026-09-10, ADR-116] H-B7-31 (четвёртый цикл автономной миссии, закрывает пункт 5 — низший приоритет исходного списка): CONFIRMED, early-exit BFS — честный, асимметричный «дешёвый» дискриминатор, 10/10.** Формализует и исправляет неформальную находку sci-hypothesis-скилла из ранней части сессии («H9-B: `n_states_visited` — дешёвый дискриминатор») — оказалась циклической: вычисление `n_states_visited` УЖЕ требует того же исчерпывающего BFS, который сам даёт классификацию напрямую. Реальный дешёвый вопрос: даёт ли early-exit-вариант того же BFS (остановка сразу после подтверждения обоих исходов) настоящую экономию? Compute-First: для 8 fragile-условий (k=1..4, обе ветки) — **экономия 84.2%-90.0%** посещённых состояний; для 2 robust-контролей (k=5) — 0 ложных срабатываний. Полный эксперимент: все 8 fragile превышают предрегистрированный порог 50% (факт 84-90%), 2/2 robust — чисто. Механизм: H-B7-24 уже доказал, что решающий шаг коммитмента — в первые 2-5 шагов, задолго до исчерпания графа. **Честная асимметрия:** экономия работает ТОЛЬКО для подтверждения FRAGILE — ROBUST принципиально нельзя ускорить так же (нужно исчерпать всё множество, чтобы исключить другой исход). FL Step 8a: независимый ревьюер, branch_1/k=3 — полностью независимый BFS с нуля, намеренно другой порядок проверки исходов (Growth_arrest раньше Proliferation) для исключения order-dependent совпадения — точное совпадение (200/20). `graph.yaml`: 150 узлов, 194 ребра, `H-B7-31` статус `confirmed`, рёбра `grounds` от H-B7-22 и H-B7-24. **Это закрывает ВЕСЬ исходный приоритетный список пользователя из H-B7-26 (все 5 пунктов).**
