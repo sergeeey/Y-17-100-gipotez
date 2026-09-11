@@ -26,6 +26,19 @@
 
 
 ## Current Focus
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 11 — PROVED THEOREM (6th angle, per user request
+to keep trying): all EVEN-degree Fourier-Walsh weights of `X_n` vanish EXACTLY.** Computed the
+full exact Walsh-Hadamard spectrum at n=9..25 (Parseval-verified to `~1e-15` at every n).
+Independently derived from the already-proven antisymmetry (§5, `X_n(Gbar)=-X_n(G)`): relabeling
+`epsilon->-epsilon` forces `X_hat(S)=-(-1)^|S|X_hat(S)`, zero unless `|S|` odd — confirmed
+numerically (levels 2/4/6/8/10/12 all `~1e-31`, machine zero) at every n tested. **Provably
+confines the "unknown" upper-bound remainder to odd levels k=3,5,7,... only** (half the levels
+eliminated for free); level 3 dominates and its own `n*(weight)` stays bounded (0.19-0.55)
+across n=9-25, same signature as level 1/total. **Also explicitly ruled out**: the level-1
+Cauchy-Schwarz trick generalizes to give MORE lower bounds at odd levels ≥3, but cannot give an
+upper bound at any level (structural limit of Cauchy-Schwarz) — closes off a plausible "repeat
+at every level" idea before it wastes a future attempt. Still no proof of O(1/n). Full writeup:
+`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum point 11.
 **[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 10 — EXACT (noise-free) enumeration at small n,
 5th angle, per user request to try genuinely differently.** Exhaustively enumerated ALL `2^m`
 generator subsets (odd n=9..25, m=(n-1)/2) via `check_exact_enumeration_small_n.py` — TRUE
@@ -148,6 +161,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-11 12:59] `28c555c` (local, branch `feature/h-cat31-3-exact-walsh-decomposition` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record the vanishing-even-Fourier-levels theorem
+- [2026-09-11 12:59] `44473ab` (local, branch `feature/h-cat31-3-exact-walsh-decomposition` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- PROVED theorem: all even-degree Fourier-Walsh weights of X_n vanish
 - [2026-09-11 12:46] `3122f0f` (local, branch `feature/h-cat31-3-exact-enumeration-small-n` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record exact enumeration finding, consolidate H-CAT31-3 §§7-9
 - [2026-09-11 12:45] `c8230eb` (local, branch `feature/h-cat31-3-exact-enumeration-small-n` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- exact (noise-free) enumeration at small n, 5th angle on O(1/n)
 - [2026-09-11 12:36] `ae0ff4d` (local, branch `feature/h-cat31-3-fourth-upper-bound-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record fourth upper-bound check (empirical support, still not proven)
@@ -161,5 +176,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-11 11:40] `72a5afa` (local, branch `feature/h-cat31-3-lp-sensitivity-attempt` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record LP-sensitivity attempt, archive Lean4/H-CAT31-2 entries
 - [2026-09-11 11:40] `917cf03` (local, branch `feature/h-cat31-3-lp-sensitivity-attempt` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: H-CAT31-3 -- LP-sensitivity attempt at formal O(1/n) proof, gap explicitly named
 - [2026-09-11 11:33] `5ef1e0f` (local, branch `feature/h-cat31-3-density-response` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record density-response addendum, archive B7 mission arc
-- [2026-09-11 11:30] `1aa3393` (local, branch `feature/h-cat31-3-density-response` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- density-response experiment, independent cross-check of sensitivity
-- [2026-09-11 11:15] `2ee15a6` (local, branch `feature/h-cat31-3-prime-symmetry-theorem` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- prime-n generator homogeneity theorem, proved and exhaustively verified
