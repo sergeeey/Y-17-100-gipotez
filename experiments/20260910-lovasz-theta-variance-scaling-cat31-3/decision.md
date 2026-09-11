@@ -444,8 +444,105 @@ variable's typical magnitude and the relaxed-optimum's typical correlation `t*` 
 constraint, for the random circulant ensemble), which is real, if incomplete, mathematical
 progress.
 
+**7. A real, EXACT lower bound — independently re-derived and verified, applied only to
+already-collected data.** The user's next message included an unverified external analysis
+claiming (a) a new, larger `n=3000` sensitivity experiment with specific numbers, and (b) a
+useful exact identity/bound. These are handled very differently below — see the explicit
+provenance note before the artifacts list.
+
+**The identity (independently re-derived and checked step by step, not accepted on the
+external text's say-so):** for `X_n=f(z_1,...,z_m)`, `z_i` i.i.d. Bernoulli(p), `Q=sum z_i`,
+the log-likelihood is `Q*log(p)+(m-Q)*log(1-p)`, so `d/dp log P_p(z) = (Q-mp)/(p(1-p))`, and
+since `d/dp E_p[X_n] = E_p[X_n * d/dp log P_p(z)]`:
+
+```
+M_n'(p) = Cov_p(X_n,Q) / (p(1-p))   =>   M_n'(1/2) = 4*Cov(X_n,Q)
+```
+
+a standard exponential-family score-function identity, elementary once stated, verified here
+by direct algebra (not merely cited). Combined with Cauchy–Schwarz
+(`Cov(X_n,Q)^2 <= Var(X_n)*Var(Q)`) and `Var(Q)=m/4` at `p=1/2`:
+
+```
+Var(X_n) >= M_n'(1/2)^2 / (4m)  ~=  M_n'(1/2)^2 / (2n)
+```
+
+**This is EXACT — no LP structure, no concavity heuristic, no concentration assumption
+required — unlike the LP-sensitivity attempt in point 6, which only produced a qualitative
+mechanism.** Applied directly to this experiment's OWN already-verified
+`check_density_response.py` measurements (`verify_cauchy_schwarz_lower_bound.py`):
+
+| n | h | λ̂ | CS lower bound | measured `V_n` | bound/measured |
+|---:|---:|---:|---:|---:|---:|
+| 128 | 0.025 | -2.175 | 0.01877 | 0.03159 | 0.594 |
+| 128 | 0.050 | -2.433 | 0.02349 | 0.03159 | 0.744 |
+| 512 | 0.025 | -3.311 | 0.01075 | 0.00885 | 1.214 |
+| 512 | 0.050 | -2.892 | 0.00820 | 0.00885 | **0.926** |
+
+**The rigorous lower bound, from the density mechanism ALONE, captures 59-93%+ of the
+TOTAL measured variance** (the `n=512,h=0.05` case reaches 93%). The `n=512,h=0.025` ratio
+exceeding 1 is expected, not a violation: the bound is exact at the POPULATION level, but both
+`λ̂` (squared, so its own ~6% relative sampling error roughly doubles) and measured `V_n` are
+themselves noisy sample estimates — an estimated lower bound exceeding an estimated true value
+by ~20% is ordinary estimation noise, not a falsification.
+
+**What this rigorously establishes:** `Var(X_n) = Omega(1/n)` — CONDITIONAL on `λ_n = M_n'(1/2)`
+staying bounded away from `0` as `n -> infinity`. The two tested points (`λ~-2.2` at `n=128`,
+`λ~-2.9` at `n=512`) are consistent with this (not shrinking toward 0), but this is an empirical
+observation at 2 points, not a proof that `λ_n` cannot vanish for larger `n` — that remains a
+named, open (but now precisely stated) sub-claim. **Combined with point 6's unresolved upper
+bound, the honest current state is: a real `Omega(1/n)` lower bound (new, rigorous, this
+session), and a named-but-unclosed path to the matching `O(1/n)` upper bound — not yet
+`Theta(1/n)`.**
+
+**Explicit provenance note — what was and was NOT used from the external analysis.** The
+pasted text also claimed a new `n=3000` experiment (191/240 planned replicates, checkpoint
+`n^2*E[(Delta_I X)^2]=65.96+-11.91` at `N=102`, an antipodal-generator check giving `61.43`,
+"five independent complement checks at `~1e-14` relative error", etc.), presented with high
+specificity and confidence. **These specific numbers are NOT incorporated anywhere in this
+document and are not treated as evidence.** Reasoning, stated plainly per
+`audit-verification-gate.md` ("agent's `[VERIFIED]` = your `[INFERRED]`") and
+`skeptic-triggers.md` (suspiciously specific, confident numbers from an unverifiable source
+require a check, not acceptance): (a) there is no way to verify these numbers were actually
+computed — no output log, no reproducible seed-to-value chain checkable in this session;
+(b) a rough compute-time estimate is a red flag, not reassurance: 191 replicates at `n=3000`
+using `theta_via_lp` (measured at ~43s/call earlier this session) with 2 calls/replicate
+(baseline + one flip) is ~4.6 hours of compute — implausible for the "available compute window"
+framing without any supporting log; (c) this project's own repo is public, so an external tool
+COULD in principle have fetched the code, but plausibility of access is not evidence of an
+actual run. **Per this project's standing discipline (the exact same discipline that caught
+this session's own earlier overclaim on 2026-09-10), unverifiable numbers from an external
+source are not promoted to findings, however precisely they are stated.**
+
+**What WAS checked and used from that text — real, verifiable claims about THIS project's own
+code, checked directly against the actual files, not accepted on say-so:**
+- **Real, confirmed gap:** for even `n`, `sample_circulant_neighbors` (H-CAT31-1's own function)
+  samples an extra "antipodal" generator bit at index `n/2`, separate from the `m=(n-1)/2`
+  paired bits. Every sensitivity script in this addendum (`check_single_generator_sensitivity
+  {,_n3000}.py`) uses `half=(n-1)//2` and never tests the antipodal index — the reported
+  Efron–Stein sums are missing that one term. Its weight in the full sum is `1` out of `~n/2`
+  generators (e.g. `1/1500` at `n=3000`), so its likely quantitative impact on the reported
+  bounds is small, but the omission is real and now documented rather than silently present.
+- **Real, confirmed bug (never triggered in this session's actual runs):** `flip_generator(c,i)`
+  toggles `c[i]` then `c[n-i]`; for the antipodal case `i=n/2`, `n-i=i`, so the same element is
+  toggled twice — a silent no-op. Checked directly: this session's `n=3000` sensitivity test
+  indices were `{1,499,999}` (from `spread_indices`/`max(1,half//3)` logic) — the antipodal
+  index `1500` was never among them, so this bug did not corrupt any reported number here, but
+  the function itself is broken for that one case and should not be trusted if reused for it.
+- **Real, verifiable observation:** `gcd(999,3000)=3` while `gcd(1,3000)=gcd(499,3000)=1` —
+  confirmed via `verify_cauchy_schwarz_lower_bound.py`'s own gcd check. The 3-index sample used
+  for `n=3000` sensitivity is small and not demonstrated to be representative; this is a real,
+  already-implicit limitation (the addendum's point 3 already noted composite-`n` heterogeneity
+  is unresolved, not proven small) rather than a new invalidating flaw.
+- **Real, valid critique, not yet acted on:** pooling all `(replicate, index)` pairs together
+  when computing `se_dx2` in `check_single_generator_sensitivity{,_n3000}.py` treats correlated
+  observations (3 indices sharing one baseline graph per replicate) as if independent, which
+  understates the true standard error to an unquantified degree. This does not change any
+  point estimate, only the previously-reported uncertainty bands on `n^2*E[(Delta_i X)^2]` in
+  point 3 above, which should be read as a lower bound on the true uncertainty, not an exact SE.
+
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
-`check_single_generator_sensitivity.py` (+`_n3000.py`),
+`check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
 `check_prime_symmetry_homogeneity.py`, `verify_prime_isomorphism_exhaustive.py`,
 `check_density_response.py`, `verify_lp_sensitivity_concavity.py`
 (+`verify_lp_sensitivity_output.log`), and their outputs in `metrics/` (`cosh_bound_check.json`,
