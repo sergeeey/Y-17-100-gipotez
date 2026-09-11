@@ -1,0 +1,12 @@
+--- Cross-validation on n=23 (m=11), known result from prior exhaustive runs ---
+n= 23 m=11 orbits=   188 lp_solves=    94 complement_reused=    94 (vs 2048 full subsets, 21.8x reduction)
+max |exhaustive - orbit_reduced| = 8.88e-14  MATCH=True
+
+Cross-validation PASSED. Proceeding to new prime n via orbit reduction only.
+
+n= 29 m=14 orbits=  1182 lp_solves=  1182 complement_reused=     0 (vs 16384 full subsets, 13.9x reduction)
+    Var_X=0.104601 n*Var_X=3.0334 n*W1=2.4559 n*W3=0.4156 kappa_n=1.8675 resid_ratio=0.2711
+n= 31 m=15 orbits=  2192 lp_solves=  1096 complement_reused=  1096 (vs 32768 full subsets, 29.9x reduction)
+    Var_X=0.099948 n*Var_X=3.0984 n*W1=2.4963 n*W3=0.4253 kappa_n=1.9023 resid_ratio=0.2673
+n= 37 m=18 orbits= 14602 lp_solves= 14602 complement_reused=     0 (vs 262144 full subsets, 18.0x reduction)
+    Var_X=0.088443 n*Var_X=3.2724 n*W1=2.5984 n*W3=0.4507 kappa_n=2.0042 resid_ratio=0.2583

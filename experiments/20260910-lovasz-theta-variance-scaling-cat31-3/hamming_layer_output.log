@@ -1,0 +1,27 @@
+n=  9 prime=False telescoping_gap=1.11e-16 min_delta=-1.22e-15 monotone=True
+    A_q (density curvature, by layer q=0..3): 0.8182, 0.2804, 0.2804, 0.8182
+    C_q (shape heterogeneity, by layer q=0..3): 0.02621, 0.02621, 0.02621, 0.02621
+n= 11 prime=True  telescoping_gap=5.55e-17 min_delta=7.99e-02 monotone=True
+    A_q (density curvature, by layer q=0..4): 0.7140, 0.3049, 0.3600, 0.3049, 0.7140
+    C_q (shape heterogeneity, by layer q=0..4): 0.00000, 0.01962, 0.05231, 0.01962, 0.00000
+n= 13 prime=True  telescoping_gap=1.67e-16 min_delta=3.75e-03 monotone=True
+    A_q (density curvature, by layer q=0..5): 0.7080, 0.2588, 0.3157, 0.3157, 0.2588, 0.7080
+    C_q (shape heterogeneity, by layer q=0..5): 0.00000, 0.01880, 0.03214, 0.03214, 0.01880, -0.00000
+n= 15 prime=False telescoping_gap=1.11e-16 min_delta=-3.77e-15 monotone=True
+    A_q (density curvature, by layer q=0..6): 0.7893, 0.1937, 0.2438, 0.2545, 0.2438, 0.1937, 0.7893
+    C_q (shape heterogeneity, by layer q=0..6): 0.01787, 0.04475, 0.06990, 0.06303, 0.06990, 0.04475, 0.01787
+n= 17 prime=True  telescoping_gap=1.39e-16 min_delta=7.46e-04 monotone=True
+    A_q (density curvature, by layer q=0..7): 0.7018, 0.2078, 0.2734, 0.2337, 0.2337, 0.2734, 0.2078, 0.7018
+    C_q (shape heterogeneity, by layer q=0..7): 0.00000, 0.01940, 0.03737, 0.03165, 0.03165, 0.03737, 0.01940, 0.00000
+n= 19 prime=True  telescoping_gap=4.44e-16 min_delta=3.52e-04 monotone=True
+    A_q (density curvature, by layer q=0..8): 0.7000, 0.1883, 0.2584, 0.2197, 0.2117, 0.2197, 0.2584, 0.1883, 0.7000
+    C_q (shape heterogeneity, by layer q=0..8): -0.00000, 0.01817, 0.03339, 0.03133, 0.02609, 0.03133, 0.03339, 0.01817, -0.00000
+n= 21 prime=False telescoping_gap=5.55e-16 min_delta=-8.99e-15 monotone=True
+    A_q (density curvature, by layer q=0..9): 0.7531, 0.1621, 0.2097, 0.1749, 0.2224, 0.2224, 0.1749, 0.2097, 0.1621, 0.7531
+    C_q (shape heterogeneity, by layer q=0..9): 0.01372, 0.02758, 0.03875, 0.04228, 0.04938, 0.04938, 0.04228, 0.03875, 0.02758, 0.01372
+n= 23 prime=True  telescoping_gap=6.38e-16 min_delta=3.02e-04 monotone=True
+    A_q (density curvature, by layer q=0..10): 0.6978, 0.1598, 0.2308, 0.2101, 0.1798, 0.1788, 0.1798, 0.2101, 0.2308, 0.1598, 0.6978
+    C_q (shape heterogeneity, by layer q=0..10): -0.00000, 0.01715, 0.03041, 0.03028, 0.02408, 0.02495, 0.02408, 0.03028, 0.03041, 0.01715, -0.00000
+n= 25 prime=False telescoping_gap=5.00e-16 min_delta=-1.93e-14 monotone=True
+    A_q (density curvature, by layer q=0..11): 0.7150, 0.1359, 0.2226, 0.2185, 0.1759, 0.1415, 0.1415, 0.1759, 0.2185, 0.2226, 0.1359, 0.7150
+    C_q (shape heterogeneity, by layer q=0..11): 0.00161, 0.02307, 0.04061, 0.04117, 0.02926, 0.02161, 0.02161, 0.02926, 0.04117, 0.04061, 0.02307, 0.00161

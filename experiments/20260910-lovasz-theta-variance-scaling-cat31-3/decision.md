@@ -845,11 +845,69 @@ range, plateau (if any) lies beyond `n=25`."
 **What remains genuinely open, stated precisely using the new machinery:** whether
 `|M_n'(1/2)|=O(1)` and `kappa_n=O(1)` as `n->infinity` (which together would give
 `Var(X_n)=O(1/n)` via (a) and (b) combined) is NOT established by 5 rising prime data points
-— it requires either a proof, or exact data at meaningfully larger prime `n` than `23`, which
-was not attempted here (the external analysis's own suggested necklace/orbit-reduction
-technique for prime `n`, exploiting that `X` is constant on `Z_n^x`-orbits of generator
-subsets to cut the `2^m` enumeration by a factor of `~m`, is a genuine, credible way to reach
-larger prime `n` exactly — named as a concrete next step, not attempted this session).
+— it requires either a proof, or exact data at meaningfully larger prime `n` than `23`.
+
+**13a. Zero-cost Hamming-layer decomposition (the user's own suggested free step, done before
+the expensive necklace-orbit work) on the already-computed exact data, `n=9..25`.** For each
+layer `q=|S|`, computed `mu_q=E[X||S|=q]`, `A_q=E[delta_i||S|=q]`, `C_q=Var(delta_i||S|=q)`
+(`delta_i(S)=X(S)-X(S union{i})`, `check_hamming_layer_decomposition.py`). Confirmed exactly:
+(i) the telescoping identity `A_q=mu_q-mu_{q+1}` (max gap `~1e-16`, all `n`); (ii)
+`delta_i(S)>=0` everywhere (`min delta` non-negative up to floating noise at every `n`) —
+theta is monotone non-increasing under edge addition, matching the SDP definition read
+directly from the primary source; (iii) for PRIME `n`, `C_0=C_{m-1}=0` EXACTLY — the same
+prime-symmetry theorem (point 4) forces equal `delta_i` across `i` at the boundary layers, a
+clean cross-check the theorem is being applied consistently. **Informative, not yet
+actionable finding:** `C_q` peaks OFF-CENTER, at small-to-moderate `q` (e.g. `n=23`: `C_2,C_3
+~0.030`, vs the exact-middle `C_5~0.025`) rather than growing monotonically toward `q=m/2`
+where the binomial weight is largest — meaning the "shape heterogeneity" component sits partly
+in the BULK of typical graphs, not concentrated in rare tail layers a Chernoff-type argument
+could cheaply kill. This favors the user's own "bulk LP geometry" diagnosis over "rare-tail
+Chernoff bound" as the likely-needed next theoretical tool, though neither is attempted here.
+
+**13. Implemented the necklace/orbit-reduction technique (point 12's named next step) —
+a real implementation bug caught by the mandated positive control BEFORE trusting new
+results, fixed, then EXACT data obtained at `n=29,31,37`.**
+
+**The bug, caught not avoided:** the first implementation rotated the `m` bit-positions in
+their NATURAL order (generator `1,2,...,m`), silently assuming this already matched the
+`Z_n^x`-orbit structure. It does not — multiplication by a primitive root visits generator
+indices in a specific, non-natural order. `cross_validate_n23()` (comparing the orbit-reduced
+theta array against the already-known exhaustive one from points 10-12, element-by-element)
+caught this immediately: `max diff = 4.63` (large, not floating-point noise) on the first run.
+**Fixed** by explicitly computing a primitive root `g` mod `n` and relabeling bit-position `t`
+to natural generator index `min(g^t mod n, n - g^t mod n)` BEFORE treating bit-rotation as the
+group action — this is what actually makes multiplication-by-`g` correspond to a cyclic shift.
+**Re-validated: `max |exhaustive - orbit_reduced| = 8.88e-14`** (machine precision) at `n=23`.
+
+**Independent triple-consistency check:** the orbit COUNTS produced by brute-force enumeration
+matched the user-supplied Burnside necklace formula `N_m=(1/m)*sum_{d|m} phi(d)*2^(m/d)`
+EXACTLY at every new `n` (`n=29`→`1182`, `n=31`→`2192`, `n=37`→`14602`) — three independent
+things (the formula, the brute-force orbit enumeration, and the n=23 cross-validation against
+exhaustive LP) now agree, giving strong confidence the method is correct before trusting its
+output at `n` where no independent check exists.
+
+**Exact results at n=29, 31, 37 (LP-solve counts: `1182`, `1096`, `14602` — `13.9x`-`29.9x`
+fewer than the `2^m` full enumeration; the odd-`m` complement-pairing trick worked exactly as
+predicted, halving the count at `n=31`, `m=15` odd):**
+
+| n (prime) | m | LP solves | n·Var(X) | n·W1 | n·W3 | kappa_n | resid. ratio `(V-W1)/(B-W1)` |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 29 | 14 | 1182 | 3.033 | 2.456 | 0.416 | 1.868 | 0.271 |
+| 31 | 15 | 1096 | 3.098 | 2.496 | 0.425 | 1.902 | 0.267 |
+| 37 | 18 | 14602 | 3.272 | 2.598 | 0.451 | 2.004 | 0.258 |
+
+**Honest reading, extending the point-12 prime-only sequence
+(`n=11..37`: `n·Var(X)=2.15,2.25,2.49,2.61,2.80,3.03,3.10,3.27`):**
+`n·Var(X)` and `kappa_n` CONTINUE rising through `n=37` — no plateau is visible anywhere in the
+tested range yet, `kappa_n` crosses `2.0` at `n=37`. **This does not refute `Theta(1/n)`, but
+it does mean the range tested so far shows no evidence of the constant `C` in `V_n~C/n`
+settling down — the un-excluded `V_n=L(n)/n` alternative (`L(n)` slowly growing, named back in
+this experiment's original CORRECTED CALIBRATION note) remains just as live as before this
+check, not weaker.** One quantity DOES look comparatively stable across the same range: the
+residual ratio `(V_n-W_1)/(B_n-W_1)` sits in a narrow band (`0.258-0.333` across all 8 prime
+points `n=9..37`, not obviously trending) — suggesting that WHATEVER is driving the slow growth
+of `nV_n` affects level 1 and the level≥3 residual in roughly the same proportion, rather than
+one specific level runaway-growing relative to the others.
 
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
@@ -858,7 +916,9 @@ larger prime `n` exactly — named as a concrete next step, not attempted this s
 `analyze_own_data_for_upper_bound_signal.py`, `check_exact_enumeration_small_n.py`
 (+`exact_enumeration_output.log`), `check_exact_walsh_decomposition.py`
 (+`exact_walsh_output.log`), `verify_seventh_angle_claims.py`
-(+`verify_seventh_angle_output.log`)
+(+`verify_seventh_angle_output.log`), `check_hamming_layer_decomposition.py`
+(+`hamming_layer_output.log`), `check_necklace_orbit_reduction.py`
+(+`necklace_orbit_output.log`)
 (+`verify_delta_g_output.log`)
 (+`verify_lp_sensitivity_output.log`), and their outputs in `metrics/` (`cosh_bound_check.json`,
 `q_proxy_diagnostic.json`, `q_proxy_diagnostic_n3000.json`, `single_generator_sensitivity.json`,
