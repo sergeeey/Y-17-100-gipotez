@@ -26,6 +26,16 @@
 
 
 ## Current Focus
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 9 — fourth upper-bound check, per user request
+to keep trying.** (a) Ruled out the paper's alternate 'time-domain' LP pair as an escape from
+the vertex-stability obstruction (freeing a fixed variable = same concave-PL value-function
+mechanism; the 4 LPs are linked by an invertible Fourier map + strong duality, neither
+trivializes vertex movement) — reasoned through, not a new open avenue. (b) Reframed OWN
+already-collected `single_generator_sensitivity.json` (no new compute): `n*(ES bound)` =
+10.40, 7.55, 7.58 at n=128/512/1536 — exactly the signature `O(1/n)` would produce
+(finite-size drop then stabilization). Explicitly labeled EMPIRICAL SUPPORT, not a proof.
+**Still not achieved as a proof; now has real numerical evidence behind it.** Full writeup:
+`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum point 9.
 **[VERIFIED — 2026-09-11, cont.] H-CAT31-3 §7/§8 — CALIBRATION FIX, user-caught overclaim
 (same discipline as the earlier 2026-09-10 calibration fix).** Earlier text said
 "`Var(X_n)=Omega(1/n)` is established" — dropped the condition point 7 itself already named
@@ -184,6 +194,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-11 12:36] `ae0ff4d` (local, branch `feature/h-cat31-3-fourth-upper-bound-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record fourth upper-bound check (empirical support, still not proven)
+- [2026-09-11 12:36] `b281288` (local, branch `feature/h-cat31-3-fourth-upper-bound-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: H-CAT31-3 -- fourth upper-bound check, per user request to keep trying
 - [2026-09-11 12:31] `d29baa7` (local, branch `docs/h-cat31-3-conditional-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record the Omega(1/n)-is-conditional calibration fix
 - [2026-09-11 12:31] `5bf591d` (local, branch `docs/h-cat31-3-conditional-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: H-CAT31-3 -- calibration fix, Omega(1/n) is conditional not established
 - [2026-09-11 12:24] `aefb1ea` (local, branch `feature/h-cat31-3-delta-g-final-attempt` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record final upper-bound verdict, consolidate H-CAT31-3 §§1-6
@@ -197,5 +209,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-11 11:15] `2ee15a6` (local, branch `feature/h-cat31-3-prime-symmetry-theorem` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- prime-n generator homogeneity theorem, proved and exhaustively verified
 - [2026-09-11 11:02] `a572df5` (local, branch `feature/h-cat31-3-mechanism-addendum` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: fix dangling docstring reference in check_q_proxy_diagnostic_n3000.py
 - [2026-09-11 10:59] `14312da` (local, branch `feature/h-cat31-3-mechanism-addendum` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- mechanism-level addendum (Efron-Stein sensitivity, Q-proxy, cosh bound)
-- [2026-09-11 10:01] `23914c0` (local, branch `docs/h-cat31-3-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: activeContext.md -- record the H-CAT31-3 calibration fix
-- [2026-09-11 10:00] `30dc754` (local, branch `docs/h-cat31-3-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: calibration fix -- H-CAT31-3 stability-check overclaim, user-caught
