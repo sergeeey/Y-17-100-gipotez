@@ -993,14 +993,113 @@ decomposition further in prime `n` (cost grows roughly as `2^((n-1)/2)`, so each
 substantially more expensive than the last — `n=59` alone was estimated at `~9M` LP solves and
 `9-15GB+` memory versus `~1.3M` LP solves and `~3.1GB` at `n=53`), or (b) a genuine new
 theoretical tool for bounding within-layer LP-optimum variance — neither attempted further this
-session. **A candidate framing for (b), proposed in a pasted external analysis and not yet
-attempted or verified [UNKNOWN — record as a pointer, not a result]:** define
+session. **A candidate framing for (b), proposed in a pasted external analysis:** define
 `S_n = E[Var(delta_i | Q)]` (`Q` the Hamming-layer index) explicitly and attack it via
 fixed-layer / Johnson-graph structure, swap-derivatives, and mixed second differences
 `Delta_i Delta_j X` — a qualitatively different attack from every LP-sensitivity variant tried
-in points 6, 8, 9a (all of which moved a single coordinate, not a swap). Genuinely new angle,
-not evaluated this session; would need its own claim.md/estimand cycle before any result from it
-is trusted.
+in points 6, 8, 9a (all of which moved a single coordinate, not a swap). **Attempted in point 15
+below, per direct follow-up user request ("попробуй S_n через Johnson graph") — real new theorem
+found, but the direct aggregate application does NOT help (null result), see point 15.**
+
+**15. Johnson-graph swap-Poincaré bound on `S_n` — a real new theorem, but a null result for
+`O(1/n)` in its direct/naive form.**
+
+**Setup.** Fix generator `i` (bit 0). Within Hamming layer `q` (`S` an arbitrary `q`-subset of
+the remaining `N=m-1` generators, `i` excluded), the layer's subsets are exactly the vertices of
+the Johnson graph `J(N,q)`: `S,S'` adjacent iff they differ by one SWAP (`S'=S\{a}∪{b}`,
+`a∈S, b∉S`). `J(N,q)` is regular of degree `d=q(N-q)`. This is a genuinely new move — every
+earlier LP-sensitivity attempt (points 6, 8, 9a) only ever moved ONE coordinate in/out; a swap
+moves two at once, which is exactly the mixed second-difference `Delta_i Delta_j X` structure the
+pasted external analysis pointed at.
+
+**Theorem (verified by direct diagonalization, not recalled from memory — `integrity.md`'s
+"no phantom formulas" rule):** the spectral gap of the single-swap random walk's normalized
+transition operator on `J(N,q)` equals exactly
+
+```
+gap(N,q) = N / (q*(N-q))
+```
+
+Verified to machine precision (`max err ~1.4e-15`) against `numpy.linalg.eigvalsh` on the ACTUAL
+transition matrix, independently at `N=6,8,10,13` and every `q` in each — 30+ independently
+diagonalized cases, not a fit to one case (`verify_johnson_spectral_gap.py`). At `q=1` (and
+`q=N-1`) the swap-graph is exactly the complete graph `K_N`, giving the standard identity
+`Var(f)=(1/2)E[(f(X)-f(Y))^2]` for iid `X,Y` — the formula reduces to this analytically-known
+case exactly, a structural sanity check beyond pure numeric coincidence.
+
+**Corollary (Poincaré inequality, standard for a reversible walk with this spectral gap):**
+
+```
+C_q = Var(delta_i(S) | |S|=q)  <=  T_q * q*(N-q) / (2N)
+```
+
+where `T_q = E[(delta_i(S)-delta_i(S'))^2]` over a uniform `S` in layer `q` and a uniform single
+swap `S'` — the "swap-Dirichlet-energy" (`check_johnson_swap_energy.py`, exact enumeration of
+every swap pair in every layer, reusing the same validated necklace-orbit `theta` data).
+
+**Empirical check, `n=23` (cheapest sanity point, `N=10`):** the bound HOLDS at every tested `q`
+(0 violations), exactly tight at `q=1,9` (tightness ratio `1.0000`, matching the `K_N` analytic
+case), and non-trivially informative in the middle (tightness `~0.49-0.62`) — the bound is real,
+not vacuous.
+
+**Aggregate result across `n=23,29,31,37` — the actual test of whether this HELPS, and it does
+NOT (honest null result):**
+
+| n | N | `n²·S_n` (observed, matches point 14's shape column exactly) | `n²·`(Poincaré bound) | tightness |
+|---:|---:|---:|---:|---:|
+| 23 | 10 | 13.82 | 26.53 | 0.521 |
+| 29 | 13 | 17.45 | 38.02 | 0.459 |
+| 31 | 14 | 18.46 | 41.85 | 0.441 |
+| 37 | 17 | 21.36 | 53.55 | 0.399 |
+
+The bound grows FASTER than the quantity it bounds (`+102%` for the bound vs `+55%` for the
+observed value, over the same `n=23→37` range) — tightness DECREASES monotonically with `n`
+(0.521→0.459→0.441→0.399). **This is a real, verified new theorem that does not, in its direct/
+naive uniformly-weighted form, help toward `O(1/n)` — if anything the swap-Dirichlet-energy `T_q`
+itself appears to grow at least as fast as `C_q`, possibly faster.** Per `research-methodology.md`
+principle 2 ("NULL = progress"), this rules out the simplest version of the Johnson-graph attack
+without needing to try it again; it does not rule out a sharper, layer-adaptive, or differently-
+weighted use of the same verified spectral-gap theorem — attempted directly below, per direct
+follow-up user request ("попробуй послойно-адаптивную версию границы").
+
+**15a. Layer-adaptive attempt: WHY the naive bound is loose — a real diagnostic finding, NOT
+yet a new provable bound.**
+
+The naive point-15 bound implicitly assumes ALL of `C_q`'s variance sits in the single
+worst-gap eigenspace (`l=1`, `gap=N/(q(N-q))`, the only eigenvalue used). The Johnson scheme
+actually has `min(q,N-q)` nontrivial eigenspaces per layer, most with STRICTLY BETTER (larger)
+gaps than `l=1`. **By direct diagonalization + exact projection of `delta` onto every eigenspace
+(Parseval verified exactly: `sum_l energy_l = C_q` to the last digit, at every tested layer —
+`check_johnson_eigenspace_decomposition.py`), the `l=1` (worst-gap) eigenspace's share of `C_q`
+is small and shrinks toward the middle of each layer** (e.g. `n=31`: `31.4%` at `q=2` down to
+`0.0%` at `q=7`, the layer's center). **Aggregated with the same `w_q` weighting as `S_n`, the
+fraction of the WHOLE weighted `S_n` sitting in the worst-gap eigenspace is
+`6.31%` (`n=23`) → `3.39%` (`n=29`) → `2.51%` (`n=31`) — monotonically decreasing across all 3
+tested points (`analyze_l1_energy_fraction.py`).**
+
+**This explains the point-15 bound's looseness precisely: it pessimistically weights the
+worst-gap eigenspace at 100%, when in reality that eigenspace carries under 7% of the signal,
+falling further as `n` grows.** It does NOT yet constitute a new, independent, provable bound —
+the per-level energy fractions reported here were computed FROM the already-known `C_q`
+(via exact projection), not predicted ahead of it; using them to "tighten" the bound would be
+circular. A genuinely new adaptive bound would need an INDEPENDENT way to predict or bound the
+`l=1`-specific contribution (or, symmetrically, the higher-level contributions) without first
+computing `C_q` — analogous to how point 11's vanishing-even-Fourier-levels theorem on the
+Boolean cube started as an empirical pattern before being PROVEN from the antisymmetry
+structure. No such independent argument was found or attempted this session.
+
+**Honest calibration:** 3 points (`n=23,29,31`), a monotonic and encouraging trend, but thin —
+`n=37`'s per-layer dense diagonalization (`C(17,8)=24310`) is computationally infeasible with
+this direct approach, so the trend could not be checked further within this session's scope.
+This is recorded as a genuine LEAD (per `falsification-ladder.md` § Pearl Registry criteria: a
+falsifiable prediction exists — "the l=1 aggregate fraction continues decreasing past n=31" —
+and a next check is named), not a result to build further claims on yet.
+
+**Artifacts (this point):** `check_johnson_swap_energy.py` (+`metrics/johnson_swap_energy.json`),
+`verify_johnson_spectral_gap.py` (+`metrics/johnson_spectral_gap_verification.json`,
+`metrics/johnson_gap_formula_generalization_check.json`), `aggregate_johnson_bound.py`
+(+`metrics/johnson_bound_aggregate.json`), `check_johnson_eigenspace_decomposition.py`
+(+`metrics/johnson_eigenspace_decomposition.json`), `analyze_l1_energy_fraction.py`.
 
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,

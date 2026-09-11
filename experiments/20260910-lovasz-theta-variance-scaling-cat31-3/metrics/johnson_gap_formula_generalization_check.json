@@ -1,0 +1,197 @@
+{
+  "all_ok": true,
+  "rows": [
+    {
+      "N": 6,
+      "q": 1,
+      "gap_diagonalized": 1.2,
+      "gap_formula": 1.2,
+      "err": 0.0,
+      "ok": true
+    },
+    {
+      "N": 6,
+      "q": 2,
+      "gap_diagonalized": 0.7499999999999998,
+      "gap_formula": 0.75,
+      "err": 2.220446049250313e-16,
+      "ok": true
+    },
+    {
+      "N": 6,
+      "q": 3,
+      "gap_diagonalized": 0.6666666666666664,
+      "gap_formula": 0.6666666666666666,
+      "err": 2.220446049250313e-16,
+      "ok": true
+    },
+    {
+      "N": 6,
+      "q": 4,
+      "gap_diagonalized": 0.7499999999999996,
+      "gap_formula": 0.75,
+      "err": 4.440892098500626e-16,
+      "ok": true
+    },
+    {
+      "N": 6,
+      "q": 5,
+      "gap_diagonalized": 1.2,
+      "gap_formula": 1.2,
+      "err": 0.0,
+      "ok": true
+    },
+    {
+      "N": 8,
+      "q": 1,
+      "gap_diagonalized": 1.1428571428571428,
+      "gap_formula": 1.1428571428571428,
+      "err": 0.0,
+      "ok": true
+    },
+    {
+      "N": 8,
+      "q": 2,
+      "gap_diagonalized": 0.6666666666666665,
+      "gap_formula": 0.6666666666666666,
+      "err": 1.1102230246251565e-16,
+      "ok": true
+    },
+    {
+      "N": 8,
+      "q": 3,
+      "gap_diagonalized": 0.5333333333333332,
+      "gap_formula": 0.5333333333333333,
+      "err": 1.1102230246251565e-16,
+      "ok": true
+    },
+    {
+      "N": 8,
+      "q": 4,
+      "gap_diagonalized": 0.4999999999999999,
+      "gap_formula": 0.5,
+      "err": 1.1102230246251565e-16,
+      "ok": true
+    },
+    {
+      "N": 8,
+      "q": 5,
+      "gap_diagonalized": 0.5333333333333332,
+      "gap_formula": 0.5333333333333333,
+      "err": 1.1102230246251565e-16,
+      "ok": true
+    },
+    {
+      "N": 8,
+      "q": 6,
+      "gap_diagonalized": 0.6666666666666663,
+      "gap_formula": 0.6666666666666666,
+      "err": 3.3306690738754696e-16,
+      "ok": true
+    },
+    {
+      "N": 8,
+      "q": 7,
+      "gap_diagonalized": 1.1428571428571428,
+      "gap_formula": 1.1428571428571428,
+      "err": 0.0,
+      "ok": true
+    },
+    {
+      "N": 13,
+      "q": 1,
+      "gap_diagonalized": 1.0833333333333333,
+      "gap_formula": 1.0833333333333333,
+      "err": 0.0,
+      "ok": true
+    },
+    {
+      "N": 13,
+      "q": 2,
+      "gap_diagonalized": 0.5909090909090906,
+      "gap_formula": 0.5909090909090909,
+      "err": 3.3306690738754696e-16,
+      "ok": true
+    },
+    {
+      "N": 13,
+      "q": 3,
+      "gap_diagonalized": 0.4333333333333327,
+      "gap_formula": 0.43333333333333335,
+      "err": 6.661338147750939e-16,
+      "ok": true
+    },
+    {
+      "N": 13,
+      "q": 4,
+      "gap_diagonalized": 0.36111111111110983,
+      "gap_formula": 0.3611111111111111,
+      "err": 1.27675647831893e-15,
+      "ok": true
+    },
+    {
+      "N": 13,
+      "q": 5,
+      "gap_diagonalized": 0.32499999999999907,
+      "gap_formula": 0.325,
+      "err": 9.43689570931383e-16,
+      "ok": true
+    },
+    {
+      "N": 13,
+      "q": 6,
+      "gap_diagonalized": 0.3095238095238071,
+      "gap_formula": 0.30952380952380953,
+      "err": 2.4424906541753444e-15,
+      "ok": true
+    },
+    {
+      "N": 13,
+      "q": 7,
+      "gap_diagonalized": 0.309523809523807,
+      "gap_formula": 0.30952380952380953,
+      "err": 2.55351295663786e-15,
+      "ok": true
+    },
+    {
+      "N": 13,
+      "q": 8,
+      "gap_diagonalized": 0.32499999999999907,
+      "gap_formula": 0.325,
+      "err": 9.43689570931383e-16,
+      "ok": true
+    },
+    {
+      "N": 13,
+      "q": 9,
+      "gap_diagonalized": 0.3611111111111104,
+      "gap_formula": 0.3611111111111111,
+      "err": 7.216449660063518e-16,
+      "ok": true
+    },
+    {
+      "N": 13,
+      "q": 10,
+      "gap_diagonalized": 0.43333333333333224,
+      "gap_formula": 0.43333333333333335,
+      "err": 1.1102230246251565e-15,
+      "ok": true
+    },
+    {
+      "N": 13,
+      "q": 11,
+      "gap_diagonalized": 0.5909090909090906,
+      "gap_formula": 0.5909090909090909,
+      "err": 3.3306690738754696e-16,
+      "ok": true
+    },
+    {
+      "N": 13,
+      "q": 12,
+      "gap_diagonalized": 1.0833333333333333,
+      "gap_formula": 1.0833333333333333,
+      "err": 0.0,
+      "ok": true
+    }
+  ]
+}
