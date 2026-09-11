@@ -961,16 +961,23 @@ fraction itself is bounded below `1` or has a known limit — the possibility th
 climbing slowly toward `1` (all of `E[delta^2]` eventually shape-dominated) is not excluded by
 this data.**
 
-**This precisely localizes where any `L(n)` in `V_n=L(n)/n` would have to live: not in the
-mean single-generator response (well-behaved, looks `O(1)`), but in how much that response
-VARIES across graphs at a given density — genuine LP-geometry heterogeneity within the bulk,
-now the DOMINANT half of the mechanism, not a rare-tail effect (consistent with point 13a's
-earlier, cruder observation that `C_q` peaks off-center; this weighted version makes the same
-point rigorously, using the actual layer probabilities rather than the raw `C_q` values
-alone).** This is a real, if sobering, answer to a concrete question: the obstruction to
-`O(1/n)` is not evenly spread or vaguely "complicated" — it is specifically the
-shape-heterogeneity term, it has now overtaken the density term in absolute size, and whether
-it is itself bounded remains open.
+**CALIBRATION CORRECTION (2026-09-11, caught on independent re-check of a pasted external
+analysis's own calibration point — verified against this experiment's own established math
+before accepting, per `audit-verification-gate.md`):** the two paragraphs above, and earlier
+drafts of this point, said the "obstruction to `O(1/n)`" or "where any `L(n)` in `V_n=L(n)/n`
+would have to live" lives in the shape term. That overstates what `E[delta^2] = D_n + S_n`
+actually controls. `B_n = (m/4)*E[delta^2]` (established identity, point 12) feeds the
+Efron-Stein bound `V_n <= B_n` (and the sharpened `V_n <= (B_n+2*W_1)/3`, point 12a) — an
+INEQUALITY, not an identity connecting `E[delta^2]` to `V_n` itself. `V_n` is exactly the sum
+of Fourier-Walsh level weights `W_k` (`k>=1`, Parseval), a different quantity from `B_n`. So
+the correct, narrower statement is: **the observed growth of the Efron-Stein sensitivity-energy
+`E[delta^2]` localizes mainly in the within-layer shape-heterogeneity term `S_n`, not in the
+mean single-generator response `D_n` (well-behaved, looks `O(1)`)** — consistent with point
+13a's earlier, cruder observation that `C_q` peaks off-center; this weighted version makes the
+same point rigorously, using the actual layer probabilities rather than the raw `C_q` values
+alone. This bounds where the Efron-Stein SLACK could be hiding a `L(n)` factor if `V_n` itself
+does carry one — it is a statement about the bound, not a proven statement about `V_n`'s own
+asymptotics.
 
 **Honest calibration:** 12 points, `n=11..53`, still small by the standard of what would be
 needed to distinguish `L(n)=O(1)` (with a slowly-approached asymptotic shape fraction) from
@@ -986,7 +993,14 @@ decomposition further in prime `n` (cost grows roughly as `2^((n-1)/2)`, so each
 substantially more expensive than the last — `n=59` alone was estimated at `~9M` LP solves and
 `9-15GB+` memory versus `~1.3M` LP solves and `~3.1GB` at `n=53`), or (b) a genuine new
 theoretical tool for bounding within-layer LP-optimum variance — neither attempted further this
-session.
+session. **A candidate framing for (b), proposed in a pasted external analysis and not yet
+attempted or verified [UNKNOWN — record as a pointer, not a result]:** define
+`S_n = E[Var(delta_i | Q)]` (`Q` the Hamming-layer index) explicitly and attack it via
+fixed-layer / Johnson-graph structure, swap-derivatives, and mixed second differences
+`Delta_i Delta_j X` — a qualitatively different attack from every LP-sensitivity variant tried
+in points 6, 8, 9a (all of which moved a single coordinate, not a swap). Genuinely new angle,
+not evaluated this session; would need its own claim.md/estimand cycle before any result from it
+is trusted.
 
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
