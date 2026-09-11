@@ -249,23 +249,36 @@ directly: 0.17s/0.94s/6.68s/34.38s/88.68s at n=500/1000/2000/3000/4096) with far
 contain `-1.0` AND exclude both `-0.5` and `-2.0` to count as `CONFIRMED`).
 
 **Result: weighted-OLS slope `-0.9126`, SE `0.0264`, 95% CI `[-0.9751, -0.8501]` — excludes
-`-1.0` cleanly.** `REJECTED` per the pre-registered criterion. A stability check (slope on the
+`-1.0` cleanly.** `REJECTED` per the pre-registered criterion — this is an observed exponent
+noticeably different from `-1`, not a power-shortfall. A stability check (slope on the
 `n=32..1024` half `-0.900` vs the `n=256..3000` half `-0.897`) shows no drift toward `-1` as `n`
-grows, arguing against a simple "true asymptotic exponent is `-1`, finite-size correction still
-visible in this range" explanation.
+grows.
 
-**This is a genuine, well-powered negative result, not an inconclusive one** — the CI is tight
-enough (half-width ~0.06) to discriminate `-1` from its neighbors, not merely too wide to say
-anything. The underlying phenomenon survives at a more precisely measured, but no longer
+**CALIBRATION CORRECTION (2026-09-10, user-caught overclaim in the first version of this
+section):** the stability check was originally described as "arguing against"/"excluding" a
+finite-size-correction explanation — too strong. Precise statement: **no detectable drift toward
+`-1` over `n=32..3000`; a simple finite-range-correction explanation is disfavored, but an
+asymptotic `-1` beyond the observed range is NOT ruled out** — in particular a slowly-varying
+correction `Var(X_n) = C*n^-1*L(n)` (e.g. a logarithmic factor) could produce an effective
+exponent near `-0.9` across several decades of `n` without the split-half check detecting it.
+Full corrected discussion in the experiment's own `decision.md`.
+
+**This is still a genuine, well-powered negative result, not an inconclusive one** — the CI is
+tight enough (half-width ~0.06) to discriminate `-1` from its neighbors, not merely too wide to
+say anything. The underlying phenomenon survives at a more precisely measured, but no longer
 "clean-looking," exponent (`~-0.91`, not `~-1`). Per the audit's own novelty vocabulary, this
 downgrades the finding from `POSSIBLE-NOVEL-SPECIAL-CASE` (§ 2's preliminary framing) to
 `BENCHMARK-SPECIFIC-NUMERIC-RESULT` — a precise empirical number without an accompanying
 structural explanation or candidate theorem, per `research-methodology.md`'s own Q6 discipline
 (a numeric fact only becomes a special case once something explains why the number is what it
-is). Full detail, Kill Analysis, and a Relaxation Map for what could be tried next (a two-sided
-`O(n^-0.8)`/`Omega(n^-1)` bracket claim instead of a point estimate; a structured ansatz with a
-correction term; a genuinely different `n` range) in `experiments/20260910-lovasz-theta-variance-
-scaling-cat31-3/decision.md`.
+is). **One-line final status: a robust, unexplained empirical concentration law on random
+circulant Lovász theta, with the natural `n^-1` law falsified over the tested range** — not a
+discovery, not a failure. The recommended next cheap step is explicitly NOT a bigger sweep at
+larger `n`; it is comparing the existing 9 points against a structurally-motivated correction
+model (e.g. a logarithmic factor derived from the DFT/RIP structure `theta_via_lp` actually
+uses) — an unmotivated multi-model curve-fitting contest on 9 points would not be a valid check.
+Full detail, Kill Analysis, and Relaxation Map in
+`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md`.
 
 **Revised final verdict:** among ~33+1 audited claims across this whole exercise, there is still
 no confirmed new external scientific contribution — but the project's own single best novelty
