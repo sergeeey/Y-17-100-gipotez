@@ -26,6 +26,22 @@
 
 
 ## Current Focus
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 §§13/13a — necklace-orbit extension to exact prime
+n=29,31,37, real bug caught by mandated positive control before trusting new results.**
+(13a, zero-cost) Hamming-layer decomposition on existing data: telescoping `A_q=mu_q-mu_{q+1}`
+verified `~1e-16`, monotonicity confirmed, prime-n `C_0=C_{m-1}=0` exactly; `C_q` peaks
+OFF-CENTER (small-moderate q, not the binomial-weighted middle) — favors "bulk LP geometry"
+over "rare-tail Chernoff" as the likely tool. (13) Implemented necklace/orbit-reduction
+(`Z_n^x/{+-1}` cyclic of order m, acts regularly given already-proved transitivity) — FIRST
+VERSION HAD A REAL BUG (rotated natural bit-order, not the actual primitive-root-induced
+order; caught by `cross_validate_n23()`: max diff 4.63, not noise). Fixed via explicit
+primitive-root relabeling; re-validated to `8.88e-14`. Orbit counts matched user's Burnside
+formula EXACTLY (1182/2192/14602 at n=29/31/37) — triple independent consistency before
+trusting output. **Result: `n*Var(X)` and `kappa_n` CONTINUE RISING through n=37 (no
+plateau)** — extends, does not resolve, §12's own calibration correction; `L(n)/n` remains
+fully live. One stable quantity: residual ratio `(V-W1)/(B-W1)` stays in `0.258-0.333` across
+all 8 prime points `n=9..37`. Full writeup: `experiments/20260910-lovasz-theta-variance-
+scaling-cat31-3/decision.md` § Addendum points 13/13a.
 **[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 12 — 7th angle: 3 external claims INDEPENDENTLY
 VERIFIED (machine precision) before acceptance, incl. a self-correction of § 10.**
 (a) `V_n<=(B_n+2W_1)/3` — real algebraic tightening of Efron-Stein via § 11's vanishing-
@@ -174,6 +190,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-11 13:33] `8a8058c` (local, branch `feature/h-cat31-3-necklace-orbit-extension` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- Hamming-layer decomposition + necklace-orbit extension to n=29,31,37
 - [2026-09-11 13:21] `393f855` (local, branch `feature/h-cat31-3-seventh-angle-verified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record verified 7th angle, self-correction to §10
 - [2026-09-11 13:21] `c51bccd` (local, branch `feature/h-cat31-3-seventh-angle-verified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- verified 3 external claims: sharpened ES bound, exact prime W1 identity, calibration correction
 - [2026-09-11 12:59] `28c555c` (local, branch `feature/h-cat31-3-exact-walsh-decomposition` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record the vanishing-even-Fourier-levels theorem
@@ -188,4 +205,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-11 12:23] `2c2d5e5` (local, branch `feature/h-cat31-3-delta-g-final-attempt` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: H-CAT31-3 -- third and final upper-bound attempt, honest verdict: not achieved
 - [2026-09-11 12:16] `6f9064a` (local, branch `feature/h-cat31-3-cauchy-schwarz-lower-bound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record Cauchy-Schwarz lower bound, dedupe archived B7 entries
 - [2026-09-11 12:15] `21faafd` (local, branch `feature/h-cat31-3-cauchy-schwarz-lower-bound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- exact Cauchy-Schwarz lower bound Var(X_n)=Omega(1/n), real progress
-- [2026-09-11 11:40] `72a5afa` (local, branch `feature/h-cat31-3-lp-sensitivity-attempt` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record LP-sensitivity attempt, archive Lean4/H-CAT31-2 entries
