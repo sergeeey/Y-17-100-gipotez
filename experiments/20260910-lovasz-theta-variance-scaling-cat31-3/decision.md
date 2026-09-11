@@ -436,9 +436,11 @@ not a routine continuation.
 sensitivity to LP dual variables via a standard, correctly-applied parametric-LP concavity
 argument; (2) a precisely-named missing ingredient (concentration of the dual/shadow-price
 structure across generators) required to turn this into `O(1/n)`; (3) an explicit statement
-that closing this gap is NOT achieved here and is adjacent to, or requires resolving, genuinely
-open research (the paper's own mean conjecture is unresolved, and variance is a harder,
-unaddressed question in it). This is not a disguised failure — it converts a vague ask ("prove
+that closing this gap is NOT achieved here and is adjacent to genuinely open research (the
+paper's own mean conjecture is unresolved, and it does not address variance at all — whether
+the variance question is actually HARDER than the mean question, merely similarly-flavored, or
+possibly easier is not established either way here; that comparison is not claimed). This is
+not a disguised failure — it converts a vague ask ("prove
 Efron-Stein O(1/n)") into a precise, well-defined open sub-problem (characterize the dual
 variable's typical magnitude and the relaxed-optimum's typical correlation `t*` with a dropped
 constraint, for the random circulant ensemble), which is real, if incomplete, mathematical
@@ -472,28 +474,44 @@ required — unlike the LP-sensitivity attempt in point 6, which only produced a
 mechanism.** Applied directly to this experiment's OWN already-verified
 `check_density_response.py` measurements (`verify_cauchy_schwarz_lower_bound.py`):
 
-| n | h | λ̂ | CS lower bound | measured `V_n` | bound/measured |
+| n | h | λ̂ (finite diff.) | plug-in estimate | measured `V_n` | estimate/measured |
 |---:|---:|---:|---:|---:|---:|
 | 128 | 0.025 | -2.175 | 0.01877 | 0.03159 | 0.594 |
 | 128 | 0.050 | -2.433 | 0.02349 | 0.03159 | 0.744 |
 | 512 | 0.025 | -3.311 | 0.01075 | 0.00885 | 1.214 |
 | 512 | 0.050 | -2.892 | 0.00820 | 0.00885 | **0.926** |
 
-**The rigorous lower bound, from the density mechanism ALONE, captures 59-93%+ of the
-TOTAL measured variance** (the `n=512,h=0.05` case reaches 93%). The `n=512,h=0.025` ratio
-exceeding 1 is expected, not a violation: the bound is exact at the POPULATION level, but both
-`λ̂` (squared, so its own ~6% relative sampling error roughly doubles) and measured `V_n` are
-themselves noisy sample estimates — an estimated lower bound exceeding an estimated true value
-by ~20% is ordinary estimation noise, not a falsification.
+**Calibration correction (caught by re-reading this section against the exact inequality, the
+same discipline this session used on an earlier overclaim in §0):** the table's "plug-in
+estimate" column is `λ̂²/(4m)` using the FINITE-DIFFERENCE `λ̂`, not the true derivative
+`M_n'(1/2)` — the exact inequality `Var(X_n) >= M_n'(1/2)²/(4m)` is a statement about the
+POPULATION derivative. Calling the plugged-in numbers themselves "the rigorous lower bound"
+(an earlier draft of this section did) overstates what a finite difference establishes: `λ̂`
+carries its own sampling noise AND a curvature/`O(h²)` bias from the (unverified) cubic term
+in `M_n(p)`'s odd expansion, neither of which is bounded here. **The exact inequality itself
+is fully rigorous; the numbers in this table are a diagnostic plug-in evaluation of it, not a
+proven bound on `V_n` at these specific `n`.** The 59-93% figures should be read as "how much
+of the measured variance this diagnostic ties to the density channel," not as a certified
+numeric lower bound.
 
-**What this rigorously establishes:** `Var(X_n) = Omega(1/n)` — CONDITIONAL on `λ_n = M_n'(1/2)`
-staying bounded away from `0` as `n -> infinity`. The two tested points (`λ~-2.2` at `n=128`,
-`λ~-2.9` at `n=512`) are consistent with this (not shrinking toward 0), but this is an empirical
-observation at 2 points, not a proof that `λ_n` cannot vanish for larger `n` — that remains a
-named, open (but now precisely stated) sub-claim. **Combined with point 6's unresolved upper
-bound, the honest current state is: a real `Omega(1/n)` lower bound (new, rigorous, this
-session), and a named-but-unclosed path to the matching `O(1/n)` upper bound — not yet
-`Theta(1/n)`.**
+**What this rigorously establishes, stated without dropping the condition anywhere:**
+
+```
+Var(X_n) >= M_n'(1/2)^2/(4m)          <- PROVED, population-level, unconditional
+Var(X_n) = Omega(1/n)                  <- FOLLOWS ONLY IF liminf_n |M_n'(1/2)| > 0
+```
+
+The second line is a **conditional consequence**, not itself an established theorem — the
+`liminf |M_n'(1/2)|>0` nondegeneracy condition is NOT proven here. It is *consistent with* the
+two tested points (`λ̂~-2.2` at `n=128`, `λ̂~-2.9` at `n=512`, neither shrinking toward 0), but
+2 points is empirical support, not a proof ruling out `M_n'(1/2)->0` for larger `n`. **Every
+later restatement of this result in this document (including any that say "established" or
+"real, rigorous Omega(1/n)" without repeating this condition) should be read as shorthand for
+the conditional statement above, not as claiming the condition itself was proven.** Combined
+with point 6's unresolved upper bound, the honest current state is: one new, unconditionally
+EXACT population inequality (real progress), a plausible but unproven path from it to
+`Omega(1/n)`, and a named-but-unclosed path to the matching `O(1/n)` upper bound — not
+`Theta(1/n)`, and not yet an unconditional `Omega(1/n)` either.
 
 **Explicit provenance note — what was and was NOT used from the external analysis.** The
 pasted text also claimed a new `n=3000` experiment (191/240 planned replicates, checkpoint
@@ -579,25 +597,31 @@ would need a genuinely different tool (LP vertex-stability / basis-perturbation 
 specific to this random polytope's geometry), which is not in the primary source and was not
 derivable here.
 
-**Final, honest verdict on the O(1/n) upper bound, after three independent attempts (LP
-concavity/duality in point 6, Fourier/Cauchy-Schwarz in point 7's failed upper-bound variant,
-and this `Delta_g`-boundedness attempt): NOT achieved.** Each attempt found something real
-(the concavity mechanism, the exact `Delta_g` bound) and each hit the SAME underlying wall —
-controlling how far the LP OPTIMIZER itself moves under a one-constraint perturbation, not
-just how large the perturbation is. This is assessed, after genuine effort across three
-angles, as very likely requiring new research-level insight, not a routine continuation of
-either this project's own tools or the primary source's published techniques. Per this
-project's Cheapest Differentiating Test protocol, a fourth attempt without a qualitatively new
-idea would have low expected information value — stopping here rather than repeating
-variations of the same failed mechanism.
+**Final, honest verdict on the O(1/n) upper bound, after two independent attempts specifically
+targeting it (LP concavity/duality in point 6, and this `Delta_g`-boundedness attempt) — point
+7 was a SEPARATE, successful result on the LOWER-bound side, not a failed upper-bound variant,
+correcting an earlier miscategorization in this sentence: NOT achieved.** Both upper-bound
+attempts found something real (the concavity mechanism, the exact `Delta_g` bound) and both
+hit the SAME underlying wall — controlling how far the LP OPTIMIZER itself moves under a
+one-constraint perturbation, not just how large the perturbation is. This is assessed, after
+genuine effort across two angles, as very likely requiring new research-level insight, not a
+routine continuation of either this project's own tools or the primary source's published
+techniques. Per this project's Cheapest Differentiating Test protocol, a further attempt
+without a qualitatively new idea would have low expected information value — stopping here
+rather than repeating variations of the same mechanism.
 
-**Where this leaves H-CAT31-3's mechanism investigation:** `Var(X_n)=Omega(1/n)` is
-established (point 7, real and rigorous). `Var(X_n)=O(1/n)` remains open, matching the
-difficulty the primary source's own authors have not resolved even for the easier mean
-question. The REJECTED verdict on exponent `=-1` stands unchanged throughout — this entire
-investigation (points 1-8) is exploratory Mechanism Development Mode work on WHY the `-0.91`
-exponent might or might not be a finite-size transient, not a re-litigation of the
-pre-registered falsification result.
+**Where this leaves H-CAT31-3's mechanism investigation, stated without dropping conditions:**
+`Var(X_n) >= M_n'(1/2)^2/(4m)` is an unconditionally PROVED population inequality (point 7).
+`Var(X_n) = Omega(1/n)` is a CONDITIONAL consequence of it, pending the unproven nondegeneracy
+condition `liminf|M_n'(1/2)|>0` (empirically consistent with, not established by, 2 tested
+points) — any shorter restatement of this result elsewhere in this document is shorthand for
+that conditional statement. `Var(X_n) = O(1/n)` remains open. Whether closing the upper bound
+is genuinely AS HARD as the primary source's own unresolved mean conjecture, or merely
+similarly-flavored, is itself not established here — that comparison is a plausible but
+unverified analogy, not a proven equivalence, and should not be read as one. The REJECTED
+verdict on exponent `=-1` stands unchanged throughout — this entire investigation (points 1-8)
+is exploratory Mechanism Development Mode work on WHY the `-0.91` exponent might or might not
+be a finite-size transient, not a re-litigation of the pre-registered falsification result.
 
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
