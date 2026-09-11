@@ -13,3 +13,64 @@
 **[VERIFIED — 2026-09-10, ADR-104] H-CAT31-2 (следующая гипотеза после закрытия B7-арки, по инструкции «продолжай следующую гипотезу автономно»): REJECTED, честный null-результат, не hard-killed.** Выбор направления НЕ произвольный — по уже существующему `reports/2026-09-09-breakthrough-routes.md` (5 маршрутов, прошлая сессия): маршруты B3/B2 уже REJECTED, Форсайт заблокирован (многосессионная задача), Route 2 (Ловас: хвосты/арифметика) — единственный готовый. Переиспользована машинерия H-CAT31-1 (`theta_via_lp`) без изменений. Проверка: коррелирует ли простое/составное n (3 предрегистрированные пары из отчёта: 127/129, 251/255, 509/511) с ХВОСТОМ распределения `X=log(theta/sqrt(n))` (H-CAT31-1 сообщал только среднее). Позитивный контроль пройден чисто (6.4e-14 при пороге 1e-6, 3000 графов). Результат: дисперсия — согласованное направление, но не существенное (макс. 13.5% при пороге ≥50%); top-decile-вклад — направление НЕ согласовано; все CI пересекаются. **REJECTED** для узкого предрегистрированного вопроса, статус `lead` (weak_alive, не killed) — Relaxation Map называет 2 открытых направления (непрерывный признак делимости, бо́льшая выборка), ни одно не запущено. `graph.yaml`: 139 узлов, 176 рёбер.
 **[VERIFIED — 2026-09-10, ADR-103] H-B7-21 (по прямой инструкции пользователя: синтез + минимальное условие, продолжать автономно до полного закрытия): CONFIRMED, замыкает всю observability/rule-perturbation под-арку B7 (H-B7-13→H-B7-21).** Часть A — общая теорема проверена ИСЧЕРПЫВАЮЩЕ по ВСЕМ 35 узлам сети (не только 3 ранее протестированных): возмущение множества single-bit правил сохраняет `PROLIFERATION_STATE`/`_2` неподвижной точкой ⟺ ни одна возмущённая строка не равна собственной входной конфигурации состояния для этого узла. 35 узлов × 2 ветки × 2984 проверки, 0 расхождений, 0 нарушений baseline fixed-point (впервые проверено сетевым образом, не только для 3 узлов вручную). Достаточность проверена и при ОДНОВРЕМЕННОМ возмущении нескольких узлов сразу (новое, за пределами H-B7-17/19/20). Часть B — синтез: RBL2 33.3% fragile, p21CIP 0%, CyclinE1 9.7% — НЕ монотонно по числу входов, явно НЕ подогнан тренд на n=3. Реальная методологическая находка: 2 reviewer-попытки подряд зависли на лимите ходов из-за заблокированного `python -c` в песочнице (не bundled-scope, как в прежних случаях) — третья попытка с явной инструкцией писать файл-скрипт прошла чисто. FL Step 8a: CONFIRMED на highest-risk узле (E2F1_high, 10 входов). `graph.yaml`: 138 узлов, 175 рёбер, `H-B7-21` статус `confirmed`. **Открытые нити (не пройдены, названы явно): расширение полной ROBUST/FRAGILE-машинерии за пределы 3 узлов; проверка асимметрии fragile-rate на бóльшем n; double-bit возмущения — вся исходная инструкция пользователя выполнена, следующий шаг не назначен, ждать нового направления.**
 **[VERIFIED — 2026-09-10, ADR-102] H-B7-20 (третий и последний feedback-loop узел, CyclinE1, 32-строчное exhaustive возмущение, по явному запросу пользователя): PARTIALLY-ROBUST, замыкает тройное сравнение RBL2/p21CIP/CyclinE1 и общий принцип дестабилизации.** Реальное структурное отличие от H-B7-17/19: CyclinE1 НЕ клэмпится, орбита клэмп-фазы перестроена заново для каждого возмущения (новые функции). Substrate-проверка через ДРУГОЙ путь кода подтвердила орбиту H-B7-15 точно (7 состояний/ветвь). Результат: 28 ROBUST, 3 FRAGILE, 1 CRITERION_INVALID из 32. По прямому запросу пользователя добавлен систематический слой (не на одном отобранном случае): КАЖДАЯ fragile/invalid строка проверена H-B7-18's методологией на дестабилизацию самого аттрактора — единственная CRITERION_INVALID строка (`flip_FFTTT`) дестабилизирует аттрактор сам (обе ветви), все 3 FRAGILE строки — только-наблюдаемость. Общий принцип теперь подтверждён ТРИЖДЫ вычислительно (RBL2, p21CIP независимо перепроверен скретч-скриптом в рамках этого эксперимента, CyclinE1): дестабилизирующее возмущение узла всегда точно совпадает со строкой, соответствующей собственной входной конфигурации `PROLIFERATION_STATE` для этого узла. Отклонена (до фиксации в артефактах) ложная рабочая гипотеза «направление flip коррелирует с хрупкостью» — RBL2 добавленная строка, CyclinE1 удалённая, противоположные паттерны. Пойман и исправлен ДО запуска пробел дизайна: изначальная проверка дестабилизации не покрывала CRITERION_INVALID строки, хотя оригинальное расследование H-B7-18 было именно про CRITERION_INVALID случай RBL2 — расширено на все fragile-or-invalid строки. `graph.yaml`: 137 узлов, 172 ребра, `H-B7-20` статус `lead`, рёбра `grounds` от H-B7-15/17/18/19. **Следующий шаг (прямая инструкция пользователя): H-B7-21 — синтез sensitivity-профилей всех трёх узлов + попытка вывести минимальное необходимое/достаточное условие существования аттрактора Proliferation, продолжать автономно до полного закрытия темы.**
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 6 — attempted formal proof of Efron-Stein
+`O(1/n)` bound, per direct user request. HONEST OUTCOME: full proof NOT achieved.** Real
+partial progress instead: derived + numerically verified (n=11 toy, `verify_lp_sensitivity_
+concavity.py`) that the LP value function `V(t)` under RHS-relaxation of one generator's
+constraint is concave/piecewise-linear (standard parametric-LP duality), connecting
+`Delta_i theta` to LP dual variables via a tangent-line argument — confirmed real (not just
+asserted): piecewise-linearity to `~1e-15`, genuine kink, `max_t V(t)` matches an
+independently-computed `theta_via_lp` value to grid resolution. **Gap explicitly NOT closed:**
+crude magnitude bounds only give `O(1)` per generator, not the needed `O(1/n)` — closing it
+requires a concentration/RIP-type argument on the dual solution specific to the random
+ensemble, not established in the primary source (arXiv:2502.16227) and equivalent to new
+research, not a routine continuation. Documented as precise incomplete progress (names the
+exact missing lemma), not a disguised negative result or a fabricated proof. Full writeup:
+`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum point 6.
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 mechanism addendum § 5 — density-response experiment,
+independent cross-check of sensitivity, by directly varying `p` (not a within-sample
+regression).** Exact symmetry `M_n(1-p)=-M_n(p)` re-derived from `theta(G)*theta(Gbar)=n`
+(Lovász, pathwise) + `Gbar~G(n,1-p)`, confirmed on data (4/4 symmetry pairs within 2 SE at
+n=128/512). Direct finite-difference `λ̂=(M_n(0.5+h)-M_n(0.5-h))/(2h)` came out NEGATIVE
+(-2.2 to -3.3) — caught and resolved a sign confusion myself before reporting it as a
+contradiction: `dD_n/dp≈-2` (the Q-proxy `D_n` decreases with density), so
+`dM_n/dp≈-2·b` (b = Q-proxy regression slope) is negative too. **Magnitude cross-check: at
+n=512, predicted `-2.901` vs directly measured `-2.892` (0.3% agreement); at n=128, predicted
+`-2.471` vs measured `-2.433` (1.5% agreement).** Two structurally independent measurements
+(within-sample proxy regression vs. direct response to varying p) now agree closely — real,
+non-circular consistency evidence for the density-driven mechanism. Full writeup:
+`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum point 5.
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 mechanism addendum § 4 — prime-n generator
+homogeneity, a small theorem PROVED here (not cited from external text).** Derived and
+exhaustively verified (`verify_prime_isomorphism_exhaustive.py`, n=7 prime, all 8 subsets,
+diff~5e-15): for prime `n`, `theta(G_S)=theta(G_{aS})` exactly for any unit `a` (graph
+automorphism via vertex relabeling), and since `S -> aS` is measure-preserving under i.i.d.
+Bernoulli(1/2) generator bits, `E[(Delta_i theta)^2]` is EXACTLY equal across all generator
+indices `i` for prime `n` — not a heuristic. Empirical check at n=127 (prime) vs n=128
+(composite), 150 reps × 7 indices, gave CV=0.231 vs 0.132 — OPPOSITE direction from the naive
+prediction, but NOT a refutation: per-index SE (~15-25%) at this rep count is fully consistent
+with a true CV of 0. Honest reading: the diagnostic lacks power to detect the proven identity,
+neither confirms nor refutes it. Practical upshot for future work: prime n + single-index
+measurement (not averaging over 3) would both remove the composite-n heterogeneity confound
+and roughly halve per-replicate cost for any future Efron-Stein sensitivity sweep.
+**[VERIFIED — 2026-09-11] H-CAT31-3 mechanism-level addendum (Mechanism Development Mode,
+triggered by user-supplied external AI analyses, independently re-checked, NOT trusted at face
+value).** Three diagnostics, all reusing the experiment's own verified substrate, none reopening
+the REJECTED verdict for exponent=-1: (1) exact inequality `V_n<=2(E[theta]/sqrt(n)-1)` derived
+independently from the Lovász identity + `cosh(x)>=1+x^2/2`, holds on 7/9 sweep points, 2
+"violations" explained by sampling noise; (2) Q-proxy diagnostic (density-only proxy `D_n`
+explains 66-86% of `Var(X_n)` across n=32..3000, not the ~100% a stronger externally-suggested
+hypothesis implied); (3) single-generator sensitivity / Efron-Stein bound — the striking result:
+`n^2*E[(Delta_i X)^2]` nearly IDENTICAL at n=512/1536 (60.7, 60.7) after a finite-size drop from
+n=128 (84.5), and bound/measured-V_n ratio shrinks 2.57→1.67→1.27 (tightening toward 1) —
+suggestive that the true asymptotic could be exponent=-1 with `-0.91` a finite-size transient,
+consistent with the CORRECTED CALIBRATION's un-excluded `L(n)` alternative. **NOT confirmed at
+n=3000** — extension used only 8 reps (cost-limited), SE on the key statistic is ~49% relative,
+point estimate (121.4) statistically indistinguishable from continuing OR breaking the trend.
+**Verdict: genuinely open, sharpened not resolved.** Concrete next decisive step named but not
+run: a well-powered (not 8-replicate) single-generator sensitivity measurement at n>=3000, or a
+formal proof of `E[(Delta_i theta)^2]=O(1/n)`. Literature calibration: arXiv:2502.16227's
+theorem/conjecture reverified directly from LaTeX source (exact match); the "Faure sensitivity
+already attempted" claim from the pasted analyses is `[WEAK]` (ResearchGate 403'd, only a search
+engine's paraphrase available), explicitly not required for the math above to hold. Full writeup:
+`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum (2026-09-11).
