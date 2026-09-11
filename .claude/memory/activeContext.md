@@ -26,6 +26,19 @@
 
 
 ## Current Focus
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 12 — 7th angle: 3 external claims INDEPENDENTLY
+VERIFIED (machine precision) before acceptance, incl. a self-correction of § 10.**
+(a) `V_n<=(B_n+2W_1)/3` — real algebraic tightening of Efron-Stein via § 11's vanishing-
+even-levels theorem, holds at every n=9..25. (b) For PRIME n, `W_1=M_n'(1/2)^2/(4m)` EXACTLY
+(not just `>=`) — re-derived from the prime-symmetry theorem (§4) forcing equal singleton
+Fourier coefficients; verified gap `~1e-17` at n∈{11,13,17,19,23}, nonzero (0.001-0.008) at
+composite n, confirming genuine prime-specificity. **(c) CALIBRATION CORRECTION to §10's own
+"stabilizes by n=25" claim**: filtering to PRIME n only shows `n*Var(X_n)` still monotonically
+RISING (2.15→2.25→2.49→2.61→2.80 at n=11,13,17,19,23), no plateau — §10's reading mixed
+arithmetic classes (21=3·7, 25=5²); retracted in place, not silently left standing.
+`O(1/n)` still not proven; named next step (necklace/orbit reduction to reach larger exact
+prime n) not attempted. Full writeup: `experiments/20260910-lovasz-theta-variance-scaling-
+cat31-3/decision.md` § Addendum point 12.
 **[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 11 — PROVED THEOREM (6th angle, per user request
 to keep trying): all EVEN-degree Fourier-Walsh weights of `X_n` vanish EXACTLY.** Computed the
 full exact Walsh-Hadamard spectrum at n=9..25 (Parseval-verified to `~1e-15` at every n).
@@ -161,6 +174,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-11 13:21] `393f855` (local, branch `feature/h-cat31-3-seventh-angle-verified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record verified 7th angle, self-correction to §10
+- [2026-09-11 13:21] `c51bccd` (local, branch `feature/h-cat31-3-seventh-angle-verified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- verified 3 external claims: sharpened ES bound, exact prime W1 identity, calibration correction
 - [2026-09-11 12:59] `28c555c` (local, branch `feature/h-cat31-3-exact-walsh-decomposition` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record the vanishing-even-Fourier-levels theorem
 - [2026-09-11 12:59] `44473ab` (local, branch `feature/h-cat31-3-exact-walsh-decomposition` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- PROVED theorem: all even-degree Fourier-Walsh weights of X_n vanish
 - [2026-09-11 12:46] `3122f0f` (local, branch `feature/h-cat31-3-exact-enumeration-small-n` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record exact enumeration finding, consolidate H-CAT31-3 §§7-9
@@ -174,5 +189,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-11 12:16] `6f9064a` (local, branch `feature/h-cat31-3-cauchy-schwarz-lower-bound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record Cauchy-Schwarz lower bound, dedupe archived B7 entries
 - [2026-09-11 12:15] `21faafd` (local, branch `feature/h-cat31-3-cauchy-schwarz-lower-bound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- exact Cauchy-Schwarz lower bound Var(X_n)=Omega(1/n), real progress
 - [2026-09-11 11:40] `72a5afa` (local, branch `feature/h-cat31-3-lp-sensitivity-attempt` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record LP-sensitivity attempt, archive Lean4/H-CAT31-2 entries
-- [2026-09-11 11:40] `917cf03` (local, branch `feature/h-cat31-3-lp-sensitivity-attempt` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: H-CAT31-3 -- LP-sensitivity attempt at formal O(1/n) proof, gap explicitly named
-- [2026-09-11 11:33] `5ef1e0f` (local, branch `feature/h-cat31-3-density-response` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record density-response addendum, archive B7 mission arc
