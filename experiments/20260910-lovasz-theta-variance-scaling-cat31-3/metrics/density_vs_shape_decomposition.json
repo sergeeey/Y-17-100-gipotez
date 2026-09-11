@@ -1,0 +1,84 @@
+{
+  "rows": [
+    {
+      "n": 11,
+      "m": 5,
+      "density_part_sum_wq_Aq2": 0.1588167648904693,
+      "shape_part_sum_wq_Cq": 0.02942392752329142,
+      "n2_times_density_part": 19.216828551746787,
+      "n2_times_shape_part": 3.560295230318262,
+      "shape_fraction_of_Edelta2": 0.15631013223547024,
+      "B_n_from_this_decomposition": 0.23530086551720092
+    },
+    {
+      "n": 13,
+      "m": 6,
+      "density_part_sum_wq_Aq2": 0.11453781578620671,
+      "shape_part_sum_wq_Cq": 0.02596593274368224,
+      "n2_times_density_part": 19.356890867868934,
+      "n2_times_shape_part": 4.388242633682299,
+      "shape_fraction_of_Edelta2": 0.18480597859749331,
+      "B_n_from_this_decomposition": 0.21075562279483342
+    },
+    {
+      "n": 17,
+      "m": 8,
+      "density_part_sum_wq_Aq2": 0.0667980225790949,
+      "shape_part_sum_wq_Cq": 0.03169473171100351,
+      "n2_times_density_part": 19.304628525358424,
+      "n2_times_shape_part": 9.159777464480014,
+      "shape_fraction_of_Edelta2": 0.32179759759434223,
+      "B_n_from_this_decomposition": 0.1969855085801968
+    },
+    {
+      "n": 19,
+      "m": 9,
+      "density_part_sum_wq_Aq2": 0.05401491774866826,
+      "shape_part_sum_wq_Cq": 0.029279718152809962,
+      "n2_times_density_part": 19.499385307269243,
+      "n2_times_shape_part": 10.569978253164397,
+      "shape_fraction_of_Edelta2": 0.35151985282032233,
+      "B_n_from_this_decomposition": 0.18741293077832602
+    },
+    {
+      "n": 23,
+      "m": 11,
+      "density_part_sum_wq_Aq2": 0.03760390361754676,
+      "shape_part_sum_wq_Cq": 0.02612135141355355,
+      "n2_times_density_part": 19.892465013682234,
+      "n2_times_shape_part": 13.818194897769828,
+      "shape_fraction_of_Edelta2": 0.409905796388031,
+      "B_n_from_this_decomposition": 0.17524445133552585
+    },
+    {
+      "n": 29,
+      "m": 14,
+      "density_part_sum_wq_Aq2": 0.02444020743343191,
+      "shape_part_sum_wq_Cq": 0.020745852205552626,
+      "n2_times_density_part": 20.554214451516238,
+      "n2_times_shape_part": 17.447261704869756,
+      "shape_fraction_of_Edelta2": 0.45912063081627996,
+      "B_n_from_this_decomposition": 0.15815120873644586
+    },
+    {
+      "n": 31,
+      "m": 15,
+      "density_part_sum_wq_Aq2": 0.02163914871238647,
+      "shape_part_sum_wq_Cq": 0.019210358085418756,
+      "n2_times_density_part": 20.7952219126034,
+      "n2_times_shape_part": 18.461154120087425,
+      "shape_fraction_of_Edelta2": 0.4702714816241281,
+      "B_n_from_this_decomposition": 0.1531856504917696
+    },
+    {
+      "n": 37,
+      "m": 18,
+      "density_part_sum_wq_Aq2": 0.015672037041487098,
+      "shape_part_sum_wq_Cq": 0.01560602032685418,
+      "n2_times_density_part": 21.455018709795837,
+      "n2_times_shape_part": 21.364641827463373,
+      "shape_fraction_of_Edelta2": 0.49894468006987325,
+      "B_n_from_this_decomposition": 0.14075125815753575
+    }
+  ]
+}

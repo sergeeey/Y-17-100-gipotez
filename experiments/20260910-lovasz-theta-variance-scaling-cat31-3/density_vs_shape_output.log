@@ -1,0 +1,18 @@
+n= 11 m= 5 n^2*density=19.2168 n^2*shape=3.5603 shape_frac=0.1563 B_n_check=0.235301
+n= 13 m= 6 n^2*density=19.3569 n^2*shape=4.3882 shape_frac=0.1848 B_n_check=0.210756
+n= 17 m= 8 n^2*density=19.3046 n^2*shape=9.1598 shape_frac=0.3218 B_n_check=0.196986
+n= 19 m= 9 n^2*density=19.4994 n^2*shape=10.5700 shape_frac=0.3515 B_n_check=0.187413
+n= 23 m=11 n^2*density=19.8925 n^2*shape=13.8182 shape_frac=0.4099 B_n_check=0.175244
+n= 29 m=14 n^2*density=20.5542 n^2*shape=17.4473 shape_frac=0.4591 B_n_check=0.158151
+n= 31 m=15 n^2*density=20.7952 n^2*shape=18.4612 shape_frac=0.4703 B_n_check=0.153186
+n= 37 m=18 n^2*density=21.4550 n^2*shape=21.3646 shape_frac=0.4989 B_n_check=0.140751
+
+--- summary: n^2*density_part vs n^2*shape_part across prime n ---
+  n= 11  n^2*density=19.2168  n^2*shape=3.5603
+  n= 13  n^2*density=19.3569  n^2*shape=4.3882
+  n= 17  n^2*density=19.3046  n^2*shape=9.1598
+  n= 19  n^2*density=19.4994  n^2*shape=10.5700
+  n= 23  n^2*density=19.8925  n^2*shape=13.8182
+  n= 29  n^2*density=20.5542  n^2*shape=17.4473
+  n= 31  n^2*density=20.7952  n^2*shape=18.4612
+  n= 37  n^2*density=21.4550  n^2*shape=21.3646
