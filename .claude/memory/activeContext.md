@@ -27,35 +27,33 @@
 
 
 ## Current Focus
-**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 14 CALIBRATION FIX: E[delta^2] bounds the
-Efron-Stein quantity B_n via inequality V_n<=B_n, not V_n itself via identity.** Caught on
-independent re-check of a pasted external analysis's own calibration point (verified against
-this experiment's own established math, `B_n=(m/4)*E[delta^2]` + point-12 Efron-Stein
-inequality, before accepting). Prior wording overstated the shape-term finding as locating the
-"obstruction to `O(1/n)`" in `V_n` directly — corrected to the narrower, verified claim: the
-growth of the Efron-Stein sensitivity-energy localizes in the shape term, which bounds where
-Efron-Stein SLACK could hide a factor, not a proven statement about `V_n`'s own asymptotics.
-Also recorded a proposed (not attempted) new attack angle: `S_n=E[Var(delta_i|Q)]` via
-fixed-Hamming-layer/Johnson-graph structure and mixed second differences `Delta_i Delta_j X` —
-qualitatively different from every single-coordinate LP-sensitivity variant tried so far
-(points 6, 8, 9a). Not evaluated this session.
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 15a: layer-adaptive follow-up finds WHY the
+naive Johnson-graph bound is loose (real diagnostic), still NOT a new provable bound.** Per
+direct user request ("попробуй послойно-адаптивную версию границы"), decomposed `C_q` exactly
+by Johnson-scheme eigenspace (diagonalization + projection, Parseval verified exact at every
+layer). **The worst-gap (l=1) eigenspace's share of weighted `S_n` DECREASES monotonically:
+6.31% (n=23) → 3.39% (n=29) → 2.51% (n=31)** — explains the naive bound's looseness (it weights
+l=1 at 100%) but is NOT yet an independent bound (fractions derived FROM known `C_q`, using them
+to "tighten" would be circular) — recorded as a genuine LEAD (pearl_registry/INDEX.md, 3/3
+monotonic points, n=37 infeasible with dense diagonalization, `C(17,8)=24310`). Full writeup:
+decision.md § Addendum point 15a.
 
-**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 14 extended to n=47, then n=53 — shape term stays
-DOMINANT and the series is now explicitly STOPPED at n=53 by user decision.** Per three
-follow-up user requests, extended the density-vs-shape decomposition from n=43 to n=47 (m=23)
-and then n=53 (m=26, ~1.3M LP solves, the most expensive point run so far — via
-`extend_n53_only.py`, which reuses `run_one_n()` unchanged rather than recomputing n<53). Shape
-fraction of `E[delta^2]`: 51.5% (n=41) → 52.1% (n=43) → 53.2% (n=47) → 54.4% (n=53), still
-climbing, density part still `O(1)`-consistent (19.2→23.1 over n=11..53, +20%). **Normalizing
-the increment by the (uneven) n-gap between successive primes gives a cleaner signal over the
-last 3 steps: 0.00295/unit (41→43) → 0.002675/unit (43→47) → 0.002083/unit (47→53) —
-monotonically decreasing**, a somewhat firmer (but still thin, n=4 points, one normalization
-choice) hint that the shape fraction's growth RATE is slowing — does NOT show the fraction
-itself is bounded below 1. **User was shown the n=59 cost estimate (m=29: 2^29≈537M subsets vs
-67M at n=53, ~9M LP solves vs ~1.3M, ~9-15GB+ memory vs ~3.1GB observed) and explicitly chose to
-stop the series at n=53** — a deliberate CDT-protocol cost/information stopping point, not a
-computational failure. Full writeup: `experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md`
-§ Addendum point 14 (updated in place, not a new numbered point).
+[summarized] **[VERIFIED] H-CAT31-3 § 15: Johnson-graph swap-Poincaré theorem found and
+verified (real result), naive aggregate application is a NULL result for O(1/n).** Closed-form
+spectral gap `gap(N,q)=N/(q(N-q))` verified by direct diagonalization (30+ cases, N=6,8,10,13,
+machine precision) → Poincaré inequality `C_q<=T_q*q(N-q)/(2N)`. Aggregate across n=23,29,31,37:
+bound real but grows faster than `C_q` (+102% vs +55%), tightness 0.521→0.459→0.441→0.399 —
+honest null for the naive uniformly-weighted form; superseded in importance by § 15a above,
+full text in decision.md § Addendum point 15.
+
+[summarized] **[VERIFIED] H-CAT31-3 § 14 state as of 2026-09-11: series extended to n=47,53 then explicitly
+STOPPED by user decision (n=59 cost too high: ~9M LP solves/9-15GB+ vs ~1.3M/~3.1GB at n=53);
+shape fraction of `E[delta^2]` 51.5%→52.1%→53.2%→54.4% (n=41→43→47→53), still dominant, growth
+RATE shows a thin monotonic slowdown signal (0.00295→0.002675→0.002083/unit-n) but fraction not
+shown bounded below 1; CALIBRATION FIX applied — wording corrected from "obstruction to O(1/n)
+lives in shape term" (overclaim about V_n directly) to "Efron-Stein sensitivity-energy E[delta^2]
+localizes in shape term" (correct: bounds B_n via V_n<=B_n inequality, not V_n itself).** Archived
+detail to `history/activeContext-archive-20260911-b7-mission.md`; full text in decision.md § 14.
 [summarized] **H-CAT31-3 §§10-13 (exact small-n enumeration, vanishing-even-levels theorem, 7th-angle verification, necklace-orbit extension) archived to `history/activeContext-archive-20260911-b7-mission.md`.** Superseded by §14 (kept above, sharpest finding: density-vs-shape localization). One-line-each: §10 exact enumeration n=9-25 (n*Var(X) initially read as stabilizing, later corrected); §11 PROVED theorem -- all even Fourier-Walsh levels vanish exactly (from antisymmetry); §12 3 external claims independently verified to machine precision (sharpened ES bound, exact prime W1=Mn(1/2)^2/4m identity, self-correction: prime-only sequence still rising not stabilizing); §13 necklace-orbit method implemented (a real bug caught by positive control, fixed, re-validated to 8.88e-14), extended exact data to n=29,31,37 -- n*Var(X) and kappa_n keep rising, no plateau.
 [summarized] **H-CAT31-3 §§7-9 (exact Cauchy-Schwarz lower bound, calibration fix, LP-sensitivity/Delta_g upper-bound attempts, fourth check) archived to `history/activeContext-archive-20260911-b7-mission.md`.** Superseded by §10 (kept above, cleanest evidence: exact enumeration, no proof yet). One-line-each: §7 Var(X_n)>=M_n(1/2)^2/(4m) proved unconditionally (Cauchy-Schwarz + score-function identity), Omega(1/n) only CONDITIONAL on unproven liminf|M_n(1/2)|>0; §8 third upper-bound attempt (Delta_g_k=4cos(2pi ki/n) exact bound found+verified, still only gives O(sqrt(n)polylog(n)) not O(1/n) -- same LP-vertex-movement wall as §6); calibration fix (user caught "established" overclaim, fixed to explicitly conditional throughout); §9 fourth check (time-domain LP reformulation ruled out as an escape; own data reframed as n*(ES bound) empirical signal).
 [summarized] **H-CAT31-3 mechanism investigation §§1-6 (2026-09-11: cosh bound, Q-proxy, single-generator sensitivity, prime-n homogeneity theorem, density-response, LP-sensitivity attempt) archived to `history/activeContext-archive-20260911-b7-mission.md`.** Superseded by §7 (real Omega(1/n) result, kept above) and §8 (final honest verdict, kept above); full text remains in decision.md. One-line-each: §1 mechanism addendum (cosh bound holds 7/9, Q-proxy explains 66-86% variance, ES bound tightens 2.57->1.27 at n=128/512/1536 then inconclusive at n=3000); §4 prime-n homogeneity theorem (proved+exhaustively verified, not just heuristic); §5 density-response (exact symmetry confirmed, sign-corrected cross-check with Q-proxy agrees to 0.3-1.5%); §6 LP-concavity attempt at O(1/n) upper bound (real mechanism found, verified numerically, but only gives O(1) per generator not O(1/n) -- first of 3 attempts that all hit the same wall, see §8).
@@ -172,6 +170,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-11 21:06] `6890d14` (local, branch `feature/h-cat31-3-johnson-graph-swap-poincare` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record H-CAT31-3 point 15/15a (Johnson-graph swap-Poincare)
+- [2026-09-11 21:06] `b47ce8b` (local, branch `feature/h-cat31-3-johnson-graph-swap-poincare` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- Johnson-graph swap-Poincare theorem (point 15) + layer-adaptive diagnostic (15a)
 - [2026-09-11 18:41] `a7530c6` (local, branch `docs/h-cat31-3-efron-stein-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record H-CAT31-3 Efron-Stein calibration fix
 - [2026-09-11 18:41] `b46019c` (local, branch `docs/h-cat31-3-efron-stein-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: H-CAT31-3 point 14 -- calibration fix, E[delta^2] bounds Efron-Stein B_n not V_n directly
 - [2026-09-11 16:59] `71e8ac2` (local, branch `feature/h-cat31-3-extend-to-n47-n53` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record n=47,53 extension, series stopped at n=53
@@ -185,5 +185,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-11 13:21] `393f855` (local, branch `feature/h-cat31-3-seventh-angle-verified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record verified 7th angle, self-correction to §10
 - [2026-09-11 13:21] `c51bccd` (local, branch `feature/h-cat31-3-seventh-angle-verified` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- verified 3 external claims: sharpened ES bound, exact prime W1 identity, calibration correction
 - [2026-09-11 12:59] `28c555c` (local, branch `feature/h-cat31-3-exact-walsh-decomposition` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record the vanishing-even-Fourier-levels theorem
-- [2026-09-11 12:59] `44473ab` (local, branch `feature/h-cat31-3-exact-walsh-decomposition` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- PROVED theorem: all even-degree Fourier-Walsh weights of X_n vanish
-- [2026-09-11 12:46] `3122f0f` (local, branch `feature/h-cat31-3-exact-enumeration-small-n` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record exact enumeration finding, consolidate H-CAT31-3 §§7-9
