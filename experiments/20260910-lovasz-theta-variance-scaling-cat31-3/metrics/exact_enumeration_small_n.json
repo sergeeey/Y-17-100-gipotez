@@ -1,0 +1,122 @@
+{
+  "rows": [
+    {
+      "n": 9,
+      "m": 4,
+      "n_subsets_exact": 16,
+      "exact_mean_X": -2.220446049250313e-16,
+      "exact_Var_X": 0.20328855374165564,
+      "exact_ES_sum": 1.0101841676317387,
+      "exact_ES_bound": 0.25254604190793467,
+      "n_times_exact_Var_X": 1.8295969836749006,
+      "n_times_exact_ES_bound": 2.272914377171412,
+      "ES_bound_over_Var_X": 1.2423033036521904,
+      "elapsed_seconds": 0.03439188003540039
+    },
+    {
+      "n": 11,
+      "m": 5,
+      "n_subsets_exact": 32,
+      "exact_mean_X": 3.469446951953614e-16,
+      "exact_Var_X": 0.1958334804915959,
+      "exact_ES_sum": 0.9412034620688022,
+      "exact_ES_bound": 0.23530086551720056,
+      "n_times_exact_Var_X": 2.154168285407555,
+      "n_times_exact_ES_bound": 2.588309520689206,
+      "ES_bound_over_Var_X": 1.2015354316663864,
+      "elapsed_seconds": 0.056989431381225586
+    },
+    {
+      "n": 13,
+      "m": 6,
+      "n_subsets_exact": 64,
+      "exact_mean_X": 3.469446951953614e-16,
+      "exact_Var_X": 0.17296717718472004,
+      "exact_ES_sum": 0.8430224911793321,
+      "exact_ES_bound": 0.21075562279483304,
+      "n_times_exact_Var_X": 2.2485733034013604,
+      "n_times_exact_ES_bound": 2.7398230963328296,
+      "ES_bound_over_Var_X": 1.218471771495449,
+      "elapsed_seconds": 0.11920452117919922
+    },
+    {
+      "n": 15,
+      "m": 7,
+      "n_subsets_exact": 128,
+      "exact_mean_X": 1.3877787807814457e-17,
+      "exact_Var_X": 0.1564567122090254,
+      "exact_ES_sum": 0.9521135554797522,
+      "exact_ES_bound": 0.23802838886993805,
+      "n_times_exact_Var_X": 2.346850683135381,
+      "n_times_exact_ES_bound": 3.570425833049071,
+      "ES_bound_over_Var_X": 1.521368981293262,
+      "elapsed_seconds": 0.2744615077972412
+    },
+    {
+      "n": 17,
+      "m": 8,
+      "n_subsets_exact": 256,
+      "exact_mean_X": 6.938893903907228e-17,
+      "exact_Var_X": 0.14673125520414917,
+      "exact_ES_sum": 0.7879420343207888,
+      "exact_ES_bound": 0.1969855085801972,
+      "n_times_exact_Var_X": 2.494431338470536,
+      "n_times_exact_ES_bound": 3.3487536458633524,
+      "ES_bound_over_Var_X": 1.3424918113467277,
+      "elapsed_seconds": 0.5330085754394531
+    },
+    {
+      "n": 19,
+      "m": 9,
+      "n_subsets_exact": 512,
+      "exact_mean_X": -2.0122792321330962e-16,
+      "exact_Var_X": 0.137250875096378,
+      "exact_ES_sum": 0.749651723113305,
+      "exact_ES_bound": 0.18741293077832624,
+      "n_times_exact_Var_X": 2.6077666268311823,
+      "n_times_exact_ES_bound": 3.5608456847881986,
+      "ES_bound_over_Var_X": 1.3654771282640221,
+      "elapsed_seconds": 1.0478930473327637
+    },
+    {
+      "n": 21,
+      "m": 10,
+      "n_subsets_exact": 1024,
+      "exact_mean_X": 7.632783294297951e-17,
+      "exact_Var_X": 0.14318577670325677,
+      "exact_ES_sum": 0.883618129730685,
+      "exact_ES_bound": 0.22090453243267125,
+      "n_times_exact_Var_X": 3.0069013107683924,
+      "n_times_exact_ES_bound": 4.638995181086096,
+      "ES_bound_over_Var_X": 1.5427826528502306,
+      "elapsed_seconds": 2.12557053565979
+    },
+    {
+      "n": 23,
+      "m": 11,
+      "n_subsets_exact": 2048,
+      "exact_mean_X": 9.298117831235686e-16,
+      "exact_Var_X": 0.12194892465477278,
+      "exact_ES_sum": 0.7009778053421019,
+      "exact_ES_bound": 0.17524445133552546,
+      "n_times_exact_Var_X": 2.804825267059774,
+      "n_times_exact_ES_bound": 4.030622380717086,
+      "ES_bound_over_Var_X": 1.4370315427678257,
+      "elapsed_seconds": 4.340230464935303
+    },
+    {
+      "n": 25,
+      "m": 12,
+      "n_subsets_exact": 4096,
+      "exact_mean_X": -5.759281940243e-16,
+      "exact_Var_X": 0.11152725906367499,
+      "exact_ES_sum": 0.6995664392619939,
+      "exact_ES_bound": 0.17489160981549848,
+      "n_times_exact_Var_X": 2.7881814765918747,
+      "n_times_exact_ES_bound": 4.372290245387462,
+      "ES_bound_over_Var_X": 1.5681512419815362,
+      "elapsed_seconds": 10.845952272415161
+    }
+  ],
+  "n_ipm_fallbacks_total": 1
+}

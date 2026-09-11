@@ -674,11 +674,65 @@ an unproven but empirically-consistent nondegeneracy condition), `Var(X_n)=O(1/n
 but the specific quantity that would need to be `O(1/n)` — the Efron-Stein sum — shows exactly
 the right empirical signature across the 3 well-powered points measured).
 
+**10. A genuinely different angle (5th attempt), per direct user request to try again: EXACT
+(exhaustive, not Monte Carlo) enumeration at small `n`, removing all sampling noise.** All
+prior evidence (points 1-9) was either Monte Carlo at large `n` (sampling noise) or abstract
+worst-case LP bounds (too loose). Neither is ground truth. This computes the TRUE population
+`Var(X_n)` and Efron-Stein sum EXACTLY, for small odd `n`, by enumerating ALL `2^m` generator
+subsets (`m=(n-1)/2`) rather than sampling — since every subset is equally likely at `p=0.5`,
+this is the entire population, not an estimate of it (`check_exact_enumeration_small_n.py`,
+`n=9..25`, `theta_via_lp` reused unchanged, one extra LP solve per subset — no separate
+sensitivity-measurement compute needed since `Delta_i(theta)` for any subset is just a table
+lookup once all `2^m` values are known):
+
+| n | m | subsets | exact `n·Var(X)` | exact `n·(ES bound)` | ES bound / Var(X) |
+|---:|---:|---:|---:|---:|---:|
+| 9 | 4 | 16 | 1.830 | 2.273 | 1.242 |
+| 11 | 5 | 32 | 2.154 | 2.588 | 1.202 |
+| 13 | 6 | 64 | 2.249 | 2.740 | 1.218 |
+| 15 | 7 | 128 | 2.347 | 3.570 | 1.521 |
+| 17 | 8 | 256 | 2.494 | 3.349 | 1.342 |
+| 19 | 9 | 512 | 2.608 | 3.561 | 1.365 |
+| 21 | 10 | 1024 | 3.007 | 4.639 | 1.543 |
+| 23 | 11 | 2048 | 2.805 | 4.031 | 1.437 |
+| 25 | 12 | 4096 | 2.788 | 4.372 | 1.568 |
+
+**`n·Var(X_n)` rises from `n=9` to `n=21` and then visibly stabilizes (`3.01 -> 2.80 -> 2.79`
+at `n=21,23,25`) — a real, ZERO-noise signal of `Var(X_n)` converging toward a `C/n` law, not
+an artifact of Monte Carlo sampling error (there is none here).** `n·(ES bound)` shows the same
+qualitative pattern (rises then wobbles in a bounded range, `4.0-4.6`, rather than growing),
+and the ratio between the two stays bounded (`1.20-1.57`) across the whole range, consistent
+with BOTH quantities being `Theta(1/n)` together. **This is the cleanest evidence gathered in
+this entire investigation** — not because `n<=25` is asymptotic (it is not; this remains
+small-`n` data, and stabilization by `n=25` does not prove it persists at `n=3000`), but
+because it is EXACT: no sampling noise to explain away, no finite-reps caveat, no confidence
+interval — a real fact about these 9 specific finite populations.
+
+**Substrate-level finding, documented rather than silently worked around:** exhaustive
+enumeration exposed a genuine numerical fragility in `theta_via_lp`'s default `'highs'`
+(simplex) method — 1 out of 8,176 total subsets across `n=9..25` (`n=21`, generators
+`{6,7,9}`) returned an ambiguous/unrecognized HiGHS status and `NaN`, while the interior-point
+method (`method='highs-ipm'`) solved the SAME LP cleanly (`theta=6.3297`). Per the Substrate
+Gate (`falsification-ladder.md` Step 2a): this is an infrastructure numerics issue, not
+evidence about the claim — `check_exact_enumeration_small_n.py` adds a `theta_via_lp_robust`
+wrapper that falls back to `highs-ipm` on `NaN` and hard-fails (rather than silently dropping
+the subset) if the fallback ALSO fails, so the exact population figures above are computed
+over the true full `2^m`-subset population, not `2^m - 1`. (Not fixed in H-CAT31-1's own
+`theta_via_lp` — out of scope for this experiment folder, but worth a future note there.)
+
+**Updated status after 5 honest attempts:** proof of `Var(X_n)=O(1/n)` still not achieved (4
+attempts at a proof/reformulation, all ruled out or unsuccessful; this 5th attempt is exact
+small-`n` evidence, not a proof either). But the evidence base is now qualitatively stronger:
+noisy large-`n` Monte Carlo (points 3, 9b) AND noise-free small-`n` exact enumeration (this
+point) both show the same `Theta(1/n)`-consistent signature. `Var(X_n) >= M_n'(1/2)^2/(4m)`
+remains the one unconditionally PROVED result from this whole investigation.
+
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
 `check_prime_symmetry_homogeneity.py`, `verify_prime_isomorphism_exhaustive.py`,
 `check_density_response.py`, `verify_lp_sensitivity_concavity.py`, `verify_delta_g_bound.py`,
-`analyze_own_data_for_upper_bound_signal.py`
+`analyze_own_data_for_upper_bound_signal.py`, `check_exact_enumeration_small_n.py`
+(+`exact_enumeration_output.log`)
 (+`verify_delta_g_output.log`)
 (+`verify_lp_sensitivity_output.log`), and their outputs in `metrics/` (`cosh_bound_check.json`,
 `q_proxy_diagnostic.json`, `q_proxy_diagnostic_n3000.json`, `single_generator_sensitivity.json`,
