@@ -132,3 +132,56 @@ indices) — checked on their own merits, not defensively dismissed for arriving
 untrusted source, and not accepted just because the source also had good math elsewhere. Full
 writeup: `experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum
 point 7.
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 §§13/13a — necklace-orbit extension to exact prime
+n=29,31,37, real bug caught by mandated positive control before trusting new results.**
+(13a, zero-cost) Hamming-layer decomposition on existing data: telescoping `A_q=mu_q-mu_{q+1}`
+verified `~1e-16`, monotonicity confirmed, prime-n `C_0=C_{m-1}=0` exactly; `C_q` peaks
+OFF-CENTER (small-moderate q, not the binomial-weighted middle) — favors "bulk LP geometry"
+over "rare-tail Chernoff" as the likely tool. (13) Implemented necklace/orbit-reduction
+(`Z_n^x/{+-1}` cyclic of order m, acts regularly given already-proved transitivity) — FIRST
+VERSION HAD A REAL BUG (rotated natural bit-order, not the actual primitive-root-induced
+order; caught by `cross_validate_n23()`: max diff 4.63, not noise). Fixed via explicit
+primitive-root relabeling; re-validated to `8.88e-14`. Orbit counts matched user's Burnside
+formula EXACTLY (1182/2192/14602 at n=29/31/37) — triple independent consistency before
+trusting output. **Result: `n*Var(X)` and `kappa_n` CONTINUE RISING through n=37 (no
+plateau)** — extends, does not resolve, §12's own calibration correction; `L(n)/n` remains
+fully live. One stable quantity: residual ratio `(V-W1)/(B-W1)` stays in `0.258-0.333` across
+all 8 prime points `n=9..37`. Full writeup: `experiments/20260910-lovasz-theta-variance-
+scaling-cat31-3/decision.md` § Addendum points 13/13a.
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 12 — 7th angle: 3 external claims INDEPENDENTLY
+VERIFIED (machine precision) before acceptance, incl. a self-correction of § 10.**
+(a) `V_n<=(B_n+2W_1)/3` — real algebraic tightening of Efron-Stein via § 11's vanishing-
+even-levels theorem, holds at every n=9..25. (b) For PRIME n, `W_1=M_n'(1/2)^2/(4m)` EXACTLY
+(not just `>=`) — re-derived from the prime-symmetry theorem (§4) forcing equal singleton
+Fourier coefficients; verified gap `~1e-17` at n∈{11,13,17,19,23}, nonzero (0.001-0.008) at
+composite n, confirming genuine prime-specificity. **(c) CALIBRATION CORRECTION to §10's own
+"stabilizes by n=25" claim**: filtering to PRIME n only shows `n*Var(X_n)` still monotonically
+RISING (2.15→2.25→2.49→2.61→2.80 at n=11,13,17,19,23), no plateau — §10's reading mixed
+arithmetic classes (21=3·7, 25=5²); retracted in place, not silently left standing.
+`O(1/n)` still not proven; named next step (necklace/orbit reduction to reach larger exact
+prime n) not attempted. Full writeup: `experiments/20260910-lovasz-theta-variance-scaling-
+cat31-3/decision.md` § Addendum point 12.
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 11 — PROVED THEOREM (6th angle, per user request
+to keep trying): all EVEN-degree Fourier-Walsh weights of `X_n` vanish EXACTLY.** Computed the
+full exact Walsh-Hadamard spectrum at n=9..25 (Parseval-verified to `~1e-15` at every n).
+Independently derived from the already-proven antisymmetry (§5, `X_n(Gbar)=-X_n(G)`): relabeling
+`epsilon->-epsilon` forces `X_hat(S)=-(-1)^|S|X_hat(S)`, zero unless `|S|` odd — confirmed
+numerically (levels 2/4/6/8/10/12 all `~1e-31`, machine zero) at every n tested. **Provably
+confines the "unknown" upper-bound remainder to odd levels k=3,5,7,... only** (half the levels
+eliminated for free); level 3 dominates and its own `n*(weight)` stays bounded (0.19-0.55)
+across n=9-25, same signature as level 1/total. **Also explicitly ruled out**: the level-1
+Cauchy-Schwarz trick generalizes to give MORE lower bounds at odd levels ≥3, but cannot give an
+upper bound at any level (structural limit of Cauchy-Schwarz) — closes off a plausible "repeat
+at every level" idea before it wastes a future attempt. Still no proof of O(1/n). Full writeup:
+`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum point 11.
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 10 — EXACT (noise-free) enumeration at small n,
+5th angle, per user request to try genuinely differently.** Exhaustively enumerated ALL `2^m`
+generator subsets (odd n=9..25, m=(n-1)/2) via `check_exact_enumeration_small_n.py` — TRUE
+population `Var(X_n)` and Efron-Stein sum, ZERO sampling noise (every subset equally likely at
+p=0.5). **Result: `n*Var(X_n)` rises then visibly stabilizes (3.01→2.80→2.79 at n=21,23,25)** —
+cleanest evidence in the whole investigation, `Theta(1/n)`-consistent, though still small-n
+(≤25), not asymptotic proof. **Bonus substrate finding:** exhaustive enumeration exposed a
+real numerical fragility in `theta_via_lp`'s default `'highs'` solver (1/8176 subsets gave
+NaN; `'highs-ipm'` fallback solves cleanly) — documented per Substrate Gate, fixed locally via
+a robust wrapper in this script only (not touching H-CAT31-1's own file). Full writeup:
+`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum point 10.
