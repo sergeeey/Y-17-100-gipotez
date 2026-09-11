@@ -184,3 +184,128 @@ land on `[-1.02, -0.98]` and got waved through would have been.
 Not formally applicable to a scaling-exponent CI — the pre-registered qualitative bar (does the
 CI discriminate `-1` from `-0.5`/`-2`) was met, and answered "the exponent is not `-1`," not
 "the answer is unclear."
+
+## Addendum (2026-09-11) — mechanism-level diagnostics, Mechanism Development Mode
+
+**Trigger and provenance.** The user supplied three externally-generated analyses (Perplexity,
+Qwen, ChatGPT) of this experiment's own `-0.91` result, explicitly asking for independent
+verification, not acceptance at face value. Per `audit-verification-gate.md` ("agent's
+`[VERIFIED]` = your `[INFERRED]`"), every claim below was re-derived or checked with a tool
+before being used, not copied from the pasted text. This addendum is exploratory (Mechanism
+Development Mode, `research-methodology.md`) — it does NOT reopen or change the REJECTED verdict
+above, which stands on its own pre-registered Kill Criterion.
+
+**Literature claims — checked against primary sources, not the pasted summaries:**
+- `[VERIFIED]` arXiv:2502.16227 (Bandeira, Błasiok, Dmitriev, Faure, Kireeva, Kunisky, Feb 2025):
+  read directly from LaTeX source. Theorem 1: `sqrt(n) <= E[theta(G)] <= C*sqrt(n*log(log(n)))`.
+  Conjecture: `E[theta(G)] = (1+o(1))*sqrt(n)`, explicitly still open. LP reformulation via DFT
+  diagonalization matches the pasted text's structure. The paper contains **no** discussion of
+  `Var(theta)` or single-generator sensitivity (0 hits searching the full text for either term)
+  — those claims do not come from this paper.
+- `[WEAK]` "Faure's earlier work numerically observed `Var(theta)=O(1)` and single-generator
+  sensitivity `~n^-1/2`, unresolved." Ulysse Faure is a confirmed co-author of the above paper
+  (ETH Zürich), and a WebSearch AI-generated summary of a ResearchGate-hosted report attributed
+  to him describes matching numerical findings — but the primary source itself returned HTTP 403
+  on direct fetch, so this rests on a search engine's paraphrase, not a quoted primary source.
+  Treated as `[WEAK]`, not `[VERIFIED]`, and not required for anything below to hold.
+- `[SPECULATIVE]`, explicitly not pursued: the "critical ratio `N/d≈2`" / Wendel-type convex-hull
+  framing. The Fourier-point cloud is neither independent nor centrally symmetric in the way
+  Wendel's theorem requires; the pasted text's own hedge on this point is correct.
+
+**1. Exact inequality, independently derived and checked on own data.** By the Lovász identity
+`theta(G)*theta(Gbar)=n` (already used in this experiment's own substrate gate) and
+self-complementarity in distribution at `p=0.5`, `X_n =d= -X_n` exactly, hence `E[X_n]=0` and
+`E[e^{X_n}] = E[e^{-X_n}] = E[cosh(X_n)] = E[theta]/sqrt(n)`. Since `cosh(x) >= 1+x^2/2`:
+
+```
+V_n <= 2*(E[theta]/sqrt(n) - 1)
+```
+
+Checked (`check_cosh_bound.py`, `metrics/cosh_bound_check.json`) against all 9 points of the
+main sweep: holds at 7/9 (`n=32..1536`); the two "violations" (`n=2048`, `n=3000`) have margins
+(`-0.011`, `-0.0009`) fully explained by sampling noise in the *mean* estimate at those points
+(the two lowest replicate counts in the sweep, 80 and 40) — the deviation of `mean_ratio` from 1
+is smaller than that estimate's own standard error at both points. Not a contradiction of the
+inequality; a reminder that `n=2048`/`n=3000` remain the noisiest points in this dataset (already
+flagged as a limitation above).
+
+**2. Q-proxy diagnostic — density explains a substantial, not necessarily complete, share of
+`Var(X_n)`.** Tests whether most of `X_n`'s variance traces to `Q` (count of "on" generator
+bits, i.e. edge density) rather than *which* generators are on. Proxy
+`D_n = 0.5*log((m-Q)/Q)`, `m=(n-1)//2`; `Var(D_n) ~= 1/m ~= 2/n` by a first-order expansion
+around `Q=m/2` (independently re-derived, not copied). OLS `X_n ~ D_n` on fresh samples at a
+subset of the sweep's own `n` values (`check_q_proxy_diagnostic.py` +
+`check_q_proxy_diagnostic_n3000.py`, seeds `332000+`, disjoint from the main sweep):
+
+| n | reps | r² | resid. fraction of Var(X) | n·Var(X) (this run) |
+|---:|---:|---:|---:|---:|
+| 32 | 300 | 0.662 | 0.338 | 3.43 |
+| 128 | 300 | 0.725 | 0.275 | 4.25 |
+| 512 | 200 | 0.801 | 0.199 | 4.70 |
+| 1536 | 100 | 0.858 | 0.142 | 5.82 |
+| 3000 | 40 | 0.818 | 0.182 | 4.98 |
+
+`r²` rises substantially from `n=32` to `n=1536` (density explains 66%→86% of variance) but the
+`n=3000` point does **not** continue the trend (drops back to 0.818) — this is the sweep's
+lowest-replicate point (40) and the drop is consistent with sampling noise on the `r²` estimate
+itself, not treated as a real reversal. **Honest reading: density fluctuation is a real,
+substantial, but not exclusive driver of `Var(X_n)`; a genuine "shape" (which generators, not how
+many) component remains, of order 14-34% of the total depending on `n`.** This refutes the
+stronger form of the externally-suggested hypothesis ("`X_n ≈ D_n`, most of the variance is
+density") while confirming a weaker, still useful form (density matters a lot, especially at
+mid-range `n`).
+
+**3. Single-generator sensitivity / Efron–Stein bound — the most informative new result.**
+Concrete, falsifiable proxy for a bounded-differences argument: flip one generator bit `i`
+(toggling the mirrored edge pair it controls), measure
+`Delta_i_X = log(theta(G)/sqrt(n)) - log(theta(G^(i))/sqrt(n))` at 3 spread-out indices per
+sample (`n` here is not prime, so full transitivity under `Z_n^x` does not apply — averaging
+over 3 indices is a partial check on homogeneity, not a full one).
+`Var(X_n) <= (1/4)*sum_i E[(Delta_i X)^2]` (`check_single_generator_sensitivity.py` +
+`_n3000.py`, seeds `333000+`):
+
+| n | reps×idx | n²·E[ΔX²] | ES bound on Var(X) | measured V_n (main sweep) | bound/measured |
+|---:|---:|---:|---:|---:|---:|
+| 128 | 60×3=180 | 84.5 | 0.0812 | 0.0316 | 2.57 |
+| 512 | 60×3=180 | 60.7 | 0.01476 | 0.00885 | 1.67 |
+| 1536 | 25×3=75 | 60.7 | 0.00493 | 0.00389 | **1.27** |
+| 3000 | 8×3=24 | 121.4 ± 59 (1 SE) | 0.00505 | 0.00181 | 2.79 (wide CI) |
+
+**The striking part:** `n²·E[ΔX²]` is nearly IDENTICAL at `n=512` and `n=1536` (60.7, 60.7),
+after a clear finite-size drop from `n=128` (84.5) — a clean signature of an `O(1/n²)`
+single-generator influence stabilizing. The bound/measured ratio shrinks monotonically and
+substantially over the same three points (2.57 → 1.67 → 1.27), i.e. the Efron–Stein upper bound
+is getting *tighter* as `n` grows — exactly the pattern that would be expected if `Var(X_n)`'s
+true asymptotic behavior converges toward the bound's own clean `~C/n` scaling (which would mean
+exponent `-1`, not `-0.91`).
+
+**This trend is NOT confirmed at `n=3000`, and must not be reported as if it were.** The `n=3000`
+point used only 8 replicates × 3 indices = 24 samples (by design, to keep the extension cheap —
+`theta_via_lp` costs ~43s/call at this `n`, 4 calls/rep). Its standard error on `n²·E[ΔX²]`
+(±59, ~49% relative) is wide enough that the point estimate (121.4) is well within 1 SE of the
+`n=512`/`n=1536` value (60.7) — **statistically indistinguishable from continuing the
+stabilization**, not evidence against it, but also not evidence for it. The apparent "reversal"
+in the point estimate has no more evidential weight here than noise.
+
+**Synthesis — what this does and does NOT establish.** The sensitivity/Efron–Stein diagnostic
+produced a genuinely new, structurally-motivated, cheap signal (not a bigger sweep on the
+original statistic — a different, targeted measurement) that is *suggestive* of the `-0.91`
+being a finite-size transient toward a true `-1` asymptotic, via a mechanism that is now concrete
+enough to name: if `sum_i E[(Delta_i X)^2]` genuinely stabilizes at `~C/n` (not `~C/n^0.91`) as
+`n` grows, Efron–Stein forces `Var(X_n) = O(1/n)` in the limit, which is a different and stronger
+statement than the WLS point estimate on the aggregate 9-point sweep. But this is **not proven**:
+(a) only 3 well-powered points (`n=128,512,1536`) show the tightening trend; (b) the `n=3000`
+extension is too noisy to confirm or refute continuation; (c) the Efron-Stein bound is an upper
+bound, and tightening toward the true value is suggestive, not dispositive, of the true value's
+own asymptotic rate. **Status: the `-0.91` vs `-1` question remains genuinely open** — this
+addendum sharpens *where* the next decisive check should look (a well-powered, not merely
+8-replicate, single-generator sensitivity measurement at `n=3000` and beyond, or a formal proof
+of `E[(Delta_i theta)^2] = O(1/n)`), rather than answering it. This is consistent with, and
+extends without contradicting, the CORRECTED CALIBRATION note above (`Var(X_n)=C*n^-1*L(n)`
+remains the leading un-excluded alternative to a genuine `n^-0.91` law; this addendum names a
+concrete candidate mechanism for why such an `L(n)` could exist and shrink toward 1).
+
+**Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
+`check_single_generator_sensitivity.py` (+`_n3000.py`), and their outputs in `metrics/`
+(`cosh_bound_check.json`, `q_proxy_diagnostic.json`, `q_proxy_diagnostic_n3000.json`,
+`single_generator_sensitivity.json`, `single_generator_sensitivity_n3000.json`).

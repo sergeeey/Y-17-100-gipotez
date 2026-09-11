@@ -1,0 +1,18 @@
+{
+  "n": 3000,
+  "m": 1499,
+  "reps": 40,
+  "n_dropped_degenerate_Q": 0,
+  "var_X": 0.001658455708988263,
+  "var_D_predicted_1_over_m": 0.00066711140760507,
+  "var_D_empirical": 0.0006608305249007532,
+  "pearson_r": 0.9043506512341667,
+  "r_squared": 0.8178501003876614,
+  "ols_slope_b": 1.432662016190608,
+  "ols_intercept_a": 0.006564362436985458,
+  "var_residual": 0.0003020875409037215,
+  "residual_fraction_of_var_X": 0.18214989961233832,
+  "n_times_var_X": 4.975367126964789,
+  "n_times_var_residual": 0.9062626227111644,
+  "elapsed_seconds": 1656.5527634620667
+}
