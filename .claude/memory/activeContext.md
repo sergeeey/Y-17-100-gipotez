@@ -27,6 +27,19 @@
 
 
 ## Current Focus
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 14 CALIBRATION FIX: E[delta^2] bounds the
+Efron-Stein quantity B_n via inequality V_n<=B_n, not V_n itself via identity.** Caught on
+independent re-check of a pasted external analysis's own calibration point (verified against
+this experiment's own established math, `B_n=(m/4)*E[delta^2]` + point-12 Efron-Stein
+inequality, before accepting). Prior wording overstated the shape-term finding as locating the
+"obstruction to `O(1/n)`" in `V_n` directly — corrected to the narrower, verified claim: the
+growth of the Efron-Stein sensitivity-energy localizes in the shape term, which bounds where
+Efron-Stein SLACK could hide a factor, not a proven statement about `V_n`'s own asymptotics.
+Also recorded a proposed (not attempted) new attack angle: `S_n=E[Var(delta_i|Q)]` via
+fixed-Hamming-layer/Johnson-graph structure and mixed second differences `Delta_i Delta_j X` —
+qualitatively different from every single-coordinate LP-sensitivity variant tried so far
+(points 6, 8, 9a). Not evaluated this session.
+
 **[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 14 extended to n=47, then n=53 — shape term stays
 DOMINANT and the series is now explicitly STOPPED at n=53 by user decision.** Per three
 follow-up user requests, extended the density-vs-shape decomposition from n=43 to n=47 (m=23)
@@ -159,6 +172,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-11 18:41] `b46019c` (local, branch `docs/h-cat31-3-efron-stein-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: H-CAT31-3 point 14 -- calibration fix, E[delta^2] bounds Efron-Stein B_n not V_n directly
 - [2026-09-11 16:59] `71e8ac2` (local, branch `feature/h-cat31-3-extend-to-n47-n53` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record n=47,53 extension, series stopped at n=53
 - [2026-09-11 16:59] `6a2cabc` (local, branch `feature/h-cat31-3-extend-to-n47-n53` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- extend density-vs-shape localization to n=47,53, shape fraction now 54.4%, series stopped at n=53
 - [2026-09-11 14:00] `9f61f75` (local, branch `feature/h-cat31-3-extend-to-n41-n43` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record n=41,43 extension, shape term now dominant
@@ -173,4 +187,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-11 12:59] `44473ab` (local, branch `feature/h-cat31-3-exact-walsh-decomposition` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- PROVED theorem: all even-degree Fourier-Walsh weights of X_n vanish
 - [2026-09-11 12:46] `3122f0f` (local, branch `feature/h-cat31-3-exact-enumeration-small-n` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record exact enumeration finding, consolidate H-CAT31-3 §§7-9
 - [2026-09-11 12:45] `c8230eb` (local, branch `feature/h-cat31-3-exact-enumeration-small-n` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- exact (noise-free) enumeration at small n, 5th angle on O(1/n)
-- [2026-09-11 12:36] `ae0ff4d` (local, branch `feature/h-cat31-3-fourth-upper-bound-check` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record fourth upper-bound check (empirical support, still not proven)
