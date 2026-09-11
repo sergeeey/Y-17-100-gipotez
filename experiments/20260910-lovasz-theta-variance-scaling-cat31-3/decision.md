@@ -541,10 +541,69 @@ code, checked directly against the actual files, not accepted on say-so:**
   point estimate, only the previously-reported uncertainty bands on `n^2*E[(Delta_i X)^2]` in
   point 3 above, which should be read as a lower bound on the true uncertainty, not an exact SE.
 
+**8. Third and final attempt at the upper bound, per direct user request to "try harder" — a
+genuinely new structural fact found and verified, still insufficient to close the gap.**
+Went back to the primary source (arXiv:2502.16227, `Proof of main theorem` section, read
+directly from LaTeX, not from memory) to find whatever structural facts its OWN proof uses,
+looking for something not yet exploited in points 6-7.
+
+**New fact, derived then verified numerically (not assumed):** flipping ONE generator bit `i`
+changes the LP objective vector `g=Fb` by EXACTLY
+
+```
+Delta_g_k = +/- 4*cos(2*pi*k*i/n)   for every k   =>   |Delta_g_k| <= 4 EXACTLY, for all n
+```
+
+— a bound that does NOT grow with `n`, unlike `g` itself (whose entries are `~sqrt(n log n)`
+typically per the paper's own `Lemma lem:nlogn_ub`). Verified directly (`verify_delta_g_bound.py`,
+`n=3000`): two independently-computed `g` vectors differing in one generator match the
+predicted `4*cos(...)` formula to `~1e-12`, and `max|Delta_g_k|=4.000000` exactly.
+
+**Why this still doesn't close the gap.** Write `y1*` = optimal for `S`, `y2*` = optimal for
+`S\{i}`. The natural decomposition
+`theta(G_{S\{i}}) - theta(G_S) = <y2*-y1*, g_S> + <y2*, Delta_g>` splits into a term bounded by
+the NEW fact (`|<y2*,Delta_g>| <= ||y2*||_1 * ||Delta_g||_inf <= 1*4 = 4`, a genuine `O(1)`
+constant, better than anything found in points 6-7) and a term `<y2*-y1*,g_S>` that this
+approach does NOT control. Using the paper's own RIP lemma (`||y||_2 <= (log^2 n/sqrt(n))*
+||y||_1` for `y` in the relevant kernel), `||y2*-y1*||_2 <= 2*log^2(n)/sqrt(n)` is small, but
+combined with `||g_S||_2=n` (exact, deterministic — `||b||_2^2=n` since `b in {+-1}^n`) via
+Cauchy-Schwarz this only gives `O(sqrt(n)*log^2 n)` for that term — the SAME order as `theta`
+itself, not smaller. The alternative Hölder route
+(`||y2*-y1*||_1 <= 2`, `||g_S||_infty ~ sqrt(n log n)`) gives the same `O(sqrt(n log n))` order.
+**The obstruction is structural, not a missing inequality to look up:** LP optima sit at
+polytope VERTICES, and vertex identity can change discontinuously under an arbitrarily small
+constraint perturbation — the paper's RIP machinery controls how SPREAD OUT any one feasible
+`y` is (`||y||_2` vs `||y||_1`), but says nothing about how FAR APART two different optimal
+vertices are from each other under a one-constraint change. Bounding `||y2*-y1*||` tightly
+would need a genuinely different tool (LP vertex-stability / basis-perturbation theory
+specific to this random polytope's geometry), which is not in the primary source and was not
+derivable here.
+
+**Final, honest verdict on the O(1/n) upper bound, after three independent attempts (LP
+concavity/duality in point 6, Fourier/Cauchy-Schwarz in point 7's failed upper-bound variant,
+and this `Delta_g`-boundedness attempt): NOT achieved.** Each attempt found something real
+(the concavity mechanism, the exact `Delta_g` bound) and each hit the SAME underlying wall —
+controlling how far the LP OPTIMIZER itself moves under a one-constraint perturbation, not
+just how large the perturbation is. This is assessed, after genuine effort across three
+angles, as very likely requiring new research-level insight, not a routine continuation of
+either this project's own tools or the primary source's published techniques. Per this
+project's Cheapest Differentiating Test protocol, a fourth attempt without a qualitatively new
+idea would have low expected information value — stopping here rather than repeating
+variations of the same failed mechanism.
+
+**Where this leaves H-CAT31-3's mechanism investigation:** `Var(X_n)=Omega(1/n)` is
+established (point 7, real and rigorous). `Var(X_n)=O(1/n)` remains open, matching the
+difficulty the primary source's own authors have not resolved even for the easier mean
+question. The REJECTED verdict on exponent `=-1` stands unchanged throughout — this entire
+investigation (points 1-8) is exploratory Mechanism Development Mode work on WHY the `-0.91`
+exponent might or might not be a finite-size transient, not a re-litigation of the
+pre-registered falsification result.
+
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
 `check_prime_symmetry_homogeneity.py`, `verify_prime_isomorphism_exhaustive.py`,
-`check_density_response.py`, `verify_lp_sensitivity_concavity.py`
+`check_density_response.py`, `verify_lp_sensitivity_concavity.py`, `verify_delta_g_bound.py`
+(+`verify_delta_g_output.log`)
 (+`verify_lp_sensitivity_output.log`), and their outputs in `metrics/` (`cosh_bound_check.json`,
 `q_proxy_diagnostic.json`, `q_proxy_diagnostic_n3000.json`, `single_generator_sensitivity.json`,
 `single_generator_sensitivity_n3000.json`, `prime_symmetry_homogeneity.json`,
