@@ -1,7 +1,7 @@
 """Extension of check_q_proxy_diagnostic.py to n=3000 -- same logic, isolated run since
 n=3000 is the expensive point (~43s/rep at 40 reps, per H-CAT31-3's own sweep timing).
-Run separately so it doesn't block the cheaper n=32..1536 points, then merged into
-metrics/q_proxy_diagnostic.json by merge_q_proxy_results.py.
+Run separately so it doesn't block the cheaper n=32..1536 points; results merged by hand
+into decision.md's Addendum table (not by a separate merge script).
 """
 
 from __future__ import annotations
