@@ -26,6 +26,22 @@
 
 
 ## Current Focus
+**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 8 — THIRD and final upper-bound attempt, per
+direct user request to try harder. HONEST FINAL VERDICT: O(1/n) upper bound NOT achieved.**
+Went back to arXiv:2502.16227's own proof (LaTeX, primary source) for unused structure. Found
++ numerically verified (n=3000, `verify_delta_g_bound.py`, matches to ~1e-12) a genuine new
+fact: flipping one generator perturbs the LP objective `g` by EXACTLY
+`Delta_g_k=+-4cos(2*pi*k*i/n)`, so `|Delta_g_k|<=4` for ALL n (bound doesn't grow with n,
+unlike g itself). Combined with the paper's own RIP lemma via Cauchy-Schwarz/Hölder, still
+only gives `O(sqrt(n)*polylog(n))`, not `O(1/n)` — obstruction is structural (bounding how far
+the LP OPTIMIZER's vertex moves under a one-constraint perturbation, not the perturbation's
+own size), same wall hit by all 3 independent attempts (LP concavity § 6, Cauchy-Schwarz upper
+variant, this Delta_g attempt). **Assessed as requiring research-level new insight, not a
+routine continuation — stopped here per Cheapest Differentiating Test (4th attempt without a
+qualitatively new idea has low expected value).** `Omega(1/n)` (§ 7) stands as the real result;
+`O(1/n)` remains genuinely open, matching the primary source's own unresolved mean question.
+REJECTED verdict for exponent=-1 unchanged throughout §§1-8. Full writeup:
+`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum point 8.
 **[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 7 — exact Cauchy-Schwarz lower bound
 `Var(X_n)=Omega(1/n)`, REAL progress (stronger than § 6's LP-sensitivity attempt).**
 Independently re-derived a standard score-function identity `M_n'(1/2)=4*Cov(X_n,Q)` (not
@@ -45,67 +61,7 @@ indices) — checked on their own merits, not defensively dismissed for arriving
 untrusted source, and not accepted just because the source also had good math elsewhere. Full
 writeup: `experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum
 point 7.
-**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 § 6 — attempted formal proof of Efron-Stein
-`O(1/n)` bound, per direct user request. HONEST OUTCOME: full proof NOT achieved.** Real
-partial progress instead: derived + numerically verified (n=11 toy, `verify_lp_sensitivity_
-concavity.py`) that the LP value function `V(t)` under RHS-relaxation of one generator's
-constraint is concave/piecewise-linear (standard parametric-LP duality), connecting
-`Delta_i theta` to LP dual variables via a tangent-line argument — confirmed real (not just
-asserted): piecewise-linearity to `~1e-15`, genuine kink, `max_t V(t)` matches an
-independently-computed `theta_via_lp` value to grid resolution. **Gap explicitly NOT closed:**
-crude magnitude bounds only give `O(1)` per generator, not the needed `O(1/n)` — closing it
-requires a concentration/RIP-type argument on the dual solution specific to the random
-ensemble, not established in the primary source (arXiv:2502.16227) and equivalent to new
-research, not a routine continuation. Documented as precise incomplete progress (names the
-exact missing lemma), not a disguised negative result or a fabricated proof. Full writeup:
-`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum point 6.
-**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 mechanism addendum § 5 — density-response experiment,
-independent cross-check of sensitivity, by directly varying `p` (not a within-sample
-regression).** Exact symmetry `M_n(1-p)=-M_n(p)` re-derived from `theta(G)*theta(Gbar)=n`
-(Lovász, pathwise) + `Gbar~G(n,1-p)`, confirmed on data (4/4 symmetry pairs within 2 SE at
-n=128/512). Direct finite-difference `λ̂=(M_n(0.5+h)-M_n(0.5-h))/(2h)` came out NEGATIVE
-(-2.2 to -3.3) — caught and resolved a sign confusion myself before reporting it as a
-contradiction: `dD_n/dp≈-2` (the Q-proxy `D_n` decreases with density), so
-`dM_n/dp≈-2·b` (b = Q-proxy regression slope) is negative too. **Magnitude cross-check: at
-n=512, predicted `-2.901` vs directly measured `-2.892` (0.3% agreement); at n=128, predicted
-`-2.471` vs measured `-2.433` (1.5% agreement).** Two structurally independent measurements
-(within-sample proxy regression vs. direct response to varying p) now agree closely — real,
-non-circular consistency evidence for the density-driven mechanism. Full writeup:
-`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum point 5.
-**[VERIFIED — 2026-09-11, cont.] H-CAT31-3 mechanism addendum § 4 — prime-n generator
-homogeneity, a small theorem PROVED here (not cited from external text).** Derived and
-exhaustively verified (`verify_prime_isomorphism_exhaustive.py`, n=7 prime, all 8 subsets,
-diff~5e-15): for prime `n`, `theta(G_S)=theta(G_{aS})` exactly for any unit `a` (graph
-automorphism via vertex relabeling), and since `S -> aS` is measure-preserving under i.i.d.
-Bernoulli(1/2) generator bits, `E[(Delta_i theta)^2]` is EXACTLY equal across all generator
-indices `i` for prime `n` — not a heuristic. Empirical check at n=127 (prime) vs n=128
-(composite), 150 reps × 7 indices, gave CV=0.231 vs 0.132 — OPPOSITE direction from the naive
-prediction, but NOT a refutation: per-index SE (~15-25%) at this rep count is fully consistent
-with a true CV of 0. Honest reading: the diagnostic lacks power to detect the proven identity,
-neither confirms nor refutes it. Practical upshot for future work: prime n + single-index
-measurement (not averaging over 3) would both remove the composite-n heterogeneity confound
-and roughly halve per-replicate cost for any future Efron-Stein sensitivity sweep.
-**[VERIFIED — 2026-09-11] H-CAT31-3 mechanism-level addendum (Mechanism Development Mode,
-triggered by user-supplied external AI analyses, independently re-checked, NOT trusted at face
-value).** Three diagnostics, all reusing the experiment's own verified substrate, none reopening
-the REJECTED verdict for exponent=-1: (1) exact inequality `V_n<=2(E[theta]/sqrt(n)-1)` derived
-independently from the Lovász identity + `cosh(x)>=1+x^2/2`, holds on 7/9 sweep points, 2
-"violations" explained by sampling noise; (2) Q-proxy diagnostic (density-only proxy `D_n`
-explains 66-86% of `Var(X_n)` across n=32..3000, not the ~100% a stronger externally-suggested
-hypothesis implied); (3) single-generator sensitivity / Efron-Stein bound — the striking result:
-`n^2*E[(Delta_i X)^2]` nearly IDENTICAL at n=512/1536 (60.7, 60.7) after a finite-size drop from
-n=128 (84.5), and bound/measured-V_n ratio shrinks 2.57→1.67→1.27 (tightening toward 1) —
-suggestive that the true asymptotic could be exponent=-1 with `-0.91` a finite-size transient,
-consistent with the CORRECTED CALIBRATION's un-excluded `L(n)` alternative. **NOT confirmed at
-n=3000** — extension used only 8 reps (cost-limited), SE on the key statistic is ~49% relative,
-point estimate (121.4) statistically indistinguishable from continuing OR breaking the trend.
-**Verdict: genuinely open, sharpened not resolved.** Concrete next decisive step named but not
-run: a well-powered (not 8-replicate) single-generator sensitivity measurement at n>=3000, or a
-formal proof of `E[(Delta_i theta)^2]=O(1/n)`. Literature calibration: arXiv:2502.16227's
-theorem/conjecture reverified directly from LaTeX source (exact match); the "Faure sensitivity
-already attempted" claim from the pasted analyses is `[WEAK]` (ResearchGate 403'd, only a search
-engine's paraphrase available), explicitly not required for the math above to hold. Full writeup:
-`experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md` § Addendum (2026-09-11).
+[summarized] **H-CAT31-3 mechanism investigation §§1-6 (2026-09-11: cosh bound, Q-proxy, single-generator sensitivity, prime-n homogeneity theorem, density-response, LP-sensitivity attempt) archived to `history/activeContext-archive-20260911-b7-mission.md`.** Superseded by §7 (real Omega(1/n) result, kept above) and §8 (final honest verdict, kept above); full text remains in decision.md. One-line-each: §1 mechanism addendum (cosh bound holds 7/9, Q-proxy explains 66-86% variance, ES bound tightens 2.57->1.27 at n=128/512/1536 then inconclusive at n=3000); §4 prime-n homogeneity theorem (proved+exhaustively verified, not just heuristic); §5 density-response (exact symmetry confirmed, sign-corrected cross-check with Q-proxy agrees to 0.3-1.5%); §6 LP-concavity attempt at O(1/n) upper bound (real mechanism found, verified numerically, but only gives O(1) per generator not O(1/n) -- first of 3 attempts that all hit the same wall, see §8).
 [summarized] **[VERIFIED — 2026-09-10, ADR-120] H-B3-1r (consolidation phase, приоритет 2 — B3-1q external-data search): REJECT —...
 
 [summarized] **B7 autonomous-mission arc (ADR-102 through ADR-116: H-B7-20..31 + Lean 4 formalization of H-B7-21) archived to `history/activeContext-archive-20260911-b7-mission.md`.** One-line each: H-B7-20 PARTIALLY-ROBUST (CyclinE1 triple-comparison closure); H-B7-21 CONFIRMED (exhaustive 35-node perturbation theorem, see Lean 4 pilot below); H-B7-22 CONFIRMED (async k*=5 threshold schedule-dependent, SCHEDULE_FRAGILE k=1..4); H-B7-23 CONFIRMED (escape frequency 6.7%->33.8%); H-B7-24 CONFIRMED (sharp point-of-no-return, CyclinE1 trigger); H-B7-25 REJECTED-partial (p21CIP 8/8, RBL2 does NOT generalize past k=2); H-B2-4 REJECTED (clean confident null, sign-change criterion was pure noise); H-B7-26 CONFIRMED (exact absorbing Markov chain escape probability, oracle 10/10); H-B7-27 CONFIRMED (branch equality = real graph automorphism via frozen EGFR_stimulus); H-B7-28 CONFIRMED (mechanism extended to full 80-condition domain); H-B7-29 CONFIRMED (FGFR3_stimulus NOT inert, contrast test); H-B7-30 CONFIRMED (exact probabilities dont rescue the large-deviation fit); H-B7-31 CONFIRMED (early-exit BFS, 84-90% savings on FRAGILE only) -- closes the ENTIRE original H-B7-26 priority list (5/5 items).
@@ -215,6 +171,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-11 12:24] `aefb1ea` (local, branch `feature/h-cat31-3-delta-g-final-attempt` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record final upper-bound verdict, consolidate H-CAT31-3 §§1-6
+- [2026-09-11 12:23] `2c2d5e5` (local, branch `feature/h-cat31-3-delta-g-final-attempt` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: H-CAT31-3 -- third and final upper-bound attempt, honest verdict: not achieved
 - [2026-09-11 12:16] `6f9064a` (local, branch `feature/h-cat31-3-cauchy-schwarz-lower-bound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record Cauchy-Schwarz lower bound, dedupe archived B7 entries
 - [2026-09-11 12:15] `21faafd` (local, branch `feature/h-cat31-3-cauchy-schwarz-lower-bound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- exact Cauchy-Schwarz lower bound Var(X_n)=Omega(1/n), real progress
 - [2026-09-11 11:40] `72a5afa` (local, branch `feature/h-cat31-3-lp-sensitivity-attempt` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record LP-sensitivity attempt, archive Lean4/H-CAT31-2 entries
@@ -228,5 +186,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-11 10:00] `30dc754` (local, branch `docs/h-cat31-3-calibration-fix` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: calibration fix -- H-CAT31-3 stability-check overclaim, user-caught
 - [2026-09-10 23:27] `be1f280` (local, branch `feature/h-cat31-3-variance-scaling-deepened` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- deepened Var(log theta/sqrt(n)) exponent check, REJECTED for -1
 - [2026-09-10 22:25] `679d850` (local, branch `docs/deep-novelty-audit-track2-external-verification` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: activeContext.md update -- Track 2 external verification complete
-- [2026-09-10 22:24] `460b31e` (local, branch `docs/deep-novelty-audit-track2-external-verification` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: Track 2 -- primary-source external novelty verification
-- [2026-09-10 22:16] `0f55ec9` (local, branch `docs/deep-novelty-audit-track1-decisive-checks` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): chore: activeContext.md update -- deep novelty audit + Track 1 summary
