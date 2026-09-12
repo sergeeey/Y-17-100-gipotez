@@ -15,19 +15,25 @@ turns the abstract tightness ratio into a single number with a direct physical r
 tail behaves, on average, as if its mass sat at level l_eff instead of exactly at level r".
 
 At r=4, using the already-verified aggregate tail_tightness_4 from metrics/tail_concentration_
-ratio.json (point 22): l_eff grows only 4.00 -> 4.72 (n=23 -> 47), NOT diverging toward the
-available spectral range's own ceiling (which grows from big_n=10 to big_n=22 over the same
-range) -- i.e. the residual mass beyond l=1,2,3 stays LOCALIZED near the bottom of the tail,
-not spreading toward high l as the available range widens.
+ratio.json (point 22): l_eff grows from 4.00 to 4.72 (n=23 -> 47) over N=10..22.
 
-This reframes the target for a uniform-in-n statement: NOT tail_tightness_r(n)->1 (which fails
-at fixed r=4, point 22), but the much weaker and plausibly-provable
+CORRECTED (2026-09-12, before this point was first merged -- caught by the user in the same
+session): the naive fallback target "l_eff=O(N)" is nearly vacuous, and the growth-rate
+diagnostic below (dividing delta:=l_eff-r by log(N)/sqrt(N)/N) does NOT discriminate between
+growth classes on 7 points where delta starts at exactly 0 -- any subsequent positive delta
+trivially makes each normalized ratio "increase from zero", which is an artifact of the
+starting point, not evidence of a specific asymptotic rate. The diagnostic below is kept for
+transparency (raw numbers, not an asymptotic-rate claim) but should NOT be read as showing
+delta grows faster than any particular reference rate.
 
-    sum_{l>=4} l(N+1-l)*E_l  <=  C * N * sum_{l>=4} E_l      (uniform C, i.e. l_eff = O(N))
-
-or even the stronger (not yet tested) l_eff = O(log N) / O(1), which the data below is checked
-against via a log-log growth-rate fit -- reported with appropriate epistemic weight (7 data
-points is a trend, not a proof of the asymptotic growth CLASS).
+The REAL target, independently re-derived: since t_4 = 4(N-3)/(l_eff*(N+1-l_eff)), if
+l_eff=o(N) at ANY rate (even l_eff~log log N), then N+1-l_eff~N and t_4 ~ 4/l_eff -> 0; if
+l_eff~cN, t_4 -> 0 even faster (~1/N). So uniform constant-factor tail control (t_4>=c>0 for
+fixed r=4) requires l_eff=O(1) -- a genuine finite limit, not just sub-linear growth. This is a
+strictly stronger and more useful target than the initially-proposed O(N). Whether l_eff(N)
+actually converges (Scenario A) or diverges even slowly (Scenario B, forcing a move to r=r(N))
+is NOT resolved by 7 points spanning N=10..22 -- too short a range to distinguish a finite limit
+from log log N, log N, or another slowly-diverging function.
 """
 
 from __future__ import annotations
@@ -53,9 +59,11 @@ def l_eff(r: int, big_n: int, t_r: float) -> float | None:
 
 
 def growth_rate_fit(ns: list[int], deltas: list[float]) -> dict:
-    """Rough log-log style diagnostics for how (l_eff - r) grows with big_n -- NOT a rigorous
-    regression (only 7 points), just enough to distinguish 'roughly bounded', 'roughly log(N)',
-    'roughly sqrt(N)', 'roughly linear in N' by eye, reported as [WEAK] evidence only."""
+    """Raw diagnostic ratios for how (l_eff - r) compares to log(N)/sqrt(N)/N -- NOT a rate test.
+    CORRECTED (2026-09-12, user-caught before merge): with delta=0 at the smallest N, every
+    ratio trivially "increases from zero" once delta turns positive, regardless of the true
+    growth class -- this does NOT discriminate 'bounded' from 'slowly diverging'. Kept only as
+    raw transparency data (see decision.md point 23), not as evidence for any specific rate."""
     out = []
     for n, delta in zip(ns, deltas):
         out.append(
