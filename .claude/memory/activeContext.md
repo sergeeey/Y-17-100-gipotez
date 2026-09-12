@@ -10,49 +10,50 @@
 - **Done when:** Хотя бы один мост прошёл полный цикл kill-criterion → эксперимент → KILLED/CONFIRMED/LEAD
 - **NOT NOW:** Frontier R&D / TOFT / RAF — постоянно `unverified_source` (пользователь подтвердил 2026-09-07: возможно на другой машине, доступа нет); полный Hypothesis Portfolio (128+ гипотез из ARCHCODE и др.) — отдельный, не связанный проект
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Current Focus
-**[VERIFIED — 2026-09-12] H-CAT31-3 § 18 RESOLVED: point 18's three-term ladder bound is now a
-fully layer-wise-verified inequality — 0 violations across all 7 n, every layer.** The decisive
-finding stands: excess growth of `n²·bound` over observed `n²·C_q` roughly HALVES per ladder
-rung (`n=23→47`: naive `+91.3pp` → two-term `+69.3pp` → three-term `+32.8pp`), tightness at
-n=47: `0.349→0.664→0.836`. **Numerical status went through 3 rounds of correction this session
-(none accepted on the first guess) before landing here:** cross-recomputation hypothesis tested
-and disproven; "`E_2=0` at boundary" diagnosis found imprecise (true only at `min(q,N-q)<2`);
-proven antisymmetry theorem verified to `~3.3e-16` on raw `theta_full`, ruling out the data as
-error source. **Final fix (`check_l2_analytic_projection.py`):** raw `{e_j,e_j*e_k}` features
-carry `V_0+V_1` leakage that `pinv` handled imperfectly; an exact double-centered projection
-(`r_ab=mu_ab-(s_a+s_b)/(N-2)+2S/((N-1)(N-2))`, `E_2=sum(r_ab²)/gamma_2_eigen`) removes it
-analytically — cross-validated exact (`~1e-17`) against diagonalization, `q=2,N-2` zero-residual
-unit test now exact at all 7 `n` (previously inconsistent). Rerunning the full ladder
-(`check_l3_ladder_bound_analytic.py`) gives **VIOLATIONS=0**, aggregate unchanged to 4 decimals
-— the effect was real all along, only the exactness was obscured by `pinv` noise. First two
-ladder rungs (`l=1,l=2`) are now BOTH analytic, not numerically heuristic. Autonomous 3-exam
-plan (user-proposed): Exam 1 PASSED. Exam 2 (`E_3`, analogous exact projection) next.
-Full writeup: decision.md § Addendum point 18, pearl_registry/INDEX.md (impact 9).
+**[VERIFIED — 2026-09-12] H-CAT31-3 §§18-26: sharpened Poincaré ladder fully analytic through
+l=5, Exam 2 PROMOTE, Exam 3 structural theorem obtained, l_eff boundedness left open.**
+SESSION STOPPED HERE by explicit user instruction ("остановись здесь, зафиксируй итог").
 
-[summarized] **[VERIFIED — 2026-09-12] H-CAT31-3 § 17: l=2 energy via second-order ANOVA (7
+- **§18 (l=1,2 analytic, Exam 1 PASSED):** three-term ladder bound fully layer-wise-verified,
+  0 violations all 7 n. Root cause of earlier `pinv`-noise resolved via exact double-centered
+  projection (`check_l2_analytic_projection.py`).
+- **§19-21 (Exam 2, l=3, PROMOTE verdict):** general interior-layer `E_3(q)` formula derived
+  (reuses `P_1,P_2` as generic operators applied to the raw triple indicator as target — the
+  key simplification that made every later level tractable). Scaled to all 7 n via an
+  algebraic reduction avoiding `(v,C(N,3))` matrices. **Four-term ladder computed and verified:
+  excess growth `91.2→69.3→32.7→11.2 pp` (n=23→47) — user's own kill-or-promote threshold
+  cleared. Verdict: PROMOTE, not a plateau.**
+- **§22-24 (Exam 3 stages 1-3, tail concentration):** reformulated from "does `E_l` decay
+  geometrically" to "`t_r:=R_r/(D_r/gamma_r)` tail-tightness". Honest finding: `t_4` INCREASES
+  with `r` (expected) but DECREASES with `n` at FIXED `r=4` (`1.0000→0.8810`, n=23→47) — the
+  opposite of what a naive fixed-`r` uniform bound needs. User-derived reformulation
+  (independently re-verified): `l_eff(N)` via `l_eff(N+1-l_eff)=r(N+1-r)/t_r`; for fixed r=4,
+  **`t_4≥c>0` uniformly REQUIRES `l_eff=O(1)`, not just `O(N)`** (any `l_eff→∞`, even
+  `log log N`, forces `t_4→0`). 7-point data (`N=10..22`) cannot distinguish a finite limit
+  from slow divergence — **question left explicitly OPEN, not resolved either way.**
+- **§25-26 (Exam 3 stage 4-6, general E_l construction):** recursive construction generalizes
+  cleanly — each level's "pure V_k basis" is built ONCE and reused as operator `P_k[g]` for
+  ANY target `g` (no fresh derivation per level). Verified numerically at l=4 (0/6 boundary,
+  0/16 diagonalization violations) and l=5 (0/5, 0/10) at n=23,29,31 — both first-try successes.
+  **General theorem (point 26):** tight-frame identity `sum_A Z_A⊗Z_A=lambda_k·P_k` via Schur's
+  lemma, valid for arbitrary k — but rests on a CITED (not independently re-derived in-session)
+  representation-theory fact (irreducibility of `V_k` under the Gelfand pair `(S_N,S_q×S_{N-q})`)
+  and the exact `lambda_k` constant is not symbolically derived from first principles, only
+  empirically confirmed 5-for-5. Honestly scoped as structural progress, not a from-scratch
+  closed-form proof.
+- **What remains open, explicitly, for a future session:** (1) is `l_eff(N)` bounded for fixed
+  r — the actual kill-or-promote question for the whole Johnson-ladder mechanism reaching
+  `O(1/n)`; (2) independent derivation of `lambda_k` from the trace identity; (3) scaling `E_l`
+  computation to `n=37-47` at `l≥4` (currently small-N-only, brute-force `(v,C(N,l))` matrices).
+- Real bugs found and fixed THIS session (not hidden): single-index-vs-pair-product correlation
+  bug in the first `E_3` interior-layer attempt (caught via Gram-matrix diagnostic, not just
+  diagonalization agreement); an overclaim ("converges faster than geometric decay" — retracted
+  after user caught that 3 ratio points starting at 0 can't establish an asymptotic rate);
+  reporting habit "0/0 violations" (looks like an absent test) corrected to real denominators.
+- Full writeup: `decision.md` points 18-26 (each with its own verification artifacts in
+  `metrics/`), `pearl_registry/INDEX.md`.
 
-[summarized] formulas verified, cross-validated exact). E_2's share ALSO decreases (71.9%→46.9%, n=23→47);
-[summarized] **[VERIFIED — 2026-09-12] H-CAT31-3 § 16: first non-circular 2-term bound (E_1
-[summarized] **[VERIFIED] H-CAT31-3 §§15/15a/15b (2026-09-11→12): gap(N,q)=N/(q(N-q)) is an
-[summarized] **[VERIFIED] H-CAT31-3 § 14 state as of 2026-09-11: series extended to n=47,53 then explicitly
 [summarized] **B7 autonomous-mission arc (ADR-102 through ADR-116: H-B7-20..31 + Lean 4 formalization of H-B7-21) archived to...
 [summarized] **[VERIFIED — 2026-09-09, по прямому запросу пользователя «посмотри на 100-item каталог, какие ещё есть кандидаты»]...
 
@@ -66,45 +67,11 @@ Full writeup: decision.md § Addendum point 18, pearl_registry/INDEX.md (impact 
 - **Bridges scoped:** 3, все терминальны (2026-09-09): RMT/Riemann — Phase 1a READY, 1b BLOCKED (external Option A); ChernoffPy/UDE — CONFIRMED-WITH-CAVEATS, арка H-B2-1→1v закрыта 2026-09-08; May1972/TDA — CLOSED 2026-09-09 как informative negative (0 confirmed / 8 killed / 1 parked из 15 под-гипотез), арка H-B3-1→1p. **[2026-09-10] H-B3-2** (новая статья, PH₀ chirality-excess, route 3 отчёта) добавлена к той же закрытой Bridge 3 — REJECT после bug-fix-and-rerun, не реоткрывает мост (по-прежнему 0 confirmed на этой линии); Mechanism Claim Gate внутри неё — единственный устоявший позитивный побочный результат.
 - **Bridges permanently `unverified_source`** (answered 2026-09-07, not pending): 3 (Frontier R&D, TOFT/SMT, RAF Theory)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Architecture (файлы этой папки)
 - `00-catalog/` — источники задач (raw + verified subset + skeptic assessment)
 - `01-cross-domain-bridges/` — главный рабочий файл + H-7 контекст (два разных проекта!)
 - `02-related-projects-context/` — ChernoffPy, May 1972
 - `03-methodology-rules/` — переиспользуемые правила (execution rules, submission gate, ESV scoring)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Quick Commands
 ```bash
@@ -115,23 +82,6 @@ python -m ruff check scripts/ tests/ # lint (line-length=100 pinned in pyproject
 # LEDGER summary — count by grep, never by hand:
 grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ /,"",$6); print $6}' | sort | uniq -c
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Open Questions (для пользователя)
 1. ~~Frontier R&D / TOFT / RAF Theory — реальны на другом компьютере, или нет?~~ **[VERIFIED —
@@ -144,23 +94,6 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 ---
 *Создан: 2026-09-06 при переносе из Obsidian vault.*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Auto-commit log
 - [2026-09-12 20:31] `0bd89c3` (local, branch `feature/h-cat31-3-general-tight-frame-theorem` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- general tight-frame theorem for E_l, plus l=5 numerical confirmation
