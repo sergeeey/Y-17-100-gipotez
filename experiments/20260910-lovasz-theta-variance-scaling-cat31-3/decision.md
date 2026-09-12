@@ -2001,5 +2001,58 @@ proven, not cited-and-pattern-matched. The general-`k` case still rests on the p
 structural argument (cited irreducibility fact) plus now `3` (not `0`) independently-derived
 base cases, with a clear, mechanical inductive method that has not yet hit an obstruction.
 
+## Point 28 (2026-09-12) — Exam 3, stage 8: `lambda_k` first-principles derivation extended to
+k=4 — first level requiring a genuinely new technique (self-adjoint cross-projection), not just
+more of the same bookkeeping
+
+**Context.** Explicit user request: "попробуй k=4" — direct continuation of point 27's method to
+one more level. Point 27 explicitly flagged this as "not attempted... same method, more
+bookkeeping, not a discovered obstruction" — this point tests that claim.
+
+**What turned out to be genuinely different, not just "more of the same."** For `k≤3`, `E_{k-1}
+(Y_A)` could always be computed by projecting `Y_A` onto an EXPLICIT closed-form basis (`y_ab`
+for pairs, itself a simple linear combination of raw indicators). For `k=4`, `E_3(Y_A)` requires
+projecting onto the TRIPLE basis `z_abc = e_abc_centered - P1(e_abc_centered) - P2(e_abc_centered)`
+— and writing `z_abc` out explicitly (the way `y_ab` was written out for the `k≤3` cases) would
+have meant deriving a THIRD layer of closed-form basis algebra, a real escalation in bookkeeping
+risk, not a mechanical repeat.
+
+**Method actually used (avoids ever writing `z_abc` explicitly).** `P1` and `P2` are orthogonal
+projections (self-adjoint), so for any two functions `f,g`: `<P_j(f),g> = <f,P_j(g)>`. Applying
+this to `f=e_abc_centered`, `g=Y_A_centered`:
+```
+<z_abc, Y_A> = <e_abc, Y_A> - <e_abc, P1(Y_A)> - <e_abc, P2(Y_A)>
+```
+Every term on the right is a cross-moment of ALREADY-KNOWN quantities (`Y_A`'s own `E_1`/`E_2`
+coefficients, computed exactly as in point 27's `k=3` case, just with a 4-element `A`) — no new
+basis needs deriving. Each cross-moment is computed by classifying the `N`-element ground set into
+4 REGIONS by `(in A?, in triple {a,b,c}?)` and summing over region-PAIRS (10 combinations: 4
+same-region + 6 cross-region) — implemented as an explicit nested loop over a `regions` list in
+`derive_lambda_4()`, not hand-derived combinatorics, specifically to avoid trusting untracked
+mental arithmetic for a genuinely more intricate case than `k≤3`.
+
+**Result: `sp.simplify(derived_lambda_4 - lambda_hypothesis(4)) == 0` — exact symbolic identity
+for general `N,q`.** Verified 2026-09-12, `derive_lambda_k_from_first_principles.py`'s `__main__`
+block now reports `k=1,2,3,4` all `MATCH: True`. `tests/test_lambda_k_first_principles.py`
+extended to assert `k=4` alongside `k=1,2,3` (9/9 experiment-local pytest passing, up from 8/8).
+
+**What this does and does NOT establish.** DOES establish: `lambda_4`'s falling-factorial closed
+form is independently derived (not cited, not pattern-matched) for general symbolic `N,q`, via a
+method (self-adjoint cross-projection through region classification) that is itself new relative
+to points 20-27's toolkit — this is a genuinely different technique, not a mechanical repeat of
+the `k=3` pair-grouping approach. Does NOT establish: `k=5` (would need `E_4(Y_A)`, grouping QUADS
+by `|A∩quad|` into 5 types, plus a THIRD self-adjoint cross-term through `P3` — same
+self-adjointness trick should apply again, since it worked cleanly moving from "explicit basis"
+(k≤3) to "self-adjoint cross-term" (k=4), but this is now a genuine extrapolation of the METHOD,
+not just the pattern, and has not been attempted). `dim(V_k)` and the general-`k` irreducibility
+argument (point 26) remain cited, unchanged from point 27's status.
+
+**Anti-Overfitting Gate self-check (this is a positive extension of a surviving claim, not a
+post-null revision, so AOG-1..5 don't directly apply — but the analogous honesty check does):**
+the self-adjoint trick was not chosen because the direct `z_abc`-explicit-basis approach failed —
+it was chosen BEFORE attempting the explicit-basis route, specifically because writing out
+`z_abc` by hand looked like the higher-risk path. This is a case of picking the lower-risk of two
+available methods up front, not rescuing a failed attempt.
+
 **Artifacts:** `derive_lambda_k_from_first_principles.py`
 (+`metrics/lambda_k_first_principles.json`).
