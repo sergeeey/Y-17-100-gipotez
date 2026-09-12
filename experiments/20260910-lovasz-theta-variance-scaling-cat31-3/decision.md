@@ -1454,3 +1454,66 @@ unchanged to avoid recomputing already-verified `n<53`)
 `single_generator_sensitivity_n3000.json`, `prime_symmetry_homogeneity.json`,
 `density_response.json`) plus `verify_prime_isomorphism_output.log`,
 `density_response_output.log`.
+
+## Point 19 (2026-09-12) — Exam 2 of the autonomous plan: rigorous P_1+P_2 projection
+functions, exact E_3 at the q=3,N-3 boundary
+
+**Context:** Exam 1 (analytic `E_1`/`E_2`, 0 violations, points 15b/18) is complete. Per the
+autonomous 3-exam plan, Exam 2 asks whether the "excess growth halving" pattern of the sharpened
+Poincaré ladder (naive→two-term→three-term: `91.3pp→69.3pp→32.8pp`, point 18) continues at a
+fourth rung, requiring `E_3` (third-order ANOVA on the Johnson slice). No closed-form triple-
+centering formula for `E_3` at arbitrary interior `q` was supplied (unlike `E_1`/`E_2`, where the
+user provided the exact formulas) — flagged in advance as the harder, higher-risk half of the
+plan, so this session pursued the lower-risk "residual-based" route instead of deriving the
+general interior-layer formula from scratch.
+
+**Stage A — rigorous P_1+P_2 projection functions (`verify_l2_projection_rigorous.py`).**
+`check_l2_analytic_projection.py`'s `e2_analytic` only computes `E_2` as a scalar; it never
+constructs the actual projection *function* `P_2(S)`. This is required for Exam 2 (the residual
+`h(S)=f_centered(S)-P_1(S)-P_2(S)` must be an actual computable function, not just an energy
+number). Derived the double-centered pair basis `y_ab(S) = e_a(S)e_b(S) - (q-1)/(N-2)*(e_a(S)+
+e_b(S)) + q(q-1)/((N-1)(N-2))`, proved algebraically (not just asserted) that (i)
+`sum_{b!=a} y_ab(S) = 0` for every `S` and (ii) `E[y_ab]=0`, both relying on the exact identity
+`sum_{b!=a} E_ab(S) = (q-1)*e_a(S)` (true for every `S`, not just in expectation, since
+`e_a(S)^2=e_a(S)`). This also resolved an apparent discrepancy: `e2_analytic`'s `r_ab` formula
+carries an extra `+2S/((N-1)(N-2))` term that a naive derivation of `y_ab` doesn't need — settled
+by proving `s_a = sum_{b!=a} mu_ab = (q-1)*mu_e[a]` EXACTLY (same identity applied to `Cov(f,.)`),
+which makes the two forms algebraically identical; not just assumed, confirmed numerically to
+`~1e-18` below. **Verification: `P_2(S) = sum_{a<b} (r_ab/lambda_2) * y_ab(S)`, checked at every
+layer across all 7 tested `n` (94 layers total): `E[(P_2 f)^2]` matches `e2_analytic`'s `E_2` to
+`<1e-9`, and the residual `f_centered-P_1-P_2` is orthogonal to every `x_j` (V_1 basis) and every
+`y_ab` (V_2 basis) to `~1e-17`-`1e-18` — VIOLATIONS: 0/94.**
+
+**Stage B — exact E_3 at the q=3,N-3 boundary (`check_l3_boundary_energy.py`).** Same trick as
+point 18's decisive `q=2,N-2` zero-residual test for `E_2`, extended one rung: at `q=3` (or
+`N-3`), `min(q,N-q)=3` means the Johnson-scheme eigenspace decomposition has ONLY `l=1,2,3` — no
+`V_4` or higher exists at that layer. Since Stage A proved `h=f_centered-P_1-P_2` is exactly
+orthogonal to `V_0,V_1,V_2`, the spectral identity `C_q = E_1+E_2+Var(h)` (always true) collapses
+to `Var(h)=E_3` exactly at this boundary — **no new triple-centering formula needed.** Verified
+`E_3` two independent ways (`Var(h)` directly, and `C_q-E_1-E_2` by subtraction) at both `q=3`
+and `q=N-3` for all 7 `n`: boundary residual `~1e-18`-`1e-19` everywhere, **0/14 violations**.
+Cross-validated against exact diagonalization (`metrics/johnson_eigenspace_decomposition.json`,
+matching the `l=3` eigenspace via the Eberlein formula `lambda_3=(q-3)(N-q-3)-3`) at `n=23,29,31`
+— **0/6 violations, matches to `~1e-10`.**
+
+**Result — `E_3/C_q` at the boundary, all 7 `n`:**
+
+| n | 23 | 29 | 31 | 37 | 41 | 43 | 47 |
+|---|-----|-----|-----|-----|-----|-----|-----|
+| `E_3/C_q` | 0.2547 | 0.2514 | 0.2441 | 0.2345 | 0.2276 | 0.2235 | 0.2200 |
+
+Monotonically decreasing across all 7 `n`, no exceptions — qualitatively the same pattern already
+seen for `E_1/C_q` (point 15b) and `E_2/C_q` (point 17)'s own decreasing shares.
+
+**Scope, stated honestly:** this result is the E_3 contribution ONLY at the `q=3,N-3` BOUNDARY
+layers (where it happens to be exactly isolable without new machinery), not a general `E_3(q)`
+formula for interior layers. It does NOT yet let the sharpened Poincaré ladder be extended to a
+literal four-term bound at every layer (that needs `E_3` at ALL `q` from 3 to `N-3`, which
+requires the harder general triple-centering derivation, still not attempted). What it DOES show:
+(a) `P_1+P_2` are now verified as actual computable projection functions, not just scalars — the
+residual-based route for Exam 2 is mechanically sound; (b) `E_3` is real, computable exactly at
+the boundary, and its relative share continues the same declining trend as `E_1`,`E_2` — a
+positive but partial signal for Exam 2's question, not a completed four-term ladder.
+
+**Artifacts:** `verify_l2_projection_rigorous.py`, `check_l3_boundary_energy.py`
+(+`metrics/l3_boundary_energy.json`).
