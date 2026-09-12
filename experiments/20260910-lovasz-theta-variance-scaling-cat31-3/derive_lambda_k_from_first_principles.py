@@ -22,9 +22,20 @@ not a numeric pattern extrapolation: the k=2,3 cases required expanding sum_{a<b
 grouping pairs (for k=3: also triples-worth-of-pair-types) by their intersection size with A,
 which is honest combinatorial bookkeeping, not curve-fitting.
 
-Not yet extended to k=4,5 (would need one more recursion level -- E_3(Y_A) for k=4, grouping
-TRIPLES by |A intersect triple|, 4 distinct types instead of k=3's 3 -- same method, more
-bookkeeping, not attempted here for time budget reasons, not because of a discovered obstruction).
+k=4 (2026-09-12): extended using the SAME trace identity, but E_3(Y_A) (needed for the first
+time -- k=3 only required E_1, E_2) cannot reuse the y_ab/r_ab-style explicit basis without one
+more layer of bookkeeping (the "z_abc" basis itself, not just projections onto it). Instead it
+is computed via self-adjointness of the already-verified orthogonal projections P1, P2:
+    <z_abc, Y_A_c> = <e_abc_c, Y_A_c> - <e_abc_c, P1(Y_A_c)> - <e_abc_c, P2(Y_A_c)>
+Each term on the right is a cross-moment, computed by classifying the ground set into 4
+REGIONS by (in A?, in triple {a,b,c}?) and summing over region-pairs -- implemented as an
+explicit loop (see derive_lambda_4 below), not derived by hand, specifically to avoid the
+"hidden hand-algebra error" risk that motivated writing this file symbolically in the first
+place. Confirmed: sp.simplify(derived - hypothesis) == 0 for general symbolic N,q.
+
+Not yet extended to k=5 (would need E_4(Y_A), grouping QUADS by |A intersect quad| into 5
+types, plus a third self-adjoint cross-term through P3 -- same method, more bookkeeping, not
+attempted here, not because of a discovered obstruction).
 """
 
 import sympy as sp
@@ -95,9 +106,88 @@ def derive_lambda_3():
     return sp.factor(sp.simplify(sp.binomial(N, 3) * z2 / dim_v(3)))
 
 
+def derive_lambda_4():
+    lam2 = lambda_hypothesis(2)
+    lam3 = lambda_hypothesis(3)
+    p2, p3, p4, p5, p6 = p_m(2), p_m(3), p_m(4), p_m(5), p_m(6)
+
+    # --- E1(Y_A), |A|=4 ---
+    mu_in = p4 - p4 * (q / N)
+    mu_out = p5 - p4 * (q / N)
+    e1 = sp.simplify((4 * mu_in**2 + (N - 4) * mu_out**2) * N * (N - 1) / (q * (N - q)))
+
+    # --- E2(Y_A), |A|=4: pairs grouped by |A intersect pair| ---
+    mu_both = p4 - p4 * p2  # both in A -- C(4,2)=6 pairs
+    mu_one = p5 - p4 * p2  # one in A -- 4*(N-4) pairs
+    mu_none = p6 - p4 * p2  # neither in A -- C(N-4,2) pairs
+
+    s_inA = 3 * mu_both + (N - 4) * mu_one
+    s_notA = 4 * mu_one + (N - 5) * mu_none
+    big_S = 6 * mu_both + 4 * (N - 4) * mu_one + sp.binomial(N - 4, 2) * mu_none
+
+    def r_of(mu, sa, sb):
+        return mu - (sa + sb) / (N - 2) + 2 * big_S / ((N - 1) * (N - 2))
+
+    r_both = sp.simplify(r_of(mu_both, s_inA, s_inA))
+    r_one = sp.simplify(r_of(mu_one, s_inA, s_notA))
+    r_none = sp.simplify(r_of(mu_none, s_notA, s_notA))
+    e2 = sp.simplify(
+        (6 * r_both**2 + 4 * (N - 4) * r_one**2 + sp.binomial(N - 4, 2) * r_none**2) / lam2
+    )
+    # how many of {u,w} land in A -> which r value (reused below for E3's cross-term)
+    r_by_inA_count = {2: r_both, 1: r_one, 0: r_none}
+
+    # --- E3(Y_A), |A|=4: triples {a,b,c} grouped by t=|A intersect triple| ---
+    # via self-adjointness of P1,P2: <z_abc,Y_A> = <e_abc,Y_A> - <e_abc,P1(Y_A)> - <e_abc,P2(Y_A)>,
+    # each cross-term computed by classifying the ground set into 4 regions by (in A?, in
+    # triple {a,b,c}?) and summing over region-pairs -- explicit loop, not hand algebra.
+    eta_2 = {2: p3 - p3 * p2, 1: p4 - p3 * p2, 0: p5 - p3 * p2}  # x = |{u,w} intersect triple|
+    nu_single = {True: p3 - p3 * q / N, False: p4 - p3 * q / N}  # is single elt in triple?
+    scale1 = N * (N - 1) / (q * (N - q))
+
+    e3_by_t = {}
+    for t in (0, 1, 2, 3):
+        regions = [
+            {"size": t, "inA": True, "inT": True},  # A ∩ triple
+            {"size": 4 - t, "inA": True, "inT": False},  # A \ triple
+            {"size": 3 - t, "inA": False, "inT": True},  # triple \ A
+            {"size": N - 7 + t, "inA": False, "inT": False},  # neither
+        ]
+        mu_type_t = p_m(7 - t) - p4 * p3  # Cov(e_abc, Y_A) = <e_abc_c, Y_A_c>
+
+        e1_cross = sum(
+            r["size"] * (mu_in if r["inA"] else mu_out) * nu_single[r["inT"]] for r in regions
+        )
+        e1_cross = sp.simplify(scale1 * e1_cross)
+
+        e2_cross = 0
+        for i in range(len(regions)):
+            for j in range(i, len(regions)):
+                ri, rj = regions[i], regions[j]
+                count = sp.binomial(ri["size"], 2) if i == j else ri["size"] * rj["size"]
+                r_val = r_by_inA_count[int(ri["inA"]) + int(rj["inA"])]
+                eta_val = eta_2[int(ri["inT"]) + int(rj["inT"])]
+                nu_sum = nu_single[ri["inT"]] + nu_single[rj["inT"]]
+                e2_cross += count * r_val * (eta_val - (q - 1) / (N - 2) * nu_sum)
+        e2_cross = sp.simplify(e2_cross / lam2)
+
+        e3_by_t[t] = sp.simplify(mu_type_t - e1_cross - e2_cross)
+
+    triple_count_by_t = {t: sp.binomial(4, t) * sp.binomial(N - 4, 3 - t) for t in (0, 1, 2, 3)}
+    e3 = sp.simplify(sum(triple_count_by_t[t] * e3_by_t[t] ** 2 for t in (0, 1, 2, 3)) / lam3)
+
+    z2 = sp.simplify(p4 - p4**2 - e1 - e2 - e3)
+    return sp.factor(sp.simplify(sp.binomial(N, 4) * z2 / dim_v(4)))
+
+
 if __name__ == "__main__":
     results = {}
-    for k, derive_fn in [(1, derive_lambda_1), (2, derive_lambda_2), (3, derive_lambda_3)]:
+    for k, derive_fn in [
+        (1, derive_lambda_1),
+        (2, derive_lambda_2),
+        (3, derive_lambda_3),
+        (4, derive_lambda_4),
+    ]:
         derived = derive_fn()
         hypothesis = lambda_hypothesis(k)
         match = sp.simplify(derived - hypothesis) == 0
@@ -108,7 +198,7 @@ if __name__ == "__main__":
         print(f"  MATCH: {match}")
 
     all_match = all(r["match"] for r in results.values())
-    print(f"\nAll k=1,2,3 symbolically confirmed: {all_match}")
+    print(f"\nAll k=1,2,3,4 symbolically confirmed: {all_match}")
 
     import json
     from pathlib import Path
