@@ -27,19 +27,26 @@
 
 
 ## Current Focus
-**[VERIFIED — 2026-09-12] H-CAT31-3 § 15b extended to n=47 (7th point) — trend still
-monotonically decreasing, and this session INDEPENDENTLY REPRODUCED an externally-pasted claim
-rather than accepting it on citation.** A pasted external analysis claimed `n=47`'s aggregate
-`l=1` fraction = `0.7230335%`. Per `audit-verification-gate.md` ("their [VERIFIED] = my
-[INFERRED]"), did NOT record this until this experiment's own already-validated pipeline
-(`verify_marginal_effect_l1_predictor.py`) recomputed it independently: **got `0.7230%`,
-matching to 4 significant figures.** The external analysis's own "control check" (reproducing
-this repo's already-published `S_47` value) is not independent evidence — the repo is public,
-that value was directly readable, not re-derived. Trend now 7 points, all monotonically
-decreasing: `6.31%→3.39%→2.51%→1.41%→1.04%→0.90%→0.72%` (n=23,29,31,37,41,43,47). Full writeup:
-decision.md § Addendum point 15b (extended), pearl_registry/INDEX.md status updated in place.
+**[VERIFIED — 2026-09-12] H-CAT31-3 § 16 NEW: a genuine (non-circular) sharpened Poincaré bound
+implemented and validated — real, substantial improvement, does NOT reverse the qualitative
+divergence.** Per direct user request to implement the previously-evaluated two-term bound
+`C_q<=E_1+(T_q/2-gamma_1*E_1)/gamma_2` (peels off the exactly-known `l=1` energy, pays the rest
+at the next-best gap `gamma_2=2(N-1)/(q(N-q))`, verified by hand against the general Eberlein
+spectrum). **Unlike points 15a/15b, this is NOT circular** — `E_1` and `T_q` are both computable
+without knowing `C_q` first. Validated across all 7 points (n=23..47): tightness roughly DOUBLES
+at every point (n=23: 0.521→0.913; n=47: 0.349→0.664), bound holds and `improved<=naive`
+everywhere, no exceptions. **Real bug caught on first run** (`KeyError`, q-domain mismatch
+between two reused functions — `check_johnson_swap_energy.py` includes trivial boundary layers
+`q=0,N`, the marginal predictor excludes them), fixed before trusting any result. **Honest
+limit:** `n²·improved_bound` still grows FASTER than `n²·C_q` over n=23→47 (+154.2% vs +84.9%,
+vs naive's +176.2%) — one rung of the `l=1→l=2→l=3` ladder tightens but does not flip the
+qualitative trend. Whether further rungs converge is open, not attempted. Full writeup:
+decision.md § Addendum point 16, pearl_registry/INDEX.md new entry.
 
-[summarized] **[VERIFIED — 2026-09-11] H-CAT31-3 §§15/15a/15b established: point 15's
+[summarized] **[VERIFIED — 2026-09-12] H-CAT31-3 § 15b extended to n=47 (7th point), 0.72%,
+independently reproduced a pasted external claim (0.7230335%, matched to 4 sig figs) rather than
+accepting it on citation. Trend 6.31%→3.39%→2.51%→1.41%→1.04%→0.90%→0.72%. Full text: decision.md
+§ 15b.** [VERIFIED — 2026-09-11] §§15/15a/15b established: point 15's
 `gap(N,q)=N/(q(N-q))` upgraded to an analytic derivation (Eberlein-polynomial spectrum,
 independently re-verified 34/34 against own stored data, not taken on a pasted citation);
 point 15b found the exact closed-form `Energy_l1=||mu||^2*N(N-1)/(q(N-q))` marginal-effect
@@ -175,6 +182,8 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 ## Auto-commit log
+- [2026-09-12 07:44] `0c070c0` (local, branch `feature/h-cat31-3-sharpened-poincare-bound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record H-CAT31-3 point 16 sharpened Poincare bound
+- [2026-09-12 07:43] `747497a` (local, branch `feature/h-cat31-3-sharpened-poincare-bound` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 point 16 -- sharpened Poincare bound, ~2x tightness improvement, real theorem not diagnostic
 - [2026-09-12 04:10] `e1d7839` (local, branch `feature/h-cat31-3-n47-independent-confirmation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record H-CAT31-3 n=47 extension and independent verification
 - [2026-09-12 04:09] `7ce1cea` (local, branch `feature/h-cat31-3-n47-independent-confirmation` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 point 15b extended to n=47, independently reproduces a pasted external claim
 - [2026-09-11 23:30] `fdafc93` (local, branch `feature/h-cat31-3-marginal-effect-l1-predictor` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record H-CAT31-3 point 15/15b upgrade (analytic derivation + rigorous projection check)
@@ -188,5 +197,3 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 - [2026-09-11 14:00] `9f61f75` (local, branch `feature/h-cat31-3-extend-to-n41-n43` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record n=41,43 extension, shape term now dominant
 - [2026-09-11 13:59] `0a5f430` (local, branch `feature/h-cat31-3-extend-to-n41-n43` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- extend density-vs-shape localization to n=41,43, shape now dominant
 - [2026-09-11 13:41] `c3331ea` (local, branch `feature/h-cat31-3-density-shape-localization` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record density-vs-shape localization, consolidate §§10-13
-- [2026-09-11 13:40] `43b0f44` (local, branch `feature/h-cat31-3-density-shape-localization` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- density-vs-shape localization, sharpest finding yet, sobering not comforting
-- [2026-09-11 13:33] `931983d` (local, branch `feature/h-cat31-3-necklace-orbit-extension` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- record necklace-orbit extension and the bug it caught
