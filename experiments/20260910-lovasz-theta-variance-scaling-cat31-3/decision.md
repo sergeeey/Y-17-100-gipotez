@@ -1725,3 +1725,53 @@ a correction to which SPECIFIC mechanism (tail concentration at fixed `r`, vs. s
 scales `r` with `n`) plausibly explains it.
 
 **Artifacts:** `check_tail_concentration_ratio.py` (+`metrics/tail_concentration_ratio.json`).
+
+## Point 23 (2026-09-12) — Exam 3, stage 2: effective spectral level `l_eff`, independently
+verified; growth-rate diagnostic is more mixed than the optimistic reading
+
+**Context.** In response to point 22's finding (`tail_tightness_4` declines with `n`), the user
+derived a reformulation rather than accepting either the original geometric-decay idea or their
+own earlier "scale `r` with `n`" proposal: since `gamma_l=l(N+1-l)/(q(N-q))` (the already-used
+swap-walk gap formula), the `q(N-q)` factor cancels inside `t_r:=R_r/(D_r/gamma_r)`, giving
+`1/t_r` a clean reading as the tail's `E_l`-weighted average of `l(N+1-l)`, normalized to the
+boundary value `r(N+1-r)`. Solving `l_eff(N+1-l_eff)=r(N+1-r)/t_r` for the root near `r` turns
+this into a single "effective spectral level": at `r=4`, does the residual tail behave, on
+average, as if concentrated near `l=4`, or does it drift toward the growing available range?
+
+**Independently re-derived, not taken on the user's word (`check_effective_spectral_level.py`,
+per `audit-verification-gate.md`):** re-solved the same quadratic from the already-committed
+`tail_tightness_4` values — matches the user's own numbers exactly: `l_eff` = `4.000, 4.178,
+4.239, 4.434, 4.548, 4.612, 4.719` for `n=23,29,31,37,41,43,47`. The derivation and arithmetic
+are correct.
+
+**Growth-rate diagnostic — genuinely more mixed than the optimistic framing, reported
+honestly.** The user's framing ("l_eff≈4–5 при доступном диапазоне, который продолжает
+расширяться — потенциально очень сильная локализация") suggested `l_eff-4` might be bounded or
+growing very slowly (e.g. `O(log N)`). Checked against three candidate growth laws by dividing
+`delta:=l_eff-4` by `log(N)`, `sqrt(N)`, and `N` across the 7 available `N` values
+(`big_n=10,13,14,17,19,20,22`): **none of the three ratios stabilizes — all three keep
+INCREASING across the tested range** (`delta/log(N)`: `0→0.233`; `delta/sqrt(N)`: `0→0.153`;
+`delta/N`: `0→0.0327`). This means `delta` is growing FASTER than both `log(N)` and `sqrt(N)` on
+the tested range — the strong "near-bounded localization" reading is not supported by this
+diagnostic. The weaker target the user proposed as a fallback (`l_eff=O(N)`, equivalently
+`delta/N` bounded) is NOT contradicted — `delta/N` stays small (`≤0.033`) — but it is also not
+confirmed to have a stable constant: the ratio is still rising, not clearly saturating, over
+the entire tested range.
+
+**Honest status: `[WEAK]` evidence in both directions, 7 points is not enough to identify the
+growth class.** This is exactly the kind of case `integrity.md`'s Confidence Scoring flags —
+`<2` independent structural confirmations caps confidence at `LOW`/`SPECULATIVE`, not `MEDIUM`,
+regardless of how clean the per-point arithmetic is. Neither "l_eff stays essentially bounded
+near 4-5" nor "delta grows proportionally to N with a real universal constant" is established by
+this data; what IS established: `l_eff` growing only `4.00→4.72` (a real, verified, and genuinely
+modest number against a `2.2×` growth in the available range `N=10→22`) is consistent with SOME
+form of sub-linear-in-a-strong-sense concentration, but the specific rate law remains open.
+
+**Not treated as contradicting point 22's finding or Exam 2's PROMOTE verdict** — both remain
+correct as stated. This narrows what Exam 3's actual theorem target should be: proving
+`l_eff=O(N)` uniformly (the user's own fallback target) is very plausibly true given the data
+(no evidence against it) but is NOT yet reducible to "obviously true because `r=4` alone is
+already localized" — the growth-rate diagnostic above means that claim needs its own argument,
+not just an appeal to the modest absolute size of `l_eff` at the tested `n`.
+
+**Artifacts:** `check_effective_spectral_level.py` (+`metrics/effective_spectral_level.json`).
