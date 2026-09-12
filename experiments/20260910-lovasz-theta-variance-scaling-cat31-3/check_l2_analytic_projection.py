@@ -4,10 +4,15 @@ that introduced ~1e-6 to 5e-5 noise at low-min(q,N-q) layers, see decision.md po
 in-session corrections).
 
 Closed-form V_2 projection, proposed in a pasted external analysis and independently verified
-here (not accepted on citation -- audit-verification-gate.md) against BOTH exact diagonalization
-(n=23,29,31, ALL OK to ~1e-17) and the q=2,N-2 zero-residual unit test (E_1+E_2=C_q exactly,
-since min(q,N-q)=2 means l=1,2 are the ONLY existing levels there) -- verified exact at all 7
-tested n, not just some:
+against BOTH exact diagonalization (n=23,29,31, ALL OK to ~1e-9) and the q=2,N-2 zero-residual
+unit test (E_1+E_2=C_q exactly, since min(q,N-q)=2 means l=1,2 are the ONLY existing levels
+there) -- verified exact at all 7 tested n, not just some. This verification is NOT ad hoc: see
+verify_l2_analytic_against_diagonalization.py + metrics/l2_analytic_verification.json for the
+persisted, independently-re-runnable check (0/34 diagonalization violations, 0/14 zero-residual
+violations) -- added after a reviewer agent (2026-09-12) correctly flagged that an earlier
+revision of this docstring claimed this verification without a repo artifact backing it
+(audit-verification-gate.md: a claim's own [VERIFIED] is the next reader's [INFERRED] unless the
+check is actually in the repo to re-run).
 
     mu_ab = Cov(f, e_a*e_b)                      (pairwise marginal effect)
     s_a   = sum_{b!=a} mu_ab
