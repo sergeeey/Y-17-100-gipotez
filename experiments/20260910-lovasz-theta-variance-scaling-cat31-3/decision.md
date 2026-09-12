@@ -1837,3 +1837,59 @@ bounded for fixed r=4?` remains open, with the center-layer check as a mild (not
 lean toward "no."
 
 **Artifacts:** `check_center_layer_t4_trend.py` (+`metrics/center_layer_t4_trend.json`).
+
+## Point 25 (2026-09-12) — Exam 3, stage 4: general RECURSIVE construction for `E_l` at
+arbitrary `l`, verified at `l=4`, 0 violations
+
+**Context.** Explicit user request: "попробуй вывести формулу E_l для общего l." Point 24's
+own reduction (`l_eff=O(1)` needs `E_l`'s decay rate at general `l`) made this the natural next
+step, and a genuine simplification was found while extending the `l=3` construction one level
+further, turning what could have been a fresh symbolic derivation into a general, reusable
+recursive pattern.
+
+**The simplification, found while building it, not planned in advance.** The "pure `V_3` basis"
+`z_abc(S)` from point 20 (built via `z_abc = E_abc_centered - P_1[E_abc] - P_2[E_abc]`, using
+each triple's OWN raw indicator as the projection target) turns out to be a FIXED basis,
+independent of which function is later correlated against it. This means `P_3`, as a reusable
+operator for ANY target `g` (not just `f`), is simply `mu_abc(g):=Cov(g,z_abc)` then
+`P_3[g](S):=sum_{a<b<c}(mu_abc(g)/lambda_3)*z_abc(S)` — no new derivation needed, `z_abc` is
+built ONCE and reused. This generalizes cleanly: **at each level `k`, build the "pure `V_k`
+basis" once (raw `k`-index indicators, purified by `P_1..P_{k-1}`), then `P_k[g]` for any target
+`g` reuses that basis via one covariance computation.** A genuinely recursive algorithm, not a
+closed form, but general in `l`.
+
+**`l=4` construction (`check_l4_interior_energy.py`):** `E_abcd(S)=e_a e_b e_c e_d` (raw
+quadruple indicator, degree-4, content only in `V_0..V_4` — the same general degree-filtration
+fact used at every prior level). `w_abcd := E_abcd_centered - P_1[E_abcd] - P_2[E_abcd] -
+P_3[E_abcd]` is its pure `V_4` part. `mu_abcd:=Cov(f,w_abcd)`. `lambda_4` HYPOTHESIZED by
+extending the verified falling-factorial pattern (`lambda_l=[q]_l[N-q]_l/[N]_{2l}`, confirmed
+`l=1,2,3`) to `l=4` — stated as a hypothesis, not assumed. `E_4:=sum(mu_abcd^2)/lambda_4`.
+
+**First attempt worked immediately (unlike point 20's `l=3`, which needed a bug hunt) — the
+quick n=23 sanity test passed on the first run**, both checks clean: boundary (`q=4,N-4`,
+`min(q,N-q)=4`, only `l=1..4` exist, so `E_4=C_q-E_1-E_2-E_3` exactly) and diagonalization
+(matched the `l=4` Eberlein eigenspace at EVERY tested layer, including interior `q=5` where
+`min(q,N-q)=5` and the boundary check doesn't apply but diagonalization does).
+
+**Full verification, `n=23,29,31`, all layers where `q>=4` and `N-q>=4`:** **0/0 — zero boundary
+violations, zero diagonalization violations across all 16 tested layers.** Both the `lambda_4`
+hypothesis and the recursive `P_3`-reuse construction are confirmed, not just at the boundary but
+at every interior layer with independent exact diagonalization. (One clarification, not an
+error: at interior `q=5` for `n=29`, `E_4≠C_q-E_1-E_2-E_3` — expected, since `min(q,N-q)=5`
+there means the subtraction equals `E_4+E_5`, not `E_4` alone; the diagonalization check, which
+DOES isolate `E_4` specifically, confirms `E_4` itself is correct.)
+
+**Significance.** This is the first working instance of the GENERAL pattern this whole
+investigation was building toward since point 20's own scope note ("the general interior-layer
+`E_3(q)` formula... is deliberately NOT attempted [for arbitrary `l`]"). The construction is
+recursive (needs levels `1..l-1` built first) rather than closed-form, and verified computationally
+only up to `l=4` at small `N` (the brute-force `(v,C(N,l))` matrix construction — same scope
+limitation as `l=3`'s original brute-force version, point 20 — not yet extended to the efficient
+matmul-based method of `check_l3_interior_energy_efficient.py`, which would be needed to reach
+`n=37-47` or larger `l`). Directly relevant to point 24's open question: this construction, in
+principle, extends to arbitrary `l` (the pattern has no obvious obstruction at `l=5,6,...`),
+which is exactly the tool needed to eventually determine whether `E_l`'s decay rate as `l~cN`
+satisfies the `O(1/N)` criterion point 24 derived — not yet attempted at this session's remaining
+scope, but no longer blocked by "no formula for general `l` exists."
+
+**Artifacts:** `check_l4_interior_energy.py` (+`metrics/l4_interior_energy.json`).
