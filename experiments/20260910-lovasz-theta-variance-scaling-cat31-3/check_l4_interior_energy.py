@@ -175,7 +175,11 @@ def interior_e4(n: int, max_layer_size: int = 4000) -> list[dict]:
         w_abcd = eabcd_centered - p1_quads - p2_quads - p3_quads
 
         mu_abcd = (w_abcd * f_centered[:, None]).sum(axis=0) / v
-        e4 = float(np.sum(mu_abcd**2) / lam4) if lam4 != 0 else 0.0
+        # lam4 > 0 is structurally guaranteed by this function's own q range (q>=4,
+        # big_n-q>=4), so this asserts the invariant instead of silently defaulting to 0.0
+        # if the loop bounds are ever loosened by a future caller (reviewer-flagged P2).
+        assert lam4 > 0, f"lam4 must be positive within this function's q range: q={q}, N={big_n}"
+        e4 = float(np.sum(mu_abcd**2) / lam4)
 
         rows.append(
             {
@@ -216,11 +220,14 @@ def cross_check(rows, n, tol_boundary=1e-7, tol_diag=1e-6):
                 j = 4
                 if q - j >= 0 and big_n - q - j >= 0:
                     lam_theory = ((q - j) * (big_n - q - j) - j) / d
-                    for lvl in layer["levels"]:
-                        if abs(lvl["lambda"] - lam_theory) < 1e-6:
-                            entry["e4_diag"] = lvl["energy"]
-                            entry["diag_match"] = abs(lvl["energy"] - row["E4"]) < tol_diag
-                            break
+                    # closest match, not first-under-tolerance (reviewer P2): avoids a
+                    # silent wrong-level pick if two Eberlein eigenvalues at a larger N
+                    # ever land within 1e-6 of each other (not observed at n=23,29,31,
+                    # but not structurally excluded for larger N either).
+                    closest = min(layer["levels"], key=lambda lvl: abs(lvl["lambda"] - lam_theory))
+                    if abs(closest["lambda"] - lam_theory) < 1e-6:
+                        entry["e4_diag"] = closest["energy"]
+                        entry["diag_match"] = abs(closest["energy"] - row["E4"]) < tol_diag
         out.append(entry)
     return out
 
