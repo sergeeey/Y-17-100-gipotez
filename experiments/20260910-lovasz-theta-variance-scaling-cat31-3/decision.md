@@ -1871,8 +1871,10 @@ quick n=23 sanity test passed on the first run**, both checks clean: boundary (`
 (matched the `l=4` Eberlein eigenspace at EVERY tested layer, including interior `q=5` where
 `min(q,N-q)=5` and the boundary check doesn't apply but diagonalization does).
 
-**Full verification, `n=23,29,31`, all layers where `q>=4` and `N-q>=4`:** **0/0 — zero boundary
-violations, zero diagonalization violations across all 16 tested layers.** Both the `lambda_4`
+**Full verification, `n=23,29,31`, all layers where `q>=4` and `N-q>=4`:** **0/6 boundary
+violations, 0/16 diagonalization violations** (corrected 2026-09-12: an earlier draft said
+"0/0," which a reviewer correctly flagged as reading like an absent test rather than a passed
+one — see point 26). Both the `lambda_4`
 hypothesis and the recursive `P_3`-reuse construction are confirmed, not just at the boundary but
 at every interior layer with independent exact diagonalization. (One clarification, not an
 error: at interior `q=5` for `n=29`, `E_4≠C_q-E_1-E_2-E_3` — expected, since `min(q,N-q)=5`
@@ -1893,3 +1895,63 @@ satisfies the `O(1/N)` criterion point 24 derived — not yet attempted at this 
 scope, but no longer blocked by "no formula for general `l` exists."
 
 **Artifacts:** `check_l4_interior_energy.py` (+`metrics/l4_interior_energy.json`).
+
+## Point 26 (2026-09-12) — Exam 3, stage 6: general tight-frame THEOREM for `E_l` at
+arbitrary `l` (structural proof, two cited representation-theory facts), plus `l=5`
+numerical confirmation
+
+**Context.** After point 25 (`l=4` verified), the user explicitly redirected away from just
+computing `l=5` ("не считал бы просто l=5... самое ценное — превратить point 25 из
+'рекурсивный паттерн работает до l=4' в общую теорему"), proposing the standard tight-frame /
+Schur's-lemma argument. `l=5` had already been launched in the background before the redirect
+arrived and was allowed to finish (not wasted, kept as independent numerical confirmation) — but
+is explicitly secondary to the structural result below, per the user's own framing.
+
+**The general proposition, stated precisely.** For `|A|=k`, `Y_A(S):=1[A⊆S]`. Already-established
+fact (used at every level `k=1..4` without needing restatement): `Y_A` is degree-`k` in the
+`e_a(S)` indicators, hence `T_k:=span{Y_A:|A|=k} ⊆ V_0⊕...⊕V_k`. Define `Z_A:=(I-P_{<k})Y_A`
+where `P_{<k}=P_0+...+P_{k-1}` (the already-verified lower-level operators). Since
+`Y_A∈V_0⊕...⊕V_k`, subtracting all components below `k` leaves EXACTLY `P_k Y_A∈V_k` — this part
+is a direct consequence of already-verified facts, not new.
+
+**The Schur's-lemma step (the actual new content).** The operator `sum_{|A|=k} Z_A⊗Z_A` is
+`S_N`-equivariant (permuting ground elements permutes `{Z_A}` exactly as it permutes `{A}`, by
+construction). **If `V_k` is irreducible as an `S_N`-representation** — the standard, classical
+fact that the Gelfand pair `(S_N, S_q×S_{N-q})` gives a multiplicity-free decomposition of the
+permutation module on `q`-subsets into `V_0,...,V_{min(q,N-q)}` (cited as `[MEMORY]`-level
+representation-theory knowledge, NOT independently re-derived or looked up in this session) —
+then by Schur's lemma this operator, restricted to `V_k`, MUST be a scalar multiple of the
+identity: `sum_{|A|=k} Z_A⊗Z_A = lambda_k · P_k`. This is the tight-frame identity, and it gives,
+for ANY function `f` on the `q`-slice (not just `f` from this investigation):
+
+```
+E_k(f) = ||P_k f||^2 = (1/lambda_k) * sum_{|A|=k} <f, Z_A>^2
+```
+
+**What this DOES resolve, honestly scoped.** The STRUCTURE of the formula — that it holds for
+every `k` up to `min(q,N-q)`, via the same tight-frame mechanism — is now understood, not just
+observed to hold for `k=1,2,3,4,5` by extrapolation. This is qualitatively different from "the
+pattern worked 5 times."
+
+**What this does NOT resolve — stated explicitly, not glossed over.** The exact closed form
+`lambda_k=(q)_k(N-q)_k/(N)_{2k}` was NOT re-derived from first principles in this pass. The
+tight-frame identity gives `lambda_k` via a trace: `sum_A ||Z_A||^2 = lambda_k · dim(V_k)`, with
+`dim(V_k)=C(N,k)-C(N,k-1)` (also a standard, cited, not independently re-derived Johnson-scheme
+dimension formula) — but `||Z_A||^2` itself requires the SAME recursive computation the code
+already performs (i.e., closing this loop symbolically, rather than numerically, was not
+attempted). The formula's correctness rests on: (a) the two cited representation-theory facts
+above (irreducibility of `V_k`, the dimension formula), both standard in the literature but not
+independently verified in this session; (b) the numerically-confirmed pattern match across
+`l=1,2,3,4,5` (5-for-5, including exact diagonalization matches at every interior layer tested),
+which is strong but empirical, not a from-scratch symbolic derivation of the constant.
+
+**`l=5` numerical confirmation (`check_l5_interior_energy.py`), kept as independent evidence:**
+extends the exact same recursive construction one level further — the pure-`V4` basis `w_abcd`
+(already built while computing `E_4` in point 25) is a FIXED basis, reused as `P_4[g]` for any
+target `g`, exactly the same simplification found at every prior level. First attempt worked
+immediately (as at `l=4`). Verified at `n=23,29,31`: **0/5 boundary violations, 0/10
+diagonalization violations** (stated with the actual denominators — an earlier draft of this
+session's own reporting used the phrase "0/0 violations," which a reviewer correctly flagged as
+looking like an absent test rather than a passed one; corrected here and going forward).
+
+**Artifacts:** `check_l5_interior_energy.py` (+`metrics/l5_interior_energy.json`).
