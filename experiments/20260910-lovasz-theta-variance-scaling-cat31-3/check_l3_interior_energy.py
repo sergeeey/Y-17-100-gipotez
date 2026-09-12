@@ -176,7 +176,12 @@ def interior_e3(n: int, max_triples_layer_size: int = 4000) -> list[dict]:
         d_coef_triples = r_triples / lam2
         p2_triples = y_ab @ d_coef_triples  # (v, n_triples)
 
-        z_abc = big_e_triple - p1_triples - p2_triples  # pure-V3 part of each raw triple feature
+        # eabc_centered - p1_triples - p2_triples is E_abc's pure-V3 part (mean-zero): using
+        # the already-centered eabc_centered here (not raw big_e_triple) keeps z_abc genuinely
+        # V0-free, not just "V0 offset happens not to matter because f_centered sums to zero"
+        # (reviewer-flagged 2026-09-12: the raw-big_e_triple version was numerically harmless
+        # for mu_abc but would silently break any future reuse of z_abc that assumes mean-zero).
+        z_abc = eabc_centered - p1_triples - p2_triples
 
         mu_abc = (z_abc * f_centered[:, None]).sum(axis=0) / v  # Cov(f, z_abc) per triple
 
