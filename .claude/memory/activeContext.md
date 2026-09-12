@@ -26,57 +26,34 @@
 
 
 
+
 ## Current Focus
-**[VERIFIED — 2026-09-12] H-CAT31-3 § 16 NEW: a genuine (non-circular) sharpened Poincaré bound
-implemented and validated — real, substantial improvement, does NOT reverse the qualitative
-divergence.** Per direct user request to implement the previously-evaluated two-term bound
-`C_q<=E_1+(T_q/2-gamma_1*E_1)/gamma_2` (peels off the exactly-known `l=1` energy, pays the rest
-at the next-best gap `gamma_2=2(N-1)/(q(N-q))`, verified by hand against the general Eberlein
-spectrum). **Unlike points 15a/15b, this is NOT circular** — `E_1` and `T_q` are both computable
-without knowing `C_q` first. Validated across all 7 points (n=23..47): tightness roughly DOUBLES
-at every point (n=23: 0.521→0.913; n=47: 0.349→0.664), bound holds and `improved<=naive`
-everywhere, no exceptions. **Real bug caught on first run** (`KeyError`, q-domain mismatch
-between two reused functions — `check_johnson_swap_energy.py` includes trivial boundary layers
-`q=0,N`, the marginal predictor excludes them), fixed before trusting any result. **Honest
-limit:** `n²·improved_bound` still grows FASTER than `n²·C_q` over n=23→47 (+154.2% vs +84.9%,
-vs naive's +176.2%) — one rung of the `l=1→l=2→l=3` ladder tightens but does not flip the
-qualitative trend. Whether further rungs converge is open, not attempted. Full writeup:
-decision.md § Addendum point 16, pearl_registry/INDEX.md new entry.
+**[VERIFIED — 2026-09-12] H-CAT31-3 § 18 RESOLVED: point 18's three-term ladder bound is now a
+fully layer-wise-verified inequality — 0 violations across all 7 n, every layer.** The decisive
+finding stands: excess growth of `n²·bound` over observed `n²·C_q` roughly HALVES per ladder
+rung (`n=23→47`: naive `+91.3pp` → two-term `+69.3pp` → three-term `+32.8pp`), tightness at
+n=47: `0.349→0.664→0.836`. **Numerical status went through 3 rounds of correction this session
+(none accepted on the first guess) before landing here:** cross-recomputation hypothesis tested
+and disproven; "`E_2=0` at boundary" diagnosis found imprecise (true only at `min(q,N-q)<2`);
+proven antisymmetry theorem verified to `~3.3e-16` on raw `theta_full`, ruling out the data as
+error source. **Final fix (`check_l2_analytic_projection.py`):** raw `{e_j,e_j*e_k}` features
+carry `V_0+V_1` leakage that `pinv` handled imperfectly; an exact double-centered projection
+(`r_ab=mu_ab-(s_a+s_b)/(N-2)+2S/((N-1)(N-2))`, `E_2=sum(r_ab²)/gamma_2_eigen`) removes it
+analytically — cross-validated exact (`~1e-17`) against diagonalization, `q=2,N-2` zero-residual
+unit test now exact at all 7 `n` (previously inconsistent). Rerunning the full ladder
+(`check_l3_ladder_bound_analytic.py`) gives **VIOLATIONS=0**, aggregate unchanged to 4 decimals
+— the effect was real all along, only the exactness was obscured by `pinv` noise. First two
+ladder rungs (`l=1,l=2`) are now BOTH analytic, not numerically heuristic. Autonomous 3-exam
+plan (user-proposed): Exam 1 PASSED. Exam 2 (`E_3`, analogous exact projection) next.
+Full writeup: decision.md § Addendum point 18, pearl_registry/INDEX.md (impact 9).
 
-[summarized] **[VERIFIED — 2026-09-12] H-CAT31-3 § 15b extended to n=47 (7th point), 0.72%,
-independently reproduced a pasted external claim (0.7230335%, matched to 4 sig figs) rather than
-accepting it on citation. Trend 6.31%→3.39%→2.51%→1.41%→1.04%→0.90%→0.72%. Full text: decision.md
-§ 15b.** [VERIFIED — 2026-09-11] §§15/15a/15b established: point 15's
-`gap(N,q)=N/(q(N-q))` upgraded to an analytic derivation (Eberlein-polynomial spectrum,
-independently re-verified 34/34 against own stored data, not taken on a pasted citation);
-point 15b found the exact closed-form `Energy_l1=||mu||^2*N(N-1)/(q(N-q))` marginal-effect
-predictor (cheap, no dense diagonalization), cross-validated 34/34 exact against diagonalization
-at n=23,29,31, THEN diagonalization removed from the trust chain entirely via direct
-construction+orthogonality-check of the actual degree-1 projection (`~1e-18` match, also
-resolved 2 earlier `~1%` discrepancies as diagonalization-grouping artifacts, not formula
-errors). Two independent parametrizations (`mu_j` vs a pasted analysis's `a_j`) verified
-algebraically identical. Archived detail in decision.md itself, not further condensed here.**
+[summarized] **[VERIFIED — 2026-09-12] H-CAT31-3 § 17: l=2 energy via second-order ANOVA (7
 
-
+[summarized] formulas verified, cross-validated exact). E_2's share ALSO decreases (71.9%→46.9%, n=23→47);
+[summarized] **[VERIFIED — 2026-09-12] H-CAT31-3 § 16: first non-circular 2-term bound (E_1
+[summarized] **[VERIFIED] H-CAT31-3 §§15/15a/15b (2026-09-11→12): gap(N,q)=N/(q(N-q)) is an
 [summarized] **[VERIFIED] H-CAT31-3 § 14 state as of 2026-09-11: series extended to n=47,53 then explicitly
-STOPPED by user decision (n=59 cost too high: ~9M LP solves/9-15GB+ vs ~1.3M/~3.1GB at n=53);
-shape fraction of `E[delta^2]` 51.5%→52.1%→53.2%→54.4% (n=41→43→47→53), still dominant, growth
-RATE shows a thin monotonic slowdown signal (0.00295→0.002675→0.002083/unit-n) but fraction not
-shown bounded below 1; CALIBRATION FIX applied — wording corrected from "obstruction to O(1/n)
-lives in shape term" (overclaim about V_n directly) to "Efron-Stein sensitivity-energy E[delta^2]
-localizes in shape term" (correct: bounds B_n via V_n<=B_n inequality, not V_n itself).** Archived
-detail to `history/activeContext-archive-20260911-b7-mission.md`; full text in decision.md § 14.
-[summarized] **H-CAT31-3 §§10-13 (exact small-n enumeration, vanishing-even-levels theorem, 7th-angle verification, necklace-orbit extension) archived to `history/activeContext-archive-20260911-b7-mission.md`.** Superseded by §14 (kept above, sharpest finding: density-vs-shape localization). One-line-each: §10 exact enumeration n=9-25 (n*Var(X) initially read as stabilizing, later corrected); §11 PROVED theorem -- all even Fourier-Walsh levels vanish exactly (from antisymmetry); §12 3 external claims independently verified to machine precision (sharpened ES bound, exact prime W1=Mn(1/2)^2/4m identity, self-correction: prime-only sequence still rising not stabilizing); §13 necklace-orbit method implemented (a real bug caught by positive control, fixed, re-validated to 8.88e-14), extended exact data to n=29,31,37 -- n*Var(X) and kappa_n keep rising, no plateau.
-[summarized] **H-CAT31-3 §§7-9 (exact Cauchy-Schwarz lower bound, calibration fix, LP-sensitivity/Delta_g upper-bound attempts, fourth check) archived to `history/activeContext-archive-20260911-b7-mission.md`.** Superseded by §10 (kept above, cleanest evidence: exact enumeration, no proof yet). One-line-each: §7 Var(X_n)>=M_n(1/2)^2/(4m) proved unconditionally (Cauchy-Schwarz + score-function identity), Omega(1/n) only CONDITIONAL on unproven liminf|M_n(1/2)|>0; §8 third upper-bound attempt (Delta_g_k=4cos(2pi ki/n) exact bound found+verified, still only gives O(sqrt(n)polylog(n)) not O(1/n) -- same LP-vertex-movement wall as §6); calibration fix (user caught "established" overclaim, fixed to explicitly conditional throughout); §9 fourth check (time-domain LP reformulation ruled out as an escape; own data reframed as n*(ES bound) empirical signal).
-[summarized] **H-CAT31-3 mechanism investigation §§1-6 (2026-09-11: cosh bound, Q-proxy, single-generator sensitivity, prime-n homogeneity theorem, density-response, LP-sensitivity attempt) archived to `history/activeContext-archive-20260911-b7-mission.md`.** Superseded by §7 (real Omega(1/n) result, kept above) and §8 (final honest verdict, kept above); full text remains in decision.md. One-line-each: §1 mechanism addendum (cosh bound holds 7/9, Q-proxy explains 66-86% variance, ES bound tightens 2.57->1.27 at n=128/512/1536 then inconclusive at n=3000); §4 prime-n homogeneity theorem (proved+exhaustively verified, not just heuristic); §5 density-response (exact symmetry confirmed, sign-corrected cross-check with Q-proxy agrees to 0.3-1.5%); §6 LP-concavity attempt at O(1/n) upper bound (real mechanism found, verified numerically, but only gives O(1) per generator not O(1/n) -- first of 3 attempts that all hit the same wall, see §8).
-[summarized] **[VERIFIED — 2026-09-10, ADR-120] H-B3-1r (consolidation phase, приоритет 2 — B3-1q external-data search): REJECT —...
-
-[summarized] **B7 autonomous-mission arc (ADR-102 through ADR-116: H-B7-20..31 + Lean 4 formalization of H-B7-21) archived to `history/activeContext-archive-20260911-b7-mission.md`.** One-line each: H-B7-20 PARTIALLY-ROBUST (CyclinE1 triple-comparison closure); H-B7-21 CONFIRMED (exhaustive 35-node perturbation theorem, see Lean 4 pilot below); H-B7-22 CONFIRMED (async k*=5 threshold schedule-dependent, SCHEDULE_FRAGILE k=1..4); H-B7-23 CONFIRMED (escape frequency 6.7%->33.8%); H-B7-24 CONFIRMED (sharp point-of-no-return, CyclinE1 trigger); H-B7-25 REJECTED-partial (p21CIP 8/8, RBL2 does NOT generalize past k=2); H-B2-4 REJECTED (clean confident null, sign-change criterion was pure noise); H-B7-26 CONFIRMED (exact absorbing Markov chain escape probability, oracle 10/10); H-B7-27 CONFIRMED (branch equality = real graph automorphism via frozen EGFR_stimulus); H-B7-28 CONFIRMED (mechanism extended to full 80-condition domain); H-B7-29 CONFIRMED (FGFR3_stimulus NOT inert, contrast test); H-B7-30 CONFIRMED (exact probabilities dont rescue the large-deviation fit); H-B7-31 CONFIRMED (early-exit BFS, 84-90% savings on FRAGILE only) -- closes the ENTIRE original H-B7-26 priority list (5/5 items).
-[summarized] **Lean 4 pilot (H-B7-21 formalization, ADR-105) + H-CAT31-2 (composite/prime-tail REJECTED, ADR-104) archived to `history/activeContext-archive-20260911-b7-mission.md`.**
-[summarized] **B1/B2/B3 arc (H-B3-1 through H-B3-1k, ADR-010–027) archived to `history/activeContext-archive-20260906-b1b2b3.md`**
-[summarized] **[2026-09-09, продолжение] Bridge 8 (UDE identifiability ↔ PRJ-CHERNOFFPY) зарегистрирован proposed → в тот же день...
-
-
+[summarized] **B7 autonomous-mission arc (ADR-102 through ADR-116: H-B7-20..31 + Lean 4 formalization of H-B7-21) archived to...
 [summarized] **[VERIFIED — 2026-09-09, по прямому запросу пользователя «посмотри на 100-item каталог, какие ещё есть кандидаты»]...
 
 ## Project State
@@ -105,11 +82,13 @@ detail to `history/activeContext-archive-20260911-b7-mission.md`; full text in d
 
 
 
+
 ## Architecture (файлы этой папки)
 - `00-catalog/` — источники задач (raw + verified subset + skeptic assessment)
 - `01-cross-domain-bridges/` — главный рабочий файл + H-7 контекст (два разных проекта!)
 - `02-related-projects-context/` — ChernoffPy, May 1972
 - `03-methodology-rules/` — переиспользуемые правила (execution rules, submission gate, ESV scoring)
+
 
 
 
@@ -153,6 +132,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 
+
 ## Open Questions (для пользователя)
 1. ~~Frontier R&D / TOFT / RAF Theory — реальны на другом компьютере, или нет?~~ **[VERIFIED —
    прямая цитата пользователя, 2026-09-07, эта сессия]:** "на другой машине может и раньше были
@@ -164,6 +144,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 ---
 *Создан: 2026-09-06 при переносе из Obsidian vault.*
+
 
 
 

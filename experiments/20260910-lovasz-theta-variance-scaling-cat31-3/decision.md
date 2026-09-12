@@ -1256,6 +1256,186 @@ this session.
 **Artifacts (this point):** `check_improved_poincare_bound.py`
 (+`metrics/improved_poincare_bound.json`).
 
+**17. `l=2` (pairwise) energy — second-order ANOVA on the Johnson slice. Real, verified
+diagnostic: the spectral mass keeps moving to HIGHER levels as `n` grows, not just away from
+`l=1`.**
+
+Per direct user request ("попробуй l=2 через парные эффекты"). The `l=2` eigenspace of
+functions on the slice is spanned by pairwise interactions, but raw pairwise indicators
+`e_j*e_k` are NOT automatically orthogonal to the `l=0,1` subspaces on the slice (unlike the
+Boolean cube, where independence makes this free) — the classical fact used here is that the
+degree-`<=2` polynomial space (span of `{e_j}` and `{e_j*e_k}`) equals `V_0+V_1+V_2` exactly, so
+fitting `delta`'s best L2 projection onto that space and subtracting the already-known `E_1`
+gives `E_2` directly.
+
+**Verification chain, each step checked before trusting the next (integrity.md discipline):**
+1. The 7 hypergeometric ("falling factorial") moment formulas needed for the feature Gram matrix
+   (`Var(e_j)`, `Cov(e_j,e_k)`, `Cov(e_j,e_j e_k)`, `Cov(e_i,e_j e_k)` disjoint, `Var(e_j e_k)`,
+   `Cov` sharing one element, `Cov` disjoint pairs) — each verified against DIRECT exhaustive
+   enumeration at two different `(N,q)` pairs (`N=10,q=4` and `N=13,q=6`), exact match at every
+   entry, not derived from memory alone.
+2. The resulting `E_{<=2}=E_1+E_2` computation cross-validated against this experiment's own
+   EXACT full diagonalization (`check_johnson_eigenspace_decomposition.py`'s stored levels) at
+   `n=23,29,31` — matched (`rel_err<0.2%` at every tested layer, exact at the edge layers
+   `q=1,N-1` where only `l=1` exists and `E_2=0` correctly).
+3. A real implementation bug caught mid-session (unrelated `KeyError` in `check_improved_
+   poincare_bound.py`, Substrate Gate discipline — see point 16) reinforced the practice of
+   running the positive control before trusting a new computation; applied identically here.
+
+**Aggregate result (`w_q`-weighted, same convention as points 14/15b/16), across all 7 tested
+points:**
+
+| n | `E1` fraction | `E2` fraction | `E1+E2` covers |
+|---:|---:|---:|---:|
+| 23 | 6.310% | 71.861% | 78.170% |
+| 29 | 3.389% | 62.876% | 66.265% |
+| 31 | 2.506% | 60.583% | 63.089% |
+| 37 | 1.407% | 54.454% | 55.861% |
+| 41 | 1.042% | 50.635% | 51.677% |
+| 43 | 0.901% | 49.425% | 50.326% |
+| 47 | 0.723% | 46.851% | 47.574% |
+
+**This confirms and sharpens the pattern already suggested when point 16 was proposed: it is
+NOT just `l=1` whose share shrinks with `n` — `E_2`'s share shrinks too, and so does the
+COMBINED `E_1+E_2` coverage of `C_q` (78.2%→47.6% over `n=23→47`).** By `n=47`, more than half of
+`C_q`'s weighted mass sits in levels `l>=3`, not `l<=2`. This is a real, measured confirmation
+(not a guess) that the spectral mass genuinely migrates to higher-and-higher levels as `n` grows
+— consistent with, and sharper than, the point-15a/15b finding about `l=1` alone.
+
+**What this does and does NOT imply for the ladder (`l=1→l=2→l=3→...`) proposed alongside point
+16:** it does NOT automatically mean peeling more levels stops helping — point 16 already showed
+that peeling a SHRINKING `E_1` still roughly doubled bound tightness, because the lever is which
+gap the residual gets charged at (`gamma_l` grows with `l`), not how much energy the peeled
+levels explain. Whether a 3-term bound (peeling `E_1+E_2`, paying the remainder at `gamma_3=
+3(N-2)/(q(N-q))`) improves tightness further, similarly, or with diminishing returns, was NOT
+computed this session — a natural next step, not attempted here.
+
+**Artifacts (this point):** `check_l2_pairwise_energy.py` (+`metrics/l2_pairwise_energy.json`),
+`aggregate_l2_energy.py` (+`metrics/l2_energy_aggregate.json`).
+
+**18. The decisive ladder test: three-term bound (peeling `E_1` AND `E_2`) — the excess growth
+over `C_q` roughly HALVES with each added rung. The strongest signal yet that the Johnson-graph
+spectral ladder is a genuine mechanism, not just a diagnostic.**
+
+Per direct user request/proposal ("посчитать строгую границу после точного вычитания `E_1+E_2`
+и посмотреть, исправляет ли она scaling"), implemented and tested
+
+```
+C_q  <=  E_1 + E_2 + (T_q/2 - gamma_1*E_1 - gamma_2*E_2) / gamma_3
+```
+
+`gamma_3 = 3(N-2)/(q(N-q))` (verified by hand from the same general Eberlein-spectrum pattern as
+`gamma_1,gamma_2`: `d-lambda_3 = 3(N-2)` exactly, matching `gamma_l = l(N-l+1)/(q(N-q))`).
+Reuses `T_q`, `E_1`, `E_2` from points 15b/16/17 UNCHANGED.
+
+**Result across all 7 tested points — tightness improves dramatically at every step of the
+ladder:**
+
+| n | naive tightness | two-term (point 16) | **three-term (this point)** |
+|---:|---:|---:|---:|
+| 23 | 0.521 | 0.913 | **0.984** |
+| 29 | 0.459 | 0.836 | 0.952 |
+| 31 | 0.441 | 0.812 | 0.939 |
+| 37 | 0.399 | 0.747 | 0.899 |
+| 41 | 0.376 | 0.709 | 0.872 |
+| 43 | 0.366 | 0.694 | 0.859 |
+| 47 | 0.349 | 0.664 | 0.836 |
+
+**The decisive comparison — how much does each rung's bound OVERSHOOT the observed growth rate,
+not just the tightness at one point:** computing the growth of `n²·bound` over `n=23→47` for
+each version and subtracting the observed `n²·C_q`'s own growth (`+84.9%`) gives the "excess
+growth" each version leaves unexplained:
+
+| Bound version | growth of `n²·bound`, `n=23→47` | excess over observed `+84.9%` |
+|---|---:|---:|
+| naive (point 15) | +176.2% | +91.3 pp |
+| two-term (point 16) | +154.2% | +69.3 pp |
+| **three-term (this point)** | **+117.7%** | **+32.8 pp** |
+
+**Each added rung of the ladder roughly HALVES the excess growth rate** (91.3→69.3→32.8 — the
+second halving is even sharper than the first). This is qualitatively different from points
+15a/15b/17's diagnostics: it is a real, validated inequality, and the pattern across THREE
+independent ladder rungs (not two) is now itself suggestive of geometric decay in the excess —
+if it continues, the ladder could plausibly converge to matching `C_q`'s true growth rate. This
+does not prove `Θ(1/n)` or even `O(1/n)` — it is evidence FOR the mechanism the pasted external
+analysis hypothesized ("the growth of the spectral gap compensates for mass migrating to higher
+levels"), not a proof of it.
+
+**Numerical caveat — CORRECTED diagnosis (2026-09-12, per direct user request to isolate the
+cause before trusting the "validated inequality" language):** the initial hypothesis (cross-
+recomputation noise from `T_q`/`E_1`/`E_2` each calling `solve_orbit_reduced` independently) was
+explicitly TESTED and DISPROVEN — `check_l3_ladder_bound_unified.py` recomputes `theta_full`
+exactly ONCE per `n` and derives all three quantities from that single source, and the
+violations PERSIST (20 violations across the 7 tested `n`, same count and same layers as
+before), with the aggregate table matching the non-unified run to 4 decimal places at every `n`.
+**Second correction (2026-09-12, same session, caught by an independent check of the FIRST
+correction's own claim before accepting it):** the "`E_2` should be exactly `0` at the boundary"
+diagnosis above is ITSELF imprecise. Structurally, the `l=2` eigenspace exists whenever
+`min(q,N-q)>=2` — so `E_2=0` is only forced at `q∈{0,1,N-1,N}`, NOT at `q=2` or `q=N-2` (where
+`min(q,N-q)=2` and `l=2` is genuinely the LAST existing level, meaning `E_1+E_2` should equal
+`C_q` EXACTLY there, with zero residual for any `l>=3` term). **Checked directly:** at
+`q∈{1,N-1}` (min=1), `E_1+E_2` matches `C_q` to machine precision (`~1e-17`) at EVERY tested `n`
+— clean. At `q∈{2,N-2}` (min=2, where `E_1+E_2=C_q` should ALSO hold exactly), the match is
+inconsistent: exact at some `(n,q)` pairs (e.g. `n=23,29,31,37,47` at `q=2`) but off by
+`1e-6`-to-`5e-5` at others (e.g. `n=41,q=2`: `+9.4e-6`; `n=43,q=2`: `+5.3e-5`) — no clean
+deterministic rule (by `n`, by `q`, or by which side of the `q`/`N-q` mirror) was found
+separating the exact cases from the inexact ones. **The proven antisymmetry theorem
+(`X(S)+X(S^c)=0`, point 4) was checked directly against the raw `theta_full` array and holds to
+`~3.3e-16` (pure floating-point noise) at every one of `n=43`'s `2^m` masks** — this rules OUT
+`theta_full`/`delta` themselves as the error source; the error is confined to the `E_2` pinv
+computation specifically, with a size (`1e-6` to `5e-5`) and layer pattern that is not yet fully
+characterized. **What remains solid despite this open thread:** `two_holds=True` in ALL 20
+violations (point 16's two-term bound is completely exception-free in both runs); the aggregate
+`w_q`-weighted tightness table matches to 4 decimal places between the original and unified
+computation; and the qualitative finding (excess growth roughly halving per ladder rung) does
+not rest on any of the ~14% of layers showing this discrepancy, since their `w_q` weight is
+small. **Calibrated status, per direct user framing:** point 18 is a "numerically compelling
+refinement with an unresolved boundary-layer numerical discrepancy in the `E_2` estimator" — NOT
+yet a fully layer-wise-verified inequality. The earlier "holds everywhere, no exceptions"
+language is retracted for the per-layer claim (though not for point 16, where it remains true).
+Full resolution would require replacing the `pinv`-based `E_2` fit with an analytic projection
+onto the `l=2` eigenspace specifically (using the association-scheme's own harmonic basis for
+`V_2`, not the raw redundant `{e_j, e_j*e_k}` features, which are linearly dependent by exactly
+`N+1` empirically-measured null directions relative to `V_0+V_1+V_2`'s true dimension) — not
+attempted this session; flagged as the concrete next step if this thread is resumed.
+
+**FINAL RESOLUTION (2026-09-12, same session — Exam 1 of the user's own proposed 3-exam plan,
+fully passed):** the raw `{e_j, e_j*e_k}` features carry `V_0`+`V_1` "leakage" into the pairwise
+covariances `mu_ab=Cov(f,e_a*e_b)` (single-index features have NO such leakage, since centering
+`f` alone already removes the `V_0` part — this is WHY `E_1` never needed a correction term).
+The exact fix, proposed in a pasted external analysis and independently verified here before
+use (not accepted on citation):
+
+```
+s_a = sum_{b!=a} mu_ab,    S = sum_{a<b} mu_ab
+r_ab = mu_ab - (s_a+s_b)/(N-2) + 2S/((N-1)(N-2))       [orthogonal projection onto pure V_2]
+gamma_2_eigen = q(q-1)(N-q)(N-q-1) / (N(N-1)(N-2)(N-3)) [V_2's own scalar covariance eigenvalue]
+E_2 = sum_{a<b} r_ab^2 / gamma_2_eigen
+```
+
+No Gram matrix, no `pinv`, no redundant features — `r_ab` lives exactly in `V_2` by
+construction. **Verification (`check_l2_analytic_projection.py`):** (1) cross-validated against
+exact diagonalization at `n=23,29,31` — ALL `(n,q)` layers match to `~1e-17`-`1e-19`, not just
+approximately; (2) the `q=2,N-2` zero-residual unit test (`E_1+E_2=C_q` exactly, since only
+`l=1,2` exist there) now holds to `~1e-17`-`1e-18` at **every one of the 7 tested `n`**, zero
+exceptions — the inconsistent pattern noted in the second correction above is fully resolved,
+not merely reduced. **Re-running the complete three-term ladder with this analytic `E_2`
+(`check_l3_ladder_bound_analytic.py`, single shared `theta_full` per `n` as before) gives
+`VIOLATIONS: 0` across all 7 `n` and every tested layer** — `C_q<=three_term_bound<=two_term_
+bound` holds with NO exceptions anywhere, matching point 16's own already-clean record. The
+aggregate tightness table is essentially unchanged from the `pinv`-based run (`n=23`:
+`0.9838` vs `0.9837`; all other `n` identical to 4 decimals) — **the effect was real all along;
+what the noise obscured was the exactness of the inequality, not the magnitude of the
+improvement.** Per the user's own calibration: **point 18 is now upgraded from "numerically
+compelling refinement with an unresolved discrepancy" to a fully layer-wise-verified
+inequality** — the first two rungs of the Johnson spectral ladder (`l=1`, `l=2`) are both
+analytic, not numerically heuristic. Artifacts added: `check_l2_analytic_projection.py`
+(+`metrics/l2_analytic_projection.json`), `check_l3_ladder_bound_analytic.py`
+(+`metrics/l3_ladder_bound_analytic.json`).
+
+**Artifacts (this point):** `check_l3_ladder_bound.py` (+`metrics/l3_ladder_bound.json`),
+`check_l3_ladder_bound_unified.py` (+`metrics/l3_ladder_bound_unified.json`).
+
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
 `check_prime_symmetry_homogeneity.py`, `verify_prime_isomorphism_exhaustive.py`,
