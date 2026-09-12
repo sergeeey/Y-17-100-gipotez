@@ -153,7 +153,7 @@ def derive_lambda_4():
             {"size": 3 - t, "inA": False, "inT": True},  # triple \ A
             {"size": N - 7 + t, "inA": False, "inT": False},  # neither
         ]
-        mu_type_t = p_m(7 - t) - p4 * p3  # <e_abc, Y_A>
+        mu_type_t = p_m(7 - t) - p4 * p3  # Cov(e_abc, Y_A) = <e_abc_c, Y_A_c>
 
         e1_cross = sum(
             r["size"] * (mu_in if r["inA"] else mu_out) * nu_single[r["inT"]] for r in regions
