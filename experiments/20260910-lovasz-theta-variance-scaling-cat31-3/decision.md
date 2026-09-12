@@ -1955,3 +1955,51 @@ session's own reporting used the phrase "0/0 violations," which a reviewer corre
 looking like an absent test rather than a passed one; corrected here and going forward).
 
 **Artifacts:** `check_l5_interior_energy.py` (+`metrics/l5_interior_energy.json`).
+
+## Point 27 (2026-09-12) — Exam 3, stage 7: `lambda_k` derived from FIRST PRINCIPLES for
+k=1,2,3 (symbolic, computer-algebra-verified) — closes most of point 26's honesty gap
+
+**Context.** Explicit user request: "попробуй доказать λ_k из первых принципов" — targeting
+exactly the piece point 26 flagged as NOT done ("the exact closed form... was NOT re-derived
+from first principles... rests on cited standard facts plus the empirical 5-for-5 pattern
+match"). Attempted via symbolic computer algebra (`sympy`), not hand algebra — given the
+multi-step combinatorial bookkeeping involved, this project's own discipline of "verify
+computationally, don't trust unverified hand-derivation" applies to the mathematics itself here,
+not only to numerical claims.
+
+**Method.** From point 26's trace identity: `lambda_k = C(N,k)*||Z_A||^2/dim(V_k)` for any fixed
+`k`-subset `A` (all equal by symmetry), `dim(V_k)=C(N,k)-C(N,k-1)` (still a cited Johnson-scheme
+fact, not re-derived here — see Scope below). `||Z_A||^2 = <Y_A,Y_A> - sum_{j<k} E_j(Y_A)`,
+where `Y_A(S)=1[A⊆S]` and `E_j(Y_A)` is `Y_A`'s OWN energy at level `j`, computed via the SAME
+already-verified recursive formulas (`E_1` closed form, `E_2` double-centered projection) —
+but evaluated SYMBOLICALLY, for general `N,q`, on exact hypergeometric containment probabilities
+`p_m(N,q) := P(fixed m-subset⊆random q-subset) = (q)_m/(N)_m` (falling factorials), not on
+spot-checked numbers.
+
+**Result (`derive_lambda_k_from_first_principles.py`): `sp.simplify(derived - hypothesis) == 0`
+— an exact symbolic identity, not a numeric coincidence — confirmed for k=1, k=2, AND k=3, for
+GENERAL symbolic `N,q`.** The `k=2` and especially `k=3` cases required real combinatorial
+bookkeeping (grouping pairs by `|A∩{a,b}|` into 3 distinct types for `k=3`, each occurring with
+its own multiplicity, then running the ALREADY-VERIFIED `r_ab` double-centering formula on each
+type) — this is a genuine derivation, not curve-fitting a formula to match numbers.
+
+**What this changes vs. point 26's scope statement.** Point 26 said `lambda_k`'s closed form
+"rests on cited standard facts plus the empirical 5-for-5 pattern match" — that is now
+outdated for `k≤3`: those three cases are independently, symbolically DERIVED, not merely cited
+or pattern-matched. What STILL rests on cited (not re-derived) facts: (a) `dim(V_k) = C(N,k)-
+C(N,k-1)`, the Johnson-scheme dimension formula itself; (b) the general-`k` INDUCTION — `k=4,5`
+were not attempted here (would need one more recursion level, `E_3(Y_A)` grouping TRIPLES by
+`|A∩{triple}|` into 4 types instead of `k=3`'s 3 — the same method, more bookkeeping, not a
+discovered obstruction, just not done in this pass for time budget reasons); the general
+representation-theoretic argument (Schur's lemma + `V_k` irreducibility) from point 26 remains
+the reason a clean tight-frame constant exists AT ALL for every `k` — this symbolic computation
+independently confirms its VALUE for `k≤3`, it does not replace the structural argument for WHY
+one exists at every level.
+
+**Honest status: substantially strengthened, not fully closed.** `lambda_k` for `k=1,2,3` is now
+proven, not cited-and-pattern-matched. The general-`k` case still rests on the point 26
+structural argument (cited irreducibility fact) plus now `3` (not `0`) independently-derived
+base cases, with a clear, mechanical inductive method that has not yet hit an obstruction.
+
+**Artifacts:** `derive_lambda_k_from_first_principles.py`
+(+`metrics/lambda_k_first_principles.json`).
