@@ -1199,6 +1199,63 @@ diagonalization at all.
 `verify_marginal_effect_l1_predictor.py` (+`metrics/marginal_l1_predictor_extension.json`),
 `verify_l1_projection_rigorous.py`.
 
+**16. A genuinely sharper Poincaré bound (a real theorem, not a diagnostic) — peels off the
+now-exactly-known `l=1` energy, pays the rest at the next-best gap. Real, substantial
+improvement; does NOT reverse the qualitative divergence trend.**
+
+Per direct user request ("отлично как в фоне прогон закончится выполни его"), implemented and
+tested the two-term sharpened bound proposed in a pasted external analysis (independently
+re-derived and verified before implementing, not accepted on citation). From the exact energy
+identity `T_q/2 = sum_l gap_l*E_l` and `C_q = sum_l E_l` (`gap_l` non-decreasing in `l`, per the
+already-verified Eberlein spectrum), peeling off the exactly-known `E_1` and bounding the
+remaining levels by the next-best gap `gamma_2 = 2(N-1)/(q(N-q))` (verified by hand: `d-lambda_2
+= 2(N-1)` exactly, matching the general spectrum formula at `j=2`) gives
+
+```
+C_q  <=  E_1 + (T_q/2 - gamma_1*E_1) / gamma_2
+```
+
+**This is NOT circular like points 15a/15b** — `E_1` (via the closed-form marginal-effect
+predictor) and `T_q` (swap-Dirichlet-energy) are both computable WITHOUT knowing `C_q` in
+advance; `gamma_1`, `gamma_2` are pure graph-theoretic constants. This is a genuine new upper
+bound, structurally the same "peel off known low levels" technique already used in point 12a's
+sharpened Efron-Stein (there via a PROVEN zero, here via a numerically-established `E_1`).
+
+**Substrate Gate note (real bug caught on first run, not hidden):** the first implementation
+crashed with a `KeyError` — `check_johnson_swap_energy.py`'s layer loop includes the trivial
+boundary layers `q=0,N` (where `C_q=0`), while `verify_marginal_effect_l1_predictor.py`'s loop
+excludes them; combining the two dicts by `q` without aligning domains failed immediately. Fixed
+by iterating over the intersection of both domains. Caught before any result was trusted, per
+this project's own Substrate Gate discipline.
+
+**Results across all 7 tested points (`n=23,29,31,37,41,43,47`), `check_improved_poincare_bound.py`
+— the bound is real and validated at EVERY layer (`C_q<=improved_bound<=naive_bound`, no
+exceptions across any tested `(n,q)`):**
+
+| n | naive tightness | improved tightness |
+|---:|---:|---:|
+| 23 | 0.521 | 0.913 |
+| 29 | 0.459 | 0.836 |
+| 31 | 0.441 | 0.812 |
+| 37 | 0.399 | 0.747 |
+| 41 | 0.376 | 0.709 |
+| 43 | 0.366 | 0.694 |
+| 47 | 0.349 | 0.664 |
+
+**Honest calibration — the improvement is real but does NOT reverse the qualitative picture.**
+The improved bound roughly halves the "excess" over the naive one at every point (tightness
+nearly doubles, e.g. `0.521→0.913` at `n=23`). But `n²·improved_bound` itself grows FASTER than
+`n²·C_q` over the tested range (`+154.2%` vs `+84.9%`, `n=23→47`) — slower growth than the naive
+bound's own `+176.2%`, but still divergent, not convergent. **This is one rung of the `l=1→l=2→
+l=3→...` ladder proposed alongside this bound; a single rung meaningfully tightens the bound but
+does not, by itself, flip the qualitative trend from "bound grows faster than truth" to "bound
+tracks truth."** Whether further rungs (peeling `E_2` via pairwise marginal effects, paying the
+remainder at `gamma_3`) would eventually reverse the trend is an open question, not attempted
+this session.
+
+**Artifacts (this point):** `check_improved_poincare_bound.py`
+(+`metrics/improved_poincare_bound.json`).
+
 **Artifacts:** `check_cosh_bound.py`, `check_q_proxy_diagnostic.py` (+`_n3000.py`),
 `check_single_generator_sensitivity.py` (+`_n3000.py`), `verify_cauchy_schwarz_lower_bound.py`,
 `check_prime_symmetry_homogeneity.py`, `verify_prime_isomorphism_exhaustive.py`,
