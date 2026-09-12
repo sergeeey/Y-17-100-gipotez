@@ -1788,3 +1788,52 @@ bounded as `N` grows, for fixed `r`? Only if the answer is no does moving to `r=
 next necessary step.**
 
 **Artifacts:** `check_effective_spectral_level.py` (+`metrics/effective_spectral_level.json`).
+
+## Point 24 (2026-09-12) — Exam 3, stage 3: attempted analytic proof of `l_eff(N)`
+boundedness — real reduction obtained, NOT resolved, honestly reported as such
+
+**Context.** Explicit user request: "попробуй доказать bounded ли l_eff(N) аналитически."
+Attempted in good faith; the result is a genuine mathematical reduction plus one cheap
+confirmatory empirical check, but **no proof, in either direction, was obtained.**
+
+**The reduction (derived, not assumed).** Suppose a fraction `ε_N` of the tail's total energy
+`R_4=sum_{l>=4}E_l` sits at Johnson levels of order `N` (i.e. `l≈cN` for some fixed `c∈(0,1/2)`),
+with the remainder concentrated near `l=4`. Then
+
+```
+1/t_4 ≈ (1-ε_N) + ε_N * c(1-c) * N/4
+```
+
+so **any fixed, `N`-independent fraction `ε_N=ε>0` of energy at order-`N` levels forces `1/t_4`
+to grow LINEARLY in `N`** (hence `l_eff` grows linearly, not boundedly). This gives the exact
+criterion: `l_eff=O(1)` **if and only if** the fraction of tail energy at levels `l=Ω(N)` decays
+at least as `O(1/N)` — a genuinely strong, specific localization requirement, not a restatement
+of the original question. This is real progress: it converts an abstract "is `l_eff` bounded?"
+into a concrete question about the DECAY RATE of `E_l` as `l` grows proportionally with `N` —
+exactly the general-`l` formula question that was flagged as the harder, deferred branch of
+Exam 3 from the start (point 20's own scope note).
+
+**Cheap empirical check, no new heavy computation (`check_center_layer_t4_trend.py`):** isolates
+the CENTER layer (`q` closest to `N/2`, where `Lmax=min(q,N-q)` is maximal for that `N`) at each
+`n`, to rule out one specific concern — that the aggregate decline (points 22-23) might be an
+artifact of mixing across `q`-layers with different `Lmax`. Result: `t_4` at the center layer
+alone tracks the aggregate closely (`1.0000→0.8860` at the center layer vs `1.0000→0.8810`
+aggregate) — the decline shows up even holding "fraction through the available range" roughly
+fixed at the center layer, which is mild evidence AGAINST the bounded scenario (if mass were
+genuinely staying put near `l=4` regardless of how much room the layer has, the center-layer
+value — which always has the LARGEST possible range of available levels — should show LESS
+decline than the aggregate, not the same amount).
+
+**Honest verdict: no proof achieved.** Resolving whether `ε_N=O(1/N)` genuinely holds requires
+either (a) exact or asymptotic formulas for `E_l(N)` at general `l` (not just `l=1,2,3`, which
+are the only levels with closed forms in this investigation) — this is precisely the harder,
+originally-deferred general-`l` branch of Exam 3, not a shortcut around it; or (b) an
+independent structural argument (e.g. a hypercontractivity/noise-sensitivity-style bound)
+establishing that `delta(S)` — the log-theta difference under a single-element swap — has
+bounded "swap-sensitivity", which is a genuine, UNESTABLISHED premise about the underlying
+Lovász-theta optimization's stability under perturbation, not something this codebase has ever
+derived or verified. **Neither route was completed in this attempt.** The question `is l_eff(N)
+bounded for fixed r=4?` remains open, with the center-layer check as a mild (not decisive)
+lean toward "no."
+
+**Artifacts:** `check_center_layer_t4_trend.py` (+`metrics/center_layer_t4_trend.json`).
