@@ -92,17 +92,14 @@ if __name__ == "__main__":
             big_n = big_n_by_n[n]
             t_r = agg[n][f"tail_tightness_{r}"]
             leff = l_eff(r, big_n, t_r)
-            rows.append(
-                {
-                    "n": n,
-                    "N": big_n,
-                    "t_r": t_r,
-                    "l_eff": leff,
-                    "delta": (leff - r) if leff else None,
-                }
-            )
-            d = leff - r
-            print(f"r={r}  n={n:3d}  N={big_n:3d}  t_r={t_r:.4f}  l_eff={leff:.3f}  delta={d:.3f}")
+            delta = (leff - r) if leff is not None else None
+            rows.append({"n": n, "N": big_n, "t_r": t_r, "l_eff": leff, "delta": delta})
+            if leff is None:
+                print(f"r={r} n={n:3d} N={big_n:3d} t_r={t_r:.4f} l_eff=None (no real root)")
+            else:
+                print(
+                    f"r={r} n={n:3d} N={big_n:3d} t_r={t_r:.4f} l_eff={leff:.3f} delta={delta:.3f}"
+                )
         results[r] = rows
 
     print("\n=== Growth-rate diagnostics for r=4 (delta = l_eff - 4) ===")
