@@ -1,0 +1,20 @@
+{
+  "results": {
+    "1": {
+      "derived": "-q*(-N + q)/(N*(N - 1))",
+      "hypothesis": "-q*(-N + q)/(N*(N - 1))",
+      "match": true
+    },
+    "2": {
+      "derived": "q*(-N + q)*(q - 1)*(-N + q + 1)/(N*(N - 3)*(N - 2)*(N - 1))",
+      "hypothesis": "q*(-N + q)*(q - 1)*(-N + q + 1)/(N*(N - 3)*(N - 2)*(N - 1))",
+      "match": true
+    },
+    "3": {
+      "derived": "-q*(-N + q)*(q - 2)*(q - 1)*(-N + q + 1)*(-N + q + 2)/(N*(N - 5)*(N - 4)*(N - 3)*(N - 2)*(N - 1))",
+      "hypothesis": "-q*(-N + q)*(q - 2)*(q - 1)*(-N + q + 1)*(-N + q + 2)/(N*(N - 5)*(N - 4)*(N - 3)*(N - 2)*(N - 1))",
+      "match": true
+    }
+  },
+  "all_match": true
+}
