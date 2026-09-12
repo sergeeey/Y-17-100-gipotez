@@ -1639,12 +1639,16 @@ the observed `n²·C_q` growth of `+84.92%`):**
 
 **Verdict on the kill-or-promote question, stated as the user framed it: PROMOTE, not a
 plateau.** The ratio of successive excess values is `69.33/91.20=0.760`, `32.72/69.33=0.472`,
-`11.21/32.72=0.343` — each rung's excess doesn't just keep halving, the RATIO OF DECAY ITSELF
-IS SHRINKING (0.760→0.472→0.343), i.e. the sequence is converging FASTER than geometric decay,
-not just at a constant halving rate. This is a stronger signal than "the pattern continues" —
-it is evidence the excess may be converging toward zero faster than a simple `2^{-l}`-type decay
-would predict, which is exactly the shape needed for the ladder to plausibly reach `C_q`'s true
-growth rate in the limit. **Still not a proof of `O(1/n)`** — four data points on excess-decay
+`11.21/32.72=0.343` — each rung's excess doesn't just keep halving, the ratio of decay itself
+is shrinking (0.760→0.472→0.343): the observed excess contraction strengthens with ladder depth.
+**CORRECTED (2026-09-12, per direct user pushback on an overclaim in this same paragraph):** an
+earlier draft of this sentence said the sequence is "converging FASTER than geometric decay" —
+too strong a claim from exactly three ratio data points. Three numbers establish a trend on the
+observed range, not an asymptotic rate; the honest statement is only that the contraction
+strengthens with depth on `n≤47`, not a claim about the limiting decay class. Separately, four-
+term tightness at `n=47` is `0.9429`, meaning the bound overshoots `C_q` by only `~6.1%`
+(`1/0.9429-1`), against naive's `~187%` overshoot (`1/0.3488-1`) at the same point — not a
+decorative improvement. **Still not a proof of `O(1/n)`** — four data points on excess-decay
 ratios is a trend, not an asymptotic theorem, and `n=47` remains a small computational ceiling —
 but per the user's own stated threshold ("если получится 32.8→30, общий закон искать уже
 гораздо менее интересно"), this result clears the promote bar clearly, not marginally.
@@ -1652,3 +1656,72 @@ but per the user's own stated threshold ("если получится 32.8→30,
 **Artifacts:** `check_l3_interior_energy_efficient.py`
 (+`metrics/l3_interior_energy_efficient.json`), `check_l4_ladder_bound_analytic.py`
 (+`metrics/l4_ladder_bound_analytic.json`).
+
+## Point 22 (2026-09-12) — Exam 3, stage 1: tail-concentration reformulation reveals a
+complication the aggregate four-term result was masking
+
+**Context.** The user proposed reformulating Exam 3 away from a per-level geometric-decay
+hypothesis (`E_l~Aρ^l`, risky since mass visibly migrates upward across levels) toward asking
+whether the Poincaré bound applied to the TAIL specifically — `R_r:=sum_{l>=r}E_l <= D_r/
+gamma_r:=sum_{l>=r}gamma_l*E_l / gamma_r` — becomes an increasingly tight, uniform-in-`n`
+approximation as `r` grows. `tail_tightness_r(n) := R_r/(D_r/gamma_r) ∈[0,1]`.
+
+**No new heavy computation was needed** — every ingredient is already inside the committed,
+verified `metrics/l4_ladder_bound_analytic.json` (point 21): `tail_tightness_1` is exactly the
+already-tabulated `naive_tightness`; `tail_tightness_r` for `r=2,3,4` is obtained by subtracting
+the exact known prefix (`E_1`,...,`E_{r-1}`) from both the numerator (`C_q`) and the
+corresponding bound before taking the ratio (`check_tail_concentration_ratio.py`).
+
+**Result, `C_q`-weighted aggregate (same weighting as points 15-21):**
+
+| n | tail_tightness_1 | tail_tightness_2 | tail_tightness_3 | tail_tightness_4 |
+|---:|---:|---:|---:|---:|
+| 23 | 0.5208 | 0.9081 | 0.9297 | 1.0000 |
+| 29 | 0.4589 | 0.8314 | 0.8697 | 0.9748 |
+| 31 | 0.4412 | 0.8077 | 0.8501 | 0.9646 |
+| 37 | 0.3989 | 0.7446 | 0.7962 | 0.9310 |
+| 41 | 0.3757 | 0.7071 | 0.7665 | 0.9107 |
+| 43 | 0.3661 | 0.6916 | 0.7521 | 0.8996 |
+| 47 | 0.3488 | 0.6627 | 0.7275 | 0.8810 |
+
+**Two facts, both real, pointing opposite directions — reported without picking a winner:**
+
+1. **For FIXED `n`, tail_tightness increases monotonically with `r`** (e.g. `n=47`:
+   `0.3488→0.6627→0.7275→0.8810`) — removing more known-exact levels makes the Poincaré bound
+   on what remains genuinely tighter. Sanity-consistent with the already-verified boundary
+   identity: at `q` where `min(q,N-q)=r` exactly, only one level remains and
+   `tail_tightness_r=1.0` exactly (already confirmed throughout points 18-21).
+
+2. **For FIXED `r`, tail_tightness DECLINES as `n` grows** — at `r=4`:
+   `1.0000→0.9748→0.9646→0.9310→0.9107→0.8996→0.8810` (`n=23→47`), a real ~12pp drop, not noise
+   (matches the sign and rough magnitude of the same decline already visible at `r=1,2,3`). This
+   is the OPPOSITE of what the user's proposed uniform-in-`n` concentration law would need at a
+   FIXED, finite `r` — the tail bound is getting LOOSER with `n`, not tighter, when isolated from
+   the exact-known prefix.
+
+**Why the aggregate four-term result (point 21, `0.9429` at `n=47`) didn't show this:** algebra,
+not a contradiction — for `a<b`, `c>0`: `(a+c)/(b+c) > a/b`. With `a=R_4`, `b=D_4/gamma_4`,
+`c=E_1+E_2+E_3` (exact, positive, and a SUBSTANTIAL fraction of `C_q`), the full four-term
+tightness `(c+R_4)/(c+D_4/gamma_4)` is ALWAYS closer to 1 than the tail-only ratio `R_4/
+(D_4/gamma_4)`. The exact-known prefix dilutes and masks how the residual tail bound itself is
+actually behaving — point 21's optimistic aggregate number was real (the bound genuinely is
+much tighter than three-term), but it does not by itself demonstrate the tail-concentration
+mechanism the user proposed as the underlying explanation.
+
+**Most likely honest explanation, not yet independently verified:** `r=4` is FIXED while the
+total number of available levels (`~min(q,N-q)`, scaling with `N~n`) grows — so a fixed `r`
+captures a shrinking FRACTION of the spectral range as `n` grows. This reframes what a genuine
+uniform-in-`n` statement would need: not `tail_tightness_r(n)→1` for fixed `r`, but a question
+about how `r` must scale with `n` (e.g. `r(n)~log n` vs `r(n)~n^c`) to hold a target tightness —
+a materially different, and harder, question than either the original per-level geometric-decay
+idea or the tail-concentration-at-fixed-`r` idea as first stated.
+
+**Status: reported, not yet resolved.** This is exactly the kind of finding this project's own
+`falsification-ladder.md` Adaptive Iteration Branch Rule exists for — a mid-flight complication
+surfaced by data, not by opinion, requiring a branch decision from the user rather than a
+unilateral pivot. Not treated as a kill of Exam 2's PROMOTE verdict (that verdict rests on the
+already-verified four-term inequality holding with 0 violations, which is unaffected) — only as
+a correction to which SPECIFIC mechanism (tail concentration at fixed `r`, vs. something that
+scales `r` with `n`) plausibly explains it.
+
+**Artifacts:** `check_tail_concentration_ratio.py` (+`metrics/tail_concentration_ratio.json`).
