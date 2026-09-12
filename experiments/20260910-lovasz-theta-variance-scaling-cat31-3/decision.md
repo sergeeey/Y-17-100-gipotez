@@ -1567,3 +1567,88 @@ construction reusing `P_1,P_2`) is n-independent and has no reason to fail at la
 open question is purely computational feasibility, not mathematical correctness.
 
 **Artifacts:** `check_l3_interior_energy.py` (+`metrics/l3_interior_energy.json`).
+
+## Point 21 (2026-09-12) — Exam 2 stages D+E: `E_3` scaled to all 7 `n`; the four-term ladder
+kill-or-promote test — PROMOTE, excess growth accelerates past halving
+
+**Context — an explicit methodological redirect from the user, not a default next step.** After
+point 20's breakthrough (general `E_3(q)` verified, but only at `n=23,29,31`), the user
+argued against jumping straight to Exam 3 (a general law for arbitrary `l`): "проверить, что
+это реально делает с four-term Poincaré bound" first, because extending `E_1+E_2` to `E_1+E_2+E_3`
+in the sharpened ladder is a cheap, decisive "kill-or-promote" test for the WHOLE mechanism —
+either the excess-growth-halving pattern (`91.3pp→69.3pp→32.8pp`, point 18) continues at a
+fourth rung, making a general law worth pursuing, or it plateaus, meaning the Johnson-ladder
+route may be near its ceiling regardless of what a general `l` formula would say. Accepted and
+executed in this order: (D) scale `E_3` to `n=37,41,43,47`; (E) compute the actual four-term
+bound and the excess-growth number.
+
+**Stage D — scaling `E_3` without `(v,C(N,3))` (`check_l3_interior_energy_efficient.py`).**
+The direct brute-force matrix from point 20 does not scale past `n=31` (`n=47`: `v` up to
+705432, `C(22,3)=1540` → ~8.7GB for one matrix). Algebraic reduction: since
+`mu_abc = Cov(f,z_abc) = Cov(f,E_abc) - Cov(P_1(f),E_abc) - Cov(P_2(f),E_abc)` (self-adjointness
+of the projection operators), and `Cov(w,E_abc)` for ALL triples at once is one matmul against
+the ALREADY-BUILT `(v,C(N,2))` pair matrix (`weighted = big_e_pair * w[:,None]; M_w =
+weighted.T @ big_e / v`), the `(v,C(N,3))` structure is never materialized — peak memory stays
+`O(v·C(N,2))`, the same class `check_l2_analytic_projection.py` already handles at `n=47`.
+**Sanity check FIRST** (re-derive `n=23,29,31` with the new method and require EXACT agreement
+with point 20's brute-force result before trusting anything larger): **0/22 violations, matches
+to `<1e-9`.** Then extended cleanly to `n=37,41,43,47` (58 more layers, no errors), including
+correct exact zeros at every self-complementary middle layer (`n=37,q=8.5`-equivalent boundary,
+`n=43,q=10`, `n=47,q=11`, etc.) — `E_3/C_q` at the `q=3,N-3` boundary continues the declining
+trend already seen for `n≤47` (point 19's table extended: `0.2547→...→0.2200`, unchanged, since
+this stage only adds interior-layer coverage).
+
+**Stage E — the four-term bound (`check_l4_ladder_bound_analytic.py`):**
+
+```
+C_q  <=  E_1 + E_2 + E_3 + (T_q/2 - gamma_1*E_1 - gamma_2*E_2 - gamma_3*E_3) / gamma_4
+```
+
+`E_3=0` at `q∈{1,2,N-2,N-1}` (matching the existing `E_2=0` convention at `q∈{1,N-1}`). Verified
+**0 violations** (`four_holds` and `four_le_three` both hold at every layer, all 7 `n`) before
+trusting the aggregate. Full tightness table (`C_q`-weighted aggregate, same weighting as points
+15-18):
+
+| n | naive | two-term | three-term | **four-term** |
+|---:|---:|---:|---:|---:|
+| 23 | 0.5208 | 0.9134 | 0.9838 | **1.0000** |
+| 29 | 0.4589 | 0.8361 | 0.9519 | **0.9947** |
+| 31 | 0.4412 | 0.8116 | 0.9389 | **0.9911** |
+| 37 | 0.3989 | 0.7473 | 0.8985 | **0.9757** |
+| 41 | 0.3757 | 0.7093 | 0.8717 | **0.9632** |
+| 43 | 0.3661 | 0.6936 | 0.8593 | **0.9563** |
+| 47 | 0.3488 | 0.6643 | 0.8358 | **0.9429** |
+
+At `n=23`, `min(q,N-q)≤5` for every layer, so `q=4,6` (`min=4`, only `l=1..4` exist) hit the
+four-term bound EXACTLY (`C_q=four_term_bound` to 9 decimals — the same boundary-exactness
+pattern already used for `E_2`,`E_3`, now showing up automatically inside the bound itself), and
+even `q=5` (`min=5`, `l=1..5` all exist) matches to `~1e-16` — consistent with `E_5≈0` at the
+self-complementary middle layer, the same antisymmetry-driven vanishing already observed for
+`E_1` at odd levels there (not separately re-verified here, noted as a plausible mechanism, not
+claimed proven).
+
+**Excess growth (SAME methodology as points 16/18 — `n²·bound` growth from `n=23→47`, minus
+the observed `n²·C_q` growth of `+84.92%`):**
+
+| Bound version | growth of `n²·bound`, `n=23→47` | excess over observed |
+|---|---:|---:|
+| naive | +176.12% | +91.20 pp |
+| two-term | +154.25% | +69.33 pp |
+| three-term | +117.65% | +32.72 pp |
+| **four-term** | **+96.13%** | **+11.21 pp** |
+
+**Verdict on the kill-or-promote question, stated as the user framed it: PROMOTE, not a
+plateau.** The ratio of successive excess values is `69.33/91.20=0.760`, `32.72/69.33=0.472`,
+`11.21/32.72=0.343` — each rung's excess doesn't just keep halving, the RATIO OF DECAY ITSELF
+IS SHRINKING (0.760→0.472→0.343), i.e. the sequence is converging FASTER than geometric decay,
+not just at a constant halving rate. This is a stronger signal than "the pattern continues" —
+it is evidence the excess may be converging toward zero faster than a simple `2^{-l}`-type decay
+would predict, which is exactly the shape needed for the ladder to plausibly reach `C_q`'s true
+growth rate in the limit. **Still not a proof of `O(1/n)`** — four data points on excess-decay
+ratios is a trend, not an asymptotic theorem, and `n=47` remains a small computational ceiling —
+but per the user's own stated threshold ("если получится 32.8→30, общий закон искать уже
+гораздо менее интересно"), this result clears the promote bar clearly, not marginally.
+
+**Artifacts:** `check_l3_interior_energy_efficient.py`
+(+`metrics/l3_interior_energy_efficient.json`), `check_l4_ladder_bound_analytic.py`
+(+`metrics/l4_ladder_bound_analytic.json`).
