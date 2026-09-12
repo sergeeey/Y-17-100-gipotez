@@ -1517,3 +1517,53 @@ positive but partial signal for Exam 2's question, not a completed four-term lad
 
 **Artifacts:** `verify_l2_projection_rigorous.py`, `check_l3_boundary_energy.py`
 (+`metrics/l3_boundary_energy.json`).
+
+## Point 20 (2026-09-12) — Exam 2 stage C: general interior-layer `E_3(q)` formula,
+verified 22/22, 0 violations
+
+**Context:** point 19 deliberately stopped at the `q=3,N-3` boundary, flagging the general
+interior-layer formula as the harder, higher-risk part of Exam 2 — no closed form was supplied,
+and a from-scratch symbolic triple-centering derivation risked a sign/index error. Explicit user
+instruction: "продолжай к interior-layer формуле E3(q)".
+
+**Approach (avoiding a from-scratch symbolic derivation):** reuse the already-verified `P_1`,
+`P_2` operators (point 19) as generic projections — apply them to the raw triple indicator
+`E_abc(S) = e_a(S)e_b(S)e_c(S)` **as the target function**, instead of `f`. Since `E_abc` is
+degree-3 in the 0/1 indicators, it lives entirely in `V_0⊕V_1⊕V_2⊕V_3` — nothing above `V_3` to
+remove. `z_abc(S) := E_abc(S) - P_1[E_abc](S) - P_2[E_abc](S)` is therefore exactly `E_abc`'s pure
+`V_3` part, reusing code already verified to 0/94 violations rather than re-deriving inclusion-
+exclusion by hand. `lambda_3` was HYPOTHESIZED by pattern-matching the already-verified
+`lambda_1`, `lambda_2` closed forms (`lambda_l = [q]_l[N-q]_l/[N]_{2l}`, falling factorials) —
+stated explicitly as a hypothesis requiring verification, not assumed correct.
+
+**First attempt FAILED, caught and diagnosed, not glossed over:** the initial implementation gave
+`E_3` values 8x to over 1000x too large (e.g. `n=23,q=7`: formula gave `7.91` against a true value
+of `0.0077`). Diagnosed via a Gram-matrix inspection of `{z_abc}` (`diagnose_l3_gram.py`,
+scratchpad): the raw Gram matrix had 8 distinct eigenvalue clusters (0.0083 to 0.102) and rank 111
+of 120 — nowhere near the expected single-eigenvalue, rank-75 structure a correct pure-`V_3`
+projection should have. **Root cause:** the code computing `Cov(E_ab, E_target)` for the `P_2`
+step correlated only the single indicator `e_a` against the target, not the full pair product
+`e_a*e_b` — undercounting the `V_1/V_2` content removed from `E_abc`, leaving `z_abc` far from
+pure `V_3`. **Fix:** `mu_pairs_triples = big_e_pair.T @ eabc_centered / v` (using the already-built
+pair-indicator matrix, matching the exact pattern `e2_analytic` uses against `f`). After the fix,
+the Gram matrix of `{z_abc}` has an EXACTLY constant diagonal (0.00527777... to 15 decimal places
+across all 120 triples at `n=23,q=3`) and a single nonzero-eigenvalue cluster equal to
+`lambda_3` exactly — confirming both the fix and the `lambda_3` hypothesis in one diagnostic.
+
+**Verification, `check_l3_interior_energy.py`, `n=23,29,31` (`N<=14`, direct `(v,C(N,3))`
+matrix construction feasible):** `E_3 = sum(mu_abc^2)/lambda_3` checked at EVERY interior layer
+(not just the boundary), cross-validated two ways: (1) against `metrics/johnson_eigenspace_
+decomposition.json`'s exact diagonalization (l=3 eigenspace, matched via the Eberlein formula) —
+available at every layer for these three `n`; (2) against point 19's independently-verified
+boundary result at `q=3,N-3`. **22/22 layers, 0 violations, matches to `<1e-9`** — including a
+correct exact zero at the middle layer (`n=23,q=5` and `n=31,q=7`: both formula and diagonalization
+agree on `E_3≈0`, a real structural fact, not a bug). `Var(h)-E_3` (the `l>=4` tail) is
+non-negative at every layer, as required.
+
+**Scope, honestly:** verified at `n=23,29,31` only — the direct `(v,C(N,3))` matrix construction
+does not scale to `n=37-47` without a smarter (combinatorial closed-form, not brute-force matrix)
+computation of `mu_abc`, not yet attempted. The formula itself (`lambda_3` + the `z_abc`
+construction reusing `P_1,P_2`) is n-independent and has no reason to fail at larger `n` — the
+open question is purely computational feasibility, not mathematical correctness.
+
+**Artifacts:** `check_l3_interior_energy.py` (+`metrics/l3_interior_energy.json`).

@@ -32,12 +32,14 @@ Checks:
 from __future__ import annotations
 
 import importlib.util
+import json
 from itertools import combinations
 from pathlib import Path
 
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
+METRICS = HERE / "metrics"
 
 necklace_mod = importlib.util.spec_from_file_location(
     "necklace_mod_l2proj", HERE / "check_necklace_orbit_reduction.py"
@@ -172,3 +174,7 @@ if __name__ == "__main__":
     if violations:
         for v in violations:
             print("  VIOLATION:", v)
+
+    METRICS.mkdir(exist_ok=True)
+    with open(METRICS / "l2_projection_rigorous.json", "w", encoding="utf-8") as f:
+        json.dump({"rows": all_rows, "violations": violations}, f, indent=2)
