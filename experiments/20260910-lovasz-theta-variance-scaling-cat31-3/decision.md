@@ -1725,3 +1725,66 @@ a correction to which SPECIFIC mechanism (tail concentration at fixed `r`, vs. s
 scales `r` with `n`) plausibly explains it.
 
 **Artifacts:** `check_tail_concentration_ratio.py` (+`metrics/tail_concentration_ratio.json`).
+
+## Point 23 (2026-09-12) — Exam 3, stage 2: effective spectral level `l_eff`, independently
+verified; real target is `l_eff=O(1)` (not `O(N)`), question left open
+
+**Context.** In response to point 22's finding (`tail_tightness_4` declines with `n`), the user
+derived a reformulation rather than accepting either the original geometric-decay idea or their
+own earlier "scale `r` with `n`" proposal: since `gamma_l=l(N+1-l)/(q(N-q))` (the already-used
+swap-walk gap formula), the `q(N-q)` factor cancels inside `t_r:=R_r/(D_r/gamma_r)`, giving
+`1/t_r` a clean reading as the tail's `E_l`-weighted average of `l(N+1-l)`, normalized to the
+boundary value `r(N+1-r)`. Solving `l_eff(N+1-l_eff)=r(N+1-r)/t_r` for the root near `r` turns
+this into a single "effective spectral level": at `r=4`, does the residual tail behave, on
+average, as if concentrated near `l=4`, or does it drift toward the growing available range?
+
+**Independently re-derived, not taken on the user's word (`check_effective_spectral_level.py`,
+per `audit-verification-gate.md`):** re-solved the same quadratic from the already-committed
+`tail_tightness_4` values — matches the user's own numbers exactly: `l_eff` = `4.000, 4.178,
+4.239, 4.434, 4.548, 4.612, 4.719` for `n=23,29,31,37,41,43,47`. The derivation and arithmetic
+are correct.
+
+**CORRECTED (2026-09-12, before this point was even first pushed — user caught two math
+issues in the same-session draft before it was merged, both accepted and applied here):**
+
+**Correction 1 — the original "delta grows faster than log(N) and sqrt(N)" claim is not
+justified by this data and is retracted.** `delta:=l_eff-4` is exactly `0` at the first point
+(`N=10`); dividing any subsequent positive value by `log(N)`, `sqrt(N)`, or `N` trivially makes
+every one of those ratios "increase from zero" — that is an artifact of the starting point, not
+a test that discriminates between asymptotic growth classes. None of the three normalized
+ratios stabilizing on a 7-point, `N=10..22` range is not evidence FOR faster-than-`sqrt(N)`
+growth; it is simply too short a range to identify any growth class this way. The correct,
+honest statement is only: `l_eff` shows a finite-range upward drift (`4.000→4.719`), and simple
+normalization diagnostics on this data are inconclusive — not that they positively indicate fast
+growth.
+
+**Correction 2 — the fallback target `l_eff=O(N)` (stated in the pre-correction draft of this
+point) is far too weak to be useful, and is replaced by the actual requirement,
+`l_eff=O(1)`.** Independently re-derived (not taken on the user's word): `t_4 = 4(N-3)/
+(l_eff·(N+1-l_eff))`. If `l_eff=o(N)` (in particular if `l_eff→∞` at ANY rate slower than `N`,
+even `log log N`), then `N+1-l_eff~N`, so `t_4 ~ 4(N-3)/(l_eff·N) ~ 4/l_eff → 0`. If instead
+`l_eff~cN` for a constant `c∈(0,1)`, `t_4 ~ 4/(c(1-c)N) → 0` even faster. **Only `l_eff=O(1)`
+(i.e. `l_eff` converging to a finite limit, not just growing sub-linearly) gives `t_4≥c>0`
+uniformly.** `O(N)` was nearly vacuous as a target — almost any realistic growth of `l_eff`
+already satisfies it while still forcing `t_4→0`.
+
+**The real fixed-`r` kill-or-promote question, stated precisely:** does `l_eff(N)` converge to
+a finite limit (Scenario A: fixed `r` gives uniform constant-factor tail control, a strong
+result) or diverge, even slowly (Scenario B: fixed `r` is asymptotically insufficient, and the
+investigation must move to `r=r(N)`)? **The 7 available points (`l_eff: 4.000→4.719`,
+`N:10→22`) cannot distinguish a genuine finite limit from `log log N`, `log N`, or another
+slowly-diverging function — the range is simply too short.**
+
+**Honest status: `fixed-r localization remains unresolved; l_eff shows finite-range upward
+drift.`** Neither "essentially bounded" nor "diverging" is established. This is exactly the
+`integrity.md` Confidence Scoring case where `<2` independent structural confirmations caps
+confidence at `LOW`/`SPECULATIVE` — clean per-point arithmetic does not by itself resolve an
+asymptotic question.
+
+**Not treated as contradicting point 22's finding or Exam 2's PROMOTE verdict** — both remain
+correct as stated; this only sharpens what Exam 3's fixed-`r` theorem target actually is
+(`l_eff=O(1)`, not the far weaker `O(N)`), and names the real next question: **is `l_eff(N)`
+bounded as `N` grows, for fixed `r`? Only if the answer is no does moving to `r=r(N)` become the
+next necessary step.**
+
+**Artifacts:** `check_effective_spectral_level.py` (+`metrics/effective_spectral_level.json`).
