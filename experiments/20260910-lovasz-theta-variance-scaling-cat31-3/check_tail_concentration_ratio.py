@@ -55,8 +55,17 @@ def per_layer_tail_tightness(row: dict) -> dict:
     r4 = c_q - e1 - e2 - e3
     d4_over_g4 = row["four_term_bound"] - e1 - e2 - e3
 
-    def safe_ratio(num: float, den: float) -> float | None:
-        if den <= 0:
+    q, big_n = row["q"], row["N"]
+    max_level = min(q, big_n - q)
+
+    def safe_ratio(num: float, den: float, level: int) -> float | None:
+        # Structural existence check, not a den<=0 heuristic: at levels that don't exist for
+        # this layer (max_level < level), both num and den are floating-point noise around zero
+        # (~1e-17-1e-18), and den<=0 alone lets through noise that happens to land positive,
+        # producing spurious out-of-range ratios (reviewer-flagged 2026-09-12: up to 5.0 seen in
+        # the committed metrics before this fix, though the aggregate was unaffected since it
+        # sums raw R_r/D_r terms, not these per-layer ratios).
+        if max_level < level:
             return None
         return num / den
 
@@ -64,10 +73,10 @@ def per_layer_tail_tightness(row: dict) -> dict:
         "q": row["q"],
         "N": row["N"],
         "C_q": c_q,
-        "tail_tightness_1": safe_ratio(r1, d1_over_g1),
-        "tail_tightness_2": safe_ratio(r2, d2_over_g2),
-        "tail_tightness_3": safe_ratio(r3, d3_over_g3),
-        "tail_tightness_4": safe_ratio(r4, d4_over_g4),
+        "tail_tightness_1": safe_ratio(r1, d1_over_g1, 1),
+        "tail_tightness_2": safe_ratio(r2, d2_over_g2, 2),
+        "tail_tightness_3": safe_ratio(r3, d3_over_g3, 3),
+        "tail_tightness_4": safe_ratio(r4, d4_over_g4, 4),
         "R_1": r1,
         "R_2": r2,
         "R_3": r3,
