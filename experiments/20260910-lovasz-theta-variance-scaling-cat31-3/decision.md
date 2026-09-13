@@ -2973,3 +2973,206 @@ spread (7 points, `N≤22`, no theory attempted); does NOT by itself change the 
 24's boundedness question; does NOT mean `M_r` for `r>6` would show the same pattern (untested).
 
 **Artifacts:** `check_higher_moments_M1_M6.py` (+`metrics/higher_moments_M1_M6.json`).
+
+## Point 39 (2026-09-13) — Two cheap falsification tests from a second external re-analysis of
+points 35-38: one refutes its central pessimistic argument, one weighs against its own
+suggested fix
+
+**Context.** After points 35-38, the user forwarded a second, more detailed external
+re-analysis proposing a specific mathematical argument (its own "§2.3") for why the generic
+moment-bound route is "fundamentally obstructed" — assuming `α_s` (the `n`-decay exponent of
+`M_s`) grows LINEARLY in `s`, it derives that the tail bound `B_{s,k}=Σ_{l<k}E_l+M_s/γ_k^s`
+cannot improve past a fixed exponent (`≈n^{-0.95}`) regardless of `(s,k)` choice, and
+separately proposes ("Variant C") re-fitting `Var(X_n)` with an additive `A/n+B/n^{1.5}` model
+to check for a positive leading `A/n` coefficient. Per this project's own discipline (an
+external analysis's derivation is `[INFERRED]`, not `[VERIFIED]`, until checked against this
+project's own data — audit-verification-gate.md), both claims were tested directly, cheaply,
+using data already on hand — no new theta-solves for either check.
+
+**Test 1 — is `α_s` actually linear in `s`? NO — it is concave (sub-linear), which refutes the
+specific "fundamentally obstructed" argument as stated.** `check_alpha_s_linearity.py` computes
+`α_s` (log-log slope of `M_s` vs `n`, `s=1..6`) directly from point 38's already-committed
+`metrics/higher_moments_M1_M6.json` (`n=23..47`):
+
+| s | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|
+| `α_s` | 1.704 | 2.143 | 2.488 | 2.778 | 3.037 | 3.278 |
+
+Consecutive differences `α_{s+1}-α_s`: **`0.440, 0.345, 0.290, 0.260, 0.241`** —
+**strictly decreasing at every step**, not constant (residuals of the linear-in-`s` fit,
+persisted in `metrics/alpha_s_linearity_check.json` for re-audit: `-0.093, +0.037, +0.072,
++0.052, +0.001, -0.068` — curved, not random, despite the fit's superficially high `R²=0.987`).
+**Significance check (reviewer suggestion, point 39 — added so this conclusion doesn't rest on
+eyeballing 5 numbers): under the null that the 5 differences are exchangeable (no trend), the
+exact chance of observing them in perfectly sorted decreasing order is `1/5!≈0.00833`** (brute-
+force permutation count, not a normal-approximation) — this IS significant at the conventional
+`α=0.05` threshold, unlike Test 2's own significance check below. **The external analysis's
+§2.3 argument requires `α_s=α_1+(s-1)(1-θ)` for a CONSTANT `θ`** (equivalently,
+`(α_s-α_1)/(s-1)` constant across `s`) — checked directly: `0.440, 0.392, 0.358, 0.333, 0.315`
+for `s=2..6`, also monotonically decreasing, confirming the assumption does not hold.
+**Conclusion: the specific mathematical argument for "moment-route stuck regardless of `s`"
+does NOT survive contact with this project's own already-computed data.** This does NOT mean
+the moment route works — concave `α_s` still means diminishing returns per additional moment,
+and whether the returns diminish fast enough to prevent ever reaching the needed `n^{-2}` scale
+is genuinely open, unresolved by this cheap check alone (that remains item 4's job, if
+pursued). What this DOES mean is narrower and solid: a specific pessimistic argument, built on
+an unverified linearity assumption, is refuted — the moment route's fate should not be
+considered settled by that argument.
+
+**Test 2 — does refitting `Var(X_n)` with an `A/n`-leading additive model actually improve on
+the already-established plain power law? INCONCLUSIVE — an initial "yes, misspecified" reading
+of the sign-runs check was itself statistically unsupported (reviewer P1, corrected below,
+not silently absorbed).** `check_var_additive_fit.py` re-fits this experiment's ROOT-level
+Monte Carlo sweep (`metrics/run.json`, `n=32..3000`, `var_log_ratio` = `Var(X_n)` directly —
+the actual quantity of interest, not a proxy) with three `A/n`-leading additive models
+(`A/n+B/n^{1.5}`, `A/n+B/n²`, `A·log(n)/n+B/n`) against the plain power law already committed
+there (`slope≈-0.9126`, `verdict: REJECTED` for the original `O(1/n)` claim).
+
+| Model | `R²` | sign-runs (out of 9) | pos/neg split | Wald-Wolfowitz `z` |
+|---|---|---|---|---|
+| power law `n^p` | 0.9924 | 7 | 6+/3- | 1.633 |
+| `A/n+B/n^{1.5}` | 0.9976 | 3 | 8+/1- | 0.535 |
+| `A/n+B/n²` | 0.9976 | 3 | 8+/1- | 0.535 |
+| `A·log(n)/n+B/n` | 0.9976 | 3 | 8+/1- | 0.535 |
+
+All three additive models DO fit with a marginally higher raw `R²`, and all three DO recover a
+large positive `A≈3.65-3.67`. **A first pass at this point compared the raw sign-runs counts
+(7 vs 3) and called the additive models' pattern a "textbook misspecification signature" — a
+reviewer caught this as statistically unsupported and it is corrected here, not left standing.**
+Raw run counts are NOT comparable across fits with different positive/negative splits: an 8+/1-
+split can achieve AT MOST `2·min(8,1)+1=3` runs, so "3 runs" there is close to that split's OWN
+expected value, not anomalous. The proper normalization is the Wald-Wolfowitz runs-test
+`z`-score (`z=(runs-μ)/σ`, `μ=2n₁n₂/N+1`) — computed for both families: **`z≈0.535`** for every
+additive model, **`z≈1.633`** for the power law. **Neither exceeds `|z|=2` — neither residual
+pattern is statistically distinguishable from random at `n=9`.** The `R²` gap (`0.9976` vs
+`0.9924`) is itself marginal. **Corrected conclusion: this specific check is INCONCLUSIVE at
+`n=9` — it does not demonstrate that forcing an `A/n` leading term produces either a better or
+a worse fit than the plain power law on this dataset.** It also does NOT retroactively support
+the additive model — the large recovered `A≈3.65` is not independently validated by anything in
+this check beyond the (also inconclusive) `R²` comparison.
+
+**Verdict.** Test 1 is a solid, `[VERIFIED-REAL]` refutation of the second external analysis's
+central pessimistic argument (`p≈0.0083`, real significance, not a coincidence of 5 numbers).
+Test 2 started as an attempted refutation of the analysis's proposed rescue ("Variant C") but
+its own statistical backing did not survive review — the honest outcome is that Test 2 settles
+NOTHING either way, and is recorded as a null/inconclusive result rather than quietly dropped
+(per this project's own null-results discipline: a check that doesn't discriminate is still
+worth recording, so the same untested claim isn't re-litigated from scratch later). Net effect:
+the second external analysis's central pessimistic argument is refuted; its proposed rescue is
+neither confirmed nor refuted by this specific check. The core question (does `Var(X_n)=O(1/n)`,
+and is the moment route viable) remains open.
+
+**What this does NOT mean:** does NOT mean the moment route (item 4) will succeed if pursued —
+only that one specific argument for why it must fail is wrong; does NOT mean `Var(X_n)` is
+exactly `n^{-0.91}` forever — 9 points up to `n=3000` is still a finite window; does NOT mean
+`A>0` is false — only that the specific 2-parameter additive forms tested here don't fit better
+than the plain power law on this dataset; a differently-shaped correction term was not ruled
+out.
+
+**Artifacts:** `check_alpha_s_linearity.py` (+`metrics/alpha_s_linearity_check.json`),
+`check_var_additive_fit.py` (+`metrics/var_additive_fit_check.json`).
+
+## Point 40 (2026-09-13) — Priority A/B Source Trace (autonomous research mission, Step -4):
+real literature search, one route ruled out with a concrete reason, one candidate flagged as
+unresolved, no ready-made Lovász-theta-specific theorem found
+
+**Context.** Per the user's autonomous-research-mission brief (2026-09-13), Priority A
+(second-order/higher-order variance inequalities) and Priority B (Lovász-theta-specific value
+sensitivity) call for a Source Trace BEFORE any proof attempt — real primary sources via actual
+tools (arxiv, OpenAlex via `mcp__scientific-papers`), never citing from memory. Searches
+performed; results below, each explicitly `[CLASSICAL]` (verified via tool) or a documented
+absence (not proof of non-existence — a keyword search finding nothing is `[UNKNOWN]`, not
+`[RETRACTED]` or `[NULL RESULT]` for the broader literature).
+
+**Finding 1 — self-bounding functions `[CLASSICAL, NOT DIRECTLY APPLICABLE]`.** Boucheron,
+Lugosi, Massart, "On concentration of self-bounding functions" (EJP 14, 2009) — verified via
+OpenAlex (id `W2092654494`). Self-bounding functions require a ONE-SIDED condition on
+coordinate differences (`0≤f-f_i≤1`, i.e. removing a coordinate can only decrease `f`, never
+increase it). **This project's own already-established, twice-verified fact rules this out
+directly for `X`:** `δ_i` has EXACT even-degree Fourier parity (point 32) and the mixed second
+difference `Δ_iΔ_jX` has EXACT odd-degree parity (point 37), both implying `g(S)=-g(S^c)`
+exactly — i.e. `δ_i` and `Δ_iΔ_jX` are provably SIGN-SYMMETRIC (zero mean, `frac≤0=0.5` exactly),
+not one-signed. **The self-bounding-function framework's central hypothesis is therefore
+violated by an already-proven structural fact about this specific `X`, not by assumption.**
+This is a genuine, well-grounded route closure — not "we didn't find a way to apply it", but
+"the entry condition is provably false here".
+
+**Finding 2 — second-order Poincaré inequality `[CLASSICAL, APPLICABILITY UNRESOLVED]`.**
+Chatterjee (2009) and Nourdin-Peccati-Reinert (2009) — verified indirectly via Vidotto (2017,
+arXiv:1706.06985) which cites both by name and year while presenting "An Improved Second Order
+Poincaré Inequality for Functionals of Gaussian Fields" (confirms the primary sources exist and
+their approximate content, though the two founding papers themselves were not directly fetched
+in this pass). **This machinery is built for GAUSSIAN fields** (bounding distributional distance
+to normality via Malliavin-Stein / Gaussian chaos methods) — whether a discrete-cube/Johnson-
+scheme analogue exists as a NAMED, citable result was searched for directly (multiple query
+variants: "second order Poincare inequality discrete Boolean cube", "second order Poincare
+inequality discrete combinatorial variance quadratic functional") and **no direct hit was
+found**. This is recorded honestly as `[UNKNOWN]`, not `[RETRACTED]` — a keyword search finding
+nothing is weak evidence of absence, not proof; a discrete analogue may exist under different
+terminology (the search surfaced adjacent-but-not-matching results: matrix concentration,
+multiscale Poincaré for continuum random fields, order-statistics concentration — none a
+discrete-cube second-order Poincaré). **Flagged as the single most promising still-open thread
+from Priority A** — deriving (not just citing) a degree-weighted variance inequality specific
+to this project's Johnson-scheme setting remains a live, unexplored option, distinct from citing
+an existing theorem.
+
+**Finding 3 — Lovász-theta-specific sensitivity/concentration for random graphs
+`[SEARCHED, NOT FOUND]`.** Two directly relevant, real papers were found and read (abstracts):
+Banks, Kleinberg, Moore, "The Lovász Theta Function for Random Regular Graphs and Community
+Detection in the Hard Regime" (arXiv:1705.01194) — addresses THRESHOLD behavior (when `θ` can
+refute `k`-colorability relative to the Kesten-Stigum threshold), not variance/concentration of
+`θ` itself. Feige, Grinberg, "Upper bounds on the theta function of random graphs" (arXiv:
+2506.02952, 2025 — genuinely recent) — **notable finding in its own right**: even the leading
+CONSTANT in `θ(G_{n,1/2})=Θ(√n)` has been open for over 40 years, and this 2025 paper's own
+`1.55√n` bound is explicitly a CONJECTURE based on unproven assumptions, not a theorem. Neither
+paper addresses `Var(θ)` or concentration around the mean. **This is itself informative, not
+just a dead end**: if Lovász-theta-specific concentration/sensitivity results existed as a
+ready-made, easily-findable theorem, this experiment's entire multi-week investigation (points
+1-39) would likely have surfaced it already via any of the many prior Source Trace passes — its
+continued absence across an independent, fresh search this point is corroborating evidence
+(weak, not proof) that no such ready-made theorem exists, and any progress here likely requires
+DERIVING new structure specific to this project's `X`, not citing one.
+
+**Finding 4 — Stein's method for concentration (exchangeable pairs), Chatterjee-Dey 2010
+`[CLASSICAL, MOST PROMISING LEAD SO FAR]`.** Verified via DOI lookup: Chatterjee, Dey,
+"Applications of Stein's method for concentration inequalities" (Annals of Probability, 2010,
+also arXiv:0906.1034). Confirmed via direct abstract fetch (not title-matching alone) — this is
+**genuinely discrete/combinatorial**, not Gaussian: applications include the Curie-Weiss model,
+Ising model on lattices, and — most directly relevant — **exact large-deviation asymptotics for
+subgraph counts (including triangles) in Erdős-Rényi random graphs**. Subgraph counting in
+`G(n,p)` is a well-known paradigm case where naive Efron-Stein/McDiarmid bounds are famously
+LOOSE precisely because of higher-order dependency structure (a single edge can participate in
+many triangles, creating exactly the kind of "spectral migration to higher-degree terms" this
+project's own points 33/35/38 found for `X`) — the paper's own stated purpose is extending
+Stein's method to problems "involving complex dependencies" where standard tools "struggle".
+**This is a substantially closer structural analogue to this project's own setting than the
+Gaussian second-order Poincaré line (Finding 2)** — worth prioritizing for a full read of the
+actual technical machinery (not just the abstract) as the concrete next step, over continuing
+to search for a Lovász-theta-specific theorem that may not exist (Finding 3).
+
+**Verdict.** REJECT self-bounding functions as a route, with a concrete, already-proven
+structural reason (not speculative). PARK second-order Poincaré (Gaussian-specific, Finding 2)
+as `[UNKNOWN]` applicability to this discrete setting. PROMOTE Stein's method / exchangeable
+pairs (Finding 4) as the single most promising literature lead found this pass — genuinely
+discrete, explicitly built for exactly the "complex dependency, naive bounds too weak" regime
+this project is in. RECORD the Lovász-theta-specific literature search (Finding 3) as a
+genuine, if partial, null result: no ready-made theorem found across multiple searches,
+consistent with (not proof of) the frontier being genuinely open at this specific intersection.
+This matches the autonomous mission's own Priority ranking discipline (Priority A/B before
+Priority C) — none of Priority C (moment method with growing cutoff, item 4) was attempted in
+this point, per the mission's own instruction to prefer cheap literature-based
+falsification/discovery before expensive new computation.
+
+**What this does NOT mean:** does NOT mean second-order Poincaré is inapplicable — only that a
+direct discrete analogue wasn't found by keyword search, which is weak evidence at best; does
+NOT mean no Lovász-theta concentration theorem exists in the literature — only that a
+reasonably thorough search across two real academic search backends (arXiv, OpenAlex) in this
+session did not surface one; does NOT constitute a Hard Block Certificate (per the mission's
+own Step 20 criteria — literature search is not yet exhaustive, e.g. the two founding
+second-order-Poincaré papers were not read directly, and INSPIRE-HEP/Semantic Scholar were not
+usable this pass due to rate limits, not yet retried).
+
+**Artifacts:** none (pure literature Source Trace — no code, no metrics file; findings recorded
+here as the artifact, per this project's existing convention for `source_register.md`-style
+Step -4 documentation, kept inline rather than as a separate file since the search was narrow
+and does not warrant a standalone tracking document).
