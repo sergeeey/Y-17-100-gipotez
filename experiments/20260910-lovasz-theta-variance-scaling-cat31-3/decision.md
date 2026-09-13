@@ -2386,9 +2386,21 @@ in this experiment.
 **Artifacts:** `check_vertex_stability_probability.py` (updated to the corrected criterion)
 (+`metrics/vertex_stability_probability_check.json`).
 
-## Point 32 (2026-09-13) — Exam 3 stage 13: route A (symmetry) — a genuine NEW theorem
-(δ_i's Fourier spectrum is EVEN-parity, dual to X's own odd-parity), PROVEN and verified exactly;
-does NOT resolve point 24, but reframes it in a second, independent basis with the same signature
+## Point 32 (2026-09-13) — Exam 3 stage 13: route A (symmetry) — a STANDARD Boolean-Fourier
+fact (antisymmetric function ⟹ derivative's spectrum flips parity), newly APPLIED here to
+`δ_i` and verified exactly; does NOT resolve point 24, but reframes it in a second, independent
+basis with the same signature
+
+**Correction on framing, made before this point was merged (per the same discipline as point
+29's Filmus correction — "pathologically careful" about the word "new theorem," per the user's
+own direct pushback):** the underlying principle here — an antisymmetric function's discrete
+derivative has spectrum confined to the OPPOSITE parity — is a standard, two-line consequence of
+the already-textbook Fourier-shift identity `(D_i f)_hat(T) = f_hat(T∪{i})` (Boolean function
+analysis, e.g. O'Donnell's *Analysis of Boolean Functions*), not a new result in the abstract.
+**What is new here is only the APPLICATION** — recognizing that this project's own `X_n` (log-
+Lovász-theta) satisfies the antisymmetry premise (point 5) and applying the standard shift
+identity to `δ_i` specifically — and its exact verification against this experiment's own data.
+Framed and reported accordingly below, not as a mathematical discovery.
 
 **Context.** User requested route A of the plan: "symmetry + monotonicity + conditioning by
 layer... identities/cancellations from complement-antisymmetry, prime transitivity, and layer
@@ -2403,8 +2415,8 @@ operator). The classical Fourier identity `(D_i f)_hat(T) = f_hat(T∪{i})` for 
 combined with point 11's `X_hat(S)=0` for even `|S|`, forces `(D_i X)_hat(T)=X_hat(T∪{i})=0`
 whenever `|T∪{i}|` is even, i.e. whenever `|T|` is ODD. **So `δ_i`'s OWN Fourier spectrum (as a
 function of the remaining `m-1` coordinates) is confined to EVEN-degree sets — the DUAL parity
-to `X` itself.** This is a genuine new theorem for this experiment, not a restatement of point
-11, though it follows from it in two lines of standard algebra.
+to `X` itself.** This is a standard fact (two lines of textbook algebra), newly APPLIED here —
+not previously derived for `δ_i` in this experiment, but not a new abstract result either.
 
 **Verified exactly, not trusted from the algebra alone** (`check_delta_i_even_parity.py`):
 computed `X`'s full exact array via `theta_via_lp` (same machinery as point 11's own
@@ -2450,18 +2462,20 @@ low-degree bound, which this data does not show) and does NOT prove or disprove 
 boundedness — it adds one more independent data point on the same side of the question point 24
 already leaned toward.
 
-**Verdict: one real, cleanly PROVEN new theorem (δ_i's even-parity Fourier spectrum) — genuine
-route-A progress, exactly the kind of "identity from complement-antisymmetry" the plan asked
-for. The hoped-for shortcut to point 24 via Filmus's degree-preservation theorem does NOT
-materialize — the same growing-tail obstruction reappears in this independent basis.** Per the
-Cheapest Differentiating Test Protocol, this closes off the "low full-cube degree ⟹ bounded
-`l_eff`" shortcut cheaply (exact small-`n` data, no heavy new simulation) rather than investing
-in the harder quantitative Filmus-bound derivation for a premise that isn't supported.
+**Verdict: a standard fact, correctly applied and exactly verified (δ_i's even-parity Fourier
+spectrum) — genuine route-A progress on ITS OWN modest terms, exactly the kind of "identity from
+complement-antisymmetry" the plan asked for, but not a new mathematical result in itself. The
+hoped-for shortcut to point 24 via Filmus's degree-preservation theorem does NOT materialize —
+the same growing-tail obstruction reappears in this independent basis.** Per the Cheapest
+Differentiating Test Protocol, this closes off the "low full-cube degree ⟹ bounded `l_eff`"
+shortcut cheaply (exact small-`n` data, no heavy new simulation) rather than investing in the
+harder quantitative Filmus-bound derivation for a premise that isn't supported.
 
-**What remains open, unchanged:** point 24's `l_eff(N)` boundedness question itself. The new
-even-parity theorem is a genuine, standalone structural fact about `δ_i`, worth keeping
-regardless of what it does or doesn't say about the variance question — a real example of route
-A's "identities from symmetry" succeeding on its own terms even where it doesn't unlock the
-harder question.
+**What remains open, unchanged:** point 24's `l_eff(N)` boundedness question itself. The parity
+fact is a genuine, standalone structural narrowing (possible spectrum levels for `δ_i` go from
+`{1,2,3,4,...}` down to `{0,2,4,...}` — HALF the levels eliminated for free), worth keeping
+regardless of what it does or doesn't say about the variance question — but parity restriction
+is NOT low-degree concentration, and does not by itself constrain where on the even levels the
+energy sits.
 
 **Artifacts:** `check_delta_i_even_parity.py` (+`metrics/delta_i_even_parity_check.json`).
