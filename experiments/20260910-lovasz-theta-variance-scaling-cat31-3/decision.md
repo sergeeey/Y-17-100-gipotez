@@ -2056,3 +2056,126 @@ available methods up front, not rescuing a failed attempt.
 
 **Artifacts:** `derive_lambda_k_from_first_principles.py`
 (+`metrics/lambda_k_first_principles.json`).
+
+## Point 29 (2026-09-12) — Exam 3, stage 10: `lambda_k` first-principles work RECLASSIFIED —
+the general-`k` closed form is CLASSICAL (Johnson-scheme / inclusion-matrix spectral theory,
+Filmus 2016), not new mathematics; k=5 confirmed independently; algebra layer of Exam 3 closed
+
+**This is a correction, not a new discovery — recorded per the Hindsight Distortion Gap
+Heuristic discipline: the record below shows what was believed at each step, not retrofitted.**
+
+**Context.** After point 28, the user proposed pausing the CAS ladder (no k=6) and instead
+formulating a general induction step proving `lambda_k` for all `k` from `lambda_j`, `j<k`.
+Before committing effort to a from-scratch induction proof, the user's own recommended check —
+per this stack's `estimand-ops.md`/`rationalizations.md` "well-established ≠ checked" discipline
+and FL's AI-Hypothesis Pre-Gate Step -4 (Source Trace) — was to search whether `lambda_k`'s
+closed form already exists in the literature (initially framed as "check correspondence with
+Eberlein polynomials"). **This Source Trace was never run for points 26-28** (FL Step -3,
+Novelty Check, was skipped for this entire line of work) — an honest process gap, closed here.
+
+**What was found, verified against PRIMARY sources, not summaries:**
+
+1. **Filmus (2016), "An Orthogonal Basis for Functions over a Slice of the Boolean Hypercube,"
+   Electronic Journal of Combinatorics 23(1), P1.23 (arXiv:1406.0142).** Fetched and read the
+   paper's own LaTeX source directly (not an AI-generated summary) via `arxiv` MCP tools,
+   Section 4 ("Slices of the Boolean hypercube"). Theorem 4.1 gives, for the `(n,k)`-slice
+   orthogonal basis `{χ_B}`, `B` of degree `d`:
+   ```
+   ||χ_B||^2 = c_B · 2^d · k^(d)_(n-k)^(d)_ / n^(2d)_
+   ```
+   where `x^(d)_` is the falling factorial. With `n→N`, `k→q`, `d→k`: the core factor
+   `k^(d)_(n-k)^(d)_/n^(2d)_` is EXACTLY our `lambda_k = (q)_k(N-q)_k/(N)_{2k}`, proved for
+   ARBITRARY degree `d` by one short, general combinatorial computation
+   (`||χ_d||^2 = E[Π(x_{2i-1}-x_{2i})^2]`), not case-by-case. Lemma 4.3 of the same paper
+   independently confirms point 26's other cited fact: the paper's basis levels `𝒴_{n,0..k}`
+   span exactly the Johnson-scheme Bose–Mesner-algebra eigenspaces (our `V_k`), via Bannai–Ito
+   / Dunkl's representation-theoretic construction.
+
+2. **Inclusion-matrix spectral theory** (user-supplied derivation, tracing to Wilson's
+   inclusion-matrix diagonalization results; cited via a MathOverflow pointer to
+   Ghareghani–Ghorbani–Mohammad-Noori). Claim: the inclusion-product matrix
+   `M^(i)_{S,T} = C(|S∩T|, i)` has eigenvalue `Λ_j = C(q-j,i-j)·C(N-i-j,q-i)` on Johnson
+   eigenspace `V_j`. At `i=j=k`: `Λ_k = C(N-2k, q-k)`, and
+   `C(N-2k,q-k)/C(N,q) = (q)_k(N-q)_k/(N)_{2k}` (verified BY HAND here, pure factorial
+   cancellation — not accepted from the citation). Because this specific formula arrived via a
+   less rigorously-checked citation route (a MathOverflow pointer, not a fetched primary
+   source), it was verified INDEPENDENTLY: `verify_inclusion_matrix_eigenvalue.py` builds
+   `M^(k) @ Z_A` by brute-force summation over all `q`-subsets (exact `Fraction` arithmetic),
+   using the ALREADY-REVIEWED `Z_A`/`y_ab`/`z_abc` constructions from points 25-28 as
+   independent eigenvector witnesses (not new code written to match the claim). Result: **exact
+   vector equality** `M^(k) @ Z_A == C(N-2k,q-k) · Z_A` (not just an eigenvalue-ratio spot
+   check) at `(N,q,k) ∈ {(8,4,1..3), (9,5,1..3), (10,4,2)}` — 7/7 pass. This also gives a
+   SHORTER route to point 26's tight-frame theorem: `Σ_A Y_A⊗Y_A` is (up to the `1/C(N,q)`
+   inner-product normalization) exactly `BB^T` where `B` is the inclusion matrix `B_{S,A}=1[A⊆S]`;
+   its eigenvalue on `V_k` gives `Σ_A Z_A⊗Z_A = λ_k P_k` directly from elementary spectral
+   theory, WITHOUT needing Schur's lemma or `V_k` irreducibility as a separate step — Schur's
+   lemma is sufficient but, it turns out, not necessary for this particular fact.
+
+**Honest reclassification of points 27-28.** The self-adjoint recursive symbolic derivation
+(`derive_lambda_k_from_first_principles.py`, k=1..5) is NOT a novel proof closing an open gap in
+new mathematics — the gap was already closed by Filmus (2016) a decade earlier, via a
+structurally different, far shorter argument (one direct expectation computation, general in
+`d`, vs. our recursive tower requiring a qualitatively new technique at every other level: plain
+formula at k≤2, y_ab/r_ab projection at k=3, single self-adjoint cross-term at k=4, DOUBLE
+self-adjoint cross-term at k=5). What points 27-28's work DOES remain: a genuine, independently
+built, differently-derived confirmation of the same closed form — methodologically valuable per
+this stack's Independent Verification Strength Ladder (`falsification-ladder.md`: "independently
+written code" ranks Strong), but not a discovery, and should never again be described as
+"closing a gap" or "first principles" without this citation attached.
+
+**k=5 result:** `sp.simplify(derived_lambda_5 - lambda_hypothesis(5)) == 0` — confirmed, exact
+symbolic identity for general `N,q`, obtained via TWO independent background runs (one
+uncached, one with `functools.cache` added to `e2_ingredients`/`e3_cross` after the uncached
+run's redundant re-simplification made it impractically slow — a performance fix, not a
+derivation change; both produced the identical symbolic result). The k=4→5 step required
+generalizing every building block to an explicit target-size parameter `k`, plus a DOUBLE
+self-adjoint expansion (`<e_quad,P3(Y_A)>` needs both `<z_triple,Y_A>` AND `<e_quad,z_triple>`,
+requiring triples to be jointly classified by overlap with BOTH `A` and the quad — a 4-region
+composition enumeration, not the single-region classification k=4 needed). This computational
+escalation (uncached run took long enough to require backgrounding twice; k=6 would need a
+TRIPLE self-adjoint expansion through `P4`) is itself evidence for the user's original
+recommendation: the CAS ladder has reached its practical ceiling, and — now confirmed — going
+further would add no new mathematical information anyway, since the general-`k` formula is
+already classical.
+
+**What remains cited, not derived, and why that is now FINE:** `dim(V_k)=C(N,k)-C(N,k-1)` and
+`V_k` irreducibility — both independently confirmed by Filmus (2016) Lemma 4.3's construction
+from `S_N` representation theory (Bannai–Ito/Dunkl), so "cited" here means "correctly attributed
+to classical representation theory," not "unverified." This is the correct final state, not an
+open gap: re-deriving standard Johnson-scheme representation theory from scratch would be
+reinventing decades-old results, which this project's own `estimand-ops.md` "well-established ≠
+checked" discipline requires citing with a verified source, not repeating — and that source is
+now verified, cited, and attached.
+
+**What this means for the project (per the user's own framing, independently confirmed here):**
+the algebraic/structural layer of Exam 3 — "can we compute `E_l(f)` for any `l` and any `f`?" —
+is CLOSED, for all `l`, via classical Johnson-scheme / inclusion-matrix spectral theory. It was
+never in doubt that a closed form existed (point 26 already proved that much structurally); what
+changed is that the exact VALUE is now also known to be a citable classical fact for every `l`,
+not something requiring per-level derivation. **What remains genuinely open is unchanged and
+un-touched by any of this: point 24's question — how does `E_l(δ_i)` (the SPECIFIC spectral
+energy of a Dirac-delta / single-vertex indicator, the sensitivity function this whole project
+is about) behave as a function of `l` and `N`?** That is an analytic question about the
+DISTRIBUTION of `⟨δ_i,Z_A⟩` coefficients across `A`, not an algebraic question about the
+normalizing constant `λ_l` — Filmus's theorem and the inclusion-matrix spectral theory say
+nothing about it. This is the sole remaining barrier for Exam 3, and it is NOT classical (no
+literature correspondence checked or claimed here) — the honest open question stands exactly as
+point 24 left it.
+
+**Decision on further CAS extension:** per the user's explicit recommendation, independently
+confirmed by the findings above — **no k=6.** It would consume significant compute (a further
+TRIPLE self-adjoint expansion) for zero new mathematical information, since the general-`k`
+formula is already established.
+
+**Artifacts:** `verify_inclusion_matrix_eigenvalue.py`
+(+`metrics/inclusion_matrix_eigenvalue_check.json`),
+`tests/test_inclusion_matrix_eigenvalue.py`, `derive_lambda_k_from_first_principles.py` extended
+with `derive_lambda_5()` (+regenerated `metrics/lambda_k_first_principles.json`).
+
+**Sources:**
+- Filmus, Y. (2016). An Orthogonal Basis for Functions over a Slice of the Boolean Hypercube.
+  *The Electronic Journal of Combinatorics*, 23(1), P1.23. arXiv:1406.0142.
+- Wilson, R. M. inclusion-matrix diagonalization results, via Ghareghani–Ghorbani–Mohammad-Noori
+  (cited through a MathOverflow pointer; the specific eigenvalue claim used here was
+  independently re-verified in this repository via exact-arithmetic computation, not accepted
+  from the citation alone — see `verify_inclusion_matrix_eigenvalue.py`).
