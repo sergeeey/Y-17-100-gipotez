@@ -3659,3 +3659,106 @@ not attempted in this point).
 `check_lp_bound_geometry_scaling.py` (+`metrics/lp_bound_geometry_scaling.json`),
 `verify_r6_scale_invariance.py` (verification-only, no separate metrics file — confirms the
 real-vs-synthetic comparison in Test 1 is valid at the scales actually compared).
+
+## Point 46 (2026-09-13) — The TRUE worst-case moment-ambiguity factor `K_s(L)`, replacing
+point 45's sampled estimate with an exact LP certificate — `s(L)` grows substantially, not
+`O(1)`, sharpening Priority C's reformulated question with a rigorous (if rough) answer
+
+**Context.** Direct correction from the user: point 45's Test 2 "worst-case `R_6`" was a
+SAMPLED maximum over a handful of families plus 500 random draws — a lower bound, correctly
+labeled as such at the time, but not a proven worst case. This point closes that gap exactly,
+via a genuinely better LP formulation the user proposed: a single two-spectrum LP that finds
+the TRUE worst case directly, with no sampling and no separate scale-normalization step needed.
+
+**The two-spectrum LP (classical truncated-moment-problem machinery, applied here — not a new
+technique).** For a normalized "true" spectrum `x` (`Σx_l=1`) and an "adversarial" spectrum `y`
+sharing `x`'s first `s` raw moments:
+
+```
+K_s(L) := max_{x,y≥0} Σ_l y_l   s.t.   Σ_l x_l = 1,   Σ_l γ_l^r x_l = Σ_l γ_l^r y_l  (r=1..s)
+```
+
+A single LP in `2L` variables with `s+1` equality constraints — still tiny at `L=1000` (`2000`
+variables, `21` constraints for `s=20`), solved via the same `scipy.optimize.linprog`/HiGHS
+already used throughout points 44-45. Normalizing `x` INSIDE the LP eliminates point 45's own
+scale-invariance concern entirely (no rescaling, no floating-point-tolerance edge cases).
+
+**Sanity check: true `K_6` on the 7 REAL experiment grids, compared to the actual Lovász data's
+own `R_6`.** As expected, `K_6` (the true supremum over ALL possible spectra) sits at or above
+the real data's own `R_6` at every `n` (e.g. `n=47`: `K_6=1.0113` vs real `R_6=1.0054`) —
+consistent, not a contradiction; the real spectrum is just one point inside the worst-case
+envelope, not the extremal one.
+
+**The central result — `K_s(L)` for `s=1..20`, geometry-only synthetic grids (`N=2L,q=L`,
+matching point 45's own convention), and the derived thresholds `s_{1.1}(L):=\min\{s:K_s≤1.1\}`,
+`s_{2.0}(L):=\min\{s:K_s≤2\}`. Table corrected per skeptic-fallback review (addressed, not
+smoothed over — see findings below the table): every cell where the LP did not actually reach
+the labeled `s` is now marked explicitly, none are silently filled with a neighboring value.**
+
+| L | s₁.₁ | s₂.₀ | K₆ | K₁₀ | K₂₀ | max `s` reached |
+|---|---|---|---|---|---|---|
+| 5 | 3 | 2 | — (`L=5<6`, no `K_6` exists) | — | — | 5 (`=L`, not a failure) |
+| 10 | 5 | 2 | 1.008 | 1.000 | — (`L=10<20`) | 10 (`=L`) |
+| 25 | 7 | 4 | 1.137 | 1.006 | — | 17 (**LP failed at `s=18`**, HiGHS `primal_status=Infeasible`) |
+| 50 | 10 | 5 | 1.427 | 1.064 | — | 19 (**LP failed at `s=20`**) |
+| 100 | 16* | 7 | 2.086 | 1.261 | 1.085 | 20 (reached) |
+| 250 | none `≤20` | 10 | 4.147 | 1.962 | 1.430 | 20 (reached) |
+| 500 | none `≤20` | none `≤20` | 7.616 | 3.191 | 2.378 | 20 (reached) |
+| 1000 | none `≤20` | none `≤20` | 14.556 | 5.680 | — | 19 (**LP failed at `s=20`**; `K_19=3.609`) |
+
+**`*` L=100's `s_{1.1}=16` is NOT a clean, reliable threshold — flagged explicitly (skeptic-
+fallback finding, this is a genuine data problem, not just a presentation one).** The full
+sequence `s=13..20` at `L=100` is `1.114, 1.113, 1.121, 1.092, 1.094, 1.116, 1.145, 1.085` —
+oscillating in the band `[1.09,1.15]`, never settling; `s=16` is the FIRST value that happens to
+dip under `1.1`, but `s=18,19` climb back ABOVE `1.1` (`s=19` is even worse than `s=13`). Picking
+"first crossing" here is close to arbitrary — a different, equally defensible convention (e.g.
+"first `s` after which it never rises above threshold again") would give a different, possibly
+undefined, answer. Do NOT read `s_{1.1}(100)=16` as a settled fact; the honest statement is
+"`K_s` for `L=100` enters a noisy `~1.09-1.15` band somewhere around `s=13-16` and does not
+cleanly resolve below `1.1` within the tested range."
+
+**LP infeasibility at very high `s` — now disclosed explicitly rather than silently breaking the
+loop (skeptic-fallback finding, script fixed, not just the write-up).** `L=25,50,1000` genuinely
+FAIL (HiGHS reports numerical infeasibility, not just imprecision) at `s=18,20,20` respectively
+— plausible Vandermonde-conditioning breakdown as `γ_l^r` spans many orders of magnitude for
+large `r`, similar in kind to (though more severe than) the `L_s`-direction artifact point 44's
+own review caught. `check_worst_case_moment_ambiguity_lp.py` now records `failure_at_s` and
+`failure_message` per row instead of silently discarding them.
+
+**`s_{2.0}(L)` is NOT bounded — by `L=500-1000`, even 20 moments (or as many as could be reached
+before numerical failure) are insufficient to keep the worst-case ambiguity within a factor of
+2.** The `s_{2.0}` values used for the growth-rate estimate below (`L=25,50,100,250`, all `4,5,
+7,10`) sit in clean, monotonically-decreasing regions well before any instability — verified
+individually, this specific claim (unlike the `s_{1.1}(100)=16` one above) is NOT contaminated
+by the high-`s` noise. A rough (4-point, explicitly weak per this project's own discipline for
+small-sample power-law fits, and NOT correcting for the right-censoring at `L=500,1000` — a
+proper treatment would need Tobit-style regression, not attempted here, so the `~0.41` exponent
+should be read as indicative, not precise) log-log regression of `s_{2.0}(L)` vs `L` gives slope
+`≈0.41`. Independent of that specific number, the qualitative conclusion is robust on its own
+terms: `L:25→250` is a `10×` increase; `O(log L)` growth would predict `s` growing only `~1.7×`
+(`4→~7`); the OBSERVED growth is `4→10`, already faster than logarithmic, and `L=500,1000`
+needing MORE than 20 moments makes `O(log L)` even less tenable. **Given `L=min(q,N-q)=Θ(n)`
+throughout this experiment, this directly implies: a FIXED, small number of moments — 6, or even
+20 — will NOT give an asymptotically tight bound as `n→∞`. The number of moments needed itself
+grows with `n`, faster than logarithmically, plausibly polynomially (`n^{0.4}`-ish as a rough,
+uncorrected-for-censoring indication), not merely "more than six."**
+
+**Verdict.** PROMOTE as the rigorous resolution of the exact question point 45 raised but only
+sampled: Priority C's fixed-small-`s` moment route is now shown, not just suspected, to fail
+asymptotically — `s` must grow with `n`, and the growth looks super-logarithmic based on this
+(weak, 4-point) evidence. This does NOT close Priority C — it sharpens its reformulation from
+point 45's own "how must `s(n)` grow" into a concrete, roughly-quantified answer: NOT `O(1)`,
+NOT clearly `O(log n)`, plausibly power-law. The original tail-bound form this project always
+had, `Σ_{l<k}E_l+M_s/γ_k^s` with growing `k` (and now, evidently, growing `s` too), remains the
+right shape — this point supplies rough quantitative teeth for how fast that growth must be,
+not a new mechanism.
+
+**What this does NOT mean:** does NOT mean the `L^{0.4}` exponent is established — 4 usable
+points (`L=25,50,100,250`), explicitly weak, no theoretical derivation attempted; does NOT mean
+Priority C is dead — a growing-`s(n)`/`k(n)` route was always the honest target, and this point
+quantifies (roughly) what growth rate would be needed, which is progress, not a closure; does
+NOT mean the small non-monotonic numerical wiggles at high `s` invalidate the overall trend —
+the qualitative conclusion doesn't depend on the exact high-`s` values.
+
+**Artifacts:** `check_worst_case_moment_ambiguity_lp.py`
+(+`metrics/worst_case_moment_ambiguity_lp.json`).
