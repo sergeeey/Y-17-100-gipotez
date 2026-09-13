@@ -1,0 +1,412 @@
+{
+  "rows": [
+    {
+      "n": 23,
+      "N": 10,
+      "q": 5,
+      "L": 5,
+      "R6_real": 0.9999999999999858,
+      "synthetic_families": {
+        "uniform_random_exp": {
+          "n_samples": 500,
+          "mean_R6": 1.0000000000000058,
+          "std_R6": 1.6804188413622557e-14,
+          "min_R6": 0.9999999999999644,
+          "max_R6": 1.0000000000000615
+        },
+        "uniform_flat": {
+          "n_samples": 1,
+          "mean_R6": 1.0000000000000078,
+          "std_R6": null,
+          "min_R6": 1.0000000000000078,
+          "max_R6": 1.0000000000000078
+        },
+        "pure_low_level": {
+          "n_samples": 1,
+          "mean_R6": 1.0,
+          "std_R6": null,
+          "min_R6": 1.0,
+          "max_R6": 1.0
+        },
+        "pure_high_level": {
+          "n_samples": 1,
+          "mean_R6": 1.0,
+          "std_R6": null,
+          "min_R6": 1.0,
+          "max_R6": 1.0
+        },
+        "two_point_mixture": {
+          "n_samples": 1,
+          "mean_R6": 1.0,
+          "std_R6": null,
+          "min_R6": 1.0,
+          "max_R6": 1.0
+        },
+        "decaying_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 0.9999999999999998,
+          "std_R6": null,
+          "min_R6": 0.9999999999999998,
+          "max_R6": 0.9999999999999998
+        },
+        "growing_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 1.0000000000000195,
+          "std_R6": null,
+          "min_R6": 1.0000000000000195,
+          "max_R6": 1.0000000000000195
+        }
+      }
+    },
+    {
+      "n": 29,
+      "N": 13,
+      "q": 6,
+      "L": 6,
+      "R6_real": 0.9999999999999243,
+      "synthetic_families": {
+        "uniform_random_exp": {
+          "n_samples": 500,
+          "mean_R6": 0.9999999999999569,
+          "std_R6": 7.503446069618745e-14,
+          "min_R6": 0.9999999999994261,
+          "max_R6": 1.0000000000000395
+        },
+        "uniform_flat": {
+          "n_samples": 1,
+          "mean_R6": 0.9999999999999889,
+          "std_R6": null,
+          "min_R6": 0.9999999999999889,
+          "max_R6": 0.9999999999999889
+        },
+        "pure_low_level": {
+          "n_samples": 1,
+          "mean_R6": 0.9999999999999998,
+          "std_R6": null,
+          "min_R6": 0.9999999999999998,
+          "max_R6": 0.9999999999999998
+        },
+        "pure_high_level": {
+          "n_samples": 1,
+          "mean_R6": 1.0,
+          "std_R6": null,
+          "min_R6": 1.0,
+          "max_R6": 1.0
+        },
+        "two_point_mixture": {
+          "n_samples": 1,
+          "mean_R6": 0.9999999999999858,
+          "std_R6": null,
+          "min_R6": 0.9999999999999858,
+          "max_R6": 0.9999999999999858
+        },
+        "decaying_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 0.9999999999999949,
+          "std_R6": null,
+          "min_R6": 0.9999999999999949,
+          "max_R6": 0.9999999999999949
+        },
+        "growing_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 0.9999999999999526,
+          "std_R6": null,
+          "min_R6": 0.9999999999999526,
+          "max_R6": 0.9999999999999526
+        }
+      }
+    },
+    {
+      "n": 31,
+      "N": 14,
+      "q": 7,
+      "L": 7,
+      "R6_real": 1.0000478555407661,
+      "synthetic_families": {
+        "uniform_random_exp": {
+          "n_samples": 500,
+          "mean_R6": 1.0000818607740687,
+          "std_R6": 7.211221261098152e-05,
+          "min_R6": 1.0000000170109273,
+          "max_R6": 1.0003986896352492
+        },
+        "uniform_flat": {
+          "n_samples": 1,
+          "mean_R6": 1.0001427144310555,
+          "std_R6": null,
+          "min_R6": 1.0001427144310555,
+          "max_R6": 1.0001427144310555
+        },
+        "pure_low_level": {
+          "n_samples": 1,
+          "mean_R6": 1.0000000000000002,
+          "std_R6": null,
+          "min_R6": 1.0000000000000002,
+          "max_R6": 1.0000000000000002
+        },
+        "pure_high_level": {
+          "n_samples": 1,
+          "mean_R6": 1.0,
+          "std_R6": null,
+          "min_R6": 1.0,
+          "max_R6": 1.0
+        },
+        "two_point_mixture": {
+          "n_samples": 1,
+          "mean_R6": 0.9999999999999969,
+          "std_R6": null,
+          "min_R6": 0.9999999999999969,
+          "max_R6": 0.9999999999999969
+        },
+        "decaying_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 1.000064214941323,
+          "std_R6": null,
+          "min_R6": 1.000064214941323,
+          "max_R6": 1.000064214941323
+        },
+        "growing_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 1.000214071642679,
+          "std_R6": null,
+          "min_R6": 1.000214071642679,
+          "max_R6": 1.000214071642679
+        }
+      }
+    },
+    {
+      "n": 37,
+      "N": 17,
+      "q": 8,
+      "L": 8,
+      "R6_real": 1.0005540777118178,
+      "synthetic_families": {
+        "uniform_random_exp": {
+          "n_samples": 500,
+          "mean_R6": 1.000521570519316,
+          "std_R6": 0.00034745791269693487,
+          "min_R6": 1.0000066963041914,
+          "max_R6": 1.0017063348713275
+        },
+        "uniform_flat": {
+          "n_samples": 1,
+          "mean_R6": 1.0006973981887373,
+          "std_R6": null,
+          "min_R6": 1.0006973981887373,
+          "max_R6": 1.0006973981887373
+        },
+        "pure_low_level": {
+          "n_samples": 1,
+          "mean_R6": 0.9999999999999999,
+          "std_R6": null,
+          "min_R6": 0.9999999999999999,
+          "max_R6": 0.9999999999999999
+        },
+        "pure_high_level": {
+          "n_samples": 1,
+          "mean_R6": 1.0,
+          "std_R6": null,
+          "min_R6": 1.0,
+          "max_R6": 1.0
+        },
+        "two_point_mixture": {
+          "n_samples": 1,
+          "mean_R6": 1.000000000000007,
+          "std_R6": null,
+          "min_R6": 1.000000000000007,
+          "max_R6": 1.000000000000007
+        },
+        "decaying_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 1.0004463048741012,
+          "std_R6": null,
+          "min_R6": 1.0004463048741012,
+          "max_R6": 1.0004463048741012
+        },
+        "growing_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 1.0007613122172674,
+          "std_R6": null,
+          "min_R6": 1.0007613122172674,
+          "max_R6": 1.0007613122172674
+        }
+      }
+    },
+    {
+      "n": 41,
+      "N": 19,
+      "q": 9,
+      "L": 9,
+      "R6_real": 1.0021755489998139,
+      "synthetic_families": {
+        "uniform_random_exp": {
+          "n_samples": 500,
+          "mean_R6": 1.0011964326557559,
+          "std_R6": 0.000713854418522506,
+          "min_R6": 1.0000678674843646,
+          "max_R6": 1.0035498993331724
+        },
+        "uniform_flat": {
+          "n_samples": 1,
+          "mean_R6": 1.0021715711055785,
+          "std_R6": null,
+          "min_R6": 1.0021715711055785,
+          "max_R6": 1.0021715711055785
+        },
+        "pure_low_level": {
+          "n_samples": 1,
+          "mean_R6": 1.0000000000000002,
+          "std_R6": null,
+          "min_R6": 1.0000000000000002,
+          "max_R6": 1.0000000000000002
+        },
+        "pure_high_level": {
+          "n_samples": 1,
+          "mean_R6": 1.0,
+          "std_R6": null,
+          "min_R6": 1.0,
+          "max_R6": 1.0
+        },
+        "two_point_mixture": {
+          "n_samples": 1,
+          "mean_R6": 1.000000000000016,
+          "std_R6": null,
+          "min_R6": 1.000000000000016,
+          "max_R6": 1.000000000000016
+        },
+        "decaying_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 1.0011608921953288,
+          "std_R6": null,
+          "min_R6": 1.0011608921953288,
+          "max_R6": 1.0011608921953288
+        },
+        "growing_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 1.0013211762427856,
+          "std_R6": null,
+          "min_R6": 1.0013211762427856,
+          "max_R6": 1.0013211762427856
+        }
+      }
+    },
+    {
+      "n": 43,
+      "N": 20,
+      "q": 10,
+      "L": 10,
+      "R6_real": 1.0031089219563463,
+      "synthetic_families": {
+        "uniform_random_exp": {
+          "n_samples": 500,
+          "mean_R6": 1.0017291075358496,
+          "std_R6": 0.0009049314052912143,
+          "min_R6": 1.0001053070077868,
+          "max_R6": 1.0049560301132423
+        },
+        "uniform_flat": {
+          "n_samples": 1,
+          "mean_R6": 1.0029437229435139,
+          "std_R6": null,
+          "min_R6": 1.0029437229435139,
+          "max_R6": 1.0029437229435139
+        },
+        "pure_low_level": {
+          "n_samples": 1,
+          "mean_R6": 1.0,
+          "std_R6": null,
+          "min_R6": 1.0,
+          "max_R6": 1.0
+        },
+        "pure_high_level": {
+          "n_samples": 1,
+          "mean_R6": 1.0,
+          "std_R6": null,
+          "min_R6": 1.0,
+          "max_R6": 1.0
+        },
+        "two_point_mixture": {
+          "n_samples": 1,
+          "mean_R6": 0.9999999999999853,
+          "std_R6": null,
+          "min_R6": 0.9999999999999853,
+          "max_R6": 0.9999999999999853
+        },
+        "decaying_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 1.0020685466173946,
+          "std_R6": null,
+          "min_R6": 1.0020685466173946,
+          "max_R6": 1.0020685466173946
+        },
+        "growing_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 1.0014322423182946,
+          "std_R6": null,
+          "min_R6": 1.0014322423182946,
+          "max_R6": 1.0014322423182946
+        }
+      }
+    },
+    {
+      "n": 47,
+      "N": 22,
+      "q": 11,
+      "L": 11,
+      "R6_real": 1.0054325414830945,
+      "synthetic_families": {
+        "uniform_random_exp": {
+          "n_samples": 500,
+          "mean_R6": 1.0028441533021675,
+          "std_R6": 0.001532104414783995,
+          "min_R6": 1.0002216190438613,
+          "max_R6": 1.0082504311319336
+        },
+        "uniform_flat": {
+          "n_samples": 1,
+          "mean_R6": 1.003881072303441,
+          "std_R6": null,
+          "min_R6": 1.003881072303441,
+          "max_R6": 1.003881072303441
+        },
+        "pure_low_level": {
+          "n_samples": 1,
+          "mean_R6": 1.0,
+          "std_R6": null,
+          "min_R6": 1.0,
+          "max_R6": 1.0
+        },
+        "pure_high_level": {
+          "n_samples": 1,
+          "mean_R6": 1.0,
+          "std_R6": null,
+          "min_R6": 1.0,
+          "max_R6": 1.0
+        },
+        "two_point_mixture": {
+          "n_samples": 1,
+          "mean_R6": 0.999999999999982,
+          "std_R6": null,
+          "min_R6": 0.999999999999982,
+          "max_R6": 0.999999999999982
+        },
+        "decaying_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 1.0035544048072678,
+          "std_R6": null,
+          "min_R6": 1.0035544048072678,
+          "max_R6": 1.0035544048072678
+        },
+        "growing_low_to_high": {
+          "n_samples": 1,
+          "mean_R6": 1.001859699786178,
+          "std_R6": null,
+          "min_R6": 1.001859699786178,
+          "max_R6": 1.001859699786178
+        }
+      }
+    }
+  ],
+  "n_random_samples": 500,
+  "seed": 42
+}

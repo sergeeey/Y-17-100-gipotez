@@ -1,0 +1,54 @@
+{
+  "rows": [
+    {
+      "N": 11,
+      "q": 5,
+      "L": 5,
+      "worst_R6_found": 1.0000000000000393,
+      "worst_family": "random_exp_sample"
+    },
+    {
+      "N": 20,
+      "q": 10,
+      "L": 10,
+      "worst_R6_found": 1.004696746813851,
+      "worst_family": "random_exp_sample"
+    },
+    {
+      "N": 50,
+      "q": 25,
+      "L": 25,
+      "worst_R6_found": 1.064004253816745,
+      "worst_family": "random_exp_sample"
+    },
+    {
+      "N": 100,
+      "q": 50,
+      "L": 50,
+      "worst_R6_found": 1.1777926552101063,
+      "worst_family": "decaying"
+    },
+    {
+      "N": 200,
+      "q": 100,
+      "L": 100,
+      "worst_R6_found": 1.474004770487568,
+      "worst_family": "decaying"
+    },
+    {
+      "N": 500,
+      "q": 250,
+      "L": 250,
+      "worst_R6_found": 2.371456556142185,
+      "worst_family": "decaying"
+    },
+    {
+      "N": 1000,
+      "q": 500,
+      "L": 500,
+      "worst_R6_found": 3.7921682993836656,
+      "worst_family": "decaying"
+    }
+  ],
+  "seed": 7
+}
