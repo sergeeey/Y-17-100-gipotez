@@ -2270,3 +2270,118 @@ target a rate other than `n^-3`) remains genuinely unresolved and is not somethi
 git commit will change.
 
 **Artifacts:** `check_n3_Tq_scaling.py` (+`metrics/n3_Tq_scaling_check.json`).
+
+## Point 31 (2026-09-13) — Exam 3 stage 12: LP dual/sensitivity route, 4th independent angle
+attempted — probabilistic vertex-stability idea, cheaply and clearly FALSIFIED
+
+**Context.** User requested attacking the Efron-Stein/`O(1/n)` question via route B of the
+step-4/5 plan: "LP dual/sensitivity route." Before attempting new analysis, `null_results`-style
+discipline (Adaptive Iteration Branch Rule) required checking what was already tried: points 6,
+8, 9a already attacked this EXACT route three times and hit the SAME documented structural wall
+in every case — "LP optima sit at polytope vertices, and vertex identity can change
+discontinuously under an arbitrarily small constraint perturbation... would need a genuinely
+different tool (LP vertex-stability / basis-perturbation theory specific to this random
+polytope's geometry), which is not in the primary source and was not derivable" (point 8). Point
+9a additionally ruled out all 4 equivalent LP formulations (primal/dual × time/frequency) as an
+escape route.
+
+**The one genuinely new angle identified (not tried in 6/8/9a):** points 6-9 all attacked this
+via WORST-CASE bounds (Cauchy-Schwarz/Hölder/RIP norm inequalities on how far ONE feasible
+vector can be from another). None asked the PROBABILISTIC question: does the LP's active set
+(which `Fx≥0` constraints are tight at the optimum) actually change OFTEN or RARELY when a
+single generator is dropped? If jumps were rare, `E[(Δ_i θ)²]` could be small ON AVERAGE via a
+concentration argument, even with an O(1) worst-case per-jump magnitude — a qualitatively
+different mechanism from anything points 6-9 tried, satisfying the Minimal Relaxation Rule (one
+new assumption: "rarity," not a re-run of "boundedness").
+
+**Method.** Solved the paper's own time-domain primal LP (`theta_via_lp`'s exact formulation,
+Table 1, arXiv:2603.29571) directly (not via the wrapper) to access the primal solution `x*` and
+inequality-constraint slacks, for random circulant graphs at `n∈{11,15,21,29,37}`, dropping one
+currently-on generator per test and comparing the ACTIVE SET before/after.
+
+**CAUGHT AND FIXED a real bug before trusting the first result (audit-verification-gate.md
+discipline, kept in the artifact's own docstring for transparency, not hidden):** the first
+version's tightness test (`slacks[k] < ACTIVE_TOL`) is true for EVERY negative slack, not just
+near-zero ones, given the constraint's sign convention (`A_ub@x - b_ub ≤ 0` at feasibility) —
+this flagged ALL constraints as "active" and produced a spurious `jump_fraction=0.000` at every
+`n`. Caught by manually printing raw slack values for one instance BEFORE accepting the
+aggregate result. Fixed to `abs(slacks[k]) < ACTIVE_TOL`.
+
+**SECOND correction, caught independently by BOTH this session and the reviewer during the same
+review cycle (not hidden — this is the honest sequence, per the Hindsight Distortion Gap
+discipline):** the first corrected version's "jump" criterion (`active_full_reduced !=
+active_rest_reduced`, subtracting the trivial pair `{i,n-i}` from both sets before comparing)
+overclaimed. The `{i,n-i}` subtraction indexes the wrong space — those are the dropped
+*variable's* column indices, not row indices of whichever inequality constraint newly binds, so
+there is no map between the two; empirically, removing the subtraction changes the reported
+fraction by only ~1-5 percentage points (reviewer's independent check: n=15, 0.712 raw vs 0.699
+"filtered"). The criterion was also too COARSE in a second way (caught in this session, before
+the reviewer's report arrived): dropping generator `i` removes 2 equality constraints (`x_i=0`
+AND its mirror `x_{n-i}=0`), so the reduced LP's vertex generically needs 2 MORE tight
+inequalities than before, WITH NOTHING REMOVED, as the trivial/uninteresting outcome — the
+original criterion counted this trivial case as a "jump" too, inflating the fraction toward
+0.85-1.00.
+
+**Corrected criterion: a "genuine restructure" is any case where at least one previously-active
+constraint becomes INACTIVE** (equivalently, `active_full` is NOT a subset of `active_rest`) —
+pure growth with nothing removed is the trivial DOF case. **Corrected mechanism for why changes
+come in pairs (reviewer's finding, independently verified here):** NOT from equality-constraint
+rank-counting (which would give +1, not +2 — `x_k=0` and `x_{n-k}=0` are already linked by the
+always-present pairing row `x_k=x_{n-k}`, so removing both drops effective rank by only 1). The
+real cause is that **`ReF` has duplicate rows**: `ReF[j,:] == ReF[n-j,:]` for every `j`, since
+`cos` is even — verified directly here (`max|ReF[j]-ReF[n-j]|` over all `j`, all tested `n`:
+`4.97e-15` to `3.59e-14`, pure floating-point noise, not approximately-but-not-exactly equal).
+Inequality constraints `j` and `n-j` are LITERALLY IDENTICAL, so any newly-tight constraint
+activates as a pair — this is confirmed by the observed `size_diffs` distribution being all even
+numbers (reviewer: `{2:65, 0:32, 6:12, ...}`), consistent only with a pairing mechanism.
+
+**Result, with the corrected criterion (`active_full ⊆ active_rest` ⟺ trivial, matching the
+reviewer's own cleaner subset formulation exactly, not an earlier scratch pass's extra `≤2`-added
+cutoff) — reproduced independently by both this session and the reviewer (same order of
+magnitude, different RNG seeds, e.g. n=21: 0.559 here vs 0.542 reviewer's independent run):**
+
+| n | restructure_fraction | mean_removed_count | E[Δθ²\|trivial] | E[Δθ²\|restructure] |
+|---|---|---|---|---|
+| 11 | 0.276 | 0.55 | 4.75 | 2.27 |
+| 15 | 0.533 | 1.27 | 3.01 | 2.39 |
+| 21 | 0.559 | 1.56 | 0.71 | 2.42 |
+| 29 | 0.733 | 2.13 | 0.50 | 2.29 |
+| 37 | 0.750 | 2.80 | **0.072** | 1.58 |
+
+**The corrected picture is more nuanced than the original overclaim, but the core conclusion
+survives — and is now sharper.** Genuine restructuring is NOT universal (28-75%, noisier at
+small `n`), but shows NO trend toward zero — if anything it trends up, and `mean_removed_count`
+grows clearly and monotonically with `n` (0.55→2.80), meaning restructuring events become MORE
+substantial, not rarer, as `n` grows. Meanwhile the "clean" (non-restructuring) cases DO show a
+real, decaying `E[Δθ²]` (4.75→0.072) — a genuine, previously-unstated signal that a "smooth"
+regime exists — but this regime is a SHRINKING fraction of all cases as `n` grows (since
+restructure_fraction trends up), so it cannot average down the aggregate. `E[Δθ²|restructure]`
+stays `O(1)` throughout (1.58-2.42), not decaying.
+
+**Verdict: the probabilistic-vertex-stability idea (jumps rare ⟹ average effect small) is
+FALSIFIED — restructuring does not become rare as `n` grows, and where it occurs the magnitude
+stays `O(1)`.** This is the 4th independent angle on the LP-dual/sensitivity route to fail, each
+for a documented, different, verifiable reason: point 6 (concavity/duality gives only a
+qualitative bound, needs concentration on the dual variable itself — not established), point 8
+(RIP controls spread of ONE vector, not distance between TWO optimal vertices — no tool found),
+point 9a (all 4 equivalent LP formulations preserve the value function but not vertex movement —
+no escape), and now this point (restructuring assumed rare, found non-vanishing and growing in
+magnitude instead).
+
+**Recommendation: retire the LP dual/sensitivity route for this question.** Four independent,
+qualitatively different attempts (worst-case duality, exact-bound decomposition, formulation-
+switching, and now probabilistic rarity) have each identified a real, specific obstruction and
+none found a path through. Per the Cheapest Differentiating Test Protocol, a 5th attempt within
+this same route would need a genuinely new idea not yet identified — the remaining unexplored
+directions from the user's own plan (route A: symmetry/monotonicity/prime-transitivity;
+route C: slice-harmonic-analysis moment bounds) do not share this route's core mechanism (LP
+polytope-vertex geometry) and are not affected by this null result.
+
+**Caveats (reviewer P2, not blocking the verdict above):** each sampled graph tests the 3
+numerically-SMALLEST currently-on generator indices, not a random subsample — proven neutral for
+prime `n` only (this experiment's own exact symmetry theorem, points 12-13), unverified for
+composite `n` (15, 21 here); no dedicated `tests/` file for this script, unlike sibling scripts
+in this experiment.
+
+**Artifacts:** `check_vertex_stability_probability.py` (updated to the corrected criterion)
+(+`metrics/vertex_stability_probability_check.json`).
