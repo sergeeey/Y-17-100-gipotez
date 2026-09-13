@@ -1838,6 +1838,24 @@ lean toward "no."
 
 **Artifacts:** `check_center_layer_t4_trend.py` (+`metrics/center_layer_t4_trend.json`).
 
+**Addendum (2026-09-13, extends this point's own center-layer check to r=1,2,3, not a new
+point):** in response to the user's step-1 plan question ("is a FIXED r sufficient for the
+sufficient lemma `D_r(q)≤C·γ_r·R_r(q)`, or is `r=r(n)` needed?"), the same center-layer
+`tail_tightness_r = R_r/(D_r/γ_r)` was recomputed directly from the already-committed
+`metrics/tail_concentration_ratio.json` (`per_layer`, central `q`, no new simulation) for
+`r=1,2,3` in addition to this point's own `r=4`. Cross-validated first against this point's own
+aggregate numbers (exact match to 9 decimal places, confirming the extraction logic before
+trusting the new central-layer cut). Result: `tail_tightness_r_central` declines with `n` for
+EVERY tested `r`, same qualitative shape as `r=4`'s already-documented decline: `r=1`:
+0.4949→0.3382; `r=2`: 0.8909→0.6457; `r=3`: 0.8571→0.6995; `r=4`: 1.0000→0.8860 (n=23→47). The
+decline rate (log-log slope) shrinks monotonically as `r` grows: -0.53 (r=1) → -0.45 (r=2) →
+-0.29 (r=3) → -0.17 (r=4). **This does not resolve the plan's step-1 question** — 4 points in
+`r` is far too few to fit how the insufficiency-rate itself scales with `r`, and this remains
+consistent with either "no fixed `r` works, ever" or "a slowly-growing `r(n)` would work" — but
+the monotone shrinking trend is a mild point in favor of the latter over the former, worth
+noting for whoever next attempts a formal argument. No new artifact committed — the check reuses
+existing committed data and is trivially reproducible from it.
+
 ## Point 25 (2026-09-12) — Exam 3, stage 4: general RECURSIVE construction for `E_l` at
 arbitrary `l`, verified at `l=4`, 0 violations
 
