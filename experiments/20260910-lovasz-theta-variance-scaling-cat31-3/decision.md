@@ -3256,3 +3256,155 @@ about `Var(X_n)`.
 
 **Artifacts:** none (pure Source Trace + algebraic sketch; no code was written since the
 derivation is not complete enough to have a computable, testable claim yet).
+
+## Point 42 (2026-09-13) — Cheap differentiating test on the point-41 bridge: `M_{-1}` computed
+via conjugate gradient, all 7 `n`; a real, [EMPIRICAL] descriptive signal, explicitly NOT sold
+as a confirmed mechanism (external-review correction applied proactively)
+
+**Context.** Per the Cheapest Differentiating Test Protocol, before attempting the hard parts
+of point 41's bridge (bounding `Δ(X)` itself), compute the cheap diagnostic `M_{-1}:=⟨g,Lg⟩`
+where `Lg=δ_i-E[δ_i]` (solved via conjugate gradient using the already-verified
+`apply_L_to_layer` matrix-vector product — no new machinery), and compare against the crude
+ceiling `C_q/γ_1` (assuming all spectral mass sits at the smallest nonzero eigenvalue).
+
+**A correction applied BEFORE this point was written up, not after external pushback (same
+discipline as points 32/36/37/39, now proactive rather than reactive).** An external re-analysis
+of this exact computation correctly pointed out — and this session had already independently
+reached the same conclusion while drafting point 41 — that the naive identity
+`Var(h)=½E[(h-h')(g-g')]` with `F=g(X)-g(X')` is spectrally TAUTOLOGICAL (`⟨f,Lg⟩=⟨f,f⟩=C_q`
+by construction, since `Lg=f` is exactly how `g` was defined). `M_{-1}` itself is therefore
+correctly understood as a SEPARATE, purely descriptive diagnostic of the spectral measure's
+SHAPE — specifically `M_{-1}=Σ_l E_l/γ_l`, an inverse-eigenvalue-weighted moment measuring how
+far the spectral mass has moved from being concentrated at `γ_1` (the "spectral-gap
+extremizer") — NOT a proof, and not by itself evidence for a sharper variance bound.
+
+**Results, CG-based, all 7 `n` (CG converges in 2-8 iterations, residual `~1e-6` to `~1e-17` —
+essentially exact. Cost correction, skeptic-fallback finding — the solve time is NOT uniformly
+negligible against theta-solve cost as an earlier draft claimed: `solve_time_s/theta_time_s`
+grows monotonically from `3.2%` at `n=23` to `22.1%` at `n=47` — still secondary throughout, but
+not "dominated entirely" at the largest tested `n`):**
+
+| n | `C_q` | `γ_1` | `M_{-1}` | ceiling (`C_q/γ_1`) | ratio |
+|---|---|---|---|---|---|
+| 23 | 0.024948 | 0.400000 | 0.031920 | 0.062369 | 0.5118 |
+| 29 | 0.019616 | 0.309524 | 0.029487 | 0.063376 | 0.4653 |
+| 31 | 0.018126 | 0.285714 | 0.028840 | 0.063442 | 0.4546 |
+| 37 | 0.014966 | 0.236111 | 0.026886 | 0.063388 | 0.4242 |
+| 41 | 0.013284 | 0.211111 | 0.025566 | 0.062923 | 0.4063 |
+| 43 | 0.012449 | 0.200000 | 0.024882 | 0.062246 | 0.3997 |
+| 47 | 0.011016 | 0.181818 | 0.023447 | 0.060587 | **0.3870** |
+
+**The ratio `M_{-1}/ceiling` decreases smoothly and monotonically across all 7 points**
+(`0.512→0.465→0.455→0.424→0.406→0.400→0.387`), while the crude ceiling itself stays nearly flat
+(`0.0624→0.0634→...→0.0606`, consistent with `γ_1~4/N` roughly canceling `C_q`'s own decay over
+this range). **Correct statement of what this shows (adopting the external re-analysis's own
+more careful phrasing over this session's own first-draft framing):**
+`[EMPIRICAL] The negative spectral moment M_{-1} confirms increasing separation of the
+harmonic-weighted spectral mass from the spectral-gap extremizer, as n grows.` This is
+consistent with (not independent confirmation of, and not proof of) the already-established
+spectral-broadening trend from points 33/35/38 — `R_{-1}↓` does **NOT** imply
+`Var(X_n)=O(1/n)`, and is not claimed to.
+
+**Verdict.** PROMOTE as a genuine, cheap, `[VERIFIED-REAL]` data point (7 exact CG solves, no
+approximation beyond floating-point), correctly scoped as descriptive. The CG-based numerical
+technique itself (solve `Lg=f` via conjugate gradient using only the existing swap-Laplacian
+matrix-vector product) is a reusable capability for this experiment going forward — worth
+noting as a tool, separate from what THIS specific application of it shows.
+
+**What this does NOT mean:** does NOT mean point 41's bridge is validated; does NOT mean
+`Δ(X)≤Bh(X)+C` holds (the genuinely hard, unattempted step); does NOT mean the falling ratio
+will continue falling toward 0, or stabilize, or reverse — 7 points, no asymptotic claim
+attempted.
+
+**Artifacts:** `check_potential_moment_M_neg1.py` (+`metrics/potential_moment_M_neg1.json`).
+
+## Point 43 (2026-09-13) — Discrete Malliavin calculus / second-order Poincaré for Rademacher
+functionals: real, on-target literature, read in full — but a fundamental mismatch found, named
+honestly rather than glossed over
+
+**Context.** Following point 41's Chatterjee-Dey lead, an external re-analysis pointed to a
+closer, more natural body of literature: discrete Malliavin calculus on the FULL Boolean/
+Rademacher cube (Nourdin-Peccati-Reinert), operating in exactly the `|S|`-degree Fourier
+picture already used by this project's own points 11/32/37 (NOT the Johnson-slice `γ_l`
+picture of points 15-42) — plus a specific "second-order Poincaré inequality" paper applying
+this machinery to random-graph statistics. Both primary sources were fetched and read in full
+(not summarized) via `mcp__arxiv__get_paper_latex_section`, per the Source Trace standard of
+citing exact theorem numbers.
+
+**Source 1, verified in full: Nourdin, Peccati, Reinert, "Stein's method and stochastic
+analysis of Rademacher functionals" (arXiv:0810.2890), Section 2.5.** Confirmed exactly:
+`D_kF(ω)=½(F_k^+-F_k^-)` (the discrete gradient — literally the standard Boolean discrete
+derivative, matching this project's own `δ_i`/`Δ_i` up to sign/encoding convention); the
+Ornstein-Uhlenbeck-type operator `L` with `LF=-Σ_n n·J_n(f_n)` (eigenvalue `-n` on the degree-`n`
+Fourier level — the FULL-CUBE degree operator, distinct from this project's own Johnson-slice
+`L`); `L^{-1}F=-Σ_n(1/n)J_n(f_n)`; and the key lemma, for centered `F∈domD`:
+**`E[F·f(F)]=E[⟨Df(F),-DL^{-1}F⟩]`**, which for `f(x)=x` gives **`Var(F)=E⟨DF,-DL^{-1}F⟩`**.
+
+**Worked out explicitly (this session's own derivation, not quoted) — this exact identity is
+spectrally equivalent to Parseval, not new information by itself.** Expanding both sides in the
+chaos/Fourier basis: `E‖DF‖²=Σ_n n²(n-1)!‖f_n‖²=Σ_S|S|·X̂(S)²` (the standard "total influence")
+and the cross term `E⟨DF,-DL^{-1}F⟩=Σ_n n·(n-1)!‖f_n‖²=Σ_n n!‖f_n‖²=Σ_S X̂(S)²=Var(F)` — matching
+the ALREADY-KNOWN Parseval identity `Var(X)=ΣX̂(S)²` exactly, term for term. **The identity is
+real and correctly stated, but does not by itself supply a new number or a sharper bound** — it
+recovers what was already known, via a different (elegant, but not informative here) route.
+
+**Source 2, verified in full: Eichelsbacher, Rednoß, Thäle, Zheng-type paper, "A simplified
+second-order Gaussian Poincaré inequality in discrete setting with applications" (arXiv:
+2108.05216), Section 4, Theorem [thm:2ndOrderPoincare].** Confirmed the exact theorem: for
+`F∈D^{1,2}` with **mean zero AND variance ONE**, bounds involving `B_1..B_5` — all built from
+FIRST derivatives `D_jF,D_kF` and SECOND (mixed) derivatives `D_ℓD_jF,D_ℓD_kF` — control the
+KOLMOGOROV DISTANCE `d_K(F,N)` to a standard normal `N`. Applications listed (Section 1) include
+subgraph counts in Erdős-Rényi graphs and hypercube percolation — structurally close to this
+project's own setting.
+
+**The honest mismatch, found and named explicitly rather than glossed over.** This theorem
+requires `F` to ALREADY be normalized to mean zero, variance one — i.e., it presupposes
+`Var(X_n)` is already known (to normalize by it), and its conclusion is about DISTRIBUTIONAL
+closeness to Gaussian (Kolmogorov distance), not about the SCALE of `Var(X_n)` itself. **This
+makes the theorem, as stated, CIRCULAR for this project's actual target question** (`Var(X_n)`
+is exactly the unknown quantity needed to even apply the theorem) — it answers a different,
+adjacent question ("is `X_n`, once correctly rescaled, approximately Gaussian?") rather than
+this project's own ("how does `Var(X_n)` scale with `n`?"). This was NOT caught by the second
+external re-analysis and is recorded here as this session's own independent finding, per the
+same discipline that has repeatedly caught overclaims in this experiment (points 29, 32, 34→36,
+39) — a plausible-sounding, well-sourced citation still needs its actual applicability checked
+before being treated as load-bearing.
+
+**What DOES survive, genuinely valuable.** `B_1..B_5`'s reliance on EXACTLY `D_jF` (this
+project's own `δ_i`/`Δ_i`) and `D_ℓD_jF` (this project's own `Δ_iΔ_jX`, point 37's own object)
+confirms this project's own second-difference investigation (point 37) is aimed at precisely
+the right kind of quantity this literature treats as load-bearing — a genuine, structural
+convergence between this project's own empirical work and a real, active research area, even
+though the specific cited theorem doesn't transfer directly.
+
+**An indirect route was NOT ruled out — named explicitly here rather than left implicit
+(skeptic-fallback review finding on an earlier draft of this REJECT: it read as closing the
+whole thread rather than just the direct application).** The circularity objection blocks using
+the theorem with `F` normalized by the TRUE (unknown) `Var(X_n)` — but nothing stops a
+self-consistency/falsification test: normalize `X_n` by a CANDIDATE `Var(X_n)=A/n^p` (e.g. the
+already-fitted `p≈0.91` from this experiment's own root `metrics/run.json`), compute the
+resulting `B_1..B_5` (built from already-computed `δ_i`/`Δ_iΔ_jX` data, points 32/37/38) under
+that candidate normalization, and check whether the bound stays finite/small (consistent with
+the candidate) or blows up (falsifying that specific candidate exponent). This is a genuine,
+not-yet-attempted, moderately cheap test — NOT attempted in this point (would require assembling
+`B_1..B_5` from existing `Δ_i`/`Δ_iΔ_j` data across generator pairs, a nontrivial but bounded
+computation), named here so it isn't lost.
+
+**Verdict.** REJECT the DIRECT application of this specific theorem to `Var(X_n)=O(1/n)`
+(circular as stated, when `F` is normalized by the true unknown variance). PARK — not reject —
+the INDIRECT self-consistency route (candidate-variance normalization + falsification), which
+was not attempted and is not ruled out by the circularity argument. PROMOTE the structural
+confirmation that `Δ_iΔ_jX`-type quantities are the right currency for this literature — worth
+searching further for a variance-scaling result specifically (as opposed to a CLT/Kolmogorov-
+distance result) using the same discrete Malliavin toolkit, if this thread is continued.
+
+**What this does NOT mean:** does NOT mean discrete Malliavin calculus is useless for this
+project — only that THIS SPECIFIC theorem's DIRECT application, as stated, doesn't work; does
+NOT mean the indirect self-consistency route would succeed if attempted — only that it hasn't
+been tried and isn't excluded; does NOT mean no variance-scaling result exists in this
+literature family — a further, more targeted search (e.g. for variance bounds rather than CLT
+bounds within the same NPR/Malliavin framework) was not attempted in this point; does NOT
+retract point 37's own findings, which remain independently valid regardless of this literature
+connection.
+
+**Artifacts:** none (pure Source Trace, primary sources read and quoted exactly, no code).
