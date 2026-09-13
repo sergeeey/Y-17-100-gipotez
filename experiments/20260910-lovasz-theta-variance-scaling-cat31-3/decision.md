@@ -2899,3 +2899,77 @@ side-finding as a Pearl rather than a result of this point.
 **Artifacts:** `check_submodularity_second_differences.py` (+`metrics/submodularity_check.json`),
 `verify_second_diff_parity.py`, `verify_X_parity_prime_vs_composite.py` (verification-only, no
 separate metrics file).
+
+## Point 38 (2026-09-13) — Extend point 33's moments from M_1,M_2,M_3 to M_1..M_6, across ALL
+`n=23..47`: the spectral spread itself is growing, not just its center
+
+**Context.** Per the external re-plan's item 3: compute higher moments beyond `M_3` (cheap,
+same `L=I-P` machinery applied more times, no new theta-solves needed beyond what's already
+routine in this experiment), across the FULL `n`-range now available (`23,29,31,37,41,43,47`,
+combining points 33 and 35's separate ranges into one script/table for the first time).
+
+**Self-consistency check (reviewer-corrected — an earlier draft of this paragraph overclaimed
+"every one of the 7 n").** `check_higher_moments_M1_M6.py` independently recomputes
+`l_eff_from_M2_M1` via a freshly-written script (not copy-pasted state). Checked against
+points 33/35's own previously-committed values: **exact (`==`) agreement at 5/7 points**
+(`n=23,29,31,37,47`, e.g. `n=47`: `3.8976180931884583` both places), and agreement to
+**~15-16 significant digits** (relative differences `~2e-16` to `~9e-16`) at `n=41,43`. The
+latter is a documented floating-point-order artifact, not a bug: `check_extend_moments_
+cross_layer_n41_43_47.py` centers `delta_q` AFTER computing `Ldelta` (dotting with the
+centered array), while this script centers BEFORE applying `L` — algebraically identical by
+`L`'s linearity (both scripts' own comments note this), but not bit-identical due to
+floating-point non-associativity. No drift in the underlying math, no bug introduced by the
+extension — only sub-ULP arithmetic-order noise at 2 of 7 points.
+
+**New diagnostic: `ρ_γ := M1·M3/M2²`.** By Cauchy-Schwarz applied to the spectral-moment inner
+product (`M_r=Σ_lγ_l^rE_l`), `ρ_γ≥1` always, with equality iff the spectral mass sits at a
+single `γ_l` value. Results, `n=23..47`: **`1.0479, 1.0723, 1.0795, 1.0966, 1.1057, 1.1125,
+1.1221`** — monotonically GROWING across all 7 points, staying modest in absolute terms but
+moving steadily away from 1.
+
+**A second, more directly interpretable statement of the same fact: the spread between
+`l_eff` estimates from different moment-ratio pairs widens with `n`.** For a FIXED `n`,
+`l_eff_from_M{r+1}_M{r}` (for `r=1..5`) gives 5 different "effective level" estimates — if the
+spectral mass truly sat near one level, these would all agree; they systematically increase
+with `r` (expected — see caveat below), but BY HOW MUCH grows with `n`:
+
+| n | l_eff(M2/M1) | l_eff(M6/M5) | spread |
+|---|---|---|---|
+| 23 | 2.468 | 3.254 | 0.786 |
+| 29 | 2.883 | 3.957 | 1.074 |
+| 31 | 2.983 | 4.150 | 1.168 |
+| 37 | 3.342 | 4.848 | 1.507 |
+| 41 | 3.579 | 5.318 | 1.739 |
+| 43 | 3.690 | 5.594 | 1.903 |
+| 47 | 3.898 | 6.062 | **2.165** |
+
+The spread nearly TRIPLES (`0.786→2.165`) across `n=23→47` — a substantially clearer growth
+signal, in interpretable units of "eigenspace level", than `ρ_γ`'s own modest-looking
+`1.05→1.12` drift (same underlying fact, different scaling).
+
+**Caveat, stated proactively (same "standard fact, newly applied" discipline as points 32, 36,
+37 — this experiment now has enough precedent to apply it by default, not just after being
+corrected).** `M_{r+1}/M_r` being non-decreasing in `r` — hence `l_eff` estimates increasing
+with `r` — is NOT itself a discovery: it is a standard consequence of Cauchy-Schwarz for any
+nonnegative spectral measure (`M_r²≤M_{r-1}M_{r+1}`, i.e. `r↦\log M_r` is convex). What is NOT
+standard, and IS the actual finding here, is that the WIDTH of this spread — not just its
+existence — grows substantially with `n`. That is a genuine, new, quantitative statement about
+this specific `X`, not a generic moment-sequence fact.
+
+**What this means for the overall investigation (reviewer-corrected — an earlier draft claimed
+"EIGHTH" without an enumeration backing the count; not re-counted here, listed explicitly
+instead).** This experiment now has multiple independently-constructed quantities moving in the
+same direction: `tail_tightness_r`, the cube-Fourier tail (point 32), `l_eff` from `M2/M1` (7
+points, points 33/35), cross-layer correlation (7 points, points 34/36), and now `ρ_γ`/`l_eff`-
+spread (7 points, this point) — five named lines of evidence, not a precise larger count. More
+of the spectral mass, and now a genuinely WIDENING share of it, sits away from the low-`l`
+region as `n` grows. None of these individually proves `l_eff(N)` is unbounded — each is a
+finite-`n`, `N≤22` observation — but the number and diversity of independently-constructed
+quantities all pointing the same way is itself worth naming plainly: a real turnaround at some
+larger `N` would need to reverse all of them simultaneously, not just one.
+
+**What this does NOT mean:** does NOT establish any asymptotic rate for `ρ_γ` or the `l_eff`
+spread (7 points, `N≤22`, no theory attempted); does NOT by itself change the answer to point
+24's boundedness question; does NOT mean `M_r` for `r>6` would show the same pattern (untested).
+
+**Artifacts:** `check_higher_moments_M1_M6.py` (+`metrics/higher_moments_M1_M6.json`).
