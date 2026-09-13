@@ -2,12 +2,22 @@
 the user's own plan). Exact new identity, verified to machine precision
 (check_cross_layer_identity.py, not committed separately -- folded into this point):
 
-    L(delta_i)(S) = Lq(X)(S) - Lq1(X)(S union {i})      for S in layer q
+    L(delta_i)(S) = Lq(X)(S) - L*(X)(S union {i})      for S in layer q
 
-(a swap of S in layer q induces the IDENTICAL swap of S union {i} in layer q+1, since i is
-never touched -- so the same swap-Laplacian structure applies to both terms). This reduces
-M_2(delta_i) = ||L(delta_i)||^2 to a question about X's OWN cross-layer swap-smoothness, not a
-new object invented for delta_i.
+**Precision note (self-caught before trusting the label, not just the numbers):** `L*` here is
+NOT the standard, full swap-Laplacian on layer q+1 (which would have degree (q+1)*(N-q) and
+average over ALL layer-(q+1) swaps, including ones that move `i` itself in or out). `L*` is the
+RESTRICTED operator that only swaps among the N ground elements excluding `i` (never touching
+`i`), applied to the shifted function g(S):=X(S union {i}) -- this restricted operator has
+degree q*(N-q), matching layer q's OWN degree exactly, which is exactly why the identity below
+holds cleanly. Calling it "L(q+1)" (as an earlier draft of this docstring and decision.md did)
+would incorrectly suggest it's layer q+1's own complete swap-Laplacian, which has a DIFFERENT
+degree and is a different operator. The identity's underlying mechanism: a swap of S in layer q
+is SIMULTANEOUSLY a valid (i-preserving) swap of S union {i}, so the SAME layer-q averaging
+structure applies to X evaluated at the shifted argument.
+
+This reduces M_2(delta_i) = ||L(delta_i)||^2 to a question about X's OWN cross-layer swap-
+smoothness (via this restricted, i-preserving operator), not a new object invented for delta_i.
 
 This script checks whether the decomposition actually HELPS: is there cancellation between the
 two terms (correlation near 1, making M_2(delta_i) substantially smaller than the "independent"
@@ -78,9 +88,12 @@ def check_one(n: int):
     delta_q = X_q - g_q
 
     LqX = apply_L_to_layer(X_q, combos_q, masks_q, mask_to_idx_q, ground_set)
-    # applying the SAME layer-q swap structure to g gives L_{q+1}(X)(S union {i}) exactly,
-    # since a swap of S in layer q induces the identical swap of S union {i} in layer q+1
-    # (verified exactly in check_cross_layer_identity.py, 1e-16 agreement)
+    # Applying the layer-q swap structure to g gives the RESTRICTED (i-preserving) swap-
+    # average of X at S union {i} -- NOT layer q+1's own full swap-Laplacian (which would have
+    # degree (q+1)*(N-q) and include swaps that move i itself). A swap of S in layer q is
+    # simultaneously a valid i-preserving swap of S union {i}, so this restricted operator has
+    # the SAME degree q*(N-q) as layer q -- that degree match is exactly why the identity below
+    # holds exactly (verified separately, 1e-16 agreement).
     Lq1X_shifted = apply_L_to_layer(g_q, combos_q, masks_q, mask_to_idx_q, ground_set)
 
     Ldelta_direct = apply_L_to_layer(delta_q, combos_q, masks_q, mask_to_idx_q, ground_set)

@@ -2581,27 +2581,35 @@ completed proof.
 
 **The new identity (exact, not approximate — verified to machine precision before being
 trusted).** For `S` in layer `q` (the `i`-excluded ground set), a swap `S'=S-a+b` is
-SIMULTANEOUSLY a valid swap of `S∪{i}` in layer `q+1` (since `i` is never touched by the swap).
-This means the swap-averaging operator commutes cleanly across the shift `S ↦ S∪{i}`:
+SIMULTANEOUSLY a valid, `i`-PRESERVING swap of `S∪{i}` (i.e. it never moves `i` itself). This
+means the swap-averaging operator commutes cleanly across the shift `S ↦ S∪{i}`:
 
 ```
-L(δ_i)(S) = Lq(X)(S) - L(q+1)(X)(S∪{i})
+L(δ_i)(S) = Lq(X)(S) - L*(X)(S∪{i})
 ```
 
-where `Lq, L(q+1)` are the (already-established, points 15-17) swap-Laplacians on layers `q,
-q+1`. **Verified exactly** (`max|L(δ_i) - [LqX - Lq1X_shifted]|` over sampled `S`, `n=23,29,31,
-37`: `1.11e-16, 8.33e-17, 1.39e-16, 1.11e-16` — pure floating-point noise). This reduces
-`M_2(δ_i) = ‖L(δ_i)‖²` to a question about `X`'s OWN cross-layer swap-smoothness — a
+**Precision correction, made before merge (self-caught, not just cited from the script's own
+docstring — same discipline as point 32's "new theorem" framing fix):** `L*` here is **NOT**
+layer `q+1`'s own full, standard swap-Laplacian (which would have degree `(q+1)(N-q)` and
+average over ALL layer-`(q+1)` swaps, including ones that move `i` itself in or out — that
+operator is genuinely different and was NOT what was computed). `L*` is the RESTRICTED
+`i`-preserving operator — swapping only among the `N` ground elements excluding `i` — which by
+construction has degree `q(N-q)`, matching layer `q`'s own degree exactly; that degree match is
+exactly why the identity holds. Calling it "`L(q+1)`" (as an earlier draft of this point did)
+would incorrectly imply it is the standard, unrestricted layer-`(q+1)` operator. **Verified
+exactly** (`max|L(δ_i) - [LqX - L*X_shifted]|` over sampled `S`, `n=23,29,31,37`: `1.11e-16,
+8.33e-17, 1.39e-16, 1.11e-16` — pure floating-point noise). This reduces `M_2(δ_i) = ‖L(δ_i)‖²`
+to a question about `X`'s OWN cross-layer swap-smoothness (via this restricted operator) — a
 DIFFERENT, and NOT previously studied in this precise form, object — not an invented auxiliary
 quantity, a direct algebraic consequence of `δ_i`'s own definition as a one-generator
 difference of `X`.
 
 **Does the decomposition actually help? Checked directly, not assumed.** If `LqX` and the
-shifted `L(q+1)X` were independent, `M_2(δ_i)` would equal their SUM; if they were highly
+shifted `L*X` were independent, `M_2(δ_i)` would equal their SUM; if they were highly
 correlated, there would be CANCELLATION. Computed over the FULL layer (not a sample), `n=23,29,
 31,37`:
 
-| n | N | ‖LqX‖² | ‖L(q+1)X shifted‖² | cross-term | correlation | sum-if-independent | M2(δ_i) actual |
+| n | N | ‖LqX‖² | ‖L*X shifted‖² | cross-term | correlation | sum-if-independent | M2(δ_i) actual |
 |---|---|---|---|---|---|---|---|
 | 23 | 10 | 0.01757 | 0.01757 | 0.00907 | 0.5166 | 0.03513 | 0.01698 |
 | 29 | 13 | 0.01272 | 0.01291 | 0.00750 | 0.5852 | 0.02563 | 0.01063 |
