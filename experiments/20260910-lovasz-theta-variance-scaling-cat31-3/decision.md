@@ -2479,3 +2479,92 @@ is NOT low-degree concentration, and does not by itself constrain where on the e
 energy sits.
 
 **Artifacts:** `check_delta_i_even_parity.py` (+`metrics/delta_i_even_parity_check.json`).
+
+## Point 33 (2026-09-13) — Exam 3 stage 14: route C (slice harmonic) stage C0-C2 — higher
+spectral moments computed directly via the swap operator (no per-level truncation); a THIRD
+independent line of evidence, via a structurally different method, corroborates point 24's own
+"mild lean against `l_eff` boundedness"
+
+**Context, C0 (Source Trace).** User correctly flagged, per this project's own "pathologically
+careful after Filmus" discipline: the `r=1` identity `T_q = 2·Σ_l γ_l·E_l` (already used
+throughout points 15-24) IS the standard Johnson/slice total-influence identity from the
+literature (Filmus's own slice work uses the identical spectral weight `d(N+1-d)` — cited by the
+user, not independently re-fetched this point, flagged as `[WEAK]`-sourced pending a primary-
+source check if this becomes load-bearing). **This should NOT be re-derived as if new — it
+already IS what points 15-18 built.** The genuinely open question is `r≥2`.
+
+**C1 (the r≥2 identity — standard linear algebra, not new math, stated for completeness).**
+Since `L:=I-P` (the swap-walk Laplacian) is self-adjoint on each layer with `L|_{V_l} = γ_l·I`
+(established, points 15-17), the spectral theorem gives `⟨f,L^r f⟩ = Σ_l γ_l^r E_l` for any `r`
+— this is pure linear algebra given already-established facts, not something requiring external
+citation to trust.
+
+**C2 (cheap empirical check — the actual new computation this point performs).** Rather than
+computing `M_r := ⟨f,L^r f⟩` via per-level `E_l` sums (which would UNDERCOUNT, since points 22-24
+already showed mass migrating to levels beyond where `E_l` has been computed), `M_1, M_2, M_3`
+are computed DIRECTLY by applying the already-validated swap-averaging operator `P` (hence `L`)
+1, 2, 3 times to the exact `δ_i` array (same necklace-orbit-reduced data used throughout points
+14-24) and taking inner products — no spectral decomposition, no truncation risk.
+
+**Self-consistency check passed to machine precision before trusting `M_2,M_3`:** `T_q` (already
+independently computed in point 15 via direct swap-pair enumeration) must equal `2·M_1` by the
+standard Dirichlet-form identity for a reversible walk — verified here via an INDEPENDENT
+recomputation of `T_q` from the same centered `f` array: agreement to `1.7e-16, 1.2e-16, 0, 0`
+(pure floating-point noise) at `n=23,29,31,37`. This confirms the operator implementation is
+correct before the genuinely new `M_2, M_3` numbers are trusted.
+
+**Result, central layer `q=⌊N/2⌋` (matching points 15-31's own convention):**
+
+| n | N | C_q | M1 | M2 | M3 | M2/M1 | M3/M2 | M2/Cq |
+|---|---|---|---|---|---|---|---|---|
+| 23 | 10 | 0.02495 | 0.02016 | 0.01698 | 0.01499 | 0.8422 | 0.8826 | 0.6807 |
+| 29 | 13 | 0.01962 | 0.01393 | 0.01063 | 0.00870 | 0.7630 | 0.8182 | 0.5420 |
+| 31 | 14 | 0.01813 | 0.01225 | 0.00896 | 0.00707 | 0.7315 | 0.7897 | 0.4942 |
+| 37 | 17 | 0.01497 | 0.00919 | 0.00625 | 0.00467 | 0.6803 | 0.7460 | 0.4178 |
+
+**Critical interpretive step, done carefully (per the same discipline that caught point 31's DOF
+confound): the raw ratio `M2/M1` decreasing with `n` does NOT by itself mean `l_eff` is
+shrinking.** `γ_l = l(N+1-l)/(q(N-q))` is itself `N`-dependent — for FIXED `l`, `γ_l` shrinks as
+`N` grows (roughly `~4l/N` for central `q`), so `M2/M1` shrinking could be pure scale artifact,
+not a substantive signal. **The correct move: invert `γ_l = M2/M1` for `l`, giving an `l_eff`
+directly comparable to point 24's own notation:**
+
+| n | N | l_eff (from M2/M1) | l_eff/N |
+|---|---|---|---|
+| 23 | 10 | 2.468 | 0.2468 |
+| 29 | 13 | 2.883 | 0.2217 |
+| 31 | 14 | 2.983 | 0.2131 |
+| 37 | 17 | 3.342 | 0.1966 |
+
+**`l_eff` itself GROWS (2.47→3.34) while `l_eff/N` shrinks (0.247→0.197) — this rules out
+`l_eff∼cN` (linear growth, which would keep `l_eff/N` and hence `γ_l`≈`M2/M1` roughly CONSTANT),
+but does NOT indicate boundedness — `l_eff` growing at all, even sub-linearly, is exactly the
+scenario point 24's own analysis already showed forces `t_4→0`** ("any `l_eff→∞` even at rate
+`log log N` forces `t_4→0`"). **This is a THIRD independent line of evidence, via a structurally
+different method (direct swap-operator moments, no per-level energy decomposition at all),
+corroborating point 24's own "mild lean against boundedness"** — not a new discovery of the same
+fact, but a genuine independent check that could have come out the other way (had `l_eff/N`
+stabilized at a nonzero constant, that would have argued for `l_eff∼cN`, a DIFFERENT and worse
+scenario than either boundedness or sub-linear growth) and did not.
+
+**Honest scope.** Only 4 data points (`n=23..37`, same range as points 15-18), too few to fit a
+reliable growth-rate exponent for `l_eff(N)` — this does not upgrade point 24's "mild lean" to a
+proof, and does not resolve `l_eff(N)` boundedness. What it DOES establish: three structurally
+independent methods (point 24's per-level `tail_tightness_r`, point 32's full-cube Fourier tail-
+beyond-level-2, and this point's direct swap-moment `l_eff` inversion) now agree on direction,
+none of them merely re-deriving the others.
+
+**Verdict and recommendation.** Route C's C0-C2 (cheap checks, per the user's own plan) are
+complete and informative: the higher-moment machinery works (verified to machine precision) and
+adds real, independent corroboration in the SAME direction as points 24 and 32, not a new one.
+Per the user's own stated criterion ("если growing too fast, we kill another beautiful hypothesis
+cheaply, not after a week of algebra") — this is not a kill of the whole investigation, but it
+does mean the specific hoped-for "moments reveal favorable scaling, attack analytically" branch
+of route C did not find favorable scaling. The harder analytic step (`||L^{r/2}δ_i||^2 ≤` small
+function of `n`, the genuinely new Lovász-specific bound the user's own plan named as the real
+target) was NOT attempted — per the same Cheapest Differentiating Test discipline, doing the cheap
+check first (this point) before the expensive analytic derivation was the correct order, and the
+cheap check's honest result (growing, not favorable) lowers the expected payoff of the harder step
+without ruling it out entirely.
+
+**Artifacts:** `check_higher_moments_M_r.py` (+`metrics/higher_moments_M_r.json`).
