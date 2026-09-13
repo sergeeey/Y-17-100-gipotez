@@ -2385,3 +2385,97 @@ in this experiment.
 
 **Artifacts:** `check_vertex_stability_probability.py` (updated to the corrected criterion)
 (+`metrics/vertex_stability_probability_check.json`).
+
+## Point 32 (2026-09-13) — Exam 3 stage 13: route A (symmetry) — a STANDARD Boolean-Fourier
+fact (antisymmetric function ⟹ derivative's spectrum flips parity), newly APPLIED here to
+`δ_i` and verified exactly; does NOT resolve point 24, but reframes it in a second, independent
+basis with the same signature
+
+**Correction on framing, made before this point was merged (per the same discipline as point
+29's Filmus correction — "pathologically careful" about the word "new theorem," per the user's
+own direct pushback):** the underlying principle here — an antisymmetric function's discrete
+derivative has spectrum confined to the OPPOSITE parity — is a standard, two-line consequence of
+the already-textbook Fourier-shift identity `(D_i f)_hat(T) = f_hat(T∪{i})` (Boolean function
+analysis, e.g. O'Donnell's *Analysis of Boolean Functions*), not a new result in the abstract.
+**What is new here is only the APPLICATION** — recognizing that this project's own `X_n` (log-
+Lovász-theta) satisfies the antisymmetry premise (point 5) and applying the standard shift
+identity to `δ_i` specifically — and its exact verification against this experiment's own data.
+Framed and reported accordingly below, not as a mathematical discovery.
+
+**Context.** User requested route A of the plan: "symmetry + monotonicity + conditioning by
+layer... identities/cancellations from complement-antisymmetry, prime transitivity, and layer
+structure." Point 11 already proved a real antisymmetry theorem for `X` itself (not yet applied
+to `δ_i`): from `X(-ε)=-X(ε)` (point 5), `X_hat(S)=0` for every EVEN `|S|` — `Var(X_n)` is
+carried entirely by ODD-degree Fourier-Walsh levels, an exact, `n`-independent structural fact.
+
+**The new step (a direct, cheap corollary, not previously derived in this experiment).**
+`δ_i(S) := X(S) - X(S∪{i})` equals `2·D_i X` in this project's own bit=1↔sign=−1 convention
+(`D_i f(ε):=(f(ε_i{=}1)-f(ε_i{=}-1))/2`, the standard Boolean-function discrete-derivative
+operator). The classical Fourier identity `(D_i f)_hat(T) = f_hat(T∪{i})` for `T⊆[m]\{i}`,
+combined with point 11's `X_hat(S)=0` for even `|S|`, forces `(D_i X)_hat(T)=X_hat(T∪{i})=0`
+whenever `|T∪{i}|` is even, i.e. whenever `|T|` is ODD. **So `δ_i`'s OWN Fourier spectrum (as a
+function of the remaining `m-1` coordinates) is confined to EVEN-degree sets — the DUAL parity
+to `X` itself.** This is a standard fact (two lines of textbook algebra), newly APPLIED here —
+not previously derived for `δ_i` in this experiment, but not a new abstract result either.
+
+**Verified exactly, not trusted from the algebra alone** (`check_delta_i_even_parity.py`):
+computed `X`'s full exact array via `theta_via_lp` (same machinery as point 11's own
+`check_exact_walsh_decomposition.py`), built `δ_0` directly from the raw array (fixing `i=0`,
+no formula shortcuts), ran its own independent Walsh-Hadamard transform over the remaining `m-1`
+coordinates, and checked the even/odd split. Result, `n=9..21`:
+
+| n | m | odd-level energy (should be exactly 0) | even_fraction |
+|---|---|---|---|
+| 9 | 4 | `6.5e-32` | `1.0000000000` |
+| 11 | 5 | `2.4e-31` | `1.0000000000` |
+| 13 | 6 | `4.9e-31` | `1.0000000000` |
+| 15 | 7 | `1.1e-30` | `1.0000000000` |
+| 17 | 8 | `8.7e-31` | `1.0000000000` |
+| 19 | 9 | `9.7e-31` | `1.0000000000` |
+| 21 | 10 | `1.4e-30` | `1.0000000000` |
+
+**Odd-level energy is pure floating-point noise (`~1e-30`) at every tested `n` — `even_fraction
+= 1.0000000000` exactly, not approximately.** This is as clean a confirmation as this project's
+exact-data checks get.
+
+**The hopeful connection to point 24, tested honestly and NOT confirmed.** Filmus (2016,
+already cited in point 29) proves that a degree-`≤d` function on the full cube restricts to a
+slice with harmonic-degree `≤d` and preserved norm up to `(1±O(d²/n))`. If `δ_i`'s spectral
+WEIGHT (not just its support parity) concentrated on LOW degree, this machinery could translate
+directly into a bound on `l_eff(N)` (point 24's exact open question) via the cube→slice
+correspondence — a potentially real escape route, since routes checked so far (LP-dual, point
+31) all failed. **Checked directly on the same exact data, honestly reported: it does NOT come
+for free.** The tail energy beyond level 2 (`Σ_{k≥4} level_weight[k] / total`) is:
+
+| n | 9 | 11 | 13 | 15 | 17 | 19 | 21 |
+|---|---|---|---|---|---|---|---|
+| tail beyond level 2 | 0.000 | 0.027 | 0.044 | 0.160 | 0.109 | 0.112 | 0.186 |
+
+**This tail GROWS with `n` (noisily, but with no visible plateau across the tested range) — the
+SAME qualitative "growing tail" signature point 24 already found in the Johnson-slice basis
+(declining `tail_tightness_r`), now independently observed in the FULL-CUBE Fourier basis.**
+This is genuinely informative but NOT a resolution: it is consistent with point 24's own honest
+verdict that `l_eff(N)` boundedness leans (mildly, on limited data) toward "no," now corroborated
+from a second, structurally-independent decomposition, not merely re-derived from the same one.
+It does NOT complete Filmus's degree-preservation argument (that argument needs a genuine
+low-degree bound, which this data does not show) and does NOT prove or disprove `l_eff(N)`
+boundedness — it adds one more independent data point on the same side of the question point 24
+already leaned toward.
+
+**Verdict: a standard fact, correctly applied and exactly verified (δ_i's even-parity Fourier
+spectrum) — genuine route-A progress on ITS OWN modest terms, exactly the kind of "identity from
+complement-antisymmetry" the plan asked for, but not a new mathematical result in itself. The
+hoped-for shortcut to point 24 via Filmus's degree-preservation theorem does NOT materialize —
+the same growing-tail obstruction reappears in this independent basis.** Per the Cheapest
+Differentiating Test Protocol, this closes off the "low full-cube degree ⟹ bounded `l_eff`"
+shortcut cheaply (exact small-`n` data, no heavy new simulation) rather than investing in the
+harder quantitative Filmus-bound derivation for a premise that isn't supported.
+
+**What remains open, unchanged:** point 24's `l_eff(N)` boundedness question itself. The parity
+fact is a genuine, standalone structural narrowing (possible spectrum levels for `δ_i` go from
+`{1,2,3,4,...}` down to `{0,2,4,...}` — HALF the levels eliminated for free), worth keeping
+regardless of what it does or doesn't say about the variance question — but parity restriction
+is NOT low-degree concentration, and does not by itself constrain where on the even levels the
+energy sits.
+
+**Artifacts:** `check_delta_i_even_parity.py` (+`metrics/delta_i_even_parity_check.json`).
