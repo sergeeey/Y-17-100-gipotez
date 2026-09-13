@@ -2179,3 +2179,76 @@ with `derive_lambda_5()` (+regenerated `metrics/lambda_k_first_principles.json`)
   (cited through a MathOverflow pointer; the specific eigenvalue claim used here was
   independently re-verified in this repository via exact-arithmetic computation, not accepted
   from the citation alone — see `verify_inclusion_matrix_eigenvalue.py`).
+
+## Point 30 (2026-09-13) — back to the real open question (point 24): cheap falsification of a
+proposed sufficient lemma, using ALREADY-COLLECTED data, before any new analytic effort
+
+**Context.** With the Johnson-algebra/λ_k line closed (point 29), the user proposed a concrete
+research plan to attack point 24's actual open question: uniform-in-`n` control of the spectral
+energy `E_l(δ_i)` of the SENSITIVITY function `f_q = δ_i(S) = X(S) - X(S∪{i})`, aiming eventually
+at `Var(X_n) = O(1/n)` via Efron-Stein. The plan's own step 4 explicitly says: check the proposed
+sufficient-lemma's quantitative form on EXISTING exact data BEFORE any new theory, specifically
+whether `n³·T_q` (the Johnson swap-walk Dirichlet energy, rescaled) stabilizes or grows with `n`
+in the central layers — "if it already grows like n^α, the lemma as stated is false, don't prove
+a phantom."
+
+**This check was run — using data already sitting in the repo, no new simulation.**
+`johnson_swap_energy.json` already contains exact `T_q` values at `n=23,29,31,37` (computed in
+earlier points, points 15-18's Johnson-Poincaré work). `check_n3_Tq_scaling.py` computes
+`n³·T_q` at the central layer and as a probability-weighted aggregate `n³·T̄` across all four `n`:
+
+| n | T_q (central) | n³·T_q | T̄ (weighted) | n³·T̄ |
+|---|---|---|---|---|
+| 23 | 0.04033 | 490.7 | 0.04535 | 551.8 |
+| 29 | 0.02787 | 679.7 | 0.03074 | 749.7 |
+| 31 | 0.02449 | 729.6 | 0.02734 | 814.5 |
+| 37 | 0.01838 | 931.1 | 0.01984 | 1004.7 |
+
+Both `n³·T_q` and `n³·T̄` GROW monotonically and substantially across this range (490→931,
+552→1005) — not stabilizing, not oscillating near a constant. A rough log-log power-law fit
+gives `α≈1.34` (central) and `α≈1.26` (weighted aggregate) for `n³·T_q ~ n^α`. Equivalently,
+`T_q` itself decays roughly like `n^-1.66` to `n^-1.74` over this range, NOT `n^-3`.
+
+**Verdict per the user's own stated stopping criterion: the specific sufficient lemma `T_q =
+O(n^-3)` in the bulk is NOT supported by existing data and should not be pursued analytically
+in that exact form.** This is a genuine, if modest, falsification result — cheap (reused
+existing exact data, no new heavy computation), and it directly prevents the multi-day analytic
+effort the plan's steps 2-3 (reinterpreting Dirichlet energy as a mixed second difference,
+proving `E[(mixed 2nd diff)²]=O(n^-3)`) would have spent proving something false. This is exactly
+what the Cheapest Differentiating Test Protocol (`falsification-ladder.md`) is for.
+
+**Cross-check against already-existing, broader data (not new — this reuses point 22/24's own
+`tail_concentration_ratio.json`, n=23..47, 7 points):** `tail_tightness_r` (fraction of `C_q`
+captured by the first `r` ladder terms) DECLINES monotonically with `n` for every fixed `r∈{1,2,
+3,4}` — e.g. `r=1`: 0.521→0.349; `r=4`: 1.000→0.881, `n=23→47`. This is the SAME signal point 24
+already flagged ("mild lean against boundedness," "7-point data cannot distinguish finite limit
+from slow divergence") — this point does not add new evidence toward resolving that question, it
+independently corroborates that the direction of the trend (declining, not improving) is
+consistent across yet another already-computed slice of the same dataset.
+
+**What this does NOT do.** It does not prove `Var(X_n)=O(1/n)` false, nor does it prove the
+broader spectral-tail research program is dead — it falsifies ONE specific proposed quantitative
+form (`T_q=O(n^-3)` via the mixed-second-difference route) at the FIRST, cheapest checkpoint,
+exactly as the plan's own step 4 was designed to do. The plan's steps 1, 3, and 5 (sufficient-
+lemma bookkeeping, alternative routes to structure via symmetry/LP-dual/slice-harmonic-analysis,
+bulk/tail split) are not falsified by this check and remain open directions — but a WEAKER decay
+rate (something closer to `n^-1.5` to `n^-1.7`, if it holds precisely and holds for the actual
+mixed-second-difference quantity, not just `T_q` as a proxy) would need to be the target instead
+of `n^-3`, and whether that weaker rate is even sufficient to close `S_n=O(n^-2)` has not been
+checked (this is exactly the "absolute bound on `D_r`, not just tail tightness" caveat the plan's
+own step 1 already flagged as a separate, still-needed piece).
+
+**Why I am not claiming to have "solved this to 100%" (explicit, per this project's Evidence
+Policy).** Proving or disproving a uniform-in-`n` spectral tail bound for this specific
+combinatorial sensitivity function is a genuinely open mathematical research question — the same
+one point 24 already identified as this branch's real barrier after the algebraic/Johnson-scheme
+layer closed. A single cheap numeric check (4-7 data points, `n≤47`) can falsify one specific
+proposed FORM of a bound; it cannot, by itself, establish or refute the underlying `Var(X_n)=
+O(1/n)` claim, derive a corrected exponent with confidence, or complete steps 2-3's proposed
+analytic program. Claiming otherwise would be exactly the kind of unverified confidence
+`integrity.md`'s "no confidence without evidence" rule exists to prevent. This point closes the
+CHEAP, FIRST step of the corrected plan honestly; the analytic work (steps 1-3, corrected to
+target a rate other than `n^-3`) remains genuinely unresolved and is not something the next
+git commit will change.
+
+**Artifacts:** `check_n3_Tq_scaling.py` (+`metrics/n3_Tq_scaling_check.json`).
