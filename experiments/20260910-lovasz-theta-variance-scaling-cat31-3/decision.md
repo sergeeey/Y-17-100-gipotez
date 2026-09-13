@@ -2568,3 +2568,89 @@ cheap check's honest result (growing, not favorable) lowers the expected payoff 
 without ruling it out entirely.
 
 **Artifacts:** `check_higher_moments_M_r.py` (+`metrics/higher_moments_M_r.json`).
+
+## Point 34 (2026-09-13) — Exam 3 stage 15: a genuine analytic attempt at `‖L^{r/2}δ_i‖²` —
+one real, exact NEW identity found and verified; one honest, partial (not conclusive) positive
+empirical signal; explicitly NOT a proof
+
+**Context.** Direct user request to attempt real analytics on `‖L^{r/2}δ_i‖²` itself (the
+genuinely new Lovász-specific bound point 33 named as the actual target, distinct from the
+already-standard spectral algebra). This point reports a genuine attempt, not a repeat of the
+cheap-check pattern — it is explicitly scoped as ATTEMPTED, HONEST, PARTIAL progress, not a
+completed proof.
+
+**The new identity (exact, not approximate — verified to machine precision before being
+trusted).** For `S` in layer `q` (the `i`-excluded ground set), a swap `S'=S-a+b` is
+SIMULTANEOUSLY a valid, `i`-PRESERVING swap of `S∪{i}` (i.e. it never moves `i` itself). This
+means the swap-averaging operator commutes cleanly across the shift `S ↦ S∪{i}`:
+
+```
+L(δ_i)(S) = Lq(X)(S) - L*(X)(S∪{i})
+```
+
+**Precision correction, made before merge (self-caught, not just cited from the script's own
+docstring — same discipline as point 32's "new theorem" framing fix):** `L*` here is **NOT**
+layer `q+1`'s own full, standard swap-Laplacian (which would have degree `(q+1)(N-q)` and
+average over ALL layer-`(q+1)` swaps, including ones that move `i` itself in or out — that
+operator is genuinely different and was NOT what was computed). `L*` is the RESTRICTED
+`i`-preserving operator — swapping only among the `N` ground elements excluding `i` — which by
+construction has degree `q(N-q)`, matching layer `q`'s own degree exactly; that degree match is
+exactly why the identity holds. Calling it "`L(q+1)`" (as an earlier draft of this point did)
+would incorrectly imply it is the standard, unrestricted layer-`(q+1)` operator. **Verified
+exactly** (`max|L(δ_i) - [LqX - L*X_shifted]|` over sampled `S`, `n=23,29,31,37`: `1.11e-16,
+8.33e-17, 1.39e-16, 1.11e-16` — pure floating-point noise). This reduces `M_2(δ_i) = ‖L(δ_i)‖²`
+to a question about `X`'s OWN cross-layer swap-smoothness (via this restricted operator) — a
+DIFFERENT, and NOT previously studied in this precise form, object — not an invented auxiliary
+quantity, a direct algebraic consequence of `δ_i`'s own definition as a one-generator
+difference of `X`.
+
+**Does the decomposition actually help? Checked directly, not assumed.** If `LqX` and the
+shifted `L*X` were independent, `M_2(δ_i)` would equal their SUM; if they were highly
+correlated, there would be CANCELLATION. Computed over the FULL layer (not a sample), `n=23,29,
+31,37`:
+
+| n | N | ‖LqX‖² | ‖L*X shifted‖² | cross-term | correlation | sum-if-independent | M2(δ_i) actual |
+|---|---|---|---|---|---|---|---|
+| 23 | 10 | 0.01757 | 0.01757 | 0.00907 | 0.5166 | 0.03513 | 0.01698 |
+| 29 | 13 | 0.01272 | 0.01291 | 0.00750 | 0.5852 | 0.02563 | 0.01063 |
+| 31 | 14 | 0.01161 | 0.01161 | 0.00713 | 0.6141 | 0.02321 | 0.00896 |
+| 37 | 17 | 0.00879 | 0.00885 | 0.00570 | 0.6456 | 0.01764 | 0.00625 |
+
+**Real, substantial cancellation, and it GROWS with `n`.** Correlation between `X`'s own swap-
+smoothness on two adjacent layers rises `0.52→0.65` across `n=23→37` — `M_2(δ_i)` is roughly
+HALF of what independence would give at every tested `n`, and the gap is not shrinking. This is
+a genuine structural fact about `X` (not `δ_i`): its swap-Dirichlet behavior is increasingly
+COHERENT across adjacent Hamming layers as `n` grows, not increasingly independent.
+
+**A second, separately-encouraging signal: `‖LqX‖²` itself decays with `n`.** Log-log slope
+across the same 4 points: **`-1.4506`** — i.e. `X`'s own within-layer swap-Dirichlet energy
+empirically decays roughly like `n^{-1.45}`, FASTER than `T_q`'s own `~n^{-1.7}`-ish decay found
+for `δ_i` directly (point 30) — encouraging IN DIRECTION, though this is a 4-point log-log fit
+and should not be read as an established asymptotic rate.
+
+**Honest assessment — this is real progress, but NOT a proof, and NOT yet a resolution.**
+Three things are established here with high confidence (exact identity, verified cancellation,
+verified decay of `‖LqX‖²` at these 4 points); NONE of the following is established: (a)
+whether `‖LqX‖²`'s apparent `~n^{-1.45}` decay is a genuine asymptotic law or a finite-size
+transient (4 points, same small range as every other exact check in this experiment, `n≤37`);
+(b) whether this rate, even if genuine, is FAST ENOUGH to close the gap to `O(1/n)` for
+`Var(X_n)` once correctly propagated through the Efron-Stein/ladder machinery (that propagation
+was not attempted here — it requires knowing how `M_2(δ_i)`, not just `‖LqX‖²` alone, enters the
+tail-control argument, and `M_2(δ_i)` itself still only decays (from point 33) in a way not yet
+shown sufficient); (c) whether the growing correlation (0.52→0.65) continues growing toward 1
+(which would give STRONGER cancellation, i.e. a MORE favorable signal) or saturates below 1 (in
+which case the benefit is bounded). **This point does not claim to have found the missing
+Lovász-specific bound — it reports a genuine, verified, non-trivial structural reduction plus
+one honest empirical data point that is, for the first time in this entire route-A/B/C
+investigation, NOT purely unfavorable.**
+
+**What would be needed to complete this into an actual bound (named explicitly, not attempted):**
+(1) an independent theoretical argument (not just curve-fitting 4 points) for why `X`'s own
+cross-layer swap-correlation should increase with `n` — is there a mechanism, or is this a
+coincidence of the specific `n=23,29,31,37` sample; (2) a rigorous connection from `‖LqX‖²`'s
+decay rate to a bound on `M_r(δ_i)` for the `r` actually needed by the tail-control Markov bound
+`Σ_{l≥L}E_l ≤ M_r/γ_L^r`; (3) extending this same identity to `r=3` (`⟨δ_i,L³δ_i⟩`), which was
+not attempted here.
+
+**Artifacts:** `check_cross_layer_cancellation.py`
+(+`metrics/cross_layer_cancellation.json`).

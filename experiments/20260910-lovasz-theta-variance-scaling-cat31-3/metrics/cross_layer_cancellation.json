@@ -1,0 +1,57 @@
+{
+  "rows": [
+    {
+      "n": 23,
+      "N": 10,
+      "q": 5,
+      "M2_direct": 0.016982365866635273,
+      "M2_via_decomp": 0.01698236586663527,
+      "identity_consistency_err": 3.469446951953614e-18,
+      "norm_LqX_sq": 0.017564887154384076,
+      "norm_Lq1X_shifted_sq": 0.017564887154384083,
+      "cross_term": 0.009073704221066438,
+      "correlation": 0.5165819820710719,
+      "sum_if_independent": 0.03512977430876816
+    },
+    {
+      "n": 29,
+      "N": 13,
+      "q": 6,
+      "M2_direct": 0.0106321738131009,
+      "M2_via_decomp": 0.0106321738131009,
+      "identity_consistency_err": 0.0,
+      "norm_LqX_sq": 0.012722161043056743,
+      "norm_Lq1X_shifted_sq": 0.012909756583139082,
+      "cross_term": 0.0074998719065474595,
+      "correlation": 0.585213552111556,
+      "sum_if_independent": 0.025631917626195825
+    },
+    {
+      "n": 31,
+      "N": 14,
+      "q": 7,
+      "M2_direct": 0.008957852306998589,
+      "M2_via_decomp": 0.008957852306998589,
+      "identity_consistency_err": 0.0,
+      "norm_LqX_sq": 0.011606869441590267,
+      "norm_Lq1X_shifted_sq": 0.011606869441590267,
+      "cross_term": 0.007127943288090972,
+      "correlation": 0.6141141953875865,
+      "sum_if_independent": 0.023213738883180533
+    },
+    {
+      "n": 37,
+      "N": 17,
+      "q": 8,
+      "M2_direct": 0.00625264561135364,
+      "M2_via_decomp": 0.00625264561135364,
+      "identity_consistency_err": 0.0,
+      "norm_LqX_sq": 0.008789302516795137,
+      "norm_Lq1X_shifted_sq": 0.008852426841729965,
+      "cross_term": 0.005694541873585731,
+      "correlation": 0.6455805110451405,
+      "sum_if_independent": 0.0176417293585251
+    }
+  ],
+  "loglog_slope_LqX_sq": -1.4505809895703035
+}
