@@ -33,10 +33,30 @@ explicit loop (see derive_lambda_4 below), not derived by hand, specifically to 
 "hidden hand-algebra error" risk that motivated writing this file symbolically in the first
 place. Confirmed: sp.simplify(derived - hypothesis) == 0 for general symbolic N,q.
 
-Not yet extended to k=5 (would need E_4(Y_A), grouping QUADS by |A intersect quad| into 5
-types, plus a third self-adjoint cross-term through P3 -- same method, more bookkeeping, not
-attempted here, not because of a discovered obstruction).
+k=5 (2026-09-12): extended by generalizing every k=4 building block to take the target size k
+as an explicit parameter (e1_energy(k), e2_ingredients(k), e3_cross(k_target,t)), then adding
+E_4(Y_A) via a DOUBLE self-adjoint expansion through P1,P2,P3: <e_quad,P3(Y_A)> requires BOTH
+<z_triple,Y_A> (via e3_cross(5,t), the k=4 method one level up) AND <e_quad,z_triple> (via
+e3_cross(4,s) -- since e_quad is a generic size-4 raw centered indicator, structurally
+identical to what Y_A was when k_target=4, so the SAME function serves both roles). Triples are
+classified by their overlap with BOTH A and the quad jointly (a 4-region composition
+enumeration), not one set at a time. Regression-tested: the generalized e3_cross(4,t)
+reproduces k=4's already-reviewed E_3 exactly before spending time on E_4.
+Confirmed: sp.simplify(derived - hypothesis) == 0 for general symbolic N,q.
+
+IMPORTANT CORRECTION (point 29, 2026-09-12): this entire "first principles" framing (k=1-5)
+should NOT be read as discovering new mathematics. Independent literature check (Filmus 2016,
+Electronic J. Combinatorics 23(1) P1.23, Theorem 4.1 -- verified against the paper's own LaTeX
+source) and inclusion-matrix spectral theory (verified independently here via exact-Fraction
+eigenvector checks, see verify_inclusion_matrix_eigenvalue.py) show lambda_k's closed form is a
+CLASSICAL result for ALL k at once (Johnson-scheme / inclusion-matrix eigenvalue theory), not
+something requiring case-by-case derivation or a from-scratch induction proof. This file's
+value is as an INDEPENDENT verification via a genuinely different method (recursive
+self-adjoint orthogonal projection, built without consulting the classical theory), not as the
+primary proof. See decision.md point 29 for the full reclassification and citations.
 """
+
+import functools
 
 import sympy as sp
 
@@ -180,6 +200,187 @@ def derive_lambda_4():
     return sp.factor(sp.simplify(sp.binomial(N, 4) * z2 / dim_v(4)))
 
 
+# ---------------------------------------------------------------------------------------------
+# k=5: generalizes every k=4 building block to an explicit target-size parameter k, then adds
+# E_4(Y_A) via a DOUBLE self-adjoint expansion through P1,P2,P3. lru_cache avoids recomputing
+# e2_ingredients/e3_cross for repeated (k,t) argument pairs inside the nested composition loop
+# (a real bottleneck without it -- the uncached version took much longer to run).
+# ---------------------------------------------------------------------------------------------
+
+
+def e1_energy(k):
+    p_k, p_kp1 = p_m(k), p_m(k + 1)
+    mu_in = p_k - p_k * (q / N)
+    mu_out = p_kp1 - p_k * (q / N)
+    return sp.simplify((k * mu_in**2 + (N - k) * mu_out**2) * N * (N - 1) / (q * (N - q)))
+
+
+@functools.cache
+def e2_ingredients(k):
+    """Cov(Y_A, e_pair) grouped by |A intersect pair|, double-centered -> r_both/one/none,
+    for |A|=k (generalizes derive_lambda_3/4's own inline versions to arbitrary k)."""
+    p2 = p_m(2)
+    p_k, p_kp1, p_kp2 = p_m(k), p_m(k + 1), p_m(k + 2)
+    mu_both = p_k - p_k * p2
+    mu_one = p_kp1 - p_k * p2
+    mu_none = p_kp2 - p_k * p2
+    s_inA = (k - 1) * mu_both + (N - k) * mu_one
+    s_notA = k * mu_one + (N - k - 1) * mu_none
+    big_S = sp.binomial(k, 2) * mu_both + k * (N - k) * mu_one + sp.binomial(N - k, 2) * mu_none
+
+    def r_of(mu, sa, sb):
+        return mu - (sa + sb) / (N - 2) + 2 * big_S / ((N - 1) * (N - 2))
+
+    r_both = sp.simplify(r_of(mu_both, s_inA, s_inA))
+    r_one = sp.simplify(r_of(mu_one, s_inA, s_notA))
+    r_none = sp.simplify(r_of(mu_none, s_notA, s_notA))
+    return r_both, r_one, r_none
+
+
+def e2_energy(k):
+    lam2 = lambda_hypothesis(2)
+    r_both, r_one, r_none = e2_ingredients(k)
+    return sp.simplify(
+        (sp.binomial(k, 2) * r_both**2 + k * (N - k) * r_one**2 + sp.binomial(N - k, 2) * r_none**2)
+        / lam2
+    )
+
+
+@functools.cache
+def e3_cross(k_target, t):
+    """<z_triple, Y_A_c> for |A|=k_target, t=|A intersect triple| in {0,1,2,3}. Generalizes
+    derive_lambda_4's per-t loop body (there hardcoded for k_target=4) to arbitrary k_target."""
+    p2 = p_m(2)
+    p_k, p_kp1 = p_m(k_target), p_m(k_target + 1)
+    mu_in = p_k - p_k * (q / N)
+    mu_out = p_kp1 - p_k * (q / N)
+    r_both, r_one, r_none = e2_ingredients(k_target)
+    r_by_inA_count = {2: r_both, 1: r_one, 0: r_none}
+    lam2 = lambda_hypothesis(2)
+
+    p3v, p4v, p5v = p_m(3), p_m(4), p_m(5)
+    eta_2 = {2: p3v - p3v * p2, 1: p4v - p3v * p2, 0: p5v - p3v * p2}
+    nu_single = {True: p3v - p3v * q / N, False: p4v - p3v * q / N}
+    scale1 = N * (N - 1) / (q * (N - q))
+
+    regions = [
+        {"size": t, "inA": True, "inT": True},
+        {"size": k_target - t, "inA": True, "inT": False},
+        {"size": 3 - t, "inA": False, "inT": True},
+        {"size": N - (k_target + 3 - t), "inA": False, "inT": False},
+    ]
+    mu_type_t = p_m(k_target + 3 - t) - p_k * p_m(3)
+
+    e1_cross = sum(
+        r["size"] * (mu_in if r["inA"] else mu_out) * nu_single[r["inT"]] for r in regions
+    )
+    e1_cross = sp.simplify(scale1 * e1_cross)
+
+    e2_cross = 0
+    for i in range(len(regions)):
+        for j in range(i, len(regions)):
+            ri, rj = regions[i], regions[j]
+            count = sp.binomial(ri["size"], 2) if i == j else ri["size"] * rj["size"]
+            r_val = r_by_inA_count[int(ri["inA"]) + int(rj["inA"])]
+            eta_val = eta_2[int(ri["inT"]) + int(rj["inT"])]
+            nu_sum = nu_single[ri["inT"]] + nu_single[rj["inT"]]
+            e2_cross += count * r_val * (eta_val - (q - 1) / (N - 2) * nu_sum)
+    e2_cross = sp.simplify(e2_cross / lam2)
+
+    return sp.simplify(mu_type_t - e1_cross - e2_cross)
+
+
+def e3_energy(k):
+    lam3 = lambda_hypothesis(3)
+    counts = {t: sp.binomial(k, t) * sp.binomial(N - k, 3 - t) for t in (0, 1, 2, 3)}
+    return sp.simplify(sum(counts[t] * e3_cross(k, t) ** 2 for t in (0, 1, 2, 3)) / lam3)
+
+
+def _cov_pair_with_source(m_source, x):
+    """Cov(e_source, e_pair), |source|=m_source, x=|source intersect pair| in {0,1,2}."""
+    p2 = p_m(2)
+    return p_m(m_source + 2 - x) - p_m(m_source) * p2
+
+
+def e4_cross(k_target, u):
+    """<w_quad, Y_A_c> for |A|=k_target, u=|A intersect quad| in {0,...,4}. Needs a DOUBLE
+    self-adjoint expansion (through P1,P2,P3): the P3 cross-term sums over ALL triples,
+    jointly classified by their overlap with A and with the quad -- see decision.md point 29
+    for the derivation this implements."""
+    p4v = p_m(4)
+    p_k, p_kp1 = p_m(k_target), p_m(k_target + 1)
+    mu_in = p_k - p_k * (q / N)
+    mu_out = p_kp1 - p_k * (q / N)
+    r_both, r_one, r_none = e2_ingredients(k_target)
+    r_by_inA_count = {2: r_both, 1: r_one, 0: r_none}
+    lam2 = lambda_hypothesis(2)
+    lam3 = lambda_hypothesis(3)
+    scale1 = N * (N - 1) / (q * (N - q))
+
+    nu_quad_single = {True: p4v - p4v * q / N, False: p_m(5) - p4v * q / N}
+    eta_quad_pair = {
+        2: _cov_pair_with_source(4, 2),
+        1: _cov_pair_with_source(4, 1),
+        0: _cov_pair_with_source(4, 0),
+    }
+
+    regions = [
+        {"size": u, "inA": True, "inQ": True},
+        {"size": k_target - u, "inA": True, "inQ": False},
+        {"size": 4 - u, "inA": False, "inQ": True},
+        {"size": N - (k_target + 4 - u), "inA": False, "inQ": False},
+    ]
+    term0 = p_m(k_target + 4 - u) - p_k * p4v
+
+    term1 = sum(
+        r["size"] * (mu_in if r["inA"] else mu_out) * nu_quad_single[r["inQ"]] for r in regions
+    )
+    term1 = sp.simplify(scale1 * term1)
+
+    term2 = 0
+    for i in range(len(regions)):
+        for j in range(i, len(regions)):
+            ri, rj = regions[i], regions[j]
+            count = sp.binomial(ri["size"], 2) if i == j else ri["size"] * rj["size"]
+            r_val = r_by_inA_count[int(ri["inA"]) + int(rj["inA"])]
+            eta_val = eta_quad_pair[int(ri["inQ"]) + int(rj["inQ"])]
+            nu_sum = nu_quad_single[ri["inQ"]] + nu_quad_single[rj["inQ"]]
+            term2 += count * r_val * (eta_val - (q - 1) / (N - 2) * nu_sum)
+    term2 = sp.simplify(term2 / lam2)
+
+    # term3: sum over triples, jointly classified by composition across the 4 (A,quad) regions
+    term3 = 0
+    sizes = [r["size"] for r in regions]  # region 0,1,2 concrete ints (u fixed); region 3 symbolic
+    for i0 in range(0, min(3, sizes[0]) + 1):
+        for i1 in range(0, min(3 - i0, sizes[1]) + 1):
+            for i2 in range(0, min(3 - i0 - i1, sizes[2]) + 1):
+                i3 = 3 - i0 - i1 - i2
+                count = (
+                    sp.binomial(sizes[0], i0)
+                    * sp.binomial(sizes[1], i1)
+                    * sp.binomial(sizes[2], i2)
+                    * sp.binomial(sizes[3], i3)
+                )
+                t_prime = i0 + i1  # |A intersect triple|
+                s_val = i0 + i2  # |quad intersect triple|
+                term3 += count * e3_cross(k_target, t_prime) * e3_cross(4, s_val)
+    term3 = sp.simplify(term3 / lam3)
+
+    return sp.simplify(term0 - term1 - term2 - term3)
+
+
+def e4_energy(k):
+    lam4 = lambda_hypothesis(4)
+    counts = {u: sp.binomial(k, u) * sp.binomial(N - k, 4 - u) for u in (0, 1, 2, 3, 4)}
+    return sp.simplify(sum(counts[u] * e4_cross(k, u) ** 2 for u in (0, 1, 2, 3, 4)) / lam4)
+
+
+def derive_lambda_5():
+    p5 = p_m(5)
+    z2 = sp.simplify(p5 - p5**2 - e1_energy(5) - e2_energy(5) - e3_energy(5) - e4_energy(5))
+    return sp.factor(sp.simplify(sp.binomial(N, 5) * z2 / dim_v(5)))
+
+
 if __name__ == "__main__":
     results = {}
     for k, derive_fn in [
@@ -187,6 +388,7 @@ if __name__ == "__main__":
         (2, derive_lambda_2),
         (3, derive_lambda_3),
         (4, derive_lambda_4),
+        (5, derive_lambda_5),
     ]:
         derived = derive_fn()
         hypothesis = lambda_hypothesis(k)
@@ -198,7 +400,7 @@ if __name__ == "__main__":
         print(f"  MATCH: {match}")
 
     all_match = all(r["match"] for r in results.values())
-    print(f"\nAll k=1,2,3,4 symbolically confirmed: {all_match}")
+    print(f"\nAll k=1,2,3,4,5 symbolically confirmed: {all_match}")
 
     import json
     from pathlib import Path
