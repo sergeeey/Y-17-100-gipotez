@@ -1,0 +1,63 @@
+{
+  "n_values": [
+    32.0,
+    64.0,
+    128.0,
+    256.0,
+    512.0,
+    1024.0,
+    1536.0,
+    2048.0,
+    3000.0
+  ],
+  "var_values": [
+    0.11704858018447684,
+    0.054779822923404345,
+    0.03158465860128919,
+    0.015031970955191484,
+    0.00885399609348373,
+    0.005133987284969137,
+    0.0038884078502951815,
+    0.0019364135673114887,
+    0.001808726951667312
+  ],
+  "power_law": {
+    "slope": -0.91159637002201,
+    "intercept": 0.9497283178861906,
+    "r2": 0.9923908278255552,
+    "sign_runs": 7,
+    "n_pos": 6,
+    "n_neg": 3,
+    "wald_wolfowitz_z": 1.6329931618554523
+  },
+  "additive_models": {
+    "A/n+B/n^1.5": {
+      "A": 3.671610759614914,
+      "B": 0.28627024322188943,
+      "r2": 0.9975704690297411,
+      "sign_runs": 3,
+      "n_pos": 8,
+      "n_neg": 1,
+      "wald_wolfowitz_z": 0.534522483824849
+    },
+    "A/n+B/n^2": {
+      "A": 3.6496137867917153,
+      "B": 2.5387194670314677,
+      "r2": 0.9976185600983959,
+      "sign_runs": 3,
+      "n_pos": 8,
+      "n_neg": 1,
+      "wald_wolfowitz_z": 0.534522483824849
+    },
+    "A*logn/n+B/n": {
+      "A": 0.01878282474367127,
+      "B": 3.648529574850776,
+      "r2": 0.9975708367196192,
+      "sign_runs": 3,
+      "n_pos": 8,
+      "n_neg": 1,
+      "wald_wolfowitz_z": 0.534522483824849
+    }
+  },
+  "verdict": "reviewer-corrected (P1): raw sign-runs counts are NOT comparable across fits with different pos/neg splits (an 8+/1- split can achieve at most 3 runs, so '3 runs' there is close to that split's own expected value, not anomalous). Wald-Wolfowitz z-scores show NEITHER family is significantly non-random at n=9 (all |z|<2). The R^2 gap (0.9976 vs 0.9924) is marginal. Conclusion: this check is INCONCLUSIVE at n=9 -- it does NOT demonstrate that forcing an A/n leading term produces a better OR worse fit than the plain power law on this dataset"
+}
