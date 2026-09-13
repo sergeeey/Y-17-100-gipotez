@@ -4362,3 +4362,481 @@ central-layer `R_6` genuinely reproduces point 44's committed values.** Findings
 **Artifacts:** `check_layer_aggregation_closure_test.py`
 (+`metrics/layer_aggregation_closure_test.json`), full writeup
 `layer_aggregation_test_2026-09-14.md`.
+
+## Point 50 (2026-09-14) — Priority A, first real computational test: `H*(n) ≥ C_q(n)` is
+PROVABLE A PRIORI for any `F`/layer/`B` — the Chatterjee-Dey bridge (this variance-use
+instantiation) cannot beat the already-known exact `Var(δ_i)`, by a structural inequality, not
+by an empirical coincidence. Skeptic-fallback review found this stronger, more general framing
+after the first draft understated it — recorded here as the corrected version, not two points.
+
+**Context.** With Priority C (points 44-49) now closed out for the session, Priority A
+(Malliavin/Stein bridge, points 40-43) was the one live, partially-explored, not-yet-
+computationally-tested route. Point 41 had already identified the exact missing step:
+Chatterjee's exchangeable-pairs concentration theorem (S. Chatterjee, "Stein's method for
+concentration inequalities," *Probab. Theory Related Fields* 138 (2007), 305-321, Theorem 1.5)
+requires a pointwise a.s. domination `Δ(X) ≤ B·f(X) + C`, where
+`Δ(X):=½E(|f(X)-f(X')|·|F(X,X')| | X)` is a CONDITIONAL quantity built from an ABSOLUTE VALUE —
+never actually tested, only sketched. Point 42's own `M_{-1}` diagnostic was explicitly NOT this
+(a different, unconditional, tautology-adjacent scalar) and this document already carries that
+correction. This point runs the actual test — and then, via a second independent skeptic-fallback
+review, finds the test's headline criterion was unreachable from the start, for a provable
+reason, sharpening (not overturning) the original NULL verdict.
+
+**Sign-convention: internally consistent, algebraically re-derivable, but NOT independently
+verified against the primary source this session (corrected characterization — the original
+draft overclaimed primary-source verification; the executing agent could not access
+`arXiv:math/0604352` directly in that pass, only reasoned from `[MEMORY]`/consistency).** Quoted
+form of Theorem 1.5(ii): *"If there exist nonnegative constants B and C such that Δ(X) ≤ B f(X)
++ C almost surely, then ... P{f(X)≥t}≤exp(-t²/(2C+2Bt))"* — `f(X)` signed (zero-mean is part of
+the theorem's own conclusion), no absolute value, no shift, no `f≥0` restriction. This matches
+point 41's own quote exactly. The cleaner justification for why the sign "tension" is a non-issue
+(replacing an earlier, weaker appeal to one worked example): the hypothesis `Δ(X)≤B·f(X)+C`
+*itself*, together with `Δ(X)≥0` always, forces `B·f(X)+C≥0` at every point where the hypothesis
+holds — no separate check is needed, and this project's own fit constructively exhibits an
+admissible `(B,C)` pair, which is the actual verification that matters. `arXiv:math/0604352`
+should still be fetched and read directly in any follow-up before citing Theorem 1.5 as
+independently confirmed; until then this is `[MEMORY/INFERRED, MEDIUM-HIGH]`, not `[VERIFIED]`.
+
+**The construction, at the central Hamming layer (`q=N//2`, matching points 15-43's own
+convention), all 7 real `n`:** `f(X):=h(X):=δ_i(X)-E_q[δ_i]` (already-computed, centered
+single-generator sensitivity), `Lg=h` (the already-verified conjugate-gradient solve from point
+42), `F(X,X'):=g(X)-g(X')` (giving `E(F|X)=Lg(X)=h(X)=f(X)` as the theorem requires),
+`Δ(X):=½·mean over X's `d=q(N-q)` single-swap neighbors of `|h(X)-h(X')|·|g(X)-g(X')|`` (a
+genuine per-state conditional average over a finite discrete space — no approximation). This is
+qualitatively different from point 42's tautological identity: that used the UNCONDITIONAL exact
+identity `½E[(f-f')(g-g')]=⟨f,Lg⟩=‖f‖²` (a signed expectation collapsing to a norm by
+construction); this uses a CONDITIONAL quantity built from an ABSOLUTE VALUE.
+
+**Fitting method — exact, not eyeballed, not OLS (appropriate for an a.s. domination claim), and
+independently re-verified arithmetically against the raw JSON (skeptic-fallback pass, all 7 rows
+match to 6 significant figures).** For candidate `B≥0`, the minimal valid `C` is exactly
+`C(B)=max_X[Δ(X)-B·h(X)]` (clipped at 0) — forced, since `Δ(X)≤B·h(X)+C` for every `X` in the
+finite support iff `C≥Δ(X)-B·h(X)` for every `X`. `H(B):=C(B)+B²` is convex, so minimizing over
+`B≥0` via `scipy.optimize.minimize_scalar` (bounded) is a well-posed search. The `B²` term's
+justification was independently re-derived, not just asserted (skeptic-fallback pass integrated
+Chatterjee's own two one-sided tail bounds directly: `∫₀^∞2t·exp(-t²/(2C+2Bt))dt` split at
+`t=C/B` gives `≤4C+32B²`, plus the left tail `≤2C`, so `Var(f)≲36C+32B²` — prefactors don't
+matter for a scaling comparison, only the exponent, which is what `H` is used for here).
+
+**The actual numbers, all 7 `n` (independently spot-checked against the raw JSON twice — once at
+first draft, once during skeptic-fallback review, including a bitwise cross-check of `C_q` and CG
+convergence diagnostics against point 42's own committed `metrics/potential_moment_M_neg1.json`,
+which match exactly — a free, previously-unused positive control confirming this point's
+`h`/`g` vectors are the SAME ones point 42 already validated, not silently recomputed
+differently):**
+
+| n | B* | C* | H*=C*+B*² | C_q (true Var(δ_i)) | C*/C_q |
+|---|---|---|---|---|---|
+| 23 | 0.1292 | 0.05645 | 0.07315 | 0.02495 | 2.26 |
+| 29 | 0.1333 | 0.05447 | 0.07225 | 0.01962 | 2.78 |
+| 31 | 0.1300 | 0.04934 | 0.06623 | 0.01813 | 2.72 |
+| 37 | 0.1554 | 0.04857 | 0.07271 | 0.01497 | 3.25 |
+| 41 | 0.1557 | 0.04759 | 0.07184 | 0.01328 | 3.58 |
+| 43 | 0.1577 | 0.04586 | 0.07072 | 0.01245 | 3.68 |
+| 47 | 0.1536 | 0.04800 | 0.07158 | 0.01102 | 4.36 |
+
+(`n=41`'s CG converged right at the tolerance boundary — residual `9.57e-6` vs `~1e-17` for the
+other six — checked explicitly during skeptic-fallback review against `check_potential_moment_M_
+neg1.py`'s own convergence logic: benign, `~2e-5` relative effect on `C*`, does not affect any
+conclusion below.)
+
+**THE CORRECTED, SHARPER FINDING (this is the headline, not the flat-`H*` framing the first
+draft led with).** A short exchangeability argument, independently re-derived and verified before
+being trusted (not merely copied from the reviewing pass that first surfaced it): for ANY
+antisymmetric `F(X,X')` with `E[F(X,X')|X]=f(X)` and `(X,X')` exchangeable,
+
+```
+E[Δ] = ½E|f(X)-f(X')|·|F(X,X')| ≥ ½|E[(f(X)-f(X'))F(X,X')]|      (Jensen, E|Y|≥|E[Y]|)
+E[(f(X)-f(X'))F(X,X')] = 2E[f(X)F(X,X')]                          (exchangeability + antisymmetry
+                                                                    of F cancel the f(X') term)
+E[f(X)F(X,X')] = E[f(X)·E[F(X,X')|X]] = E[f(X)²] = Var(f)         (tower property + f centered)
+  ⟹  E[Δ] ≥ Var(f)
+```
+
+and since `C(B) = max_X[Δ(X)-B·f(X)] ≥ E[Δ(X)-B·f(X)] = E[Δ]-B·E[f] = E[Δ] ≥ Var(f)` (using
+`E[f]=0`) **for every `B≥0`**, this gives `C* ≥ C_q` and hence `H* = C*+B*² ≥ C* ≥ C_q`
+IDENTICALLY — true for ANY choice of `F` satisfying the theorem's own setup, at ANY Hamming
+layer, for ANY `B`. This is consistent with every one of the 7 measured ratios `C*/C_q>1` in the
+table above (`2.26`–`4.36`), but it means those ratios being `>1` was NEVER in question — it was
+guaranteed before the computation ran. **Given `C_q` itself already decays at the already-
+committed rate `≈n^{-1.13}` (recomputed here from the endpoints:
+`log(0.011016/0.024948)/log(47/23)≈-1.144`, consistent with the previously-quoted `-1.13`), the
+original headline criterion — "does `H*(n)` reach `n^{-2}`?" — could not have returned anything
+but NULL, by this inequality alone, before a single number was computed.** The test as designed
+does not discriminate a good construction from a bad one on that criterion; per this project's
+own `artifact-provenance-gates.md` Gate 3, a test that cannot distinguish its own floor from its
+target is not evidence on that question.
+
+**What IS genuinely, non-tautologically informative, and was NOT knowable in advance: the
+*growth* of `C*/C_q` from `2.26` to `4.36` across `n=23→47`.** The inequality above only forces
+the ratio to exceed 1; it says nothing about whether the gap between `C*` (this construction's
+achievable bound) and `C_q` (the truth) should shrink, stay flat, or grow as `n` increases. The
+measured growth means THIS SPECIFIC bridge (`F=g-g'` from `Lg=h`, central layer) is becoming
+relatively LESS tight as `n` grows — a real, falsifiable, construction-specific finding, distinct
+from the provable floor.
+
+**Corrected scope of the verdict — this test only speaks to variance-type use of Chatterjee's
+theorem, not its actual comparative advantage.** The Efron-Stein route's own bound value was
+never computed here for a direct side-by-side comparison — this point only compared `C*` (this
+construction's bound) against `C_q` (the exact truth), so "does not beat naive Efron-Stein" was
+asserted, not measured, in the first draft. More importantly: Chatterjee's theorem's actual
+selling point over Efron-Stein is exponential TAIL control and ALL higher moments (via
+`P{f≥t}≤exp(-t²/(2C+2Bt))`), not a tighter variance estimate — and the inequality above proves
+this construction can NEVER give a tighter variance estimate than the exact truth, by
+construction, regardless of tuning. This point tested (and killed, for variance-use) exactly the
+one application where the bridge was mathematically guaranteed not to help; whether the same
+`(B*,C*)` gives useful TAIL bounds beyond what's already known (rather than a variance-scale
+improvement) is a genuinely different, untested question.
+
+**Verdict: NULL for variance-type use of this bridge, and NULL structurally/a priori, not just
+empirically — stronger than a garden-variety negative result, because it rules out this whole
+CLASS of application (any `F`, any layer) for this specific purpose, not just the one
+instantiation tested. Scope of this closure, stated precisely so it cannot be mis-read as
+broader than proven (a real risk with "universal" negative results in this project's own
+history — such closures have had to be walked back before): what is closed is specifically the
+AFFINE CHATTERJEE-DOMINATION variance-gain mechanism (`Δ(X)≤B·f(X)+C` used to bound `Var(f)` via
+`C+B²`) — this is NOT a general impossibility theorem for Malliavin/Stein-type variance
+inequalities as a class.** Other variance-control mechanisms this proof says nothing about
+include: second-order Poincaré inequalities (already separately explored, and separately parked,
+at points 40/43 for other reasons), non-affine or multiplicative domination forms, other
+exchangeable-pair couplings not of Chatterjee's specific `E[F|X]=f` shape, or size-biasing/
+zero-bias couplings — none of these are touched by the `E[Δ]≥Var(f)` argument above, which is
+specific to this exact construction. The domination condition itself IS genuinely satisfiable at
+every tested `n` (Chatterjee's theorem legitimately applies, giving real, valid tail bounds on
+`δ_i`) — this is not a broken or vacuous construction — but no exchangeable-pairs construction of
+THIS shape can produce a variance-type bound competitive with the already-known exact `C_q`. A
+side
+diagnostic, corrected for accuracy (skeptic-fallback review found the first draft's claim wrong
+in 4 of 6 cases on direct comparison): the binding state (`argmax` of `Δ-B*h`) sits at a state
+with HIGH POSITIVE `h` (not always the exact `h_max` — matches `h_max` only at `n=23,43`; ranges
+`0.46`-`0.57` at the other four) for `n=23..43`, shifting to a moderately NEGATIVE-`h` state at
+`n=47` — a possible early signal of a qualitative change in which states bind, not yet enough
+data to say more.
+
+**Kill Analysis (per this project's own Anti-Overfitting Gate discipline) — broader than the
+first draft's, because the proof above applies more broadly than the single tested instantiation.**
+What is killed: using ANY exchangeable-pairs construction of Chatterjee's theorem's shape
+(antisymmetric `F` with `E[F|X]=f`), at ANY Hamming layer, to produce a variance-type bound
+(`H=C+B²` or any monotone function of `C` alone) competitive with the already-known exact `C_q`
+— proven impossible in general, not just observed to fail once. What is NOT killed: (a) using the
+SAME machinery for its actual comparative advantage — tail/higher-moment control beyond what
+Efron-Stein gives — genuinely untested here; (b) any of the other established results in this
+experiment (points 44-49's moment-LP route is a completely separate, unaffected thread).
+Relaxation map for a future attempt: the natural next move is NOT a different `F` or a different
+layer (both provably capped at `C_q` for variance-use, per the inequality above) — it is a
+different TARGET FUNCTIONAL (a tail probability or higher moment, where Chatterjee's theorem
+actually has room to add value Efron-Stein doesn't provide).
+
+**Tail/higher-moment use: explicitly `[PARKED]`, not pursued now, pending a stated missing
+lemma — not left as vague "future work."** Chatterjee's theorem does give real, valid tail control
+on `δ_i` (the single-generator sensitivity) via the already-fit `(B*,C*)` pairs above — that part
+is mathematically alive. But a tail bound on `δ_i` alone does not, by itself, bridge to the target
+`Var(X_n)=O(1/n)`: the missing link is a chain of the rough shape "tail(`δ_i`) ⟹ typical
+sensitivity of `X` (the full `n`-generator aggregate) ⟹ `Var(X)=O(1/n)`," and no such bridging
+lemma has been stated or attempted anywhere in points 40-50. Revival condition (per this
+project's own `null_results`/`parked` convention): a concrete candidate for that missing lemma —
+not merely "compute tail bounds for a few more `n` and see" (points 33-43 already show this
+project has accumulated enough purely-qualitative characterizations of `δ_i` on their own,
+without a stated bridge to the target, to make another one low-value on its own). Until such a
+lemma is named, this route stays parked rather than becoming the next default computation.
+
+**A process/provenance finding, corrected after an initial mischaracterization (this section
+itself was substantially rewritten following skeptic-fallback review — the first draft's account
+was factually wrong and is not repeated here, only its corrected replacement).** During this
+investigation, a message relayed into the executing agent's task (from this assistant) asked for
+the analysis to be extended to every Hamming layer and aggregated via `S_n^H:=Σ_q w_q·H(n,q)`,
+citing "point 49's own already-established weighted-layer scheme" as the source of `w_q`. **This
+citation was checked by the executing agent, found not to obviously apply, and the extension was
+declined — but the STATED REASON for declining (that point 49's `w_q` is specific to the
+Chebyshev/`K_s(L)` certificate machinery) was itself wrong, caught only by a LATER, independent
+skeptic-fallback pass that actually read `check_layer_aggregation_closure_test.py:110`:** `w_q =
+comb(N,q)/2^N` is simply the binomial Hamming-layer weight of the uniform measure on the cube —
+a property of the layer structure itself, with no dependence on `K_s(L)`/Chebyshev at all, and
+directly reusable for `Σ_q w_q·C*(n,q)` exactly as it was for `Σ_q w_q·C_q(n,q)=S_n` (point 15).
+**The corrected lesson is less flattering than the first draft's, and more useful: an agent's
+stated reason for declining a scope-expanding instruction is itself a claim requiring
+verification, not evidence of sound judgment merely because the agent asserted a citation check —
+this project's own `audit-verification-gate.md` rule ("agent's `[VERIFIED]` = your `[INFERRED]`")
+applies to an agent's self-reported skepticism just as much as to its positive claims.** No
+`patterns.md` entry recommending this as a model of adversarial discipline should be made — the
+right layer aggregation (`Σ_q w_q·C*(n,q) ≥ Σ_q w_q·C_q(n,q) = S_n`, following directly from the
+same per-layer inequality proved above) remains legitimate and unattempted, and inherits the same
+structural floor: it too can only ever exceed the already-known `S_n`, for variance-use.
+
+**What this does NOT mean:** does NOT mean Priority A (exchangeable pairs / Stein's method) is
+dead — its actual comparative advantage (tail/higher-moment control) remains untested; does NOT
+mean the domination condition itself is invalid or the theorem misapplied — it holds, it is
+simply provably incapable of improving on a known exact variance; does NOT extend past this
+experiment's existing `n≤47` exact-enumeration range; does NOT mean a per-layer aggregate version
+would behave differently for variance-use — the same structural floor applies there too, per the
+inequality above, so this is now a settled non-question rather than an open one.
+
+**Skeptic Concerns (FL Step 8a — `reviewer`'s cap closed all session; `skeptic` substituted per
+`doubt-driven-development.md` § Independent Review Fallback Policy, context-asymmetric).
+Verdict: `WEAKENED` — the empirical construction, code, and arithmetic all held up; three framing
+errors did not, one of them (F1 below) rising to a factual mistake in the first draft's own
+"process finding," not just an overclaim.** Findings and disposition:
+- [F1, factual error] The "process finding" congratulating the executing agent for correctly
+  declining a scope-expanding instruction was itself built on an unverified claim (that point
+  49's `w_q` is Chebyshev-specific) that a direct read of `check_layer_aggregation_closure_
+  test.py:110` disproves (`w_q` is the generic binomial Hamming-layer weight). → **Fixed**: the
+  whole section rewritten above to state the corrected, less flattering lesson (an agent's stated
+  reason for declining also needs independent verification), and the `patterns.md`-entry
+  recommendation withdrawn.
+- [F2, HIGH] The headline framing ("H* flat vs. a `n^{-2}` target") missed that `H*≥C*≥C_q` is
+  provable a priori for any `F`/layer/`B`, making the stated criterion structurally unreachable
+  from the start — not an empirical finding. → **Fixed**: this is now the point's own headline,
+  independently re-derived and verified by hand (not just copied from the review) before being
+  trusted, with the genuinely informative residual (the growth of `C*/C_q`) called out separately.
+- [F3] "Does not beat naive Efron-Stein" was asserted without computing the Efron-Stein bound's
+  own value, and conflated variance-use (provably capped, per F2) with tail/higher-moment use
+  (Chatterjee's actual comparative advantage, untested). → **Fixed**: scope corrected throughout;
+  Kill Analysis now explicitly limited to variance-type use.
+- [F4] The claim that the binding state sits at `h=h_max` for `n=23..43` was checked against the
+  raw JSON and found wrong in 4 of 6 cases. → **Fixed**: corrected to "high positive `h`, not
+  always the exact maximum," with the two `n` where it does match named explicitly.
+- [F5] The `n=41` CG-residual outlier (`9.57e-6` vs `~1e-17` elsewhere) was unexplained in the
+  first draft. → **Fixed**: verified benign (converged just past the tolerance boundary, `~2e-5`
+  relative effect on `C*`) and stated as such.
+- [F6] The sign-convention "tension" justification leaned on one worked example (Chatterjee's
+  Prop. 1.1) to argue a general point, which doesn't follow from a single case. → **Fixed**:
+  replaced with the direct one-line argument (the hypothesis plus `Δ≥0` forces the RHS
+  nonnegative wherever it holds; the constructive fit is the actual verification).
+- [F7] An internal contradiction between the Relaxation Map (implicitly discouraging per-layer
+  retries) and "What this does NOT mean" (calling a per-layer version "genuinely untested") was
+  present, and the Kill Analysis understated how much the F2 inequality actually kills (any `F`,
+  not just this one). → **Fixed**: Kill Analysis and Relaxation Map both rewritten to state the
+  per-layer case is now a settled non-question for variance-use, not an open one, per the same
+  proof.
+- Separately noted, not a defect: the primary-source verification claim (Theorem 1.5 read
+  directly from `arXiv:math/0604352`) could not be independently re-confirmed by the reviewing
+  pass (no tool access to fetch it) — downgraded in the text above from `[VERIFIED]` to
+  `[MEMORY/INFERRED, MEDIUM-HIGH]` pending an actual fetch-and-read in any follow-up.
+
+**Artifacts:** `check_delta_pointwise_domination.py`
+(+`metrics/delta_pointwise_domination.json`).
+
+## Point 51 (2026-09-14) — Priority B, "value-curvature" route, first real test: both
+pre-registered local-structure candidates (margin-domination, restructure-gating) cleanly
+REJECTED — the fast `Δ_iΔ_jX` decay is not explained by near-tie/active-set-churn structure
+
+**Context.** Per the `frontier_after_point50.md` Priority-D checkpoint (Block 4), this tests a
+NEW route for Priority B, deliberately structured to avoid the exact obstruction that closed the
+LP-optimizer-perturbation route (points 6, 8, 9a, 31): that route needed to bound the norm of the
+difference between two full optimal (dual) vectors under a one-generator perturbation
+(`‖y2*-y1*‖`), which no available inequality (RIP, Hölder, Cauchy-Schwarz) controls, and whose
+probabilistic rescue ("restructuring is rare") point 31 directly falsified. The new question:
+can the discrete second difference of the optimal VALUE itself, `Δ_iΔ_jX` (already measured at
+point 37, `E[Δ²]~n^{-1.95}`, small and shrinking fast), be explained by LOCAL structure near a
+tie — a single vertex's own margin/slack, or whether the specific perturbation changes the active
+set at all — without ever needing that same cross-vertex distance?
+
+**Setup verified before any hypothesis test (per this project's own Substrate Gate discipline).**
+Confirmed the actual LP in use: the time-domain primal formulation already established in
+H-CAT31-1 (`theta_via_lp`, Table 1 of arXiv:2603.29571) — variables `x_0..x_{n-1}`, `max Σx_i`,
+equality constraints fixing `x_0=1`, pairing `x_k=x_{n-k}`, and `x_k=0` for each "on" generator;
+inequality constraints `Fx≥0` via the real-DFT cosine matrix. Point 31's own
+`check_vertex_stability_probability.py` already solves this directly and exposes the active set
+(`|slack|<1e-7`) — reused unchanged, extended only to also return the raw slack vector (needed
+for a margin quantity point 31 itself never needed). **Positive control passed exactly**
+(`max|theta_ref-theta_new|=0.0` against the independently-verified `theta_via_lp`, 15 spot-checks
+across `n=23,29,37`) before any hypothesis number was trusted — this check is near-tautological
+by construction (the reused LP code is a line-for-line copy of the already-verified formulation,
+so a deterministic solver on identical input is expected to match bit-for-bit) and should be read
+as catching a TRANSCRIPTION error (e.g. a mismatched sign or a `mask`-to-edge-set bug), not as an
+independent validation of the LP formulation itself — that validation already happened when
+`theta_via_lp` was first established. Separately: this point's own `M_summary.min` values
+(`3.2e-4` at `n=29`, `5.2e-6` at `n=37`) are three-to-four orders of magnitude smaller than the
+`>0.02` smallest-inactive-slack figure quoted in `check_vertex_stability_probability.py`'s own
+docstring — the active/inactive classification is very likely still correct (the gap down to the
+`~1e-16`-scale active slacks remains ~10 orders of magnitude), but this point is the first to
+actually measure how close the classification boundary gets in practice, and the reused script's
+own comment should be corrected to reflect it rather than left standing uncontradicted.
+
+**Two candidates, pre-registered with fixed falsification thresholds BEFORE computing anything
+(Falsification Ladder discipline, not a post-hoc fit):**
+- **H1 (margin-domination).** `margin_min` of one LP solve := smallest `|slack|` among the
+  INACTIVE constraints (how close the "next" constraint is to tight — a property of ONE vertex,
+  not a cross-vertex distance). For a quadruple `(S,S+i,S+j,S+i+j)`, `M:=min` of the 4 corners'
+  `margin_min`. Prediction: a real negative monotonic relationship between `M` and
+  `|Δ_iΔ_jX|`. Falsified if Spearman `|ρ|<0.3` or `p≥0.05` (fixed in advance).
+- **H2 (restructure-gating).** Reusing point 31's own exact "genuine restructure" criterion
+  (`active_full ⊄ active_rest`), applied to all 4 edges of the square. `R:=1` if ANY edge
+  restructures. Prediction: `|Δ_iΔ_jX|` small whenever `R=0`, can be large only when `R=1`.
+  Falsified if no substantial separation between the two groups.
+
+**Method and cross-checks.** For `n∈{23,29,37}` (primes only, matching every point past 36 —
+point 37's own finding that composite `n` gives degenerate theta for some generator subsets),
+3000 random `(i,j)` pairs × random base `S` (Bernoulli(0.5), the project's standard ensemble)
+each — all 4 corners of the square solved via the full LP, `Δ_iΔ_jX`, `margin_min` per corner,
+`M`, and `R` computed exactly. **Consistency cross-check against an independent prior
+measurement — corrected for precision (skeptic-fallback finding).** The exact, model-free
+`std(Δ_iΔ_jX)` measured here is `0.1742/0.1473/0.1120` at `n=23/29/37` — this converges toward
+(not "matches") point 37's own independently-measured value at overlapping `n` (a genuine
+cross-check that the two computations are tracking the same quantity, without leaning on any
+distributional assumption). The originally-drafted check instead compared a folded-normal-
+*predicted* mean `|Δ|` (from point 37's `std=0.1414`) against this point's *measured* mean
+`|Δ|` at `n=29` (`0.113` predicted vs `0.104` measured) — a gap of `≥5` standard errors of the
+measured mean (`SE≈0.0015` at `n=3000`), not noise, and the folded-normal approximation itself
+is violated by this point's own data (median/mean ratio `0.681` vs the `0.845` a half-normal
+requires; exact machine-epsilon zeros in the tail, `absDelta_summary.min` as low as `7.1e-17` at
+`n=29` — an atom near zero no continuous folded-normal has). The `std(Δ)`-based comparison above
+replaces that weaker, model-dependent check.
+
+**Results, all pre-registered thresholds checked directly:**
+
+| n | ρ(M,|Δ|) | p | restructure_frac | E[|Δ|\|R=0] (count) | E[|Δ|\|R=1] (count) | Mann-Whitney p |
+|---|---|---|---|---|---|---|
+| 23 | -0.0154 | 0.398 | 0.948 | 0.089 (156) | 0.130 (2844) | 7.1e-12 |
+| 29 | 0.0345 | 0.059 | 0.960 | 0.025 (120) | 0.107 (2880) | 1.6e-29 |
+| 37 | 0.0222 | 0.225 | 0.977 | 0.017 (69) | 0.076 (2931) | 9.7e-20 |
+
+**Supplementary diagnostics, computed and committed (not left as an uncommitted claim, per a
+skeptic-fallback finding that two such numbers were originally asserted without a corresponding
+line in the script or JSON — fixed by adding them to `check_value_curvature_margin.py` and
+re-running).** Does `M` itself predict `R` (Mann-Whitney on `M` between the two `R`-groups)?
+`p=0.0036` (`n=23`), `p=0.146` (`n=29`), `p=0.053` (`n=37`) — inconsistent across `n`, not a
+reliable relationship. Restricted to the `R=1` subset alone, does `M` still predict `|Δ|`?
+`ρ=-0.006,p=0.74` (`n=23`); `ρ=0.041,p=0.028` (`n=29`); `ρ=0.027,p=0.15` (`n=37`) — statistically
+detectable at one `n` out of three, practically negligible at all three (`|ρ|≤0.04`
+throughout). **F7 density-confound check (also newly added):** mean base-set density and mean
+`|i-j|` were recorded per `R`-group at every `n` — density does NOT differ meaningfully between
+`R=0` and `R=1` (`0.43` vs `0.41` at `n=23`; `0.42` vs `0.43` at `n=29`; `0.448` vs `0.446` at
+`n=37`), ruling out a simple "R=0 cases are just denser graphs" confound for the separation
+found below. Mean `|i-j|` is modestly higher in the `R=0` group at every `n` (`4.4` vs `4.0`;
+`5.6` vs `5.0`; `7.3` vs `6.4`) — a real, small, consistently-signed effect, noted but not
+large enough to explain the group means' 4-5x ratio on its own.
+
+**Verdict: H1 REJECTED cleanly on its pre-registered threshold; H2's own pre-registered
+falsification criterion did NOT fire, but the mechanism is rejected anyway on a separate,
+honestly-labeled basis (skeptic-fallback finding — corrected from an earlier draft that
+conflated the two).**
+- **H1 REJECTED.** `|ρ|` never exceeds `0.035` across all three `n`; none reach the `0.3`
+  threshold; several don't even reach `p<0.05`; the standard error of `ρ` itself is `≈0.018`
+  (`n=2999`), so the observed values sit within `~2` SE of zero — a genuine null, not a
+  borderline call. Global-min-slack margin carries no exploitable information about curvature
+  magnitude. (Scope note: only ONE specific, unnormalized functional was tested — the minimum
+  slack across all 4 corners, in raw LP units, not normalized by `θ` itself; observed correlation
+  signs are inconsistent across `n` (`-,+,+`) and, where positive, run opposite to H1's own
+  predicted direction, consistent with an unmodeled scale confound (`θ` itself ranges roughly
+  `3`-`9` across sampled instances, and `margin_min` scales with `θ`) rather than a real weak
+  effect — a `θ`-normalized margin was NOT tested and remains open.)
+- **H2's pre-registered falsification criterion ("no substantial separation between groups") did
+  NOT fire — a large, highly significant separation DOES exist (`4-5×` mean ratio,
+  `p<10^{-11}` at every `n`).** By that criterion alone, H2's softer prediction ("small when
+  `R=0`") is not falsified. What DOES kill the mechanism as originally envisioned is a fact that
+  was never itself a falsification target: restructuring is not rare (`95%→97.7%` of sampled
+  squares), so a rare-event × bounded-amplitude DECOMPOSITION cannot be built from it regardless
+  of the group separation — and this non-rarity was already arithmetically implied by ALREADY-
+  COMMITTED data before this point ran, not discovered here. Point 31's own single-flip
+  `restructure_fraction` (`0.733` at `n=29`, `0.75` at `n=37`) is a floor on the square-level rate
+  measured here, since `R:=1` is an OR over 4 edges (`R≥` any single edge's own indicator) —
+  `95-97.7%` could not have come back "rare" given that floor. **What IS new and unpredicted by
+  point 31's data: the 4 edges restructure in a CORRELATED way** — observed `P(R=0)` (`5.2%`,
+  `4.0%`, `2.3%` at `n=23,29,37`) is `6-8×` HIGHER than the `≈1%` an independence assumption
+  across 4 edges with a `0.73-0.75` single-edge rate would predict — a genuine, previously-
+  unmeasured structural fact about how nearby active-set changes co-occur, not itself explaining
+  the curvature decay but worth keeping. **A direct counterexample to even the softer H2
+  prediction exists in the committed data**: at `n=23`, the single largest `|Δ_iΔ_jX|` value in
+  the ENTIRE 3000-sample dataset (`0.6604`) occurs in the `R=0` group, exceeding the `R=1`
+  group's own maximum (`0.5819`) — large curvature is not "only" possible when `R=1`, contrary to
+  H2's literal prediction (this specific pattern reverses at `n=29,37`, where `R=0`'s maximum is
+  smaller — not a universal counterexample, but a real one at `n=23`). The statistically-real
+  mean separation itself is not a density artifact (F7 check: mean base-set density is
+  essentially identical between `R`-groups at every `n`) but IS accompanied by a small, real
+  co-varying difference in mean `|i-j|` (`R=0` pairs are drawn from slightly farther-apart
+  generators on average) — not large enough to explain a `4-5×` mean ratio alone, but not zero
+  either.
+
+**Kill Analysis.** What is killed: the specific unnormalized single-vertex margin functional
+tested (H1); active-set-restructure treated as a RARE event usable for a rare-event × bounded-
+amplitude decomposition (H2, in its originally-envisioned form — the mean-separation part of H2
+is not itself falsified, only unusable as envisioned because restructuring isn't rare). What is
+NOT killed: the empirical `~n^{-1.95}` decay itself (point 37's own finding stands, untouched,
+and is now independently cross-checked via exact `std(Δ)` here); a `θ`-normalized version of H1;
+the broader "value-curvature" question in general — these two specific mechanisms are ruled out
+(one cleanly, one on a reason distinct from its own pre-registered test), not every conceivable
+explanation. One plausible remaining candidate, offered here as SPECULATIVE and explicitly
+untested (not established, not "the field narrowed to this" — an earlier draft overstated this
+as if elimination of two candidates left only one; it does not, other candidates such as non-
+local structure, degenerate/multiple-optimum effects, or the project's own already-proven exact
+symmetry theorems (points 12-13) remain equally unexamined): local active-set churn is common and
+non-vanishing at BOTH the single-flip level (points 6-31) and the two-flip/square level (this
+point), so whatever explains the fast value-curvature decay may be a VALUE-LEVEL cancellation
+effect that survives despite constant churn — but this is one untested candidate among several,
+not a narrowed field of one.
+
+**What this does NOT mean:** does NOT mean Priority B (value-curvature route) is dead — two
+specific candidates are addressed (one rejected cleanly, one rejected for reasons distinct from
+its own pre-registered criterion), leaving several other, equally untested candidates open, not
+a narrowed field of one; does NOT mean point 37's own `n^{-1.95}` measurement is in doubt
+(independently cross-checked here via exact `std(Δ)`, not merely a distributional approximation,
+and consistent); does NOT extend past this experiment's existing exact-enumeration-adjacent reach
+(this point used direct LP solves at each corner, not exhaustive layer enumeration, so it is not
+bound by the `n~50-60` wall the way points 14-50's `apply_L_to_layer`-based work is — but no
+larger `n` was attempted in this pass either).
+
+**Skeptic Concerns (FL Step 8a — `reviewer`'s cap closed all session; `skeptic` substituted per
+`doubt-driven-development.md` § Independent Review Fallback Policy, context-asymmetric).
+Verdict: `WEAKENED` — the LP formulation, the 4-edge square construction, and the H1 rejection
+all held up on direct code/data inspection; H2's rejection reasoning needed substantial
+correction (attributed to the wrong source, and its own pre-registered criterion had not
+actually fired), addressed above by rewriting rather than patching around. No finding rose to
+FALSIFIED — the bottom-line conclusion (neither near-tie margin nor active-set-churn-as-rare-
+event explains the fast `Δ_iΔ_jX` decay) survives every fix.** Findings and disposition:
+- Concern: H2's rejection cited "restructuring is NOT rare (`95%→97.7%`)" as if this were a new
+  empirical finding of this point, when `R_square≥R_single-flip` identically (OR over 4 edges),
+  and point 31's own already-committed single-flip rate (`0.73-0.75`) already made a rare outcome
+  arithmetically impossible before this point ran. → **Fixed**: reframed as a floor implied by
+  already-committed data, with the genuinely new finding (correlated, not independent,
+  restructuring across the 4 edges — observed non-restructure rate `6-8×` higher than
+  independence would predict) surfaced explicitly instead.
+- Concern: H2's own pre-registered falsification criterion ("no substantial separation") was
+  actually NOT triggered — a large, highly significant separation exists — so stating "REJECTED
+  ... on their own pre-registered thresholds" for H2 was inaccurate; the real basis for rejection
+  (non-rarity precluding the intended decomposition) was never itself a pre-registered
+  falsification target. → **Fixed**: verdict section rewritten to state precisely what was and
+  wasn't tested by the pre-registered criterion, versus what additional reasoning kills the
+  mechanism anyway.
+- Concern: a direct counterexample to H2's literal prediction exists in the committed JSON at
+  `n=23` (the dataset's global-maximum `|Δ|` occurs in the `R=0` group) and was not mentioned. →
+  **Fixed**: added explicitly, together with the fact that this specific pattern does not recur
+  at `n=29,37` (not universal, but real at `n=23`).
+- Concern: two supplementary numbers (Mann-Whitney on `M` between `R`-groups; Spearman within the
+  `R=1` subset) were reported in prose without a corresponding computation in the committed
+  script/JSON. → **Fixed** by actually computing them (script patched, re-run) rather than
+  caveating unverified numbers — `check_value_curvature_margin.py` now returns
+  `mannwhitney_M_R0_vs_R1` and `spearman_within_R1` for all three `n`, plus `std_delta_exact`
+  (an exact, model-free cross-check value) and per-group `mean_density`/`mean_ij_dist` (for the
+  density-confound check below).
+- Concern: the folded-normal cross-check ("matches") understated a real, `≥5`-SE gap between
+  predicted and measured mean `|Δ|`, and the folded-normal approximation itself is contradicted
+  by this point's own data (median/mean ratio, exact-zero atoms in the tail). → **Fixed**:
+  replaced with a stronger, model-free `std(Δ)` comparison, and the weaker check's actual gap
+  size stated honestly rather than glossed as agreement.
+- Concern: H1's Kill Analysis claimed to rule out "a single-vertex margin/slack quantity" in
+  general, but only one specific, unnormalized functional (raw-units `margin_min`, not
+  `θ`-normalized) was tested, and the observed correlation signs (positive at 2 of 3 `n`, opposite
+  H1's predicted direction) are consistent with an un-modeled scale confound (`margin_min` scales
+  with `θ`, which itself varies `~3×` across sampled instances). → **Fixed**: Kill Analysis
+  narrowed to the specific functional tested; a `θ`-normalized version noted as untested.
+- Concern: possible density confound on the `R=0`-vs-`R=1` mean separation (denser base sets
+  could simultaneously produce small `|Δ|` and a stable active set, making part of the
+  "statistically-real separation" an artifact rather than evidence of a churn-independent
+  effect). → **Checked directly** (not just noted as a caveat): per-group mean density recorded
+  and found essentially IDENTICAL across `R`-groups at every `n` — this specific confound is
+  RULED OUT, not merely flagged. A smaller, real co-varying difference in mean `|i-j|` was found
+  and is reported, not large enough alone to explain the full effect size.
+- Concern: the reused script's own docstring (`check_vertex_stability_probability.py`) claims
+  smallest-inactive-slacks are `>0.02`, but this point's own measured minimum inactive slacks go
+  as low as `5e-6` — a real discrepancy in a comment on reused, previously-trusted code. → Noted
+  explicitly in the Setup section above; likely benign (10 orders of magnitude of headroom still
+  separate this from the `~1e-16`-scale active slacks) but the stale comment should be corrected.
+- Concern: a latent (non-manifesting) `NaN`-ordering bug in Python's `min()` over the 4 corners'
+  margins, and missing `seed_base`/`ACTIVE_TOL` in the output JSON for reproducibility. → **Fixed**
+  defensively in the script (explicit `NaN` check before `min()`, confirmed non-manifesting via
+  `n_pairs_used_for_correlation == n_solved` in every row) — full reproducibility fields left as
+  a minor known gap, not blocking.
+
+**Artifacts:** `check_value_curvature_margin.py`
+(+`metrics/value_curvature_margin_check.json`).

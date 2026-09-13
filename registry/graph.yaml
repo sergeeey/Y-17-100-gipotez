@@ -1968,9 +1968,26 @@ nodes:
     # pre-existing exact-enumeration wall, points 14-15) and does NOT determine S_n's own asymptotic
     # rate or prove Var(X_n)=O(1/n) -- S_n is only the shape-heterogeneity component of the larger
     # Efron-Stein bound (D_n+S_n, point 12).
+    #
+    # UPDATE 2026-09-14 (Point 50, Priority A first computational test): the Chatterjee-Dey
+    # exchangeable-pairs bridge (points 40-43) tested for real via a pointwise a.s. domination
+    # Delta(X)<=B*f(X)+C (Chatterjee 2007 Thm 1.5), F=g(X)-g(X') from Lg=h. Result STRUCTURAL, not
+    # just empirical: H*=C*+B*^2 >= C* >= C_q PROVABLY for ANY antisymmetric F/layer/B (short
+    # exchangeability argument, independently re-derived and verified, not just trusted from the
+    # reviewing pass that first found it) -- since C_q already decays at ~n^-1.13 (already
+    # committed), the test's own headline criterion (H*~n^-2) was unreachable a priori, before any
+    # number was computed. Genuinely informative residual: C*/C_q grows 2.26->4.36 over n=23->47 --
+    # this specific bridge gets relatively less tight as n grows, a real construction-specific
+    # finding distinct from the provable floor. Kills variance-type use of ANY such exchangeable-
+    # pairs construction (not just this one instantiation) for this problem; does NOT test
+    # Chatterjee's actual comparative advantage (tail/higher-moment control), which remains open.
+    # Also: an assistant-introduced factual error (a wrong claim that point 49's layer weights are
+    # Chebyshev-specific) was caught only by a SECOND skeptic-fallback pass, not the first -- worth
+    # remembering that an agent's own stated reason for declining an instruction is itself a claim
+    # needing verification (audit-verification-gate.md), not evidence of sound judgment by itself.
     evidence: VERIFIED-REAL        # metrics/run.json (9 n-values, 40-300 reps each, bootstrap 95% CIs on variance, weighted+unweighted OLS fit); 8 tests incl. synthetic-ground-truth sanity checks confirming fit_exponent() correctly recovers a known -1 exponent AND correctly rejects a -2 exponent (not vacuously always CONFIRMED), plus a seed-collision check against H-CAT31-1/2
     evidence_mode: simulation      # ADR-122: Monte Carlo sampling of the random-circulant-graph ensemble, not exhaustive, not a real-world dataset
-    verification_strength: weak    # UPDATED 2026-09-14: the root n^-0.9126 exponent claim itself is still Standard-tier self-review only (per ADR-122, unchanged). Points 44-49's follow-on moment-LP work DID receive repeated FL Step 8a reviews (skeptic substituting for reviewer per doubt-driven-development.md fallback policy -- reviewer's cap was closed this session): points 44/45 CONFIRMED-REAL, point 47 CONFIRMED-REAL then itself overturned, point 48 WEAKENED (core claim survived, an epistemic ≈-vs-≤ overclaim caught by the user and fixed 2026-09-14), point 49 WEAKENED (feasibility claim survived, A_n's evidentiary weight corrected down). "weak" reflects mixed strength across the node's sub-claims, not a single verdict -- and the pattern of near-miss overclaims caught by adversarial review (not self-caught) across 44-49 is itself worth a patterns.md entry.
+    verification_strength: weak    # UPDATED 2026-09-14: the root n^-0.9126 exponent claim itself is still Standard-tier self-review only (per ADR-122, unchanged). Points 44-50's follow-on work DID receive repeated FL Step 8a reviews (skeptic substituting for reviewer per doubt-driven-development.md fallback policy -- reviewer's cap was closed this session): points 44/45 CONFIRMED-REAL, point 47 CONFIRMED-REAL then itself overturned, point 48 WEAKENED (epistemic ≈-vs-≤ overclaim caught and fixed), point 49 WEAKENED (feasibility claim survived, A_n's evidentiary weight corrected down), point 50 WEAKENED (empirical construction held, but the first draft's own "process finding" contained a factual error caught only on a second review pass). "weak" reflects mixed strength across the node's sub-claims, not a single verdict -- the pattern of near-miss overclaims caught by adversarial review (not self-caught) across 44-50 is itself worth a patterns.md entry (the correction pattern itself, not any individual finding, per point 50's own corrected process-finding text).
     l0_type: descriptive
     fl_tier: standard
     kill_criterion: "CONFIRMED if weighted-OLS 95% CI for the log-log slope contains -1.0 AND excludes both -0.5 and -2.0 (real discrimination, not just failure-to-reject). WEAKENED-INCONCLUSIVE if CI contains -1.0 but also -0.5 or -2.0. REJECTED if CI excludes -1.0 entirely. RESULT: REJECTED -- CI=[-0.9751,-0.8501] excludes -1.0 cleanly while also excluding -0.5 and -2.0, i.e. a precise measurement of a DIFFERENT exponent (~-0.91), not an inconclusive one."
