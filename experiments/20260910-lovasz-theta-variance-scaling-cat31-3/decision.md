@@ -3175,4 +3175,84 @@ usable this pass due to rate limits, not yet retried).
 **Artifacts:** none (pure literature Source Trace — no code, no metrics file; findings recorded
 here as the artifact, per this project's existing convention for `source_register.md`-style
 Step -4 documentation, kept inline rather than as a separate file since the search was narrow
-and does not warrant a standalone tracking document).
+and does not warrant a standalone tracking document; point 41 continues Finding 4 with the
+actual theorem text read in full).
+
+## Point 41 (2026-09-13) — Chatterjee-Dey's exchangeable-pairs machinery, read in full: exact
+theorem cited, a concrete bridge to this project's own swap-Laplacian identified, NOT yet a
+completed derivation — honestly scoped as an open, promising lead
+
+**Context.** Continuing point 40's Finding 4, the actual theorem (not just the abstract) was
+read via `mcp__arxiv__get_paper_latex_section` (arXiv:0906.1034, Section 2, "Results and
+examples"). This is a genuine Source Trace deepening — reading the primary source directly, per
+the autonomous mission's Literature Agent standard ("читать оригинал, давать theorem/lemma
+numbers"), not citing from a summary.
+
+**The exact theorem (quoted, `[CLASSICAL]`, Chatterjee 2007, Theorem 1.5, itself summarizing
+Chatterjee 2005).** For a separable metric space `𝒳` and an exchangeable pair `(X,X')` of
+`𝒳`-valued random variables, square-integrable `f:𝒳→ℝ` and antisymmetric `F:𝒳×𝒳→ℝ`
+(`F(X,X')=-F(X',X)`) with `E(F(X,X')|X)=f(X)`, define
+`Δ(X):=½E(|f(X)-f(X')|·|F(X,X')| | X)`. Then `E(f(X))=0`, and:
+
+1. If `E(Δ(X))<∞`: `Var(f(X)) = ½E((f(X)-f(X'))F(X,X'))` — an EXACT identity, not an upper
+   bound.
+2. If `Δ(X)≤B·f(X)+C` a.s. (and an exponential-moment condition holds): sub-Gaussian/sub-
+   exponential tail bounds on `f(X)`, `P(f(X)≥t)≤exp(-t²/(2C+2Bt))`.
+3. For any positive integer `k`: `E(f(X)^{2k}) ≤ (2k-1)^k·E(Δ(X)^k)` — an exchangeable-pairs
+   analogue of the Burkholder-Davis-Gundy inequality, converting control of `Δ(X)`'s MOMENTS
+   into control of `f(X)`'s moments, at ALL orders `k`, not just `k=1`.
+
+**The natural bridge to this project's own machinery — identified, not yet fully worked
+out.** This project's own swap-walk `P` on a Hamming layer (established points 15-18, reused in
+every subsequent point) IS already a reversible Markov chain w.r.t. the uniform layer measure —
+exactly the structure Stein's exchangeable-pairs method wants. Setting `X~`uniform on the layer,
+`X'|X~P(X,·)` (one swap step) gives a genuine exchangeable pair for free, no new construction
+needed. **The simple, "obvious" choice `F(X,X'):=h(X)-h(X')` for a target function `h` does
+NOT directly give what we want**: it yields `E(F|X)=(Lh)(X)` (our own `L=I-P` applied to `h`),
+so the theorem's own "`f`" becomes `Lh`, not `h` — this choice bounds `Var(Lh)`, a DIFFERENT
+quantity from `Var(h)` (already known, e.g. `M_1` in this project's own notation).
+
+**To get a bound on `h` itself (e.g. `h=δ_i`, to bound `C_q=Var(δ_i)` — the actual target),
+the standard fix is a Markov-chain-POTENTIAL construction: solve `Lg=h-E[h]` for a potential
+`g`, then set `F(X,X'):=g(X)-g(X')`.** Spectrally (using this project's own already-established
+eigenspace decomposition, points 15-24): if `h-E[h]=Σ_{l≥1} h_l` (components in eigenspace
+`E_l` with eigenvalue `γ_l`), then `g=Σ_{l≥1}(1/γ_l)·h_l` — **the potential `g` RESCALES each
+spectral component by `1/γ_l`, amplifying LOW-`l` (small-`γ_l`) mass and SUPPRESSING high-`l`
+mass, relative to `h`.** This is potentially favorable: points 33/35/38 established that `δ_i`'s
+own spectral mass increasingly migrates to HIGHER `l` as `n` grows (growing `l_eff`, widening
+`ρ_γ`/spread) — if that high-`l` mass is genuinely suppressed in `g` relative to `h`, `Δ(X)`
+(which now depends on `g`'s OWN fluctuation, not `h`'s) could plausibly be smaller than a naive
+Efron-Stein-style bound built from `h` alone. This is exactly the kind of spectral-structure-
+aware refinement the mission's own framing (§6: total influence `Σ|S|X̂(S)²` vs plain
+`Σ X̂(S)²`) was hoping for — a mechanism, not just a hope, for why this route could beat plain
+Efron-Stein specifically BECAUSE of the already-observed spectral broadening, not despite it.
+
+**Honest status: this is a concrete, well-sourced, structurally motivated lead — NOT a
+completed derivation.** What remains, named explicitly (not vague): (a) `g`'s fluctuation
+`g(X)-g(X')` under a single swap needs to be bounded or estimated — this requires understanding
+how the `1/γ_l` reweighting interacts with the ALREADY-COMPUTED `E_l`/`M_r` data, not a fresh
+computation from scratch; (b) `Δ(X)`'s dependence on `h(X)` itself (needed for the tail bound
+form `Δ(X)≤Bh(X)+C`) needs to be established — this is the genuinely hard, not-yet-attempted
+step; (c) even if `Δ(X)` is bounded, converting a bound on `C_q=Var(δ_i)` (a SINGLE-generator
+quantity) into a bound on `Var(X_n)` itself still requires the same Efron-Stein-style
+aggregation across all `n` generators this project has used throughout — this machinery
+replaces the LOCAL per-generator bound's quality, not the aggregation step.
+
+**Verdict.** PARK, not REJECT, not PROMOTE-as-proof. This is recorded as the single most
+concrete, structurally-motivated open research thread identified this session — worth the next
+dedicated research push if continued, with the exact missing piece named per the mission's own
+discipline (a genuine unfinished lemma, not a vague "try harder"). Given the complexity and risk
+of introducing a subtle sign/normalization error under time pressure, no attempt was made to
+force this into a complete result in this pass — per this project's own standing discipline
+(`[EMPIRICAL]` is never presented as `[PROJECT-EXACT]`), an incomplete derivation is recorded as
+exactly that, not dressed up as more than it is.
+
+**What this does NOT mean:** does NOT mean this bridge will succeed if pursued — the potential
+`g`'s fluctuation could turn out to be UNfavorable despite the plausible mechanism sketched
+above; does NOT mean the naive `F=h(X)-h(X')` choice is useless — it still gives an exact,
+already-partially-explored bound on `Var(Lh)` (related to `M_2` in this project's own
+notation), which could itself be independently useful; does NOT constitute a proof of anything
+about `Var(X_n)`.
+
+**Artifacts:** none (pure Source Trace + algebraic sketch; no code was written since the
+derivation is not complete enough to have a computable, testable claim yet).
