@@ -31,6 +31,7 @@
 
 ## NEVER
 - Не подавать/публиковать что-либо из этой папки без прогона через Submission Gate (`03-methodology-rules/Submission Gate Protocol (HARD RULE).md`) — 4 gate'а: skeptic run, checklist, consistency check, 24h cooling-off
+- Не присваивать `[PROJECT-EXACT]` claim'у без прогона через `03-methodology-rules/PROJECT-EXACT Promotion Gate (HARD RULE).md` (2026-09-13) — 8-пунктовый чеклист (falsification ladder, two-sided oracle adequacy, normalization, counterexample search, 4-уровневая verification-independence классификация, source trace при novelty, empirical-vs-exact separation, no unresolved P0/P1), формализующий уже практиковавшееся неформально `[EMPIRICAL]`/`[PROJECT-EXACT]` различие
 - Не доверять числовым score'ам из raw-каталога (`00-catalog/100 Open Problems...`) как реальному ranking'у — это precision theater поверх сжатого 7-10 диапазона, не калиброванный инструмент
 - Не путать "название задачи реально существует в источнике" с "объяснение задачи было реально исследовано" — 13 идентичных шаблонных фраз найдены grep'ом в raw-каталоге
 
