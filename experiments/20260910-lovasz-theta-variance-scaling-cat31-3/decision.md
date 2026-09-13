@@ -3408,3 +3408,254 @@ retract point 37's own findings, which remain independently valid regardless of 
 connection.
 
 **Artifacts:** none (pure Source Trace, primary sources read and quoted exactly, no code).
+
+## Point 44 (2026-09-13) — Truncated-moment LP bound: the single most informative result in
+this entire route-A/B/C investigation, genuinely positive, using ONLY already-computed data
+
+**Context.** A cheap, classical idea (truncated-moment / Chebyshev-Markov-Krein LP bounds for a
+positive measure given its first `s` raw moments — cited as classical, not claimed as new here)
+applied directly to this project's own spectral measure `E_l` on the Johnson eigenvalues
+`{γ_1,...,γ_L}`: given ONLY `M_1,...,M_s` (already exact from point 38) and positivity
+`E_l≥0`, the LP
+
+```
+U_s := max Σ_l E_l   s.t.   E_l≥0,  Σ_l γ_l^r E_l = M_r  for r=1..s
+```
+
+gives the LARGEST `C_q` compatible with the observed moments — a provably TIGHT upper bound
+derivable from moments `1..s` alone (the true spectrum is itself a feasible point, so
+`C_q≤U_s` always). Solved via `scipy.optimize.linprog` (HiGHS), using ONLY point 38's
+already-committed `M_1..M_6` — no new theta-solves, numerically instantaneous (`L≤11`
+variables, `≤6` equality constraints per solve, 7×6=42 LP solves total in well under a
+second).
+
+**Result — `R_s := U_s/C_q` for all 7 `n`, `s=1..6`:**
+
+| n | L | R₁ | R₂ | R₃ | R₄ | R₅ | R₆ |
+|---|---|---|---|---|---|---|---|
+| 23 | 5 | 2.021 | 1.276 | 1.037 | 1.002 | 1.0000 | 1.0000 |
+| 29 | 6 | 2.295 | 1.384 | 1.068 | 1.014 | 1.0005 | 1.0000 |
+| 31 | 7 | 2.364 | 1.442 | 1.077 | 1.025 | 1.0013 | 1.0000 |
+| 37 | 8 | 2.601 | 1.561 | 1.121 | 1.040 | 1.0063 | 1.0006 |
+| 41 | 9 | 2.757 | 1.649 | 1.134 | 1.048 | 1.0136 | 1.0022 |
+| 43 | 10 | 2.824 | 1.698 | 1.146 | 1.055 | 1.0168 | 1.0031 |
+| 47 | 11 | 2.957 | 1.782 | 1.174 | 1.070 | 1.0246 | 1.0054 |
+
+**`R_1` exactly recovers the classical Poincaré bound** (verified: `U_1=M_1/γ_1` algebraically,
+matching the LP output to machine precision at every `n` — the dual certificate at `s=1` is the
+single coefficient `c_1=1/γ_1`, confirmed in the raw output). This is the correct sanity check
+before trusting `s≥2`: the LP framework correctly reduces to already-known machinery at its
+simplest case.
+
+**Critical dimensional caveat, stated explicitly before interpreting `R_6≈1` as a deep
+finding — checked, not assumed.** `L` (number of unknowns `E_l`) is `5,6,7,8,9,10,11` for
+`n=23,29,31,37,41,43,47`. At `n=23` (`L=5≤6`) and `n=29` (`L=6=6`), 6 moment constraints
+against `≤6` unknowns makes the linear system (near-)exactly determined BY DIMENSION COUNT
+ALONE — `R_6=1.0000` there is close to a trivial linear-algebra fact, not evidence of genuine
+information compression. **The substantive finding is specifically `n=31..47`, where `L=7..11`
+STRICTLY EXCEEDS the 6 available moment constraints** (a genuinely under-determined system,
+infinitely many nonnegative spectra are consistent with 6 moments in principle) — and `R_6`
+STILL stays within `0.06%` to `0.54%` of `1` there. That is real, non-trivial compression: six
+numbers very nearly pin down an object with up to 11 genuine degrees of freedom.
+
+**The gap `R_6-1` is small but grows monotonically with `n`** (`0.0000, 0.0000, 0.0000, 0.0006,
+0.0022, 0.0031, 0.0054`). **Robustness check performed before trusting this trend (skeptic-
+fallback review finding, addressed — not just hedged away): is `R_6-1`'s growth genuine, or a
+solver-precision artifact?** Cross-validated `U_6` (the quantity `R_6` is built from) three
+independent ways at the two most relevant `n`: at `n=29` (`L=6=s`, an exactly-determined square
+linear system with a UNIQUE feasible spectrum) via a direct `numpy.linalg.solve` (bypassing the
+LP solver entirely) — matches the LP's own `U_6` to `1.4e-15`; and at `n=47` (`L=11`, the most
+under-determined case) across three different `scipy.optimize.linprog` methods
+(`highs`/`highs-ds`/`highs-ipm`) — all three agree to `1.7e-15`. **`U_6` itself is robust, not
+a numerical artifact, at both ends of the range.** (A genuine, separate numerical wrinkle WAS
+found in this check — the companion `L_s` (minimum) value at `n=29,s=6` disagreed with the
+unique exact solution by `~4e-6`, `~4000×` larger than expected floating-point noise, evidently
+a solver-side artifact specific to the MINIMIZE direction on this near-degenerate LP. This does
+NOT affect `U_s`/`R_s` — the quantities this point's entire conclusion rests on — and `L_s`
+plays no role in any claim made here; noted for completeness, not swept aside.) With `U_6`
+independently confirmed exact, the growing `R_6-1` trend is consistent with (not proof of) the
+already-established spectral-broadening trend (points 33/35/38/42) — as `L` grows and mass
+migrates to higher `l`, 6 fixed moments become *slightly* less sufficient, exactly as expected.
+Whether this gap stays bounded, grows to a fixed small constant, or eventually grows without
+bound as `n→∞` is NOT
+determined by 7 points — this is the honest open question this result raises, not answers.
+
+**Structural observation on the extremal (worst-case) spectrum — corrected, an earlier draft
+overstated the pattern (skeptic-fallback finding).** The actual active levels at `s=6`, read
+directly from `metrics/truncated_moment_lp_bound.json`: `n=23→{2,4}`, `n=29→{1,2,3,4,5,6}` (all
+`L=6` levels — forced, since at `L=s` the LP is a single point, not really an optimization),
+`n=31→{1,2,3,4,5,7}`, `n=37→{1,2,3,4,5,8}`, `n=41→{1,2,3,4,5,9}`, `n=43→{1,2,3,5,6,10}`,
+`n=47→{1,2,3,5,6,11}`. This is NOT "consistently `{1,2,3,~5,L}`" as an earlier draft claimed —
+`n=23,29` don't fit that pattern at all (both dimension-forced, not informative here), and even
+among the genuinely under-determined `n=31..47` rows the included mid-level alternates between
+`4` and `6`, not fixed at `~5`. What DOES hold, weakly: for `n=31..47` the extremal spectrum
+consistently combines several LOW levels (`1,2,3,` and a 4th/5th) with the single TOP level `L`
+— loosely consistent with the classical fact that extremal measures for a truncated moment
+problem concentrate at extreme points of the achievable support, but not precisely/consistently
+enough to state as a clean pattern. Worth exploring further if this thread continues, not
+pursued analytically in this point.
+
+**RETROACTIVE CORRECTION (added when point 45 found this framing was premature — per this
+document's own precedent at point 10, corrected by point 12's independent check; named here,
+not silently edited away).** The "Verdict" immediately below overstated what this point
+actually establishes. **Point 45 (below in this document) found the `R_6≈1` near-exactness is
+mostly a property of the small grid size `L≤11` used throughout this experiment's real
+`n≤47` range, NOT a distinctive signature of Lovász theta's spectrum — synthetic random/
+adversarial spectra on the same grids give near-identical `R_6`, and the achievable gap grows
+substantially (`R_6` up to `~3.8`) once `L` is allowed to grow well past the fixed moment
+order `s=6`, which is the regime actually relevant to `n→∞`.** The LP computation and numbers
+below remain fully correct — read the "Verdict" as historically accurate about what was believed
+at the time it was written, not as this document's final assessment of point 44's significance.
+
+**Verdict (original, superseded by point 45 below — kept for provenance, not deleted).**
+PROMOTE as the single most informative, genuinely positive result of the entire
+route-A/B/C investigation (points 1-44) — the opposite of the pessimistic outcome the second
+external LLM analysis's own `§7` worried about ("first six moments not sufficient" was
+explicitly named there as the bad scenario; the actual result is the GOOD scenario:
+`R_6≈1.000-1.005`). This does NOT close Priority C — it REORIENTS it: the natural next step is
+no longer "does the moment route contain enough information" (answered: yes, essentially) but
+"can the LP dual's polynomial certificate `P(γ)=Σc_r(n)γ^r` be characterized analytically as a
+function of `n`, well enough to prove the target `O(n^{-2})`-type scaling for `C_q`" — a
+concrete, well-posed, not-yet-attempted analytic question, not a vague "look for more
+inequalities."
+
+**What this does NOT mean:** does NOT mean `Var(X_n)=O(1/n)` is proven or even directly closer
+to proven — `C_q` (a single-generator quantity) still needs the same `S_n=Σw_qC_q` aggregation
+this project has always required, and only the CENTRAL `q=N/2` layer was used here (the
+`S_n=Σ_qw_qU_6(q)` extension the external analysis proposed in its own `§13` was NOT attempted
+— would require `M_r` data at non-central `q`, not currently computed anywhere in this
+experiment); does NOT mean the dual polynomial `c_r(n)` has a simple closed form — no attempt
+was made to find one in this point; does NOT mean `R_6→1` as `n→∞` — 7 points, monotonic
+growth in the gap, no asymptotic claim.
+
+**Artifacts:** `check_truncated_moment_lp_bound.py` (+`metrics/truncated_moment_lp_bound.json`),
+`verify_lp_bound_robustness.py` (verification-only, no separate metrics file — reproduces the
+skeptic-fallback robustness checks: exact square-system cross-check at `n=29`, three-solver-
+method agreement at `n=47`).
+
+## Point 45 (2026-09-13) — Negative control + geometry scaling: point 44's near-exactness is
+mostly small-grid artifact, NOT Lovász-specific — the excitement was premature, corrected before
+it propagated further, not after
+
+**Context.** Per `artifact-provenance-gates.md`'s Gate 3 discipline (a test must be shown to
+discriminate something, not just pass on the real case) and this project's own repeated
+"check before celebrating" pattern — before treating point 44's `R_6≈1` as informative about
+Lovász theta specifically, the obvious alternative was checked directly: is this near-exactness
+just a generic property of ANY positive spectrum on the SAME small grid `{γ_1,...,γ_L}`
+(`L≤11` throughout this experiment's actual `n=23..47` range), unrelated to `X`'s actual
+structure? Two cheap tests, no new theta-solves for either.
+
+**Test 1 — negative control: synthetic spectra on the SAME real grids.** For each of the 7
+already-used `(N,q)` grids, generated several families of synthetic nonnegative `E_l`:
+500 i.i.d. `Exponential(1)` random draws, a flat spectrum, pure-low-level, pure-high-level, a
+two-point low/high mixture, and smooth decaying/growing profiles — computed each family's OWN
+`M_1..M_6` from the SAME `γ_l`, ran the identical LP, and compared `R_6^{synthetic}` against
+the real `R_6` already found.
+
+| n | L | R₆ (real) | random synthetic: mean±std (range) |
+|---|---|---|---|
+| 23 | 5 | 1.0000 | 1.0000±0.0000 |
+| 29 | 6 | 1.0000 | 1.0000±0.0000 |
+| 31 | 7 | 1.0000 | 1.0001±0.0001 |
+| 37 | 8 | 1.0006 | 1.0005±0.0003 |
+| 41 | 9 | 1.0022 | 1.0012±0.0007 |
+| 43 | 10 | 1.0031 | 1.0017±0.0009 |
+| 47 | 11 | 1.0054 | 1.0028±0.0015 (range `[1.0002,1.0083]`) |
+
+**Validity check on the comparison itself (skeptic-fallback finding, addressed — the
+scale-invariance the comparison relies on was asserted, not verified, in an earlier draft).**
+`R_6=U_6/C_q` is invariant to uniformly rescaling a spectrum (`E_l→cE_l` for `c>0` leaves it
+unchanged, since both `U_6` and `C_q` scale by `c` — an exact algebraic fact, not just plausible
+sounding). Verified numerically, not just by hand-proof (`verify_r6_scale_invariance.py`):
+robust to `~1e-13` across scales `1` to `1e6` and several random scales in `[40,1000]` — but
+BREAKS at scale `0.001` (a `~10^{-1}` shift in `R_6`, a genuine HiGHS solver-tolerance artifact
+at very small absolute constraint values, not investigated further). This matters here because
+the real and synthetic spectra sit at very different absolute scales — real `C_q≈0.01-0.03` vs
+`E[C_q^{synthetic}]≈L≈7-11` for `Exponential(1)` draws, a `~400-1000×` ratio — **squarely inside
+the verified-robust range** (`40×-10^6×`), not near the breakdown point. The comparison below is
+valid; this was checked, not assumed.
+
+**The real `R_6` sits within the range random synthetic spectra produce, though the margin
+narrows as `n` grows — reported honestly, not just the single least-striking data point (skeptic-
+fallback finding: an earlier draft quoted only `n=47`'s `z≈1.7` as "unremarkable" without noting
+the trend).** `z:=(R_6^{real}-\text{mean}_{synthetic})/\text{std}_{synthetic}` across
+`n=31,37,41,43,47`: **`-0.47, 0.09, 1.37, 1.52, 1.69`** — monotonically increasing, with `n=47`
+sitting at the conventional one-sided `p≈0.045` boundary, not clearly unremarkable. This does
+NOT overturn the section's conclusion (Test 2 below carries the real weight of the argument, and
+even the deliberately adversarial-looking families — pure-low, pure-high, two-point mixture —
+never pushed `R_6` meaningfully above `1.000` on these small grids), but the rising trend is
+named explicitly rather than smoothed into a single reassuring number: on THIS test alone (7
+points, only through `n=47`), it is not possible to rule out that the real spectrum shows a
+*mild* upward departure from the synthetic baseline that a larger `n`-range might sharpen —
+worth keeping in mind, not dismissed. **Conclusion: point 44's `R_6≈1` is NOT a clearly
+distinctive signature of `X`'s actual spectrum — most nonnegative spectra on a grid this small
+(`L≤11`) give a similarly near-exact result — though Test 1 alone leaves a mild, unresolved
+trend that Test 2 (not Test 1) is what actually settles.** This is broadly the "bad" (deflating)
+outcome the analysis that proposed this control itself flagged as possible.
+
+**Test 2 — geometry-only scaling: does the near-exactness survive as `L` grows well past
+`s=6`? No new theta-solves, pure synthetic grids at synthetic `N` far beyond anything this
+project's exact-enumeration machinery could reach.** For `N=11,20,50,100,200,500,1000`
+(`L=N/2` correspondingly `5..500`), sampled a worst-case-seeking set of synthetic spectra
+(the same adversarial families plus 50 random draws per `N`) and recorded the LARGEST `R_6`
+found (a lower bound on the TRUE worst case, since this is a sampled search, not the LP's own
+dual — stated as such, not overclaimed as exact):
+
+| L | 5 | 10 | 25 | 50 | 100 | 250 | 500 |
+|---|---|---|---|---|---|---|---|
+| worst `R_6` found | 1.0000 | 1.0047 | 1.0640 | 1.1778 | 1.4740 | 2.3715 | **3.7922** |
+
+**This answers the question the negative control left open — strongly and directionally, if not
+with an exact worst-case number (softened from an earlier draft's "decisively," per skeptic-
+fallback review: the trend itself is robust since the worst value at every `L≥50` comes from a
+single deterministic, structurally-motivated family — `decaying`, `1/l` — not from the
+500-sample random search, so search-adequacy concerns don't threaten the qualitative
+conclusion; but the exact reported numbers remain a sampled LOWER bound, not the LP dual's own
+provable worst case).** As `L` grows well
+beyond the fixed moment order `s=6` — the actual regime relevant to `n→∞`, since
+`L=min(q,N-q)=Θ(n)` grows without bound while a FIXED `s=6` does not — the achievable gap
+between `U_6` and the true sum grows substantially, not staying near `1`. The `L≤11` range this
+experiment's real `n≤47` happens to cover is NOT representative of the asymptotic regime; it is
+comfortably inside the small-`L` zone where 6 moments are nearly always enough regardless of the
+spectrum's shape, for reasons of grid/LP geometry (plausibly related to classical
+degree-`s` polynomial/quadrature exactness on small point sets — Gauss-type quadrature is EXACT
+for polynomials up to degree `2k-1` on `k` points, a structurally similar phenomenon; not
+verified as the precise mechanism here, flagged as a plausible explanation worth Source-Tracing
+if this thread continues, not confirmed).
+
+**Corrected verdict on point 44 — Hindsight Distortion Gap discipline: name the correction,
+don't silently absorb it.** Point 44's NUMBERS remain entirely correct (verified independently
+via direct linear solve and 3 LP solver methods, point 44's own robustness checks) — nothing
+here retracts the computation. What is corrected is the INTERPRETATION: point 44's framing
+("the single most informative result... genuinely positive", "real, non-trivial compression")
+overstated what a small-`L` near-exactness actually establishes about Lovász theta specifically.
+**The honest, corrected statement: 6 moments happen to nearly determine `C_q` for `n≤47`
+because `L≤11` is still small relative to `6`, not because `X`'s spectrum has special
+structure — and this near-exactness measurably degrades as `L` grows, which is the direction
+`n→∞` actually goes.** A FIXED `s=6` moment count should NOT be expected to give a tight,
+asymptotically valid bound on `C_q` as `n→∞` — consistent with (not a new discovery beyond) the
+original tail-bound form this project already had, `Σ_{l<k}E_l+M_s/γ_k^s`, which always required
+`k` (and implicitly `s`) to GROW with `n` — `k~const` was never going to be enough, and this
+point confirms that concretely rather than leaving it assumed.
+
+**What survives, and what the corrected picture actually recommends.** The LP methodology
+itself (truncated-moment duality) remains sound and potentially useful — but the right next
+question is not "are 6 fixed moments enough" (answered: no, not asymptotically) but "how must
+`s` (and/or the cutoff `k` in the truncation `Σ_{l<k}E_l+M_s/γ_k^s`) grow with `n` for the LP
+bound to close the gap to the target `O(n^{-2})`-type scaling for `C_q`" — a well-posed,
+concrete question, not yet attempted (would require computing `M_r` for growing `r` as `n`
+grows, or finding a closed-form family of dual certificates `P_s(γ)` parameterized by `s` and
+`n` jointly).
+
+**What this does NOT mean:** does NOT mean point 44 was computed incorrectly — the LP solves,
+`R_1`=Poincaré check, and robustness verification all remain valid; does NOT mean the
+truncated-moment LP approach is useless — only that a FIXED small `s` is insufficient
+asymptotically, which redirects rather than closes the thread; does NOT mean the true worst-case
+`R_6` at large `L` is exactly the sampled values found here — Test 2's numbers are a LOWER bound
+via sampling, not the LP dual's own exact worst case (computing THAT exactly at large `L` was
+not attempted in this point).
+
+**Artifacts:** `check_lp_bound_synthetic_control.py` (+`metrics/lp_bound_synthetic_control.json`),
+`check_lp_bound_geometry_scaling.py` (+`metrics/lp_bound_geometry_scaling.json`),
+`verify_r6_scale_invariance.py` (verification-only, no separate metrics file — confirms the
+real-vs-synthetic comparison in Test 1 is valid at the scales actually compared).
