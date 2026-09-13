@@ -1,0 +1,3670 @@
+[
+  {
+    "L": 25,
+    "N": 50,
+    "q": 25,
+    "cells": [
+      {
+        "s": 1,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 13.0,
+            "high_precision_check": {
+              "max_rel_residual": 1.334402673828313e-17,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 13.0,
+            "high_precision_check": {
+              "max_rel_residual": 1.334402673828313e-17,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          }
+        },
+        "cert_bound": 12.999999999999996,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 13.0,
+        "K_s_lower_bound": 13.0,
+        "cert_violated": false
+      },
+      {
+        "s": 2,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.768123076923078
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.7681230769230774
+          }
+        },
+        "cert_bound": 3.769230769230767,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.768123076923078,
+        "K_s_lower_bound": 3.768123076923078,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 3,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.0748958483585986
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.074895848358605
+          }
+        },
+        "cert_bound": 2.079999999999999,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.0748958483586017,
+        "K_s_lower_bound": 2.0748958483586017,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 4,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.5069913588972108
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.5069913588972095
+          }
+        },
+        "cert_bound": 1.5086342229199368,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.5069913588972101,
+        "K_s_lower_bound": 1.5069913588972101,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 5,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.256614776671504
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.2566147766715021
+          }
+        },
+        "cert_bound": 1.2612201021230849,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.256614776671503,
+        "K_s_lower_bound": 1.256614776671503,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 6,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.1366591027023814
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.136659102702374
+          }
+        },
+        "cert_bound": 1.1401923076923075,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.1366591027023776,
+        "K_s_lower_bound": 1.1366591027023776,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 7,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.064828634162843
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0648286341628788
+          }
+        },
+        "cert_bound": 1.077028062235293,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0648286341628608,
+        "K_s_lower_bound": 1.0648286341628608,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 8,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0321568937228465
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0321568937147896
+          }
+        },
+        "cert_bound": 1.0428713548975181,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0321568937188181,
+        "K_s_lower_bound": 1.0321568937188181,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 9,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.014045087700088
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0140450877006948
+          }
+        },
+        "cert_bound": 1.0240322334483074,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0140450877003913,
+        "K_s_lower_bound": 1.0140450877003913,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 10,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.005851122253447
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0058511222765583
+          }
+        },
+        "cert_bound": 1.0135257798457085,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0058511222650026,
+        "K_s_lower_bound": 1.0058511222650026,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 11,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0021170685578702
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0021170685928018
+          }
+        },
+        "cert_bound": 1.0076297459134218,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.002117068575336,
+        "K_s_lower_bound": 1.002117068575336,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 12,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0007445872802718
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0007445873223113
+          }
+        },
+        "cert_bound": 1.004309335145374,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0007445873012917,
+        "K_s_lower_bound": 1.0007445873012917,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 13,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0002228561627935
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0002228561477304
+          }
+        },
+        "cert_bound": 1.0024356924138251,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.000222856155262,
+        "K_s_lower_bound": 1.000222856155262,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 14,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0000449446689788
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0000449446307453
+          }
+        },
+        "cert_bound": 1.0013772441452014,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.000044944649862,
+        "K_s_lower_bound": 1.000044944649862,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 15,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0000973149457912
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0000022259149666
+          }
+        },
+        "cert_bound": 1.0007789312364734,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0000497704303788,
+        "K_s_lower_bound": 1.0000497704303788,
+        "cert_violated": false,
+        "monotone_ok": false
+      },
+      {
+        "s": 16,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0001776998632954
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0001562574764564
+          }
+        },
+        "cert_bound": 1.0004405991837146,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.000166978669876,
+        "K_s_lower_bound": 1.000166978669876,
+        "cert_violated": false,
+        "monotone_ok": false
+      },
+      {
+        "s": 17,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0000068238835924
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0000009188609218
+          }
+        },
+        "cert_bound": 1.0002492413807507,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.000003871372257,
+        "K_s_lower_bound": 1.000003871372257,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 18,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.000013577481313
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0000029480549446
+          }
+        },
+        "cert_bound": 1.000140998551034,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0000082627681288,
+        "K_s_lower_bound": 1.0000082627681288,
+        "cert_violated": false,
+        "monotone_ok": false
+      },
+      {
+        "s": 19,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0000545528862497
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0000369144498622
+          }
+        },
+        "cert_bound": 1.000079766283316,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.000045733668056,
+        "K_s_lower_bound": 1.000045733668056,
+        "cert_violated": false,
+        "monotone_ok": false
+      },
+      {
+        "s": 20,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.000041098535585
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.000041098535585
+          }
+        },
+        "cert_bound": 1.0000451263115533,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.000041098535585,
+        "K_s_lower_bound": 1.000041098535585,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 21,
+        "per_method": {
+          "highs-ds": {
+            "success": false,
+            "message": "The HiGHS status code was not recognized. (HiGHS Status 15: model_status is Unknown; primal_status is Infeasible)"
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0000062517565462
+          }
+        },
+        "cert_bound": 1.0000255295749731,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0000062517565462,
+        "K_s_lower_bound": 1.0000062517565462,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 22,
+        "per_method": {
+          "highs-ds": {
+            "success": false,
+            "message": "The HiGHS status code was not recognized. (HiGHS Status 15: model_status is Unknown; primal_status is Infeasible)"
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0000006900461544
+          }
+        },
+        "cert_bound": 1.000014443058807,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0000006900461544,
+        "K_s_lower_bound": 1.0000006900461544,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 23,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0000058727060237
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0000025683568357
+          }
+        },
+        "cert_bound": 1.0000081710114666,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0000042205314297,
+        "K_s_lower_bound": 1.0000042205314297,
+        "cert_violated": false,
+        "monotone_ok": false
+      },
+      {
+        "s": 24,
+        "per_method": {
+          "highs-ds": {
+            "success": false,
+            "message": "The HiGHS status code was not recognized. (HiGHS Status 15: model_status is Unknown; primal_status is Infeasible)"
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.000000715384321
+          }
+        },
+        "cert_bound": 1.0000046226717072,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.000000715384321,
+        "K_s_lower_bound": 1.000000715384321,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 25,
+        "per_method": {
+          "highs-ds": {
+            "success": false,
+            "message": "The HiGHS status code was not recognized. (HiGHS Status 15: model_status is Unknown; primal_status is Infeasible)"
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.000002769905006,
+            "high_precision_check": {
+              "max_rel_residual": 2.408014204273915e-10,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          }
+        },
+        "cert_bound": 1.0000026152343884,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.000002769905006,
+        "K_s_lower_bound": 1.000002769905006,
+        "cert_violated": false,
+        "monotone_ok": false
+      }
+    ]
+  },
+  {
+    "L": 50,
+    "N": 100,
+    "q": 50,
+    "cells": [
+      {
+        "s": 1,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 25.5,
+            "high_precision_check": {
+              "max_rel_residual": 3.4014185803466804e-18,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 25.5,
+            "high_precision_check": {
+              "max_rel_residual": 3.4014185803466804e-18,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          }
+        },
+        "cert_bound": 25.49999999999997,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 25.5,
+        "K_s_lower_bound": 25.5,
+        "cert_violated": false
+      },
+      {
+        "s": 2,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 6.88
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 6.880000000000001
+          }
+        },
+        "cert_bound": 6.884803921568621,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 6.880000000000001,
+        "K_s_lower_bound": 6.880000000000001,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 3,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.444067504018992
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.4440675040190136
+          }
+        },
+        "cert_bound": 3.4484703433922967,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.444067504019003,
+        "K_s_lower_bound": 3.444067504019003,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 4,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.2535295131670985
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.2535295131671
+          }
+        },
+        "cert_bound": 2.257512835144736,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.2535295131670994,
+        "K_s_lower_bound": 2.2535295131670994,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 5,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.7038273650587121
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.7038273650586162
+          }
+        },
+        "cert_bound": 1.7176240319603933,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.7038273650586642,
+        "K_s_lower_bound": 1.7038273650586642,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 6,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.4267844025880647
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.4267844025881669
+          }
+        },
+        "cert_bound": 1.4346134971088544,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.4267844025881158,
+        "K_s_lower_bound": 1.4267844025881158,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 7,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.2671130796171957
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.2671130796199428
+          }
+        },
+        "cert_bound": 1.2728072648240312,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.2671130796185692,
+        "K_s_lower_bound": 1.2671130796185692,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 8,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.173791241506515
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.1737912415067806
+          }
+        },
+        "cert_bound": 1.1751195503670713,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.1737912415066478,
+        "K_s_lower_bound": 1.1737912415066478,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 9,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.10930410887683
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.1093041088527873
+          }
+        },
+        "cert_bound": 1.1140365514188173,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.1093041088648086,
+        "K_s_lower_bound": 1.1093041088648086,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 10,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.063537135136675
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.063537135128577
+          }
+        },
+        "cert_bound": 1.0749559044448336,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.063537135132626,
+        "K_s_lower_bound": 1.063537135132626,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 11,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0389094419356675
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0389094419399252
+          }
+        },
+        "cert_bound": 1.0495711595961537,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0389094419377964,
+        "K_s_lower_bound": 1.0389094419377964,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 12,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0224445202883714
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0224445202768464
+          }
+        },
+        "cert_bound": 1.032916338137389,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.022444520282609,
+        "K_s_lower_bound": 1.022444520282609,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 13,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.010215003037904
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0102150027521375
+          }
+        },
+        "cert_bound": 1.0219160209298253,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0102150028950208,
+        "K_s_lower_bound": 1.0102150028950208,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 14,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0023729261517973
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0023729255731346
+          }
+        },
+        "cert_bound": 1.0146180426914555,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.002372925862466,
+        "K_s_lower_bound": 1.002372925862466,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 15,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.002363140110043
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.002363140092349
+          }
+        },
+        "cert_bound": 1.0097619178302204,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0023631401011959,
+        "K_s_lower_bound": 1.0023631401011959,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 16,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0022311546004716
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0022311545314337
+          }
+        },
+        "cert_bound": 1.00652419937001,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0022311545659526,
+        "K_s_lower_bound": 1.0022311545659526,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 17,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.002188115825783
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.002188116123684
+          }
+        },
+        "cert_bound": 1.0043626525964304,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0021881159747337,
+        "K_s_lower_bound": 1.0021881159747337,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 18,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0017567132617922
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0017567132370522
+          }
+        },
+        "cert_bound": 1.0029182918286959,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.001756713249422,
+        "K_s_lower_bound": 1.001756713249422,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 19,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0007180234435629
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0007180231536852
+          }
+        },
+        "cert_bound": 1.0019525864648406,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.000718023298624,
+        "K_s_lower_bound": 1.000718023298624,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 20,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0006079997335464
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0006079997335464
+          }
+        },
+        "cert_bound": 1.001306655367888,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0006079997335464,
+        "K_s_lower_bound": 1.0006079997335464,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 21,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.000124720053242
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0001247074035742
+          }
+        },
+        "cert_bound": 1.0008744966798242,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.000124713728408,
+        "K_s_lower_bound": 1.000124713728408,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 22,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0000819710457238
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0000819674067385
+          }
+        },
+        "cert_bound": 1.0005853104482818,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.000081969226231,
+        "K_s_lower_bound": 1.000081969226231,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 23,
+        "per_method": {
+          "highs-ds": {
+            "success": false,
+            "message": "The HiGHS status code was not recognized. (HiGHS Status 15: model_status is Unknown; primal_status is Infeasible)"
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0000112435128952
+          }
+        },
+        "cert_bound": 1.0003917735748815,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0000112435128952,
+        "K_s_lower_bound": 1.0000112435128952,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 24,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.000195920864761
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.000195920864761
+          }
+        },
+        "cert_bound": 1.0002622393693397,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.000195920864761,
+        "K_s_lower_bound": 1.000195920864761,
+        "cert_violated": false,
+        "monotone_ok": false
+      },
+      {
+        "s": 25,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0002482929329304
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0002482929329304
+          }
+        },
+        "cert_bound": 1.000175537513077,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0002482929329304,
+        "K_s_lower_bound": 1.0002482929329304,
+        "cert_violated": false,
+        "monotone_ok": false
+      },
+      {
+        "s": 26,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0002164371088742
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0002164371088742
+          }
+        },
+        "cert_bound": 1.0001175027995353,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0002164371088742,
+        "K_s_lower_bound": 1.0002164371088742,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 27,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0003478846154101
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0000564365971936
+          }
+        },
+        "cert_bound": 1.000078655781857,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0002021606063018,
+        "K_s_lower_bound": 1.0002021606063018,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 28,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0001150644020405
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0001090787614164
+          }
+        },
+        "cert_bound": 1.000052652122064,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0001120715817284,
+        "K_s_lower_bound": 1.0001120715817284,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 29,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0000547388196568
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0000547388196568
+          }
+        },
+        "cert_bound": 1.000035245442966,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0000547388196568,
+        "K_s_lower_bound": 1.0000547388196568,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 30,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.000264362036704,
+            "high_precision_check": {
+              "max_rel_residual": 6.447257737772273e-11,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0000106680947802,
+            "high_precision_check": {
+              "max_rel_residual": 1.1309090504252655e-10,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          }
+        },
+        "cert_bound": 1.0000235934426822,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.000137515065742,
+        "K_s_lower_bound": 1.000137515065742,
+        "cert_violated": false,
+        "monotone_ok": false
+      }
+    ]
+  },
+  {
+    "L": 100,
+    "N": 200,
+    "q": 100,
+    "cells": [
+      {
+        "s": 1,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 50.5,
+            "high_precision_check": {
+              "max_rel_residual": 1.2022835972116485e-17,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 50.5,
+            "high_precision_check": {
+              "max_rel_residual": 1.2022835972116485e-17,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          }
+        },
+        "cert_bound": 50.49999999999996,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 50.5,
+        "K_s_lower_bound": 50.5,
+        "cert_violated": false
+      },
+      {
+        "s": 2,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 13.129752475247528
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 13.129752475247525
+          }
+        },
+        "cert_bound": 13.129950495049489,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 13.129752475247527,
+        "K_s_lower_bound": 13.129752475247527,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 3,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 6.213289158231214
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 6.2132891582312135
+          }
+        },
+        "cert_bound": 6.215259338887392,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 6.213289158231214,
+        "K_s_lower_bound": 6.213289158231214,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 4,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.796765133830358
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.796765133830342
+          }
+        },
+        "cert_bound": 3.8015280611268736,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.79676513383035,
+        "K_s_lower_bound": 3.79676513383035,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 5,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.690267269936649
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.6902672699338424
+          }
+        },
+        "cert_bound": 2.690904587663495,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.6902672699352457,
+        "K_s_lower_bound": 2.6902672699352457,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 6,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.085702730516613
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.085702730526114
+          }
+        },
+        "cert_bound": 2.0940384177404687,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.085702730521364,
+        "K_s_lower_bound": 2.085702730521364,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 7,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.7271762921878866
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.7271762921900942
+          }
+        },
+        "cert_bound": 1.7402164586175912,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.7271762921889904,
+        "K_s_lower_bound": 1.7271762921889904,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 8,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.5144038767407402
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.5144038767432733
+          }
+        },
+        "cert_bound": 1.5161450442479956,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.5144038767420067,
+        "K_s_lower_bound": 1.5144038767420067,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 9,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.3530170451796528
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.3530170451806902
+          }
+        },
+        "cert_bound": 1.3675270115674243,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.3530170451801715,
+        "K_s_lower_bound": 1.3530170451801715,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 10,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.2607380492758682
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.2607380492748503
+          }
+        },
+        "cert_bound": 1.2656317077990544,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.2607380492753593,
+        "K_s_lower_bound": 1.2607380492753593,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 11,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.1941265389897928
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.194126539001162
+          }
+        },
+        "cert_bound": 1.194063662514684,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.1941265389954774,
+        "K_s_lower_bound": 1.1941265389954774,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 12,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.1406319585380444
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.1406319586582616
+          }
+        },
+        "cert_bound": 1.1428961438042267,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.140631958598153,
+        "K_s_lower_bound": 1.140631958598153,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 13,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.1137446436667948
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.1137446436643166
+          }
+        },
+        "cert_bound": 1.1058297707900668,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.1137446436655556,
+        "K_s_lower_bound": 1.1137446436655556,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 14,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.1092399320389004
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.1092399319687678
+          }
+        },
+        "cert_bound": 1.078714404017824,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.1092399320038342,
+        "K_s_lower_bound": 1.1092399320038342,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 15,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.1004001699189674
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.1004001699484152
+          }
+        },
+        "cert_bound": 1.0587330951897085,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.1004001699336912,
+        "K_s_lower_bound": 1.1004001699336912,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 16,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0907983631415017
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0907983626662507
+          }
+        },
+        "cert_bound": 1.0439281366437307,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0907983629038762,
+        "K_s_lower_bound": 1.0907983629038762,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 17,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0902512373046824
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.090251237616329
+          }
+        },
+        "cert_bound": 1.0329134824011683,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0902512374605058,
+        "K_s_lower_bound": 1.0902512374605058,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 18,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0853923238746197
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.085392323929542
+          }
+        },
+        "cert_bound": 1.0246934983896334,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0853923239020808,
+        "K_s_lower_bound": 1.0853923239020808,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 19,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0806662747559137
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0806228285581707
+          }
+        },
+        "cert_bound": 1.0185449138334435,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0806445516570422,
+        "K_s_lower_bound": 1.0806445516570422,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 20,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0804873324025908
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.080574244221856
+          }
+        },
+        "cert_bound": 1.0139377442413613,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0805307883122235,
+        "K_s_lower_bound": 1.0805307883122235,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 21,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0770605735972731
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.077057842665929
+          }
+        },
+        "cert_bound": 1.010481049343937,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.077059208131601,
+        "K_s_lower_bound": 1.077059208131601,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 22,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0741364162023537
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0741250232782047
+          }
+        },
+        "cert_bound": 1.0078849868501358,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0741307197402792,
+        "K_s_lower_bound": 1.0741307197402792,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 23,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0724206084294343
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0724206086647583
+          }
+        },
+        "cert_bound": 1.0059338361771695,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0724206085470964,
+        "K_s_lower_bound": 1.0724206085470964,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 24,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0723467766805652
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.07234677517991
+          }
+        },
+        "cert_bound": 1.0044665711807703,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0723467759302376,
+        "K_s_lower_bound": 1.0723467759302376,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 25,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0718463005500523
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0718463005500523
+          }
+        },
+        "cert_bound": 1.0033627249519774,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0718463005500523,
+        "K_s_lower_bound": 1.0718463005500523,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 26,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0710698796057827
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.070960515463137
+          }
+        },
+        "cert_bound": 1.0025320218087175,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.07101519753446,
+        "K_s_lower_bound": 1.07101519753446,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 27,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0693600980312328
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.069360098024865
+          }
+        },
+        "cert_bound": 1.0019067245956315,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0693600980280489,
+        "K_s_lower_bound": 1.0693600980280489,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 28,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0670659110862444
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0671155770580747
+          }
+        },
+        "cert_bound": 1.0014359587154866,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0670907440721595,
+        "K_s_lower_bound": 1.0670907440721595,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 29,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0669064751997046
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.066936235802144
+          }
+        },
+        "cert_bound": 1.0010814865845963,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0669213555009243,
+        "K_s_lower_bound": 1.0669213555009243,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 30,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.0661726924912391,
+            "high_precision_check": {
+              "max_rel_residual": 2.8525798691272706e-08,
+              "sum_x": 0.9999999999999999,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.0661726928265978,
+            "high_precision_check": {
+              "max_rel_residual": 2.8525798155980355e-08,
+              "sum_x": 1.0000000000000002,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          }
+        },
+        "cert_bound": 1.0008145529043713,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.0661726926589186,
+        "K_s_lower_bound": 1.0661726926589186,
+        "cert_violated": true,
+        "monotone_ok": true
+      }
+    ]
+  },
+  {
+    "L": 250,
+    "N": 500,
+    "q": 250,
+    "cells": [
+      {
+        "s": 1,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 125.5,
+            "high_precision_check": {
+              "max_rel_residual": 1.727812227068533e-17,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 125.5,
+            "high_precision_check": {
+              "max_rel_residual": 1.727812227068533e-17,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          }
+        },
+        "cert_bound": 125.50000000000018,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 125.5,
+        "K_s_lower_bound": 125.5,
+        "cert_violated": false
+      },
+      {
+        "s": 2,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 31.876968796812758
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 31.87696879681275
+          }
+        },
+        "cert_bound": 31.876992031872486,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 31.876968796812754,
+        "K_s_lower_bound": 31.876968796812754,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 3,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 14.540408910516936
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 14.540408910516941
+          }
+        },
+        "cert_bound": 14.541729748695209,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 14.540408910516938,
+        "K_s_lower_bound": 14.540408910516938,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 4,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 8.47708400376318
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 8.47708400376531
+          }
+        },
+        "cert_bound": 8.47709065509588,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 8.477084003764244,
+        "K_s_lower_bound": 8.477084003764244,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 5,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 5.671986793158077
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 5.671986793158021
+          }
+        },
+        "cert_bound": 5.672917039592993,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 5.671986793158049,
+        "K_s_lower_bound": 5.671986793158049,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 6,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 4.146958757410623
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 4.146958757410644
+          }
+        },
+        "cert_bound": 4.152624339672376,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 4.1469587574106335,
+        "K_s_lower_bound": 4.1469587574106335,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 7,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.2367005713546035
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.2367005713550894
+          }
+        },
+        "cert_bound": 3.2388979748392486,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.2367005713548465,
+        "K_s_lower_bound": 3.2367005713548465,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 8,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.647266369250664
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.6472663692493508
+          }
+        },
+        "cert_bound": 2.648763913799678,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.6472663692500076,
+        "K_s_lower_bound": 2.6472663692500076,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 9,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.2449371249357286
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.2449371249345162
+          }
+        },
+        "cert_bound": 2.2469880319893707,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.2449371249351224,
+        "K_s_lower_bound": 2.2449371249351224,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 10,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.9617390895642677
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.961739089519547
+          }
+        },
+        "cert_bound": 1.9622982984995845,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.9617390895419073,
+        "K_s_lower_bound": 1.9617390895419073,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 11,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.7441542750457906
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.744154274984829
+          }
+        },
+        "cert_bound": 1.7542178705007923,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.7441542750153096,
+        "K_s_lower_bound": 1.7441542750153096,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 12,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.6001948192127056
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.6001948194650804
+          }
+        },
+        "cert_bound": 1.5983589782093575,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.6001948193388928,
+        "K_s_lower_bound": 1.6001948193388928,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 13,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.5221221260945563
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.5221221261104163
+          }
+        },
+        "cert_bound": 1.4793043729667068,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.5221221261024862,
+        "K_s_lower_bound": 1.5221221261024862,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 14,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.5089212345716165
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.508921233474816
+          }
+        },
+        "cert_bound": 1.38691124115974,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.5089212340232163,
+        "K_s_lower_bound": 1.5089212340232163,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 15,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.4639417126344254
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.4639417125899248
+          }
+        },
+        "cert_bound": 1.3142786212436082,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.4639417126121752,
+        "K_s_lower_bound": 1.4639417126121752,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 16,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.4398532112394706
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.4398532111440745
+          }
+        },
+        "cert_bound": 1.2565746261195117,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.4398532111917726,
+        "K_s_lower_bound": 1.4398532111917726,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 17,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.4375917452875582
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.4375917453664966
+          }
+        },
+        "cert_bound": 1.2103315587952723,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.4375917453270275,
+        "K_s_lower_bound": 1.4375917453270275,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 18,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.4295317897650157
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.4295317897645399
+          }
+        },
+        "cert_bound": 1.173007057646411,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.429531789764778,
+        "K_s_lower_bound": 1.429531789764778,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 19,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.4211074785923723
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.421107478399857
+          }
+        },
+        "cert_bound": 1.1427023231393272,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.4211074784961146,
+        "K_s_lower_bound": 1.4211074784961146,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 20,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.4210186451641122
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.421018645242592
+          }
+        },
+        "cert_bound": 1.117976203720307,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.4210186452033522,
+        "K_s_lower_bound": 1.4210186452033522,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 21,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.4176080314636175
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.4176080314822344
+          }
+        },
+        "cert_bound": 1.0977195045055028,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.417608031472926,
+        "K_s_lower_bound": 1.417608031472926,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 22,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.4128370647852768
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.4128370647590844
+          }
+        },
+        "cert_bound": 1.0810681224020873,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.4128370647721806,
+        "K_s_lower_bound": 1.4128370647721806,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 23,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.4078991761612405
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.4078991762107818
+          }
+        },
+        "cert_bound": 1.0673418027717878,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.4078991761860111,
+        "K_s_lower_bound": 1.4078991761860111,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 24,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.40789602539927
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.4078960259375155
+          }
+        },
+        "cert_bound": 1.0560001651201114,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.4078960256683928,
+        "K_s_lower_bound": 1.4078960256683928,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 25,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.4056393256887567
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.406069253040032
+          }
+        },
+        "cert_bound": 1.0466105960100143,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.4058542893643944,
+        "K_s_lower_bound": 1.4058542893643944,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 26,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.4038799895999106
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.403886089659689
+          }
+        },
+        "cert_bound": 1.0388244444725538,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.4038830396297999,
+        "K_s_lower_bound": 1.4038830396297999,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 27,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.4009088493441229
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.4009088493508357
+          }
+        },
+        "cert_bound": 1.0323591235194518,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.4009088493474793,
+        "K_s_lower_bound": 1.4009088493474793,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 28,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.3988632519842779
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.398863252005907
+          }
+        },
+        "cert_bound": 1.0269844789077112,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.3988632519950923,
+        "K_s_lower_bound": 1.3988632519950923,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 29,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.3985731649787059
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 1.3985780692472396
+          }
+        },
+        "cert_bound": 1.0225122862775717,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.3985756171129728,
+        "K_s_lower_bound": 1.3985756171129728,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 30,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 1.3980538081110638,
+            "high_precision_check": {
+              "max_rel_residual": 6.421404308717584e-08,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          },
+          "highs-ipm": {
+            "success": false,
+            "message": "(HiGHS Status 0: Not Set)"
+          }
+        },
+        "cert_bound": 1.0187880732011991,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 1.3980538081110638,
+        "K_s_lower_bound": 1.3980538081110638,
+        "cert_violated": true,
+        "monotone_ok": true
+      }
+    ]
+  },
+  {
+    "L": 500,
+    "N": 1000,
+    "q": 500,
+    "cells": [
+      {
+        "s": 1,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 250.50000000000003,
+            "high_precision_check": {
+              "max_rel_residual": 1.325037883805997e-16,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 250.50000000000003,
+            "high_precision_check": {
+              "max_rel_residual": 1.325037883805997e-16,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          }
+        },
+        "cert_bound": 250.49999999999974,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 250.50000000000003,
+        "K_s_lower_bound": 250.50000000000003,
+        "cert_violated": false
+      },
+      {
+        "s": 2,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 63.125818586826334
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 63.125818586826355
+          }
+        },
+        "cert_bound": 63.12599800399223,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 63.12581858682634,
+        "K_s_lower_bound": 63.12581858682634,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 3,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 28.428237137552735
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 28.42823713755274
+          }
+        },
+        "cert_bound": 28.428284235273473,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 28.428237137552735,
+        "K_s_lower_bound": 28.428237137552735,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 4,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 16.28538738411132
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 16.285387384111303
+          }
+        },
+        "cert_bound": 16.285459834424977,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 16.28538738411131,
+        "K_s_lower_bound": 16.28538738411131,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 5,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 10.664719445188995
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 10.664719445180786
+          }
+        },
+        "cert_bound": 10.666555958011754,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 10.66471944518489,
+        "K_s_lower_bound": 10.66471944518489,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 6,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 7.615782155246034
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 7.61578215524624
+          }
+        },
+        "cert_bound": 7.615865117507602,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 7.615782155246137,
+        "K_s_lower_bound": 7.615782155246137,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 7,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 5.774200861826463
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 5.7742008618171585
+          }
+        },
+        "cert_bound": 5.777979914977811,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 5.774200861821811,
+        "K_s_lower_bound": 5.774200861821811,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 8,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 4.583395212193804
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 4.583395212191672
+          }
+        },
+        "cert_bound": 4.58671607564816,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 4.5833952121927375,
+        "K_s_lower_bound": 4.5833952121927375,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 9,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.7672436854894276
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.7672436854995746
+          }
+        },
+        "cert_bound": 3.771576050570652,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.767243685494501,
+        "K_s_lower_bound": 3.767243685494501,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 10,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.190873888642297
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.1908738886471775
+          }
+        },
+        "cert_bound": 3.190076732761777,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.190873888644737,
+        "K_s_lower_bound": 3.190873888644737,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 11,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.763371556809525
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.7633715568497528
+          }
+        },
+        "cert_bound": 2.7613670884948167,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.7633715568296386,
+        "K_s_lower_bound": 2.7633715568296386,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 12,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.4280032532992406
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.4280032539724528
+          }
+        },
+        "cert_bound": 2.43679249099471,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.428003253635847,
+        "K_s_lower_bound": 2.428003253635847,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 13,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.2658798094280477
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.265879809464887
+          }
+        },
+        "cert_bound": 2.1856448305280307,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.265879809446467,
+        "K_s_lower_bound": 2.265879809446467,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 14,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.260462042435946
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.26046204242585
+          }
+        },
+        "cert_bound": 1.9877626957802892,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.260462042430898,
+        "K_s_lower_bound": 2.260462042430898,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 15,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.2118489346728727
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.2118489347238968
+          }
+        },
+        "cert_bound": 1.8294613804293929,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.2118489346983847,
+        "K_s_lower_bound": 2.2118489346983847,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 16,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.171734894224115
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.171734894027484
+          }
+        },
+        "cert_bound": 1.7011842457184914,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.1717348941257995,
+        "K_s_lower_bound": 2.1717348941257995,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 17,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.1635936323283502
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.1635936321089893
+          }
+        },
+        "cert_bound": 1.596091064290428,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.16359363221867,
+        "K_s_lower_bound": 2.16359363221867,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 18,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.142614397367166
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.142614397352709
+          }
+        },
+        "cert_bound": 1.5091792993896105,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.1426143973599374,
+        "K_s_lower_bound": 2.1426143973599374,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 19,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.1232367437767006
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.1231175561246887
+          }
+        },
+        "cert_bound": 1.436720213178063,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.1231771499506946,
+        "K_s_lower_bound": 2.1231771499506946,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 20,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.122820930716416
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.1232558683659586
+          }
+        },
+        "cert_bound": 1.375887204069855,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.123038399541187,
+        "K_s_lower_bound": 2.123038399541187,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 21,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.1177504502037428
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.1178638174152544
+          }
+        },
+        "cert_bound": 1.3245049754525446,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.1178071338094986,
+        "K_s_lower_bound": 2.1178071338094986,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 22,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.106740360507928
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.10564913278431
+          }
+        },
+        "cert_bound": 1.2808766383650014,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.1061947466461186,
+        "K_s_lower_bound": 2.1061947466461186,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 23,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.089747106841034
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.0897471062822848
+          }
+        },
+        "cert_bound": 1.2436622494608451,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.089747106561659,
+        "K_s_lower_bound": 2.089747106561659,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 24,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.0895194253213725
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.0895194333359584
+          }
+        },
+        "cert_bound": 1.2117920042235624,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.089519429328665,
+        "K_s_lower_bound": 2.089519429328665,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 25,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.085124094369645
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.085046344183407
+          }
+        },
+        "cert_bound": 1.184403219713438,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.085085219276526,
+        "K_s_lower_bound": 2.085085219276526,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 26,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.0803928178381876
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.080392815633292
+          }
+        },
+        "cert_bound": 1.1607939273255832,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.0803928167357397,
+        "K_s_lower_bound": 2.0803928167357397,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 27,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.0770724767199344
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.0771983191819685
+          }
+        },
+        "cert_bound": 1.140388243821732,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.0771353979509515,
+        "K_s_lower_bound": 2.0771353979509515,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 28,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.070503743900587
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.0705037442374006
+          }
+        },
+        "cert_bound": 1.1227102140067262,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.0705037440689935,
+        "K_s_lower_bound": 2.0705037440689935,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 29,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.0670831136270267
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.067343449272549
+          }
+        },
+        "cert_bound": 1.107363827142668,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.0672132814497877,
+        "K_s_lower_bound": 2.0672132814497877,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 30,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 2.066880190511957,
+            "high_precision_check": {
+              "max_rel_residual": 7.249811491155648e-08,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 2.0684211373005748,
+            "high_precision_check": {
+              "max_rel_residual": 7.238901490983454e-08,
+              "sum_x": 1.0000000000000002,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          }
+        },
+        "cert_bound": 1.0940175874964837,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 2.067650663906266,
+        "K_s_lower_bound": 2.067650663906266,
+        "cert_violated": true,
+        "monotone_ok": false
+      }
+    ]
+  },
+  {
+    "L": 1000,
+    "N": 2000,
+    "q": 1000,
+    "cells": [
+      {
+        "s": 1,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 500.4999999999999,
+            "high_precision_check": {
+              "max_rel_residual": 9.630574725972342e-17,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 500.4999999999999,
+            "high_precision_check": {
+              "max_rel_residual": 9.630574725972342e-17,
+              "sum_x": 1.0,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          }
+        },
+        "cert_bound": 500.50000000001125,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 500.4999999999999,
+        "K_s_lower_bound": 500.4999999999999,
+        "cert_violated": false
+      },
+      {
+        "s": 2,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 125.6254354825594
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 125.62543548251746
+          }
+        },
+        "cert_bound": 125.62549950050361,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 125.62543548253842,
+        "K_s_lower_bound": 125.62543548253842,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 3,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 56.204858411939995
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 56.204858411940045
+          }
+        },
+        "cert_bound": 56.20488586687339,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 56.20485841194002,
+        "K_s_lower_bound": 56.20485841194002,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 4,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 31.908328367363964
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 31.908328367363772
+          }
+        },
+        "cert_bound": 31.908364916964008,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 31.90832836736387,
+        "K_s_lower_bound": 31.90832836736387,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 5,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 20.663259800928422
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 20.663259801229056
+          }
+        },
+        "cert_bound": 20.66330282377325,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 20.663259801078738,
+        "K_s_lower_bound": 20.663259801078738,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 6,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 14.555623924276912
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 14.555623924285838
+          }
+        },
+        "cert_bound": 14.55566947859735,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 14.555623924281374,
+        "K_s_lower_bound": 14.555623924281374,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 7,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 10.873689464665054
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 10.873689464661965
+          }
+        },
+        "cert_bound": 10.87377941195115,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 10.87368946466351,
+        "K_s_lower_bound": 10.87368946466351,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 8,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 8.484341184836437
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 8.48434118483426
+          }
+        },
+        "cert_bound": 8.484926165335365,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 8.484341184835348,
+        "K_s_lower_bound": 8.484341184835348,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 9,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 6.84730889614614
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 6.847308895751455
+          }
+        },
+        "cert_bound": 6.847978792752613,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 6.847308895948798,
+        "K_s_lower_bound": 6.847308895948798,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 10,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 5.679968491294427
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 5.679968491160691
+          }
+        },
+        "cert_bound": 5.677924449408075,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 5.679968491227559,
+        "K_s_lower_bound": 5.679968491227559,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 11,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 4.816608458011472
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 4.816608458131152
+          }
+        },
+        "cert_bound": 4.813058513642605,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 4.816608458071312,
+        "K_s_lower_bound": 4.816608458071312,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 12,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 4.13661252138336
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 4.13661252289368
+          }
+        },
+        "cert_bound": 4.1560928077401345,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 4.13661252213852,
+        "K_s_lower_bound": 4.13661252213852,
+        "cert_violated": false,
+        "monotone_ok": true
+      },
+      {
+        "s": 13,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.84838391029829
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.8483839102121338
+          }
+        },
+        "cert_bound": 3.6456455313278004,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.8483839102552118,
+        "K_s_lower_bound": 3.8483839102552118,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 14,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.8281481927047403
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.828148193305919
+          }
+        },
+        "cert_bound": 3.2414359392080025,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.8281481930053296,
+        "K_s_lower_bound": 3.8281481930053296,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 15,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.732041667156903
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.732041667383825
+          }
+        },
+        "cert_bound": 2.9161409319009164,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.732041667270364,
+        "K_s_lower_bound": 3.732041667270364,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 16,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.635821203071932
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.635821203768521
+          }
+        },
+        "cert_bound": 2.6506955572991577,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.6358212034202264,
+        "K_s_lower_bound": 3.6358212034202264,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 17,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.6200053266860084
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.6200053255832416
+          }
+        },
+        "cert_bound": 2.4314681595154553,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.620005326134625,
+        "K_s_lower_bound": 3.620005326134625,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 18,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.570279605569856
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.5702796053309847
+          }
+        },
+        "cert_bound": 2.2485018205911333,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.5702796054504202,
+        "K_s_lower_bound": 3.5702796054504202,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 19,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.534054235328327
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.5340542377946305
+          }
+        },
+        "cert_bound": 2.0943857419215686,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.5340542365614787,
+        "K_s_lower_bound": 3.5340542365614787,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 20,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.533822921496902
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.5338229148150835
+          }
+        },
+        "cert_bound": 1.9635112860937793,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.533822918155993,
+        "K_s_lower_bound": 3.533822918155993,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 21,
+        "per_method": {
+          "highs-ds": {
+            "success": false,
+            "message": "(HiGHS Status 0: Not Set)"
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.5251397243864404
+          }
+        },
+        "cert_bound": 1.8515698368285283,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.5251397243864404,
+        "K_s_lower_bound": 3.5251397243864404,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 22,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.501305068477746
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.501305068709668
+          }
+        },
+        "cert_bound": 1.7552066522384069,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.501305068593707,
+        "K_s_lower_bound": 3.501305068593707,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 23,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.470927606075558
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.470927600967283
+          }
+        },
+        "cert_bound": 1.6717776934312685,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.4709276035214205,
+        "K_s_lower_bound": 3.4709276035214205,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 24,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.4701003084975444
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.4701002998958494
+          }
+        },
+        "cert_bound": 1.5991758528898945,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.4701003041966967,
+        "K_s_lower_bound": 3.4701003041966967,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 25,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.4602105304359654
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.4602105356892756
+          }
+        },
+        "cert_bound": 1.5357048385752947,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.4602105330626207,
+        "K_s_lower_bound": 3.4602105330626207,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 26,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.4548339283154093
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.455812403516542
+          }
+        },
+        "cert_bound": 1.4799863437961214,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.4553231659159755,
+        "K_s_lower_bound": 3.4553231659159755,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 27,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.444761873794105
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.4447618735841767
+          }
+        },
+        "cert_bound": 1.4308908295358862,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.4447618736891408,
+        "K_s_lower_bound": 3.4447618736891408,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 28,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.4318107117854346
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.431810712313269
+          }
+        },
+        "cert_bound": 1.3874852969330036,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.4318107120493515,
+        "K_s_lower_bound": 3.4318107120493515,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 29,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.4256073528813795
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.4259104324570813
+          }
+        },
+        "cert_bound": 1.3489934457169093,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.42575889266923,
+        "K_s_lower_bound": 3.42575889266923,
+        "cert_violated": true,
+        "monotone_ok": true
+      },
+      {
+        "s": 30,
+        "per_method": {
+          "highs-ds": {
+            "success": true,
+            "K_s": 3.4247671260101455,
+            "high_precision_check": {
+              "max_rel_residual": 7.54338946219334e-08,
+              "sum_x": 0.9999999999999998,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          },
+          "highs-ipm": {
+            "success": true,
+            "K_s": 3.4258435768966136,
+            "high_precision_check": {
+              "max_rel_residual": 7.054716773940981e-08,
+              "sum_x": 0.9999999999999999,
+              "min_x": 0.0,
+              "min_y": 0.0
+            }
+          }
+        },
+        "cert_bound": 1.3147649716394838,
+        "method_agreement": true,
+        "status": "OK",
+        "K_s_validated": 3.4253053514533796,
+        "K_s_lower_bound": 3.4253053514533796,
+        "cert_violated": true,
+        "monotone_ok": true
+      }
+    ]
+  }
+]

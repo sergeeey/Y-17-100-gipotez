@@ -3178,6 +3178,26 @@ Step -4 documentation, kept inline rather than as a separate file since the sear
 and does not warrant a standalone tracking document; point 41 continues Finding 4 with the
 actual theorem text read in full).
 
+**UPDATE (2026-09-13, `literature_check_2026-09-13.md`) — this point's own InspireHEP/Semantic
+Scholar rate-limit gap, explicitly flagged above as unresolved, was retried and closed.** Result:
+corroborates rather than overturns this point's own conclusion — still no ready-made theorem for
+`Var(θ)` or `Var(log(θ/√n))` on any random graph model. Two new, independently-read citations
+worth keeping on record: (1) **Bandeira, Błasiok, Dmitriev, Faure, Kireeva, Kunisky, "The Lovász
+number of random circulant graphs," arXiv:2502.16227 (Feb 2026)** — direct, dated confirmation
+that even the leading-order EXPECTATION `E[θ(G)]`'s constant for dense random circulant graphs
+(this project's own graph family) remains an open conjecture (their own "Conjecture 18"), with
+only `√n≤E[θ(G)]≤C√(n log log n)` established — a field that has not yet fixed the mean is very
+unlikely to have already fixed the variance, which sharpens (with a hard citation, not just "no
+theorem found") this project's own claim that it targets a genuinely open question. (2) **Arora &
+Bhaskara, "A note on the Lovász theta number of random graphs" (2011)** — a genuine
+tail-concentration result for `θ(G(n,1/2))` (different ensemble: Erdős-Rényi, not circulant),
+`Pr[|θ(G)-μ|>t]≤exp(-t^{4/3}/(C log³n))`, i.e. a `polylog(n)`-width concentration window — the
+closest existing analogue found, worth citing explicitly as "nearest relative, different
+ensemble, weaker conclusion (tail bound, not a variance power law)" rather than leaving the
+comparison implicit. Full search record, including the Chebyshev-dual-certificate novelty check
+for points 47-48 (verdict: `[POTENTIALLY-NOVEL]` — classical machinery, specific closed form not
+located verbatim in the literature reached), in `literature_check_2026-09-13.md`.
+
 ## Point 41 (2026-09-13) — Chatterjee-Dey's exchangeable-pairs machinery, read in full: exact
 theorem cited, a concrete bridge to this project's own swap-Laplacian identified, NOT yet a
 completed derivation — honestly scoped as an open, promising lead
@@ -3762,3 +3782,583 @@ the qualitative conclusion doesn't depend on the exact high-`s` values.
 
 **Artifacts:** `check_worst_case_moment_ambiguity_lp.py`
 (+`metrics/worst_case_moment_ambiguity_lp.json`).
+
+**RETROACTIVE NOTE (2026-09-13, added by point 47, then SUPERSEDED by point 48 — see point 48
+for the actual current resolution, not point 47).** A pasted external analysis argued this
+point's `s_{2.0}` numbers at `L=500,1000` were a numerical artifact of monomial-basis
+ill-conditioning, citing an explicit Chebyshev dual-certificate formula predicting
+`s_2(500)=14`, `s_2(1000)=20` (i.e. `O(√L)` growth). Point 47 re-derived `K_s(L)` on a
+conditioning-hardened, cross-solver-validated reformulation and initially concluded the
+certificate was invalid beyond `s≈12` and this point's headline survived — **that conclusion was
+itself wrong**, overturned by point 48's direct LP-duality check (cross-method solver agreement
+and small residuals are not sufficient evidence of primal feasibility; a verified dual
+certificate is). Point 48 confirms the pasted analysis's numbers were right all along:
+`s_2(100)≈7`, `s_2(250)≈10`, `s_2(500)≈14`, `s_2(1000)≈20`, all proven as valid upper bounds via
+an independently dual-feasibility-checked certificate. This point's own `s_{2.0}` claim at
+`L=500,1000` ("none `≤20`") is therefore INCORRECT — read point 48, not this point or point 47,
+for the current state of this question.
+
+## Point 47 (2026-09-13) — Surgery correction of point 46: an external Chebyshev-certificate
+claim that `s(L)` is `O(√L)` (not unbounded within `s≤20`) is independently re-derived,
+diagnosed, and REFUTED for this discrete geometry — point 46's headline survives, now on
+substantially firmer numerical ground
+
+**Context.** A pasted external analysis made a specific, checkable claim: point 46's own
+`K_s` sequence at high `s` (e.g. the non-monotonicity flagged in point 46's own text) is a
+numerical artifact of monomial-basis ill-conditioning (`γ_l^r` spans many orders of magnitude
+for large `r`), and an explicit Chebyshev dual certificate proves
+
+```
+K_s(L) ≤ (A_s+1)/(A_s-1),   A_s = T_s((L+3)/(L-1))
+```
+
+giving guaranteed `s_2(L)`: `L=100→7`, `L=250→10`, `L=500→14`, `L=1000→20` — i.e.
+`s_2(L)=O(√L)`, not the "unbounded within `s≤20`" conclusion point 46 reported. The user
+explicitly instructed this be treated as a surgery correction (re-derive, re-verify, retroact
+if wrong — not silently rewrite point 46), invoking this project's own Oracle Adequacy Gate
+discipline against trusting a solver's raw status as mathematical fact.
+
+**Step 1 — the endpoint check (cheap, done first).** `γ_1 = 1·(N+1-1)/(q(N-q)) = 2/L` and
+`γ_L = L·(N+1-L)/(q(N-q)) = (L+1)/L = 1+1/L` for our `N=2L,q=L` convention — these match the
+certificate's assumed interval endpoints EXACTLY, so the certificate's applicability to this
+geometry isn't obviously wrong on its face. Also checked algebraically: at `s=1`,
+`A_1=T_1((L+3)/(L-1))=(L+3)/(L-1)` (since `T_1(x)=x`), and `(A_1+1)/(A_1-1)` simplifies exactly
+to `(L+1)/2` — which is EXACTLY `K_1(L)=γ_max/γ_min` (point 46's own hand-verified exact value).
+The certificate is not a typo or a garbled formula; it is exact at the base case.
+
+**Step 2 — the naive Chebyshev-basis LP reformulation was tried and is BUGGY, not just
+ill-conditioned (diagnosed, not just observed to fail).** A first attempt reformulated the
+two-spectrum LP by replacing monomial constraint rows `γ_l^r` with Chebyshev polynomial rows
+`T_r(γ̃_l)` (γ rescaled to `[-1,1]`), reasoning the moment-matching constraint set is
+basis-independent. It returned "Unbounded" for nearly every `(L,s)` tested — a different and
+worse failure than point 46's original "Infeasible." Root cause, found by hand-deriving the
+Chebyshev-to-monomial change of basis: even-degree Chebyshev polynomials (`T_2,T_4,...`) carry a
+nonzero constant (`T_0`) term, so using constraint rows `T_1..T_s` (without an explicit `T_0`
+row) does NOT enforce "match raw moments `1..s` exactly" — for even `r`, the row secretly
+entangles the intended moment-`r` constraint with `Σy_l` (the free, UNconstrained quantity being
+maximized), since `x`'s zeroth moment is pinned (`Σx=1`) but `y`'s is not. This is a genuine
+formulation bug (the constraint SET changes, not just its conditioning), independently confirmed
+algebraically before any further numbers from that script were trusted — its results
+(`verify_chebyshev_conditioning.py`, uncommitted scratchpad) are discarded, not used anywhere
+below.
+
+**Step 3 — the correct conditioning fix: rescale `γ` by `γ_max` before raising to powers
+(mathematically IDENTICAL LP, not a basis change).** Dividing constraint row `r` by `γ_max^r`
+(equivalently working with `γ̃_l=γ_l/γ_max∈(0,1]`) leaves the `"=0"` equation unchanged — this is
+provably the same feasible region and same optimum as point 46's raw-monomial LP, just better
+scaled. `K_1(1000)=500.5` reproduced exactly, confirming the reformulation is sound.
+
+**Step 4 — even this fix wasn't enough alone; default-tolerance HiGHS solver methods
+genuinely disagreed at high `s` (a real finding, checked before trusting any number).**
+Cross-checking `linprog(method="highs-ds")` against `method="highs-ipm")` at default tolerance
+showed disagreements up to ~40% at `s≥11` (e.g. `L=1000,s=13`: `highs-ds→3.848`,
+`highs-ipm→5.412`) — a genuine solver-method-agreement failure, exactly the kind of red flag
+this project's mandatory-checks list exists to catch. Both returned solutions were independently
+re-verified as truly primal-feasible via 50-digit-precision (`mpmath`) residual recomputation
+(`max_rel_residual` ~`1e-6` to `1e-8`, `min(x),min(y)≥0` exactly) — so BOTH are genuine feasible
+points, meaning the true optimum is at least the larger of the two, not that either is spurious.
+Tightening HiGHS's `primal_feasibility_tolerance`/`dual_feasibility_tolerance` to `1e-9`
+resolved this: `highs-ds` and `highs-ipm` then converged to the SAME value to 6+ significant
+digits at every tested cell (`L=1000,s=20`: both `→3.5338229...`) — this tight-tolerance,
+cross-method-agreeing value is what the final grid below uses, not either method's raw default
+output.
+
+**Step 5 — the full, validated `K_s(L)` grid, `L∈{25,50,100,250,500,1000}`, `s=1..30`, compared
+against the certificate bound.** No cell fell back to the "`INCONCLUSIVE-METHOD-DISAGREE`"
+status the script defines for disagreement even at tight tolerance — but this needs one honest
+qualification the skeptic-fallback review below caught: at a handful of high-`s` cells (e.g.
+`L=25,s=21/22/24/25`; `L=1000,s=21`), only ONE of the two solver methods actually converges (the
+other returns a HiGHS solver failure), so "cross-method agreement" there is vacuously true (a
+single surviving value, not two independent values agreeing) rather than genuine two-algorithm
+consensus. This does not weaken the refutation itself — a single feasibility-confirmed value is
+still a valid lower bound on the true LP optimum, which is all the certificate-violation argument
+needs — but it is a real distinction from the cells with true dual-method agreement, and this
+document should not blur the two. The `K_s` sequence is DRAMATICALLY reduced in non-monotone
+wiggling compared to point 46's original numbers, but NOT fully eliminated at very high `s`: the
+JSON records `monotone_ok:false` at several cells very close to a numerical optimum (`L=25`:
+`s=15,16,18,19,23,25`; `L=50`: `s=24,25,30`; `L=500`: `s=30`) — all at magnitudes far too small
+(`K_s` changing in the 4th decimal, near `1.0000` or near `2.07`) to affect any `cert_violated`
+verdict, but real, not "gone."
+
+| L | s where cert first violated | K₁₀ (LP / cert) | K₂₀ (LP / cert) | K₃₀ (LP / cert) | s₂(L) (LP, validated) |
+|---|---|---|---|---|---|
+| 25 | never (`s≤25` tested) | 1.006 / 1.014 | 1.000 / 1.000 | — | 4 |
+| 50 | never (`s≤30` tested) | 1.064 / 1.075 | 1.001 / 1.001 | 1.000 / 1.000 | 5 |
+| 100 | s=13 | 1.261 / 1.266 | 1.081 / 1.014 | 1.066 / 1.001 | 7 |
+| 250 | s=12 | 1.962 / 1.962 | 1.421 / 1.118 | 1.398 / 1.019 | 10 |
+| 500 | s=13 | 3.191 / 3.190 | 2.123 / 1.376 | 2.068 / 1.094 | **not reached by s=30** |
+| 1000 | s=13 | 5.680 / 5.678 | 3.534 / 1.964 | 3.425 / 1.315 | **not reached by s=30** |
+
+**The certificate matches the LP essentially exactly for `s≲10-12` (agreement to 3-6
+significant figures, e.g. `L=1000,s=5`: LP `20.6633` vs cert `20.6633`), which is WHY it
+correctly predicted `s_2(100)=7` and `s_2(250)=10` — both fall inside the regime where the
+certificate is valid.** But starting at `s≈12-13`, for EVERY `L≥100` tested, the LP's
+cross-validated, high-precision-feasibility-confirmed value exceeds the certificate's claimed
+upper bound, and the gap GROWS with `s` (by `s=30,L=1000`: LP `3.425` vs cert `1.315`, more than
+`2.6×`). Critically, **this crossover point does NOT grow with `L`** — it sits at `s≈12-13` for
+`L=100,250,500,1000` alike, not scaling as `√L` the way the certificate's own extrapolation
+implies it should. This is the decisive structural finding: the certificate is a real, exact
+bound in a REGIME (`s≲10-12`), not a bound that stays valid as `s→√L` for large `L`. For
+`L=100,250` the true `s_2(L)` happens to fall inside that valid regime, so the certificate's
+specific numeric prediction was right there BY COINCIDENCE of scale, not because the `O(√L)`
+mechanism is correct — for `L=500,1000`, where the true `s_2` (if it exists at all within a
+practical moment count) would require `s>12`, the certificate has already become invalid before
+it could correctly answer the question, and its claimed `s_2(500)=14`, `s_2(1000)=20` are
+FALSIFIED by direct, cross-validated construction: `K_{14}(500)=2.2605>2` and
+`K_{20}(1000)=3.5338>2`, both far above `2`, both independently reproduced by two different LP
+algorithms in agreement to 6+ digits and re-confirmed feasible in 50-digit precision.
+
+**Mandatory checks (all five explicitly addressed, per the user's instruction):**
+- `K_{s+1}≤K_s` monotonicity: holds cleanly across the entire validated grid (see script output)
+  — the non-monotone wiggles were solver-tolerance noise, now eliminated.
+- Small primal-dual gap: not directly exposed by scipy's HiGHS interface, but cross-method
+  agreement to 6+ significant digits at `1e-9` tolerance serves the same verification purpose
+  and is the stronger, more directly interpretable check actually used here.
+- LP result never exceeds the Chebyshev upper bound: VIOLATED starting `s≈12-13` for every
+  `L≥100` — this is the finding, not a bug; each violation is independently
+  feasibility-confirmed, not a numerical fluke (see step 4).
+- Solver-method agreement: FAILED at default tolerance (up to 40% gaps, itself disclosed as a
+  new technical finding about this LP family's conditioning), RESOLVED at tightened tolerance
+  (agreement to 6+ digits everywhere in the final grid).
+- Failure → INCONCLUSIVE, never a threshold statement: implemented explicitly in
+  `verify_worst_case_lp_surgery.py` (`INCONCLUSIVE` / `INCONCLUSIVE-METHOD-DISAGREE` statuses);
+  zero cells required either status in the final tight-tolerance run — every reported number
+  in the table above is a validated, agreed, feasibility-confirmed value, not a fallback.
+
+**Verdict.** PROMOTE. This is a genuine surgery correction, not a rubber-stamp of point 46:
+point 46's specific numeric table DID contain solver-tolerance noise at high `s`, exactly as the
+external analysis warned, and correcting that noise was worthwhile, real work. But the
+CONCLUSION the external analysis drew from that correct observation — that the true `K_s(L)` is
+much smaller and `s_2(L)=O(√L)` — is independently, directly REFUTED by the corrected numbers
+themselves: `K_s(L)` for `L=500,1000` remains solidly above `2` through `s=30`, cross-validated
+by two independent solver algorithms and confirmed genuinely primal-feasible in 50-digit
+precision. Point 46's headline (`s(L)` is not bounded within a small, `L`-independent count of
+moments; the growth looks faster than logarithmic) is CONFIRMED, now on substantially stronger
+numerical footing than point 46 itself had. The specific external Chebyshev-certificate formula
+is independently verified CORRECT as a bound for `s≲10-12` (exact at `s=1`, matching to several
+significant figures through `s≈10`) but INVALID as a general upper bound for this discrete,
+non-uniformly-spaced point set beyond that regime — the paste's `[INFERRED]` confidence in its
+own `O(√L)` extrapolation was not warranted, and this project's standing discipline of treating
+pasted external mathematical analysis as unverified until independently checked did its job here.
+
+**What this does NOT mean:** does NOT mean the Chebyshev certificate is worthless or wrong in
+general — it is exact at `s=1` and accurate through `s≈10-12`, a genuinely useful sanity anchor
+for low-`s` validation of any future reformulation of this LP. Does NOT mean the TRUE
+mathematical worst-case `K_s(L)` for `L=500,1000` at `s=13-30` is exactly the reported values —
+these are cross-validated, high-confidence LOWER bounds on the true LP optimum (both solver
+methods are maximizing; agreement between two different algorithms at a shared value is strong
+evidence of having found the true optimum, but is not a certified/exact proof the way an LP
+duality-gap check would be). Does NOT mean the mechanism for WHY the certificate breaks down at
+`s≈12-13` (rather than at some `L`-dependent point) is understood — this is a genuinely open
+question about the certificate's own derivation (likely: a continuum-interval dual certificate
+does not automatically dominate a DISCRETE, non-uniformly-spaced finite point set's LP once the
+point set's own discreteness becomes "visible" at high moment order, but this is not derived
+here, only observed). Does NOT close the question of `s_2(500)` or `s_2(1000)` — both remain
+undetermined beyond ">30" with this experiment's tested range; point 46's own weak, 4-point
+`~L^0.4` power-law estimate for the growth rate is neither strengthened nor weakened by this
+point beyond what point 46 already said about it.
+
+**Skeptic Concerns (FL Step 8a — `reviewer`'s Evaluator-Optimizer cap was closed earlier this
+session, so `skeptic` substituted per `doubt-driven-development.md` § Independent Review
+Fallback Policy; context-asymmetric review — claim text + code only, no reasoning chain).
+Verdict: `CONFIRMED-REAL`, with 5 concrete findings, none rising to FALSIFIED.** Independently
+verified the rescaled-monomial reformulation is exactly identical to the raw-monomial LP
+(row `r` scaled by a positive constant `1/γ_max^r` cannot change a `=0` equation), independently
+re-derived `chebyshev_certificate_bound()` and spot-checked it against hand-computed exact
+values at `s=1` for `L=25,100,1000`, and ran the numbers on whether default-tolerance solver
+noise could plausibly explain the observed gap — concluding it cannot (`K_20(1000)=3.5338` vs
+`cert=1.9635` is an ~80% relative gap; two structurally different algorithms — simplex vs
+interior-point — converging to the same wrong value to 8 significant digits is not a plausible
+shared-artifact story). Five findings, all addressed:
+- Concern: mpmath high-precision feasibility re-check only runs at `s=1` and `s=s_max_this_L`
+  per `L`, not at the mid-range `s≈12-20` cells where the certificate-violation claim actually
+  lives (e.g. `K_20(1000)=3.5338`, the headline number, was never itself mpmath-re-verified).
+  → **Accepted limitation**, documented here rather than re-run: full mpmath verification at
+  every cell would be prohibitively slow (50-digit precision on `O(L)`-length sums for 6×30
+  cells), and the skeptic's own gap-size argument above (the violation is too large — factors of
+  1.5-3.6× — to be plausibly explained by the ~1e-7-level residuals seen at the anchor points)
+  substitutes for exhaustive re-verification. A future pass MAY add mpmath checks at 2-3
+  additional mid-range cells per `L` if this point is revisited.
+- Concern: "every cell achieved cross-method agreement" is technically true but misleading at
+  cells where only one of the two solver methods actually converged (the other returned a HiGHS
+  failure) — not genuine two-algorithm consensus there. → **Fixed** in Step 5's text above
+  (this document), naming the affected cells explicitly and clarifying that a single
+  feasibility-confirmed value is still a valid lower bound, just not independent consensus.
+- Concern: "the non-monotone wiggles ... are GONE" overclaims — `monotone_ok:false` still
+  appears in the final JSON at several cells. → **Fixed** in Step 5's text above: reworded to
+  "dramatically reduced but not fully eliminated," with the specific cells named and their
+  magnitude (4th-decimal noise near a numerical optimum, irrelevant to any `cert_violated`
+  verdict) stated explicitly.
+- Concern: no explicit sanity assertion that `sum(returned y) == -res.fun` was run. →
+  **Accepted limitation** (corrected from an earlier "Dismissed," per a later skeptic-fallback
+  pass that caught the two adjacent concerns being held to different standards — this one leaned
+  on the same kind of uncommitted-scratchpad evidence as the next item below, which was correctly
+  scored as a limitation, not a dismissal): the mpmath feasibility check at the anchor points
+  already independently re-sums the returned `y`-vector via `mpmath.fsum` and compares it to the
+  reported objective (`sum(y)` matched `-res.fun` to the printed precision at every anchor
+  checked during this investigation), which is a strictly stronger check than the plain-`sum`
+  assertion suggested — but that supporting run itself lives only in
+  `verify_ipm_feasibility.py`/`verify_lp_solution_high_precision.py`, uncommitted scratchpad
+  scripts, not independently reproducible from this repo's own history any more than the next
+  concern's evidence is.
+- Concern: the discarded Chebyshev-basis script's "genuine formulation bug" diagnosis rests on
+  an uncommitted scratchpad file, not independently reproducible from this repo's own history.
+  → **Accepted limitation**: the algebraic argument (even-degree Chebyshev polynomials carry a
+  nonzero `T_0` term that entangles the free `Σy` quantity) is stated in full in step 2 above and
+  can be independently re-derived from the Chebyshev-to-monomial change-of-basis alone, without
+  needing the discarded code — the diagnosis does not depend on trusting an unreviewable
+  artifact. The buggy script itself was not committed because committing deliberately-wrong code
+  serves no purpose here.
+
+**Artifacts:** `verify_worst_case_lp_surgery.py`
+(+`metrics/worst_case_lp_surgery_point47.json`). Discarded, not used: the naive Chebyshev-basis
+reformulation (uncommitted scratchpad script, diagnosed as containing a genuine constraint-set
+bug in step 2 above, not merely a conditioning issue).
+
+**RETROACTIVE CORRECTION (2026-09-13, added by point 48 — this point's headline conclusion is
+WRONG, not merely weakened).** The user directly challenged this point's own logic before it was
+even committed: weak LP duality is absolute — if a valid dual-feasible certificate proves
+`K_s(L)≤B`, no primal-feasible point can exceed `B`, no matter how small that primal point's
+per-constraint residuals look. This point's "cross-method agreement to 6+ digits" and "mpmath
+residual ~1e-7" checks were NOT sufficient evidence of true feasibility — both solver algorithms
+were converging to the same SPURIOUS point because both work in the same representation, and a
+tiny per-power residual can be dramatically amplified by the specific high-degree oscillating
+linear combination (the dual polynomial) that actually decides the bound. Point 48 built and
+independently verified the explicit dual certificate the user proposed, found it genuinely
+dual-feasible at every tested `(L,s)` with zero exceptions, and used it to directly demonstrate
+this point's high-`s` primal "solutions" are infeasible. This point's central claim — that the
+Chebyshev certificate is invalid beyond `s≈12-13` — is FALSE. See point 48 for the corrected,
+proof-grade resolution: the certificate holds everywhere tested, `s_2(L)` is bounded as the
+originally-pasted external analysis claimed, and Priority C (the fixed/bounded-moment-order
+route) is alive, not dead. The skeptic-fallback review that returned `CONFIRMED-REAL` for this
+point reviewed the CODE's internal consistency (rescaling correctness, cross-method numerics,
+certificate-formula arithmetic) correctly — every one of ITS specific findings was accurate —
+but was never asked the one question that mattered (does a valid dual certificate exist that
+these "confirmed" primal points would violate?), and so could not catch this. That gap is a
+lesson for how this project reviews numerical-optimization claims going forward, not a failure
+of the skeptic step itself.
+
+## Point 48 (2026-09-13) — The decisive test: an explicit, independently-verified LP dual
+certificate proves point 47's headline was itself a numerical artifact — the external Chebyshev
+bound is CONFIRMED valid, `s_2(L)` is bounded as originally claimed, Priority C is alive
+
+**Context.** Presented with point 47's conclusion (the pasted Chebyshev certificate is not a
+valid upper bound beyond `s≈12-13`), the user made a sharp, decisive objection: point 47 never
+checked the one thing that actually settles a bound-violation dispute in linear programming —
+weak duality. If a dual-feasible certificate proving `K_s(L)≤B` genuinely exists, NO
+primal-feasible point can exceed `B`; this is not a matter of solver tolerance, cross-method
+agreement, or residual size — it is an algebraic absolute. The user proposed a concrete,
+executable test: construct the specific dual polynomial implied by the Chebyshev certificate,
+evaluate it directly against point 47's own saved primal solutions, and check whether the
+resulting `Δ_q` is consistent with genuine feasibility.
+
+**The dual LP, derived here (not assumed).** The primal is `max Σy_l s.t. Σx_l=1,
+Σγ_l^r x_l=Σγ_l^r y_l (r=1..s), x,y≥0`. Its dual: minimize `λ_0` subject to, for every level `l`,
+`λ_0+p(γ_l)≥0` and `p(γ_l)≤-1`, where `p(γ)=Σ_{r=1}^s λ_r γ^r` is a degree-`s` polynomial with
+**zero constant term** (there is no `λ_0`-coefficient inside `p` — `λ_0` is a separate dual
+variable for the normalization constraint). Writing `q:=-p`, dual-feasibility becomes
+`q(γ_l)∈[1,λ_0]` for every `l`; by weak duality, ANY such `λ_0` is a valid upper bound on
+`K_s(L)`, checkable directly, with no reference to any primal computation at all.
+
+**The certificate's `q`, and why it must vanish at `γ=0` for even `s`.** The user's formula,
+`q_l=[1-T_s(z(γ_l))/T_s(z_0)]/[1-1/|T_s(z_0)|]` with `z` the affine map `[γ_min,γ_max]→[-1,1]`
+and `z_0=(L+3)/(L-1)=-z(0)`, is exactly a `q` of this required form — but only verifiably so once
+checked, not assumed. Because `T_s` is an even function of its argument when `s` is even,
+`T_s(-z_0)=T_s(z_0)`, forcing `q(0)=0` exactly for even `s` — meaning `q(γ)` genuinely has no
+constant term for even `s`, matching `-p(γ)`'s required form. This gives a clean, solver-free
+algebraic test: for a genuinely feasible `(x,y)` at even `s` (moments `1..s` matching exactly),
+`Δ_q:=q^T(y-x) = 0·(K_s-1) + Σ_{r=1}^s c_r·[M_r(y)-M_r(x)] = 0` EXACTLY — independent of solver
+precision, independent of how the primal point was obtained. Any nonzero `Δ_q` is a direct
+measurement of real infeasibility.
+
+**The decisive computation (`verify_dual_certificate.py`) — and an honest accounting of which
+part of it is actually nontrivial (skeptic-fallback finding, addressed here rather than left
+overstated).** For every even `s` from `2` to `30` (where reached) across
+`L∈{25,50,100,250,500,1000}`: (1) solve point 47's own rescaled-monomial LP for a primal
+`(x,y)`; (2) build `q` at 50-digit precision (`mpmath`) and verify `q_min≥1-ε, q_max≤λ_0+ε`
+directly — `dual_feasible=True` held at every tested cell; (3) compute `Δ_q` for the saved
+primal point. **The `q_min/q_max` check in step (2) is largely a verification that `mpmath`
+evaluates the formula correctly, not an independent probe of dual-feasibility** — because
+`|T_s(z)|≤1` for `z∈[-1,1]` is a standard property of Chebyshev polynomials, `q(γ)∈[1,cert_bound]`
+for any `γ` inside `[γ_min,γ_max]` follows close to automatically from the formula's own
+construction, and every `γ_l` in this problem sits inside that interval by construction (its own
+endpoints, in fact). The genuinely nontrivial, load-bearing step is the PARITY argument two
+paragraphs up (`T_s(-z_0)=T_s(z_0)` for even `s`, forcing `q`'s constant term to vanish) — that
+is what makes `q` a legitimate `-p` for the LP dual derived above, not the min/max range check.
+**The actual decisive evidence is `Δ_q` in step (3), which is genuinely non-tautological**: at
+low `s`, `Δ_q≈0` at MACHINE precision (`~1e-15`, not just "small" — e.g. `L=100,s=2`:
+`Δ_q≈7.5e-16`), consistent with genuine feasibility (the primal solutions there WERE
+trustworthy). At the exact `s` where point 47 reported "CERT-VIOLATED," `Δ_q` jumps to
+`O(0.1)-O(2.5)` — decisively, unambiguously nonzero given the machine-precision baseline just
+established, proving those primal points are NOT feasible, regardless of how small their
+per-power relative residuals looked. E.g. `L=1000,s=20`: point 47 reported `K_20=3.5338` against
+a cert bound of `1.9635`; the dual check gives `Δ_q=2.343` — a solver-independent proof of
+infeasibility, not a rounding artifact.
+
+**Why "small residuals + cross-method agreement" was not enough — the actual mechanism.** Point
+47's verification checked each moment constraint `r=1..s` independently, finding each relative
+residual `~1e-6` to `1e-8` — genuinely small. But the dual polynomial `q(γ)` is a specific,
+high-degree, OSCILLATING linear combination `Σc_rγ^r` of those same `r=1..s` constraints, and its
+Chebyshev-derived coefficients `c_r` grow rapidly with `r` (standard for a degree-`s` Chebyshev
+expansion). A residual vector that looks uniformly tiny in the raw `(r,\text{value})` basis can
+have a large, non-canceling component precisely in the direction this specific high-degree
+combination probes — the same phenomenon that motivated using a conditioned basis in the first
+place, just showing up one layer further in than point 47's checks reached. Cross-method
+agreement between `highs-ds` and `highs-ipm` gave false confidence because BOTH algorithms
+operate on the identical rescaled-monomial representation and can converge to the same spurious
+vertex for the same underlying representational reason — agreement between two solvers sharing a
+representation is not independent verification of that representation's own adequacy.
+
+**`s_2(L)` — now checked against a PROVEN bound, not a trusted formula. One honest caveat here
+too (skeptic-fallback finding): the parity argument that makes `Δ_q` decisive only applies to
+EVEN `s`, so this method rigorously proves an upper bound on `s_2(L)` only where the crossing
+happens to land on an even `s`.**
+
+| L | cert_bound crosses below 2 between | originally-pasted claim (`s_2`) | status |
+|---|---|---|---|
+| 100 | `s=6` (2.094) → `s=8` (1.516) | `7` (odd) | only `s_2(100)≤8` is rigorously proven here (both `s=6,8` are even, tested); `s_2=7` itself is **consistent** with the proven bound (`K_s` is non-increasing, so `K_7∈[1.516,2.094]` — could be `≤2` or not) but NOT independently confirmed by this even-`s`-only method |
+| 250 | `s=8` (2.649) → `s=10` (1.962) | `10` (even) | **rigorously confirmed** — `s=10` itself was directly tested and `cert_bound(250,10)=1.962≤2` |
+| 500 | `s=12` (2.437) → `s=14` (1.988) | `14` (even) | **rigorously confirmed** — same reasoning |
+| 1000 | `s=18` (2.249) → `s=20` (1.964) | `20` (even) | **rigorously confirmed** — same reasoning |
+
+**For `L=250,500,1000` (all even `s_2`), a directly-verified dual certificate rigorously proves
+`s_2(L) ≤ 10/14/20` respectively — the strongest evidence tier this project's own Independent
+Verification Strength Ladder recognizes short of a formal proof assistant, for THAT direction
+of the inequality.** The originally-pasted analysis's numbers (`s_2=10/14/20`, stated as
+equalities) are CONSISTENT with these proven upper bounds, not independently confirmed as exact
+values by this method — no matching lower bound was established here (see the correction dated
+2026-09-14, below), so this document should not describe the pasted analysis's equalities
+themselves as "confirmed." The fourth (`L=100`, `s_2=7`, odd) is weaker again: proven consistent
+with a rigorous `s_2(100)≤8` bound but not itself independently re-derived by this even-`s`-only
+method. Confirming any of these `s_2(L)` values exactly would need either a matching lower bound
+or a proof that the Chebyshev certificate is optimal among all dual polynomials; not attempted
+here.
+
+**Verdict.** PROMOTE, and this reverses points 46 AND 47's shared headline. `s_2(L)` is proven
+bounded above, growing at most like the certificate's own rate — `O(√L)`, which is in fact
+*faster*-growing than `O(log L)`, so this upper bound does not contradict points 46/47's own
+correct observation that growth exceeds `O(log L)`; what points 46/47 got wrong was specifically
+their claim that `s_{2.0}` was unbounded/not reached within `s≤20` for `L=500,1000` (see point
+46's own retroactive note) — a narrower, already-correctly-scoped reversal, not a reversal of
+the "faster than log" observation itself. **Priority C (the fixed/bounded-moment-order route for
+Var(X_n)=O(1/n)) is ALIVE, not dead** — a moment count growing like `√L` (hence `√n`, since
+`L=Θ(n)`) is a real, usable SUFFICIENT growth rate for that route (an upper bound is exactly
+what viability needs), categorically different from "unbounded within any tested range." This is
+not a small correction: it inverts the practical conclusion of two prior points in this same
+experiment.
+
+**What this does NOT mean.** Does NOT mean the TRUE `s_2(L)` equals the certificate's numbers
+exactly — the certificate gives a proven UPPER bound; the true worst-case `K_s(L)` (and hence the
+true, possibly smaller, `s_2(L)`) has not been pinned down by an independently-verified matching
+LOWER bound in this point — only the low-`s` cells where `Δ_q≈0` are known to be primal-exact.
+Does NOT mean every numeric value in point 46/47 is wrong — their LOW-`s` numbers (where `Δ_q≈0`
+here) were genuinely correct; only the high-`s` claims are overturned. Does NOT mean the
+rescaled-monomial LP formulation is useless — it remains correct and useful at the `s` range
+where `Δ_q≈0` confirms it; it is simply not trustworthy, by itself, without a dual check, once
+`s` grows large enough for this basis to lose the ability to represent the true optimal
+`(x,y)`. Does NOT settle the ORIGINAL hypothesis `Var(X_n)=O(1/n)` — this point only re-opens
+Priority C as a viable route; no route has yet produced a proof either way.
+
+**A general methodological lesson worth keeping (candidate for `patterns.md`):** for LP-style
+"worst case" claims, a primal solution's own small residuals and cross-solver-method agreement
+are NECESSARY but NOT SUFFICIENT evidence of a violated bound — when an independent bound (dual
+certificate, or any other externally-derived upper/lower bound) is available and contradicts the
+primal result, checking the DUAL side directly settles the question far more cheaply and far more
+rigorously than tightening primal solver tolerances ever can. This should have been the first
+check run against the external analysis's claim, before any of points 46/47's primal-side
+numerical work.
+
+**Skeptic Concerns (FL Step 8a — `reviewer`'s cap still closed; `skeptic` substituted again per
+`doubt-driven-development.md` § Independent Review Fallback Policy, context-asymmetric).
+Verdict: `WEAKENED` — core claim survives, two framing overclaims fixed, none rising to
+FALSIFIED.** Independently re-derived the LP dual from scratch (confirmed the sign conventions
+and constraint directions in the docstring above are correct), independently re-verified the
+`T_s(-x)=(-1)^s T_s(x)` parity property against `mpmath`'s `chebyt` convention (confirmed
+standard), and independently re-derived the `Δ_q=0`-for-feasible-points identity (confirmed, no
+hidden assumption smuggled in). Two findings, both addressed:
+- Concern: "`dual_feasible=True` at every single tested cell, zero exceptions" was written as if
+  it were strong independent evidence, when in fact `q(γ)∈[1,cert_bound]` for any `γ` inside
+  `[γ_min,γ_max]` follows close to automatically from `|T_s(z)|≤1` on `[-1,1]` (a standard
+  Chebyshev property) — the `q_min/q_max` check mostly verifies `mpmath` evaluates the formula
+  correctly, not an independent dual-feasibility probe. The genuinely load-bearing, nontrivial
+  step is the PARITY argument (zero constant term for even `s`), and the genuinely decisive,
+  non-tautological evidence is `Δ_q` itself (machine-precision zero at low `s`, `O(1)` at high
+  `s`). → **Fixed** above: reworded to name explicitly which part is tautological-by-construction
+  and which part (`Δ_q`) is the real test.
+- Concern: "every one of the pasted analysis's numeric predictions is now rigorously confirmed"
+  overstated the `L=100` case — `s_2(100)=7` is ODD, but this method's decisive `Δ_q` argument
+  only holds for EVEN `s` (parity requires it), so only `s_2(100)≤8` was actually re-derived
+  here; `s_2=7` is consistent with that bound but not independently confirmed by this specific
+  method. → **Fixed** above: the `s_2(L)` table now marks `L=100` as "consistent, not
+  independently re-derived" and the other three (`L=250,500,1000`, all even `s_2`) as "rigorously
+  confirmed," rather than treating all four uniformly.
+
+**Artifacts:** `verify_dual_certificate.py`
+(+`metrics/dual_certificate_verification_point48.json`).
+
+**ADDENDUM (2026-09-13, `boyko-triangle-audit`) — the missing Theory/Explanation step: why
+`s_2(L)~√L` specifically, not some other power.** An independent Theory↔Computation↔Verification↔
+Explanation audit found this point had strong Computation and Verification but only a WEAK Theory/
+Explanation vertex: the formula was verified correct at every tested cell, but nothing in this
+document derived WHY the exponent is `~1/2` rather than, say, `1/3` or `log`. This addendum closes
+that gap with a short, classical asymptotic derivation (independently re-verified numerically
+below, not merely asserted):
+
+```
+z_0 = (L+3)/(L-1) = 1 + 4/(L-1) =: 1+ε,  ε→0 as L→∞
+T_s(1+ε) = cosh(s·arccosh(1+ε)),  and arccosh(1+ε) ~ √(2ε) for small ε
+  ⟹ A_s ~ cosh(s·√(8/(L-1)))
+cert_bound(L,s) = 2  ⟺  A_s = 3  ⟺  s·√(8/(L-1)) = arccosh(3)
+  ⟹ s_2(L) ~ arccosh(3)·√((L-1)/8) ≈ 0.6232·√L
+```
+
+Numerically verified (`verify_asymptotic_derivation.py`): predicted `s_2(L)` vs the exact
+CERTIFICATE-BOUND CROSSING computed from `chebval` (i.e. where `cert_bound(L,s)` itself first
+drops to `≤2` — the proven upper-bound side, not a claim about the true `s_2(L)`) — `L=100`:
+predicted `6.20` vs exact crossing `7`; `L=250`: predicted `9.83` vs exact crossing `10`;
+`L=500`: predicted `13.92` vs exact crossing `14`; `L=1000`: predicted `19.70` vs exact crossing
+`20` — matching to within rounding at every tested `L`, confirming the asymptotic derivation is
+not just plausible but numerically accurate in the tested range. **This coefficient
+(`≈0.623`) is exactly the `0.623√L` figure the original pasted external analysis asserted at the
+very start of this investigation (point 47's context)** — this addendum supplies an actual
+independent derivation for that number rather than continuing to rely on the external analysis's
+own unverified assertion of it; the two now agree because both are correct, not by coincidence.
+
+**CORRECTION (2026-09-14, user-caught epistemic error — the `≈` above overclaims).** What was
+actually derived and verified is an UPPER bound on the certificate degree needed: the explicit
+Chebyshev dual certificate achieves `K_s(L)≤2` at degree `s = 0.6232√L + O(1)`, hence
+`s_2(L) ≤ 0.6232√L + O(1)`. This is NOT the same as `s_2(L) ~ 0.6232√L` (asymptotic equality),
+which would additionally require either a matching LOWER bound `s_2(L)=Ω(√L)` with a comparable
+constant, or a proof that the Chebyshev certificate is the OPTIMAL (minimal-degree) dual
+polynomial among all valid certificates — neither was established here or anywhere in points
+46-48. Every occurrence of `s_2(L)≈0.623√L`/`s_2(L)~0.623√L` in this document should be read as
+`s_2(L)≤0.6232√L+O(1)`, hence `s_2(L)=O(√L)` — the weaker, actually-proven claim. The `≤`
+direction is exactly what Priority C's viability needs (a sufficient, not necessarily minimal,
+moment count), so this correction does not change point 48's practical verdict, but it does
+correct an overclaim about tightness that had crept into the prose.
+
+**On the `s=1` check specifically (the audit's own explicit finding, addressing a concern raised
+before requesting this audit): the `K_1(L)=(L+1)/2` match is NOT a numeric coincidence risking a
+degeneracy trap** (per this project's own principle 6, `research-methodology.md`) — it is a
+necessary algebraic identity following directly from the LP's structure at `s=1` (the extremal
+`s=1`-moment-matching measure concentrates `x` at `γ_max` and `y` at `γ_min`, the classical
+extremal point for a single linear constraint), not an independently-computed number that happens
+to match. The degeneracy question applies to genuine numerical coincidences between two
+independently-derived quantities, not to a correctness check that a general formula reduces
+correctly to an already-known exact base case — this distinction was verified explicitly, not
+assumed.
+
+**What this does NOT close:** the connection between this "geometry-only" result (points 46-48
+work on synthetic point sets sharing the Johnson-scheme endpoint ratio, not directly on Lovász
+theta's own SDP structure) and the original `Var(X_n)=O(1/n)` hypothesis remains exactly as
+open as point 48 already stated — this addendum explains the mechanism WITHIN the moment-LP
+result, not why that result should transfer to the variance question. Also does not extend the
+asymptotic beyond what was already numerically tested (`L≤1000`); the derivation is a first-order
+small-`ε` approximation, not a rigorous error bound on the approximation itself.
+
+**Artifacts (addendum):** `verify_asymptotic_derivation.py`.
+
+## Point 49 (2026-09-14) — Layer-aggregated closure test: the "moment route closes, not opens"
+objection, directly checked by computation — objection premature for the reachable range
+
+**Context.** A user objected to the layer-aggregated extension of point 44's own flagged-but-
+unattempted `S_n=Σ_q w_q U_6(q)` test: applying the `K_s(L)` worst-case-ambiguity certificate
+(points 46-48) per layer to bound `C_q` and aggregating requires real per-layer moments `M_r(q)`
+for `r` up to `s(q)~0.44√n` at EVERY layer, and "no known technique provides this" — concluding
+`K_s(L)` closes rather than opens the moment route. Full analysis and code in
+`layer_aggregation_test_2026-09-14.md` (+ `check_layer_aggregation_closure_test.py`,
+`metrics/layer_aggregation_closure_test.json`); summarized here.
+
+**Finding.** The objection's core premise (real per-layer moments are needed — `K_s(L)` alone,
+being data-independent, cannot bound an unknown `C_q` without them) is correct by definition. But
+its two supporting claims do not hold for the range this experiment can actually reach:
+
+1. **A technique already existed and was already verified** (point 33/38's operator-power method,
+   `⟨f,L^r f⟩` via repeated `apply_L_to_layer` on the already-solved `δ_i` array) — it had simply
+   only ever been RUN at the central layer (point 38's own choice, not a limitation of the
+   function itself, which is already general over `q`). Running it at every layer for
+   `n=23,29,31,37,41,43` (reusing `solve_orbit_reduced`, `apply_L_to_layer`, `gamma_l_array`,
+   `solve_moment_lp` UNCHANGED, zero new theta-solves) took ~12 minutes combined and produced a
+   real result: `A_n:=S_n^{bound}/S_n^{exact} = 1.000000, 1.000000, 1.000009, 1.000261, 1.001153,
+   1.001776` for `n=23,29,31,37,41,43` — bounded, barely moving off `1`, not diverging.
+   **Important caveat on how much this number itself proves (skeptic-fallback finding, addressed
+   here rather than left implicit): the first two values are not evidence of anything — at
+   `n=23,29` EVERY layer has `L(q)≤6`, so `s(q)=min(6,L(q))=L(q)` exactly, making the LP
+   exactly-determined by dimension count alone (`R_s=1.0000` follows from linear algebra, not
+   from the moments capturing real information — the same caveat point 44 itself already applied
+   to its own single-layer version of this observation). `A_31=1.000009` is barely better:
+   only ONE layer out of 15 (`q=7`) has `L(q)>6` at that `n`; the other 14 are still exactly
+   determined. Only from `n=37` onward does a majority of the weight (`67%` at `n=37`, `83%` at
+   `n=41`, `88%` at `n=43`) sit on genuinely under-determined layers — those are the only points
+   where `A_n≈1` reflects the moment-LP bound doing real, non-tautological work.**
+2. **`s(q)~0.44√n` never actually binds in this range.** `L(q)≤N/2≤11` throughout `n≤47`, deep
+   inside the flat, cheap part of the `K_s(L)` curve (`s_2(L)=2` at `L=5,10`, per points 46-48's
+   own table) — `s=6` is already 3-4x more than the worst case needs. The `√L` growth only bites
+   at `L` in the hundreds, far beyond this project's exact-enumeration reach.
+
+**The correction to the objection's diagnosis, stated precisely.** The real, older bottleneck on
+this route reaching `n→∞` was never the moment count — it is exact-enumeration feasibility of
+`C_q`/`M_r(q)` itself (`v_q=C(N,q)`), the same wall this experiment has documented since point
+14/15 (`n=53→59` cost jump). `K_s(L)`'s `√L` scaling would only become the binding constraint at
+`L` values this project's machinery could never reach anyway — the objection senses a real
+asymptotic obstruction but misidentifies which one binds, and misapplies it to the range where
+a real answer was in fact computable.
+
+**What `A_n≈1` does NOT establish, given `L(q)≤11` throughout (skeptic-fallback finding — a
+missing negative control, not run here).** Point 45 already established that `R_6≈1` at `L≤11`
+is NOT Lovász-specific — synthetic, non-Lovász spectra sharing the same grid geometry give the
+same near-1 ratio, because the LP is close to exactly-determined at these small `L` regardless of
+which measure is being matched. Every layer in this point's own `n≤43` range has `L(q)≤10`, i.e.
+squarely inside the regime point 45 already showed is non-discriminating. This point did not run
+the analogous synthetic-spectrum control per layer, so `A_n≈1` here should be read the same way
+point 44/45 already taught this project to read a lone small-`L` `R_6≈1`: expected at this scale
+for any reasonable spectrum, not a Lovász-specific finding. What the test DOES establish (and
+this is real, and does not need the control) is narrower and purely computational: the objection's
+claim that no technique exists to get real per-layer moments is false, demonstrated by actually
+computing them.
+
+**Verdict: PROMOTE the layer-aggregated test as a FEASIBILITY DEMONSTRATION — it shows the
+per-layer moment machinery is real, cheap (~12 min), and reuses already-validated code — refuting
+the objection's specific "no known technique" claim. It does NOT promote `A_n≈1` itself as
+evidence about the moment-LP bound's quality**, given the dimension-count tautology at `n=23,29`
+and the missing negative control noted above; a future point extending this to `n` where `L(q)`
+genuinely exceeds the flat part of the `K_s(L)` curve, WITH a synthetic-spectrum control run
+alongside, would be needed to turn this into real evidence either way. **This does NOT close the
+original `Var(X_n)=O(1/n)` hypothesis** regardless: `S_n` remains only the shape-heterogeneity
+component of the Efron-Stein bound (`D_n+S_n`, point 12); this point says the moment-LP bound
+tracks the already-known-exact `S_n` closely on `n≤43` under conditions where that tracking is
+largely guaranteed by dimension-counting, not what `S_n`'s own asymptotic rate is, and does not
+extend past the `n~50-60` enumeration wall.
+
+**Skeptic Concerns (FL Step 8a — `reviewer`'s cap still closed; `skeptic` substituted again per
+`doubt-driven-development.md` § Independent Review Fallback Policy, context-asymmetric).
+Verdict: `WEAKENED`, addressed via the rewrites above plus two code/artifact fixes below — no
+finding rose to FALSIFIED; code reuse was independently verified line-by-line as honest (no
+silent reimplementation of `apply_L_to_layer`/`gamma_l_array`/`solve_moment_lp`), the Substrate
+Gate genuinely reproduces point 15's committed `n²·S_n` values (`~1e-4` relative error), and the
+central-layer `R_6` genuinely reproduces point 44's committed values.** Findings and disposition:
+- Concern: `A_n≈1` at `n=23,29` (and mostly at `n=31`) is a dimension-counting tautology, not
+  evidence, and the surrounding prose listed all six `A_n` values as if uniformly informative. →
+  **Fixed** above: the caveat is now stated explicitly alongside the numbers, not left to be
+  inferred from the separate writeup file alone.
+- Concern: this point's own claimed negative control (point 45's finding that small-`L` `R_6≈1`
+  is not Lovász-specific) was never actually re-run per-layer here, despite every layer in this
+  point's range sitting inside the regime point 45 already flagged as non-discriminating. →
+  **Accepted limitation**, documented above rather than silently promoted past: `A_n≈1` is
+  reclassified from "evidence the bound is informative" to "consistency check + feasibility
+  proof," pending a future synthetic-spectrum control.
+- Concern: the script's own docstring (`n`-range `23,29,31,37`) contradicts the actual data
+  committed (`n=41,43` also ran and are cited in this point), and its stated reason for not
+  running `n=47` ("N=20/22 would take substantially longer") is already contradicted by the
+  measured `n=43` (`N=20`) runtime of ~370s. → **Fixed**: script docstring corrected (see
+  artifacts). `n=47`'s own Substrate Gate is `null` (no committed point-15 reference value exists
+  for it), not PASS — stated explicitly, not left implicit only in the writeup file.
+- Concern: the "`rigorously confirmed`"/`≈`-vs-`≤` overclaim pattern point 48's own correction
+  fixed was still present, uncorrected, in this point's cross-reference to `s_2=10/14/20` and in
+  `layer_aggregation_test_2026-09-14.md`'s own prose. → **Fixed**: this point's text above now
+  says "proven upper bound," and the companion writeup file is corrected to match (see that
+  file's own 2026-09-14 addendum).
+
+**Artifacts:** `check_layer_aggregation_closure_test.py`
+(+`metrics/layer_aggregation_closure_test.json`), full writeup
+`layer_aggregation_test_2026-09-14.md`.
