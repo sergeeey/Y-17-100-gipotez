@@ -2654,3 +2654,248 @@ not attempted here.
 
 **Artifacts:** `check_cross_layer_cancellation.py`
 (+`metrics/cross_layer_cancellation.json`).
+
+## Point 35 (2026-09-13) — Extend points 33-34 (M_1,M_2,M_3, l_eff, cross-layer cancellation)
+to n=41,43,47: three more corroborating points, still no resolution; a prior cost estimate
+corrected
+
+**Context.** Direct user request ("попробуй расширить на n=41,43,47") to extend point 33's
+higher-moment/`l_eff` computation and point 34's cross-layer cancellation check beyond
+`n=23,29,31,37` to the same upper `n`-range already used for other quantities in this
+experiment (points 22-24's `tail_concentration_ratio.json`).
+
+**Feasibility check performed before committing compute (per this project's own Cheapest
+Differentiating Test discipline).** Central-layer sizes grow steeply: `n=37` (already done) has
+`|V(q=8)|=C(17,8)=24310`; `n=41` is `C(19,9)=92378` (3.8x); `n=43` is `C(20,10)=184756` (7.6x);
+`n=47` is `C(22,11)=705432` (29x). `check_necklace_orbit_reduction.py`'s `solve_orbit_reduced`
+was confirmed (by reading its body) to have no cross-invocation cache for its own theta-array
+result — only an unrelated `cross_validation` `json.dump` at module level — so each of points
+33's and 34's own scripts, run independently, would each re-pay the full LP-solve cost per `n`.
+`check_extend_moments_cross_layer_n41_43_47.py` was written to compute `X` ONCE per `n` and
+reuse it for both the `M_r`/`l_eff` quantities and the cross-layer identity, avoiding that
+duplication.
+
+**Actual measured cost — ran n=41 first as a timing test before committing to n=43,47, per the
+same discipline.** Wall-clock (this machine):
+
+| n | layer size | theta time | moments+cross-layer time | total |
+|---|---|---|---|---|
+| 41 | 92378 | 195.6s | 18.2s | ~214s |
+| 43 | 184756 | 213.6s | 40.0s | ~254s |
+| 47 | 705432 | 807.0s | 163.6s | ~971s (~16.2 min) |
+
+**Correction to a prior estimate, stated explicitly (Hindsight Distortion Gap discipline — name
+the correction, don't silently absorb it).** This experiment's own earlier documentation (cited,
+not re-quoted in full, from the point discussing `n=41` LP-solve-count feasibility) estimated
+`n=41` at ~52,488 LP solves with costs scaling steeply for `n=43,47` (grouped with `n=53` at
+"several hundred thousand" to "~1.3M" solves). The actual measured wall-clock cost for `n=41→43`
+grew only ~9% (195.6s→213.6s) despite the layer itself doubling — and `n=47`, while clearly the
+most expensive point (807.0s theta time), still completed in well under 20 minutes total, not
+the "tens of minutes to hours" this session initially worried about before running it. The
+discrepancy is plausibly explained by `solve_orbit_reduced`'s necklace-orbit reduction
+amortizing much of the raw LP-solve count via the cyclic group's symmetry — but this is
+`[INFERRED]`, not verified by reading that function's full internals in this session; the
+practical, load-bearing fact is the measured wall-clock number, not the mechanism.
+
+**Full results table, n=41,43,47 (canonical `l_eff_from_gamma` imported unchanged from
+`check_higher_moments_M_r.py`, not reimplemented):**
+
+| n | N | q | M1 | M2 | M3 | M2/M1 | M3/M2 | l_eff(M2/M1) | l_eff/N | corr(LqX,L*X) | identity_err |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 41 | 19 | 9 | 0.007731 | 0.005049 | 0.003646 | 0.6531 | 0.7221 | 3.5795 | 0.1884 | 0.6602 | 1.7e-18 |
+| 43 | 20 | 10 | 0.007031 | 0.004491 | 0.003191 | 0.6388 | 0.7106 | 3.6901 | 0.1845 | 0.6687 | 0.0 |
+| 47 | 22 | 11 | 0.005922 | 0.003644 | 0.002516 | 0.6153 | 0.6904 | 3.8976 | 0.1772 | 0.6823 | 0.0 |
+
+**Combined with points 33-34's own `n=23..37` rows, both trends now span 7 points and remain
+exactly monotonic — three more corroborations, same direction, no qualitative change:**
+
+`l_eff` (from `M2/M1`): `2.468, 2.883, 2.983, 3.342, 3.580, 3.690, 3.898` (n=23,29,31,37,41,43,47)
+— still GROWING.
+`l_eff/N`: `0.2468, 0.2217, 0.2131, 0.1966, 0.1884, 0.1845, 0.1772` — still SHRINKING.
+Cross-layer correlation (point 34's object): `0.5166, 0.5852, 0.6141, 0.6456, 0.6602, 0.6687,
+0.6823` — still GROWING, smoothly, no sign of saturation within this range.
+
+**One small, explicitly-labeled descriptive observation, NOT a claimed law (per Perelman-audit
+discipline — a curve-fit over 7 points spanning `N=10..22` is `[WEAK]` evidence for any
+asymptotic rate).** `l_eff/√N` is far flatter across the 7 points (`0.780→0.831`, a 6.5% drift)
+than `l_eff/ln(N)` (`1.072→1.261`, a 17.6% drift) — i.e. `l_eff` growth looks descriptively
+closer to `√N` than to `log N` over this range. This is offered only as a numerical observation
+to guide intuition, not as an established rate: (a) `l_eff/√N` is itself still drifting upward,
+not flat, so even the better-fitting curve is not confirmed constant; (b) `N=10..22` is a narrow
+range for distinguishing growth laws; (c) no theoretical argument for `√N` scaling was attempted
+here. If `l_eff` genuinely grows like `√N` (or anything unbounded), that would mean `l_eff(N)` is
+NOT bounded in point 24's sense, even though `l_eff/N→0` — these are different claims, and this
+session's data cannot yet distinguish "unbounded but sublinear" from "eventually bounded, still
+transient at N≤22."
+
+**Verdict.** PROMOTE the extended data as a fourth corroboration of the same trend already
+established at points 24, 32, 33 — this is not a new qualitative finding, and the core question
+(point 24's `l_eff(N)` boundedness, hence whether `Var(X_n)=O(1/n)` holds under this specific
+mechanism) remains explicitly OPEN. The extension was worth doing because it (a) triples the
+`n`-range for the same check at moderate, now-measured cost, (b) corrects an over-cautious prior
+cost estimate for future planning in this experiment, and (c) sharpens the "boundedness would
+require a real turnaround" concern — after 7 monotonic points with no sign of a turnaround,
+continued growth is the working expectation, not proof of unboundedness.
+
+**What this does NOT mean (explicit non-interpretations, per EstimandOps discipline):** does NOT
+establish an asymptotic growth rate for `l_eff(N)` (7 points, narrow `N`-range, no theoretical
+derivation); does NOT resolve point 24's boundedness question either way; does NOT mean
+`Var(X_n)=O(1/n)` is false (that would require propagating `l_eff` growth through the actual
+tail-control argument, not attempted); does NOT mean the `√N`-vs-`log N` descriptive comparison
+is a validated law.
+
+**Artifacts:** `check_extend_moments_cross_layer_n41_43_47.py`
+(+`metrics/extended_moments_41_43_47.json`).
+
+## Point 36 (2026-09-13) — Surgery on point 34: the "cross-layer identity" is trivial linearity
+of `L_q`, not a new operator relation. Correction, verified independently before accepting it.
+
+**Context.** An external LLM review of this experiment's full history flagged that point 34's
+central "identity" `L(δ_i)(S) = L_q(X)(S) - L*(X)(S∪{i})` may be nothing more than linearity of
+ONE fixed operator applied to two functions — i.e. `L* = L_q` literally, not an isomorphic-but-
+distinct "restricted i-preserving operator" as point 34's own (already-once-corrected)
+terminology implied. This matches the SAME pattern this session has now hit three times
+(Filmus, point 32's "new theorem" framing, and now this) — per the user's own standing
+instruction, treated with the same seriousness rather than defended.
+
+**Verification performed before accepting the correction (per audit-verification-gate.md — an
+external LLM's `[VERIFIED]` is this session's `[INFERRED]` until independently checked).**
+Wrote `verify_Lstar_equals_Lq.py`: builds `L*` applied to `X_1(S):=X(S∪{i})` two ways —
+**Route A** (point 34's own code path: `apply_L_to_layer(X_1, combos_q, masks_q,
+mask_to_idx_q, ground_set)`, i.e. literally reusing layer `q`'s own swap machinery) and
+**Route B** (a separately-coded construction: for each `S` in layer `q`, build `T=S∪{i}`
+directly and enumerate `i`-preserving swaps of `T` in a fresh loop, without calling layer `q`'s
+`combos_q`/`masks_q` machinery). Result, `n=23,29,31,37`: **`max|Route A − Route B| = 0.000e+00`**
+at every `n` — exact agreement, not approximate.
+
+**Precision correction to this verification's own epistemic weight (reviewer finding, P2,
+addressed before merge — same discipline this point itself is modeling).** Route A and Route B's
+exact agreement is **not independent empirical confirmation of a nontrivial fact** — it is
+*algebraically guaranteed* by bit-disjointness: bit `i` (bit 0) never overlaps the ground bits
+used in `combos_q`, so `(mask & ~(1<<a)) | 1 | (1<<b)` (Route A's index arithmetic) and
+`((mask|1) & ~(1<<a)) | (1<<b)` (Route B's) are identical index expressions for any `a,b` —
+zero error is what the arithmetic forces regardless of what `X` actually is. So this script
+verifies IMPLEMENTATION CORRECTNESS (the two code paths compute the same thing), not an
+independent mathematical fact about `L*` and `L_q`. **The substantive claim itself — that `L*`
+IS `L_q`, not merely isomorphic — rests on the code-inspection argument two paragraphs below
+(identical `apply_L_to_layer` call with identical `combos_q`/`masks_q`/`mask_to_idx_q`/
+`ground_set` arguments), not on this numeric check.** Stated this way, the correction is not
+weakened, only correctly scoped: it was already obvious from reading point 34's own code that
+`L*=L_q` literally; `verify_Lstar_equals_Lq.py` confirms no bug hides that fact, it does not
+supply independent evidence for it.
+
+**What this means for point 34's claim.** `δ_i = X_0 - X_1` where `X_0(S):=X(S)` and
+`X_1(S):=X(S∪{i})` are BOTH, from the start, functions on the SAME layer `q` (not on two
+different layers at all, despite point 34's "cross-layer" framing). Since `L_q` is linear:
+
+```
+L_q(δ_i) = L_q(X_0 - X_1) = L_q(X_0) - L_q(X_1)
+```
+
+holds for ANY linear operator applied to a difference of two functions on its own domain —
+this is not specific to swap-Laplacians, Johnson schemes, or anything Lovász-specific. Point
+34's "genuine new identity" claim is **withdrawn**; it was pure linearity dressed in
+cross-layer language.
+
+**Surgery log (per perelman-audit.md):**
+
+| old_component | failure_mode | evidence | replacement | forbidden_claims |
+|---|---|---|---|---|
+| Point 34's "exact new identity `L(δ_i)=L_qX-L*X_shifted`, restricted operator `L*`" | Presented ordinary linearity of one fixed operator as a discovered cross-layer relation | `verify_Lstar_equals_Lq.py`: Route A ≡ Route B to `0.000e+00`, `n=23,29,31,37` | "`δ_i=X_0-X_1` on the SAME layer `q`; `L_q(δ_i)=L_q(X_0)-L_q(X_1)` by linearity — bookkeeping, not a theorem" | "point 34 found a new cross-layer swap-Laplacian identity"; "`L*` is a distinct operator from `L_q`" |
+
+**What survives, unaffected — the empirical content was never about the operator, it was
+always about `X` itself.** The correlation numbers, their growth, and the `‖L_qX_0‖²` decay
+rate are genuine, real properties of the specific pair of functions `(X_0,X_1)` — i.e. of how
+Lovász theta's value on a generator-subset compares to its value on the same subset plus one
+more generator — under the ordinary swap-Laplacian `L_q`. Correcting the operator-theoretic
+framing does not touch these numbers; it only removes the claim that a NEW operator or a
+NEW identity was found. Re-stated honestly: **"`L_q` applied to `X`'s two `i`-shift copies
+shows growing positive correlation (`0.52→0.68` across `n=23..47`, now 7 points) — an
+empirical property of the Lovász theta function pair, not a structural theorem."**
+
+**Verdict.** REJECT point 34's "new identity" framing specifically; PROMOTE the underlying
+empirical correlation/decay observations, now correctly attributed to `X` itself rather than to
+a fabricated cross-layer operator. `l_eff`/`M_r` results from points 33, 35 are untouched (they
+never depended on `L*` being a distinct operator).
+
+**Artifacts:** `verify_Lstar_equals_Lq.py` (verification only, no metrics file — result is a
+single scalar consistency check, recorded here).
+
+## Point 37 (2026-09-13) — Cheapest new falsification gate from the external re-plan: does `X`
+(Lovász theta, log-normalized) show submodularity or sign-biased second differences?
+
+**Context.** Per the external re-plan's own prioritization ("самым интересным дешёвым
+направлением"): rather than another universal Johnson-graph inequality, check whether `X` has
+ANY Lovász-specific second-order structure — submodularity (`Δ_iΔ_jX ≤ 0`) or at least a sign
+bias / small second moment — that could directly control `δ_i`'s variation. This is the first
+check in this entire experiment aimed at a structural property of `X` itself rather than at the
+Johnson-scheme machinery around it.
+
+**Setup.** For each pair of distinct generators `i,j` (bits), the mixed second difference on a
+base set `S` (with `i,j∉S`) is `Δ_iΔ_jX(S) = X(S) - X(S∪{i}) - X(S∪{j}) + X(S∪{i,j})` — the
+standard discrete mixed partial derivative. `X` is submodular iff this is `≤0` for all `S,i,j`
+(diminishing returns: adding `j` helps less once `i` is already present). Computed exactly
+(reusing the already-available full `x` array from `solve_orbit_reduced`, no new theta-solves
+needed) over ALL `S` not containing `i,j`, for a representative sample of `(i,j)` pairs and
+several `n`.
+
+**Results, `n=23,29,31,37,41` (10 sampled `(i,j)` pairs per `n`, ALL `S` not containing `i,j`
+enumerated exactly):**
+
+| n | frac(Δ≤0) | mean(Δ) | std(Δ) | E[Δ²] |
+|---|---|---|---|---|
+| 23 | 0.5000 | 0.000000 | 0.1785 | 0.03187 |
+| 29 | 0.5005 | 0.000000 | 0.1414 | 0.01998 |
+| 31 | 0.5000 | -0.000000 | 0.1335 | 0.01783 |
+| 37 | 0.5000 | -0.000000 | 0.1111 | 0.01234 |
+| 41 | 0.5000 | 0.000000 | 0.1020 | 0.01040 |
+
+**No sign bias whatsoever — and this is analytically forced, not a coincidence (verified
+before trusting it, same "standard fact, newly applied" discipline as points 32/36, not a new
+theorem).** `Δ_iΔ_jX` is a discrete SECOND derivative of `X`. Chaining the already-established
+shift identity (point 32) twice: `X` has Fourier spectrum on ODD degree (point 11, pre-
+existing); `D_iX=δ_i` has spectrum on EVEN degree (point 32); `D_j(D_iX)=Δ_iΔ_jX` has spectrum
+on ODD degree again. Verified directly via WHT (`verify_second_diff_parity.py`) at `n=17,19`
+(both prime, matching this experiment's actual domain): `even_fraction≈1e-29..1e-31` — exact,
+not approximate. A function with purely-odd Fourier spectrum satisfies `g(S)=-g(S^c)` exactly
+(`χ_T(-x)=(-1)^|T|χ_T(x)`, standard), so as `S` ranges uniformly, `{g(S)}` is symmetric around 0
+BY CONSTRUCTION. **This means item 5's original plan (test submodularity via sign/mean of
+`Δ_iΔ_jX`) is structurally dead on arrival for this specific `X` — the null sign-balance is
+guaranteed by Fourier parity, independent of whether `X` has any interesting second-order
+structure at all.** Submodularity (or its opposite) cannot be detected this way; a conditional
+or magnitude-based test would be needed instead.
+
+**What IS informative: the magnitude decays, and reasonably fast.** Since the sign/mean channel
+is closed by parity, `E[Δ²]` (second moment of the mixed second difference) is the one
+meaningful summary left standing, and it shrinks with `n`: log-log slope over `n=23..41` is
+**`≈-1.95`** (least-squares over the 5 points) — i.e. `E[Δ²]∼n^{-2}` roughly. This is offered as
+a plain numerical observation (5 points, no theory attempted), directionally encouraging
+(pairwise second-order interaction strength is not blowing up, if anything shrinking close to
+quadratically) but not a claim about the target `Var(X_n)=O(1/n)` question, which concerns a
+different quantity (`C_q`, not `E[Δ²]`) reached through a different (Efron-Stein) argument.
+
+**Side-finding, explicitly out of scope, recorded as a Pearl, not chased further.** Probing
+whether the parity mechanism holds at COMPOSITE `n` (curiosity check, not part of this
+experiment's actual domain) surfaced a real but unrelated fact: `theta_via_lp`/
+`solve_orbit_reduced` produces exact-zero `theta_full` entries for some generator-subsets when
+`n` is composite (`n=15,21` tested), making `log(theta_full/√n)` produce `NaN`/`-inf` — X's own
+base odd-parity property (point 11) was evidently only ever exercised at PRIME `n` in this
+experiment; composite `n` breaks the underlying LP-solve construction itself (plausibly a
+disconnected or degenerate circulant graph for certain generator subsets), not the parity
+argument specifically. Every `n` used anywhere else in this experiment (`23,29,31,37,41,43,47`)
+is prime, so this does not affect any existing result — flagged for whoever might extend this
+pipeline to composite `n` later, not investigated further here (Pearl Registry candidate:
+observation="composite n gives degenerate/zero theta for some subsets", falsifiable_prediction=
+"any future composite-n run of `theta_via_lp` will show exact zeros or NaN downstream",
+impact_score=3 — narrow, only matters if this experiment's n-range is ever extended to
+non-primes).
+
+**Verdict.** REJECT the original plan for item 5 as originally framed (sign-test for
+submodularity) — killed cheaply, by a clean structural argument, exactly the kind of fast kill
+the Cheapest Differentiating Test Protocol wants. PROMOTE the magnitude-decay observation
+(`E[Δ²]∼n^{-2}`-ish) as a mild, non-conclusive, additional data point, and record the composite-n
+side-finding as a Pearl rather than a result of this point.
+
+**Artifacts:** `check_submodularity_second_differences.py` (+`metrics/submodularity_check.json`),
+`verify_second_diff_parity.py`, `verify_X_parity_prime_vs_composite.py` (verification-only, no
+separate metrics file).
