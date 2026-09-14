@@ -1,0 +1,10 @@
+n= 23 N=10 q= 5 v_q=    252  M1(X)=0.01870075  T_q(X)=0.03740149  n^2*T_q(X)=19.7854  substrate_rel_err=0.0  Var(X|q)=0.020335  Poincare_bound=0.046752  tightness=0.4349456777188478
+n= 29 N=13 q= 6 v_q=   1716  M1(X)=0.01541670  T_q(X)=0.03083340  n^2*T_q(X)=25.9309  substrate_rel_err=0.0  Var(X|q)=0.019294  Poincare_bound=0.049808  tightness=0.3873643476154865
+n= 31 N=14 q= 7 v_q=   3432  M1(X)=0.01468090  T_q(X)=0.02936180  n^2*T_q(X)=28.2167  substrate_rel_err=0.0  Var(X|q)=0.019256  Poincare_bound=0.051383  tightness=0.3747563687934543
+n= 37 N=17 q= 8 v_q=  24310  M1(X)=0.01227596  T_q(X)=0.02455192  n^2*T_q(X)=33.6116  substrate_rel_err=0.0  Var(X|q)=0.017991  Poincare_bound=0.051992  tightness=0.3460283382068676
+n= 41 N=19 q= 9 v_q=  92378  M1(X)=0.01105988  T_q(X)=0.02211977  n^2*T_q(X)=37.1833  substrate_rel_err=0.0  Var(X|q)=0.017333  Poincare_bound=0.052389  tightness=0.33085955402454925
+n= 43 N=20 q=10 v_q= 184756  M1(X)=0.01037451  T_q(X)=0.02074902  n^2*T_q(X)=38.3649  substrate_rel_err=0.0  Var(X|q)=0.016887  Poincare_bound=0.051873  tightness=0.32554288705072937
+n= 47 N=22 q=11 v_q= 705432  M1(X)=0.00924949  T_q(X)=0.01849899  n^2*T_q(X)=40.8643  substrate_rel_err=0.0  Var(X|q)=0.015987  Poincare_bound=0.050872  tightness=0.31425234215896425
+
+log-log slope of T_q(X) vs n: -0.9780  (prediction: near -2 if L2' holds)
+log-log slope of n^2*T_q(X) vs n: 1.0220  (prediction: near 0 / plateau if L2' holds; positive => growth => FALSIFIED)
