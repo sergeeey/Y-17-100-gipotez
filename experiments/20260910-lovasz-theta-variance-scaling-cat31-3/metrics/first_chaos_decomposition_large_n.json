@@ -1,0 +1,214 @@
+{
+  "claim": "H-CAT31-3 first-chaos decomposition (lambda_n, W_1, R_n) extended to large-n Monte Carlo regime (n=127..2039)",
+  "substrate_gate": {
+    "theta_c5": 2.23606797749979,
+    "theta_c5_expected": 2.23606797749979,
+    "c5_check_passed": true,
+    "theta_g_times_gbar": 8.999999999999993,
+    "n_check": 9,
+    "identity_check_passed": true,
+    "substrate_ready": true
+  },
+  "prime_verification": {
+    "checked": {
+      "127": true,
+      "251": true,
+      "509": true,
+      "1021": true,
+      "2039": true,
+      "37": true
+    },
+    "all_prime": true
+  },
+  "positive_control_n37": {
+    "n": 37,
+    "reps": 500,
+    "elapsed_seconds": 1.308670997619629,
+    "decomposition": {
+      "m": 18,
+      "cov_xq_hat": -0.567627479265345,
+      "lambda_n_hat": -2.27050991706138,
+      "w1_hat": 0.07160021227047325,
+      "var_x_hat": 0.08829349565443037,
+      "r_n_hat": 0.01669328338395712,
+      "n_times_w1_hat": 2.64920785400751,
+      "n_times_r_n_hat": 0.6176514852064134,
+      "r_n_over_var_x": 0.189065833901203
+    },
+    "bootstrap_ci": {
+      "lambda_n_ci95": [
+        -2.5828167375373803,
+        -1.9837069606952074
+      ],
+      "n_times_w1_ci95": [
+        2.022200746211941,
+        3.4281235639126075
+      ],
+      "n_times_r_n_ci95": [
+        0.22655127665758196,
+        0.9134991157063475
+      ]
+    },
+    "exact_n_times_w1_reference": 2.598,
+    "exact_reference_source": "decision.md point 13 table (necklace-orbit-reduced exact enumeration, n=29,31,37)",
+    "ci_contains_exact_value": true,
+    "control_passed": true
+  },
+  "sweep": [
+    {
+      "n": 127,
+      "n_reps": 300,
+      "elapsed_seconds": 2.9194884300231934,
+      "m": 63,
+      "cov_xq_hat": -0.5984762891049463,
+      "lambda_n_hat": -2.3939051564197853,
+      "w1_hat": 0.022741198007671572,
+      "var_x_hat": 0.03303091332375904,
+      "r_n_hat": 0.01028971531608747,
+      "n_times_w1_hat": 2.8881321469742898,
+      "n_times_r_n_hat": 1.3067938451431087,
+      "r_n_over_var_x": 0.31151773537809224,
+      "bootstrap_ci": {
+        "lambda_n_ci95": [
+          -2.7911687635067963,
+          -2.0176636320366024
+        ],
+        "n_times_w1_ci95": [
+          2.0516379210000686,
+          3.926226730927209
+        ],
+        "n_times_r_n_ci95": [
+          0.8339959686044227,
+          1.6501604163687549
+        ]
+      },
+      "flagged_incomplete_slow": false
+    },
+    {
+      "n": 251,
+      "n_reps": 250,
+      "elapsed_seconds": 8.896275520324707,
+      "m": 125,
+      "cov_xq_hat": -0.6971636405489174,
+      "lambda_n_hat": -2.7886545621956698,
+      "w1_hat": 0.015553188534509444,
+      "var_x_hat": 0.018977890848694466,
+      "r_n_hat": 0.0034247023141850217,
+      "n_times_w1_hat": 3.9038503221618703,
+      "n_times_r_n_hat": 0.8596002808604405,
+      "r_n_over_var_x": 0.1804574776770104,
+      "bootstrap_ci": {
+        "lambda_n_ci95": [
+          -3.3179420229546834,
+          -2.3013480379066253
+        ],
+        "n_times_w1_ci95": [
+          2.658693808702312,
+          5.5263871145155345
+        ],
+        "n_times_r_n_ci95": [
+          0.0366141043291456,
+          1.4064402218518817
+        ]
+      },
+      "flagged_incomplete_slow": false
+    },
+    {
+      "n": 509,
+      "n_reps": 200,
+      "elapsed_seconds": 37.45395827293396,
+      "m": 254,
+      "cov_xq_hat": -0.7620995839841856,
+      "lambda_n_hat": -3.0483983359367426,
+      "w1_hat": 0.00914639017179321,
+      "var_x_hat": 0.010782495092176134,
+      "r_n_hat": 0.0016361049203829237,
+      "n_times_w1_hat": 4.655512597442744,
+      "n_times_r_n_hat": 0.8327774044749082,
+      "r_n_over_var_x": 0.15173713564405836,
+      "bootstrap_ci": {
+        "lambda_n_ci95": [
+          -3.6766243555845355,
+          -2.4390724609495136
+        ],
+        "n_times_w1_ci95": [
+          2.9803926232099314,
+          6.772088021847101
+        ],
+        "n_times_r_n_ci95": [
+          -0.23197361463560345,
+          1.5588682694865377
+        ]
+      },
+      "flagged_incomplete_slow": false
+    },
+    {
+      "n": 1021,
+      "n_reps": 150,
+      "elapsed_seconds": 167.7943398952484,
+      "m": 510,
+      "cov_xq_hat": -0.7273771341300912,
+      "lambda_n_hat": -2.909508536520365,
+      "w1_hat": 0.004149627413767096,
+      "var_x_hat": 0.004942343282651258,
+      "r_n_hat": 0.0007927158688841628,
+      "n_times_w1_hat": 4.2367695894562045,
+      "n_times_r_n_hat": 0.8093629021307303,
+      "r_n_over_var_x": 0.1603927172899492,
+      "bootstrap_ci": {
+        "lambda_n_ci95": [
+          -3.6774122779351606,
+          -2.2006276052163143
+        ],
+        "n_times_w1_ci95": [
+          2.4237548406782365,
+          6.768309629559701
+        ],
+        "n_times_r_n_ci95": [
+          -0.4980499966491045,
+          1.5612922039008514
+        ]
+      },
+      "flagged_incomplete_slow": false
+    },
+    {
+      "n": 2039,
+      "n_reps": 80,
+      "elapsed_seconds": 623.8605353832245,
+      "m": 1019,
+      "cov_xq_hat": -0.6884406475316633,
+      "lambda_n_hat": -2.7537625901266534,
+      "w1_hat": 0.0018604534844899546,
+      "var_x_hat": 0.0024522601973188357,
+      "r_n_hat": 0.000591806712828881,
+      "n_times_w1_hat": 3.7934646548750175,
+      "n_times_r_n_hat": 1.2066938874580884,
+      "r_n_over_var_x": 0.24133112525168798,
+      "bootstrap_ci": {
+        "lambda_n_ci95": [
+          -3.487627364801772,
+          -2.041640507560358
+        ],
+        "n_times_w1_ci95": [
+          2.085170625468362,
+          6.084756520952956
+        ],
+        "n_times_r_n_ci95": [
+          -0.08842776962033448,
+          1.9745230432252063
+        ]
+      },
+      "flagged_incomplete_slow": false
+    }
+  ],
+  "incomplete_ns": [],
+  "decision_rule_classification": {
+    "lambda_n_ols_slope_vs_n": -7.143239115848984e-05,
+    "n_times_r_n_ols_slope_vs_n": 5.5066336982046614e-05,
+    "n_times_w1_ols_slope_vs_n": 0.0001656249730513202,
+    "lambda_n_ci_overlap_first_vs_last": true,
+    "n_times_r_n_ci_overlap_first_vs_last": true,
+    "outcome": "STABLE-SUPPORTS-O(1/n)"
+  },
+  "total_elapsed_seconds": 842.8337066173553
+}

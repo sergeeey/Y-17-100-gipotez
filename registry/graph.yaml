@@ -1985,9 +1985,56 @@ nodes:
     # Chebyshev-specific) was caught only by a SECOND skeptic-fallback pass, not the first -- worth
     # remembering that an agent's own stated reason for declining an instruction is itself a claim
     # needing verification (audit-verification-gate.md), not evidence of sound judgment by itself.
+    #
+    # UPDATE 2026-09-14 (Point 51, Priority B "value-curvature" route, first real test): both
+    # pre-registered local-structure candidates (margin-domination H1, restructure-gating H2)
+    # REJECTED on the fast Delta_iDelta_jX~n^-1.95 decay found at point 37 -- H1 cleanly (|rho|
+    # never exceeds 0.035); H2 on a basis distinct from its own pre-registered criterion (real
+    # separation exists, but active-set restructuring is not rare, precluding the intended rare-
+    # event decomposition -- arithmetically implied by already-committed point-31 data, not new).
+    # Kills these two specific mechanisms; does not kill the value-curvature route in general.
+    #
+    # UPDATE 2026-09-14 (Point 52, Priority B/user-proposed "Puzzle L2'" test): random-swap lemma
+    # T_q(X)=O(n^-2) REJECTED cleanly (log-log slope -0.978, not near -2; n^2*T_q(X) grows, not
+    # plateaus) -- the naive single-rung swap-Poincare bound on X caps Var(X|Q=q) at O(1), same
+    # qualitative failure mode points 16-18's ladder was built to fix for f=delta_i. Skeptic-
+    # fallback review (WEAKENED) found the more important result: the observed slope decomposes
+    # exactly as slope(gamma_1)+slope(Var(X|q))+slope(1/tightness) = -1.103-0.330+0.455, so (a) the
+    # test largely re-measured known Johnson-graph geometry (gamma_1 alone contributes more than
+    # the whole observed slope), and (b) since exact Var(X|Q=q) is already computed (not bounded)
+    # and decays at only n^-0.330 with tightness in [0.314,0.435], NO Poincare-derived bound --
+    # single-rung or multi-rung ladder -- can close the exponent gap AT THE CENTRAL LAYER q=N//2,
+    # because the exact quantity being bounded already has the wrong exponent. This corrects and
+    # narrows an earlier draft's "ladder: genuinely open" to "closed at the central layer, open
+    # only for non-central q" -- a real, load-bearing correction, not cosmetic. Cheapest next test
+    # named explicitly: same script, q in {N//2-2..N//2+2}, n<=41. RETROACTIVE CORRECTION same day
+    # (direct user math correction): "REJECTED cleanly"/"closed" reworded throughout to "strongly
+    # rejected as the observed finite-range mechanism (n=23..47), not a theorem about the n->infinity
+    # asymptotic exponent" -- 7 finite n cannot exclude a late crossover, same experiment-vs-theorem
+    # distinction as point 48's earlier ~-vs-<= correction.
+    #
+    # UPDATE 2026-09-14 (Point 53, first-chaos decomposition Var(X_n)=W_1+R_n, pushed to large-n
+    # Monte Carlo n=127..2039): NOT new math -- W_1=lambda_n^2/(4m) (lambda_n=M_n'(1/2)=4Cov(X,Q))
+    # and R_n:=Var(X)-W_1 (=sum of odd-|S|>=3 Fourier weights, since theta(G)theta(Gbar)=n forces
+    # even levels to vanish identically) are already proven+tracked exactly at prime n=11..37
+    # (points 11-13). New: pushed into the Monte Carlo regime the project's own theta_via_lp/
+    # sample_circulant_neighbors already reaches (n up to 3000). Cross-method positive control at
+    # n=37 passed (MC CI contains the exact n*W1=2.598), but is independent only at the aggregation
+    # level, NOT the oracle level (both paths call the same theta_via_lp) -- corrected after
+    # skeptic-fallback review, which also caught 2 factual citation errors (wrong "prime n=9..53"
+    # claim -- 9 is composite; wrong theorem citation) and 1 arithmetic error in a cost projection
+    # (4x reps at n=2039 would exceed the script's own 30-min stop condition). Headline verdict
+    # downgraded from the script's own "STABLE-SUPPORTS-O(1/n)" to INCONCLUSIVE -- but a real,
+    # zero-cost signal survived the correction: extrapolating the EXACT small-n power law
+    # (n*W1~n^0.239, R^2=0.999) into the MC range, 4/5 tested n are compatible, n=2039 (predicted
+    # 6.78) falls just outside its own observed CI ([2.09,6.09]) -- suggestive of an eventual
+    # plateau, explicitly NOT decisive (uncorrected multiple comparisons, noisiest point in the
+    # sweep). lambda_n's own growth rate is bounded only to "slower than ~log n" (slope
+    # 0.046+-0.039), not "no growth" as first drafted -- implied Var(X_n) exponent range
+    # [-1.16,-0.66] is ~15x wider than the parent experiment's own committed CI.
     evidence: VERIFIED-REAL        # metrics/run.json (9 n-values, 40-300 reps each, bootstrap 95% CIs on variance, weighted+unweighted OLS fit); 8 tests incl. synthetic-ground-truth sanity checks confirming fit_exponent() correctly recovers a known -1 exponent AND correctly rejects a -2 exponent (not vacuously always CONFIRMED), plus a seed-collision check against H-CAT31-1/2
     evidence_mode: simulation      # ADR-122: Monte Carlo sampling of the random-circulant-graph ensemble, not exhaustive, not a real-world dataset
-    verification_strength: weak    # UPDATED 2026-09-14: the root n^-0.9126 exponent claim itself is still Standard-tier self-review only (per ADR-122, unchanged). Points 44-50's follow-on work DID receive repeated FL Step 8a reviews (skeptic substituting for reviewer per doubt-driven-development.md fallback policy -- reviewer's cap was closed this session): points 44/45 CONFIRMED-REAL, point 47 CONFIRMED-REAL then itself overturned, point 48 WEAKENED (epistemic ≈-vs-≤ overclaim caught and fixed), point 49 WEAKENED (feasibility claim survived, A_n's evidentiary weight corrected down), point 50 WEAKENED (empirical construction held, but the first draft's own "process finding" contained a factual error caught only on a second review pass). "weak" reflects mixed strength across the node's sub-claims, not a single verdict -- the pattern of near-miss overclaims caught by adversarial review (not self-caught) across 44-50 is itself worth a patterns.md entry (the correction pattern itself, not any individual finding, per point 50's own corrected process-finding text).
+    verification_strength: weak    # UPDATED 2026-09-14 (point 53): the root n^-0.9126 exponent claim itself is still Standard-tier self-review only (per ADR-122, unchanged). Points 44-53's follow-on work DID receive repeated FL Step 8a reviews (skeptic substituting for reviewer per doubt-driven-development.md fallback policy -- reviewer's cap was closed this session): points 44/45 CONFIRMED-REAL, point 47 CONFIRMED-REAL then itself overturned, point 48 WEAKENED (epistemic ≈-vs-≤ overclaim caught and fixed), point 49 WEAKENED (feasibility claim survived, A_n's evidentiary weight corrected down), point 50 WEAKENED (empirical construction held, but the first draft's own "process finding" contained a factual error caught only on a second review pass), point 51 WEAKENED->rewritten (H2's own falsification criterion had not actually fired), point 52 WEAKENED (verification-story overclaim on "independent" cross-checks, and a Kill Analysis that materially underclaimed what the exact data already closed, both caught and fixed; itself then given a direct user RETROACTIVE CORRECTION for a finite-range-vs-asymptotic overclaim), point 53 WEAKENED (2 factual citation errors, 1 arithmetic cost-projection error, an overclaimed "no runaway growth" reading, AND a real zero-cost signal the first draft had discarded, all caught on one review pass). "weak" reflects mixed strength across the node's sub-claims, not a single verdict -- the pattern of near-miss overclaims caught by adversarial review (not self-caught) across 44-53 is itself worth a patterns.md entry (the correction pattern itself, not any individual finding, per point 50's own corrected process-finding text).
     l0_type: descriptive
     fl_tier: standard
     kill_criterion: "CONFIRMED if weighted-OLS 95% CI for the log-log slope contains -1.0 AND excludes both -0.5 and -2.0 (real discrimination, not just failure-to-reject). WEAKENED-INCONCLUSIVE if CI contains -1.0 but also -0.5 or -2.0. REJECTED if CI excludes -1.0 entirely. RESULT: REJECTED -- CI=[-0.9751,-0.8501] excludes -1.0 cleanly while also excluding -0.5 and -2.0, i.e. a precise measurement of a DIFFERENT exponent (~-0.91), not an inconclusive one."

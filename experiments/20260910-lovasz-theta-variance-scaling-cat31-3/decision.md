@@ -4840,3 +4840,480 @@ event explains the fast `Δ_iΔ_jX` decay) survives every fix.** Findings and di
 
 **Artifacts:** `check_value_curvature_margin.py`
 (+`metrics/value_curvature_margin_check.json`).
+
+## Point 52 (2026-09-14) — Test B / "Puzzle L2'": random-swap lemma `T_q(X)=O(n^{-2})` REJECTED
+cleanly — the naive single-rung swap-Poincaré bound on `X` is flat (`~n^{-0}`), not `O(1/n)`
+
+**Context.** Per a user-supplied analysis proposing two candidate routes ("Puzzle A/L1": bounded
+density-susceptibility `λ_n`; "Puzzle B/L2'": `E_swap[(X(S)-X(S'))^2]=O(n^{-2})`), with an explicit
+stated preference for testing L2' first since it "can be falsified by one comparatively cheap
+computational experiment." Reconciliation before running anything: point 34's already-committed
+`M_2(X):=⟨X,L_q^2X⟩=‖L_qX‖^2` (decaying `~n^{-1.45}`) is a genuinely DIFFERENT quantity from what
+L2' needs, `M_1(X):=⟨X,L_qX⟩` (ONE application of the swap-Laplacian, not two) — nobody in this
+experiment had computed `M_1(X)` before this point, so this is legitimate new work, not a repeat.
+Point 15's own exact Dirichlet identity `T_q(f)=E_swap[(f(S)-f(S'))^2]=2⟨f,L_qf⟩` and the Poincaré
+inequality `Var(f|Q=q)≤T_q(f)·q(N-q)/(2N)` were previously established and used only for `f=δ_i`
+(single-generator sensitivity, points 15-18's peeling ladder); this point applies both, for the
+first time, to `f=X` directly.
+
+**Pre-registered prediction (stated in `check_value_swap_energy_T_q.py`'s own module docstring,
+before any number was computed).** L2' predicts `n^2·T_q(X)` settles toward a plateau/bounded
+value across the 7 already-solved `n∈{23,29,31,37,41,43,47}`. Falsified if a power-law fit instead
+shows the log-log slope of `T_q(X)` vs `n` well above `-2` — equivalently, `n^2·T_q(X)` itself
+grows with `n`, not merely fluctuates near a constant.
+
+**Reuse discipline.** `solve_orbit_reduced` reused unchanged from `check_necklace_orbit_reduction.py`;
+`apply_L_to_layer` reused byte-identical from `check_cross_layer_cancellation.py` — independently
+confirmed by direct code read, not merely taken on the agent's word.
+
+**Verification before trusting any result, corrected after skeptic-fallback review (see Skeptic
+Concerns below) — an earlier draft of this section overstated what these checks show.**
+- **`apply_L_to_layer`/`build_x_array` re-run, NOT an independent Substrate Gate.** This script's
+  own `‖L_qX‖^2=M_2(X)` reproduces the already-committed values from
+  `cross_layer_cancellation.json`/`extended_moments_41_43_47.json` (points 34/35) with
+  `substrate_check_rel_err=0.0` EXACTLY at every one of the 7 `n`. On direct code comparison this
+  is bit-identical because it IS the same code (`apply_L_to_layer`/`build_x_array`, byte-identical,
+  same inputs) re-run, not an independently-derived second path — per this project's own
+  Independent Verification Strength Ladder (`rules/falsification-ladder.md`), this sits at "same
+  code, isolated re-run," the WEAKEST rung, not a positive-control confirmation of correctness.
+  What it DOES verify: wiring (this script correctly reuses the cited functions, no transcription
+  drift) and environment determinism. What it does NOT verify: that `apply_L_to_layer` or `X`
+  itself is correct — a bug there would reproduce with zero residual on both `M_2` here and the
+  original `M_2` in points 34/35. A genuinely independent check (e.g. an explicit Johnson-graph
+  adjacency matrix at `n=23`) was not built and remains a cheap open item.
+- **Identity check (`T_q(f)=2⟨f,L_qf⟩`) is near-tautological for ANY regular `f` under this
+  construction, not `f=X`-specific evidence.** `apply_L_to_layer` implements `L=I-P` with `P` the
+  average over the same swap-neighbor pairs `direct_T_q_enumeration` enumerates directly — the
+  match (`identity_rel_err=1.855e-16` at `n=23`, `2.250e-16` at `n=29`) follows algebraically from
+  that shared construction for any `f`, not specifically from point 15's theorem holding for `X`.
+  What it DOES verify: the neighbor-set construction in `apply_L_to_layer` is wired correctly (a
+  bug in which pairs count as swap-neighbors would break this match) — a real code-correctness
+  check, useful and passed, just not the "first numerical proof-check for `f=X`" framing an
+  earlier draft gave it.
+- **Poincaré-bound arithmetic cross-checked by hand** (not just trusted from the script): at
+  `n=23`, `γ_1=N/d=10/25=0.4`, `poincare_bound=T_q(X)/(2·γ_1)=0.03740149/0.8=0.046752` — matches
+  the committed value exactly; `n^2·T_q(X)=23^2·0.03740149=19.785` — matches. Full 7-row table
+  independently re-verified against the raw JSON (`M1`, `T_q`, `n²T_q`, `Var`, `poincare_bound`,
+  `tightness`, `v_q=C(N,q)`) — no arithmetic error found.
+- **Scope, stated explicitly (previously implicit only): every number below is measured at the
+  SINGLE central layer `q=⌊N/2⌋` only.** Non-central layers (`q≠⌊N/2⌋`) are untested by this
+  point — see the Kill Analysis correction below for why this matters more than it first appears.
+
+**Results, all 7 `n`:**
+
+| n | N | q | v_q | M1(X) | T_q(X) | n²·T_q(X) | Var(X\|q) | Poincaré bound | tightness |
+|---|---|---|---|---|---|---|---|---|---|
+| 23 | 10 | 5 | 252 | 0.018701 | 0.037401 | 19.785 | 0.020335 | 0.046752 | 0.4349 |
+| 29 | 13 | 6 | 1,716 | 0.015417 | 0.030833 | 25.931 | 0.019294 | 0.049808 | 0.3874 |
+| 31 | 14 | 7 | 3,432 | 0.014681 | 0.029362 | 28.217 | 0.019256 | 0.051383 | 0.3748 |
+| 37 | 17 | 8 | 24,310 | 0.012276 | 0.024552 | 33.612 | 0.017991 | 0.051992 | 0.3460 |
+| 41 | 19 | 9 | 92,378 | 0.011060 | 0.022120 | 37.183 | 0.017333 | 0.052389 | 0.3309 |
+| 43 | 20 | 10 | 184,756 | 0.010375 | 0.020749 | 38.365 | 0.016887 | 0.051873 | 0.3255 |
+| 47 | 22 | 11 | 705,432 | 0.009249 | 0.018499 | 40.864 | 0.015987 | 0.050872 | 0.3143 |
+
+Log-log slope of `T_q(X)` vs `n`: **`-0.978`** — essentially `T_q(X)~1/n`, not `1/n^2`.
+Log-log slope of `n^2·T_q(X)` vs `n`: **`+1.022`** — clear monotone growth (roughly doubles from
+`n=23` to `n=47`), not a plateau.
+
+**RETROACTIVE CORRECTION (2026-09-14, direct user math correction, applied same-session — not
+silently rewritten).** The Verdict and Kill Analysis below originally used the phrase "REJECTED
+cleanly" and stated the multi-rung ladder is "closed at the central layer" without qualification.
+Both overclaim what 7 finite `n` can establish. Corrected framing, applied throughout this
+section: **L2' is strongly rejected as the observed finite-range mechanism** (`n=23..47`) — this
+is a real, well-verified experimental fact — **not a theorem that the `n^{-2}` asymptotic is
+false**; seven finite data points cannot exclude a late crossover to `n^{-2}` behavior at larger
+`n`. Symmetrically, "the multi-rung ladder cannot close the exponent gap at the central layer"
+means it cannot improve on the exact `Var(X|Q=q)` values already measured ON THESE `n` — not a
+proof that its asymptotic rate is wrong. The distinction between a strong finite-range
+experimental result and an asymptotic theorem is the same one this project has already had to
+draw explicitly elsewhere (e.g. point 48's `≈`-vs-`≤` correction); it applies here identically and
+should have been stated on first draft.
+
+**Verdict: L2' REJECTED cleanly on its own pre-registered threshold** (as an experimental fact
+about the tested finite range `n=23..47` — see the correction above for exactly what this does and
+does not establish asymptotically). The predicted `-2` slope is
+missed by essentially a full power of `n` (`-0.978` observed, not `≈-2`); the growth-vs-plateau
+falsification criterion fires unambiguously (`n^2·T_q(X)` grows, doesn't fluctuate near a
+constant). Mechanism: `T_q(X)~1/n` and the Johnson-scheme Poincaré prefactor `q(N-q)/(2N)` grow
+like `~n`, so the two ALMOST EXACTLY cancel in the product — the resulting bound on
+`Var(X|Q=q)` is essentially FLAT (`~0.05`, no visible decay) across the entire tested range,
+the same qualitative failure signature point 15 originally found for the naive single-rung bound
+applied to `f=δ_i` (which motivated the points 16-18 peeling-ladder fix in the first place).
+`tightness=Var(X|q)/Poincaré_bound` decreases monotonically `0.435→0.314`, meaning the bound
+gets progressively LOOSER as `n` grows, not tighter.
+
+**Decomposition of the observed slope, found by skeptic-fallback review and independently
+re-verified here via direct OLS recomputation from the raw JSON (not merely trusted) — this is
+the single most important correction to this point, and changes the Kill Analysis materially.**
+`T_q(X) = 2·γ_1·(1/tightness)·Var(X|Q=q)` identically (`γ_1` the Johnson-scheme spectral gap,
+`1/tightness` the bound's own looseness factor), so the log-log slope of `T_q(X)` decomposes
+additively: `slope(γ_1) + slope(Var(X|q)) + slope(1/tightness) = -1.1032 + (-0.3296) + 0.4548 =
+-0.9780`, matching the reported `-0.978` to four significant figures. Two consequences:
+- **`γ_1` is pure Johnson-graph geometry** (`γ_1=N/(q(N-q))`, no dependence on `θ` or `X`
+  whatsoever) and by itself contributes `-1.10` of the observed `-0.978` — MORE than the whole
+  observed slope. This means the `T_q(X)=O(n^{-2})` test was never really an independent probe of
+  `X`'s structure; it was, to leading order, a re-measurement of the ALREADY-KNOWN graph-geometric
+  decay of `γ_1`, diluted by the exact `Var(X|Q=q)` behavior. The "cheap falsifiable test" framing
+  from the original proposal undersold how much of its outcome was predetermined by geometry
+  already on record before this point ran.
+- **`tightness∈[0.314,0.435]` across the entire tested range bounds what ANY Poincaré-style bound
+  can buy — single-rung or multi-rung ladder alike — to at most a CONSTANT factor (`≈3.2×`), not
+  an exponent improvement.** The exact `Var(X|Q=q)` is already computed at all 7 `n` (not a bound,
+  the real value) and decays like `n^{-0.330}` — far short of the `n^{-1}` the target hypothesis
+  needs at the central layer. A layer-adaptive ladder tightens the CONSTANT in front of a
+  Poincaré-derived bound; it cannot change the measured `-0.330` exponent of the quantity it is
+  trying to bound, because the exact value is already known and already exhibits that exponent.
+
+**Kill Analysis, corrected accordingly.** What is killed: the naive, single-rung swap-Poincaré
+bound applied DIRECTLY to `X` at the central layer — provably caps `Var(X|Q=q)` at `O(1)`, not
+`O(1/n)`; the specific L2' claim `T_q(X)=O(n^{-2})` itself; AND — newly established by the
+decomposition above, not merely left open — **any Poincaré-derived bound (including a
+layer-adaptive multi-rung ladder) at the central layer `q=⌊N/2⌋`, since the exact `Var(X|Q=q)`
+it would be bounding already decays at only `n^{-0.330}`, and no linear-inequality technique
+built from `T_q` can beat the exact value it is a bound on, ON THE TESTED RANGE `n=23..47`** — a
+strong finite-range fact, not a proof about the `n→∞` asymptotic exponent of `Var(X|Q=q)` itself
+(per the RETROACTIVE CORRECTION above). This corrects an earlier draft of this point, which had
+left the multi-rung ladder as "genuinely open" — at the central layer, on the tested range, it is
+not: the exponent gap is closed by the exact computation itself on these `n`, independent of which
+Poincaré variant is tried. What is genuinely NOT killed: **non-central layers
+(`q≠⌊N/2⌋`)** — this point measured exactly one layer per `n` (stated explicitly in Verification
+above), and `Var(X)`'s full decomposition `Var(X)=E_Q[Var(X|Q)]+Var(E[X|Q])` sums over ALL layers,
+weighted by `Q~Bin(N,1/2)`'s concentration near the center — so a ladder aimed at the FULL `Var(X)`
+via non-central layers remains untested, not ruled out, and is the natural cheap next step (same
+script, `q∈{⌊N/2⌋-2,...,⌊N/2⌋+2}`, `n≤41` for speed). Also not killed: `M_2(X)`'s own decay (point
+34; re-verified here across all 7 `n` at `-1.559`, not the `-1.45` figure originally fit to only 4
+`n` — noted as a minor discrepancy in the pre-existing points 34/35 record, out of this point's
+scope to resolve); Puzzle A/L1 (bounded density-susceptibility `λ_n`) — a structurally unrelated
+candidate, not addressed by this point at all.
+
+**What this does NOT mean.** Does NOT mean `Var(X|Q=q)=O(1/n)` is false at the target scope — the
+exact measurement here is scoped to the SINGLE central layer only (see Verification above), and a
+`-0.330` exponent at one layer, in an `n=23..47` range, is suggestive tension with the `n^{-1}`
+target but not a disproof of the full `Var(X)` claim, which sums over all layers; the target
+hypothesis itself (`Var(log(θ(G)/√n))=O(1/n)`) remains the project's central open empirical
+finding (point 1 onward, measured on `Var(X)` overall, not `Var(X|Q=q)` at one layer), untouched
+by this point either way. Does NOT mean a ladder aimed at non-central layers would also fail —
+genuinely untested, now the correctly-scoped open question (narrower than the original "ladder in
+general" framing). Does NOT extend to `f=δ_i` (point 15's original object) — this point is
+specific to `f=X`, and `f=δ_i`'s own ladder already succeeds (points 16-18) precisely because its
+exact `Var(δ_i|Q=q)` presumably decays fast enough for the ladder's bound to close the gap (not
+re-verified here); the two `f`'s behavior under the SAME naive single-rung bound is qualitatively
+similar (flat/`O(1)`) but the ladder's success for one does not transfer to the other.
+
+**Reconciliation context, honestly surfaced (per the user's own preference to test L2' before
+Puzzle A/L1):** Puzzle A/L1 (bounded `λ_n`) was NOT tested by this point and remains open, but with
+an important caveat already on record in this project before this point ran — the existing 5-point
+trend for the analogous density-susceptibility quantity (`n=11..23`) is RISING with no plateau yet
+observed, and an earlier reading of that trend as "stabilizing" was explicitly retracted elsewhere
+in this document. This tempers optimism for L1 specifically; it is not evidence against L1, only a
+reason not to expect an easy confirmation there either.
+
+**Skeptic Concerns (FL Step 8a — `reviewer`'s Evaluator-Optimizer cap closed all session;
+`skeptic` substituted per `doubt-driven-development.md` § Independent Review Fallback Policy,
+context-asymmetric — claim.md-equivalent text + code + JSON only, no session history). Verdict:
+`WEAKENED` — the core rejection of L2' (naive single-rung bound on `X` is flat) holds; the
+verification story and Kill Analysis needed real correction, both applied above.**
+- Concern: the "Substrate Gate cross-check" (`substrate_check_rel_err=0.0` at every `n`) is
+  presented as independent confirmation, but is bit-identical because `apply_L_to_layer`/
+  `build_x_array` are the SAME code re-run on the same inputs, not a second independently-derived
+  path — per this project's own Independent Verification Strength Ladder, this is the weakest
+  rung ("same code, isolated re-run"), and a bug in the shared function would reproduce with zero
+  residual on both the original and this check. → **Fixed**: reworded in Verification above to
+  state what it actually shows (wiring + determinism, not independent correctness); a genuinely
+  independent check (explicit Johnson-adjacency matrix) noted as a cheap open item, not built.
+- Concern: the identity check (`T_q(f)=2⟨f,L_qf⟩` matching to `~1e-16`) is near-tautological for
+  ANY `f` under `apply_L_to_layer`'s own `L=I-P` construction, not `f=X`-specific evidence for
+  point 15's theorem — it verifies the neighbor-set wiring is correct, not that the theorem "holds
+  for X specifically" as an earlier draft claimed. → **Fixed**: reworded to state it as a
+  code-correctness check, not a proof-verification event.
+- Concern (STRONGEST — see decomposition added above): `T_q(X)`'s observed slope `-0.978`
+  decomposes exactly as `slope(γ_1)+slope(Var(X|q))+slope(1/tightness) = -1.103-0.330+0.455`,
+  independently re-verified via direct OLS on the raw JSON. Since `γ_1` is pure Johnson-graph
+  geometry unrelated to `θ`/`X` and contributes MORE than the entire observed slope by itself, the
+  L2' test was largely re-measuring known graph geometry, not new structure in `X`; and since exact
+  `Var(X|Q=q)` is already computed (not merely bounded) and decays at only `n^{-0.330}`, with
+  `tightness` bounded in `[0.314,0.435]`, NO Poincaré-derived bound — single-rung or multi-rung
+  ladder — can close the exponent gap AT THE CENTRAL LAYER, because the thing being bounded
+  already has the wrong exponent exactly. The original draft's "multi-rung ladder: genuinely
+  open" was too broad. → **Fixed**: Kill Analysis rewritten to state the ladder is closed at the
+  central layer specifically, open only for non-central layers (`q≠⌊N/2⌋`, untested, the correctly
+  narrowed next question); Verdict section gained the full decomposition.
+- Concern: the pre-registered-prediction claim (module docstring states the threshold before the
+  print statement) cannot be independently dated from the artifacts alone (script and JSON are
+  both freshly created this session, no intermediate commit exists to check ordering against) —
+  a structural gap in provenance, not a specific accusation of post-hoc fitting. Also, the
+  falsification threshold itself is qualitative ("well above -2"), not a fixed number. →
+  **Accepted limitation**: does not change the verdict here (observed `-0.978` is nowhere near any
+  reasonable reading of `-2`), but noted honestly rather than glossed; future points in this
+  experiment should commit the empty-`metrics/` script in its own commit before running it, and
+  state numeric (not qualitative) thresholds, to close this gap going forward.
+- Concern: the single-layer scope (`q=⌊N/2⌋` only) was implicit, not stated in the original
+  Verdict/Kill Analysis text, even though it materially limits what "REJECTED" can mean for the
+  broader `Var(X)` target. → **Fixed**: stated explicitly in Verification, Kill Analysis, and
+  "What this does NOT mean."
+- Concern: the committed `M_2(X)` slope figure of `-1.45` (points 34/35) was originally fit to only
+  4 of the now-available 7 `n`; recomputing across all 7 gives `-1.559`, a real discrepancy. →
+  **Accepted limitation, out of this point's scope** — noted in Kill Analysis as a minor aside;
+  correcting points 34/35's own historical figure is a separate, small follow-up, not required to
+  close point 52.
+- Concern: `n^2·T_q(X)`'s reported slope (`+1.022`) is not an independent fact — by construction
+  it equals `2+slope(T_q(X))` exactly, so citing both slopes suggests two pieces of evidence where
+  there is one. → **Dismissed as a real issue for the verdict** (both were already consistent and
+  the redundancy doesn't change any conclusion), but the table arithmetic and table values
+  themselves were independently re-verified against the raw JSON and found correct in all 7 rows.
+- Concern: `ground=range(1,m)` (excluding generator/bit 0) is an inherited convention from point
+  34, undocumented in this point's own text. → **Accepted limitation**: consistent with prior
+  work (no drift found on direct comparison), but should be named explicitly; left as a minor gap.
+
+**Artifacts:** `check_value_swap_energy_T_q.py` (+`metrics/value_swap_energy_T_q.json`,
+`check_value_swap_energy_T_q_output.log`).
+
+## Point 53 (2026-09-14) — First-chaos decomposition (`Var(X_n)=W_1+R_n`) pushed into the
+large-`n` Monte Carlo regime (`n=127..2039`): cross-method positive control passed (aggregation-
+level, not oracle-level independent — see below); headline decision-rule outcome downgraded from
+the script's own "STABLE" label to INCONCLUSIVE, but a real, suggestive (not decisive) signal
+found in a zero-cost extrapolation the first draft missed
+
+**Context — Novelty Check first (per this session's own repeated discipline; see also point
+29's earlier Filmus-2016 rediscovery incident, cited in this document as a cautionary tale).**
+A user-proposed "Piece A/B" test (bounded density-susceptibility `λ_n`; residual variance
+`R_n:=Var(X)-W_1`) was checked against this experiment's own existing record BEFORE any new code
+was written. Result: the core identities are **NOT new** — `W_1 = M_n'(1/2)^2/(4m) =
+4·Cov(X,Q)^2/m` (`λ_n:=M_n'(1/2)=4·Cov(X,Q)`, independently re-derived and verified this session
+via direct Fourier-Walsh expansion under the `p`-biased measure) is already an established, proven
+identity at point 12b, resting on the point-4 prime-transitivity symmetry theorem; and
+`R_n:=Var(X)-W_1` reduces exactly to the sum of squared Fourier-Walsh coefficients over ODD
+`|S|≥3` because ALL even-degree coefficients vanish identically — a consequence of
+`X(S^c)=-X(S)` (bit-complementation antisymmetry), itself already established from
+`θ(G)·θ(Ḡ)=n` (**point 11's exact Walsh-Hadamard vanishing-even-levels theorem** — corrected
+after skeptic-fallback review from an earlier draft's wrong citation "points 4/12"; point 4 is
+the prime-transitivity theorem feeding `W_1`'s own identity, point 12 is the unrelated "seventh
+angle" section). `n·W_1` is already tracked EXACTLY for **prime `n=11..37`** (points 12-13) —
+corrected after skeptic-fallback review from an earlier draft's "prime n=9..53," which was wrong
+on two counts: `9` is composite (`3²`), and point 12b's own equality `W_1=λ_n²/(4m)` is
+specifically shown to FAIL at composite `n` (a real, measured gap `0.001-0.008` at `n∈{9,15,21,25}`)
+— citing "prime n=9" was self-contradictory; separately, point 14's extension to `n=53` measured a
+DIFFERENT quantity (`E[δ²]`'s density/shape decomposition), not `n·W_1`. The real exact-`n·W_1`
+range (`n=11..37`) rises monotonically with no plateau — still the relevant fact motivating this
+point, just correctly bounded. **What IS genuinely new:** pushing this exact decomposition into the large-`n` Monte
+Carlo regime (`n` up to `2039`, vs the exact small-`n` ceiling of `~53`), reusing this
+experiment's own `theta_via_lp`/`sample_circulant_neighbors` (unchanged, from H-CAT31-1's
+`run.py`, the same machinery already validated up to `n=3000` for the headline `Var(X_n)`
+measurement) — nobody in this project had estimated `λ_n`/`W_1`/`R_n` via Monte Carlo before this
+point.
+
+**Positive control at `n=37`, corrected scope after skeptic-fallback review — independent at the
+estimator level, NOT fully independent at the oracle level.** Ran this new script's Monte Carlo
+estimator at `n=37` (`500` reps), where an EXACT value from a different computational METHOD
+(necklace-orbit-reduced exhaustive enumeration + Walsh-Hadamard decomposition, point 13's table)
+is already committed: `n·W_1=2.598`. Monte Carlo estimate: `n·Ŵ_1=2.649`, bootstrap 95% CI
+`[2.022, 3.428]` — contains the exact reference value. This genuinely cross-checks the
+AGGREGATION method (exhaustive enumeration + WHT vs. Monte Carlo sampling + covariance
+estimation) — a real improvement over Point 52's flawed check, which compared the same code
+against itself. **But it does NOT cross-check the ORACLE**: both paths call the SAME
+`theta_via_lp` function (this script imports it unchanged, exactly as the exact-enumeration route
+does), so a systematic bug in `theta_via_lp` itself would pass silently on both sides. Two
+concrete reasons this matters here, not merely in principle: (a) point 10 already documented a
+real numerical fragility in `theta_via_lp` (1 of 8176 subsets returned `NaN` on the `'highs'` LP
+solver at small `n`) and the fix (`theta_via_lp_robust`) was never merged back into the
+`H-CAT31-1/run.py` this script imports — this script inherits the unprotected version and does
+not itself check for `NaN`s; (b) the substrate gate (`θ(C_5)=√5`, `θ(G)θ(Ḡ)=n`) only exercises
+`n=5` and `n=9` — three orders of magnitude below `n=2039`, so it provides no direct evidence the
+oracle behaves correctly at the LP sizes actually swept here. Also: the control's own STATISTICAL
+POWER is limited — its `±26.5%`-wide CI would catch a gross error (e.g. accidentally counting Q
+from both mirrored halves, doubling it) but a deliberate injected-error check (run independently
+this session, not by the executing agent) shows it would NOT catch a subtler off-by-one (e.g. `m`
+off by one, or slicing `c[1:m]` instead of `c[1:m+1]`) — both produce a shifted `n·W_1` well
+inside the observed CI. None of this overturns the control's PASS (a gross-error bug is now ruled
+out, genuinely useful), but "genuine independent positive control" in an earlier draft overstated
+what it establishes; corrected here to name exactly what independence it does and doesn't cover.
+
+**Sweep results, `n=127,251,509,1021,2039` (all independently verified prime via `sympy.isprime`,
+not merely assumed; substrate gate passed — `θ(C_5)=√5` exact, `θ(G)·θ(Ḡ)=9` exact at `n=9`):**
+
+| n | reps | λ_n | λ_n 95% CI | n·W_1 | n·W_1 95% CI | n·R_n | n·R_n 95% CI |
+|---:|---:|---:|---|---:|---|---:|---|
+| 127 | 300 | −2.394 | [−2.791,−2.018] | 2.888 | [2.052,3.926] | 1.307 | [0.834,1.650] |
+| 251 | 250 | −2.789 | [−3.318,−2.301] | 3.904 | [2.659,5.526] | 0.860 | [0.037,1.406] |
+| 509 | 200 | −3.048 | [−3.677,−2.439] | 4.656 | [2.980,6.772] | 0.833 | **[−0.232,1.559]** |
+| 1021 | 150 | −2.910 | [−3.677,−2.201] | 4.237 | [2.424,6.768] | 0.809 | **[−0.498,1.561]** |
+| 2039 | 80 | −2.754 | [−3.488,−2.042] | 3.793 | [2.085,6.085] | 1.207 | [−0.088,1.975] |
+
+Total elapsed: `843s` (`~14 min`) including the positive control — cheap, well under the
+per-`n` 30-minute stop threshold at every `n`.
+
+**Verdict, substantially revised after skeptic-fallback review + independent re-verification of
+its own arithmetic (both done — z-scores, power-law fit, and elapsed-time projections below were
+recomputed by hand from the raw JSON and the exact small-`n` table, not taken on either the
+executing agent's or the reviewer's word).** The script's own decision-rule classifier reported
+`STABLE-SUPPORTS-O(1/n)`, based solely on whether the bootstrap CI at `n=127` overlaps the CI at
+`n=2039`. The `INCONCLUSIVE` downgrade in the first draft of this point was directionally right
+but reasoned wrong on two of its three stated grounds — both retracted below — and, worse, it
+threw away a real, zero-cost signal that was already sitting in already-committed data:
+- **Retracted ground 1 — "non-monotonic point estimates."** Re-checked via `z=(estimate_i -
+  estimate_j)/SE`: the shift `n=127→509` for `n·W_1` gives `z=+1.64`; `509→2039` gives `z=−0.61`;
+  `127→2039` gives `z=+0.80`. None reach significance. The hump-shaped point-estimate sequence is
+  ordinary sampling noise on a genuinely wide-CI estimator, not evidence of a real non-monotonic
+  trend — citing it as a reason to distrust "stable" was itself statistically ungrounded.
+- **Retracted ground 2 — "`R_n`'s CI crossing zero means low precision, full stop."** Sharper
+  mechanism, found on review: the `Ŵ_1=4Ĉov(X,Q)²/m` estimator is a SQUARED quantity built from a
+  sample covariance, while the true `Var(Q)=m/4` is known exactly a priori; whenever a particular
+  bootstrap/sample draw's `Var(Q)`-implicit contribution overshoots its population value (expected
+  roughly half the time, by construction, not an anomaly), `Ŵ_1` overshoots and `R̂_n=V̂ar(X)-Ŵ_1`
+  reads negative even when the true `R_n>0`. A negative point estimate or a zero-crossing CI here
+  is the estimator's ordinary behavior at these rep counts, not a signal about `R_n`'s trend either
+  way — same practical conclusion as the first draft (no trend claim supportable at `n=509,1021`),
+  correctly attributed to WHY.
+- **A real, previously-uncomputed check the first draft missed, using only already-committed
+  exact data plus this point's own JSON — zero new compute.** The exact small-`n` sequence
+  `n·W_1` at prime `n=11..37` (points 12-13) fits a clean power law: `n·W_1 ∝ n^0.239` (OLS on
+  `log(n·W_1)` vs `log n`, `R²=0.999`, `se(slope)=0.0028` — independently refit here, matching the
+  reviewing pass's own `+0.236` to within rounding). Extrapolating this EXACT small-`n` law into
+  the Monte Carlo range and checking whether each observed point's bootstrap CI contains the
+  prediction: `n=127`→predicted `3.49`, observed CI `[2.05,3.93]`, contains; `n=251`→`4.11`,
+  `[2.66,5.53]`, contains; `n=509`→`4.86`, `[2.98,6.77]`, contains; `n=1021`→`5.74`, `[2.42,6.77]`,
+  contains; **`n=2039`→predicted `6.78`, observed CI `[2.09,6.09]` — does NOT contain it** (the
+  predicted value sits above the observed CI's own upper bound). **4 of 5 tested `n` are
+  compatible with the exact small-`n` power law continuing unchanged; the largest tested `n`
+  is not.** Read this as SUGGESTIVE, explicitly not decisive: with 5 comparisons at a 95% level
+  each, roughly 1 miss is not surprising by chance alone (an uncorrected multiple-comparisons
+  rate), and `n=2039`'s own CI is the widest and noisiest in the sweep (`80` reps). But it is a
+  real, quantitative, directionally-consistent signal (the miss is in the direction of the exact
+  law's growth STALLING, i.e. weak evidence FOR an eventual plateau, not against it) that the
+  first draft's blanket "INCONCLUSIVE, nothing learned" framing discarded for free.
+- **Softened, not retracted: the "no evidence of runaway growth in `λ_n`" claim overstated its own
+  precision.** A proper power-law fit of `|λ_n|` vs `n` on the 5 Monte Carlo points gives slope
+  `0.046`, `SE=0.039`, `95%` CI `[−0.079, +0.172]` (independently refit here, matching the review).
+  This excludes only growth FASTER than roughly `log n` — it does NOT exclude slow divergence
+  (`λ_n ∝ n^{0.05}` or `∝ √(log n)` are both fully compatible with the data). Converted to the
+  implied exponent on `Var(X_n)` itself (`n·Var(X_n) ∝ n^{2×slope(λ_n)}`, roughly), the tested
+  range constrains the exponent only to `[−1.16, −0.66]` — about `15×` wider than the parent
+  experiment's own committed `95%` CI `[−0.975,−0.850]` (`n=32..3000`, 9-point weighted fit). This
+  point's own positive claim needed to be this much weaker than "no runaway growth" suggested.
+  Separately: the exact small-`n` `|λ_n|` itself rises monotonically and substantially from `n=11`
+  (`1.883`) to the `n=37` control point (`2.271`) to the tested large-`n` range (up to `3.05` at
+  `n=509`) — a real `~62%` rise over `n=11→509` — and the `n=37` control point's own `λ`
+  (`−2.271`) sits OUTSIDE the "flat `[−3.05,−2.39]`" band this point's headline described, simply
+  because `n=37` isn't literally inside the `127..2039` sweep window. Naming this explicitly so
+  the "flat" framing isn't read as stronger than it is.
+- **Two free, methodologically-independent consistency checks found on review, added here.**
+  (1) `n·Var(X_n)=n·(Ŵ_1+R̂_n)` on these same 5 Monte Carlo points implies a `Var(X_n)` exponent of
+  `−0.941` (independently recomputed) — inside the parent experiment's own committed `95%` CI
+  `[−0.975,−0.850]`, a genuine consistency check between this point's decomposition and the
+  project's headline measurement, using none of the same estimator machinery. (2) This point's
+  `λ_n` at `n=509` (`−3.048`, CI `[−3.677,−2.439]`) is compatible with an EARLIER, methodologically
+  DIFFERENT measurement at the nearby `n=512` (composite, not prime — a caveat, not a disqualifier,
+  since `λ_n=M_n'(1/2)` itself doesn't require primality, only the `W_1` identity does): a direct
+  finite-difference response to varying `p` gave `λ̂(h=0.025)=−3.311±0.202` and
+  `λ̂(h=0.05)=−2.892±0.101` (this document's own earlier work) — both inside this point's CI.
+
+**Corrected verdict: INCONCLUSIVE for the pre-registered decision rule as originally stated (no
+positive confirmation of `Var(X_n)=W_1+R_n=O(1/n)` with real statistical power), but with a real
+SUGGESTIVE signal on record** (the exact-law extrapolation deviating at the single largest tested
+`n`, in the direction of an eventual plateau) **and a substantially TIGHTER honest bound on what
+`λ_n`'s behavior rules out** (excludes growth faster than `~log n`; does not exclude slow
+divergence) than the first draft's "no evidence of runaway growth" implied.
+
+**Kill Analysis.** Nothing is killed — genuinely inconclusive, not a null result in the
+Falsification Ladder sense. What IS established: the Monte Carlo estimator is validated at the
+aggregation level (cross-method positive control passed, with the oracle-level caveat above); the
+large-`n` regime is cheap to reach (`~14` min total for this sweep); two independent consistency
+checks (parent-experiment exponent, earlier finite-difference `λ` measurement) both pass. **Next
+step, cost-corrected after skeptic-fallback review caught an arithmetic error in the first
+draft**: `4×` reps projects to `149.8s`/`671.2s`/`2495.4s` at `n=509`/`1021`/`2039` respectively
+(recomputed directly from the JSON's own `elapsed_seconds`, not estimated) — the first draft's "
+`~150-670s`, still cheap" implicitly covered only `509`/`1021`; **`n=2039` at `4×` reps
+(`2495s≈42min`) would EXCEED this script's own `MAX_SECONDS_PER_N=1800s` stop condition**, so a
+straight `4×` multiplier is not uniformly safe across all three `n` — either a smaller multiplier
+at `n=2039` (e.g. `2×`, `~1250s`, under budget) or a raised per-`n` budget would be needed there
+specifically. Total cost for a corrected `509`/`1021` `4×` + `2039` `2×` re-run: roughly `35`
+minutes, still cheap relative to the project's overall compute budget. This would directly test
+whether `n·R_n`'s CI clears zero at `509`/`1021` and would sharpen the `n=2039` extrapolation
+comparison above (currently the noisiest point and the one carrying the suggestive signal).
+
+**What this does NOT mean.** Does NOT mean the target hypothesis `Var(X_n)=O(1/n)` is supported or
+refuted — the honest state is "excludes growth in `λ_n` faster than `~log n`; one suggestive,
+not decisive, signal toward an eventual plateau in `n·W_1` at the largest tested `n`." Does NOT
+mean the first-chaos decomposition itself is in doubt — `Var(X)=W_1+R_n` is an exact identity
+(Parseval + point 11's already-proven vanishing of even Fourier levels), unaffected by how
+precisely `W_1`/`R_n` are currently estimated; only the EMPIRICAL question of how they scale with
+`n` remains open. Does NOT extend to composite `n` — the prime-transitivity argument for
+`W_1=λ_n²/(4m)` is specific to prime `n` (point 12b), unverified here for composite `n`.
+
+**Skeptic Concerns (FL Step 8a — `reviewer`'s cap closed all session; `skeptic` substituted per
+`doubt-driven-development.md` § Independent Review Fallback Policy, context-asymmetric). Verdict:
+`WEAKENED` — the numeric core (table, identities, `Q` indexing, wall-clock, bootstrap validity)
+held up on direct code/data inspection; three statements needed real correction (two factual
+citation errors, one arithmetic error in a cost projection) and the verdict's own reasoning was
+partly right for the wrong reasons. No finding rose to FALSIFIED.**
+- Concern: `Q = c[1:m+1].sum()` indexing (does it double-count mirrored generators, or drop one?).
+  → **Dismissed** — verified correct by direct comparison against `sample_circulant_neighbors`'s
+  own source: mirrors occupy `[m+1,n-1]`, disjoint from `[1,m]`; `c[0]=0`; no off-by-one.
+- Concern: the "genuine independent positive control" is independent at the aggregation-method
+  level but shares the SAME `theta_via_lp` oracle with the exact reference it's checked against —
+  a systematic oracle bug would pass both sides undetected; also, `theta_via_lp`'s known `NaN`
+  fragility (point 10) was never fixed in the version this script imports, and the substrate gate
+  only exercises `n=5,9`, far below the swept `n`. Separately, an injected-error simulation shows
+  the control's own `±26.5%`-wide CI catches only gross (`≥2×`) errors, not subtler off-by-ones. →
+  **Fixed**: Verification section rewritten to name exactly what independence the control does
+  and doesn't establish; oracle-level gap and control-power limitation both stated explicitly
+  rather than left implied by the word "genuine."
+- Concern: two of the three stated reasons for the `INCONCLUSIVE` downgrade were statistically
+  ungrounded — "non-monotonic point estimates" (shifts between `n` are not significant, `z≤1.64`
+  throughout) and "`R_n`'s CI crossing zero means low precision" (the real mechanism is the
+  squared-covariance estimator's ordinary ~50%-of-the-time overshoot relative to the exact
+  `Var(Q)=m/4`, not merely "too few reps," though the practical conclusion was the same). →
+  **Fixed**: Verdict rewritten to retract both stated grounds explicitly and substitute the
+  correct mechanism for the second.
+- Concern (the highest-value finding): a zero-cost check was available and skipped — extrapolating
+  the EXACT small-`n` power law (`n·W_1∝n^{0.239}`, `R²=0.999`, fit to points 12-13's own
+  committed data) into the Monte Carlo range shows `4/5` tested `n` compatible with the CI, but
+  `n=2039`'s predicted value (`6.78`) falls outside its own observed CI (`[2.09,6.09]`) — a real,
+  suggestive (not decisive, multiple-comparisons-uncorrected) signal the first draft's blanket
+  "INCONCLUSIVE" framing discarded. → **Fixed**: added as the Verdict's central new finding,
+  independently re-verified (OLS refit matches the review's own numbers to rounding), explicitly
+  labeled suggestive not decisive.
+- Concern: "no evidence of runaway growth in `λ_n`" overstated precision — a proper power-law fit
+  on the 5 tested points (`slope=0.046±0.039`, `95%` CI `[−0.079,+0.172]`) excludes only growth
+  faster than `~log n`, not slow divergence (`n^{0.05}`, `√log n` both compatible); the implied
+  `Var(X_n)` exponent range (`[−1.16,−0.66]`) is `~15×` wider than the parent experiment's own
+  committed CI. Also: the exact small-`n` `|λ_n|` itself rises `~62%` from `n=11` to the tested
+  range, and the `n=37` control point's own `λ` sits outside the claimed "flat" band purely
+  because `37` isn't literally inside the `127..2039` sweep window. → **Fixed**: Verdict section
+  rewritten with the properly-bounded claim and both caveats stated.
+- Concern: two free, methodologically-independent consistency checks existed in the data and
+  weren't reported — `n·Var(X_n)` on these 5 points implies an exponent (`−0.941`) inside the
+  parent experiment's committed CI; `λ_n` at `n=509` is compatible with an earlier, independent
+  finite-difference measurement at the nearby `n=512`. → **Fixed**: both added to the Verdict as
+  supporting (not decisive) evidence, with the `n=512`-vs-`509`/composite-vs-prime caveat named.
+- Concern: factual error in the Novelty Check — "`n·W_1` already tracked exactly for prime
+  `n=9..53`" is wrong on two counts (`9` is composite; point 12b's own `W_1=λ_n²/(4m)` equality is
+  shown to FAIL at composite `n`, making "prime n=9" self-contradictory; point 14's `n=53`
+  extension measured a different quantity). → **Fixed**: corrected to "prime `n=11..37`," the
+  actual range with exact `n·W_1` data.
+- Concern: wrong citation — the even-Fourier-level-vanishing theorem was attributed to "points
+  4/12" instead of point 11 (point 4 is the prime-transitivity theorem, point 12 is the unrelated
+  "seventh angle" section). → **Fixed**: corrected to point 11, verified by direct grep of
+  decision.md.
+- Concern: arithmetic error in the next-step cost estimate — `4×` reps at `n=2039` projects to
+  `2495s` (`≈42min`), which EXCEEDS the script's own `MAX_SECONDS_PER_N=1800s` stop condition; the
+  first draft's "`~150-670s`, still cheap" implicitly covered only `509`/`1021`, and grouping
+  `2039` into the same recommendation without flagging this was a real oversight. → **Fixed**:
+  cost projection corrected with the actual per-`n` numbers and an explicit note that `n=2039`
+  needs a smaller multiplier or a raised budget, not a uniform `4×`.
+- Concern: `bootstrap_ci` percentile intervals for a squared/skewed statistic (`Ŵ_1`) would
+  benefit from a bias-correction (BCa) rather than plain percentile CIs, especially at low rep
+  counts (`n=2039`, `80` reps) where `Ŵ_1` carries a measurable upward bias (`~0.8%` at `n=127`
+  rising to `~2.9%` at `n=2039`, per the reviewer's own delta-method estimate). → **Accepted
+  limitation**: does not overturn any conclusion above (bias is small relative to CI width), noted
+  here rather than silently left undocumented; a control-variate estimator using the exactly-known
+  `Var(Q)=m/4` would reduce this for free in a future re-run, not built here.
+- Concern: `MAX_SECONDS_PER_N`'s own docstring says "projected to exceed," but the code checks
+  `elapsed` AFTER a batch completes and only flags/prints — it cannot actually prevent a slow
+  batch from running to completion. → **Accepted limitation**: a real docstring/behavior mismatch
+  in the script, harmless here (no batch actually exceeded the threshold), left as a minor
+  known gap rather than patched, since no result in this point depended on the stop condition
+  actually firing.
+
+**Artifacts:** `check_first_chaos_decomposition_large_n.py`
+(+`metrics/first_chaos_decomposition_large_n.json`).
