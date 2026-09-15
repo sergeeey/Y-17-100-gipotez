@@ -1,0 +1,10 @@
+n=  127 lambda_Q=-2.1869(se=0.1979) lambda_delta=-2.6312(se=0.1833) w_Q=0.457 lambda_opt=-2.4281 se_opt=0.1418 CI=[-2.7158080033919436, -2.1541379858328535] var_reduction=0.402
+n=  251 lambda_Q=-2.6140(se=0.2606) lambda_delta=-2.8372(se=0.2149) w_Q=0.406 lambda_opt=-2.7466 se_opt=0.1647 CI=[-3.069503458834183, -2.4368647287504395] var_reduction=0.412
+n=  509 lambda_Q=-2.9281(se=0.3364) lambda_delta=-2.4409(se=0.1917) w_Q=0.208 lambda_opt=-2.5420 se_opt=0.1765 CI=[-2.8838946839837805, -2.194973404819156] var_reduction=0.153
+n= 1021 lambda_Q=-3.4373(se=0.4817) lambda_delta=-3.1718(se=0.3072) w_Q=0.311 lambda_opt=-3.2543 se_opt=0.2431 CI=[-3.7186126328546685, -2.7735688668989824] var_reduction=0.373
+n= 2039 lambda_Q=-3.4806(se=0.6667) lambda_delta=-3.0227(se=0.3918) w_Q=0.295 lambda_opt=-3.1577 se_opt=0.3031 CI=[-3.7541840098429886, -2.586569325593073] var_reduction=0.401
+
+Global weighted power-law fit on |lambda_opt|: {'slope': 0.10043219770843914, 'intercept': 0.4090826503480883, 'se_slope': 0.03335554061449061, 'ci95': [-0.005720019280905667, 0.20658441469778394], 'dof': 3, 'z_from_zero': 3.0109599742121556}
+local slope 127->509: 0.0330
+local slope 251->1021: 0.1209
+local slope 509->2039: 0.1563
