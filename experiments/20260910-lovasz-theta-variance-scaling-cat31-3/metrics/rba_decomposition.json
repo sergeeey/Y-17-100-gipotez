@@ -1,0 +1,33 @@
+{
+  "substrate_gate": [],
+  "config": {
+    "n": [
+      2053
+    ],
+    "parents": [
+      100
+    ],
+    "children": [
+      8
+    ],
+    "full_j_parents": [
+      0
+    ],
+    "method": "highs-ipm",
+    "workers": 10,
+    "seed_offset": 0,
+    "fixed_j": null,
+    "tag": "",
+    "skip_gate": true
+  },
+  "elapsed_by_n": {
+    "2053": 523.5973463
+  },
+  "n_records": 505,
+  "task_failures": 0,
+  "thread_env": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  }
+}

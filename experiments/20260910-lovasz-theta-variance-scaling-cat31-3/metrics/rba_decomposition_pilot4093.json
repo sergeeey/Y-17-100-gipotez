@@ -1,0 +1,25 @@
+{
+  "substrate_gate": [],
+  "config": {
+    "n": [
+      4093
+    ],
+    "parents": [
+      4
+    ],
+    "children": [
+      4
+    ],
+    "full_j_parents": null,
+    "method": "highs-ipm",
+    "workers": 4,
+    "seed_offset": 0,
+    "fixed_j": null,
+    "tag": "pilot4093",
+    "skip_gate": true
+  },
+  "elapsed_by_n": {
+    "4093": 204.98802929999965
+  },
+  "n_records": 4
+}

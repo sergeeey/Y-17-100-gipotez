@@ -2041,6 +2041,31 @@ nodes:
     # diagnostic: mean n/s=1.890/2.025/2.001 and mean 1+CV2=1.980/1.970/2.040;
     # primary support equals 2Q+1 in all cases, threshold spread <=3.90%. Verdict
     # BOTH-STABLE-PILOT only. Next lemma must bound CV moments, not rename them.
+    # UPDATE 2026-09-16 (Point 65, RBA decomposition test; no status change): a separate
+    # sub-thread tested whether R(S)=R0+R1+R2 on the reduced-frequency Lovasz LP's central
+    # layer shows genuine O(1/q) second-order cancellation between R1 and R2 (primes
+    # n=509..4093). The producing agent's own report claimed "SURVIVES...in the strong
+    # form"; skeptic-fallback review found this overclaims. R1/R2's dramatic ~19-36
+    # individual magnitude is >=100% a bounded polarization-identity tautology
+    # (2<p,u>+||u||^2 = s2'-s2 exactly, verified numerically), not "a fact about the LP's
+    # optimal face" as the report's own reasoning claimed -- R2 is by definition
+    # (q+1)*E[||u_j||^2] with zero independent LP content, and R1's own polarization-piece
+    # EXCEEDS R1's total magnitude (104-109% across the tested range). The genuine
+    # structural finding is a 3-term O(1.5-2.2) balance (E[I], the tautological
+    # q(q+1)E[Delta_s2] piece, and the one genuinely-LP-structural 2q(q+1)E[gA] piece),
+    # freshly verified this session, reconciling to published q*R_total_bulk to <4e-11.
+    # Reported p<1e-15 for the R1/R2 component slopes is a normal-approximation artifact
+    # at this design's real dof=2 (true t-distribution p=0.002-0.004). cancel_ratio
+    # improves on the small-n exhaustive control (0.089->0.044) but WORSENS on the main
+    # range (0.0056->0.0123) -- disclosed in the report body but not in its headline
+    # verdict. A genuine single-holdout extrapolation test (predict n=4093 from n=509..
+    # 2053) favors the declining/log model ~7x over constant, contrary to the report's
+    # dismissal of its own LOOCV signal as "mechanical." Negative controls test the
+    # correct formula via a separately-maintained duplicate function, not the literal
+    # production code path -- narrower than initially suspected but a real coverage gap.
+    # Verdict: NOT REFUTED, cancellation is real but its mechanism and interpretation
+    # needed correcting; RBA=O(1/q) remains the best-fitting model on 4 points, not
+    # established. H-CAT31-3 stays lead.
     title: "Direct follow-up from the deep external novelty audit's own Track 1 finding (re-analysis of H-CAT31-1's committed data suggested Var(log(theta(G)/sqrt(n))) ~ n^-0.96): on a wider n range (32..3000, up from 10..2560) with more replicates (40-300 vs the original's tapering 25->6), is the exponent consistent with exactly -1 (Var =~ C/n)?"
     status: lead                   # 2026-09-10 decision.md: REJECTED for the pre-registered exponent=-1 hypothesis specifically, but the underlying phenomenon (variance shrinks with n as a stable, precisely-measured power law) survives -- Kill Analysis distinguishes the two. Weighted-OLS fit across 9 points (n=32..3000, 40-300 reps each): slope=-0.9126, SE=0.0264, 95% CI=[-0.9751,-0.8501] -- excludes -1.0 (and -0.5, -2.0) with real precision, not a wide inconclusive interval. Stability check (slope on n=32..1024 subset = -0.900 vs n=256..3000 subset = -0.897) shows no drift toward -1 as n grows, arguing against a simple finite-size-correction-toward-(-1) explanation. Substrate gate (theta(C_5)=sqrt(5) exact, theta(G)*theta(Gbar)=9 exact) and negative control (p=0 gives Var=0.0 exactly) both passed before trusting any new large-n solve.
     # UPDATE 2026-09-13 (research-audit, score 8/10): decision.md extended to Point 48 via
@@ -2196,7 +2221,7 @@ nodes:
     kill_criterion: "CONFIRMED if weighted-OLS 95% CI for the log-log slope contains -1.0 AND excludes both -0.5 and -2.0 (real discrimination, not just failure-to-reject). WEAKENED-INCONCLUSIVE if CI contains -1.0 but also -0.5 or -2.0. REJECTED if CI excludes -1.0 entirely. RESULT: REJECTED -- CI=[-0.9751,-0.8501] excludes -1.0 cleanly while also excluding -0.5 and -2.0, i.e. a precise measurement of a DIFFERENT exponent (~-0.91), not an inconclusive one."
     experiment_dir: "experiments/20260910-lovasz-theta-variance-scaling-cat31-3"
     source: "experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md"
-    updated: 2026-09-14
+    updated: 2026-09-16
 
   - id: H-CAT37-2
     type: hypothesis
