@@ -5991,3 +5991,321 @@ session's independent verification scripts (scratchpad, not committed):
 `verify_three_term.py`/`verify_three_term2.py`, `verify_r1r2_split.py`, `check_scale.py`,
 `check_pvals.py`/`check_pvals2.py`, `loocv_holdout.py`.
 
+## Point 66 (2026-09-16) — PPL (Paired-optimizer Product Lemma) gate pilot: sanity checks pass,
+but `b=0` is actually REJECTED (not "within the CI" as first drafted) — still NOT a Gate 0 pass,
+extensively corrected on skeptic-fallback review (WEAKENED), including a self-falsified claim
+about why an earlier flawed sampling draft differed numerically
+
+**Context and provenance (Gate 1, stated explicitly per standing session discipline).** A route
+proposed by an external AI (not Codex, not this session — user-confirmed source, not traceable to
+any file in this repo) argued that Point 63's already-verified inequality (Codex,
+`codex-20260914-susceptibility/CROSS_TURAN_ENERGY_THEORY.md`, SURVIVES-PILOT): for old graph `G0`,
+new `G1=G0∪{i}`, optimum `x` of `G0`, optimum `w` of `complement(G1)`:
+`δ_i≤2·x_i·w_i`
+could, if `J_n:=n²·E[(x_i·w_i)²]=O(1)`, close the ENTIRE target hypothesis in one shot via
+`δ_i²≤4x_i²w_i²` ⟹ `E[δ_i²]=O(n⁻²)` ⟹ `B_n=(m/4)E[δ_i²]=O(1/n)` ⟹ (already-proven point 12a)
+`V_n≤B_n=O(1/n)`. Two things needed checking before trusting this: (1) whether "cross-Turán" and
+the inequality actually exist in this project (they do — confirmed via the artifact filename
+itself, `CROSS_TURAN_ENERGY_THEORY.md`, initially missed by a plain-ASCII grep for "Turán"); (2)
+whether the proposed new quantity's name collides with anything already established — it does:
+the external text's own `T_q` is NOT the same object as this project's existing `T_q`
+(swap-Dirichlet-energy `E[(δ_i(S)-δ_i(S'))²]`, points 15b-20, whose own sufficient lemma was
+already REJECTED there). The new quantity is renamed `J_n`/`PPL_gate` throughout this point and
+its artifacts to avoid the collision — `T_q` keeps its original 15b-20 meaning.
+
+**Estimand (L0: descriptive).** `J_n = E[Z_{n,i}²]`, `Z_{n,i}:=n·x_i·w_i`, for a FIXED coordinate
+`gen_index=1` (matching `TEST_GENERATOR_INDEX=1` in `check_kappa_n_large_n.py:100`, this
+project's own established single-generator-sensitivity convention) — NOT a coordinate chosen
+post-hoc from the free set, which a first pilot draft did and which introduces size-bias relative
+to graph density (see Errors below). `x` = optimal certificate of `G0` (the graph with `gen_index`
+absent), `w` = optimal certificate of `complement(G1)` (the graph with `gen_index` present) — both
+canonical branches of the project's own `sample_x_q_delta` (`c[gen_index]<0.5` and `>=0.5`) are
+included, none dropped, matching how `B_n=(m/4)E[δ_i²]` is computed everywhere else in this
+experiment.
+
+**Errors caught and fixed during this pilot, stated explicitly (not smoothed over) — §1 itself
+CORRECTED on skeptic-fallback review, see disposition below.**
+1. First draft fixed `i` but conditioned `S` on `i∉S` only (forced `bits[0]=0`); this used only
+   ONE of the two canonical `sample_x_q_delta` branches. Gave `J_n(127)=5.9`, `J_n(509)=73.5`,
+   ratio `12.5` (looked sharply growing) — v3 (below) instead gives `J_n(127)=64.7`, an `~11×`
+   discrepancy at the single point carrying the most fit leverage. **The mechanism claimed above
+   for this discrepancy (dropping half the branches) is FALSE, independently verified on skeptic
+   review and re-checked here**: `flip_generator` only ever toggles the ONE bit at `gen_index`,
+   so for a FIXED seed, `c_g0`/`c_g1` are algebraically identical in both the forced-`bits[0]=0`
+   draft and the honest-branch v3 draft — branch B (`c[gen_index]=1`) is a relabeling of the same
+   underlying pair, not a different sample. This is confirmed directly in `ppl_gate_pilot.json`'s
+   own `branch_summaries`: branch A and branch B give statistically indistinguishable `J_n` at
+   every `n` (e.g. `n=127`: A=62.8±8.1, B=66.5±7.8, well within noise). **The real cause of the
+   `~11×` discrepancy at `n=127` remains UNEXPLAINED and UNRESOLVED** — this is a genuine open
+   integrity gap, not a cosmetic one, since it sits on the point with `48.9%` of the weighted
+   fit's leverage (see Results below). The one piece of indirect evidence favoring v3 over the
+   original draft: the independent sanity inequality `Z=n·x_i·w_i ≥ n·δ_i(actual)/2` — spot-
+   checking rows shows `Z/(</n·δ/2) ≈ 1.0–2.5`, i.e. `Z` cannot be as small as the original
+   draft's numbers implied without violating the (independently, machine-precision-verified)
+   `δ≤2x_iw_i` bound (the ratio `Z / (n·δ/2)` runs `≈1.0–2.5` on spot-checked rows) — but this is
+   circumstantial, not a diagnosed root cause, and is stated here as such rather than as closure.
+2. Second draft ("honest marginal") chose `i` post-hoc, uniformly among the FREE coordinates of
+   each randomly-built graph — this is size-biased toward denser graphs (smaller free sets get
+   each of their coordinates picked more often), NOT the fixed-coordinate convention this
+   project's own `B_n`/`W_1`/`κ_n` estimators actually use anywhere else. Gave `J_n(127)=52.5`,
+   `J_n(509)=63.3`, ratio `1.2` — a DIFFERENT quantity from the intended estimand, not merely
+   noisier. This diagnosis DOES hold up on review (unlike §1's).
+3. Corrected (v3): fixed `gen_index=1`, unconditional full-graph Bernoulli(0.5) draws, both
+   canonical branches included and pooled — matching `sample_x_q_delta` exactly, independently
+   verified line-by-line on skeptic review against `CertificateLP.solve`'s indexing
+   (`bits[j]↔x[j+1]`) and against `sample_x_q_delta`'s own sign convention for both branches — an
+   exact match, not merely a plausible-sounding one. This is the version whose numbers are
+   reported below, WITH the caveat in §1 that the reason it differs from the very first draft is
+   only partially understood.
+4. A silent indexing bug was self-caught during the extension to a 3rd point: a ratio field
+   computed as `summaries[-1]/summaries[0]` silently switched from meaning `509/127` to meaning
+   `1021/127` once a 3rd point was appended, without any code error — caught because two
+   differently-named fields started reporting the same number (a self-consistency tripwire, not a
+   deliberate check). Fixed via lookup-by-`n` instead of by-list-position; recomputed from already
+   saved per-seed data, no LP re-solving needed. **Provenance note (added on review):** the fields
+   documenting this fix (`_reprocessed_note`, corrected ratio fields) were written by an unnamed
+   post-processing step, not by a version of `ppl_gate_pilot.py` itself submitted for review —
+   the numbers are deterministic given the same seeds and were independently spot-checked against
+   `rows_by_n` in this point's own verification (below), but the provenance chain (which exact
+   script produced the final JSON) is not fully documented in Artifacts.
+
+**Sanity checks (pass, all 1180 (n,seed) pairs across n=127,509,1021, both branches) — corrected
+framing on skeptic review.** Point 63's own deterministic inequality `δ_i(actual) ≤ 2x_iw_i`,
+with `δ_i(actual)` computed via `log(θ(G0)/θ(G1))` from two direct LP solves rather than
+reconstructed algebraically from `x_i,w_i` (avoiding the self-referential-check failure mode this
+project has hit before) — holds on every tested pair, minimum margin `3.6e-14`. **Correction: this
+is NOT meaningfully "machine precision" as a strength claim** — at `n=1021` the LP solves' own
+internal certificate errors run up to `5.5e-10`–`9.5e-10`, four to five orders of magnitude ABOVE
+that `3.6e-14` margin, so the tightest observed case sits below this pilot's own numerical noise
+floor and the inequality is not meaningfully resolved there either way; the honest statement is
+"no violation beyond the `1e-6` tolerance was observed," not "verified with enormous margin."
+`θ(G1)·θ(complement(G1))=n` complementary identity: max error `1.86e-08` (a genuinely independent,
+nontrivial cross-check of the complement construction and the `w_0=1`/`x_0=1` normalization — this
+part is NOT weakened by the above and is independently confirmed correct line-by-line against
+`CertificateLP`'s indexing on skeptic review). **Correction: the "two LP engines agree to `~1e-13`
+on 6 test pairs" cross-check claimed above has NO artifact in this pilot's saved files** — it is
+referenced only in `ppl_gate_pilot.py`'s own docstring, pointing at this session's transcript, not
+at a reproducible file; marked `[UNVERIFIED]` rather than treated as confirmed, though the
+complement identity and each solve's own internal certificate checks provide independent
+corroboration of each LP call on their own. δ_i's own independence from `x_i` is PARTIAL, not
+full, also corrected on review: `θ(G0)` is literally the sum of the same `x` vector that supplies
+`x_i` (`θ=x.sum()`, `x_i` is one of its `n` summands, `~2%` of the total) — so only the `θ(G1)`/`w`
+side of the sanity check is a fully separate computation; this still catches real classes of
+error (complement construction, sign convention, normalization) but is weaker than "fully
+independent" as first drafted. Branch balance close to the expected 50/50 at every `n` (248/252,
+246/254, 93/87) — this confirms the RNG is unbiased, not that the construction is correct (a
+distinct, weaker claim than originally implied). **The complement construction and canonical-
+sampling match are independently verified correct; the reason an early draft gave a very
+different number at n=127 is NOT resolved (see Errors §1) — these are two separate claims and
+only the first is settled.**
+
+**Results (500 seeds at n=127,509; 180 seeds at n=1021 — n=2039 skipped this pilot; cost estimate
+CORRECTED on review: the ~18 min figure was for 90 reps, a comparable 180-rep budget would cost
+~36 min, deliberately kept optional and deferred rather than spending it before the trend at 3
+points was assessed):**
+
+| n | reps | `J_n=E[Z²]` | SE | rel. SE | median Z | top1% share of ΣZ² | top5% share of ΣZ² |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 127 | 500 | 64.66 | 5.60 | 8.7% | 3.559 | 11.0% | 40.6% |
+| 509 | 500 | 73.43 | 6.81 | 9.3% | 3.615 | 14.0% | 40.9% |
+| 1021 | 180 | 102.66 | 18.61 | 18.1% | 3.956 | 18.1% | 50.1% |
+
+Ratios: `509/127=1.136`, `1021/509=1.398`, `1021/127=1.588`. **Corrected statistics (the first
+draft's `t=2.01`/"zero within the CI" claim was WRONG, caught on skeptic review — the actual
+reference distribution at `dof=1` under this pilot's own stated known-variance convention is
+NORMAL, not `t`, so `dof=1` does not mean "no power" the way a small-sample `t` would; both
+numbers below independently re-derived and cross-checked, exact match to the review's own
+recomputation):** weighted power-law fit `log(J_n)=a+b·log(n)`: `b=0.1518±0.0755`, and testing
+`b=0` properly via `Δχ²` (flat/constant model `χ²=5.408` at 2 dof, `p=0.067`; power-law model
+`χ²=1.359` at 1 dof; `Δχ²=4.049`, `p=0.044`) — **`b=0` IS rejected at the conventional `p<0.05`
+level**, not "well within the CI" as first drafted. The 95% CI on `b` is `[0.005,0.300]` and does
+NOT contain zero. Caveat that DOES hold up and is the real reason not to over-read this: the
+per-point SEs feeding this fit come from a visibly heavy-tailed `Z²` distribution (top-5% samples
+carry `40–50%` of `ΣZ²`; at `n=1021`, the top-1% is literally 2 samples carrying `18%` of the sum)
+— the CLT approximation behind each point's SE is itself questionable at these sample sizes, which
+is a legitimate reason to distrust the `p=0.044` significance, NOT the "`dof=1` has no power"
+reasoning used in the first draft. **A model this pilot's own theory should have compared against
+and did not**: `codex-20260914-susceptibility/CROSS_TURAN_ENERGY_THEORY.md` already derives a
+`O(log³n)` ceiling for the same underlying `x*` energy (`sup_n E‖x*‖²`, called `POL` there) — a
+`log(J_n)=a+b·log(log n)` fit gives `b=0.838±0.426`, `χ²=1.538` (vs the power-law's `χ²=1.359`,
+`Δχ²=0.18`) — **the 3 available points cannot distinguish `n^0.15` growth from `(log n)^0.84`
+growth**, and neither is favored a priori by anything in this pilot; both beat the flat model.
+Tail concentration (`top5%` share of `ΣZ²`, no SE — weaker evidence than the `J_n` fit, not
+t-tested): `0.406→0.409→0.501`. **Corrected on review: this undersells the signal by choosing the
+softer-looking column** — the `top1%` share is MONOTONIC and growing from the very first step
+(`0.110→0.140→0.181`, `+27%` then `+29%`), not "flat then a jump." The median (a tail-robust
+statistic) also grows monotonically (`3.559→3.615→3.956`, `+11%` overall) — the whole distribution
+is shifting, not only its tail, which weakens (does not eliminate) the "SE is unreliable because
+of the tail" defense for the mean-based fit.
+
+**The actual target quantity, computed directly from already-saved data (cheapest possible test,
+identified on skeptic review as missing from the first draft — `n=0` new LP solves needed):**
+`B_n=(m/4)E[δ_i²]=O(1/n) ⟺ n²E[δ_i²]=O(1)` is the real thing this whole route is meant to bound;
+`J_n` is only an upper-bounding proxy (`Z=n·x_i·w_i≥n·δ_i/2` from the sanity inequality). Computed
+`n²·E[δ_i(actual)²]` directly from the 1180 already-saved `delta_i_actual` values (this session,
+`tmp/direct_target.py`, independently reproduced the pilot's own numbers to the reported digits):
+
+| n | reps | `n²E[δ²]` | SE | rel. SE |
+|---:|---:|---:|---:|---:|
+| 127 | 500 | 72.23 | 7.32 | 10.1% |
+| 509 | 500 | 74.34 | 6.97 | 9.4% |
+| 1021 | 180 | 107.69 | 20.24 | 18.8% |
+
+Weighted power-law fit on this DIRECT target: `b=0.102±0.083`, `Δχ²=1.52` (`p=0.217`) — **weaker,
+not-significant growth signal on the actual target quantity than on the `J_n` proxy** (which is
+consistent with the proxy inequality having real slack — `J_n` growing significantly does not
+force the target to grow significantly, since `δ` is bounded well below `2xw` on most sampled
+rows). This is genuinely useful, previously-missing information: the target itself is currently
+LESS concerning than the proxy that motivated this whole pilot.
+
+**Honest verdict: NOT a Gate 0 pass — but not for the reason first drafted.** The corrected
+statistics show `J_n`'s own slope IS nominally significant (`p=0.044`) under the pilot's stated
+known-variance convention, while the DIRECT target (`n²E[δ²]`) is NOT (`p=0.217`) — these two
+facts together, not a claimed absence of statistical power, are why this is not resolved. Three
+further reasons to not treat `J_n`'s `p=0.044` as decisive: (1) heavy-tailed `Z²` makes each
+point's SE itself suspect; (2) the `n^0.15` and `(log n)^0.84` models are statistically
+indistinguishable on 3 points, and only one of them (the log-model) has independent theoretical
+support in this project (Point 63's own `O(log³n)` ceiling) — a genuine open question, not
+resolved by this pilot either way; (3) the optimizer actually used (`scipy.linprog` HiGHS vertex)
+is NOT the theoretically-required unique min-L2 selector `x*` that Point 63's own equivariance
+argument depends on (`test_optimal_energy.py`'s `minimum_energy()`/CLARABEL QP exists in this
+same project specifically for this reason and was not used here) — if the optimal face is
+degenerate for some sampled graphs, `J_n` may be measuring HiGHS's own pivoting behavior rather
+than the intended `x*_i·w*_i`, and this has not been checked. **This does not match the external
+proposal's own "Scenario A" criterion** (bounded on ≥5 points including 127,251,509,1021,2039) —
+only 3 points were reached, and the picture is genuinely mixed (proxy trending up more clearly
+than the target itself). Closer to a genuine "Scenario B/needs-more-work" state than either a
+clean pass or a clean fail.
+
+**Kill Analysis.** Nothing is killed and nothing is confirmed. What IS established, corrected: (1)
+the cross-Turán bound (`δ_i≤2x_iw_i`, Point 63) sanity check passes on every tested pair with no
+violation beyond tolerance — but the claimed "machine precision" margin is itself below this
+pilot's own LP-solve noise floor at `n=1021`, so this is "not violated," not "verified with a huge
+margin"; the complement-identity check (`θ(G1)·θ(complement(G1))=n`) IS a genuinely strong,
+nontrivial, independent confirmation of the construction; (2) the `J_n`/PPL route is a live,
+NOT-yet-resolved candidate — `J_n`'s own slope is nominally significant but the DIRECT target
+quantity's is not, and neither model comparison (power-law vs log) nor the optimizer-selector
+question is settled; (3) an EARLIER, still-UNEXPLAINED `~11×` numerical discrepancy exists between
+the very first (flawed) sampling draft and the final (canonical) one at exactly the point (`n=127`)
+carrying `48.9%` of the fit's own leverage — the mechanism first proposed for this discrepancy
+(dropped branches) is FALSIFIED by the artifact's own `branch_summaries` (branches A and B agree
+to within noise), so this remains a genuine open integrity question about the pilot code, not a
+closed one; (4) two earlier, methodologically-flawed sampling schemes gave wildly different
+qualitative pictures (`12.5×` vs `1.2×` ratio) for reasons only PARTIALLY diagnosed (see #3) — the
+lesson about checking sampling conventions against `sample_x_q_delta` stands, but "we understand
+why they differed" does not, for the first of the two.
+
+**What this does NOT mean.** Does NOT mean PPL is refuted — even the DIRECT target's `p=0.217`
+does not rule out real (if currently sub-significant) growth, and even `J_n`'s significant
+`p=0.044` does not establish unbounded growth (a `n^0.15` law is still consistent with a very slow
+climb that could plateau, exactly as this project's own earlier points on `λ_n`/local-slope
+analysis found for other quantities). Does NOT mean `J_n=O(1)` is refuted either — `b=0` sits
+outside the `J_n` fit's 95% CI but well within the DIRECT target's own CI. Does NOT mean the
+`gen_index=1`/canonical-sampling construction itself is in doubt — that part is independently
+verified correct (complement identity, indexing, branch balance). Does NOT mean the specific
+`~11×` v1-vs-v3 discrepancy has been explained — it has NOT, and "the construction is verified
+correct" must not be read as covering that open question. Does NOT mean Route B (QADC + `C_q^LP`,
+the renamed BA-identity remainder from decision.md's earlier `T_q`-family work, points 15b-20, and
+Point 65's `term3`) should be abandoned or paused — nothing here licenses that. Does NOT mean
+growing `J_n` would refute the project's own already-open `POL` quantity (`sup_n E‖x*‖²<∞`,
+Point 63) even if it were confirmed growing — `J_n` is a fourth-moment-type strengthening of `POL`,
+and a bounded second moment is compatible with an unbounded (or differently-scaling) fourth moment
+in general; conflating the two would be a new, uncaught error, not a corrected one.
+
+**Recommended next steps, stated but not executed here (cheapest-first, reordered on review —
+leverage direction was backwards in the first draft).** (1) **Diagnose or retract the `~11×`
+`n=127` discrepancy** (Errors §1) before trusting the fit at all — it sits on the single
+highest-leverage point (`48.9%`). (2) Re-solve the top-5% `|Z|` samples (the ones actually driving
+the tail and much of the fit) via `test_optimal_energy.py`'s `minimum_energy()`/CLARABEL selector
+instead of the raw HiGHS vertex, to check whether `J_n`'s apparent growth is partly a pivoting
+artifact rather than a property of `x*_i·w*_i` itself. (3) **Pre-registered kill-test, stated in
+advance so it cannot be reinterpreted after the fact**: raising `n=1021` to ~500 reps (matching the
+other two points) should, if the current central estimate (`J_n≈103`) holds with a correspondingly
+smaller SE, push the power-law slope to roughly `b≈0.19–0.20`, `z≈3.0–3.5` — i.e. this is a
+genuine test that could kill `J_n=O(1)` outright, not merely "more precision," and should be
+treated as such regardless of which way it comes out. (4) Compute `n²E[δ²]`'s own tail statistics
+(median, top1%/top5% share) the same way `J_n`'s were, to check whether the DIRECT target shows
+the same tail-heaviness pattern as the proxy. (5) `n=2039` remains the natural 5th-point extension
+matching the external proposal's own bar, but only after (1)-(3). (6) This remains an explicit
+decision point for the user: continue extending this pilot, pursue (1)-(2) as integrity fixes
+first, or shift attention to Route B in parallel — not auto-selected by this pilot's own numbers
+either way.
+
+**Skeptic Concerns (FL Step 8a — `reviewer`'s cap closed earlier this session; `skeptic`
+substituted per `doubt-driven-development.md` § Independent Review Fallback Policy,
+context-asymmetric — given only this point's claim text + `ppl_gate_pilot.py` +
+`metrics/ppl_gate_pilot.json`, no session history. Verdict: `WEAKENED` — the core sampling
+construction and complement-identity verification hold, but multiple supporting statistical and
+causal claims in the first draft were WRONG, not merely imprecise. Every number in the disposition
+below independently re-derived from the raw JSON this session, not accepted on the review's word
+alone.**
+- Concern: the claimed mechanism for why the very first (flawed) sampling draft differed from the
+  final one ("dropped half the canonical branches") is algebraically impossible — `flip_generator`
+  only ever touches the fixed `gen_index` bit, so for a given seed the two drafts build IDENTICAL
+  graphs regardless of branch; the artifact's own `branch_summaries` show branches A/B statistically
+  indistinguishable at every `n`, confirming this. → **Fixed**: the false mechanism is retracted
+  and replaced with an explicit statement that the `~11×` discrepancy at `n=127` is UNEXPLAINED,
+  flagged as an open integrity gap (it sits on the point with 48.9% fit leverage), with the
+  circumstantial (not conclusive) `Z≥nδ/2` argument for why v3 is more plausible than v1 stated as
+  circumstantial, not as closure.
+- Concern: "zero is well within the CI" for the `J_n` slope is false given the claim's own SE — the
+  correct `Δχ²`test (matching the pilot's own stated known-variance convention) rejects `b=0` at
+  `p=0.044`, and the 95% CI `[0.005,0.300]` excludes zero. → **Fixed**: corrected throughout,
+  `Δχ²`/`p=0.044` reported, the real (tail-heaviness-based) reason for caution substituted for the
+  `dof=1`-has-no-power framing.
+- Concern: the recommendation to raise `n=1021`'s seed budget was justified by claiming it has
+  "disproportionate leverage" — backwards; larger SE means LESS weight/leverage in a weighted fit,
+  and `n=127` (not `n=1021`) carries the most leverage (`48.9%` vs `28.4%`). → **Fixed**: leverage
+  values corrected and cited, the recommendation re-justified as a genuine kill-test with a
+  pre-registered predicted outcome, not as "reducing noise."
+- Concern: "fully independent channel" for `δ_i` overstates the construction — `θ(G0)` is literally
+  the sum of the same `x` vector supplying `x_i` (one of its `n` summands). → **Fixed**: corrected
+  to state the independence is partial (only the `θ(G1)`/`w` side is a separate computation), while
+  noting this still catches real classes of construction error.
+- Concern: the model comparison only considered "`O(1)` vs power-law growth," omitting the
+  log-growth model this project's own `CROSS_TURAN_ENERGY_THEORY.md` (`O(log³n)` ceiling) would
+  motivate; on 3 points, power-law and log-growth are statistically indistinguishable (`Δχ²=0.18`).
+  → **Fixed**: log-log fit added and reported alongside the power-law fit, explicitly stated as
+  unresolved between the two.
+- Concern: the tail trend was reported via the softer-looking `top5%` column when the `top1%`
+  column (and the median) show a cleaner, monotonic-from-the-start growth pattern. → **Fixed**:
+  `top1%` and median trends added to the Results table and cited in the verdict.
+- Concern: "machine precision" framing for the sanity-check margin (`3.6e-14`) is misleading — at
+  `n=1021` the underlying LP solves' own certificate errors (`up to ~1e-9`) are four to five orders
+  of magnitude larger, so the tightest case is below this pilot's own noise floor. → **Fixed**:
+  reframed as "no violation beyond tolerance observed," not "verified with enormous margin."
+- Concern: "two LP engines agree to ~1e-13 on 6 test pairs" has no corresponding artifact in this
+  pilot's saved files, only a docstring reference to session transcript. → **Accepted limitation**:
+  marked `[UNVERIFIED]` explicitly; not treated as confirmed going forward.
+- Concern: the optimizer used (raw HiGHS vertex via `scipy.linprog`) is not the theoretically-
+  required unique min-L2 selector `x*` this project's own `CROSS_TURAN_ENERGY_THEORY.md` depends on
+  for equivariance, and an existing, already-verified alternative (`test_optimal_energy.py`'s
+  `minimum_energy()`) was not used or cross-checked. → **Accepted limitation, added to next steps**:
+  not fixed in this point (would require new computation), but explicitly flagged as an open
+  methodological gap rather than left silently unaddressed — degenerate-face frequency at this
+  project's typical graph density is `[UNKNOWN]`.
+- Concern: `J_n` as named risks a fresh symbol collision with this project's own already-open `POL`
+  quantity (`CROSS_TURAN_ENERGY_THEORY.md`, `sup_n E‖x*‖²`) — `J_n` is in fact a fourth-moment
+  strengthening of `POL`, not an unrelated "external, not in this project" quantity as first
+  implied, and growing `J_n` would NOT automatically refute `POL` (second moment can stay bounded
+  while a fourth moment grows). → **Fixed**: relationship to `POL` stated explicitly in "What this
+  does NOT mean"; the "brand-new, not sourced from this project" framing in the Context section is
+  left as-is since it correctly describes `J_n`'s NAME/formulation being externally proposed, not
+  its relationship to `POL`, which is now stated separately.
+- Concern: the JSON's `_reprocessed_note`/corrected-ratio fields were written by an unnamed
+  post-processing step, not the reviewed version of `ppl_gate_pilot.py` itself. → **Accepted
+  limitation**: noted in Errors §4; the numbers are deterministic and independently spot-checked
+  against `rows_by_n` in this point's own verification, but the exact provenance chain is not
+  fully documented.
+- Concern: raw numbers in the claim (J_n values, SE, ratios, sanity-check margins, branch counts)
+  matched the JSON exactly, no cherry-picking or rounding-in-favor detected. → **Dismissed** as a
+  real issue — independently re-verified this session, confirmed accurate.
+
+**Artifacts:** `ppl_gate_pilot.py` (new, main experiment directory — NOT inside
+`codex-20260914-susceptibility/`, per Unclaimed Work Ownership), `metrics/ppl_gate_pilot.json`
+(per-seed raw data with branch labels, `sanity_check`, `power_law_fit_log_Jn_vs_log_n`,
+`tail_concentration_trend_top5pct_share`, `_reprocessed_note` documenting the self-caught indexing
+bug). This session's independent verification scripts (scratchpad, not committed):
+`direct_target.py`, `loglog_fit.py`. Independently spot-checked against the raw JSON this session
+(not accepted from either the agent's or the skeptic's summary alone).
+
