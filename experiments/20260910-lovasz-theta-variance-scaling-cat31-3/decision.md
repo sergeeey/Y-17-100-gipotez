@@ -5317,3 +5317,450 @@ partly right for the wrong reasons. No finding rose to FALSIFIED.**
 
 **Artifacts:** `check_first_chaos_decomposition_large_n.py`
 (+`metrics/first_chaos_decomposition_large_n.json`).
+
+## Point 54 (2026-09-14) — `κ_n` diagnostic reformulation of the already-proven sharpened
+Efron-Stein bound (point 12a): algebra confirmed sound, but its own two natural `λ_n` estimators
+disagree by 8-20% at every tested `n` — an unresolved discrepancy that blocks trusting `κ_n`'s
+own numbers yet; skeptic-fallback review (FALSIFIED, extensively addressed) also reversed the
+`λ_n`-growth verdict and found real errors in the `R_n` addendum's supporting claims
+
+**Context — epistemic status corrected BEFORE running anything, per a direct user math
+correction caught mid-experiment (same live-correction discipline as Point 52).** A user-proposed
+reformulation replaces Point 53's noisy `R_n=Var(X)-W_1` subtraction with
+`κ_n:=B_n/W_1=E[δ_i²]/(E[δ_i])²` (the squared coefficient of variation of the single-generator
+sensitivity `δ_i`, `δ_i(S)=X(S)-X(S∪{i})≥0` by the project's own established monotonicity
+theorem), combined with `λ_n=-m·E[δ_i]` (sign-corrected — `δ_i≥0` always, `λ_n` is empirically
+negative). **Substituting back proves this is NOT a new inequality**: `κ_n·λ_n²/(4m) =
+(E[δ²]/E[δ]²)·(m²E[δ]²)/(4m) = (m/4)E[δ²] = B_n` exactly, so `V_n≤(κ_n+2)/3·λ_n²/(4m)` is
+algebraically IDENTICAL to point 12a's already-proven `V_n≤(B_n+2W_1)/3`. **Skeptic-fallback
+review confirms this algebra is sound but notes it is a DEFINITIONAL tautology** (`κ_n:=B_n/W_1`
+substituted back into `κ_n·W_1` returns `B_n` by construction, not because of the newly-derived
+sign relation) — the sign relation `λ_n=-m·E[δ_i]` is needed only for the INTERPRETATION
+("`κ_n` = squared CV of `δ_i`"), not for the algebraic identity itself. This interpretive claim is
+exactly what turned out to be unverified in this implementation — see below.
+
+**MAJOR CORRECTION, found via a skeptic-proposed zero-cost check run independently against the
+saved raw `.npz` samples after review — the single most important finding of this point.** The
+script's own `λ_n`/`κ_n` numbers in the table below use `λ_n=4·Cov(X,Q)` (the SAME estimator as
+Point 53, NOT the newly-derived `δ`-based route) — an earlier draft of this section claimed the
+opposite ("estimated from the SAME marginal `δ_i` samples... `Cov(X,Q)`-based `λ_n` kept only as
+a cross-check") and that claim was FALSE: `mean(δ_i)` is never computed in the sweep code, only
+`mean(δ_i²)` (confirmed by direct code read). Computing the promised `δ`-based estimator now,
+directly from the saved `.npz` files (zero additional `theta_via_lp` calls):
+
+| n | λ_cov (script's own) | λ_δ (=-m·mean(δ)) | relative difference | κ_cov (script's own) | κ_δ (=mean(δ²)/mean(δ)²) |
+|---:|---:|---:|---:|---:|---:|
+| 127 | −2.187 | −2.631 | **20.3%** | 3.547 | 2.450 |
+| 251 | −2.614 | −2.837 | **8.5%** | 2.883 | 2.447 |
+| 509 | −2.928 | −2.441 | **16.6%** | 1.563 | 2.250 |
+| 1021 | −3.437 | −3.172 | **7.7%** | 2.009 | 2.360 |
+| 2039 | −3.481 | −3.023 | **13.2%** | 1.786 | 2.369 |
+
+**Every one of the 5 tested `n` exceeds even a generous 5% agreement threshold between the two
+theoretically-equal quantities, and the two `κ_n` columns disagree substantially and
+non-monotonically (`κ_δ` sits in a tight `[2.25,2.47]` band while `κ_cov` ranges `[1.56,3.55]`).**
+This has NOT been resolved to a bug-vs-noise verdict here — per-point sampling error on `λ_cov`
+(`~8-9%` relative, from its own bootstrap CI) and on `λ_δ` (`~7-8%` relative, from `se(mean δ)`)
+are individually large enough that single-point disagreements of this size are not automatically
+alarming, but the PATTERN (present at all 5 `n`) has not been explained here and is reported as an
+OPEN, UNRESOLVED item — `κ_n`'s own headline numbers (both columns) should be read as preliminary
+pending this resolution, not as validated measurements of "squared CV of `δ_i`." (Point 55
+resolves this discrepancy directly — see below.)
+
+**Setup.** Pilot sign check (`n=37`, `20` samples, DIFFERENT seeds from the production sweep):
+`δ_i≥0` confirmed (`min=0.00016`). **Skeptic-fallback correction**: this check is decorative for
+every published number in the table — `b_hat`/`kappa_hat`/`u_hat` and the entire `R_n` addendum
+depend on `δ` only through `δ²`, which is sign-independent, so a sign bug could not have affected
+any of them; the ONE place the sign genuinely matters (`λ_δ=-m·E[δ]`) was never checked against
+production data before this correction. Direct code inspection (independently re-confirmed) shows
+the sign LOGIC itself is correctly implemented — not a live bug, just an overclaimed verification
+target. Substrate gate passed. **n=37 Oracle Adequacy Gate — 3-way, all pass**: `n·Ŵ_1=2.508` CI
+`[1.934,3.160]` contains exact `2.598`; `κ̂=1.924` CI `[1.442,2.565]` contains exact `2.004`;
+`n·V̂ar(X)=3.302` CI `[2.906,3.692]` contains exact `3.272`. **Skeptic-fallback correction**: the
+three checks are not fully independent — `n·Ŵ_1∝λ̂²` and `κ̂∝1/λ̂²` are anti-correlated by
+construction (an error in `λ̂` moves them in opposite directions), so "all three pass" is weaker
+evidence than three independent confirmations would be. A sharper oracle check, available for
+free from the same exact reference values: exact `n·U_n = (n·B_n+2·n·W_1)/3` where
+`n·B_n=n·κ_n·W_1=2.004×2.598=5.206`, giving exact `n·U_n=3.4675` and exact
+`U_n/Var(X)=3.4675/3.272=1.060` — the observed `0.994` sits `6%` below this sharper reference
+(within its own CI `[0.907,1.084]`, so not a failure, but a tighter check than "point estimate
+`≥1`" alone).
+
+**Sweep results, `n=127,251,509,1021,2039`:**
+
+| n | reps | λ_n (Cov-based) | λ_n 95% CI | κ_n (Cov-based) | κ_n 95% CI | n·U_n | n·U_n 95% CI | U_n/Var(X) |
+|---:|---:|---:|---|---:|---|---:|---|---:|
+| 127 | 300 | −2.187 | [−2.563,−1.810] | 3.547 | [2.338,5.494] | 4.456 | [3.480,5.560] | 1.165 |
+| 251 | 250 | −2.614 | [−3.117,−2.128] | 2.883 | [1.787,4.744] | 5.583 | [4.432,6.866] | 1.224 |
+| 509 | 200 | −2.928 | [−3.597,−2.305] | 1.563 | [0.955,2.623] | 5.102 | [3.769,6.678] | 1.046 |
+| 1021 | 150 | −3.437 | [−4.425,−2.517] | 2.009 | [1.015,4.247] | 7.902 | [5.531,10.843] | 1.255 |
+| 2039 | 80 | −3.481 | [−4.778,−2.286] | 1.786 | [0.698,5.009] | 7.648 | [4.882,11.456] | 1.234 |
+
+**Skeptic-fallback finding, independently reproduced**: by Cauchy-Schwarz, `κ_n=E[δ²]/E[δ]²≥1`
+ALWAYS — a mathematical floor, not just an expectation — yet the `κ_n` `95%` CI's LOWER bound
+falls below `1.0` at 2 of 5 `n` (`0.955` at `n=509`; `0.698` at `n=2039`). Since
+`κ_n=m²·mean(δ²)/λ̂_cov²`, this is direct proof that noise in `λ̂_cov` (squared in the denominator)
+contaminates `κ̂` into a region the true quantity cannot occupy — tying back to the unresolved
+discrepancy above.
+
+Total elapsed: `1718s` (`~28.6 min`), no `n` flagged incomplete. `U_n≥Var(X)` (proven population
+inequality) held as a point-estimate at every sweep `n`; at the `n=37` control it read `0.994`
+(just under 1) — finite-sample noise on a ratio, not a violation of a proof.
+
+**Verdict on `λ_n` — REVERSED after skeptic-fallback review, using properly-propagated
+uncertainty instead of residual-based SE.** The first draft's `honest_power_law_fit` computed
+slope SE from OLS residual scatter alone (`0.173±0.023`, excluding zero), ignoring the
+individually-known bootstrap CI on each point — a chi-square check (`χ²=0.485` at `3` dof,
+`p≈0.08`) shows the points fit the line notably TOO well relative to their own stated uncertainty,
+meaning this SE underestimates the truth. **Reweighting with each point's own propagated
+bootstrap SE**: this run's slope becomes `0.188±0.057`; Point 53's own independent draw
+(reweighted the same way) gives `0.066±0.049`. **The difference between these two slopes is NOT
+itself significant** (`z=1.62` — the original draft's "two draws disagree on significance"
+framing was a difference-of-significance fallacy). **The correct combined (inverse-variance-
+weighted) estimate is `0.117±0.037`, `3.16σ` from zero — significant**, and matches the exact
+small-`n` power law direction (`n·W_1∝n^0.239`, points 12-13). **This reverses the first draft's
+"λ_n growth is draw-dependent, unconfirmed" conclusion.** One explicit caveat carried forward: it
+rests entirely on the `Cov(X,Q)`-based estimator, whose disagreement with the `δ`-based route is
+itself unresolved here — Point 55 addresses this directly.
+
+**`R_n` addendum — three findings corrected after skeptic-fallback review; the qualitative
+divergence finding survives, several of its supporting specifics did not.**
+- **The "45×" divergence headline number is not robust to which denominator is used.** Against
+  `u_stat_r_n_corrected` (this point's own "trusted" version), the same ratio at `n=2039` is
+  `−12.8×` (sign flip). The qualitative finding (cross-fit grows disproportionately at large `n`)
+  survives — directly visible in the raw ratio sequence `0.78×,0.83×,1.36×,2.31×,45×` against the
+  RAW U-statistic — but the specific "45×" headline number should not be quoted without naming
+  which denominator it uses.
+- **The stated root-cause mechanism is incomplete.** The cross-fit residual computation
+  (`_residual_mse`, code-verified) does NOT subtract the sample mean before squaring, so it
+  carries the SAME `(E[X])²`-type inflation attributed only to the raw U-statistic; the mechanism
+  also does not explain why cross-fit reads BELOW the other estimators at `n=127,251`.
+- **The one PERSISTED synthetic check does not actually support "discount cross-fit at large
+  `n`."** It used `β²Var(Z)/R_n≈135` (vs the real data's `≈3.6` at `n=37`), and on REAL `n=37`
+  data cross-fit was in fact the estimator closest to the exact reference. The qualitative
+  large-`n` divergence claim is still independently supported by the raw-ratio pattern, but NOT
+  by the one saved synthetic check, which was calibrated to an unrealistic regime.
+
+**Kill Analysis.** Nothing is killed. What IS established: (1) the `κ_n` reformulation's algebra
+is sound (a tautological restatement of point 12a's proven bound, not a new theorem); (2) the
+`Cov(X,Q)`-based `λ_n`, properly combined across Point 53 and this point, shows a real, `3.16σ`
+growth signal consistent with the exact small-`n` power law — reversing the first draft's
+"unconfirmed" reading; (3) the `δ`-based and `Cov`-based `λ_n`/`κ_n` estimators disagree by 8-20%
+at every tested `n`, an UNRESOLVED discrepancy that must be understood before `κ_n`'s own numbers
+can be trusted as precise; (4) the cross-fit `R_n` estimator does show real problems at large `n`,
+but the specific supporting claims needed substantial correction — a real, but more narrowly-
+scoped, methodological finding than first stated.
+
+**What this does NOT mean.** Does NOT mean the target hypothesis `Var(X_n)=O(1/n)` is supported or
+refuted. Does NOT mean `κ_n` is validated as a working "squared CV of `δ_i`" diagnostic — its two
+natural estimators disagree substantially and unresolved; treat both columns as preliminary. Does
+NOT mean the combined `λ_n` growth signal settles the target hypothesis — it is one `3.16σ` signal
+from a specific estimator with a known, unresolved reliability question, not a proof. Does NOT
+establish a new proof technique — this is a factorization of an inequality already proven at
+point 12a.
+
+**Skeptic Concerns (FL Step 8a — `reviewer`'s cap closed all session; `skeptic` substituted per
+`doubt-driven-development.md` § Independent Review Fallback Policy, context-asymmetric). Verdict:
+`FALSIFIED` — not "the core is wrong," but three claims directly contradicted the executed code
+(the promised `δ`-based estimator was not actually used; the internal-consistency check was
+tautological; "confirmed in two independent draws" for `κ_n` was fabricated, since Point 53 never
+computed `κ_n` at all), plus a real statistical fallacy in the `λ_n` significance comparison and
+several R_n-addendum overclaims. Every finding independently re-verified against the code and raw
+JSON/`.npz` files, not accepted on the review's word alone.**
+- Concern (F1, critical): "estimated from the SAME δ samples, Cov-based λ kept only as a
+  cross-check" is false — the sweep code only ever computes `λ=4·Cov(X,Q)`; `mean(δ)` is never
+  computed outside the small pilot. → **Fixed**: retracted, replaced with the honest `λ_δ`
+  computation from the saved `.npz` files, reported as an unresolved discrepancy.
+- Concern (F2): `kappa_hat_alt_consistency`'s `~1e-16` agreement is a tautology — both "paths" use
+  the identical `delta` and `lambda_hat` arrays, just reordered arithmetic. → **Fixed**:
+  description corrected to state it verifies arithmetic consistency, not estimator correctness.
+- Concern (F3, critical): "κ_n shows no significant trend in either of two independent draws" is
+  fabricated — Point 53's script never computes `δ_i`, `B_n`, or `κ_n` at all. → **Fixed**:
+  removed; `κ_n` was measured in exactly one run.
+- Concern (F4, critical — most consequential): the "two draws disagree on significance" framing
+  conflated non-overlapping-significance with a significant difference between the draws (a named
+  statistical fallacy) — reweighting gives `z=1.62` (not significantly different), and the correct
+  INVERSE-VARIANCE-COMBINED slope is `0.117±0.037`, `3.16σ` from zero. → **Fixed**: reversed from
+  "unconfirmed, draw-dependent" to "combined evidence is significant."
+- Concern (F5): the underlying `honest_power_law_fit`'s residual-based SE is itself underdispersed
+  relative to the points' own known uncertainty (`χ²=0.485` at `3` dof). → **Fixed**: superseded
+  by the reweighted analysis in F4.
+- Concern (F6): `κ_n`'s bootstrap CI dips below the Cauchy-Schwarz floor of `1.0` at `n=509,2039`
+  — mathematically impossible, direct evidence the Cov-based `κ̂` estimator is noise-contaminated.
+  → **Fixed**: added explicitly to the Sweep Results section.
+- Concern (F7): the "45×" cross-fit divergence ratio uses a denominator whose own CI crosses zero;
+  against the "trusted" corrected version the ratio flips sign to `−12.8×`. → **Fixed**: R_n
+  addendum rewritten to name which denominator any quoted ratio uses.
+- Concern (F8): the cross-fit residual computation doesn't subtract the sample mean, so it shares
+  the mean-bias mechanism attributed only to the raw U-statistic. → **Fixed**: noted explicitly.
+- Concern (F9): the one persisted synthetic check used an unrealistic signal-to-noise regime and,
+  on real `n=37` data, cross-fit was actually the BEST estimator. → **Fixed**: explicitly noted.
+- Concern (F10): the pilot sign check is decorative for every published number; the one place sign
+  matters (`λ_δ`) was untested against production data; code inspection confirms sign LOGIC is
+  correct, not a live bug. → **Fixed**: reframed as an overclaimed verification target.
+- Concern (F11): "CIs contain the exact reference `n·R_n=0.674`" is a literal unit error — CIs are
+  on the `R_n` scale (`≈0.018`), not `n·R_n`. → **Fixed**: corrected in the setup text.
+- Concern (D1-D4, dismissed): the `κ_n·λ_n²/(4m)=B_n` algebra, the U-statistic unbiasedness
+  derivation, the sweep table arithmetic/timings, and a log-bias alternative explanation all
+  independently re-verified as correct/negligible. → **Dismissed**, no action needed.
+- Concern (U1): `n·Var(X)` on this sweep's own 5 points implies a direct exponent of `≈-0.83`
+  (3-4σ from flat), consistent with the parent experiment's committed `-0.9126` exponent. →
+  **Accepted, added as context.**
+- Concern (U2): a sharper `n=37` oracle check (exact `U_n/Var(X)=1.060` vs observed `0.994`) is
+  more informative than "point estimate `≥1`" alone. → **Fixed**, added to Setup section.
+- Concern (U3): a single fixed test-generator index reduces precision relative to multi-index
+  averaging. → **Accepted limitation**: not fixed here, noted as a lever for a future resweep.
+- Concern (U4): the 3-way Oracle Adequacy Gate's three checks are not fully independent
+  (anti-correlated by construction). → **Fixed**, noted explicitly in Setup.
+
+**Known gap, stated explicitly**: the executing agent's own "recalibrated per-n synthetic check"
+remains unsaved to any script/JSON and is NOT cited as evidence anywhere in this corrected
+version — superseded by the concerns above, which ground every remaining claim in either the
+persisted JSON or a freshly-recomputed, independently-checked calculation from the saved `.npz`
+files.
+
+**Artifacts:** `check_kappa_n_large_n.py` (+`metrics/kappa_n_large_n.json`,
+`metrics/kappa_n_raw_samples_n{127,251,509,1021,2039}.npz`, `check_kappa_n_large_n_output.log`).
+
+## Point 55 (2026-09-14) — Point 54A/54B: `λ_n` estimator-identity audit is consistent with the
+identity but has LOW POWER against the exact discrepancy it was built to check (a planted 12%
+violation was missed at all 5 `n`); the higher-stakes question — does `|λ_n|` diverge? — gets a
+real answer from the MOST DIRECT test (fitting `n·Var(X_n)` itself, already-saved data, found only
+on skeptic-fallback review): SIGNIFICANT growth on the finite tested range (`t=3.877`), though
+asymptotic divergence is still not established
+
+**Context — why this is the highest-leverage open question in the experiment right now, per the
+user's own math, independently re-verified.** `Var(X_n)≥W_1=λ_n²/(4m)` follows trivially from
+Parseval (`Var(X)=Σ_{S≠∅}` squared Fourier coefficients `≥ Σ_{|S|=1}` squared coefficients `=W_1`
+— no new proof needed, an elementary consequence of an identity already used throughout points
+11-14). Since `m≍n/2`: `n·Var(X_n)≥n·W_1~λ_n²/2`. **If `|λ_n|→∞`, `Var(X_n)=O(1/n)` is FALSE** —
+not merely one proof route closing, the target hypothesis itself. This makes resolving Point 54's
+own unexplained `8-20%` discrepancy between its two `λ_n` estimators (`λ_Q=4Cov(X,Q)`,
+`λ_δ=-m·E[δ_i]`) the single most consequential open item in the experiment, ahead of `κ_n` or any
+Efron-Stein refinement — if `κ_n` grows, only the sharpened-bound route degrades; if `λ_n` grows
+without bound, the target itself is dead.
+
+**Point 54A — paired estimator-identity audit (`check_lambda_identity_audit.py`), run BEFORE any
+scaling claim, per the user's own proposed protocol: freeze scaling analysis until this clears.**
+Rather than comparing `λ_Q` and `λ_δ` as two separately-estimated quantities (Point 54's own weak
+approach — two individual bootstrap CIs, each wide, compared informally), this constructs a
+SINGLE paired statistic per replicate, exploiting that both terms come from the SAME graph draw:
+`Y_r := 4X_r(Q_r-m/2) + m·δ_r`, which has `E[Y_r]=0` exactly if the two already-established
+identities (`λ_n=4E[X(Q-m/2)]`, `λ_n=-m·E[δ_i]`) both hold. **Orientation of `δ_i` independently
+re-verified against the actual code** (not assumed): both branches of
+`check_kappa_n_large_n.py`'s `sample_x_q_delta` (lines 216-224) compute `value(i=0)-value(i=1)`
+regardless of the original sample's `i`-state — matches the required convention exactly. Each
+replicate draws exactly one graph (one `sample_circulant_neighbors` call), giving one paired
+`(X,Q,δ)` triple — no clustering/pseudoreplication concern (verified by direct code read, not
+assumed).
+
+**Result at all 5 tested `n`** (reusing the already-saved `.npz` files, zero new
+`theta_via_lp` calls):
+
+| n | reps | Ȳ | SE(Ȳ) | z | Y 95% CI | status |
+|---:|---:|---:|---:|---:|---|---|
+| 127 | 300 | +0.451 | 0.254 | +1.777 | [−0.055,0.934] | PASS |
+| 251 | 250 | +0.235 | 0.343 | +0.685 | [−0.444,0.910] | PASS |
+| 509 | 200 | −0.476 | 0.363 | −1.313 | [−1.221,0.213] | PASS |
+| 1021 | 150 | −0.259 | 0.605 | −0.429 | [−1.438,0.828] | PASS |
+| 2039 | 80 | −0.614 | 0.873 | −0.703 | [−2.453,0.984] | PASS |
+
+Max `|z|=1.78`, well under the pre-registered FAIL threshold `|z|≥3`.
+
+**Corrected after skeptic-fallback review — two claims here needed real fixing, not cosmetic.**
+(1) **"The paired test has far more power" was checked and is FALSE.** Directly computed
+`corr(λ_Q,λ_δ)` from the bootstrap draws at each `n`: `+0.112, −0.013, +0.150, −0.128, −0.213`
+(127→2039) — near zero, and NEGATIVE at 3 of 5 `n`. A paired test only gains power when the two
+terms are POSITIVELY correlated; here they mostly aren't, so pairing gives CORRECT CALIBRATION
+(the naive independent-CI comparison is anti-conservative by `~13%` at `n=2039`, since it ignores
+this same near-zero/negative correlation), not a power advantage — the claimed mechanism was
+wrong even though using the paired statistic was still the right thing to do.
+(2) **A planted-canary check (run independently, not part of the original script) shows the gate
+is UNDERPOWERED against the exact 8-20% effect it exists to catch.** Re-ran the identical test
+with `m·δ_r` deliberately scaled by `1.12×` (a planted 12% violation) — **this canary was MISSED
+(status stayed PASS) at all 5 `n`**, with `z` ranging `+2.86` (`n=127`, closest to the `|z|≥3`
+threshold) down to `−0.28` (`n=2039`). Formal power against the actual observed `8-20%`-scale
+discrepancy is roughly `2-10%` per `n` (estimated from each `n`'s own `y_se`) — far below a
+usable detection threshold at any single `n`. **The pooled (inverse-variance-combined) test across
+all 5 `n` is more informative**: `Ȳ_pooled=0.108±0.167`, `z=0.65` — this DOES meaningfully bound
+a CONSTANT relative bias across `n` at roughly `≲13%`, ruling out the upper half of Point 54's
+`8-20%` discrepancy range as a systematic (rather than per-`n`-random) effect, but not the lower
+half, and not a bias that varies in sign/magnitude across `n` (which the per-`n` signs
+`+,+,−,−,−` are at least consistent with being).
+
+**Honest conclusion, replacing "PASSES cleanly": the identity is SUPPORTED, not proven clean** —
+no single `n` individually rules out the observed discrepancy as a real (as opposed to noise)
+effect, the pooled test rules out a constant bias above `~13%`, and the qualitative pattern (both
+signs present, no monotonic trend) is more consistent with noise than a systematic bug, but this
+is a weaker, more honestly-scoped claim than the original "PASS at all 5 `n`, discrepancy
+resolved" framing implied.
+
+**Point 54B — `λ_n` scaling via the variance-optimal combined estimator
+(`check_lambda_optimal_scaling.py`), unblocked by 54A's result.** Since `λ_Q` and `λ_δ` are
+correlated (same-sample) unbiased estimators of the same `λ_n`, computed their GLS-optimal linear
+combination per `n` via the empirical bootstrap covariance matrix.
+
+| n | λ_Q (SE) | λ_δ (SE) | weight on λ_Q | λ_opt | SE(λ_opt) | var. reduction |
+|---:|---|---|---:|---:|---:|---:|
+| 127 | −2.187 (0.198) | −2.631 (0.183) | 0.457 | −2.428 | 0.142 | 40.2% |
+| 251 | −2.614 (0.261) | −2.837 (0.215) | 0.406 | −2.747 | 0.165 | 41.2% |
+| 509 | −2.928 (0.336) | −2.441 (0.192) | 0.208 | −2.542 | 0.177 | 15.3% |
+| 1021 | −3.437 (0.482) | −3.172 (0.307) | 0.311 | −3.254 | 0.243 | 37.3% |
+| 2039 | −3.481 (0.667) | −3.023 (0.392) | 0.295 | −3.158 | 0.303 | 40.1% |
+
+**Skeptic-fallback correction on the 15-41% variance-reduction figures above**: these are
+IN-SAMPLE (the GLS weight `w` is estimated from the same bootstrap draws used to compute the
+resulting variance, a form of winner's-curse optimism), and `se_opt` does not propagate the
+weight's own estimation uncertainty. Both effects bias `se_opt` DOWNWARD — e.g. at `n=2039`
+(`ρ̂=−0.213`), if the true correlation were `0`, the real variance reduction would be `~25.6%`, not
+the reported `40.1%`. **This means the `t`-statistics below are, if anything, slightly OVERSTATED
+(too significant), reinforcing rather than undermining the "not yet significant" reading that
+follows** — accepted as a known limitation, not fixed here.
+
+**Global weighted power-law fit on `|λ_opt|` (independently re-verified, exact match):** slope
+`0.100±0.033`, `t=3.01` at `3` degrees of freedom (5 points, 2 fitted parameters). **Skeptic-
+fallback review found this framing incomplete: there are (at least) two different, both-legitimate
+statistical conventions for the effective degrees of freedom here, and they disagree on the
+verdict.** Treating `sigma` as KNOWN (from the per-point bootstrap CIs, the convention used above)
+gives a NORMAL reference distribution: `z=3.01`, `p=0.0026` — significant. Treating `sigma` as
+ESTIMATED (rescaling the covariance by the reduced chi-square, `χ²=3.85` at `dof=3`, giving
+`reduced χ²=1.285`) gives `se=0.0378`, `t=2.66` — NOT significant. **The `t_crit(dof=3)=3.18`
+comparison used in the first draft was itself a hybrid of these two conventions** — defensible as
+a conservative middle ground, but not "the correct" reading as originally implied; both legitimate
+readings are reported here instead of picking one. **Separately, this same underlying `λ_Q` data
+already has a THIRD, already-committed fit in `metrics/kappa_n_large_n.json`
+(`lambda_n_power_law_fit_vs_n`): unweighted OLS on `λ_Q` alone gives `slope=0.173±0.023`, CI
+`[0.099,0.247]` — EXCLUDING zero.** Three conventions, applied to closely related but not
+identical quantities, give three different significance verdicts — reported here explicitly (the
+log-slope difference between `λ_Q`-alone and `λ_δ`-alone estimates, `0.118±0.091`, is itself not
+significant, `z=1.30` — so this is a genuine framing sensitivity, not a sign of a real
+contradiction in the underlying data).
+
+**A more direct, better-powered test was missing from this point entirely and is added here on
+skeptic-fallback review: fitting `n·Var(X_n)` itself (the target quantity, not a proxy) using the
+same already-saved data (`var_x_hat` in `metrics/kappa_n_large_n.json`), with no new compute.**
+Weighted power-law fit (known-variance convention, `σ_log=√(2/(reps-1))` from the chi-square
+sampling distribution of a sample variance): **slope=0.1965±0.0507, t=3.877 — this DOES clear
+`t_crit(dof=3)=3.18`, significant.** The fit's own `χ²=0.968` at `dof=3` (close to the expected
+value of `3`, i.e. well-calibrated, unlike the `λ_opt` fit above which was mildly underdispersed)
+— this is currently the SINGLE MOST DIRECT, best-supported piece of evidence in this point that
+`n·Var(X_n)` is growing over the tested finite range, and it was found only on review, not in the
+original draft, despite requiring zero new computation. It does not, by itself, establish
+asymptotic divergence (see the local-slope discussion below for why), but it materially shifts
+this point's own honest headline from "genuinely open, no significant signal" to "significant
+growth detected on the finite tested range via the most direct available test; asymptotic
+behavior remains the open question."
+
+**Local slopes between fixed-ratio `n`-pairs (each spanning almost exactly a factor of `4`), to
+distinguish "slow but steady growth" from "growth trending toward a plateau" (`a_local→0`):**
+
+| pair | local slope | SE | z |
+|---|---:|---:|---:|
+| `127→509` | 0.033 | 0.065 | 0.51 |
+| `251→1021` | 0.121 | 0.068 | 1.77 |
+| `509→2039` | 0.156 | 0.085 | 1.83 |
+
+None of the three local slopes individually reaches conventional significance (`|z|<2` for all
+three). **Corrected after skeptic-fallback review: the first-vs-last local-slope comparison had a
+covariance error.** The `127→509` and `509→2039` local slopes SHARE the point `n=509` (with
+opposite-sign roles), so they are not independent — the first draft's naive `√(se1²+se3²)=0.108`
+ignored this shared-point covariance. Correctly propagating it gives `se_diff=0.129`, `z=0.96` —
+even LESS significant than first reported (`z=1.15`), reinforcing rather than reversing the "not
+distinguishable" conclusion, but for the right reason this time. **A second, independent
+instability was also found on review**: the apparent RISING pattern (`0.033→0.121→0.156`) is
+driven almost entirely by the single point `n=509` — which has near-zero leverage on the GLOBAL
+weighted fit but enters TWO of the three local slopes with opposite signs. Replacing `λ_opt(509)`
+with a simple (non-GLS) average of its two component estimators changes the local-slope sequence
+to `0.072, 0.121, 0.117` — essentially FLAT, not rising. **Honest conclusion, strengthened rather
+than weakened by these corrections: this data cannot currently distinguish accelerating growth,
+constant slow growth, or growth trending toward a plateau — the apparent "rising" shape in the
+first draft was itself an artifact of a single point's estimator choice, not a real signature.**
+The critical falsification-relevant question for the ASYMPTOTIC exponent — does `|λ_n|`
+(equivalently `n·Var(X_n)`, per the direct test above) diverge without bound? — remains genuinely
+open at the level of local-slope shape, even though the GLOBAL, better-powered `n·Var(X_n)` fit
+above DOES show significant growth on the tested finite range.
+
+**Kill Analysis.** Nothing is killed. What IS established, corrected after skeptic-fallback
+review: (1) the estimator-identity audit SUPPORTS the identity but has low per-n power (2-10%
+against the observed 8-20% discrepancy, confirmed by a missed planted-12%-canary at all 5 `n`) —
+the pooled test rules out only a constant bias above `~13%`, weaker than "resolved as noise"; (2)
+a lower-variance combined `λ_n` estimator exists (with real in-sample-optimism caveats on its own
+reported gains); (3) **the single highest-stakes open question gets a real answer from the most
+direct available test**: `n·Var(X_n)` itself shows SIGNIFICANT growth on the tested finite range
+(slope=0.1965±0.0507, t=3.877, clearing `t_crit=3.18` with a well-calibrated `χ²=0.968` at
+`dof=3`) — found only on review, despite using already-saved data. This is meaningfully different
+from "genuinely open": there IS a real, well-powered signal of growth over `n=127..2039`; what
+remains open is whether this finite-range growth continues asymptotically or represents
+finite-size correction toward a bounded limit — the (itself now-corrected) local-slope analysis
+cannot yet distinguish these two scenarios.
+
+**What this does NOT mean.** The `n·Var(X_n)≥n·W_1~λ_n²/2` "no threshold" correction from the
+first draft is independently re-verified and stands: ANY genuine asymptotic growth in `|λ_n|` (or
+`n·Var(X_n)`) refutes `Var(X_n)=O(1/n)`, no exponent condition needed. Does NOT mean
+`Var(X_n)=O(1/n)` is established false — the significant finite-range slope found here does not
+by itself establish that growth is UNBOUNDED as `n→∞` rather than a finite-size correction that
+will plateau; this is exactly the question the local-slope analysis was built to resolve, and
+(even after correcting its own errors) it still cannot. Does NOT mean the identity audit
+generalizes to other quantities — it addressed specifically the `λ_Q`/`λ_δ` estimator pair, with
+the important caveat (per skeptic review) that its own detection power was much lower than the
+original draft implied. Does NOT settle `κ_n`'s own Cauchy-Schwarz-violating CI (Point 54's
+Concern F6), unresolved by this point.
+
+**Recommended next steps, stated but not executed here.** (1) The `n·Var(X_n)` finding is the
+highest-value follow-up: extend the SAME direct fit to more/larger `n`, and compute its own local
+slopes (not done here) to check whether IT shows the plateau signature the `λ_opt` local slopes
+could not resolve. (2) Re-run the identity audit sweep with the rep budget reallocated toward the
+largest `n` (currently the noisiest, `80` reps at `n=2039`) to raise its own detection power above
+the current 2-10%. (3) A genuinely independent oracle for the `λ_n`/`n·Var` growth question — e.g.
+exact small-`n` data extended past `n=53` via the necklace-orbit method, if computationally
+reachable — would settle the finite-vs-asymptotic ambiguity more directly than any further Monte
+Carlo resweep at the current `n` range.
+
+**Skeptic Concerns (FL Step 8a — `reviewer`'s cap closed all session; `skeptic` substituted per
+`doubt-driven-development.md` § Independent Review Fallback Policy, context-asymmetric). Verdict:
+`WEAKENED` — the core identity holds and the overall "genuinely open" framing survives, but
+several supporting claims were wrong or overstated, and one major, better-powered finding
+(`n·Var(X_n)` itself grows significantly on the tested range) was missing entirely from the first
+draft despite costing zero new compute. Every number independently re-verified from the raw
+JSON/`.npz` files, not accepted on the review's word alone.**
+- Concern: `E[Q]=m/2` and `E[X]=0` are treated as approximate in the identity derivation. →
+  **Dismissed** — both confirmed EXACT: `Q~Bin(m,1/2)` by construction (`sample_circulant_
+  neighbors`'s own i.i.d. Bernoulli(1/2) sampling, re-read directly), and `E[X]=0` follows exactly
+  from `θ(G)θ(Ḡ)=n` (points 4/11) plus the `c↔1-c` measure symmetry — confirmed numerically via
+  `mean_x_hat` values all within 1-2 SE of zero.
+- Concern: "the paired test has far more power than the naive comparison" is false — measured
+  correlation between the two component estimators is near zero and negative at 3 of 5 `n`. →
+  **Fixed**: claim retracted and replaced with the correct framing (pairing gives calibration, not
+  power), correlations reported explicitly.
+- Concern: "PASSES cleanly" overclaims what the gate actually established — the code's own
+  `INCONCLUSIVE` branch is unreachable dead code, and a planted 12% violation is missed at every
+  tested `n` (power 2-10%). → **Fixed**: reframed as "identity supported, not proven clean,"
+  planted-canary result and per-`n` power reported, pooled test's real (but partial, ~13%-bias-
+  ceiling) information content stated explicitly instead of a blanket "resolved."
+- Concern: the GLS-optimal combined estimator's reported 15-41% variance reduction is in-sample,
+  likely overstating the reduction and understating `se_opt`. → **Accepted limitation**: noted
+  explicitly; the resulting bias makes the downstream `t`-statistics, if anything, slightly
+  overstated, so the "not yet significant" reading for `λ_opt` is not undermined by this.
+- Concern: the "t=3.01 vs t_crit=3.18" framing used a hybrid of two different statistical
+  conventions, and disagrees with an already-committed fit on the same underlying `λ_Q` data. →
+  **Fixed**: both conventions reported explicitly (z=3.01 significant vs t=2.66 not significant),
+  the third existing fit cited, and the log-slope difference between the two component estimators
+  checked directly (not itself significant, z=1.30).
+- Concern (the single highest-value finding): a more direct, better-powered test of the target
+  quantity (`n·Var(X_n)` itself) was available for free from already-saved data and was not run.
+  → **Fixed**: computed and independently re-verified — slope=0.1965±0.0507, t=3.877, clears the
+  significance threshold with a well-calibrated fit (χ²=0.968 at dof=3) — added as the point's own
+  headline finding, materially changing the overall verdict.
+- Concern: the local-slope first-vs-last comparison's SE ignored that the two slopes share the
+  point `n=509` with opposite-sign roles, understating the true SE. → **Fixed**: corrected SE
+  (0.129, not 0.108) and z (0.958, not 1.15) computed and substituted.
+- Concern: the apparent "rising" local-slope pattern is driven almost entirely by `n=509`'s
+  specific GLS point estimate; replacing it with a simple average removes the rising pattern. →
+  **Fixed**: instability noted explicitly, and the "rising" framing retracted.
+- Concern: table arithmetic, wall-clock, rep counts, sign-orientation code read. → **Dismissed**
+  as real issues — all independently re-verified and confirmed correct on direct inspection of
+  the code and JSON.
+
+**Artifacts:** `check_lambda_identity_audit.py` (+`metrics/lambda_identity_audit.json`,
+`check_lambda_identity_audit_output.log`), `check_lambda_optimal_scaling.py`
+(+`metrics/lambda_optimal_scaling.json`, `check_lambda_optimal_scaling_output.log`).

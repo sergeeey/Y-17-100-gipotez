@@ -1931,6 +1931,116 @@ nodes:
 
   - id: H-CAT31-3
     type: hypothesis
+    # Codex independent attempt 2026-09-14 (no status promotion): derivation and code in
+    # experiments/20260910-lovasz-theta-variance-scaling-cat31-3/codex-20260914-susceptibility/.
+    # Zero-mean quadratic density control removes first-chaos score noise; generic
+    # complement/monotonicity/mean properties alone permit both 1/n and log(n)/n.
+    # See THEORY.md for the explicit artificial countermodels (NOT actual Lovasz graphs).
+    # The target asymptotic variance bound remains OPEN; finite growth cannot exclude a plateau.
+    # Fresh independent Monte Carlo endpoint test completed (128 graphs at each n=127,2039):
+    # lambda=-2.646047/-3.182723; growth contrast=0.536676, Welch CI=[0.182364,0.890988].
+    # Frozen old-data control coefficients reduce score variance by 7.29x/9.95x on fresh draws.
+    # Bounded L-B/sqrt(n) model remains compatible with both old and fresh observations.
+    # Simulation evidence for the finite contrast only; no independent mathematical reviewer.
+    # UPDATE 2026-09-14 (first-chaos decomposition; no status change): cross-fit residual
+    # with training-uncertainty correction and algebraic U-statistic cross-check give
+    # W1/V≈0.61..0.91 and nR≈0.76..1.05 on old n=127..2039. Old endpoint CIs contain
+    # zero for both nW1 and nR, so the pre-registered formal route decision is INCONCLUSIVE.
+    # On independent 128+128 fresh graphs, nW1 increases by 1.536, CI=[0.447,2.562],
+    # while nR remains unresolved. Thus lambda/susceptibility is the single practical
+    # mathematical priority, but the asymptotic O(1/n) question remains OPEN. The free
+    # diagnostic g_n=E[theta]-sqrt(n) decreases significantly and does not falsify O(1/n).
+    # UPDATE 2026-09-14 (one Lovasz-specific lemma, pre-registered cheap kill; no status
+    # change): a positive-Fourier convolution repair gives the exact deterministic bound
+    # delta_i<=B_i and would imply bounded lambda if E[B_i]=O(1/n). Exhaustive n=11
+    # verified the inequality (max violation 1.22e-15), but the certificate is far too
+    # loose: mean B=0.406/0.491/0.561 vs actual delta=0.04198/0.01030/0.00253 at
+    # n=127/509/2039; endpoint looseness 222x and nE[B] growth ratio 22.18. Predeclared
+    # verdict KILLED-AS-CURRENT-CERTIFICATE, not a rejection of other Fourier repairs.
+    # UPDATE 2026-09-14 (localized positive-slack repair; no status change): exact
+    # delta_i<=B_i^loc obtained by deleting only x_i,x_-i and adding the minimal uniform
+    # interior mixture required for y>=0. Exhaustive n=11 and an independent full-n LP
+    # formulation passed, but the predeclared scale gate failed: mean B=0.2845/0.1605/
+    # 0.08146 at n=127/509/2039, nE[B] endpoint ratio 4.597, endpoint looseness 32.23.
+    # The local bound improves global convolution 6.89x but empirically scales n^-0.451,
+    # tracking mean|x_i|~n^-0.502 rather than the true one-edge loss ~1/n. Verdict:
+    # KILLED-AS-CURRENT-CERTIFICATE. Do not retry uniform-interior repair at a new size.
+    # UPDATE 2026-09-14 (proposed Stein/M_-1 test audited before compute; no status change):
+    # the suggested 0.51->0.39 sequence is the normalized ratio M_-1/(C_q/gamma_1),
+    # not M_-1; actual M_-1=0.03192->0.02345 with descriptive 7-point slope -0.422.
+    # The computation is already Point 42. More importantly, M_-1=O(1/n) would at most
+    # control central-layer C_q=O(1/n), while Efron-Stein needs layer-aggregated
+    # E[delta_i^2]=O(1/n^2) for Var(X)=O(1/n); A_q^2 and all layers are missing, and
+    # Var(h)=<h,L L^-1h> is tautological. Verdict DUPLICATE-AND-INVALID-IMPLICATION;
+    # no new theta/CG solve. The n^-1/2 repair barrier remains empirical for two explicit
+    # constructions, not a theorem closing every possible primal-certificate argument.
+    # UPDATE 2026-09-14 (old optimal-face maximin slack test; no status change): a
+    # secondary LP maximized minimum post-deletion Fourier slack across ALL frequencies
+    # on the exact OLD optimal face, without imposing x_i=0 or optimizing perturbed value.
+    # Face-adapted and canonical bounds coincide on fixed 12+12 graphs n=127,509:
+    # improvement 1.000000000/1.000000001; endpoint looseness 15.59, nE[B] ratio
+    # 2.261 with growth CI [16.63,73.17]. Exhaustive n=11 and independent full-n LP
+    # passed. Verdict KILLED-AS-CURRENT-MECHANISM. This does NOT prove the face is a
+    # singleton; it closes this strongest direct maximin-slack selection functional.
+    # Explicit primal-repair family parked; next priority is direct dual/value curvature.
+    # UPDATE 2026-09-14 (Point 57 signed shadow-price path; status unchanged): this is a
+    # quantitative continuation of Point 6's missing dual-multiplier condition, not a fifth
+    # independent LP-sensitivity theory. After correcting the proposal to allow signed alpha,
+    # bracket rather than hit the PL breakpoint, and measure the joint area proxy, all 16 n=11
+    # dual identities passed (max error 1.78e-15). On fixed 12+12+12 graphs n=127/509/2039,
+    # mean A=6.250/6.042/6.083, H=n*q0/theta=2.122/2.015/1.924, and
+    # nE[B_SP]=19.518/15.803/15.749; endpoint ratios 0.973/0.907/0.807 and every independent
+    # bootstrap growth CI contains zero. All samples are finite/bracketed; endpoint bound is
+    # 3.06x actual mean delta. Verdict VIABLE-MECHANISM over the tested range, NOT a theorem or
+    # status promotion. Exact-face equality was numerically brittle at large n, so q0 is safely
+    # upper-bounded on a common 1e-7*theta-optimal superlevel. Next and only proof target is a
+    # joint Lp/Lq/tail lemma for true signed width a_i* and n*u_i/theta with distance from z=1.
+    # UPDATE 2026-09-15 (Point 58 factor-3 shadow moments; no status change): Point 57's grid
+    # A<=16 was censored and discarded as tail evidence. For odd n, chi(H_i)=3 gives
+    # theta(G union H_i)>=theta(G)/3; weak Lagrangian duality then yields the simpler exact
+    # rectangle delta_i<=(3 log(3)/(2n))*A_i*K_i for an actual equality multiplier and ANY old
+    # optimizer. Uniform conjugate moments (L2-L2 suffices) are therefore the one proof target;
+    # no optimal-face max or distance-from-z=1 assumption remains. On fixed 12+12+12 graphs,
+    # all endpoint L2/L4 norm ratios for A,K,AK are 0.909..0.970, DS/IPM agree in 36/36, and
+    # independent arithmetic/direct-LP/exhaustive-n11 checks pass. Verdict SURVIVES-PILOT only:
+    # AK bootstrap upper ratio limits 2.16/2.31 expose inadequate tail power. Next test must use
+    # substantially more independent graphs, preserving paired A,K. H-CAT31-3 remains OPEN;
+    # bounded susceptibility would still leave R_n and composite-n gaps.
+    # UPDATE 2026-09-15 (Point 59 fresh shadow-tail audit; no status change): 48+48 new
+    # independent endpoint graphs give L2/L4 ratios A=0.949/0.861, K=1.157/1.142,
+    # AK=1.351/1.437. No CI is wholly above 1 (not killed), but AK upper limits 2.109/2.060
+    # miss the stronger <2 survival gate: INCONCLUSIVE. Top 10% contribute 95% of AK's fourth
+    # moment at n=2039 and A-K correlation is 0.896/0.922 (Pearson/Spearman), so pairing/tails
+    # are essential. DS/IPM agree 96/96 and independent verification passes. Do not repeat an
+    # identical MC batch; next candidate is an aggregate all-absent-coordinate shadow budget
+    # whose exchangeable average would directly control E[AK]. Main theorem remains OPEN.
+    # UPDATE 2026-09-15 (Points 60-62 aggregate-budget arc; no status change): Point 60's
+    # finite random gate found B=sum_absent|alpha_i*x_i|/theta means 1.286/2.241/2.256 and
+    # maxima 2.813/3.564/3.966 at n=31/61/127; 850-coordinate independent check passed.
+    # Point 61 then killed the implied all-graph C=4 lemma: empty-graph B=m[n-theta(C_n)]/n
+    # ~n/4 (31.505 at n=127). Point 62 tested post-hoc B<=2m/(Q+1) on exhaustive small n
+    # plus 32+32 fresh n=127/251 graphs; three fresh counterexamples, worst ratio 1.1481,
+    # independently reproduced. Do not tune 2 post-hoc. A structurally derived finite C in
+    # C*m/(Q+1) could still work distributionally, but aggregate variants are parked without
+    # such a derivation. Point 58 rectangle survives; E[AK], R_n, composite n remain OPEN.
+    # UPDATE 2026-09-15 (Point 63 cross-complement energy; no status change): for optima
+    # x of old G0 and w of complement(G0 union H_i), support intersection, Parseval,
+    # Fourier positivity, and theta-complement identity give delta_i<=2*x_i*w_i.
+    # The unique minimum-L2 selector plus conditional complement symmetry and prime orbit
+    # transitivity yields |lambda_n|<=2(E||x*||_2^2-1)=2(nE||y*||_2^2-1).
+    # Frozen 12+12+12 pilot n=127/509/2039 has mean energy 3.745/3.999/4.083;
+    # endpoint mean/median/q90 ratios 1.090/1.131/0.961, mean-ratio CI [0.989,1.197].
+    # Verdict SURVIVES-PILOT only. KKT certificates, direct cross-complement checks, and
+    # exhaustive conditioned n=11 pass. Published nullspace machinery gives only a derived
+    # O(log^3 n) ceiling; live target POL is O(1) positive-optimal energy. Composite n and
+    # R_n remain OPEN, so H-CAT31-3 stays lead.
+    # UPDATE 2026-09-15 (Point 64 energy anatomy; no status change): prime cyclic
+    # uncertainty gives s=|supp y|>=2Q+1 and energy factors exactly as
+    # n||y||^2=(n/s)(1+CV_support^2). Binomial Q bounds E[n/s] absolutely, isolating
+    # positive-optimal weight unevenness as the live analytic burden. Frozen 36-graph
+    # diagnostic: mean n/s=1.890/2.025/2.001 and mean 1+CV2=1.980/1.970/2.040;
+    # primary support equals 2Q+1 in all cases, threshold spread <=3.90%. Verdict
+    # BOTH-STABLE-PILOT only. Next lemma must bound CV moments, not rename them.
     title: "Direct follow-up from the deep external novelty audit's own Track 1 finding (re-analysis of H-CAT31-1's committed data suggested Var(log(theta(G)/sqrt(n))) ~ n^-0.96): on a wider n range (32..3000, up from 10..2560) with more replicates (40-300 vs the original's tapering 25->6), is the exponent consistent with exactly -1 (Var =~ C/n)?"
     status: lead                   # 2026-09-10 decision.md: REJECTED for the pre-registered exponent=-1 hypothesis specifically, but the underlying phenomenon (variance shrinks with n as a stable, precisely-measured power law) survives -- Kill Analysis distinguishes the two. Weighted-OLS fit across 9 points (n=32..3000, 40-300 reps each): slope=-0.9126, SE=0.0264, 95% CI=[-0.9751,-0.8501] -- excludes -1.0 (and -0.5, -2.0) with real precision, not a wide inconclusive interval. Stability check (slope on n=32..1024 subset = -0.900 vs n=256..3000 subset = -0.897) shows no drift toward -1 as n grows, arguing against a simple finite-size-correction-toward-(-1) explanation. Substrate gate (theta(C_5)=sqrt(5) exact, theta(G)*theta(Gbar)=9 exact) and negative control (p=0 gives Var=0.0 exactly) both passed before trusting any new large-n solve.
     # UPDATE 2026-09-13 (research-audit, score 8/10): decision.md extended to Point 48 via
@@ -2032,9 +2142,55 @@ nodes:
     # sweep). lambda_n's own growth rate is bounded only to "slower than ~log n" (slope
     # 0.046+-0.039), not "no growth" as first drafted -- implied Var(X_n) exponent range
     # [-1.16,-0.66] is ~15x wider than the parent experiment's own committed CI.
+    #
+    # UPDATE 2026-09-14 (Point 54, kappa_n diagnostic decomposition): user math correction caught
+    # BEFORE running anything -- kappa_n:=B_n/W_1=E[delta_i^2]/E[delta_i]^2 combined with
+    # lambda_n=-m*E[delta_i] substitutes back to EXACTLY point 12a's already-proven V_n<=(B_n+2W_1)/3
+    # (independently re-verified algebraically) -- this is a diagnostic factorization of an existing
+    # bound, NOT a new proof route, corrected explicitly before writeup (same Novelty Check discipline
+    # as point 53's Piece A/B). n=37 Oracle Adequacy Gate (3-way: n*W1, kappa, n*Var(X) all vs exact
+    # committed references) passed. Large-n sweep (n=127..2039): kappa_n shows no significant trend
+    # (slope -0.249+-0.107, CI contains 0); lambda_n's growth signal is DRAW-DEPENDENT -- significant
+    # in this run (slope 0.173+-0.023) but NOT in point 53's own independent draw at the same n range
+    # (0.046+-0.039) -- neither established as O(1) with reproducible power. Real methodological
+    # finding, independent of the target hypothesis: the R_n cross-fit estimator diverges badly at
+    # large n (ratio to U-statistic grows 0.78x->45x from n=127 to n=2039, directly verified from
+    # persisted JSON), root cause algebraically confirmed (R_U_hat unbiased for R_n+(E[X])^2, not R_n
+    # itself); U-statistic (corrected) stays reliable across the whole range.
+    #
+    # RETROACTIVE CORRECTION 2026-09-14 (skeptic-fallback review verdict FALSIFIED, extensively
+    # addressed): the "delta-based lambda replaces Cov-based" claim was FALSE -- the sweep code only
+    # ever used lambda=4*Cov(X,Q) (same as point 53). Zero-cost check against saved .npz files found
+    # the two natural lambda_n estimators (Cov-based vs delta-based) disagree by 8-20% at EVERY tested
+    # n -- an unresolved discrepancy, kappa_n's own numbers are preliminary pending it. "kappa_n
+    # confirmed stable in two independent draws" was fabricated (point 53 never computed kappa_n at
+    # all). The lambda_n verdict itself was REVERSED: the original "draws disagree on significance"
+    # was a difference-of-significance statistical fallacy -- properly reweighted and combined across
+    # points 53+54, slope=0.117+-0.037, 3.16-sigma from zero, matching the exact small-n power law
+    # direction. Cauchy-Schwarz proof that kappa_n>=1 always, yet its own CI dips below 1.0 at 2/5 n --
+    # direct evidence of noise contamination from the Cov-based lambda estimator. R_n addendum's "45x"
+    # headline number used an unstable (CI-crossing-zero) denominator (flips to -12.8x against the
+    # "trusted" version); the one saved synthetic check was calibrated to an unrealistic regime and
+    # does not support "discount cross-fit" (on real n=37 data cross-fit was actually the BEST
+    # estimator). Qualitative cross-fit divergence at large n survives from the raw ratio sequence
+    # alone; several of its original supporting specifics did not.
+    #
+    # UPDATE 2026-09-14 (Point 55, Point 54A/54B): the identity audit E[4X(Q-m/2)+m*delta]=0
+    # PASSES cleanly at all 5 n (max|z|=1.78, threshold 3) via a paired per-replicate test -- point
+    # 54's 8-20% discrepancy between its two lambda_n estimators is Monte Carlo noise, not a bug or
+    # a different estimand. This unblocks the higher-stakes question: Var(X_n)>=W_1=lambda_n^2/(4m)
+    # trivially (Parseval), so ANY genuine unbounded growth of |lambda_n| (no threshold on the
+    # exponent needed) directly FALSIFIES the target Var(X_n)=O(1/n) itself, not merely closes one
+    # proof route. A variance-optimal combined lambda_n estimator (15-41% variance reduction) gives
+    # a global weighted slope 0.100+-0.033 on the finite tested range, t=3.01 at 3 dof -- just SHORT
+    # of the correct small-sample significance threshold (t_crit=3.18). Local slopes between
+    # fixed-ratio n-pairs (0.033/0.121/0.156) are not individually significant nor significantly
+    # different from each other -- cannot currently distinguish accelerating growth, constant slow
+    # growth, or convergence toward a plateau. The single highest-leverage open question in this
+    # experiment remains genuinely unresolved, not merely another closed proof route.
     evidence: VERIFIED-REAL        # metrics/run.json (9 n-values, 40-300 reps each, bootstrap 95% CIs on variance, weighted+unweighted OLS fit); 8 tests incl. synthetic-ground-truth sanity checks confirming fit_exponent() correctly recovers a known -1 exponent AND correctly rejects a -2 exponent (not vacuously always CONFIRMED), plus a seed-collision check against H-CAT31-1/2
     evidence_mode: simulation      # ADR-122: Monte Carlo sampling of the random-circulant-graph ensemble, not exhaustive, not a real-world dataset
-    verification_strength: weak    # UPDATED 2026-09-14 (point 53): the root n^-0.9126 exponent claim itself is still Standard-tier self-review only (per ADR-122, unchanged). Points 44-53's follow-on work DID receive repeated FL Step 8a reviews (skeptic substituting for reviewer per doubt-driven-development.md fallback policy -- reviewer's cap was closed this session): points 44/45 CONFIRMED-REAL, point 47 CONFIRMED-REAL then itself overturned, point 48 WEAKENED (epistemic ≈-vs-≤ overclaim caught and fixed), point 49 WEAKENED (feasibility claim survived, A_n's evidentiary weight corrected down), point 50 WEAKENED (empirical construction held, but the first draft's own "process finding" contained a factual error caught only on a second review pass), point 51 WEAKENED->rewritten (H2's own falsification criterion had not actually fired), point 52 WEAKENED (verification-story overclaim on "independent" cross-checks, and a Kill Analysis that materially underclaimed what the exact data already closed, both caught and fixed; itself then given a direct user RETROACTIVE CORRECTION for a finite-range-vs-asymptotic overclaim), point 53 WEAKENED (2 factual citation errors, 1 arithmetic cost-projection error, an overclaimed "no runaway growth" reading, AND a real zero-cost signal the first draft had discarded, all caught on one review pass). "weak" reflects mixed strength across the node's sub-claims, not a single verdict -- the pattern of near-miss overclaims caught by adversarial review (not self-caught) across 44-53 is itself worth a patterns.md entry (the correction pattern itself, not any individual finding, per point 50's own corrected process-finding text).
+    verification_strength: weak    # UPDATED 2026-09-14 (point 54): the root n^-0.9126 exponent claim itself is still Standard-tier self-review only (per ADR-122, unchanged). Points 44-54's follow-on work DID receive repeated FL Step 8a reviews (skeptic substituting for reviewer per doubt-driven-development.md fallback policy -- reviewer's cap was closed this session): points 44/45 CONFIRMED-REAL, point 47 CONFIRMED-REAL then itself overturned, point 48 WEAKENED (epistemic ≈-vs-≤ overclaim caught and fixed), point 49 WEAKENED (feasibility claim survived, A_n's evidentiary weight corrected down), point 50 WEAKENED (empirical construction held, but the first draft's own "process finding" contained a factual error caught only on a second review pass), point 51 WEAKENED->rewritten (H2's own falsification criterion had not actually fired), point 52 WEAKENED (verification-story overclaim on "independent" cross-checks, and a Kill Analysis that materially underclaimed what the exact data already closed, both caught and fixed; itself then given a direct user RETROACTIVE CORRECTION for a finite-range-vs-asymptotic overclaim), point 53 WEAKENED (2 factual citation errors, 1 arithmetic cost-projection error, an overclaimed "no runaway growth" reading, AND a real zero-cost signal the first draft had discarded, all caught on one review pass), point 54 caught its own algebra-not-new-inequality overclaim BEFORE running anything (user math correction), then skeptic-fallback review FALSIFIED three of its verification claims (a promised delta-based estimator was not actually used; an internal-consistency check was tautological; "confirmed in two independent draws" for kappa_n was fabricated) plus a real statistical fallacy in the lambda_n significance comparison -- all extensively addressed, with a genuinely unresolved 8-20% discrepancy between kappa_n's two natural estimators left open rather than papered over. "weak" reflects mixed strength across the node's sub-claims, not a single verdict -- the pattern of near-miss overclaims caught by adversarial review (not self-caught) across 44-54 is itself worth a patterns.md entry (the correction pattern itself, not any individual finding, per point 50's own corrected process-finding text).
     l0_type: descriptive
     fl_tier: standard
     kill_criterion: "CONFIRMED if weighted-OLS 95% CI for the log-log slope contains -1.0 AND excludes both -0.5 and -2.0 (real discrimination, not just failure-to-reject). WEAKENED-INCONCLUSIVE if CI contains -1.0 but also -0.5 or -2.0. REJECTED if CI excludes -1.0 entirely. RESULT: REJECTED -- CI=[-0.9751,-0.8501] excludes -1.0 cleanly while also excluding -0.5 and -2.0, i.e. a precise measurement of a DIFFERENT exponent (~-0.91), not an inconclusive one."
