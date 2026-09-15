@@ -5764,3 +5764,230 @@ JSON/`.npz` files, not accepted on the review's word alone.**
 **Artifacts:** `check_lambda_identity_audit.py` (+`metrics/lambda_identity_audit.json`,
 `check_lambda_identity_audit_output.log`), `check_lambda_optimal_scaling.py`
 (+`metrics/lambda_optimal_scaling.json`, `check_lambda_optimal_scaling_output.log`).
+
+## Point 65 (2026-09-16) — RBA decomposition test: cancellation is real but NOT REFUTED ≠
+SURVIVES-IN-STRONG-FORM — the report's own headline overclaims because ~all of `R1`/`R2`'s
+dramatic individual magnitude is a bounded polarization-identity tautology, not emergent LP
+structure; the genuine finding is a 3-term `O(1.5–2.2)` balance, the trend question is
+underpowered, and a proper extrapolation test favors the declining/log model the report
+dismissed
+
+**Context.** `rba_decomposition_test.py` + `rba_decomposition_report.py` (background-agent run,
+this session, primes `n=509,1021,2053,4093`, full target sample sizes reached including the
+priority `n=4093`) tested whether `R(S)=R0(S)+R1(S)+R2(S)` on the reduced-frequency Lovász LP's
+central layer shows genuine `O(1/q)` second-order cancellation between `R1` and `R2`. The agent's
+own `rba_decomposition_summary.md` (dated today) concludes **`RBA SURVIVES DECOMPOSITION TEST —
+and in the strong form the pre-registered criterion named`**. This point independently
+re-verifies every load-bearing number in that report (skeptic-fallback review, per
+`doubt-driven-development.md` § Independent Review Fallback Policy — `reviewer`'s cap closed
+earlier this session, substitution stated explicitly) and finds the headline verdict itself
+overclaims, even though the report's own body already discloses several of the caveats below.
+**Every number in this point is either copied verbatim from the committed report/CSV or was
+freshly recomputed from `rba_parent_level.csv` / `rba_decomposition_summary.md` in this session
+(scripts below), not accepted on the agent's word.**
+
+**Headline results (main dataset, `q_R1`, `q_R2` etc. = `q·E[·]` over parents, weighted fit on
+`log q`):**
+
+| n | q | `q·E[R1]` | `q·E[R2]` | `q·E[R1+R2]` | `q·E[R_total]` | `cancel_ratio` | `K_ADC` |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 509 | 127 | −18.859 | +18.649 | −0.211 | +1.424 | 0.00561 | 1.295 |
+| 1021 | 255 | −24.348 | +23.991 | −0.356 | +1.255 | 0.00737 | 1.266 |
+| 2053 | 513 | −30.579 | +29.975 | −0.604 | +0.994 | 0.00998 | 1.234 |
+| 4093 | 1023 | −35.676 | +34.812 | −0.864 | +0.729 | 0.01226 | 1.216 |
+
+(all `[VERIFIED]` — matches `rba_decomposition_results.csv`, main dataset, exactly.)
+
+**1. The central correction: `R1`/`R2`'s huge magnitude is (≥100%) a bounded polarization-
+identity tautology, not "a fact about the LP's optimal face" as the report's own § 5 claims
+(directly, at its "reason 1": *"That `R2 > 0` grows … is a fact about the LP's optimal face, not
+an algebraic tautology"* — this is FALSE as literally written, independently verified below).**
+For ANY vectors `p, p'=p+u`: `2⟨p,u⟩+‖u‖² ≡ ‖p'‖²−‖p‖²` exactly — a pure algebraic identity,
+confirmed numerically to `1e-17–1e-18` on 5 random-vector trials
+(`tmp/verify_polarization.py`, this session's earlier pass). Applied here with `u_j=p_{S+j}-p_S`:
+`2⟨p,u_j⟩+‖u_j‖² = s2'_j − s2 = Δs2_j`, and since `s2, s2'∈(0,1]`, `Δs2_j` is a BOUNDED quantity
+— nothing like the ~19–36-magnitude numbers the report reports for `R1`/`R2` individually.
+
+Freshly computed from `rba_parent_level.csv` (`ok==True & full_j==False`, i.e. exactly the 200/
+200/100/50-parent main sweep; reconciles to the published `q·R_total_bulk` to `<4e-11` at every
+`n` — `tmp/verify_three_term.py`), `q·R_total_bulk` decomposes EXACTLY into 3 terms:
+
+| n | term1 `E[I]` (`=q·E[R0]`) | term2 `q(q+1)·E[Δs2]` (tautological) | term3 `2q(q+1)·E[gA]` (genuine LP content) | sum |
+|---:|---:|---:|---:|---:|
+| 509 | 1.635±0.008 | −1.888±0.290 | +1.660±0.039 | 1.407 |
+| 1021 | 1.612±0.004 | −1.904±0.337 | +1.556±0.023 | 1.264 |
+| 2053 | 1.599±0.004 | −2.078±0.540 | +1.480±0.019 | 1.001 |
+| 4093 | 1.593±0.005 | −2.213±0.870 | +1.445±0.023 | 0.826 |
+
+term2 and term3 are BOTH `O(1.5–2.2)` — comparable in scale to each other, and each nearly as
+large as their own sum's total range. This 3-term balance, not the misleadingly-large `R1≈-19`/
+`R2≈+19` framing, is the substantive structural finding.
+
+Going one level deeper (same script, decomposing `q·R1_bulk` itself into its `⟨p,u_j⟩`-piece and
+`gA`-piece): at `n=509`, `R2 = (q+1)·E[‖u_j‖²]` is by DEFINITION 100% the norm-difference/
+polarization term — there is no independent LP-content in `R2` at all, separate from the
+`Δs2` framing. `R1 = 2(q+1)·E[⟨p,u_j⟩] + 2(q+1)·E[gA]`, and the `⟨p,u_j⟩`-piece alone (`q·`that
+`= −20.537`) EXCEEDS `R1`'s own total magnitude (`−18.877`) — i.e. the genuine-LP `gA` piece
+(`+1.660`) is acting as a small OFFSET against an even-larger polarization-piece, not as `R1`'s
+primary driver. This ratio (`|⟨p,u⟩-piece| / |R1_bulk|`) is `108.8%, 106.4%, 104.8%, 104.1%` at
+`n=509,1021,2053,4093` — i.e. `R1` and `R2` combined are, if anything, MORE than 100%
+polarization-attributable (`tmp/verify_r1r2_split.py`, this session). **Corrected verdict:** the
+numeric cancellation between `R1` and `R2` is real (independently computed, not disputed) — but
+the reason it happens is that both quantities are dominated by the SAME bounded `Δs2` object
+scaled by the large prefactor `q(q+1)`, which is guaranteed by the polarization identity to
+nearly cancel with itself once `R0`'s own `s2` term is subtracted back out — not "a fact about the
+LP's optimal face." The ONE place genuine LP/optimization content enters at all is the `gA`/bulk
+term (`term3`, `O(1.44–1.66)`), and it does not even dominate `R1`'s own reported magnitude.
+
+**2. `p<1e-15` for the `R1`/`R2` component-slope significance is a convention artifact, not a
+correctly-computed t-test result.** The report's own footnote states the SEs are treated as
+KNOWN (bootstrap, not estimated from the 4 residuals) — under that convention a normal (`z`)
+reference is defensible, though see below. But the design has only `N=4` points and `k=2` fitted
+parameters (`dof=2`), and if SEs are instead treated as estimated (the more conservative
+convention, matching the dual-convention discipline already established in points 54/55 of this
+experiment), the correct reference is `t(dof=2)`, not normal. Directly computed (`scipy.stats.t`,
+this session): `t=-15.29` at `dof=2` gives two-sided `p=0.00425`; `t=+21.19` gives `p=0.00222`.
+**Both orders of magnitude larger than the reported `<1e-15`** — the reported figure corresponds
+to a normal-tail approximation (`z=15.29→p≈8.9e-53`, `z=21.19→p≈1.2e-99`), not to a small-`dof`
+`t`-distribution appropriate for a 4-point design. Both conventions are reported here rather than
+picking one (per the same dual-convention discipline as points 54/55): under either, the
+COMPONENT slopes remain clearly significant (`p<0.005` even on the conservative convention) — the
+correction is to the CLAIMED PRECISION of that significance, not to its direction. Separately,
+and more fundamentally: a `p`-value at the `1e-15`-to-`1e-99` scale computed from only 4
+independent design points (4 values of `n`) is not epistemically meaningful at that precision
+regardless of which formula produced it — extraordinarily small `p` from `N=4` should never be
+read as "extraordinarily certain."
+
+**3. `cancel_ratio` reverses direction between the small-`n` control range and the main range —
+already disclosed in the report body (§5, "the single most adverse trend in the dataset") but not
+reflected in the headline verdict.** Main range: `0.0056→0.0074→0.0100→0.0123` (`n=509→4093`,
+WORSENING, i.e. cancellation fraction falls `99.44%→98.77%`). Small-`n` exhaustive/near-exhaustive
+control (§6d): `0.0889→0.0726→0.0441` (`n=17→23→29`, IMPROVING). The pre-registered expectation
+(`CANCEL_RATIO << 1, possibly decreasing with n`) is confirmed on the control range and VIOLATED
+on the main range — the report's own "reason 4" (*"the exhaustive small-`n` control … shows the
+same signature independently"*) cites the control range's agreement without flagging that its
+cancel_ratio TREND runs opposite to the main range's.
+
+**4. § 6d's own headline ("no Monte Carlo at all") is directly contradicted by its own table one
+line below it.** `rba_exhaustive_small_n.py`'s table (§6d) shows `n=17,23` genuinely exhaustive
+(70/70, 462/462 subsets) but `n=29..41` "capped at 3000 subsets" — at `n=41`
+(`C(20,10)=184,756`, per the earlier-session finding, not re-verified again here since it is pure
+combinatorics), 3000 subsets is `1.6%` coverage, i.e. Monte Carlo, contradicting the section's own
+"no Monte Carlo at all" framing for the range as a whole.
+
+**5. Negative-control production-path coverage — narrower finding than originally suspected,
+resolved this session by direct code comparison.** `rba_negative_control.py`'s `one_case()` and
+`rba_decomposition_test.py`'s `process_parent()` are confirmed (via direct `Read`, this session)
+to be genuinely SEPARATE functions with NO shared code path — but they compute the IDENTICAL
+formula: `one_case`'s `C=lp.cosval[np.outer(free,orbit)%n]; mj=C@pvec; Aj=C@(pvec*pvec)-mj*(pvec@
+pvec)` is line-for-line the same math as `process_parent`'s blocked
+(`for a in range(0,m,BLK)`) `C=lp.cosval[(np.outer(jb,orbit))%n]; m_all[...]=C@pk;
+Acos_all[...]=C@pk2; A_all=Acos_all-m_all*s2`. **Corrected framing:** this is NOT "controls test a
+rewritten copy with different logic" (the earlier, stronger suspicion) — the underlying formula is
+identical. It IS "controls test a separately-maintained duplicate of the production formula, not
+the literal production code path" — a real, narrower gap: a bug specific to `process_parent`'s
+own block-loop implementation (an indexing error in the `BLK=256` chunking, for instance) would
+not be caught by these 5 planted-error tests, since `one_case` never calls `process_parent` or
+exercises its blocking logic.
+
+**6. AICc vs LOOCV — the report's own "LOOCV … mechanically favours the flexible model" framing
+is backwards, confirmed by a genuine extrapolation test run this session.** The report already
+shows LOOCV RMSE favoring the log-model 4.9× (`0.0741` vs `0.3624`, subset estimator) but frames
+this as mechanical/uninformative. A proper single-holdout extrapolation test (fit on `n=509,1021,
+2053` only, predict `n=4093`, unweighted OLS as an illustrative check — `tmp/loocv_holdout.py`,
+this session) gives: constant-model prediction `1.224` vs actual `0.729` (abs. error `0.495`);
+log-model prediction `0.797` vs actual `0.729` (abs. error `0.068`) — **the log model extrapolates
+~7× more accurately to the held-out largest `n`.** Since a flexible 2-parameter model is normally
+expected to OVERFIT on `N=4` and extrapolate WORSE, not better, the log-model's actual win here is
+real out-of-sample evidence for the declining/log trend, not a mechanical artifact of LOOCV with
+few points — the report's dismissal of this signal is unsupported.
+
+**Kill Analysis.** Nothing is killed. What survives, corrected: (1) the numeric cancellation
+between `R1` and `R2` is real and independently reproduced (two solvers, exhaustive small-`n`,
+second-seed) — this part of the report's claim stands; (2) the mechanism behind that
+cancellation is NOT "a fact about the LP's optimal face" as claimed — it is, to `≥100%`, the
+bounded polarization identity `Δs2=2⟨p,u⟩+‖u‖²` scaled by `q(q+1)`, independently verified this
+session; (3) the ONLY genuine LP-structural content is the `O(1.44–1.66)` `gA`/bulk term, one of
+three comparably-sized pieces in a `q·R_total` balance, not the dramatic `R1≈-19`/`R2≈+19`
+picture; (4) the trend question (`q·R_total ~ log q` vs constant) remains genuinely underpowered
+at `N=4` (`SE≈0.31` on a point range of `0.73–1.42` — only `|slope|>~0.6` is 2σ-detectable) — but
+a genuine extrapolation test (not mere LOOCV RMSE) favors the declining/log model, contrary to how
+the report dismissed that signal; (5) `cancel_ratio` improves on the small-`n` control range but
+WORSENS on the main range — the report discloses this but the headline verdict does not reflect
+it; (6) the negative controls test the correct formula via a separately-maintained duplicate, not
+literal production code — a real but narrower coverage gap than initially suspected.
+
+**What this does NOT mean.** Does NOT mean the RBA mechanism is fake or that `R1`/`R2` don't
+genuinely grow with `q` — they do, confirmed independently. Does NOT mean `RBA=O(1/q)` /
+`q·R=O(1)` is refuted — it remains the best-fitting simple model on the tested range and is
+consistent with everything measured. Does NOT mean the report's numerical work is wrong — every
+raw number independently re-checked (bulk/delta-I identities, negative controls, solver
+cross-check) reconciled to the published figures. Does NOT mean this point establishes
+`q·R ~ log q` as correct — the extrapolation test favors it over the constant model but `N=4` is
+still far too few points for an asymptotic claim either way. Does NOT mean the `gA`/bulk term
+itself is fully understood mechanistically — that remains open (see next steps).
+
+**Recommended next steps, stated but not executed here (cheapest-first).** (1) Report the 3
+genuine `O(1)`-scale quantities (`E[I]`, `q(q+1)E[Δs2]`, `2q(q+1)E[gA]`) as the primary
+decomposition in any future write-up of this mechanism, not the inflated `q·R1`/`q·R2`. (2) Fill
+the `q∈(10,127)` gap between the exhaustive/near-exhaustive small-`n` control and the main Monte
+Carlo range (e.g. `n=127` already covered; add `n=251` at higher coverage, or push exhaustive
+enumeration to `n=53` via the necklace-orbit method already used elsewhere in this experiment) to
+see whether the cancel_ratio reversal is a genuine regime change or a small-`n` artifact. (3) Run
+5 independent seeds at one fixed `n` (e.g. `n=1021`) to get a real between-seed variance estimate
+for `q·R_total`, orthogonal to the current between-parent bootstrap SE. (4) If the `gA`/bulk term
+is to be pursued analytically (the CANCEL-lemma direction discussed with the user, see below), its
+own mechanism — not `R1`/`R2`'s polarization-dominated magnitude — is the correct object to
+target, since the polarization piece is guaranteed algebraically and carries no LP-specific
+content to prove.
+
+**Skeptic Concerns (FL Step 8a — `reviewer`'s cap closed earlier this session; `skeptic`
+substituted per `doubt-driven-development.md` § Independent Review Fallback Policy,
+context-asymmetric: given only the report's claim text + `rba_decomposition_test.py`/
+`rba_decomposition_report.py`, no session history). Verdict: `WEAKENED` — the report's raw
+numerics are sound and independently reconfirmed, but its headline verdict ("SURVIVES … in the
+strong form") and its "reason 1" (cancellation is "not an algebraic tautology") do not survive;
+every concern below independently re-verified from the raw CSV/JSON/code, not accepted on the
+review's word alone.**
+- Concern: "`R2 > 0` grows … is a fact about the LP's optimal face, not an algebraic tautology"
+  (report §5, reason 1). → **Fixed**: falsified directly — the polarization identity makes `R2`
+  by definition `(q+1)·E[‖u_j‖²]`, a pure norm-difference object with zero independent LP content;
+  `R1`'s polarization-piece alone exceeds `R1`'s own total magnitude at every tested `n`
+  (104.1–108.8%). Restated as a 3-term `O(1.5–2.2)` balance instead.
+- Concern: `p<1e-15` for the `R1`/`R2` component slopes. → **Fixed**: recomputed at the design's
+  actual `dof=2`; true two-sided `p=0.0022–0.0043` under the conservative (estimated-variance)
+  convention, both conventions now reported explicitly per the points-54/55 precedent.
+- Concern: `cancel_ratio` reversal between small-`n` control (improving) and main range
+  (worsening) is disclosed in the report body but not reflected in the headline "SURVIVES … strong
+  form" verdict. → **Fixed**: reversal stated explicitly as one of the point's own headline
+  findings, not buried.
+- Concern: §6d claims "no Monte Carlo at all" while its own table shows `n=29..41` capped/
+  subsampled. → **Fixed**: self-contradiction noted explicitly.
+- Concern: negative controls (`one_case`) may test a rewritten copy of the production math with
+  different logic, not the literal production path. → **Investigated and narrowed**: confirmed
+  `one_case`/`process_parent` are separate functions (no shared code) but compute the IDENTICAL
+  formula — reframed from "different logic" to "separately-maintained duplicate," a real but
+  smaller coverage gap (misses bugs specific to `process_parent`'s own blocking implementation).
+- Concern: LOOCV's better fit for the log-model is dismissed as "mechanical." → **Fixed**: a
+  genuine single-holdout extrapolation test (predict `n=4093` from the other three) run this
+  session shows the log-model extrapolates ~7× more accurately than the constant model — real
+  out-of-sample evidence, not a LOOCV-with-few-points artifact.
+- Concern: the `I(S+j)-I(S)=R0+R1+R2` formula in the original task spec vs what the code's
+  `check4_error` actually validates (`R_total_bulk` against `mean_dI + (q+1)/(2q)·(n/(Fq))·D_S`,
+  not a bare `R0+R1+R2` sum) is a real mismatch worth flagging for any future write-up, but is a
+  documentation/spec-clarity issue, not a numerical error — `check4_error` itself passes at
+  machine precision throughout. → **Accepted limitation**: noted here, not re-derived in full;
+  does not affect any number reported in this point.
+- Concern: identity-precision claims (bulk `≤1.06e-18`, delta-I `≤1.39e-15`), solver cross-check
+  (`≤6.4e-07`), substrate-gate agreement (`2.84e-14`), planted-error-control catch rates (5/5 at
+  4/4 `n`). → **Dismissed** as real issues — all independently spot-checked against the raw JSON
+  this session and confirmed correct.
+
+**Artifacts:** `rba_decomposition_test.py`, `rba_decomposition_report.py`,
+`rba_negative_control.py`, `rba_exhaustive_small_n.py`, `rba_decomposition_results.csv`,
+`rba_decomposition_summary.md`, `rba_parent_level.csv` (+ per-run variants), `metrics/rba_*.json`
+(bulk/delta-I identities, negative control, exhaustive small-n, method consistency). This
+session's independent verification scripts (scratchpad, not committed):
+`verify_three_term.py`/`verify_three_term2.py`, `verify_r1r2_split.py`, `check_scale.py`,
+`check_pvals.py`/`check_pvals2.py`, `loocv_holdout.py`.
+

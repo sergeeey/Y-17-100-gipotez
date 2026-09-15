@@ -1,0 +1,82 @@
+{
+  "tolerance": 1e-09,
+  "cases": [
+    {
+      "n": 127,
+      "seed": 90337,
+      "baseline_bulk_err": 4.336808689942018e-19,
+      "E1_offbyone_orbit": 0.0005867121581472421,
+      "E2_missing_normalisation": 4.23879361229995e-05,
+      "E3_tau_as_w0": 2.6709434802005142e-05,
+      "baseline_deltaI_err": 3.885780586188048e-16,
+      "E4_wrong_prefactor_q": 0.00021507326920283676,
+      "E5_u_not_differenced": 5.0833140384373845
+    },
+    {
+      "n": 251,
+      "seed": 90461,
+      "baseline_bulk_err": 2.981555974335137e-19,
+      "E1_offbyone_orbit": 7.793558765603959e-05,
+      "E2_missing_normalisation": 9.99014759510262e-06,
+      "E3_tau_as_w0": 1.2785450455290927e-06,
+      "baseline_deltaI_err": 2.220446049250313e-16,
+      "E4_wrong_prefactor_q": 0.0010262750822783717,
+      "E5_u_not_differenced": 4.078220329669508
+    },
+    {
+      "n": 509,
+      "seed": 90719,
+      "baseline_bulk_err": 1.3417001884508117e-18,
+      "E1_offbyone_orbit": 1.1172560571830306e-05,
+      "E2_missing_normalisation": 1.714515848113368e-06,
+      "E3_tau_as_w0": 2.466981396836613e-07,
+      "baseline_deltaI_err": 1.3877787807814457e-16,
+      "E4_wrong_prefactor_q": 0.00029820329006081947,
+      "E5_u_not_differenced": 4.607438265993501
+    },
+    {
+      "n": 1021,
+      "seed": 91231,
+      "baseline_bulk_err": 6.776263578034403e-21,
+      "E1_offbyone_orbit": 3.4234647751260835e-06,
+      "E2_missing_normalisation": 3.025578723097184e-07,
+      "E3_tau_as_w0": 5.845490858106022e-08,
+      "baseline_deltaI_err": 8.187894806610529e-16,
+      "E4_wrong_prefactor_q": 7.116521862610137e-06,
+      "E5_u_not_differenced": 4.748239570238696
+    }
+  ],
+  "planted_error_detection": {
+    "E1_offbyone_orbit": {
+      "caught_in": 4,
+      "of": 4,
+      "min_planted_error": 3.4234647751260835e-06
+    },
+    "E2_missing_normalisation": {
+      "caught_in": 4,
+      "of": 4,
+      "min_planted_error": 3.025578723097184e-07
+    },
+    "E3_tau_as_w0": {
+      "caught_in": 4,
+      "of": 4,
+      "min_planted_error": 5.845490858106022e-08
+    },
+    "E4_wrong_prefactor_q": {
+      "caught_in": 4,
+      "of": 4,
+      "min_planted_error": 7.116521862610137e-06
+    },
+    "E5_u_not_differenced": {
+      "caught_in": 4,
+      "of": 4,
+      "min_planted_error": 4.078220329669508
+    }
+  },
+  "baseline": {
+    "max_baseline_bulk_err": 1.3417001884508117e-18,
+    "max_baseline_deltaI_err": 8.187894806610529e-16
+  },
+  "all_caught": true,
+  "baseline_clean": true
+}

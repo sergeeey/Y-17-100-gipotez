@@ -1,0 +1,35 @@
+{
+  "substrate_gate": [],
+  "config": {
+    "n": [
+      509,
+      1021
+    ],
+    "parents": [
+      40,
+      40
+    ],
+    "children": [
+      32,
+      16
+    ],
+    "full_j_parents": null,
+    "method": "highs",
+    "workers": 10,
+    "seed_offset": 0,
+    "fixed_j": null,
+    "tag": "methodcheck",
+    "skip_gate": true
+  },
+  "elapsed_by_n": {
+    "509": 11.207840799999758,
+    "1021": 42.13507819999995
+  },
+  "n_records": 80,
+  "task_failures": 0,
+  "thread_env": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  }
+}
