@@ -8496,3 +8496,160 @@ actual `3000`-resample bootstrap computed here, which gave a STRONGER result (`z
 review's own conservative `~1.9`) — corrections were verified, not merely accepted on the
 reviewer's word in either direction.
 
+## Point 85 (2026-09-16) — GENUINE PROOF ATTEMPT at `(POL)`, per direct user instruction to move
+from measurement to an actual proof session. Result: NOT PROVEN. SUBSTANTIALLY CORRECTED after
+skeptic review found a wrong denominator (an ordinary support fraction misread as "saturated"),
+a sign inversion, and an overstated "four targets are one" claim — one genuine new equivalence
+survives (`(POL) ⟺ E[CV²(y)]=O(1)`, with a tail-bound step the first draft omitted, added here),
+plus one real negative finding not previously in this project: the uncertainty-principle-on-
+supports route has ZERO slack at every non-degenerate LP vertex, ruling out that specific approach
+cleanly rather than leaving it open
+
+**Context.** Per direct user decision after Point 84: attempt an actual proof of `(POL)`
+(`sup_n E‖x*(G)‖²<∞`), not another measurement. This required first understanding the EXACT LP
+`CertificateLP.solve()` implements, which had not been fully derived anywhere in this project's
+prior decision.md — done here from the raw source
+(`codex-20260914-susceptibility/test_convolution_repair.py`), then independently confirmed
+numerically before trusting it.
+
+**1. The LP is precisely the standard "nonnegative-Fourier-coefficient" theta LP for circulant
+graphs — derived from source, then confirmed numerically.** `CertificateLP.solve(bits)` solves:
+
+```
+maximize    x_0 + 2·Σ_{g∈free} x_g              (= theta(G), since x_0=1 fixed)
+subject to  y_k := (1/n)[1 + 2Σ_{g∈free} x_g·cos(2πkg/n)] ≥ 0   for k=0,...,m
+            x_g = 0 for g not in free (bits_g=1, i.e. edge present via generator g)
+```
+
+i.e. **maximize `θ=n·y_0` subject to `y=FFT(x)/n≥0` elementwise** — confirmed directly: the
+`aub`/`b_ub` constraint `-cos[:,free]@x_free ≤ 1` is algebraically identical to `y_k≥0` for every
+`k` (re-derived from the `cos` matrix's own definition and `y=fft(x).real/n`, then checked
+numerically to machine precision on a live LP solve, not assumed). This is a genuine, standard
+LP relaxation (not this project's own invention) — the exact object Bandeira et al. 2025 also
+study via their `ker(F̃)` formulation (Gate 0, Point 79's own finding).
+
+**Caveat already on record in this project, restated for this point's own honesty:**
+`CertificateLP.solve` returns whatever VERTEX `scipy.optimize.linprog`'s HiGHS solver finds — NOT
+explicitly the min-L2-norm point on the optimal face. This project's own prior work (Point 68,
+referenced in the session's opening context — "HiGHS vertex vs theoretical min-L2 selector") found
+the difference negligible at the sizes spot-checked, but this was never proven in general, and this
+point inherits that same caveat — "`x*`" below means "the numerically-returned solution," treated
+as a proxy for the theoretically-intended min-L2 selector, per this project's own established (not
+newly introduced) practice.
+
+**2. Point 64's exact identity re-derived and re-confirmed on a live instance (not just cited) —
+CORRECTED after skeptic review found a wrong denominator in the first draft.** `n‖y‖² =
+(n/s)(1+CV²(y))` where `s=|supp(y)|` (support taken over the FULL length-`n` symmetric vector,
+since `Σ_{k=0}^{n-1}y_k=x_0=1` is what the identity's derivation actually uses — not the
+half-range `k=0..m` this point's first draft mistakenly divided by). Solved a fresh instance
+(`n=127`, independent seed): **`s=57` of `n=127` (`≈45%`, i.e. `s=2Q+1` with `Q=28` — this is the
+ORDINARY value Point 64 already predicts for a typical instance, NOT unusual saturation, contrary
+to the first draft's "genuinely close to saturated" claim, which used the wrong denominator
+(`m+1=64`) and read an unremarkable `~45%` as `~89%`.** `CV²=1.058`, predicted
+`(n/s)(1+CV²)=(127/57)(1.058)=4.586`, actual `n‖y‖²=4.586` — the identity itself still checks out
+exactly; only the earlier characterization of `s` was wrong.
+
+**This gives the clean reduction, not previously stated this precisely anywhere in this
+project:** `(n/s)≥1` always, so `E[CV²(y)]=O(1) ⟹ E[n‖y‖²]=O(1)` unconditionally — this direction
+is free. **The converse needs one more step this point's first draft skipped**: `E[n‖y‖²]=O(1)`
+would follow from `E[CV²]=O(1)` and `E[n/s]=O(1)` SEPARATELY only if `Q` (the binomial count
+controlling `s=2Q+1`, per Point 64) never gets too small — but `y≥0,Σy=1 ⟹ n‖y‖²≤n` always
+(deterministic ceiling), and `Pr[Q<εn]` decays exponentially (standard Chernoff bound on a
+Binomial`(m,1/2)`), so the rare-small-`Q` layer contributes `O(n·e^{-Ω(n)})=o(1)` to the
+expectation regardless of `CV²` there, and on the complementary event `n/s≤1/(2ε)=O(1)`. **With
+this one-line tail argument added, the equivalence `(POL) ⟺ E[CV²(y)]=O(1)` holds** — omitted from
+the first draft, added here per skeptic review, not previously written down this precisely.
+
+This connects to, but should not be overstated as identical to, three other targets already named
+in this project: `(POL)+F4rel ⟹ MIX4` (Point 84's own finding, not new here); `F4`/`F4rel` (4th
+moment of `x*` alone) is a STRICTLY STRONGER statement than `CV²(y)=(POL)` and does not follow
+from it — Point 66 itself already warned "a bounded second moment is compatible with an unbounded
+fourth moment in general; conflating the two would be a new, uncaught error." **Correction: these
+are not "one open problem" — they are one genuine equivalence (`(POL) ⟺ CV²(y)`) plus one already-
+established one-directional implication (`(POL)+F4rel ⟹ MIX4`, Point 84) plus a separate, strictly
+harder open question (`F4rel` itself). Calling this "four lenses on one question" overstated the
+connection; the honest map is one equivalence plus one-way implications, not four faces of a
+single problem.**
+
+**3. A genuine attempt at a dual-LP argument for `CV²(y)` — the real content of this proof
+attempt, corrected after skeptic review found both a sign inversion and a saturated-slack finding
+the first draft missed entirely.** By complementary slackness, the LP's dual variables (`dual_k`,
+one per frequency `k`) satisfy `dual_k≠0 ⟹ y_k=0` — **the dual is supported ON the COMPLEMENT of
+`supp(y)`** (the first draft's wording, "concentrated off... `supp(y)^c`," inverted this — it is
+concentrated ON that complement set). Dual feasibility (re-derived from the raw KKT conditions;
+the numeric match to the code's own tolerance is expected by construction — `solve()` itself
+raises an exception if this fails, so it confirms the algebra was transcribed correctly, not that
+it holds as independent evidence):
+
+```
+Σ_k cos(2πkg/n)·dual_k = 1   for every g ∈ free (every time-domain coordinate x* is allowed to use)
+```
+
+**A real structural finding, missed in the first draft, that changes the assessment of this
+route's promise: the relevant uncertainty principle is SATURATED, with zero slack, at every
+non-degenerate LP vertex.** Writing `f:=|free|` and using that a generic LP vertex has exactly
+`f` tight dual constraints (`a=f` inactive-`y` positions among the `m` frequencies `k=1..m`, since
+`y_0=θ/n>0` is never tight): `s=n-2a=n-2f=n-2(m-Q)=2Q+1` exactly — Tao's inequality
+`|supp(x)|+|supp(y)|≥n+1` (`|supp(x)|=1+2f`, `|supp(y)|=n-2f`) **holds as an EQUALITY at every
+non-degenerate vertex**, confirmed on the live instance (`Q=28, f=35, s=57`: `71+57=128=n+1`
+exactly) and consistent with Point 64's own "at the primary threshold every support equals
+`2Q+1`" finding across all `36` of its own tested cases. **This means an uncertainty-principle-
+type argument specifically has ZERO room to extract new information here — the inequality it
+would supply is already met with equality by pure dimension-counting, not something requiring
+proof.** The dual's own support size is `f≈m/2` (dense, not sparse — the first draft's "sparse
+signal, ideal client for an uncertainty-principle argument" framing was wrong on this point too).
+Bandeira et al. 2025's own RIP-based argument is a genuinely different, quantitative (not just
+support-counting) tool, so this finding narrows but does not close off that general direction —
+it does rule out the specific "uncertainty-principle-on-supports" framing this point's first draft
+proposed. **A rigorous bound on `CV²(y)` was NOT achieved in this session** — the natural next step
+(a quantitative, not support-counting, bound on the dual vector's own shape, then translate via
+complementary slackness back to a
+statement about `y`'s dispersion) is a real, concrete, well-posed mathematical program, not a
+vague direction, but completing it is genuinely open research-level work, not something resolved
+here.
+
+**Honest verdict, corrected after skeptic review found the first draft both erred on a fact and
+oversold its own contribution.** `(POL)` is NOT proven. What this attempt actually achieves,
+stated at the strength it earns: (a) the exact LP is written down precisely from source, with the
+`y≥0` derivation spelled out step by step — but the underlying fact (`y≥0`, `Σy=1` IS the
+certificate) was already implicit and in active use throughout Points 63-64 and the code's own
+certificate checks (`solve()` verifies exactly `y.min()≥0` and `y.sum()=1`); this point's
+contribution is making the derivation explicit and connecting it cleanly to `(POL)`, not
+discovering the LP; (b) the equivalence `(POL) ⟺ E[CV²(y)]=O(1)` is now correctly established,
+including the tail-bound step the first draft omitted — this IS new content, not previously
+written down this precisely; (c) the dual feasibility condition is a standard KKT/LP-duality fact,
+not a novel discovery — its numeric "confirmation" cannot fail by construction (`solve()` itself
+raises on a mismatch), so it validates the algebra's transcription, not the underlying idea; (d)
+the attempted route (uncertainty-principle-on-supports) is now known to have ZERO slack at every
+non-degenerate vertex — a genuine, useful negative finding not previously stated, ruling out one
+specific approach rather than leaving it as an open possibility; (e) the attempt to close `(POL)`
+did not succeed. This is a real, modest, partial result — smaller than the first draft claimed,
+but genuine: one correct new equivalence, one concrete dead-end identified and ruled out with a
+clean reason, `(POL)` itself still open.
+
+**What this does NOT mean.** Does NOT mean `(POL)` is false — nothing here counts as evidence
+against it. Does NOT mean the uncertainty-principle-on-supports route is the only possible dual-LP
+angle — Bandeira et al.'s own RIP-based (quantitative, not support-counting) technique remains a
+distinct, not-yet-ruled-out direction on the same dual object. Does NOT mean `F4`, `MIX4`, `(POL)`,
+`CV²(y)` are "four lenses on one question" as the first draft claimed — corrected above to what
+actually holds: one genuine equivalence (`(POL)⟺CV²(y)`) plus known one-directional implications,
+not a single unified target. Does NOT mean the selector-sensitivity caveat (HiGHS vertex vs true
+min-L2 point) is resolved — it remains exactly the open, previously-flagged gap this project has
+carried since Point 68, inherited here unchanged. Does NOT mean this closes Strategy 1's budget —
+per Point 78's pre-registration, this was one focused session's worth of genuine attempt; a
+quantitative (non-support-counting) dual-shape bound remains a concrete, well-posed candidate for
+a next attempt, not itself completed here.
+
+**Artifacts:** No committed code changes — the LP structure was re-derived from
+`codex-20260914-susceptibility/test_convolution_repair.py` (read-only, per this project's
+Unclaimed Work Ownership convention) and checked via scratchpad computation (not committed) on
+live LP solves. Reviewed by `skeptic` (context-asymmetric, same standing substitution as
+throughout this session): confirmed the core algebra (LP≡`y≥0`, dual feasibility equation) correct
+as derived, but found a wrong denominator (`s` read against `m+1=64` instead of the correct
+`n=127`, inflating an ordinary `~45%` support fraction into a false "~89%, saturated" claim), a
+sign inversion ("off"/"on" `supp(y)^c`), a missing tail-bound step in the `(POL)⟺CV²(y)` claim,
+and a genuine, independently-derived positive finding the first draft missed entirely (the
+uncertainty-principle saturation at every vertex, `|supp(x)|+|supp(y)|=n+1` exactly, confirmed on
+the live instance: `Q=28,f=35,s=57,71+57=128=n+1`) — all independently re-verified by direct
+recomputation before being accepted, not taken on the review's word.
+
