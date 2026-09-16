@@ -6513,3 +6513,166 @@ independent verification script (scratchpad, not committed): `face_width_test3.p
 spot-checked against the raw JSON this session (not accepted from either agent's or the skeptic's
 summary alone).
 
+## Point 68 (2026-09-16) — Gate 0.1 closure tests, EXTENSIVELY corrected on a FOURTH consecutive
+skeptic-fallback review: Task A ("aggregator-mismatch, PASS-leaning") has essentially ZERO
+discriminating power once checked against the other 8 candidates already sitting in the same
+file; Task B's practical conclusion (selector-sensitivity negligible at `n=1021`) SURVIVES and is
+now positive-control-verified, but its precision claims were overstated by 4+ orders of magnitude
+— the "widths" measured were the LP solver's own noise floor, not real face width
+
+**Context.** Per the user's revised gate plan: two narrow closure tests before deciding on Gate
+0.1 — (A) does `v1`'s `5.9` match `mean_Z`, closing the aggregator-mismatch lead from Point 67;
+(B) is selector-sensitivity small at `n=1021` specifically. Both were run, reported as
+"PASS-leaning" and "PASS with a large margin" respectively, and submitted for skeptic-fallback
+review — the FOURTH consecutive review in this RBA/PPL line of work, maintained specifically
+because three prior reviews each found real, substantive problems and treating a run of clean
+results as self-evidently trustworthy would itself have been an error. This review found serious
+issues in both tasks; one (Task B's Gate-3 "no positive control" concern) was resolved this
+session with a targeted follow-up check, independently run and verified.
+
+**Task A — CORRECTED. The "PASS-leaning" verdict is walked back to "not falsified, but provides
+essentially no evidence."** The original check compared `v1`'s `5.9` against only 2 candidates
+(H1, H2). The SAME already-saved file (`metrics/diagnose_v1_v3_result.json`) contains 8 MORE
+candidates (`H3_coordinate_sweep`, one per tested coordinate) — independently computed this
+session, all 10 candidates' `J_n/mean_Z` ratios:
+
+| candidate | `mean_Z` | `J_n` | `J_n/mean_Z` | distance from `5.9` |
+|---|---:|---:|---:|---:|
+| H1 (=idx 1) | 5.438907 | 64.6605 | 11.889 | 1.741σ |
+| idx 2 | 4.667117 | 46.7474 | 10.016 | 5.52σ |
+| idx 3 | 4.961204 | 57.9015 | 11.671 | 3.64σ |
+| idx 5 | 5.506265 | 74.4161 | 13.515 | 1.33σ |
+| idx 10 | 4.886214 | 55.7352 | 11.406 | 4.02σ |
+| idx 20 | 5.298749 | 62.8111 | 11.854 | 2.28σ |
+| idx 40 | 4.948721 | 62.1047 | 12.550 | 3.47σ |
+| idx 63 | 4.911817 | 57.7863 | 11.765 | 3.81σ |
+| H2 | 5.727125 | 73.6607 | 12.862 | 0.605σ |
+
+**Four separate, independently-verified problems, none present in the first draft:**
+1. **The `J_n/mean_Z≈11×` argument has zero discriminating power** — ALL 9 candidates give a
+   ratio in `[10.0, 13.5]`, a structural property of this heavy-tailed `Z` distribution, not
+   evidence for any specific reconstruction. For H1 specifically it is algebraically the SAME
+   statement as the `σ`-distance (since `J_n(H1)` matches `v3` to 16 digits) — citing both as
+   independent support double-counts one observation.
+2. **The real candidate pool is 10, not 2** — 3-4 of 10 pass the `<2σ` threshold (H2: `0.605σ`,
+   idx 5: `1.33σ`, H1: `1.741σ`, idx 20 borderline at `2.28σ`), not "one of two." The proper
+   multiple-comparisons correction is roughly `5×` weaker than what the first draft applied. All
+   10 candidates ALSO sit BELOW `5.9`, meaning "closest candidate" is functionally "family
+   maximum" here — a concrete counter-check (below) shows this test would "pass" on a random
+   draw roughly `40`–`60%` of the time, which is not meaningful confirmation.
+3. **H1 and H2 are not distinguishable from EACH OTHER**: `|H2−H1|=0.288`, pooled
+   `SE=√(0.2649²+0.2859²)=0.390`, distance `=0.74σ`. The verdict rested on preferring H2 over H1
+   as "closer" — that preference is itself noise.
+4. **`v1`'s own Monte Carlo error (unknown reps count) was never included in the comparison** —
+   only the reconstructions' own SE was used as the denominator. Including it (even optimistically
+   assuming `v1` also used 500 reps) would push H1 to `~1.23σ` and H2 to `~0.43σ` — the test
+   becomes MORE permissive, not less, once done correctly; the first draft's framing ("1.741σ, a
+   noticeable but not decisive deviation") implied the test almost failed, when a correct
+   denominator would make it pass even more easily and thus mean even less.
+
+**A concrete counter-scenario, computed this session**: solving for where a `2σ`-threshold FAIL
+region begins (pooled `SE≈0.39`) gives `mean_Z<5.12`, i.e. `J_n/mean_Z>12.6`. The empirical range
+across all 10 real candidates is `[10.0,13.5]` — the PASS zone covers the CENTER of this family's
+own distribution, not an edge. **No negative control was run** — the already-identified-as-wrong
+`v2` construction (size-biased post-hoc coordinate selection) was never checked against `5.9`; if
+IT also lands within `2σ`, the test discriminates nothing at all.
+
+**A further, previously-unstated cost of the chosen "winner" (H2)**: `J_n(H2)=73.66≠64.66=J_n(v3)`
+— treating `v1=H2` requires assuming BOTH a different graph construction AND an aggregator swap
+(two independent, unexplained defects), whereas `v1=H1` requires only the aggregator swap (H1 is
+proven algebraically identical to `v3` — one defect, already independently confirmed by this
+session's own forensic diff, Point 67). The first draft promoted the two-defect candidate without
+noting that a one-defect alternative, with independent forensic support, was available.
+
+**Corrected verdict: NOT FALSIFIED, but this specific test carries essentially no evidential
+weight** — consistent with the user's own explicit fallback for exactly this situation:
+`v1` is treated as an unrecoverable/non-load-bearing artifact; the aggregator-mismatch idea
+remains a plausible, unconfirmed speculation, not a finding this point can claim credit for.
+
+**Task B — corrected, practical conclusion SURVIVES via a new positive-control check, but
+measured precision was overstated by 4+ orders of magnitude.** Skeptic found:
+1. **[Refuted, in the claim's favor]** `θ`/`face_sum` IS correctly held fixed and identical
+   between the min- and max-sub-LPs (verified line-by-line against `CertificateLP.solve`'s own
+   encoding) — this specific concern does not hold.
+2. **[Major, independently confirmed this session]** In `13/20` top-K rows and `17/18`
+   successfully-solved bulk rows, `x_min > x_max` or `w_min > w_max` — a mathematically
+   IMPOSSIBLE outcome for a min and max over the identical feasible set. This proves the reported
+   `"widths"` of `1e-8`–`1e-10` are the LP solver's OWN reproducibility noise when the objective
+   direction flips, not a measurement of real face width. The code had no `x_min≤x_max` check, so
+   an inverted interval silently became a small "positive" width in the `Z²`-range computation.
+3. **Resolved this session, in the claim's favor, via a targeted positive control**
+   (`tmp/positive_control_test.py`, not committed): re-ran the SAME coordinate-range LP on one of
+   the inverted rows (seed `105451171`) with `face_sum` deliberately shrunk by `1%` (a
+   guaranteed-interior level set with real, non-trivial width). Result: `x_min=0.1151,
+   x_max=0.3095`, width `=0.194` — the method DOES detect real width when it is actually present.
+   At the TRUE optimal face for the same seed, the same method gives `x_min=0.217579450471,
+   x_max=0.217579450462` — inverted by `−9.2e-12`, exactly matching the skeptic's own finding.
+   **This resolves the "no positive control" (Gate 3) concern directly**: the instrument has real
+   detection power, and at the actual optimal face it reports a value AT its own resolution floor
+   (`~1e-9`–`1e-11` in `x`), not a measured nonzero width. Practically, this still means: whatever
+   the true face width is (a genuine single point, or a residual width below `~1e-9`), selector
+   choice cannot move `Z²` by anywhere near the `0.05` threshold — the PRACTICAL conclusion
+   survives, now on firmer ground than the original (uncontrolled) check provided.
+4. **"5–9 orders of magnitude below threshold, in every row"** is falsified by the claim's own
+   cited data — the maximum recorded `rel_width` (`1.42e-6`, one bulk row) gives `log10(0.05/
+   1.42e-6)=4.55`, not `5`. Corrected range: `4.55`–`8.84` orders — both ends of the original
+   claim were rounded favorably. Given point 2 above, even this corrected range describes solver
+   noise, not real width — restated as "no detectable width above the solver's own `~1e-9` floor,
+   itself `6`+ orders below the `0.05` threshold regardless."
+5. **The `3/40` one-sided "Infeasible" rows**: skeptic PROVED (min/max sub-LPs share an IDENTICAL
+   feasible region, differing only in objective direction) that one-sided infeasibility is
+   mathematically impossible — confirming the claim's conclusion (these are solver errors, not
+   real empty regions) but for a more rigorous reason than "presolver quirk on a degenerate face,"
+   which the code's own saved output cannot actually support (solver status codes were computed
+   but never written to the JSON, and the claimed "stored vertex verified inside the other side"
+   check does not exist in the code — the saved field is unconditionally `false` for all 3 rows
+   when `ranges_ok=False`). **The cost of this proof**: it demonstrates HiGHS returns an outright
+   wrong status on `7.5%` of these LPs, reinforcing point 2 rather than being a separate,
+   contained issue.
+6. **The dropped top-K row (seed `105451107`) is rank `9/20` by `|Z|`** — a real tail-contributing
+   row, not an arbitrary exclusion; with `top5pct_share=0.50` at this `n`, the tail defines half
+   of `J_n`, so "0 rows `≥0.05`" is computed on a sample missing one of its own highest-leverage
+   cases, not a complete accounting.
+7. **The "stored value falls inside the range" check is close to tautological** — the stored value
+   IS a vertex of the same LP's feasible region by construction; its main real content is a
+   smoke-test of coordinate indexing (catching a `free`/`gen_index` mapping bug), not independent
+   validation of face width.
+
+**Corrected verdict: PASS survives for the PRACTICAL question ("can selector choice move `Z²` by
+`~5%` or more at `n=1021`? No"), now backed by a positive control demonstrating real instrument
+sensitivity — but the specific numeric precision claimed (`1e-10`, "5-9 orders") described solver
+noise, not a genuine measurement, and has been corrected throughout.**
+
+**Kill Analysis.** Nothing is killed. Corrected state of the user's own two Gate-0.1 conditions:
+(A) does NOT achieve real closure — the test used to justify "PASS-leaning" has been shown to
+have essentially no discriminating power once checked against the full candidate family already
+in the data; per the user's own explicit fallback, `v1` should be treated as an unrecoverable,
+non-load-bearing artifact rather than credited with a resolved provenance story; (B) DOES achieve
+real closure at `n=1021` specifically — the practical conclusion (selector choice cannot explain
+`J_n`'s observed growth) is now supported by a positive control, closing the one structural gap
+(no test of whether the method could detect real width at all) that the original check left open.
+**Net effect on Gate 0.1: ONE of the user's own two conditions is met on solid ground (B); the
+other (A) is not met as a genuine closure, only as an explicit invocation of the user's own
+stated "give up on `v1`" fallback.** Whether that combination satisfies the user's own AND-gate
+for proceeding to Step 3 is a call for the user, not made unilaterally here.
+
+**What this does NOT mean.** Does NOT mean the aggregator-mismatch idea for `v1` is wrong — it
+remains plausible and is not contradicted by anything found here; it simply is not SUPPORTED by
+the specific test that was run, which turns out to pass for most of the candidate family
+regardless of merit. Does NOT mean selector-sensitivity is resolved at `n=509` — Point 67's
+solver difficulty there remains untouched, by the user's own explicit choice to prioritize
+`n=1021`. Does NOT mean HiGHS's `7.5%` wrong-status rate on these near-degenerate LPs is itself
+fully understood — flagged, not investigated further, consistent with this round's cost-conscious
+scope. Does NOT mean the true optimal face at `gen_index` for `n=1021` is proven to be an exact
+single point — only that any residual width is below `~1e-9`, far beneath anything relevant to
+the `0.05` threshold either way.
+
+**Artifacts:** `check_coordinate_range_n1021.py`, `metrics/check_coordinate_range_n1021_result.json`
+(main experiment directory). Task A reused `metrics/diagnose_v1_v3_result.json` (Point 67), no
+new computation for the original draft; the corrected version above adds the `H3_coordinate_sweep`
+cross-check from the SAME file. This session's independent verification/follow-up scripts
+(scratchpad, not committed): the `H3` full-family recompute, and `positive_control_test.py` (the
+face_sum-shrink positive control resolving Task B's Gate-3 concern). Independently spot-checked
+against the raw JSON this session throughout (not accepted from either the agent's or the
+skeptic's summary alone).
+
