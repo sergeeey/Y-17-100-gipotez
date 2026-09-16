@@ -6750,3 +6750,74 @@ session's own extensively-verified Points 65-68 work) — all independently cros
 raw code/JSON per the audit's own source-priority rule (code > raw data > decision.md > theory .md
 > summary), not accepted from agent prose alone.
 
+## Point 70 (2026-09-16) — Correction to Point 69: the `|λ_n|=m·E[δ_i]` "foundational gap" was
+itself an overclaim — the identity is real, independently verified both algebraically and
+numerically (exact, n=7, diff `5e-11`); J_n-vs-K_n interpretation remains genuinely open, not
+resolved by either side's framing
+
+**Context.** A user-relayed external review of Point 69 (same provenance discipline as prior
+external proposals this session — evaluated on its merits, not accepted at face value) raised
+several points. One is a direct, checkable mathematical correction; verified immediately below.
+The others are strategic reframings that this point explicitly does NOT adopt yet, pending the
+`n=1021→500` extension already in progress (per the user's own direct instruction, launched
+before this correction was written).
+
+**Correction 1 — CONFIRMED, the `|λ_n|=m·E[δ_i]` identity is real, not a gap.** Point 69 listed
+this as a "foundational gap" (never independently derived/verified in Points 1-53). The external
+review supplied a standard derivation: for any real-valued `f:{0,1}^m→ℝ` under product-Bernoulli(p)
+measure, `d/dp E_p[f] = Σ_i E_p[D_if]` where `D_if=f(x_i=1)-f(x_i=0)` (a direct consequence of
+`E_p[f]` being a degree-`≤m` polynomial in `p`, not requiring monotonicity — a more general fact
+than the usual monotone-Boolean-function Margulis-Russo formula, but the same underlying
+computation). With `δ_i:=X(x_i=0)-X(x_i=1)=-D_iX`, `M_n'(p)=-Σ_iE_p[δ_i]`; at `p=1/2`, prime
+multiplicative orbit-transitivity (established, Points 4/5) makes all `E_{1/2}[δ_i]` equal, giving
+`λ_n:=M_n'(1/2)=-m·E[δ_i]`, and since `δ_i≥0` (established, Point 13a) `|λ_n|=m·E[δ_i]`.
+
+**Independently verified numerically this session** (not accepted from the external review's
+algebra alone): exact enumeration at `n=7` (`m=3`, all `2³=8` bit-configurations), using the
+project's own `theta_via_lp` unmodified. Numerical derivative of `E_p[X]` at `p=1/2`
+(`h=1e-6` central difference): `-1.7988928313`. Direct computation of `-m·E[δ_i]` (all three
+generators give IDENTICAL `E[δ_i]=0.5996309438`, confirming the orbit-transitivity claim exactly,
+not merely assumed): `-1.7988928314`. **Difference: `5e-11`**, consistent with the finite-
+difference step's own `O(h²)` truncation error — i.e., exact agreement. `δ_i` range at this `n`:
+`[0.4526,0.7466]`, strictly positive, consistent with the established monotonicity.
+
+**Corrected status**: `|λ_n|=m·E[δ_i]` is **[PROVED-IN-PROJECT]** (general polynomial-derivative
+argument + already-established orbit-transitivity + already-established `δ_i≥0`), independently
+re-confirmed numerically. `κ_n:=B_n/W_1=E[δ_i²]/(E[δ_i])²` follows immediately as an algebraic
+corollary. **Point 69's "foundational gap" framing is retracted** — this was a documentation gap
+(the derivation was never written down as its own explicit step in decision.md), not a
+mathematical one. This does NOT change Point 69's overall four-status verdict, KILL analysis, or
+recommended next action — it corrects exactly one of the audit's three headline findings.
+
+**Correction 2 candidate — NOT adopted, stated as an open question pending the in-progress
+extension.** The same external review argued `J_n` (`slope≈0.20` by its own endpoint-ratio
+estimate) and `K_n` (`≈0.17`) tell "almost the same story," proposing the real bottleneck is
+"common slow growth of both" rather than a `J_n`-vs-`K_n` disagreement. **Independently checked
+this session** using the project's own proper weighted 3-point fit (not an endpoint-ratio
+shortcut): `b_J=0.1518`, `b_K=0.1023` — same ORDER of magnitude, but a real, non-trivial
+difference (`~33%` relative), and — more importantly, per Point 68's own corrected statistics —
+the two differ in whether they clear conventional significance at all (`J_n`: `Δχ²=4.049`,
+`p=0.044`; `K_n`: `Δχ²=1.52`, `p=0.217`, Point 69's own §D). **Both readings remain live and are
+NOT distinguished by the currently-available 3-point data** — this is exactly the ambiguity the
+in-progress `n=1021→500` extension (§ below) is designed to resolve, not a settled matter either
+way. Explicitly declining to adopt either framing before that data returns.
+
+**Other strategic reframings raised (first-chaos status upgrade, QADC/Route-B scoring, un-killing
+specific routes, a weaker sufficient `C_q^LP` bound, a proposed uniqueness-vs-selector
+provenance check) — NOTED, NOT YET ACTED ON.** Several are plausible and worth real evaluation
+(the uniqueness-vs-selector check in particular looks genuinely cheap and informative — does the
+support-saturation uniqueness theorem, Point 63/64, apply to the SAME optimizer notion Point 63's
+aggregated bound requires?) — but adopting them now, before the extension's own data is in, would
+risk exactly the pattern this session's audit itself flagged four times running: a plausible-
+sounding reframing accepted without independent verification. Deferred to the next point, after
+`n=1021→500` results are available.
+
+**Kill Analysis.** Nothing killed. One correction made (the `λ_n`/`κ_n` identity, now
+[PROVED-IN-PROJECT], independently verified two ways). Everything else from the external review
+is explicitly held open, not adopted, pending data already in flight.
+
+**Artifacts:** this session's verification script (scratchpad, not committed): exact `n=7`
+enumeration checking `M_n'(1/2)` against `-m·E[δ_i]` via the project's own unmodified
+`theta_via_lp` (`20260909-lovasz-theta-random-circulant-graphs/run.py`); a second script
+recomputing the `J_n`/`K_n` weighted slopes directly from Point 66/68's own saved summary numbers.
+
