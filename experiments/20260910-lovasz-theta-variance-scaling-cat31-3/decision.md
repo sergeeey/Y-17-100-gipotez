@@ -7770,3 +7770,324 @@ the `W_1=λ²/(4m)` identity check, the three-way exponent agreement, the Efron�
 the `Z=n·x_i·w_i` / `δ_bound=2x_iw_i` verification on raw rows, and the deceleration test against
 the `a/log n` model.
 
+## Point 78 (2026-09-16) — CORRECTION to Point 77: `K_n=O(1) ⟺ conjecture` was an overclaim (only
+`⟹` is proven); the F4 lemma does NOT reach S1 (it gives `Var=O(log⁶n/n)`, matching Point 77's OWN
+S2, not S1) — the sharp, S1-equivalent target is a DIRECT joint moment, `J_n=O(1)`, which is
+already `n²·E[x*_i²w*_i²]`, the exact quantity Points 66-76 have been measuring the whole session
+
+**Context.** External-AI-authored critique of Point 77, relayed by the user, forwarded for
+independent evaluation per this session's standing discipline (not accepted at face value — this
+project has repeatedly caught real errors in such forwards, and has also caught real errors in
+its OWN work via the same discipline applied to itself, which is what happened here). Two
+corrections claimed; both independently re-derived from scratch (symbolically, via `sympy`, not
+by hand) before being accepted.
+
+**Correction 1 — CONFIRMED, real error.** Point 77's "Not an over-strong target" row states
+`K_n=O(1) ⟺ the conjecture`. This is FALSE AS WRITTEN. Efron–Stein gives only the one-directional
+`Var(X_n) ≤ B_n ≍ K_n/n`, i.e. `K_n=O(1) ⟹ Var=O(1/n)` (proven). The converse would require a
+matching REVERSE bound `B_n ≤ C·Var(X_n)`, uniform in `n` — **grepped this entire document for
+any such bound (`B_n <= C`, "reverse Efron-Stein", "lower bound" near `Var`): zero hits.** No such
+bound has ever been proven or even attempted here. The empirical Efron–Stein-slack series Point 77
+cited (`2.57→1.67→1.27` at `n=127,509,1021`; exact small-`n` `1.20-1.52`) is real and suggestive —
+it says the ratio `B_n/Var(X_n)` has stayed bounded and even shrunk on every tested `n` — but a
+bounded ratio on a finite tested range is evidence for a conjecture, not a proof of a uniform
+bound for all `n`. **Corrected statement: `K_n=O(1)` is a proven-sufficient, empirically-plausible
+but UNPROVEN-necessary target. Pursuing it remains the shortest known PATH to the conjecture, but
+it is not established to be equivalent to it, and Point 77's "equivalent" framing should not be
+read as a proven fact.**
+
+**Correction 2 — CONFIRMED, real error, and it contradicts Point 77's OWN later section.**
+Point 77's "one question, in two equivalent forms" box reads
+`E[δ_i²] ≤ C/n² ⟺(sufficient)⟸ E[(x*_i)⁴] = O((E[(x*_i)²])²)` — self-contradictory notation
+(mixing `⟺` and `⟸` in one line has no coherent meaning) that, as written, invites the reading
+"the F4 lemma reaches the strict `C/n²` target." **It does not**, and Point 77's OWN Outcome Map
+(S1 vs S2) already said so without the "two equivalent forms" box noticing the tension.
+Independently re-derived symbolically from the already-established `E[(x*_i)²]=O(log³n/n)`:
+
+```
+F4:  E[x*⁴] = O((E[x*²])²) = O(log⁶n/n²)
+  -> E[x²w²] <= sqrt(E[x⁴]E[w⁴]) = O(log⁶n/n²)      [Cauchy-Schwarz + equal marginals]
+  -> J_n = n²·E[x²w²] = O(log⁶n)                     -- NOT O(1)
+  -> K_n <= 4J_n = O(log⁶n)
+  -> Var(X_n) = O(log⁶n / n)                         -- matches Point 77's OWN "S2", not "S1"
+```
+
+F4 (the marginal fourth-moment/delocalization statement, and by extension all three of Point 77's
+named strategies, which all target this marginal quantity) proves S2 at best, never S1. The "two
+equivalent forms" box is corrected: **F4 is sufficient for S2 only, not for S1.**
+
+**The sharper target this correction surfaces — not new compute, not a new quantity, but a
+renaming of what was already the primary measured object.** Skipping the Cauchy–Schwarz split
+(which can only lose information — equality holds only if `x*²=c·w*²` a.s., not established, and
+plausibly false given `x*` and `w*` are the min-L2 certificates of two DIFFERENT graphs, `G_0` and
+the complement of `G_0∪H_i`) and bounding the JOINT product moment directly:
+
+```
+MIX4:  E[x*_i² w*_i²] = O(n⁻²)   <=>   J_n = O(1)   =>   K_n <= 4J_n = O(1)   =>   Var = O(1/n)
+                                                                                    [this IS S1]
+```
+
+**`J_n := E[Z_ni²]` where `Z_ni = n·x_i·w_i` — this is not a new object. It is the exact quantity
+Points 66-76 have measured the entire session** (verified this session directly against
+`metrics/ppl_gate_pilot.json` raw rows: `Z_ni = n·x_i·w_i` holds exactly). Point 76's own
+corrected finding is directly relevant here, not incidental to it: `J_n`'s nominal growth
+(`b=0.0998`) is **not robust to excluding `n=127`** (`b=0.0825±0.1034, p=0.43` on `n=509,1021,2039`
+alone — no growth signal on the three largest tested `n`). This is an absence-of-evidence-against-
+boundedness reading of data that already exists, not a new empirical claim, and not proof either —
+stated at exactly the strength the data supports, no more.
+
+**Corrected roadmap.** The single bottleneck is unchanged in substance (`E[δ_i²]≤C/n²`) but its
+S1-equivalent reduction is now stated correctly: **`J_n=O(1)` (equivalently `MIX4`), not the
+marginal `F4`.** Point 77's three named strategies need re-scoping, not replacement:
+1. Hypercontractivity — as named, targets marginal `F4` (gives S2 only). To reach S1 it must be
+   adapted to bound the JOINT `x*_i w*_i` product directly (e.g. via a negative-dependence /
+   anti-concentration argument between the two certificates), not each marginal separately.
+2. Support-saturation `CV` route — as named (Point 64's `n‖y‖²=(n/s)(1+CV²)`), bounds ONE
+   optimal vector's own weight dispersion, i.e. also a marginal quantity. Same re-scoping needed:
+   does the support-saturation structure say anything about `x*` and `w*` JOINTLY (they come from
+   genuinely different, correlated-by-construction LPs — `G_0` and complement of `G_0∪H_i`), not
+   just about each alone.
+3. High-probability + anti-concentration — least affected, since a tail bound on the PRODUCT
+   `x_iw_i` directly (rather than each factor) was already a coherent reading of this strategy.
+
+**What this does NOT mean.** Does NOT mean the shortest-path conclusion of Point 77 is wrong — it
+is, if anything, sharper: the target was always `J_n=O(1)`, already being measured, and the
+correction only removes an unnecessary and lossy detour through marginal fourth moments. Does NOT
+mean Gate 0 (still running as of this point) is invalidated — its question (does a delocalization/
+moment-control result already exist for LP/SDP optimizers) applies equally to the corrected joint
+target. Does NOT mean the pre-registered budget or outcome map (S1/S2/F, revival condition) needs
+to change — S1/S2 were already stated correctly; only the "which lemma reaches which outcome"
+mapping needed fixing. Does NOT mean `K_n` and `J_n` are different open questions — `K_n≤4J_n`
+was already established; proving `J_n=O(1)` remains the single cleanest sufficient step, now
+correctly identified as such without the false detour.
+
+**Artifacts:** No code or data changes. Both corrections independently re-derived symbolically
+(`sympy`, not accepted from the critique's own derivation) before being written here; the
+Efron-Stein reverse-bound absence was confirmed by exhaustive grep of this document, not assumed.
+
+## Point 79 (2026-09-16) — Gate 0 (novelty check, pre-registered in Point 77) RETURNED: the
+fourth-moment/delocalization statement is genuinely NOT in the literature (closest adjacent work
+is a different object in a different randomness model); confirms this project's own `log³n`
+derivation already used the tight (not the loosened, printed) form of Bandeira et al.'s Lemma 5;
+and surfaces a genuinely new, cheap, currently-untried alternative route — Talagrand-style DIRECT
+concentration of `θ`, already used for ordinary Erdős–Rényi graphs but never attempted for
+circulant graphs — added to the budget as **Strategy 0**, run before the three MIX4 strategies
+
+**Context.** Direct user instruction, per Point 77's own Gate 0 requirement. Delegated to a
+general-purpose agent with explicit instructions not to invent citations; verdicts below are
+`FOUND-EXACT`/`FOUND-ADJACENT`/`NOT-FOUND` per the agent's own framework, each cited with
+arXiv ID/DOI or explicitly marked `[UNVERIFIED]` where full text could not be checked.
+
+**Q1 — does `E[(x*_i)⁴]=O((E[(x*_i)²])²)` (or an equivalent joint/marginal moment statement for
+LP/SDP optimizer coordinates) already exist? `NOT-FOUND` (exact), `FOUND-ADJACENT` (a different
+object).** No paper proves or states this for LP/SDP optimizer coordinates. Closest genre:
+eigenvector/null-vector delocalization of random matrices — Rudelson & Vershynin (arXiv:1306.2887),
+Lytova & Tikhomirov (arXiv:1810.01590), Luh & O'Rourke (arXiv:1810.00489). Gap, stated precisely:
+these bound ℓ2-mass on coordinate SUBSETS of null vectors of a FIXED random matrix with i.i.d.
+entries — not a single coordinate's 4th-vs-2nd moment ratio, not a structured subsampled-DFT
+matrix, and critically not a vector selected as the ARGMIN of a convex objective (an optimizer)
+— these are null/eigen-vectors of a random matrix, not solutions to an optimization problem.
+Adapting this machinery is genuinely new work, not a citation. One false lead ruled out
+explicitly: Bakhshi/Ostrowski/Tikhomirov (arXiv:2401.17530) uses "delocalization" as an
+ASSUMPTION on a fixed deterministic cost vector to get a scalar objective-value limit law — wrong
+direction (assumption, not conclusion) and wrong model (dense i.i.d. constraints, not sparse
+structured Fourier constraints).
+
+**Q2 — what does arXiv:2502.16227 (Bandeira et al.) actually prove? Load-bearing, since this
+project's `E‖x*‖²=O(log³n)` premise depends on it.**
+
+- **No variance/concentration result of any kind is proved by this paper** — Theorem 1 bounds
+  `E[θ(G)]` only. It CITES (does not prove) two concentration results, and both are for ORDINARY
+  Erdős–Rényi graphs, not circulant graphs: an unpublished note (Arora & Bhaskara, no venue/year
+  in the paper's own bibliography — `[UNVERIFIED]` beyond what 2502.16227 quotes, its own PDF
+  could not be extracted) using Talagrand's inequality, and Coja-Oghlan 2005 (Combinatorics,
+  Probability and Computing 14.4, pp. 439-465) for the sparse regime. **Neither has ever been
+  extended to circulant graphs** — confirmed by checking the corresponding author's (Kunisky)
+  publication page and an author-name search; no follow-up found.
+- **`[CONFIRMED, not a bug]`: this project's own `E‖x*‖²=O(log³n)` derivation
+  (`codex-20260914-susceptibility/CROSS_TURAN_ENERGY_THEORY.md:66-78`) already uses the TIGHT
+  interior estimate from Lemma 5's own proof (`‖y‖₂≤C·log^{3/2}n/√n·‖y‖₁`, sourced to Haviv &
+  Regev 2017 for the RIP sparsity level and Cahill & Mixon 2021 for the RIP⇒null-space bound),
+  NOT the paper's own deliberately loosened printed statement (`‖y‖₂≤log²n/√n·‖y‖₁`, which would
+  give `log⁴n`, not `log³n`, after squaring). Re-verified this session by reading
+  `CROSS_TURAN_ENERGY_THEORY.md` directly: the tight form is exactly what's cited. **No error in
+  this project's existing work — the Gate 0 agent's own "precision note" reads as a caution
+  applicable to a careless future citation, and turns out to already be satisfied here.**
+- Lemma 5 itself is a deterministic, UNIFORM bound over the ENTIRE kernel subspace `ker(F̃)` — it
+  says nothing distinguishing the actual optimal `y*` from any other vector in that kernel, and is
+  a whole-vector ℓ2/ℓ1 statement, not coordinatewise, let alone a 4th-moment statement. Used
+  exactly once in 2502.16227's own proof, in a Cauchy-Schwarz step bounding the LP objective — not
+  to characterize the certificate's structure. Confirms Q1's `NOT-FOUND`: this paper does not
+  supply, even implicitly, the delocalization lemma this project needs.
+
+**Q3 — existing concentration machinery for `θ` (or similar SDP values) that could bypass the
+whole route? `FOUND-ADJACENT` — a real, cheap, currently-untried alternative.** Talagrand's
+convex-distance/certifiable-Lipschitz inequality is the exact tool behind BOTH cited ER-graph
+concentration results (Arora-Bhaskara's Talagrand argument; Coja-Oghlan's sparse-regime result)
+— **this has never been attempted for circulant graphs.** The standard argument builds, for each
+near-optimal SDP solution, a bounded-size "certificate" set of EDGES such that graphs agreeing on
+the certificate have close `θ`-values, then applies Talagrand's inequality on the product space of
+independent EDGE indicators. **The open, unaddressed structural question**: a dense random
+circulant graph is generated by only `m=(n-1)/2` independent BIT choices, each of which toggles an
+entire ORBIT of `n` edges simultaneously — the standard bounded-edge-certificate argument was built
+for independent single-edge perturbations, and whether an analogous bounded-certificate argument
+survives when one bit flip moves `O(n)` edges at once is genuinely open; no paper addresses it for
+Cayley/circulant graphs specifically. **If it transfers, it plausibly gives `Var(θ)` (or a related
+quantity) DIRECTLY, bypassing the entire `δ_i`/Efron-Stein/`J_n`/`K_n` machinery this project has
+built over Points 3-78.** If it visibly fails to transfer (the `O(n)`-edges-per-bit structure
+breaks the usual bounded-certificate construction), that failure is itself useful, cheaply-bought
+information, and removes the concern that a shortcut is being missed while the MIX4 route is
+pursued.
+
+**Budget update — Strategy 0, added per direct user decision, run BEFORE the three MIX4
+strategies from Point 78 (not instead of them, and not counted against their `≤1 session each`
+allowance, since this is what Gate 0 itself surfaced, not a repeat of a named strategy).**
+
+```
+Strategy 0 (NEW): attempt a Talagrand-style certificate argument on the m-bit circulant
+  parametrization directly. Cheap, ≤1 session, genuinely different in kind from Strategies 1-3
+  (targets Var(θ) or J_n directly via concentration, not via the delta_i/moment chain).
+  - If it transfers -> may give the variance bound directly; downstream MIX4 work becomes
+    unnecessary, or at minimum a second independent confirmation route.
+  - If it visibly fails (edges-per-bit obstruction is real and not surmountable cheaply) ->
+    informative negative result, proceed to Strategies 1-3 (MIX4 route, per Point 78's
+    correction) with the same total remaining budget (≤3 sessions) as before.
+```
+
+**What this does NOT mean.** Does NOT mean the literature search found nothing useful — Q2's
+finding (2502.16227 proves no concentration result, cites only ER-graph results) is a real,
+previously-unstated fact that clarifies exactly what this project's own derivations do and do not
+rest on external work for. Does NOT mean Strategy 0 is expected to succeed — the edges-per-bit
+obstruction is real and unresolved; it is cheap and informative either way, which is why it is
+added as a zero-cost-relative-to-the-existing-budget prefix, not a budget expansion. Does NOT
+change Point 78's correction (MIX4 remains the S1-equivalent target for Strategies 1-3) — Strategy
+0 is an alternative PATH to the same overall goal (`Var(X_n)=O(1/n)`), not a replacement for the
+corrected target. Does NOT mean this project's `log³n` chain needed fixing — Q2's precision check
+confirms it did not, and this is recorded explicitly so the finding is not mistaken for a
+discovered bug on a later, more superficial read of this point.
+
+**Artifacts:** No code or data changes. Gate 0 delegated to a general-purpose agent (arXiv/web
+search + full-text reads, not abstract-only); its citations independently spot-checked against
+its own quoted text before being accepted here (the `CROSS_TURAN_ENERGY_THEORY.md:66-78` quote
+re-read directly, not taken on the agent's paraphrase).
+
+## Point 80 (2026-09-16) — SECOND-ROUND skeptic-fallback review of Points 78-79 found real, more
+severe problems than either correction fixed: Point 78's own "sharp, S1-equivalent" framing
+repeats Correction 1's exact error one paragraph later, on a STRICTLY STRONGER quantity; a
+previously-underived identity (`B_n/W_1=1+CV(δ)²`) shows a reverse bound DOES reduce to one
+measurable condition (not "never attempted," as Point 78 claimed); and directly-computed raw data
+shows `Cov(x*_i², w*_i²)>0` and GROWING with `n` at all 4 tested `n` — meaning `MIX4` (the
+"sharper, no-`POL`-needed" target Point 78 proposed) in fact REQUIRES `POL`, exactly the
+dependency it was framed as avoiding. Point 79's Strategy 0 (Talagrand) is flagged, not killed —
+the scale argument against it rests on an unread source and is not independently confirmable this
+session
+
+**Context.** Same context-asymmetric `skeptic` substitution as Points 75/76 (`reviewer`'s cap
+exhausted this session). Both corrections independently re-verified before being written here —
+the algebra by direct symbolic/numeric recomputation, the empirical claims by re-querying
+`metrics/ppl_gate_pilot.json` directly, not accepted from the skeptic's own numbers.
+
+**1. Point 78's own title repeats its own Correction 1, one quantity later — CONFIRMED by
+re-reading the actual text.** Correction 1 downgrades `K_n=O(1) ⟺ conjecture` to
+`K_n=O(1) ⟹ conjecture` (sufficient, not proven necessary). Point 78's own later section then
+calls `J_n=O(1)` "the sharp, **S1-equivalent** target" and "the single cleanest sufficient step"
+in successive sentences. Since `K_n≤4J_n` (already established), `J_n=O(1) ⟹ K_n=O(1)` but NOT
+conversely — **`J_n=O(1)` is strictly STRONGER than `K_n=O(1)`, i.e. FURTHER from being proven
+necessary, not closer.** Calling it "S1-equivalent" repeats exactly the error Correction 1 had
+just fixed, applied to a stronger statement. **Fixed here: `J_n=O(1)` is a proven-sufficient
+target for S1 (via `K_n≤4J_n`), with no stronger equivalence claim.**
+
+**2. A real algebraic identity that DOES reduce necessity to one measurable condition — missed in
+Point 78, independently re-derived and verified here.** From already-proven facts (`W_1=λ_n²/4m`,
+`|λ_n|=m·E[δ]`, `Var=W_1+R_n`, `R_n≥0`):
+
+```
+W_1 = m·E[δ]²/4                              (substitute |λ_n|=m·E[δ] into W_1=λ_n²/4m)
+B_n/W_1 = E[δ²]/E[δ]² = 1 + CV(δ)²           (exact identity: E[δ²]=Var(δ)+E[δ]²)
+Var ≥ W_1  (since R_n≥0)  =>  B_n/Var ≤ B_n/W_1 = 1+CV(δ)²
+```
+
+**So `CV(δ)=O(1) ⟹ B_n/Var` bounded `⟹ Var≍B_n≍K_n/n ⟹ [Var=O(1/n) ⟺ K_n=O(1)]`.** Point 78's
+claim that no reverse bound "has ever been proven or even attempted" is WRONG — one follows in
+three lines from facts already in the "Proven" row of Point 77. The correct statement is narrower
+than Point 78's blanket claim and sharper than Point 77's original overclaim: **the necessity
+direction is not free, but it reduces to a single, directly measurable condition
+(`CV(δ)=O(1)`), not an open-ended unknown.**
+
+**Caveat, found while independently verifying this — the two existing `δ` measurement series in
+this project are NOT the same statistic and must not be conflated.** Computed `CV(δ)²` directly
+from `metrics/ppl_gate_pilot.json`'s row-level `delta_i_actual` (single fixed generator,
+`GEN_INDEX=1`, `n=127,509,1021,2039`): **`1.229, 1.203, 1.256, 1.221`** — remarkably STABLE, not
+decreasing. This differs from the `B_n/Var` ratio series cited earlier in this session
+(`2.57→1.67→1.27`, from Point 9b's full multi-generator Efron-Stein sum on a different `n` grid,
+`128/512/1536`, via `single_generator_sensitivity.json` — despite the file's own name, that
+pipeline sums over generators differently from `ppl_gate_pilot.json`'s single-fixed-orbit `δ`).
+**These are two different pipelines measuring related but not identical quantities; neither this
+point nor Point 78 is entitled to substitute one series' behavior for the other's.** The `CV(δ)²`
+value directly relevant to THIS `J_n`/`K_n` line is the stable `≈1.2-1.26` series, not the
+decreasing `2.57→1.27` one. A stable (not shrinking) `CV(δ)²≈1.2` is still bounded — consistent
+with, not contradicting, the necessity-reduction argument above — but the "shrinking slack"
+narrative used earlier in this session to argue near-necessity was drawn from the wrong series.
+
+**3. `Cov(x*_i², w*_i²)>0`, growing with `n` — CONFIRMED by direct computation, and this is the
+most consequential finding in this point.** Computed directly from raw rows at all four `n`:
+
+| n | `Cov(x²,w²)` | `corr(x²,w²)` | `E[x²w²]` vs `E[x²]·E[w²]` |
+|---:|---:|---:|---|
+| 127 | `+1.23e-3` | `+0.247` | `4.01e-3` ≥ `2.78e-3` |
+| 509 | `+1.31e-4` | `+0.597` | `2.83e-4` ≥ `1.52e-4` |
+| 1021 | `+4.27e-5` | `+0.789` | `8.31e-5` ≥ `4.04e-5` |
+| 2039 | `+1.02e-5` | `+0.860` | `1.95e-5` ≥ `9.37e-6` |
+
+**Positive covariance means `E[x²w²] ≥ E[x²]·E[w²]` at every tested `n`, and the correlation is
+STRENGTHENING (not weakening) as `n` grows (`0.25→0.60→0.79→0.86`).** Since equal marginals give
+`E[x²]=E[w²]`, this means `MIX4` (`E[x²w²]=O(n⁻²)`) forces `(E[x²])²≤E[x²w²]=O(n⁻²)`, i.e.
+`E[x²]=O(1/n)`, i.e. **`POL` (`sup_n E‖x*‖²<∞`) becomes a NECESSARY precondition for `MIX4`** —
+exactly the dependency Point 78 framed `MIX4` as avoiding ("`R_n` not needed... `POL` not
+needed" was Point 77's framing, inherited uncritically into Point 78's "sharp target"
+characterization). **This is not fatal to the MIX4 program, but it removes the claimed
+independence from `POL`, and the GROWING correlation trend is a real, unfavorable signal for the
+strategies as currently scoped** — if the trend continues, `x*_i` and `w*_i` are becoming more
+alike (not more independent), which works against any strategy hoping to exploit negative
+dependence between the two certificates (Strategy 1's re-scoping in Point 78 explicitly needed
+such a mechanism).
+
+**4. Point 79's Strategy 0 (Talagrand) — FLAGGED, not adopted as FALSIFIED at full confidence.**
+The second-round skeptic review derived a specific scale mismatch (standard `(r,1)`-certifiable
+Talagrand gives `sd(θ)≍√(r·E[θ])≍√(r·√n)`, and matching the target needs `r=O(n^{-1/2})`,
+below any nontrivial certificate size) and concluded Strategy 0 cannot work even in principle.
+**This session cannot independently confirm or refute the premise this rests on**: it assumes
+the cited ER-graph results (Arora-Bhaskara's unpublished note, Coja-Oghlan 2005) use the generic
+bounded-edge-certificate form of Talagrand's inequality with `r=O(1)` — but Gate 0's own report
+(Point 79) could not extract readable text from the Arora-Bhaskara note (`[UNVERIFIED]`) and
+described the cited result only as "concentrates... in an interval of polylogarithmic length,"
+which is a DIFFERENT (better) scale than the generic `r=O(1)` form would produce, and may rest on
+a `θ`-specific self-bounding argument rather than the generic edge-certificate machinery the
+second-round critique assumed. **Until the actual technique and rate in the cited ER-graph result
+is read directly (not paraphrased through two layers of agent summary), the correct status is:
+Strategy 0's viability is genuinely unresolved, downgraded from Point 79's "cheap, promising" to
+"requires reading the actual source and checking its rate BEFORE spending a session," not yet
+downgraded all the way to "impossible."** This itself is a cheap, well-defined next action (read
+one paper's concentration rate, not attempt a proof) — narrower than either Point 79's original
+framing or the second-round critique's dismissal.
+
+**What this does NOT mean.** Does NOT mean the MIX4/`J_n` program is dead — `J_n=O(1)` remains a
+valid, proven-sufficient target; the positive-correlation finding narrows which mechanism could
+prove it (needs a `POL`-compatible argument, or a proof that the correlation trend reverses at
+larger `n`, which the data gives no support for), it does not close the target. Does NOT mean the
+`CV(δ)` stability (`≈1.2`, not shrinking) is bad news for the necessity argument — a STABLE
+bounded `CV(δ)²` still satisfies `CV(δ)=O(1)`, which is exactly the sufficient condition the new
+identity in §2 needs; "not shrinking" only means the earlier "shrinking slack" narrative (borrowed
+from a different, non-comparable pipeline) should not be cited as supporting evidence for THIS
+line of the argument. Does NOT mean Strategy 0 is confirmed impossible — see §4, this remains an
+open, cheaply-resolvable question, not a closed one. Does NOT mean this session's proof-budget
+process has failed — finding real errors in one's own pre-registration via adversarial review,
+before spending the committed budget on a flawed target, is the process working as designed, not
+a sign it is not working.
+
+**Artifacts:** No code or data changes. `Cov(x*²,w*²)` and `CV(δ)²` computed directly from
+`metrics/ppl_gate_pilot.json` row-level `x_i`/`w_i`/`delta_i_actual` fields this session, all four
+`n`, not accepted from either round of skeptic review without independent recomputation. The
+`B_n/W_1=1+CV(δ)²` identity re-derived from the algebraic definitions, not taken on the second
+skeptic pass's word.
+
