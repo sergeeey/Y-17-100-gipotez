@@ -6676,3 +6676,77 @@ face_sum-shrink positive control resolving Task B's Gate-3 concern). Independent
 against the raw JSON this session throughout (not accepted from either the agent's or the
 skeptic's summary alone).
 
+## Point 69 (2026-09-16) — Full independent audit of H-CAT31-3 (Points 1-68 + Codex
+codex-20260914-susceptibility/): four-status verdict, foundational gap identified, single
+recommended next action
+
+**Context.** User-requested independent audit (25-section spec, user-provided, external-AI-
+authored request evaluated and accepted as legitimate/well-aligned with this project's own FL
+discipline — not executed blindly, but not treated with the same Gate-1 suspicion as the earlier
+PPL/QADC math proposals, since this request asked for SYNTHESIS of already-existing material, not
+new unverified claims). Executed as: two parallel background audits (Points 1-53; Codex Points
+57-64) plus this session's own direct synthesis of Points 54-68 (already fresh/independently
+verified from Points 65-68's own extensive skeptic-review work earlier this session). Full report:
+`AUDIT_H-CAT31-3_2026-09-16.md` (this directory).
+
+**Headline findings, not previously stated anywhere in the project:**
+1. **Foundational gap**: `|λ_n|=m·E[δ_i]` and `κ_n=E[δ_i²]/(E[δ_i])²` (as informally used
+   throughout Points 12c/13/54+) are NOT independently derived/verified anywhere in Points 1-53 —
+   the project's own code defines `κ_n:=B_n/W_1`, equal to the textbook form only CONTINGENT on
+   the unverified `|λ_n|=m·E[δ_i]` identity. Nothing downstream is known to be wrong, but nothing
+   downstream has actually confirmed this equivalence either.
+2. **A documented false-positive from the skeptic-review layer ITSELF** (Point 47→48, found by
+   the Points 1-53 sub-audit): skeptic rated Point 47's claim `CONFIRMED-REAL`; Point 48's LP dual
+   certificate later proved it substantively WRONG (cross-method solver agreement was not
+   sufficient evidence of LP primal feasibility — only a verified dual certificate was). This is
+   qualitatively different from this session's own repeated finding (first-draft claims being
+   walked back on review) — here the REVIEW layer itself failed, not just the claim.
+3. **The aggregated cross-Turán bound (`|λ_n|≤2(E‖x*‖²-1)`, Codex Point 63) structurally REQUIRES
+   the unique min-L2 selector** for its equivariance argument — confirmed by the Codex sub-audit
+   directly from `CROSS_TURAN_ENERGY_THEORY.md`'s own text, NOT merely an empirical concern this
+   session raised independently for the PPL work. Empirically checked coincident with the HiGHS
+   vertex on 36 small/medium graphs (Codex); never checked at the n=509-4093 range where the
+   RBA/PPL work actually operates.
+4. **Two requested audit sections (§4 support-saturation/Tao/RPCB machinery, §5 bulk-Fourier-
+   identity/"BA-exact") do not exist under those names anywhere in Points 1-53** — confirmed by
+   direct full-document grep, zero hits; they first appear at Point 63-65 (already covered in this
+   session's own Points 54-68 synthesis). "Kashin"/"RHPRI" — zero hits anywhere in the entire repo.
+5. **`η_n:=K_n/(4J_n)`, a diagnostic ratio proposed by the user's own earlier message but never
+   before actually computed**: `0.279, 0.253, 0.262` at n=127,509,1021 — stable across an 8× range
+   in n, computed this session directly from already-saved data (no new LP solves).
+
+**Four-status verdict (per the audit's own required format):**
+- `H-CAT31-3`: **OPEN** — exact exponent -1 empirically excluded (real 95% CI), but `O(1/n)` as an
+  upper bound neither proven nor excluded.
+- First-chaos boundedness: **CHALLENGED** — pilot-level support only, aggregated bound's selector-
+  dependence untested at the relevant n-range.
+- PPL route: **INCONCLUSIVE** — `J_n` (proxy) marginally significant, `K_n` (direct target) not;
+  this disagreement is itself the most informative open fact in the route.
+- QADC + `C_q^LP` route: **OPEN, never attempted as an actual proof target.**
+
+**Recommended next action (single, per the audit's own "not a list of ten" requirement):**
+resolve the `J_n`-vs-`K_n` disagreement at `n=1021` specifically — complete the already-designed,
+already-partially-executed, currently-halted extension to `~500` reps, tracking `J_n`, `K_n`, AND
+`η_n` jointly. This is an explicit restatement for the user's own decision, not executed here.
+
+**Kill Analysis.** Nothing new killed by this audit itself — it is a synthesis, not a new
+experiment. What changed: the project's own claimed statuses for Points 1-68 are now independently
+cross-checked in one place, with 3 genuinely new findings (the foundational gap, the skeptic-
+layer false-positive precedent, the selector-dependence being a structural not merely empirical
+concern) that were not previously stated together anywhere in the project.
+
+**What this does NOT mean.** Does NOT mean any previously-`[PROVED-IN-PROJECT]` result is now in
+doubt — the audit RE-CONFIRMED every such result it checked against code/JSON, it did not merely
+repeat prose claims. Does NOT mean the foundational-gap finding (item 1) implies `κ_n` is wrong —
+only that its exact equivalence to the textbook form has never been independently confirmed as
+literally stated. Does NOT constitute a new experiment or proof attempt — per the audit's own
+explicit instruction, none was performed.
+
+**Artifacts:** `AUDIT_H-CAT31-3_2026-09-16.md` (this directory, full report — sections A-I,
+verified timeline for all 68 points + Codex's 8 points, proven theorem chain, negative results,
+methodology failures, reproducibility table, decision tree). Two background sub-audits (Points
+1-53; Codex Points 57-64) plus this session's own direct synthesis (Points 54-68, reusing this
+session's own extensively-verified Points 65-68 work) — all independently cross-checked against
+raw code/JSON per the audit's own source-priority rule (code > raw data > decision.md > theory .md
+> summary), not accepted from agent prose alone.
+
