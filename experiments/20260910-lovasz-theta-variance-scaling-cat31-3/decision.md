@@ -8091,3 +8091,105 @@ a sign it is not working.
 `B_n/W_1=1+CV(δ)²` identity re-derived from the algebraic definitions, not taken on the second
 skeptic pass's word.
 
+## Point 81 (2026-09-16) — Strategy 0 (Point 79's Talagrand transfer) RESOLVED: DIRECT transfer
+KILLED — verified against the PRIMARY source (full text, not paraphrase), which shows the
+obstruction is structural (an i.i.d.-matrix-entries hypothesis, false by construction for
+circulant graphs), not merely "unattempted." A genuinely new certificate would be required, not
+just more effort on the existing one. `CIRCULANT-SPECIFIC TALAGRAND: PARKED`
+
+**Context.** User-forwarded, source-cited critique of Point 79's Strategy 0, independently
+evaluated per standing session discipline. This session fetched and read the primary source
+directly (Arora & Bhaskara's note itself, full text, via `Read` on the downloaded PDF — `WebFetch`
+and Gate 0's own agent both failed to extract this same PDF's text; `Read`'s PDF support
+succeeded), rather than accepting the forwarded critique's quotes at face value — this project's
+own precedent (Filmus-2016, points 27-28) is exactly why quotes get re-verified against the
+primary text, not just checked for internal plausibility.
+
+**Verified directly against the primary source (`theory.epfl.ch/bhaskara/files/theta.pdf`, full
+text extracted):**
+
+- **Theorem 1** (exact quote): `Pr[|θ(G)-μ|>t] ≤ e^{-t^{4/3}/(C log³n)}` for `G~G(n,1/2)`. Matches
+  the forwarded critique exactly.
+- **Coja-Oghlan comparison** (exact quote, from the paper's own introduction): "Note that for say
+  `p=1/2`, this only says that `θ(G)` is concentrated in an interval of length roughly `n^{1/4}`
+  w.h.p." — confirms the `n^{1/4}` scale claim exactly, sourced from the paper's own citation of
+  Coja-Oghlan's `Pr[|θ(G)-μ|>t]≤e^{-t²/(μ+t)}` bound (a SECONDARY citation — Coja-Oghlan's own 2005
+  paper was not independently fetched this session).
+- **The delocalization/flatness mechanism is real, not the forwarded critique's invention**: the
+  proof's central definition is a graph being "`s`-bad" iff `Σᵢ‖vᵢ‖⁴ > (1+s)log²n` for every
+  optimal vector solution (Lemma 2) — exactly a marginal fourth-moment control on the SDP
+  certificate's coordinates, the same OBJECT TYPE this project's own Points 77-80 have been
+  targeting. Confirms Point 79's Q3 finding that the delocalization motif is externally
+  validated, not a project-invented fantasy.
+
+**The structural obstruction — found independently by reading the proof mechanism itself, a
+stronger and more specific finding than the forwarded critique's own "one bit moves `n` edges"
+framing (which was second-hand, sourced to an unread thesis).** Lemma 3 (Lovász's own
+`ϑ(G)≤λ_max(J-2A(G)-I)`) and Lemma 4 (Alon-Krivelevich-Vu eigenvalue concentration) are applied,
+in the proof of Lemma 5, to the adjacency matrix `A(H)` of an INDUCED SUBGRAPH `H` on an arbitrary
+vertex subset `S`. **Lemma 4's own hypothesis requires `A(H)`'s upper-diagonal entries to be
+i.i.d.** — true for `G(n,1/2)` (every edge is an independent coin flip) but **FALSE BY
+CONSTRUCTION for circulant graphs**: two edges `(i,j)` and `(i',j')` with the same difference
+`i-j≡i'-j' (mod n)` are controlled by the SAME generator bit, not independent ones — an entire
+orbit of `~n` edges is perfectly correlated. **This is not a difficulty to route around with more
+effort on the same certificate construction — the specific lemma the whole argument's union bound
+(Lemma 5) rests on has a hypothesis that is simply false for this random model.** A transfer
+attempt would need to replace Lemma 3/4's route entirely (plausibly with an RIP-type argument, the
+technique Bandeira et al. 2025 actually use for their own, different, `E[θ]`-only result — itself
+weak evidence that the direct Talagrand route was considered and not pursued by the authors closest
+to this exact problem).
+
+**Not independently confirmed this session, flagged rather than asserted:** (a) whether Coja-Oghlan
+2005's own paper states the `n^{1/4}` bound in exactly this form (only confirmed via
+Arora-Bhaskara's citation of it, a credible but secondary source); (b) the forwarded critique's
+claim that a prior thesis/paper already attempted the circulant-specific transfer and obtained
+only "logarithmic loss" — two candidate sources (an ETH research-collection thesis, an OpenReview
+PDF) were located via `WebSearch` but both returned HTML landing pages, not extractable PDF text,
+on this session's fetch attempts; this claim is NOT relied upon in the verdict below, which rests
+entirely on the independently-verified structural obstruction in the primary source instead; (c)
+the "manuscript (2011)" dating claim — no date appears anywhere in the extracted PDF text.
+
+**Verdict.**
+- **`DIRECT TALAGRAND TRANSFER: KILLED`** — not merely "unattempted" (Point 79's framing) but
+  structurally blocked: the specific lemma the standard argument's union bound depends on has a
+  hypothesis (i.i.d. matrix entries) that provably fails for the circulant random model. This is a
+  stronger, more specific finding than Point 80's own scale-mismatch argument (which assumed a
+  generic `(r,1)`-certifiable form without confirming which technique the actual cited results
+  use) — Point 80's flagged-not-confirmed status is now resolved on independent, primary-source
+  grounds, though by a different mechanism (structural incompatibility) than the scale mismatch
+  Point 80 speculated about.
+- **`CIRCULANT-SPECIFIC TALAGRAND: PARKED`** — a genuinely new bounded-certificate construction
+  compatible with orbit-correlated edges (not the standard single-edge-independence one) would be
+  required. This is not ruled out, but it is not the "cheap side-bet" Point 79 framed it as; it is
+  itself a nontrivial new-technique attempt, comparable in scope to Strategies 1-3, not a filter
+  to run before them.
+- **Confirms, independently, that even a hypothetical FULL transfer would only reach S2, not
+  S1**: `t^{4/3}~log³n ⟹ t~log^{9/4}n ⟹ E[(θ-μ)²]=O(log^{9/2}n)` (standard tail-to-moment
+  conversion, re-derived this session) — polylog-weakened, matching Point 78's own S2 outcome, not
+  a free `O(1/n)` closure. This was already anticipated in Point 80's discussion but is now
+  confirmed against the primary source's own stated rate rather than assumed.
+
+**Budget consequence.** Strategy 0 does not consume one of the three `≤1-session` MIX4 strategy
+slots from Point 78 (it was a Gate-0-adjacent check, as designed), and its resolution does not
+add a new committed strategy either (`CIRCULANT-SPECIFIC TALAGRAND` is PARKED, not queued). The
+budget reverts to exactly Point 78's three named strategies, now informed by Point 80's finding
+that `Cov(x*²,w*²)>0` and growing — any of the three, to reach S1, needs either a `POL`-compatible
+argument or a mechanism explaining/exploiting that growing positive correlation, not a
+negative-dependence assumption.
+
+**What this does NOT mean.** Does NOT mean Talagrand's inequality itself is inapplicable to this
+project's problem in general — only that the SPECIFIC construction in the cited ER-graph proofs
+does not transfer as-is; a from-scratch circulant-native concentration argument remains a
+theoretically open avenue, just not a cheap one. Does NOT mean the forwarded critique was wrong to
+raise this — it correctly identified the right question and the right primary source; this point
+only upgrades the evidentiary basis from a secondary paraphrase to a primary-source reading, and
+finds a related but more specific obstruction than the one originally proposed. Does NOT mean
+Points 77-80's overall roadmap changes — the MIX4/`J_n=O(1)` target and its three-strategy budget
+stand as corrected in Points 78 and 80.
+
+**Artifacts:** No code or data changes. `theory.epfl.ch/bhaskara/files/theta.pdf` fetched and read
+in full this session (saved locally, `Read` tool's PDF extraction succeeded where `WebFetch` and
+Gate 0's own agent both failed on the same file). Two secondary sources (ETH thesis, OpenReview
+PDF) located but not successfully fetched this session (HTML landing pages returned instead of
+PDF content) — their claims are flagged as unverified above, not incorporated into the verdict.
+
