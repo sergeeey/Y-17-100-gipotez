@@ -7677,3 +7677,96 @@ this session's standing discipline of never accepting a reviewing agent's arithm
 word. Full skeptic report (agentId `aa7f93cca7ab0c616`) available in this session's transcript;
 not committed as a separate file.
 
+## Point 77 (2026-09-16) — STATE SNAPSHOT + PRE-REGISTERED PROOF BUDGET: the entire program is
+reduced to ONE lemma, an explicit finite budget is fixed BEFORE spending it, and the park
+decision with its Revival Condition is written down in advance
+
+**Why this point exists.** Direct user instruction, and the user's own diagnosis, which this point
+confirms with evidence rather than merely accepting: Points 73-76 produced four consecutive
+rounds of work in the same `K_n`/`J_n`/`sd_w(U)` measurement line, four genuine skeptic-caught
+errors — and **zero movement on the actual mathematical obstruction**. The load-bearing question
+("is `K_n` bounded?") went from `unknown` to `unknown, now with tighter CIs and a documented
+leverage fragility`. That is the definition of diminishing returns, and the correct response is to
+name the single remaining question, fix a budget, and pre-commit to parking if the budget is
+exhausted — not to keep fragmenting the same uncertainty into finer JSON fields.
+
+**State snapshot (every row verified this session against the documents/raw JSON, not recalled):**
+
+| | Status |
+|---|---|
+| Goal | `Var(log(θ/√n)) = O(1/n)`, dense random circulants |
+| Empirics | `n^{-0.91}` (`n=32..3000`); the deviation from `1/n` (exponent `0.0877`) numerically MATCHES the measured growth of `K_n` (`0.067±0.052`) and `J_n` (`0.0998±0.047`) — three independent series agree |
+| Proven | `Var=W_1+R_n`; `W_1=λ_n²/(4m)` (re-verified numerically, `0.01-0.04%`); `R_n=Σ_{odd\|S\|≥3}X̂(S)²`; `\|λ_n\|=m·E[δ]`; `δ_i≤2x_iw_i` (re-verified on raw rows, violations `~1e-13` = solver noise); `\|λ_n\|≤2(E‖x*‖²−1)` (prime + min-L2 selector); `E‖x*‖²=O(log³n)` (Bandeira et al. 2025 Lemma 5) ⟹ `W_1=O(log⁶n/n)` |
+| Single bottleneck | `E[δ_i²] ≤ C/n²`. Via Efron–Stein this closes EVERYTHING at once: `R_n` not needed, prime restriction not needed, `(POL)` not needed |
+| Not an over-strong target | Efron–Stein slack is bounded and shrinking (their own series `2.57→1.67→1.27`; exact small-`n` `1.20-1.52`) ⟹ `K_n=O(1) ⟺ the conjecture`. Proving it is not a detour, it is equivalent |
+| Empirical channel | **EXHAUSTED.** Scenarios "bounded" vs "polylog" differ by `~6%` at the next reachable `n`, against `~11%` relative SE; decisive separation needs `n≈8192` (order-of-magnitude costlier LP) |
+
+**The one question, in two equivalent forms** (second form is the first, pushed through the
+already-proven `δ≤2xw` + Cauchy–Schwarz + equal marginals):
+
+```
+E[δ_i²] ≤ C/n²        ⟺(sufficient)⟸        E[(x*_i)⁴] = O( (E[(x*_i)²])² )
+```
+
+The right-hand form is a **delocalization / fourth-moment statement about the coordinates of the
+min-L2-norm optimal certificate**. Note this is NOT new to the project: it is exactly the burden
+already named in `codex-20260914-susceptibility/CROSS_TURAN_ENERGY_THEORY.md:110-113` ("the live
+`(POL)` burden is a moment bound for the unevenness of the positive optimal weights") on
+2026-09-15, and untouched since. Naming it again here is not progress; fixing a budget against it
+is.
+
+**PRE-REGISTERED BUDGET (fixed by the user BEFORE any attempt, recorded here so the stopping rule
+cannot be retrofitted to the outcome).**
+
+- **Gate 0 (mandatory, cheap, runs first):** literature novelty check — does the delocalization /
+  4th-moment statement for LP/SDP optimizers already exist; and, critically, what does
+  arXiv:2502.16227 itself prove about VARIANCE/CONCENTRATION (not just the typical value). The
+  Filmus-2016 rediscovery (points 27-28) is this project's own precedent for why this gate is not
+  optional.
+- **Then at most 3 GENUINELY DISTINCT strategies, ≤1 working session each.** Named in advance so
+  a repeat cannot be relabelled as a new attempt:
+  1. Hypercontractivity on the cube (4th-vs-2nd moment is precisely its subject); known
+     obstruction: `x*_i` is an LP-optimizer coordinate, not a low-degree polynomial — a degree
+     surrogate is required.
+  2. Deterministic tail from LP structure via Point 64's support-saturation identity
+     (`n‖y‖²=(n/s)(1+CV²)`): a uniform bound on `CV` of the positive optimal weights yields the
+     4th moment directly.
+  3. High-probability bound + crude worst-case on the rare event; requires a quantitative
+     anti-concentration input, and the measured cost is explicit (top-1% of rows carry `19.2%` of
+     `ΣZ²` at `n=2039`, and that share is GROWING: `11.0→14.0→17.2→19.2%`).
+
+**PRE-REGISTERED OUTCOME MAP (three outcomes, not two — this distinction was raised and settled
+BEFORE spending, precisely because a too-strict criterion would have parked the project while a
+publishable theorem was one lemma away):**
+
+- **S1 — full success:** `E[δ²] ≤ C/n²` proven ⟹ the conjecture is proven outright, via
+  Efron–Stein, for all `n` (no prime restriction), with no `R_n` argument needed.
+- **S2 — partial success, and still a real theorem:** `E[δ²] = O(polylog(n)·n^{-2})` proven ⟹
+  `Var(X_n) = O(log⁶n/n)`. This counts as SUCCESS, not failure: `E‖x*‖²=O(log³n)` is already in
+  hand, so this outcome is separated from the current state by the same single lemma.
+- **F — budget exhausted:** neither ⟹ **PARK** (`parked/`, not `null_results/` — the claim is not
+  falsified, the architecture is exhausted).
+
+**REVIVAL CONDITION (written now, per the `parked/` protocol's requirement that it be explicit and
+measurable):** (a) an external result on delocalization / higher-moment control of LP/SDP
+optimizers on random instances appears; OR (b) `(POL)` (`sup_n E‖x*‖² < ∞`) is proven, removing
+the `log³`; OR (c) a genuinely new tool becomes available (not a re-run of strategies 1-3).
+**Explicitly NOT a revival condition: "measure one more `n`."** The measurement channel's
+discriminating power is exhausted (quantified above), and recording this prevents the loop from
+reopening on compute alone — which is the exact failure mode Points 73-76 exemplify.
+
+**What this point does NOT claim.** Does NOT claim the conjecture is false — the evidence in fact
+mildly favours it (the local growth exponent decelerates FASTER than the `a/log n` law a polylog
+scenario requires: calibrated on exact noise-free `n=9..17` it predicts `α=0.2005` at the
+large-`n` range, observed `0.0877`, i.e. `56%` below). Does NOT claim the reduction to the single
+lemma is new mathematics — the chain is assembled entirely from already-proven pieces, and the
+lemma itself was already named in Codex's own theory document. Does NOT claim `K_n` is bounded —
+that is precisely the open question. Does NOT commit to parking: parking happens only on outcome
+F, after Gate 0 and the three named strategies have actually been spent.
+
+**Artifacts:** No code or data changes. All numbers re-derived this session from
+`metrics/ppl_gate_pilot.json` and the exact small-`n` tables already in this file (Points 10, 53):
+the `W_1=λ²/(4m)` identity check, the three-way exponent agreement, the Efron–Stein slack series,
+the `Z=n·x_i·w_i` / `δ_bound=2x_iw_i` verification on raw rows, and the deceleration test against
+the `a/log n` model.
+
