@@ -7239,3 +7239,262 @@ This session's scratchpad scripts (not committed): `u_stats_n2039.py`, `calibrat
 Independently spot-checked against the raw JSON this session (not accepted from the agent's
 report alone).
 
+## Point 75 (2026-09-16) — `n=2039` raised to 500 reps (Point 74's own recommended next step,
+executed): `sd_w(U)` fell a further `12%` from the 220-rep value, ruling out H2 (plateau) by the
+pre-registered threshold. H1-vs-H3 is genuinely, STATISTICALLY unresolved — the `1021→2039` step
+is indistinguishable from both a continuing power law (z=1.47, p≈0.14) and a plateau (z=1.50,
+p≈0.13). SUBSTANTIALLY CORRECTED after a context-asymmetric skeptic review found a transcription
+error and an unsupported "real slowdown" framing in the first draft — both independently
+re-verified and fixed here, not accepted on the skeptic's word alone
+
+**Context.** Per Point 74's own pre-registered "cheapest way to resolve the ambiguity" (raise
+`n=2039` from `220`→`500` reps, matching the other three `n`), and per the user's own
+pre-registered three-way decision framework (H1/H2/H3, fixed BEFORE this run) plus two
+methodological additions requested alongside it: an `η=μ²+σ²` identity check (sanity check on
+implementation correctness, not a new finding) and a trim-sensitivity diagnostic (recompute
+`sd_w(U)` excluding the top-1%/top-5% by `Z²`-weight, to test whether the finding is tail-driven).
+
+**Infrastructure note (process-level, not a research finding).** The first two background-launch
+attempts for this extension silently died at the harness level — zero bytes of output, no
+matching process, despite the script's first line using `flush=True` (which should print
+immediately even on a slow start or an early exception). The script's own correctness was
+independently re-validated (byte-for-byte reproduction of the existing `n=127/509/1021` values)
+before either attempt, ruling out a code bug as the cause of the silence. A third attempt, run
+unbuffered (`python -u`) with a fresh log file, worked — and, separately, the FIRST attempt
+turned out not to have been dead at all: it had been silently capturing zero bytes to its log
+the entire time while still computing correctly in the background, and completed with exit code
+0 after `~58` minutes (`~12s/rep × 280` new reps, consistent with calibration). The third
+attempt was stopped cleanly (`TaskStop`) once the first attempt's completion was confirmed, with
+no write race — `metrics/ppl_gate_pilot.json` has not changed since the first attempt's own
+completion. This is filed here as an infrastructure observation (background-task output capture
+can silently fail while the underlying process still runs correctly), not as a claim about the
+research finding itself. **Correction (skeptic review):** the original draft justified "the
+computation is valid despite the log-capture failure" by citing the identity check and `exit code
+0` — both are weak evidence here, since the identity check (see below) is a tautology that would
+pass even on duplicated or corrupted rows, and a clean exit code alone does not rule out a
+partial/raced write. The real guarantees, verified this session: (a) `main()`'s row-reuse path
+(`ppl_gate_pilot.py`, the `main()` function) validates every reused row's `seed` against the
+expected `SEED_BASE + n*100000 + idx` and `n` before trusting it, aborting reuse on the first
+mismatch — a corrupted or duplicated row would fail this check, not silently pass; (b) the whole
+run is fully deterministic (fixed `SEED_BASE`, a single `np.random.default_rng(123)` consumed
+sequentially across `n` in a fixed order) — a genuinely concurrent third attempt reading the same
+prior JSON would have produced a byte-identical result (barring `elapsed_seconds`), so the
+"stopped cleanly with no race" claim rests on determinism, not on timing luck; (c) direct
+inspection confirms `branch_counts[2039]=500` (`260+240`), the last row's `seed=207251499` is
+exactly `SEED_BASE+2039·100000+499` (the expected rep-499 seed), and the JSON is not truncated.
+
+**Results, all four `n`, now uniformly 500 reps:**
+
+| n | reps | `sd_w(U)` (bootstrap mean) | 95% CI | `μ_w(U)` | `J_n` | `K_n` | `η_n` | ESS | ESS/N | top1%/top5% share of `ΣZ²` |
+|---:|---:|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 127 | 500 | 0.14937 | [0.1352, 0.1639] | 0.50660 | 64.66 (SE 5.60) | 72.23 (SE 7.32) | 0.2793 (SE 0.0145) | 105.32 | 0.2106 | 11.0% / 40.6% |
+| 509 | 500 | 0.09332 | [0.0833, 0.1037] | 0.49425 | 73.43 (SE 6.81) | 74.34 (SE 6.97) | 0.2531 (SE 0.0080) | 94.53 | 0.1891 | 14.0% / 40.9% |
+| 1021 | 500 | 0.06758 | [0.0602, 0.0753] | 0.50180 | 86.58 (SE 8.94) | 88.80 (SE 9.47) | 0.2564 (SE 0.0059) | 79.05 | 0.1581 | 17.2% / 44.4% |
+| **2039** | **500** | **0.05933** | **[0.0516, 0.0668]** | 0.50317 | 81.26 (SE 8.98) | 83.45 (SE 9.49) | 0.2567 (SE 0.0056) | 70.42 | 0.1408 | 19.2% / 45.3% |
+
+**Correction (skeptic review, verified independently before fixing): the `μ_w(U)` value for
+`n=2039` in the first draft of this table was `0.49813`, transcribed incorrectly from the
+agent's own report without independently re-checking that specific column against the raw JSON
+(all other columns for `n=2039` — and `μ_w(U)` for the other three `n` — WERE independently
+checked and were correct).** The raw JSON's `U_weighted_mean_eq_c_over_2` field for `n=2039` is
+`0.5031667927023945`; the table above now reflects it. The error would have been caught by the
+identity check below (`0.49813² + 0.05962²= 0.2517 ≠ η=0.2567`; the corrected value gives
+`0.50317²+0.05962²=0.25673`, matching `η` exactly) — that this internal consistency check was
+not actually run against the printed table number, only against the JSON's own stored fields, is
+itself a gap in how "independently re-verified" was applied in the first draft.
+
+Relative to the `220`-rep value from Point 74 (`0.0675` [0.0565, 0.0784]; note these Point-74
+numbers are themselves not recoverable from the current JSON, since the `n=2039` row-reuse
+mechanism overwrote them in place — recoverable only from git history if needed): the point
+estimate fell `−12.1%` (`0.05933/0.06758=0.8779`), and the CI width narrowed `1.44×`
+(`[0.0565,0.0784]`, width `0.0219` → `[0.0516,0.0668]`, width `0.0152`). The point estimate moved
+well below Point 74's plateau band, formally excluding H2 by the pre-registered threshold — see
+§ Honest verdict below for what this does and does not establish about H1 vs H3.
+
+**Identity check (`η_n = μ_w(U)² + Var_w(U)`, sanity check on the u-statistics machinery, NOT a
+new finding).** Confirmed at float-precision noise level at all four `n` (`abs_diff` between
+`5.6e-17` and `1.7e-16`) — the u-statistics computation (now implemented directly in
+`ppl_gate_pilot.py` rather than the prior session's lost scratchpad scripts) is internally
+consistent. **Caveat added on skeptic review:** this identity is an exact algebraic tautology
+given how `U` and its weights are constructed (`Σw·U²=Σδ²/4` and `Σw=ΣZ²/n²` by direct
+substitution) — it can only fail from a numpy-level arithmetic bug, and would hold identically
+even on duplicated, raced, or otherwise corrupted rows. It is evidence the *arithmetic* is
+self-consistent, not evidence the *data* is uncorrupted — that second claim rests on the
+row-reuse validator and determinism argument in the infrastructure note above, not on this check.
+
+**Trim-sensitivity diagnostic (excluding top-1%/top-5% by `Z²`-weight):**
+
+| n | full `sd_w(U)` | excl. top1% | Δ | excl. top5% | Δ |
+|---:|---:|---:|---:|---:|---:|
+| 127 | 0.15040 | 0.15067 | +0.18% | 0.14538 | −3.34% |
+| 509 | 0.09378 | 0.09790 | +4.39% | 0.10592 | +12.95% |
+| 1021 | 0.06769 | 0.07215 | +6.59% | 0.07705 | +13.84% |
+| **2039** | **0.05962** | **0.06288** | **+5.47%** | **0.06351** | **+6.53%** |
+
+Removing the heaviest-weight tail mostly INCREASES `sd_w(U)` (3 of 4 `n`, the sole exception
+being `n=127`'s top-5% trim) — the finding is not an artifact of a handful of extreme rows; if
+anything, the heaviest rows pull the statistic slightly down, not up. Magnitude is modest (5-14%)
+at the LEVEL of `sd_w(U)`.
+
+**Trend sensitivity to trim choice (added on skeptic review — the first draft only checked
+whether trim affects the LEVEL of `sd_w(U)`, not whether it affects the SLOPE, which is what this
+point's own verdict turns on).** Recomputing the 3-point endpoint slope
+(`ln(sd(1021)/sd(127))/ln(1021/127)`) and the `1021→2039` step's deviation from it, separately
+for each trim variant:
+
+| trim variant | 3-point endpoint slope `b` | obs. `1021→2039` ratio | pred. ratio (own `b`) | deviation |
+|---|---:|---:|---:|---:|
+| full (no trim) | −0.383 | 0.881 | 0.767 | +14.8% |
+| excl. top-1% | −0.353 | 0.872 | 0.783 | +11.3% |
+| excl. top-5% | **−0.305** | 0.824 | 0.810 | **+1.8%** |
+
+**The "slowdown" that motivates this point's own step-ratio argument (below) shrinks from ~15%
+to ~2% depending on which trim variant computes the reference slope — a larger swing than the
+H1-vs-H3 question itself.** Separately, `n=127` is the ONE point where trim REDUCES `sd_w(U)`
+(`−3.34%` at top-5%, vs `+4.4%` to `+13.8%` increases at the other three `n`) — and `n=127`
+carries roughly `54%` of the leverage in the inverse-variance-weighted 3-point fit (weights
+`∝1/relSE²`: `418/320/304` at `n=127/509/1021`, `x̄_w=5.878`, leverage contributions
+`w(x−x̄)²≈447/40/335`). The reference slope the whole "slowdown" argument is measured against is
+therefore dominated by the one point that behaves anomalously under trimming. This does not
+overturn the H2 exclusion (level-based, robust to trim) but materially weakens any claim of a
+precisely-quantified "slowdown" relative to a single reference power law.
+
+**Updated log-log fits.** 3-point fit (`n=127,509,1021`, unchanged by this extension):
+`b=-0.373±0.035`, 95% CI `[-0.441,-0.304]`. 4-point fit (now on `500` reps at `n=2039`, not
+`220`): `b=-0.348±0.027`, 95% CI `[-0.401,-0.296]` — materially closer to the 3-point slope than
+Point 74's own 220-rep 4-point fit was (`b=-0.330±0.029`). `n=2039`'s own residual in the 4-point
+fit shrank from Point 74's `+0.137` (a clear outlier vs the other three's `≤0.037`) to `+0.049`
+(comparable to `n=1021`'s `−0.062`) — `n=2039` no longer stands out as a poor fit to the
+power-law trend.
+
+The 3-point fit's own point prediction for `n=2039` (`log(sd)=-2.926`, i.e. `sd≈0.0537`) is
+still below the actual `500`-rep value (`0.0593`, `~10%` above the center) but the gap has
+shrunk substantially from Point 74 (`~26%` above center). `n=2039` remains inside the
+(slope-only) extrapolation band `[0.032,0.090]`.
+
+**The step-by-step ratio check, WITH an actual significance test (added on skeptic review — the
+first draft compared observed vs predicted ratios but never computed whether the difference was
+distinguishable from noise, then asserted "real, non-noise" without the test).** Comparing each
+observed `sd_w(U)[n_i]/sd_w(U)[n_{i-1}]` ratio to what the 3-point fit's slope alone predicts:
+
+| transition | observed ratio | predicted ratio (b=-0.373) | |
+|---|---:|---:|---|
+| 127→509 | 0.6247 | 0.5958 | fell MORE than predicted |
+| 509→1021 | 0.7242 | 0.7713 | fell slightly less than predicted |
+| **1021→2039** | **0.8779** | **0.7726** | **fell less than predicted** |
+
+Testing the `1021→2039` deviation against the power-law prediction, using each point's own
+`relative_SE` from the bootstrap (`SE(log sd)`, stored per-`n` in the JSON):
+`z = [ln(sd(2039)/sd(1021)) − b·ln(2039/1021)] / sqrt(relSE(2039)² + relSE(1021)²)
+= [−0.1302 − (−0.2577)] / sqrt(0.0653²+0.0573²) = 0.1275/0.0869 = 1.47` → **`p≈0.14`
+(two-sided)** — NOT a statistically resolved deviation from the power-law prediction. Testing the
+SAME step against the opposite hypothesis (pure plateau, i.e. log-ratio `=0`):
+`z = −0.1302/0.0869 = −1.50` → **`p≈0.13`** — also NOT statistically resolved. **The observed
+step sits almost exactly halfway between the power-law prediction (`z=1.47` away) and the
+plateau prediction (`z=1.50` away) — this single data point cannot statistically distinguish the
+two hypotheses, contrary to the first draft's claim that it represented a "real, non-noise
+slowdown."** A further complication not addressed in the first draft: the `220`-rep and `500`-rep
+`n=2039` estimates are NOT independent — the `500`-rep run reuses the same `220` rows and adds
+`280` new ones — so no significance can be attached to the `−12%` drop from Point 74's value
+either; it is reported purely as a point-estimate comparison, not a tested one.
+
+`ESS/N` vs `sd_w(U)` correlation across all 4 points is now `r=0.944` (up from Point 74's
+`r=0.86`) and `ESS/N` vs `n` is `r=-0.954`. **Correction:** the first draft's rebuttal of the
+"falling ESS mechanically explains the shrinkage" concern argued from the wrong direction — the
+actual concern (stated in the JSON's own `artifact_check_note`) is that a shrinking tail-weight
+fraction could mechanically produce `sd_w(U)` *shrinkage* with `n`, which is exactly the observed
+co-direction, not a mismatch. The quantitative rebuttal is a direct one: `weighted_mean_and_var`
+uses a population (not Bessel-corrected) denominator, so the self-normalized estimator carries a
+finite-`ESS` downward bias of order `1/ESS`; comparing `n=127` (`ESS=105.3`) to `n=2039`
+(`ESS=70.4`), that bias differs by only `sqrt((1−1/105.3)/(1−1/70.4))≈1.0024`, i.e. `~0.24%` —
+against an observed `sd_w(U)` compression of `sd(127)/sd(2039)=2.52` (a `152%` change). The
+mechanical ESS-bias channel accounts for `~0.24` percentage points out of `152` — it does not
+explain the shrinkage. Separately worth noting, not previously flagged: the rising `r` (from
+`0.86` at `220` reps to `0.944` at `500` reps) means the specific break in co-movement that Point
+74 relied on as its OWN counter-evidence against the mechanical explanation (the 4th point no
+longer breaking step with the first three) is now weaker, not stronger — the real rebuttal here
+is the `1/ESS`-magnitude argument above, not the correlation trend.
+
+**Honest verdict against the pre-registered H1/H2/H3 thresholds.**
+- H1 (power-law continues, close to `~0.053`, no explicit numeric band in the pre-registration):
+  `0.05933` is `~11%` above the 3-point-fit center (`0.0536`), but the 3-point fit's own center
+  prediction lies inside `n=2039`'s 95% CI (`[0.0516,0.0668]`), and `b=-0.373` lies inside the
+  4-point fit's own 95% CI for the slope (`[-0.401,-0.296]`) — though this second check has
+  limited independence, since the 3- and 4-point fits share 3 of their 4 points.
+- H2 (real plateau near `0.065-0.070` with a narrower CI): **excluded** — the point estimate fell
+  well below this range and the CI barely overlaps its lower edge.
+- H3 (intermediate slowdown, `0.055-0.065`): `0.05933` falls literally inside this numeric band.
+
+**By the letter of the pre-registered numeric thresholds, the result lands in H3 — but this
+partly reflects that H1 was the only one of the three hypotheses given no explicit numeric band
+in the pre-registration, not necessarily that H3 is favored on the merits.** The step-ratio
+significance test above shows the `1021→2039` transition does NOT statistically distinguish a
+continuing (weakened) power law from a genuine plateau at this sample size — the three pieces of
+qualitative evidence the first draft cited for "leaning toward H1" (continued shrinkage, a
+non-outlier 4-point residual, ratio still below 1) are each **equally consistent with H3**, since
+H3 predicts continued-but-slower shrinkage too, and do not discriminate the two hypotheses.
+**Corrected verdict: H2 is rejected by the pre-registered threshold. H1 vs H3 is NOT resolved,
+statistically or by the qualitative arguments available — this is reported as genuinely
+ambiguous, per the user's own explicit instruction not to force the interpretation toward either
+outcome, with the two non-circular pieces of supporting evidence for H1 (3pt-center inside the
+n=2039 CI; `b=-0.373` inside the 4pt slope's CI) noted above for completeness, not as a
+tie-breaker.**
+
+**Kill Analysis.** Point 74's plateau reading is **weakened, not killed** — the point estimate
+moved decisively away from the plateau band (excluding H2 by the pre-registered threshold), but
+the `1021→2039` step itself is not statistically distinguishable from either a continuing power
+law or a genuine (lower) plateau at `n=2039`'s current `ESS=70.4`. "Killed" would overclaim what
+one additional data point at this precision can establish. Point 73's core `sd_w(U)` concentration
+finding (well below the structureless-null `0.2887` at every `n`, `~4.9×` below null at `n=2039`
+even after the finite-`ESS` correction) SURVIVES, strengthened if anything. The `~n^-0.37`
+power-law picture from Point 73 is not refuted by this data (its slope's 95% CI still contains the
+observed transition), but is not confirmed to continue unmodified either — see § What this does
+NOT mean.
+
+**What this does NOT mean.** Does NOT mean the power-law model with the ORIGINAL 3-point slope
+(`b=-0.373`) is confirmed to continue unmodified, NOR that it is refuted — the `1021→2039`
+transition is statistically consistent with both a modest slowdown and pure continuation (see the
+significance test above). Does NOT mean a 5th `n` would fail to help, and does NOT mean this is
+purely a model-choice question rather than a power question — **correction:** the gap between the
+H1-predicted center and the observed value (`~11%`) is SMALLER than the current half-width of
+`n=2039`'s own 95% CI (`~13%`), meaning the ambiguity here is substantially a statistical-power
+question at the current rep count; roughly a `~4-5×` increase in reps at `n=2039` (to shrink its
+relative SE from `~6.5%` to `~3%`, `(6.5/3)²≈4.7`) would materially sharpen this test, more so than
+adding a 5th `n`. Does NOT mean the identity check or trim-sensitivity diagnostic (level or trend
+version) are new findings — both are sanity/robustness checks: the identity check on the
+arithmetic only (see its own caveat above, not a data-integrity guarantee), the trim diagnostic
+on whether the LEVEL and (added this review) the SLOPE of `sd_w(U)` are tail-driven — both confirm
+the statistic is computed correctly and the H2 exclusion is not a tail artifact, but the trend
+version shows the specific "slowdown vs pure power law" framing is sensitive to trim choice (§
+above), so that narrower claim should be read cautiously. Does NOT mean the background-launch
+infrastructure issue affects the validity of the computed numbers — see the corrected
+infrastructure note above (row-reuse validator + full determinism + structural JSON checks), not
+the identity-check/exit-code justification the first draft gave.
+
+**Artifacts:** `ppl_gate_pilot.py` (`SIZES_REPS`'s `n=2039` entry raised from `220`→`500` reps;
+the full u-statistics machinery — `u_row_arrays`, `weighted_mean_and_var`, `bootstrap_sd_w_u`,
+`trimmed_sd_w_u`, `trimmed_c`, `c_g_parseval_gap_regression`, `effective_sample_size`,
+`u_statistics_for_n`, `sd_w_u_loglog_fit` — now implemented directly in this file, each function
+independently re-derived and validated to reproduce the existing `n=127/509/1021` values to
+float precision before being trusted for the new `n=2039,500`-rep computation, since the prior
+session's scratchpad scripts that originally computed Points 73/74's numbers were not preserved).
+`metrics/ppl_gate_pilot.json` (`n=2039` now `500` reps; `u_statistics_tightness_ratio` fully
+recomputed for all four `n`, including two new per-`n` fields —
+`identity_check_eta_vs_muw2_plus_sdw2` and `sd_w_U_trim_sensitivity_diagnostic` — plus updated
+`loglog_fit_3pt_n127_509_1021`, `loglog_fit_4pt_incl_n2039`, `n2039_vs_3pt_extrapolation`,
+`ess_over_n_by_n`, and the two artifact-check Pearson correlations). All numbers above
+independently re-verified against the raw JSON this session before being written here — bootstrap
+means, 95% CIs, identity-check `abs_diff` values, trim-sensitivity percentages (level and, after
+the skeptic review, trend), both log-log fits, and the extrapolation-band check all match to the
+reported precision. **One exception, found and fixed via skeptic review, not by this session's
+own first-pass verification: `μ_w(U)` at `n=2039` was transcribed incorrectly in the first draft
+(`0.49813` vs the correct `0.50317`) — the "independently re-verified" claim in the first draft's
+own closing paragraph was therefore itself inaccurate for that one field, corrected here.**
+Reviewed by `skeptic` (context-asymmetric, per this session's standing `reviewer`→`skeptic`
+substitution — `reviewer`'s Evaluator-Optimizer cap was exhausted earlier this session): found 1
+factual transcription error and an unsupported significance claim (the "real, non-noise slowdown"
+framing lacked any actual test); both independently re-verified by direct computation against the
+raw JSON before being accepted and fixed above, per this session's standing discipline of never
+accepting a reviewing agent's arithmetic on its own word. Full skeptic report (agentId
+`a507e523ccfb7b5e4`) available in this session's transcript; not committed as a separate file.
+
