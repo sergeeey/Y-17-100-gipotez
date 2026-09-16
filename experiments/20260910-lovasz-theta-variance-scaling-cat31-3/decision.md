@@ -8193,3 +8193,71 @@ Gate 0's own agent both failed on the same file). Two secondary sources (ETH the
 PDF) located but not successfully fetched this session (HTML landing pages returned instead of
 PDF content) — their claims are flagged as unverified above, not incorporated into the verdict.
 
+## Point 82 (2026-09-16) — Cheap pre-checks T2/T4 (Point 80's own recommended diagnostics, zero
+new compute) run BEFORE starting Strategy 1: Cauchy-Schwarz slack is SHRINKING toward 1 as `n`
+grows, meaning the `MIX4`/`F4` targets are CONVERGING — the "sharper, avoid-CS" motivation for
+targeting the joint moment over the marginal one is weaker in practice than Point 78/80 assumed.
+Tail-to-rms ratio grows, but slower than `log³n` itself — not an alarm, consistent with the
+existing picture
+
+**Context.** Direct continuation of Point 80's own "kill criteria, minutes on already-existing
+raw rows" table (T1 and T3 already run in Point 80; T2 and T4 run here, per the same discipline
+of checking cheaply before spending a proof-attempt session).
+
+**T2 — `CS-slack(n) := √(E[x*⁴]E[w*⁴]) / E[x*²w*²]`, the Cauchy-Schwarz bound's own looseness,
+computed directly from raw rows:**
+
+| n | `J_n` (`=n²E[x²w²]`) | `n²√(E[x⁴]E[w⁴])` (CS bound) | slack |
+|---:|---:|---:|---:|
+| 127 | 64.66 | 124.85 | 1.931 |
+| 509 | 73.44 | 96.45 | 1.313 |
+| 1021 | 86.58 | 98.50 | 1.138 |
+| 2039 | 81.26 | 88.14 | 1.085 |
+
+**The slack shrinks monotonically toward 1 as `n` grows.** Cauchy-Schwarz becomes nearly TIGHT at
+the largest tested `n` — consistent with, and mechanistically explained by, Point 80's own finding
+that `corr(x*²,w*²)` grows toward 1 (`0.25→0.60→0.79→0.86`): CS achieves equality exactly when the
+two quantities being bounded are proportional, and the correlation trend is moving toward exactly
+that regime. **Practical consequence, not previously stated:** since `J_n ≈ n²·E[x⁴]` (via `w*`'s
+equal marginal) once slack≈1, proving `J_n=O(1)` (MIX4) and proving the marginal `F4=O(1/n²)`
+(i.e. `E[x⁴]=O(n⁻²)`, matching `F4abs` from Point 78's own taxonomy) become NEARLY THE SAME
+PROBLEM at the measured `n`'s. Point 78's framing of MIX4 as a meaningfully sharper, CS-loss-free
+target than the marginal route is empirically much less true in practice than the algebra alone
+suggested — the actual difficulty gap between "prove it jointly" and "prove it on each marginal
+separately" is shrinking, not fixed.
+
+**T4 — `max(Z_ni)/rms(Z_ni)`, a proxy for `sup δ_i` vs `rms δ_i` (relevant to any bounded-
+differences / McDiarmid-type argument, per Point 80's second-round skeptic review of Strategy 0):**
+
+| n | max/rms |
+|---:|---:|
+| 127 | 3.504 |
+| 509 | 4.295 |
+| 1021 | 4.714 |
+| 2039 | 5.626 |
+
+Grows with `n`, but at a materially SLOWER rate than `log³n` itself would predict
+(`log³(2039)/log³(127)≈3.3`× vs the observed max/rms ratio growing only `≈1.6`×) — **this is
+consistent with the existing polylog picture, not a new red flag.** A `sup`-based (McDiarmid)
+argument would need `sup δ=O(1/n)` uniformly, strictly stronger than the `E[δ²]≤C/n²` target;
+this diagnostic says that route is not obviously hopeless (the ratio isn't exploding), but it was
+never the cheapest route either (Point 80's second-round review already noted a `sup`-based bound
+is strictly stronger than the actual bottleneck).
+
+**What this does NOT mean.** Does NOT mean Strategy 1 (hypercontractivity/delocalization,
+re-scoped in Point 80 toward the joint quantity) should be abandoned — `J_n=O(1)` remains
+proven-sufficient for S1 regardless of how close `F4` and `MIX4` are numerically. Does NOT mean
+the `POL` dependency found in Point 80 is resolved or avoided — the CS-slack shrinking toward 1
+does not change the fact that `E[x²]=O(1/n)` (`POL`) remains a load-bearing precondition either
+route needs. Does NOT mean this diagnostic proves the marginal and joint targets are IDENTICAL —
+only that they are numerically close at the tested `n`'s and the gap is shrinking, which is weaker
+than proven equality and could still diverge at larger `n`. Does NOT mean further diagnostics on
+existing data remain to be cheaply mined indefinitely — per Point 77's own "empirical channel
+exhausted" finding and the discipline that motivated this whole Point 77-82 correction chain, this
+is the last of Point 80's own pre-registered cheap checks; what remains is either Gate-0-style
+literature work (already done, Points 79/81) or genuine new proof-attempt effort (Strategies 1-3),
+not further mining of `metrics/ppl_gate_pilot.json`.
+
+**Artifacts:** No code or data changes. Both diagnostics computed directly from
+`metrics/ppl_gate_pilot.json` row-level `x_i`/`w_i`/`Z_ni` fields this session.
+
