@@ -8261,3 +8261,101 @@ not further mining of `metrics/ppl_gate_pilot.json`.
 **Artifacts:** No code or data changes. Both diagnostics computed directly from
 `metrics/ppl_gate_pilot.json` row-level `x_i`/`w_i`/`Z_ni` fields this session.
 
+## Point 83 (2026-09-16) — `E‖x*‖²` measured across `n=127..2039`: rules out `log³n` and `c·log n`
+growth (`~17.7σ`, `~5.5σ`), but is STATISTICALLY INDISTINGUISHABLE from the same slow power-law
+growth (`n^{~0.04-0.05}`) that this project's own three OTHER independently-measured series
+already show — NOT the "strong evidence `(POL)` is true" first claimed. First draft of this point
+was SUBSTANTIALLY WRONG, caught on skeptic-fallback review, corrected here in full
+
+**Context.** Direct continuation of Point 82. First draft measured `E‖x*‖²=m·E[x_i²]` across all
+four `n`, found it numerically close to a constant (`≈3.1-3.5`), and concluded this was "strong
+empirical evidence that `(POL)` is TRUE" — re-targeting Strategy 1 onto proving `(POL)`. **Skeptic
+review (context-asymmetric, same `reviewer→skeptic` substitution as throughout this session) found
+this headline claim unsupported and, worse, in direct conflict with Point 82's own "What this does
+NOT mean" section.** Both core findings independently re-verified from scratch before being
+accepted — the arithmetic and the two central objections both hold.
+
+**The measurement itself, re-verified, is correct — only the interpretation was wrong.**
+
+| n | `E‖x*‖²` | SE |
+|---:|---:|---:|
+| 127 | 3.147 | 0.189 |
+| 509 | 3.115 | 0.164 |
+| 1021 | 3.293 | 0.173 |
+| 2039 | 3.174 | 0.159 |
+
+**Weighted log-log slope (same convention as this project's own `weighted_power_law_fit`,
+independently re-derived): `b = 0.0084 ± 0.0272`, 95% CI `[-0.045, 0.062]`.** The first draft
+reported this slope WITHOUT an SE or CI at all — the single biggest gap, since every other fit in
+this file (`J_n`, `K_n`, `sd_w(U)`) reports one.
+
+**Correction 1 — FALSIFIED: "strong evidence `(POL)` is true."** The 95% CI `[-0.045, 0.062]`
+is wide enough to contain the EXACT growth rate this project's own other three independently-
+measured series already imply, via `Energy~n^a ⟹ J_n~n^{2a} ⟹ Var~n^{2a-1}` (re-derived and
+verified this session):
+
+| independently-measured series (already in this file) | implied `a` | inside this point's 95% CI? |
+|---|---:|---|
+| `Var(X_n)` slope `-0.9123` (headline, `n=32..3000`) | `0.044` | **yes** |
+| `J_n` slope `0.0998` (Point 76/78) | `0.050` | **yes** |
+| `K_n` slope `0.0671` (Point 76/78) | `0.034` | **yes** |
+
+**This measurement cannot distinguish `(POL)` (`a=0`) from the SAME slow growth the rest of this
+project's own data already suggests (`a≈0.03-0.05`).** The correct statement is narrower than the
+first draft's: `log³n` (`a` effectively `3/ln n`, i.e. `0.49-0.62` over this range) is excluded at
+`~17.7σ`; `c·log n` is excluded at `~5.5σ`; **anything at or below `n^{~0.06}` (equivalently
+`log^{~0.4}n`) remains fully compatible with the data** — this is NOT the same as evidence for
+`a=0` specifically.
+
+**Correction 2 — FALSIFIED: "the entire F4/MIX4 program's ceiling is S2 unless `(POL)` is
+separately established."** This directly contradicts Point 82's own text, two points earlier in
+this same file: *"`J_n=O(1)` remains proven-sufficient for S1 regardless of how close `F4` and
+`MIX4` are numerically"* and *"Does NOT mean this diagnostic proves the marginal and joint targets
+are IDENTICAL."* `MIX4` (`J_n=O(1)`) gives S1 unconditionally (Point 78's own derivation, no
+`(POL)` input required) — the first draft of THIS point silently substituted the empirical,
+finite-`n` numerical CLOSENESS of `F4` and `MIX4` (Point 82's CS-slack `→1`, still `8.5%` above 1
+at `n=2039`, convergence not proven) for a claim about what the two targets can each, in
+principle, establish. Retracted in full.
+
+**Also caught, minor:** the first draft's "`would be ~3` if the ceiling were tight" benchmark was
+wrong by a factor of `~6` — re-derived: the log-log slope of `log³n` itself over `n=127..2039` is
+`≈0.49`, not `3` (`3` is the exponent on `log n` directly, not the log-log slope of `log³n` vs `n`
+— a units error in the first draft, not merely an approximation).
+
+**What DID survive, stated at the strength the data actually supports:**
+- `log³n` and `c·log n` growth are genuinely excluded for `E‖x*‖²` over this range — a real,
+  useful finding, just narrower than "`(POL)` is true."
+- `κ_x := E[x*⁴]/(E[x*²])²` (the `F4rel` ratio) is bounded and roughly declining across all four
+  `n` (independently computed this session directly from raw rows: `2.793 → 2.376 → 2.375 →
+  2.254` — not strictly monotonic between `n=509` and `n=1021`, but the overall `127→2039` trend
+  is down) — meaning `F4rel` itself
+  (`E[x*⁴]=O((E[x*²])²)`) is in empirically good shape regardless of how the `(POL)` question
+  resolves. The actual open bottleneck remains `(POL)`, as Point 77's own Revival Condition (b)
+  and Point 80 §3 already identified — this point's only genuinely new content is the direct
+  measurement of `E‖x*‖²` itself, not the strategic conclusion, which was already on record.
+- `x*` and `w*` are NOT 8 independent confirmations — Point 80 already measured
+  `corr(x*²,w*²)=0.86` at `n=2039`; the two columns are heavily dependent, not independent
+  evidence, at the largest tested `n`.
+
+**The decisive, cheap, NOT-YET-RUN test this correction surfaces.** The measurement above used
+only ONE coordinate per graph (`gen_index=1`), the noisiest available estimator of `E‖x*‖²` — the
+full `‖x*‖²` (the complete optimal vector, already computed by the LP solve that produced this
+row, just not saved) would cut the SE by a factor of `~3-5×` (`√m ≈ 8` for `n=127` up to `√m ≈ 32`
+for `n=2039`), which would be enough to actually distinguish `a=0` from `a≈0.04-0.05` — the exact
+question this point could not resolve with the single-coordinate proxy. This is the natural next
+step before attempting any proof of `(POL)`, not a re-run of the same measurement.
+
+**What this does NOT mean.** Does NOT mean `(POL)` is false — it remains genuinely open, exactly
+as before this point, with `log³n`/`c·log n` now excluded as viable descriptions (real progress,
+just not proof of the alternative). Does NOT mean Point 82's `MIX4≈F4` finding was wrong — it
+correctly reported a numerical closeness at finite `n`, not a proven identity; this point's error
+was mis-using that finding, not Point 82 misreporting it. Does NOT mean `F4rel`'s good empirical
+shape (`κ` bounded, decreasing) settles it either — a bounded, decreasing sample ratio on 4 points
+is suggestive, not a proof, exactly as `E‖x*‖²`'s flatness was suggestive and not proof here.
+
+**Artifacts:** No code or data changes. `E‖x*‖²` and its weighted-fit slope/SE/CI independently
+re-derived this session using the project's own `weighted_power_law_fit` convention (not the first
+draft's unweighted, SE-less bootstrap slope), directly from `metrics/ppl_gate_pilot.json` row-level
+`x_i` values. The three cross-series `a`-exponent comparisons and the `κ_x` series independently
+computed and checked against the CI before being accepted.
+
