@@ -7498,3 +7498,182 @@ raw JSON before being accepted and fixed above, per this session's standing disc
 accepting a reviewing agent's arithmetic on its own word. Full skeptic report (agentId
 `a507e523ccfb7b5e4`) available in this session's transcript; not committed as a separate file.
 
+## Point 76 (2026-09-16) — 4-point `J_n`/`K_n` re-fit at full power (127/509/1021/2039, all 500
+reps): the Points 66-68 pre-registered kill-test target (`b≈0.19-0.20`) is REJECTED at the point
+estimate. SUBSTANTIALLY CORRECTED after a context-asymmetric skeptic review: the surviving
+`J_n>0` signal (`p=0.032`) is NOT robust — it disappears entirely (`b=0.08±0.10, p=0.43`) once
+`n=127` (`55%` of the fit's own leverage) is excluded, a check the first draft never ran
+
+**Context.** Direct user instruction, given as soon as Point 75 (the `n=2039` `sd_w(U)` extension
+to `500` reps) landed: re-run the `J_n`/`K_n` power-law analysis originally pre-registered in
+Points 66-68 and tested at 3 points in Point 71, now with `n=2039` at full (`500`-rep) power as a
+4th point, checking (1) `J_2039` and its CI, (2) the 4-point fit's slope and CI, (3) the fit
+against the ORIGINAL pre-registered prediction (`b≈0.19-0.20, z≈3.0-3.5`), (4) the tail trend
+(top-1%/top-5%). **No new LP computation was needed or run**: `ppl_gate_pilot.py`'s `main()`
+already recomputes `power_law_fit_log_Jn_vs_log_n`, `power_law_fit_Kn`,
+`power_law_fit_ratio_J_over_K`, and `tail_concentration_trend_top5pct_share` across whatever `n`
+values are in `SIZES_REPS` on every run — since `n=2039` was already in that list for Point 75's
+own extension, the 4-point fit was already sitting in `metrics/ppl_gate_pilot.json`, computed as
+a side effect. This point's only work was reading it out and independently re-deriving it from
+scratch (not accepting the stored JSON value on its own word), using the identical
+`weighted_power_law_fit` function (known-variance `Δχ²` convention, per Point 66's own corrected
+framing — explicitly NOT re-deriving a new methodology for this check) already used for Point 71.
+
+**`J_2039` and its CI (delta-method SE, same convention used for `J_n` throughout this pilot —
+not a bootstrap CI, since none of Points 66/71's `J_n` values carry one either):**
+`J_2039 = 81.258 ± 8.985`, 95% CI `≈[63.65, 98.87]`. Notably, `J_2039 < J_1021` (`81.26` vs
+`86.58`) — the point estimate fell rather than continuing to rise.
+
+**4-point weighted power-law fit (`log J_n = a + b·log n`), independently re-derived from the raw
+`J_n`/`SE` values in `metrics/ppl_gate_pilot.json` and confirmed to match the JSON's own stored
+fit to float precision:**
+
+| | `b±SE` | 95% CI | `Δχ²` (1 dof) | `z=√Δχ²` | `p` |
+|---|---:|---|---:|---:|---:|
+| `J_n` (3pt, Point 71) | 0.1296±0.0620 | [0.008, 0.251] | 4.373 | 2.091 | 0.037 |
+| **`J_n` (4pt, this point)** | **0.0998±0.0467** | **[0.0084, 0.1912]** | **4.576** | **2.139** | **0.032** |
+| `K_n` (4pt) | 0.0671±0.0516 | [-0.034, 0.168] | 1.694 | 1.301 | 0.193 |
+| `J_n/K_n` (4pt) | 0.0178±0.0180 | [-0.017, 0.053] | — | — | 0.322 |
+
+**Against the pre-registered target (`b≈0.19-0.20`), point estimate: rejected.** The 4-point slope
+(`0.0998`) is `~52%` of the target's own lower bound. **Correction on the `z` comparison (skeptic
+review): `z≈3.0-3.5` was the pre-registered target CALIBRATED FOR THE 3-POINT DESIGN and is not
+directly comparable to a 4-point `z`** — `z` at fixed `b` scales with `√(Σw·dx²)`, which grew from
+`260.3` (3pt) to `459.5` (4pt) purely from adding a point, independent of any real effect; a
+like-for-like 4-point target (same `b=0.19-0.20`, this run's own weights) would be
+`z≈4.07-4.29`, not `3.0-3.5`. Comparing the observed 4-point `z=2.14` against the 3-point-
+calibrated band, as the first draft did, mixes two different designs — the correct comparison is
+on `b` (or on SE-distance: `(0.19-0.0998)/0.0467=1.93σ` from target, vs `(0.19-0.1296)/0.0620=
+0.97σ` at 3 points — a real, doubling increase in distance from target, stated correctly this
+way, not via the `z` comparison the first draft used).
+
+**Robustness check added on skeptic review — this is the load-bearing correction to this
+point.** The first draft reported `J_n`'s `p=0.032` nominal significance as a signal that
+"survives," without checking whether it is driven by one point. Decomposing each point's
+contribution to the fit's numerator (`Σw·dx·dy`) and denominator (`Σw·dx²`):
+
+| n | % of numerator | % of denominator |
+|---:|---:|---:|
+| 127 | 57.1% | **54.7%** |
+| 509 | −0.1% | 0.0% |
+| 1021 | 21.6% | 10.3% |
+| 2039 | 21.3% | 35.0% |
+
+**`n=127` alone supplies `55%` of this "asymptotic growth" fit's own leverage.** Refitting on
+`n=509,1021,2039` only (dropping the smallest, least relevant-to-asymptotics point):
+**`b=0.0825±0.1034, Δχ²=0.636, z=0.80, p=0.43`** — independently re-derived from the raw data,
+not accepted on the skeptic's word. **The `J_n>0` growth signal is NOT robust to excluding the
+smallest tested `n` — it exists only because `n=127` is included, and disappears (`p=0.43`)
+without it.** This directly overturns the first draft's "NOT killed: `J_n`'s own `p=0.032`
+nominal significance... survives" framing in the Kill Analysis below.
+
+A secondary, absolute-fit check not run in the first draft: the FLAT model's own absolute
+goodness-of-fit is `χ²_flat=5.43` at `3` degrees of freedom, `p_GOF=0.14` — the data is fully
+consistent with "`J_n` does not grow at all," simultaneous with (not contradicting) the nested
+`Δχ²` test's nominal `p=0.032` for `b>0`; these measure different things (absolute fit to a flat
+model vs. relative improvement from adding a slope) and the first draft reported only the second.
+
+**Correction to the residual labelling:** the first draft attributed `+0.0779` (log-space) to
+"the 4th point" — this is `n=1021`'s residual, not `n=2039`'s (`n=2039`'s own residual is
+`-0.0546`). The full, correctly-labelled residual vector is `[-0.0061, -0.0174, +0.0779,
+-0.0546]` for `n=[127,509,1021,2039]`.
+
+**What a smaller `b` means for the pilot's own underlying question (not stated in the first
+draft):** the PPL gate exists to test whether `J_n` is BOUNDED (needed for `E[δ_i²]=O(n⁻²})` →
+`B_n=O(1/n)`, per this file's own docstring) — a SMALLER growth exponent is evidence FAVORING
+the original bounded-susceptibility hypothesis, even though it falls further from the
+pre-registered `0.19-0.20` NUMBER. "Rejected" in this point's own title refers only to the
+specific pre-registered magnitude, not to the underlying scientific question, where the
+direction of this result is actually favorable, not unfavorable — the two should not be
+conflated when reading this point's headline.
+
+`K_n`'s non-significance is essentially unchanged (`p=0.193` at 4 points vs `p=0.218` at 3 —
+still no reliable growth signal at any tested `n`). The `J_n/K_n` ratio fit remains flat
+(`p=0.322`, even flatter than Point 71's `p=0.199`), reinforcing Point 71's own `η_n`-stability
+finding rather than complicating it. **Caveat added on skeptic review:** the same test for `b=0`
+has now been run three times on overlapping/accumulating data (Points 66→71→76) without any
+multiple-comparisons or optional-stopping correction; each `p`-value here should be read as
+`p` "if this were the only look at this question," not as a corrected significance level across
+the sequence of looks.
+
+**Tail trend (top-1%/top-5% share of `ΣZ²`), independently recomputed, unweighted OLS per the
+script's own explicit caveat that this carries no SE/significance test:**
+
+| n | top1% | top5% |
+|---:|---:|---:|
+| 127 | 11.0% | 40.6% |
+| 509 | 14.0% | 40.9% |
+| 1021 | 17.2% | 44.4% |
+| 2039 | 19.2% | 45.3% |
+
+Both continue monotonically increasing across all four `n`, unbroken by the `n=2039` extension —
+consistent with, not a new complication to, the tail-heaviness trend already noted in Points 66
+and 71. No CI/significance test is attached (single point estimate per `n`, no bootstrap run for
+this specific series), so this is reported as weaker, descriptive evidence, per the script's own
+labelling, not as a tested claim.
+
+**Kill Analysis.** The specific pre-registered magnitude from Points 66-68 (`b≈0.19-0.20`) is
+KILLED as a description of the point estimate at full power across all 4 tested `n`. **Corrected
+on skeptic review — NOT killed, but ALSO not shown to survive robustly**: the first draft's own
+claim that "`J_n`'s own `p=0.032` nominal significance for `b>0` survives" is WITHDRAWN as stated
+— per the robustness check above, this significance exists only with `n=127` included (`55%` of
+the fit's leverage) and is gone (`p=0.43`) without it. The honest status is: `J_n>0` growth is
+nominally significant on the full 4-point sample, not robust to dropping the smallest tested `n`,
+and additionally consistent in absolute terms with no growth at all (`χ²_flat` `p_GOF=0.14`).
+`K_n`'s non-growth finding is reinforced (not run through the same leverage check here, since it
+was never claimed to show a surviving signal in the first place). `η_n`'s stability is
+reinforced. This extends, but weakens the certainty of, Point 71's own "the predicted magnitude
+did not materialize" finding — Point 76 shows the specific numeric target failing even more
+clearly, while showing the underlying `J_n>0` signal itself is weaker and less robust than the
+first draft of this point claimed.
+
+**What this does NOT mean.** Does NOT mean `J_n` is proven bounded (flat) — the fit is consistent
+with either a weak, `n=127`-driven signal or a genuinely flat series; this data does not
+distinguish the two robustly. Does NOT mean `J_n` is proven to grow either — see the robustness
+check above. Does NOT mean the `n=1021→2039` drop in `J_n` (`86.58→81.26`) is itself a tested,
+significant reversal — no independent-batch significance test was run for this specific
+transition (analogous to Point 71's own old-vs-new Welch t-test for the `n=1021` extension); it
+is reported as a point-estimate observation, not a tested claim of decline. Does NOT resolve
+which of Route A/A2/B (per Point 69's decision tree) this data points to — if anything, the
+robustness finding above weakens confidence in "`J_n` marginally growing" as a settled qualitative
+picture, more than Point 71 alone did.
+
+**Correction on the relationship to Point 75's `sd_w(U)` result (skeptic review — the first
+draft's reasoning here was wrong, though its bottom-line "not in tension" conclusion happens to
+still hold).** The first draft called `J_n`/`K_n` and `sd_w(U)` "different statistics...
+independently" showing a similar story. **This is false: they are the same information under an
+exact algebraic identity, already used and verified in Point 75 — `η_n = K_n/(4J_n) = μ_w(U)² +
+sd_w(U)²`** (confirmed again here, directly from the JSON's stored fields, to `≤1.7e-16`
+precision at every `n`). `sd_w(U)`'s continued shrinkage and `μ_w(U)`'s near-constancy (`≈0.50`
+at every `n`) are what keep `η_n≈0.25`, equivalently `J_n/K_n≈1` — the `J_n/K_n` ratio fit's own
+flatness (`p=0.322`) IS the same fact as Point 75's `sd_w(U)` concentration, not independent
+corroboration of it. **The "not in tension" conclusion is still correct, but for a different and
+more important reason: "weaker than naive extrapolation" points in OPPOSITE directions for the
+two headline statistics** — for `J_n`, a smaller slope than predicted is GOOD news for the
+underlying bounded-susceptibility hypothesis (see above); for `sd_w(U)`, slower-than-predicted
+shrinkage would be comparatively less favorable to the concentration story Point 73 salvaged.
+The two results are consistent with each other (same underlying rows, exact identity linking
+them), but "both show the same qualitative story" — the first draft's framing — is not the right
+way to describe that consistency, since the practical implications of "weaker than extrapolated"
+differ in sign between the two statistics.
+
+**Artifacts:** No code or data changes — this point reads and independently re-derives values
+already present in `metrics/ppl_gate_pilot.json` as of Point 75's commit (`power_law_fit_log_Jn_
+vs_log_n`, `power_law_fit_Kn`, `power_law_fit_ratio_J_over_K`, `tail_concentration_trend_top5pct_
+share`, `summaries`). Independent re-derivation (scratchpad, not committed) reproduced the J_n
+fit's `slope_b`, `slope_b_SE`, `chi2_flat_model`, `chi2_power_law_model`, `delta_chi2_dof1`, and
+`p_value` fields to float precision from the raw `J_n`/`J_n_SE` values before any number here was
+trusted; the `n=127`-excluded refit (`b=0.0825±0.1034`) and the per-point leverage decomposition
+were computed the same way, from scratch, not accepted from the skeptic's own numbers.
+
+Reviewed by `skeptic` (context-asymmetric, same standing `reviewer`→`skeptic` substitution as
+Point 75): confirmed all arithmetic in the first draft to full float precision (nothing was
+numerically wrong), but found the headline framing overclaimed in five ways — an unrun
+robustness/leverage check (the load-bearing correction, see above), a mislabelled residual, an
+uncalibrated cross-design `z` comparison, a missing absolute-goodness-of-fit counter-statistic,
+and a false "independent statistics" premise in the Point 75 comparison. All five independently
+re-verified by direct computation against the raw JSON before being accepted and fixed here, per
+this session's standing discipline of never accepting a reviewing agent's arithmetic on its own
+word. Full skeptic report (agentId `aa7f93cca7ab0c616`) available in this session's transcript;
+not committed as a separate file.
+
