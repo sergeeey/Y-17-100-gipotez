@@ -218,7 +218,15 @@ def flip_generator(c: np.ndarray, i: int) -> np.ndarray:
 # instruction -- this is now a FINAL closure test at 3 points, not a trend-estimate pilot. n=2039
 # remains skipped here (optional, user said "не обязательно ... явно скажи если пропускаешь" --
 # skipped explicitly for this run's time budget; see this run's own report for the explicit note).
-SIZES_REPS = ((127, 500), (509, 500), (1021, 500))
+# v3.3 (2026-09-16, Point 73 follow-up): n=2039 added at 220 reps -- a genuinely differentiating
+# extension of sd_w(U)'s n-scaling (per Point 73's own recommended next step #3; NOT an extension
+# of `c`, which the same point's skeptic review found to be a non-differentiating statistic).
+# Rep budget chosen from a 6-rep calibration (this session, scratchpad, mean 11.74s/rep at
+# n=2039 -- LP solves dominate cost and scale with n): 220 reps projects to ~43 min, inside the
+# 200-250-rep budget and ~50-minute window the coordinator asked for. Sampling protocol (one_case,
+# gen_index=1, seed scheme, both branches) is UNCHANGED -- only this tuple is extended, exactly as
+# v3.1/v3.2 already did for n=1021.
+SIZES_REPS = ((127, 500), (509, 500), (1021, 500), (2039, 220))
 SIZES = tuple(n for n, _ in SIZES_REPS)
 GEN_INDEX = 1  # == TEST_GENERATOR_INDEX in check_kappa_n_large_n.py; fixed, never re-chosen
 SEED_BASE = 3351000  # fresh, distinct from every RNG_SEED_BASE/BOOTSTRAP_SEED already listed
@@ -642,8 +650,8 @@ def main() -> None:
     )
 
     n2039_note = (
-        "n=2039 SKIPPED this run -- optional per the task brief; not attempted (no rows, no "
-        "fit contribution). Explicitly noted rather than silently omitted."
+        "n=2039 ADDED this run (v3.3, 220 reps) -- included in SIZES_REPS/summaries/power-law "
+        "fits above like every other n; no longer skipped."
     )
 
     output = {

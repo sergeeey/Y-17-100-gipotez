@@ -7135,3 +7135,107 @@ claim was built on a statistic with no power to show what it claimed.**
 statistics), `sdU_bootstrap.py` (the salvaged finding's own bootstrap CI and `n`-scaling fit) —
 all using already-saved `metrics/ppl_gate_pilot.json` data, zero new LP solves throughout.
 
+## Point 74 (2026-09-16) — `n=2039` extension for `sd_w(U)`: genuinely AMBIGUOUS, not a
+confirmation or a refutation of Point 73's salvaged finding — the statistic PLATEAUS between
+`n=1021` and `n=2039` (overlapping CIs, first time in the series), breaking the clean 3-point
+monotonic trend, while the "it's just falling ESS" artifact concern is simultaneously weakened
+(ESS/N kept falling, `sd_w(U)` did not)
+
+**Context.** Per direct user instruction, extended `ppl_gate_pilot.py` to `n=2039` (`220` reps —
+a smaller budget than the other three `n`'s `500`, calibrated live against the actual observed
+per-rep LP-solve time, `~11.74s/rep`, to fit a `~50`-minute window; explicitly NOT the full `500`)
+to test whether `sd_w(U)`'s `~n^-0.37` shrinkage (Point 73's salvaged finding, after its
+predecessor's `c≈1` claim was retracted) continues, plateaus, or reverses — the genuinely
+differentiating test the skeptic review recommended in place of extending the retracted `c`
+statistic. Method independently re-validated BEFORE running new data (reproduced Point 73's exact
+numbers via the same scripts/seeds first — a real precaution, not merely claimed). All raw
+numbers below independently re-verified against `metrics/ppl_gate_pilot.json` this session (not
+accepted from the agent's report alone).
+
+**Results, all four `n`:**
+
+| n | reps | `sd_w(U)` (bootstrap) | 95% CI | `c_g` (Parseval-only) | ESS | ESS/N |
+|---:|---:|---:|---|---:|---:|---:|
+| 127 | 500 | 0.1494 | [0.1352, 0.1639] | 0.9124 | 105.3 | 0.211 |
+| 509 | 500 | 0.0933 | [0.0833, 0.1037] | 0.9939 | 94.5 | 0.189 |
+| 1021 | 500 | 0.0676 | [0.0602, 0.0753] | 0.9859 | 79.0 | 0.158 |
+| **2039** | **220** | **0.0675** | **[0.0565, 0.0784]** | 0.9986 | **27.0** | **0.123** |
+
+**The central, honest finding: `sd_w(U)` essentially PLATEAUED between `n=1021` and `n=2039`
+(`0.0676→0.0675`, a difference of `−0.0001`) — the two CIs now OVERLAP substantially, the first
+time in this series that consecutive `n`'s confidence intervals are not cleanly separated** (all
+three prior pairs had non-overlapping CIs, which was the basis for Point 73's "genuinely
+concentrating, not noise" reading). The 3-point power-law fit (`b=-0.373±0.035`) predicted
+`sd_w(U)(2039)≈0.0536` at its center; the actual value (`0.0675`) is `~26%` above that center,
+though still inside the (wide, slope-only) extrapolation band `[0.032, 0.090]` — **not a clean
+formal refutation, but a materially weaker continuation than the 3-point trend implied.** The
+4-point fit's own slope softens accordingly: `b=-0.330±0.029` (vs `-0.373±0.035` on 3 points), and
+`n=2039` carries by far the largest residual (`+0.137` in log-space, vs `≤0.037` for the other
+three) in the 4-point fit's own residual list — it does not fit the power-law trend as well as the
+first three points fit each other.
+
+**The "falling-ESS mechanically explains the shrinkage" artifact concern (raised by Point 73's own
+skeptic review) is SIMULTANEOUSLY weakened by this same data, not merely left open.** `ESS/N`
+continued falling, and at a FASTER relative rate, from `n=1021` to `n=2039` (`0.158→0.123`, a
+`~22%` relative drop) than from `n=509` to `n=1021` (`0.189→0.158`, `~16%`) — `corr(ESS/N, n) =
+-0.99` across all four points, a clean, continuing, even-accelerating trend. **If the "mechanical
+artifact" explanation were correct, `sd_w(U)` should have continued falling (or fallen faster) in
+step with `ESS/N` — instead `sd_w(U)` plateaued exactly where `ESS/N` kept dropping.** The naive
+aggregate correlation `corr(ESS/N, sd_w(U))=0.86` across all four points LOOKS like it supports
+the mechanical-artifact story, but this is confirmed (independently, this session) to be driven
+entirely by the first three points moving together; the fourth point is precisely where that
+co-movement breaks. Reporting the `r=0.86` figure alone, without this decomposition, would have
+been a misleading reading of the project's own data — correctly avoided in the agent's own report,
+independently confirmed here.
+
+**A second, independent signal points the same direction as the plateau being at least partly
+real, not pure noise from the smaller sample**: the UNWEIGHTED (bulk, not tail-dominated) median
+and mean of `U` did NOT plateau — they continued their smooth drift toward `0.5` at `n=2039`
+(`median: 0.594→0.537→0.519→0.518`; `mean: 0.610→0.561→0.534→0.525`), consistent with the trend
+established at the first three `n`. This suggests the `n=2039` DATA ITSELF is behaving normally
+(no sign of a corrupted or anomalous sample), and the specific PLATEAU is a property of the
+tail-weighted statistic (`sd_w(U)`, `ESS=27` at this `n`, the smallest of the four) rather than of
+the underlying sample being unusual.
+
+**Kill Analysis.** Nothing killed, nothing confirmed. Point 73's core finding (`sd_w(U)` well
+below the structureless-null value of `0.2887` at every tested `n`, including `n=2039` at
+`0.0675`, still `~4.3×` below null) SURVIVES — this part is not in question. The SPECIFIC
+differentiating question this extension was designed to answer (does the `~n^-0.37` power-law
+shrinkage continue) is **NOT cleanly resolved**: the plateau is real in the data (CIs overlap,
+largest residual in the 4-point fit), but at a sample size (`220` reps, `ESS=27`) small enough
+that "real asymptotic leveling-off" and "noise from an under-powered 4th point" cannot currently
+be distinguished from each other.
+
+**What this does NOT mean.** Does NOT mean the `sd_w(U)` concentration finding (Point 73) was
+wrong — the concentration relative to the null remains large and real at all four `n`. Does NOT
+mean the power-law model (`b≈-0.37`) is refuted — `n=2039`'s value is still inside its
+extrapolation band, just far from the center. Does NOT mean the plateau is confirmed as a real
+asymptotic floor — `220` reps at `ESS=27` is not enough statistical power to distinguish "genuine
+floor near `~0.07`" from "this particular 220-rep sample happened to land above trend." Does NOT
+mean the falling-ESS artifact concern is fully closed — it is WEAKENED (the plateau-while-ESS-
+falls pattern argues against a purely mechanical explanation), not eliminated, since a `220`-rep
+sample's own ESS-driven noise could independently explain the plateau without any real
+concentration-floor phenomenon.
+
+**Recommended next steps, stated but not executed here.** (1) The cheapest way to resolve the
+ambiguity is NOT a 5th `n` — it is raising `n=2039`'s OWN rep count to match the other three
+(`500`, i.e. `+280` more reps), which would both shrink `n=2039`'s own CI and raise its `ESS`
+(currently the clear outlier at `27` vs `79-105` for the others) enough to tell whether the
+plateau survives more data or was a `220`-rep-sample artifact — this is the direct analogue of
+Point 71's own already-validated "raise the smallest-budget point to match the others" pattern.
+(2) If plateau survives at `500` reps: this becomes a genuinely interesting finding (an
+asymptotic floor for the tightness-ratio dispersion, rather than shrinkage to zero) worth its own
+Mechanism Development Mode pass. (3) If it does not survive (i.e. `500`-rep `sd_w(U)(2039)` moves
+back toward the `0.05` range the 3-point trend predicted): the original `~n^-0.37` picture from
+Point 73 is reinforced, and the `n=2039, 220`-rep result here would be understood, in hindsight, as
+sampling noise on an under-powered point — not as evidence of a real floor.
+
+**Artifacts:** `ppl_gate_pilot.py` (`SIZES_REPS` extended with `(2039, 220)`, canonical sampling
+protocol unchanged), `metrics/ppl_gate_pilot.json` (updated: `n=2039` rows/summary added, new
+`u_statistics_tightness_ratio` key with the full 4-point table, both log-log fits, the
+extrapolation-band check, and the explicit `ESS`-vs-`sd_w(U)` artifact-check correlations).
+This session's scratchpad scripts (not committed): `u_stats_n2039.py`, `calibrate_n2039.py`,
+`validate_u_stats_method.py` (the pre-run validation against Point 73's own numbers).
+Independently spot-checked against the raw JSON this session (not accepted from the agent's
+report alone).
+
