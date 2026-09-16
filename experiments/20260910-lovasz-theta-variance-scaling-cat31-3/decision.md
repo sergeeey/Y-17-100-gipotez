@@ -8359,3 +8359,140 @@ draft's unweighted, SE-less bootstrap slope), directly from `metrics/ppl_gate_pi
 `x_i` values. The three cross-series `a`-exponent comparisons and the `κ_x` series independently
 computed and checked against the CI before being accepted.
 
+## Point 84 (2026-09-16) — `E‖x*‖²` measured precisely (full-norm estimator): `a=0` not rejected,
+but the "DECISIVE... z=10-16" exclusion of the alternative growth rate in the first draft was a
+severe overclaim (z-scores computed against the alternatives' OWN point values, ignoring their
+substantial SE) — corrected z-scores are `2.90/1.92/1.11`, only marginal and only for the one
+truly independent comparison. A real, bootstrap-confirmed finding survives: `J_n`'s growth is
+driven by a growing `Cov(x*_i²,w*_i²)`, not the (flat) marginals — but this is NOT a new,
+independent target: by Cauchy-Schwarz it already FOLLOWS from `(POL)+F4rel`, both still open,
+just empirically well-supported, not proven. A further, structural finding (verified in the code
+directly) explains WHY the dependence is concentrated exactly where it is: `x*_j·w*_j≡0` for every
+coordinate `j` except `GEN_INDEX`, by construction
+
+**Context.** Point 83 named the decisive-but-expensive test: save the FULL `‖x*‖²`/`‖w*‖²` per
+row (not the single `GEN_INDEX=1` coordinate `ppl_gate_pilot.json` stores). Per direct user
+decision, launched as a background computation (`check_pol_full_norm.py`, new script, does NOT
+modify `ppl_gate_pilot.py` or its JSON). All `4×500=2000` rows' `x_i`/`w_i` at `GEN_INDEX=1`
+matched `ppl_gate_pilot.json`'s existing rows for the same seeds exactly (`max_abs_diff=0.0`).
+**First draft of this point was SUBSTANTIALLY WRONG on its headline claims, caught on
+skeptic-fallback review, both core objections independently re-verified (with actual bootstrap
+computation, not the reviewing pass's own back-of-envelope estimates) before being accepted.**
+
+**Result 1 — `E‖x*‖²` (full-vector norm, `x[0]=1` included by the LP solver's own construction —
+NOTE: this is a different quantity from Point 83's `m·E[x_i²]`, which excludes `x[0]`; the two
+are related but NOT simply offset by a clean constant given `x_1` is conditioned-always-free in
+`g0` while other coordinates are unconditionally free ~half the time — no precise conversion
+formula between the two points' numbers is asserted here):**
+
+| n | `E‖x*‖²` | SE | `E‖w*‖²` | SE |
+|---:|---:|---:|---:|---:|
+| 127 | 4.0941 | 0.0429 | 4.0652 | 0.0444 |
+| 509 | 4.0280 | 0.0193 | 4.0274 | 0.0197 |
+| 1021 | 4.0237 | 0.0140 | 4.0773 | 0.0137 |
+| 2039 | 4.0766 | 0.0106 | 4.0688 | 0.0106 |
+
+**Weighted log-log slope: `b=0.00473±0.00287`, 95% CI `[-0.00089, 0.01035]`. `Δχ²`-test for
+`b=0`: `p=0.0993`.** Correction: the first draft called this "not significant even at 10%" —
+`0.0993<0.10`, the opposite of what was written. The correct, honest framing: the null of no
+growth is NOT rejected at the conventional 5% level, but sits right at the edge of 10%
+(one-sided `p≈0.05`) — this is a mild, not absent, hint of growth in `E‖x*‖²` itself, not the
+clean "flat, `(POL)` confirmed" picture the first draft presented.
+
+**Correction — the z-score comparison against the three other project series was WRONG,
+FALSIFIED on review, independently re-verified and fixed.** The first draft computed
+`z=(a_alt-b)/SE(b)`, treating each alternative `a` (from `Var(X_n)`, `J_n`, `K_n` slopes) as an
+exact constant. They are not — each is itself a fitted slope with its own SE, already on record
+in this file. The correct comparison uses the combined SE:
+
+| series | `a ± SE(a)` | `z = (a-b)/√(SE(a)²+SE(b)²)` | significant? |
+|---|---|---:|---|
+| `Var(X_n)` slope `-0.9126±0.0264` → `a=0.0437±0.0132` | (independent: `n=32..3000` headline) | **2.90** | marginal |
+| `J_n` slope `0.0998±0.0467` → `a=0.0499±0.0233` | (NOT independent — same 2000 seeds) | **1.92** | no |
+| `K_n` slope `0.0671±0.0516` → `a=0.0336±0.0258` | (NOT independent — same 2000 seeds) | **1.11** | no |
+
+**Only the `Var(X_n)` comparison is even marginally significant (`2.9σ`), and it is the only one
+of the three that is genuinely independent data (`J_n`/`K_n` are computed from the SAME 2000
+seeds as this measurement, confirmed by the positive control — comparing to them is not an
+independent check).** The first draft's "`z=10-16`, astronomically significant, decisively
+excluded" was off by a factor of `4.7-9.2×`, from omitting the alternatives' own substantial SE.
+**Honest verdict: `a=0` is not rejected; a modest, single, non-independent-confirmed hint of slow
+growth (`~2.9σ` against the one independent comparator) cannot be ruled out either. This is
+NOT the clean "`(POL)` empirically confirmed" the first draft claimed.**
+
+**Result 2 — real, and independently re-verified with an actual bootstrap (not the reviewing
+pass's rough approximation).** Decomposing `E[x_i²w_i²]` (the single-`GEN_INDEX` quantity `J_n` is
+built from) via the exact identity `E[x²w²]=E[x²]E[w²]+Cov(x²,w²)`, with `3000`-resample bootstrap
+SE on each term at each `n`:
+
+| n | `n²·E[x²]E[w²]` (marginal) | `n²·Cov(x²,w²)` |
+|---:|---:|---:|
+| 127 | 44.89 ± 4.17 | 19.81 ± 3.03 |
+| 509 | 39.45 ± 3.76 | 34.05 ± 3.80 |
+| 1021 | 42.16 ± 4.18 | 44.51 ± 5.55 |
+| 2039 | 38.97 ± 3.79 | 42.37 ± 5.85 |
+
+**Trend significance, `127→2039`, properly bootstrapped:** marginal term `z=-1.05` (not
+significant, consistent with flat); covariance term **`z=3.42`** (real, survives independent
+bootstrap re-verification — the reviewing pass's own rough estimate of `~1.9σ` was itself too
+conservative; a proper bootstrap gives a stronger, not weaker, signal here). **This part of the
+first draft's qualitative story holds: `J_n`'s growth is attributable to the covariance term
+specifically, not to either marginal.**
+
+**Correction — this is NOT an independent new target, it is a restatement of the existing one.**
+The first draft framed "bound `Cov(x*_i²,w*_i²)=O(n⁻²)`" as a sharply NEW target, distinct from
+and superseding `(POL)`/`F4rel`. This is wrong: by Cauchy-Schwarz, `|Cov(x²,w²)|≤√(E[x⁴]E[w⁴])`,
+and if `(POL)` and `F4rel` both hold, the right side is already `O(n⁻²)` — **`Cov=O(n⁻²)` is a
+CONSEQUENCE of `(POL)+F4rel`, not a separate problem requiring separate proof.** The actual open
+work remains exactly what Point 83 identified: prove `(POL)` and `F4rel`, both currently
+empirical-only, not proven. A genuinely useful, correctly-scoped observation the first draft
+missed: the Cauchy-Schwarz ceiling specifically on `Cov(x²,w²)` (`|Cov|≤√(Var(x²)Var(w²))`,
+independently computed this session from raw rows, NOT the reviewing pass's own approximation) is
+**itself declining** — `n²·ceiling = 79.96 → 56.97 → 56.33 → 49.17` across the four `n` — while
+the observed `n²Cov` (`19.77→33.98→44.42→42.29`) has risen to **`86%`** of that shrinking ceiling
+at `n=2039` (this ratio is, by construction, exactly `corr(x²,w²)` — the same quantity Point 80
+already tracked as `0.25→0.60→0.79→0.86`, now re-confirmed from an independent computation on this
+new dataset). The covariance is not growing without limit — it is closing in on an
+already-tightening bound, a materially different (and more informative) picture than "unboundedly
+growing."
+
+**A real structural finding, verified directly in the code, not previously stated anywhere in
+this project.** `comp` (yielding `w*`) is solved on `1-bits_g1` (the FULL complement of `G1`'s
+bits, not just the `GEN_INDEX` bit toggled) — `test_convolution_repair.py`'s `CertificateLP.solve`
+marks coordinate `j` "free" (potentially nonzero) exactly where the corresponding bit is `0`.
+Since `bits_g0` and `bits_g1` differ ONLY at `GEN_INDEX-1` (by `flip_generator`'s own construction,
+already established elsewhere in this file), for every `j≠GEN_INDEX`: `j` is free in `g0` iff
+`bits_g0[j]=0`, and free in `comp` iff `bits_g1[j]=1` — since `bits_g0[j]=bits_g1[j]` for
+`j≠GEN_INDEX`, these two conditions are exact complements. **`x*_j` and `w*_j` can never both be
+nonzero for `j≠GEN_INDEX` — `x*_j·w*_j≡0` deterministically, by construction, for every
+coordinate except the one being toggled.** The entire `x_i·w_i` product this whole `J_n`/`K_n`
+pipeline (Points 66-84) is built from lives on a SINGLE coordinate that is structurally
+"shared-active" between the two certificates — not a general delocalization statistic averaged
+over many coordinates. This tempers "the mechanism... remains completely open" — as `n` grows,
+the SAME single generator's relative influence on the graph shrinks (one bit out of a growing `m`
+total), which is a plausible, cheap-to-investigate-further candidate mechanism for why `x*` and
+`w*` grow more correlated, not yet a proof of it.
+
+**What this does NOT mean.** Does NOT mean `(POL)` is disproven — `a=0` is still not rejected,
+only the "confirmed" framing was too strong. Does NOT mean `S1` is closer or further than Point 83
+left it — the actual open work (`(POL)`, `F4rel`, both empirical-only) is unchanged; this point
+corrects what FOLLOWS from them (nothing new — `Cov=O(n⁻²)` was always implied) and adds one real
+structural fact (the single-coordinate concentration) and one real quantitative fact (the
+covariance is approaching a shrinking CS-ceiling, not growing unboundedly). Does NOT mean the
+positive control's exactness validates anything beyond input reproducibility — it confirms this
+script solves the same LPs as the canonical pipeline, not that the new `x_norm_sq`/`w_norm_sq`
+fields are bug-free (their correctness was checked separately, via the `x[0]=1`/dimension checks
+above). Does NOT mean Point 83's own conclusions are overturned — `κ_x` bounded/declining and the
+excluded `log³n`/`c·log n` growth rates for the single-coordinate proxy both stand.
+
+**Artifacts:** `check_pol_full_norm.py`, `metrics/pol_full_norm_check.json`,
+`pol_full_norm_run.log`. Reviewed by `skeptic` (context-asymmetric, same standing substitution as
+throughout this session): found the z-score overclaim (the load-bearing correction above) and the
+`x[0]=1` quantity-mismatch between this point and Point 83; both independently re-verified by
+direct computation (proper combined-SE z-scores; the `x[0]=1` line read directly from
+`CertificateLP.solve`'s source) before being accepted, per this session's standing discipline.
+The reviewing pass's own rough SE estimate on the covariance trend was itself superseded by an
+actual `3000`-resample bootstrap computed here, which gave a STRONGER result (`z=3.42` vs. the
+review's own conservative `~1.9`) — corrections were verified, not merely accepted on the
+reviewer's word in either direction.
+
