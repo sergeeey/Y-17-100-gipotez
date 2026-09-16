@@ -6309,3 +6309,207 @@ bug). This session's independent verification scripts (scratchpad, not committed
 `direct_target.py`, `loglog_fit.py`. Independently spot-checked against the raw JSON this session
 (not accepted from either the agent's or the skeptic's summary alone).
 
+## Point 67 (2026-09-16) — PPL gate 0.1 forensic follow-up: extensively corrected on a SECOND
+skeptic-fallback review — the leading explanation for the `~11×` discrepancy is now an aggregator
+mismatch (`E[Z]` vs `E[Z²]`), not a construction bug; the min-L2-selector check is real and
+non-tautological (confirmed via an added face-width test) but was oversold in scope (`n=509,1021`
+unresolved, one informative row silently dropped)
+
+**Context.** Per Point 66's own "Recommended next steps" and a user decision to run a strict
+gated sequence (diagnose the `n=127` `~11×` discrepancy FIRST, then the min-L2-selector check,
+before any further extension of the pilot or a parallel Route B) — this point reports both
+results, then a SECOND skeptic-fallback review's corrections to them (this session's third
+skeptic review in the RBA/PPL line of work; the pattern of successive reviews each finding new,
+real issues is itself worth noting for the strategic decision at the end of this point). All work
+was read-only against `codex-20260914-susceptibility/` (Unclaimed Work Ownership respected); one
+factual error in `ppl_gate_pilot.py`'s own docstring (identified below) was corrected in that file.
+
+**Task 1 — diagnosing the `n=127` discrepancy (`v1`'s reported `J_n=5.9` vs `v3`'s `64.66`).**
+Since `v1`'s literal code no longer exists, three reconstructions of plausible `v1` behavior were
+tested against `v3`'s own seed scheme:
+
+| Hypothesis | Construction | `J_n(127)` | vs `v1`'s `5.9` | vs `v3`'s `64.66` |
+|---|---|---:|---:|---:|
+| H1 | post-hoc overwrite: draw all `m` bits as `v3` does, then force `bit[gen_index]=0` | 64.6605 | 11.0× | exact match (16 sig. figs) |
+| H2 | sequential draw skipping `gen_index` (RNG-stream shifted for the other `m-1` bits) | 73.6607 | 12.5× | 1.14× |
+| H3 | correct `v3` construction, coordinate swept over 8 fixed indices (1,2,3,5,10,20,40,63) | 46.7–74.4 | **7.9×–12.6×** | 0.72×–1.15× |
+
+**Corrections from the second skeptic review, independently re-verified this session (exact
+arithmetic reproduced, not accepted on the review's word):**
+1. **The H3 ratio column above was mis-transcribed in the first draft** (`3.9×–14.5×`) — the
+   correct range against `v1`'s `5.9` is `46.7474/5.9=7.92×` to `74.4161/5.9=12.61×`, both
+   independently recomputed. Does not change the qualitative conclusion (still `>2×` throughout).
+2. **H1 and H3(coordinate=1) are the SAME computation, not independent evidence** — `64.6605149518125`
+   matches to all 16 printed digits in both `metrics/diagnose_v1_v3_result.json` and `v3`'s own
+   `mean_Z2_J_n` for `n=127`. The forensic chain diff's "`H1: IDENTICAL, 25/25 seeds`" result is a
+   PROOF (`flip_generator` only ever toggles the `gen_index` bit, so post-hoc overwrite and
+   branch-conditional flip are algebraically the same operation), not an argument — this part of
+   Point 66's own skeptic finding is independently reconfirmed. But it means the "three hypotheses
+   rejected" framing overstated independent evidence: there is really only ONE genuinely different
+   construction tested (H2) plus a coordinate sweep, not three.
+3. **A far more parsimonious explanation exists and was missed by construction-only hypotheses,
+   because all three held the AGGREGATOR fixed and varied only the GRAPH.** `J_n(H1)/mean_Z(H1) =
+   64.6605/5.4389 = 11.89` — this numerically matches the observed `"~11×"` almost exactly.
+   `v1`'s reported `5.9` sits `1.74` SE from H1's own `mean_Z=5.4389` (`SE=0.2649`, `Var(Z)=J_n-
+   mean_Z²=35.08`) and `0.61` SE from H2's `mean_Z=5.7271` (`SE=0.2859`) — both comfortably
+   consistent with sampling noise around `5.9`, unlike any hypothesis's `J_n` (`7.9×`-plus off).
+   **Leading (not confirmed) explanation: `v1` reported `E[Z]`, not `E[Z²]=J_n`** — a one-word
+   aggregator bug (e.g. `.mean()` on `Z` instead of `Z**2`), not a sampling-construction error.
+   This is not proven — `v1`'s literal code is gone — but it is now the single most parsimonious,
+   numerically-compelling candidate, and importantly belongs to a DIFFERENT error class than
+   anything H1/H2/H3 could have caught, since all three varied graph construction while holding
+   the aggregator fixed.
+4. **An internal contradiction was found and fixed**: `ppl_gate_pilot.py`'s own docstring
+   (written during the `v1→v2→v3` iteration, before this forensic work) claimed `v1`'s forced-bit
+   construction "silently dropped half the canonical sample space" — this is exactly the mechanism
+   the forensic diff PROVES impossible. The docstring has been corrected in this session to state
+   the actual finding (algebraically identical to `v3`, discrepancy unexplained by construction,
+   aggregator-mismatch as the leading candidate) rather than leaving a falsified claim in the
+   code's own comments.
+
+**Corrected conclusion.** The root cause of the `~11×` discrepancy remains formally UNDIAGNOSED
+(`v1`'s code is unavailable to inspect directly), but the evidence has shifted meaningfully since
+the first draft: (a) the mechanism ORIGINALLY blamed is proven impossible; (b) only one
+independent graph-construction alternative (H2) was actually tested, not three, and it fails to
+explain the gap; (c) a specific, numerically-compelling, differently-classed explanation
+(aggregator mismatch, `E[Z]` vs `E[Z²]`) now exists and was not excluded by anything tested so
+far — the honest state is "most likely an aggregator/units bug in code that no longer exists,"
+not "three independent alternatives ruled out, cause unknown." **Cheapest next differentiating
+test, not executed here**: if any future reconstruction attempt of `v1` is made, check `mean_Z`
+FIRST against `5.9` before computing `J_n` — a hit in `mean_Z∈[5.4,6.2]` would treat the mystery as
+resolved (aggregator mismatch), not merely "consistent with noise."
+
+**Task 2 — HiGHS vertex vs the theoretically-required min-L2 selector `x*`.** Re-solved the top-5%
+`|Z_ni|` rows (`25` each at `n=127,509`) plus a same-size random bulk-control sample (`25` each)
+via a CLARABEL-QP reimplementation of `test_optimal_energy.py`'s `minimum_energy()` selector, and
+compared `ρ:=Z²(min-L2)/Z²(HiGHS)` per row (raw JSON independently re-verified, all 100
+`reconstruction_matches_stored_row=true`, zero seed/branch mismatches):
+
+| n | group | mean ρ | median ρ | min–max range |
+|---:|---|---:|---:|---|
+| 127 | top5% | 0.99999999989 | 0.99999999993 | [0.99999999960, 1.00000000010] |
+| 127 | bulk control | 1.00000000044 | 1.00000000003 | [0.99999999854, 1.00000000544] |
+| 509 | top5% | 0.99999999916 | 1.00000000000 | [0.99999998524, 1.00000000057] (1/25 solves failed, EXCLUDED — see below) |
+| 509 | bulk control | 1.00000000130 | 1.00000000000 | [0.99999999922, 1.00000001309] |
+
+**Corrections from the second skeptic review, plus a new check run this session in direct
+response to it:**
+1. **Is `ρ≈1` informative, or tautological because the optimal face at `gen_index` is generically
+   a single point (dimension: `~m/2` free variables vs `m+1` constraints)?** This was NOT checked
+   in the first draft and is a legitimate concern — if the face were always a point, agreement
+   would be automatic regardless of whether real degeneracy existed elsewhere. **Answered this
+   session (`tmp/face_width_test3.py`, cheap: 2 extra LP solves per row on the SAME 10 rows already
+   used for the `ρ` check):** solved `max x_i` and `min x_i` on the same optimal face. At `n=127`,
+   the face is genuinely NOT a point for most sampled rows — width ranges `6.3e-9` to `1.25e-3`
+   (5/10 rows `>1e-6`, i.e. `5`–`6` orders of magnitude above numerical noise), and `ρ` STAYS at
+   `≈1` (`0.9999999999` to `1.0000000015`) even at the WIDEST-face row tested (seed `16051163`,
+   width `1.249e-3`). **This is a real, non-tautological confirmation at `n=127`**: the face has
+   genuine width, and the two selectors still coincide almost exactly — strengthening, not merely
+   preserving, Task 2's conclusion at that size. At `n=509`, the same face-width check hit solver
+   difficulty with a straightforward `CLARABEL` retry (`9/10` rows failed to converge within a
+   quick follow-up's iteration budget; only `1/10` succeeded, width `9.26e-6`) — **this remains
+   genuinely unresolved at `n=509`, and was never attempted at all at `n=1021`**, the size with
+   this pilot's own heaviest tail (`top5pct_share=0.50`, Point 66) and therefore the size where
+   selector-sensitivity risk is highest. The claim that this "closes the optimizer-selector
+   concern... and its fit" (the fit uses all 3 sizes including `1021`) OVERCLAIMED scope in the
+   first draft — corrected here to "confirmed non-tautological at `n=127` only; `n=509,1021`
+   remain open."
+2. **The single excluded solve failure (`n=509`, top5%, seed `54251064`, `Z=20.94`) was dropped
+   from the mean without noting the likely direction of bias** — a row that fails to converge is
+   plausibly the MOST ill-conditioned / closest-to-degenerate row in the sample, i.e. exactly the
+   kind of row most likely to show a genuine selector-dependent discrepancy if one exists;
+   excluding it likely biases the reported `ρ≈1` toward agreement, not merely toward a smaller
+   sample. Its `complement`-side solve DID succeed and matched HiGHS to `1.9e-11` — only the `G0`-
+   side `min_energy` QP failed; this partial information was available and not used.
+3. **"Re-solved via `test_optimal_energy.py`'s `minimum_energy()`" overstated re-use** —
+   `check_minimum_energy_selector.py` reimplements the QP (verified line-by-line to match the
+   objective, constraints, solver, and tolerances), it does not import/call the original function.
+   One behavioral difference exists: the original hard-fails on a bad solver status; the
+   reimplementation retries and reports `NaN` — so this is a cross-check against a verified-
+   equivalent COPY, not literally against the existing artifact. Downgraded from "already-
+   verified alternative" to "line-by-line-verified reimplementation" in this point's own framing.
+4. **`face_error`/`g0_face_error` is a tautological diagnostic, not independent evidence of being
+   on the correct face** — `θ` is itself taken from the stored HiGHS solve, so this residual can
+   only detect "a different point on the SAME face," never "the wrong face entirely." Accepted as
+   a real scope limitation, not fixed (would require an independently-computed `θ`).
+
+**Kill Analysis.** Nothing is killed. What is now established, corrected: (1) the selector-
+artifact concern is genuinely closed AT `n=127` (non-tautological, confirmed via an added face-
+width test with real degeneracy present), but OPEN at `n=509` (solver difficulty, not resolved)
+and NEVER TESTED at `n=1021` (the size that matters most for the tail); (2) the `v1`/`v3`
+discrepancy's leading explanation has shifted from "unknown, three alternatives ruled out" to "an
+aggregator-class bug (`E[Z]` vs `E[Z²]`) is the most parsimonious candidate, numerically
+compelling, though not provable without `v1`'s lost code — a genuinely different, more informative
+state than Point 66 left it in, but still not a diagnosis"; (3) a false claim in
+`ppl_gate_pilot.py`'s own docstring (about which mechanism `v1` supposedly used) has been
+identified and corrected, closing a real internal-consistency gap between the code's comments and
+what the forensic diff actually proved.
+
+**What this does NOT mean.** Does NOT mean the `~11×` discrepancy is resolved — the aggregator-
+mismatch explanation is a strong LEAD, not a confirmed diagnosis; `v1`'s code cannot be inspected
+to confirm it. Does NOT mean the selector-artifact concern is closed for the sizes that matter most
+for the fit (`n=509,1021`) — only `n=127` has a non-tautological confirmation. Does NOT mean
+`J_n`'s reported values are now fully validated for asymptotic-growth claims — Point 66's
+statistical-power/tail-heaviness concerns and the power-law-vs-log-model ambiguity are untouched
+by this point. Does NOT license proceeding to Route B or to Route A's further extension
+automatically — per the user's own explicit gating, whether this state (one gate closed only at
+one size, one gate reduced to a strong-but-unconfirmed lead) counts as sufficient to proceed to the
+pre-registered `n=1021→500 reps` kill-test remains the user's decision, not made unilaterally here.
+
+**Skeptic Concerns (FL Step 8a — `reviewer`'s cap closed earlier this session; `skeptic`
+substituted per `doubt-driven-development.md` § Independent Review Fallback Policy,
+context-asymmetric — given only this point's claim text + the three diagnostic scripts + their
+JSON outputs, no session history. Verdict: mixed — Task 1's core algebraic proof `CONFIRMED-REAL`,
+Task 1's overall framing `FALSIFIED` as an exhaustion claim; Task 2's `ρ≈1` number
+`CONFIRMED-REAL`, its informativeness and scope `WEAKENED`. Every concern independently
+re-verified from the raw JSON this session, including a NEW face-width check run specifically in
+response to concern 5 below, not accepted on the review's word alone.**
+- Concern: "H1/H2/H3 rejected, none within 2×" implicitly frames the space of alternatives as
+  exhausted, but all three vary graph construction while holding the aggregator fixed — and
+  `v1`'s target is well within noise of `mean_Z` (a DIFFERENT aggregator) for both H1 and H2. →
+  **Fixed**: aggregator-mismatch stated as the new leading candidate, with the exact `σ`-distances
+  computed and cited; framing changed from "elimination, cause still a mystery" to "elimination
+  within one error class, a specific different-class candidate now identified."
+- Concern: H1 and H3(coordinate=1) are the same computation (16-digit match), so "three hypotheses"
+  overstates independent evidence — only H2 is a genuinely different construction. → **Fixed**:
+  stated explicitly; "three rejected" reframed as "one genuinely different construction tested,
+  plus a coordinate sweep, plus a tautological repeat of `v3` itself."
+- Concern: H3 ratio-vs-`v1` column was mis-transcribed (`3.9×–14.5×` instead of `7.9×–12.6×`). →
+  **Fixed**: recomputed and corrected; does not change the qualitative conclusion.
+- Concern: `ppl_gate_pilot.py`'s own docstring asserts a mechanism for `v1` that the forensic diff
+  directly disproves, and this internal contradiction was not caught or corrected in Point 66. →
+  **Fixed**: docstring corrected in the file itself this session (not just noted in decision.md).
+- Concern: `ρ≈1` might be tautological if the optimal face at `gen_index` is generically a single
+  point, making the min-L2-vs-HiGHS agreement automatic regardless of real degeneracy elsewhere. →
+  **Fixed via a new check, not merely argued**: face-width test run this session on the same rows;
+  genuine non-zero width found at `n=127` (up to `1.25e-3`) with `ρ` still `≈1` at the widest-face
+  row — confirms the agreement is real, not tautological, AT THAT SIZE.
+- Concern: the fit-scope claim ("closes the concern... and its fit") overreaches, since the fit
+  uses `n=1021` (the heaviest-tail point) which was never selector-checked, and `n=509`'s own
+  check hit an unaddressed `1/25` solver failure. → **Fixed**: scope narrowed explicitly to
+  "confirmed at `n=127` only"; `n=509`'s follow-up face-width attempt is reported as having failed
+  for `9/10` rows, not silently omitted; `n=1021` stated as never attempted.
+- Concern: the excluded `n=509` solve failure is plausibly the most-informative (most degenerate)
+  row, and dropping it likely biases `ρ` toward agreement, not just toward smaller `N`. →
+  **Accepted limitation**: direction of the likely bias stated explicitly; the partial information
+  from its successful `complement`-side solve noted as unused.
+- Concern: "re-solved via `minimum_energy()`" overstates that the existing verified function was
+  actually called, when it was reimplemented (verified equivalent, but a retry-vs-hard-fail
+  behavioral difference exists). → **Fixed**: reframed as "line-by-line-verified reimplementation,"
+  not "the existing artifact."
+- Concern: `face_error` cannot detect being on the wrong optimal face, only a different point on
+  the same one, since `θ` itself comes from the stored HiGHS solve. → **Accepted limitation**:
+  stated explicitly as a real scope bound on what this check could ever catch.
+- Concern: raw numbers in the claim (H1/H2/H3 `J_n`, forensic-diff tallies, `ρ` statistics,
+  reconstruction-match counts) matched the JSON exactly at every point checked. → **Dismissed** as
+  a real issue — independently re-verified this session, confirmed accurate.
+
+**Artifacts:** `diagnose_v1_v3.py`, `forensic_diff_v1_v3.py`, `check_minimum_energy_selector.py`
+(main experiment directory, not inside `codex-20260914-susceptibility/`),
+`metrics/diagnose_v1_v3_result.json`, `metrics/forensic_diff_v1_v3_result.json`,
+`metrics/check_minimum_energy_selector_result.json`. `ppl_gate_pilot.py`'s docstring corrected
+in-place (factual error about `v1`'s mechanism, identified this session). This session's
+independent verification script (scratchpad, not committed): `face_width_test3.py`. Independently
+spot-checked against the raw JSON this session (not accepted from either agent's or the skeptic's
+summary alone).
+
