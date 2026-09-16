@@ -226,7 +226,29 @@ def flip_generator(c: np.ndarray, i: int) -> np.ndarray:
 # 200-250-rep budget and ~50-minute window the coordinator asked for. Sampling protocol (one_case,
 # gen_index=1, seed scheme, both branches) is UNCHANGED -- only this tuple is extended, exactly as
 # v3.1/v3.2 already did for n=1021.
-SIZES_REPS = ((127, 500), (509, 500), (1021, 500), (2039, 220))
+# v3.4 (2026-09-16, Point 74 follow-up, coordinator-directed pre-registered decisive test):
+# n=2039 raised from 220 to 500 reps (matching n=127/509/1021), reusing the already-computed 220
+# rows (validated row-by-row against this script's own seed scheme, same reuse mechanism as
+# v3.2's n=1021 extension) and computing only rep=220..499 (280 new LP-solve triples). This
+# resolves Point 74's own open ambiguity: at 220 reps (ESS=27) sd_w(U) plateaued between n=1021
+# and n=2039 (0.0676->0.0675, overlapping CIs) instead of continuing its ~n^-0.37 shrinkage, but
+# 220 reps was judged too underpowered to tell "real floor" from "underpowered-sample noise".
+# H1/H2/H3 decision thresholds were fixed by the coordinator BEFORE this run (pre-registered, not
+# fitted post-hoc): H1 (power-law continues) sd_w(U)[2039,500]~0.053; H2 (real plateau)
+# sd_w(U)[2039,500]~0.065-0.070 with a materially narrower CI than at 220 reps; H3 (intermediate)
+# 0.055-0.065. This run also adds three diagnostics the coordinator requested that were not part
+# of v3.3's output: (a) an algebraic identity check eta_n=mu_w(U)^2+sd_w(U)^2 on the raw
+# (non-bootstrap) per-n values, as a correctness sanity-check on the u-statistics machinery, not a
+# new finding; (b) a trim-sensitivity diagnostic (sd_w(U) recomputed after excluding the top-1%/
+# top-5% highest-weight rows) to check how tail-driven the point estimate is; (c) the u-statistics
+# machinery (weighted mean/sd, bootstrap, ESS, c_g, trimmed-c) is now implemented directly in this
+# file (u_row_arrays/weighted_mean_and_var/bootstrap_sd_w_U/etc. below) rather than in an
+# unrecoverable scratchpad script (Point 73/74's sdU_bootstrap.py/u_stats_n2039.py were scratchpad
+# files, not committed, and are gone in this session) -- every formula below was independently
+# reverse-verified this session to reproduce metrics/ppl_gate_pilot.json's EXISTING n=127/509/1021
+# u_statistics_tightness_ratio values to full float precision BEFORE being trusted for n=2039 (see
+# this run's own report for the reproduction check).
+SIZES_REPS = ((127, 500), (509, 500), (1021, 500), (2039, 500))
 SIZES = tuple(n for n, _ in SIZES_REPS)
 GEN_INDEX = 1  # == TEST_GENERATOR_INDEX in check_kappa_n_large_n.py; fixed, never re-chosen
 SEED_BASE = 3351000  # fresh, distinct from every RNG_SEED_BASE/BOOTSTRAP_SEED already listed
@@ -496,6 +518,240 @@ def tail_concentration_trend(ns: list[int], top5_shares: list[float]) -> dict:
     }
 
 
+Z95 = 1.959963984540054  # standard-normal 97.5th percentile (duplicated from
+# weighted_power_law_fit's local constant -- the u-statistics helpers below need it independently
+# and are meant to be readable without cross-referencing that function's body).
+
+
+def u_row_arrays(rows: list[dict]) -> dict:
+    """Pull the per-row arrays needed for the tightness-ratio U:=delta_i_actual/delta_i_bound
+    diagnostic (decision.md Points 73-74) out of a rows list. delta_i_bound=0 rows (not observed
+    so far in this project, at any n -- tracked explicitly rather than assumed absent) are
+    excluded from U itself (division by zero undefined) but do NOT affect J_n/K_n/eta_n, which
+    are computed elsewhere (summarize()) from the full row set.
+    """
+    delta_actual = np.array([r["delta_i_actual"] for r in rows])
+    delta_bound = np.array([r["delta_i_bound"] for r in rows])
+    nonzero = delta_bound != 0
+    n_excluded = int(np.sum(~nonzero))
+    u = delta_actual[nonzero] / delta_bound[nonzero]
+    xw = delta_bound[nonzero] / 2.0  # = x_i * w_i (delta_i_bound = 2*x_i*w_i by construction)
+    w = xw**2  # weight, proportional to Z_ni^2 = (n*x_i*w_i)^2 up to the constant 1/n^2 (cancels
+    # in every weighted mean/sd/ESS formula below)
+    return {
+        "U": u,
+        "w": w,
+        "xw": xw,
+        "delta_actual": delta_actual[nonzero],
+        "delta_bound": delta_bound[nonzero],
+        "theta_G0": np.array([r["theta_G0"] for r in rows])[nonzero],
+        "theta_G1": np.array([r["theta_G1"] for r in rows])[nonzero],
+        "n_excluded": n_excluded,
+    }
+
+
+def weighted_mean_and_var(u: np.ndarray, w: np.ndarray) -> tuple[float, float]:
+    """Weighted mean and POPULATION weighted variance of U (denominator sum(w), not sum(w)-1).
+    Convention independently re-derived and verified this session to reproduce
+    metrics/ppl_gate_pilot.json's EXISTING n=127/509/1021 U_weighted_mean_eq_c_over_2 and
+    sd_w_U_direct_point_estimate values to full float precision before being trusted here."""
+    mu_w = float(np.sum(w * u) / np.sum(w))
+    var_w = float(np.sum(w * (u - mu_w) ** 2) / np.sum(w))
+    return mu_w, var_w
+
+
+def bootstrap_sd_w_u(
+    rng: np.random.Generator, u: np.ndarray, w: np.ndarray, n_resamples: int = 3000
+) -> np.ndarray:
+    """Row-level (paired U,w) bootstrap of the weighted sd of U, resampling `len(U)` (row,weight)
+    pairs with replacement per resample. Verified this session (BEFORE running any new n=2039
+    data) to reproduce metrics/ppl_gate_pilot.json's existing sd_w_U_bootstrap_mean/95CI for
+    n=127/509/1021 to full float precision using a SINGLE np.random.default_rng(123), consumed
+    SEQUENTIALLY across n in SIZES order (127,509,1021,2039) -- NOT a fresh Generator(123) per n
+    (that alternative was tested and ruled out this session). That exact scheme is reused here so
+    the n=127/509/1021 entries in this run's own output are reproduced byte-for-byte, and only the
+    n=2039 entry (now 500 reps instead of 220) is new."""
+    reps = len(u)
+    vals = np.empty(n_resamples)
+    for b in range(n_resamples):
+        idx = rng.integers(0, reps, size=reps)
+        _, var_b = weighted_mean_and_var(u[idx], w[idx])
+        vals[b] = var_b**0.5
+    return vals
+
+
+def trimmed_sd_w_u(u: np.ndarray, w: np.ndarray, frac: float) -> float:
+    """Point-estimate (non-bootstrap) weighted sd of U after dropping the top `frac` fraction of
+    rows by weight (=Z_ni^2 up to a constant -- same ranking tail_share() uses for
+    top1pct/top5pct_share_of_sum_Z2). DIAGNOSTIC only, per the coordinator's own framing (Point 4
+    of this run's task): checks how tail-driven sd_w(U) is, is NOT a replacement point estimate.
+    """
+    order = np.argsort(-w)
+    k = max(1, int(np.ceil(frac * len(w))))
+    keep = np.ones(len(w), dtype=bool)
+    keep[order[:k]] = False
+    _, var_trim = weighted_mean_and_var(u[keep], w[keep])
+    return float(var_trim**0.5)
+
+
+def trimmed_c(u: np.ndarray, w: np.ndarray, frac: float) -> float:
+    """c = 2*weighted-mean(U) after dropping the top `frac` fraction of rows by weight. Verified
+    this session to reproduce the existing n=127/509/1021 c_trimmed_excl_top1pct/top5pct values
+    exactly (Point 73's own trimmed-regression diagnostic)."""
+    order = np.argsort(-w)
+    k = max(1, int(np.ceil(frac * len(w))))
+    keep = np.ones(len(w), dtype=bool)
+    keep[order[:k]] = False
+    mu_trim, _ = weighted_mean_and_var(u[keep], w[keep])
+    return 2.0 * mu_trim
+
+
+def c_g_parseval_gap_regression(
+    theta_g0: np.ndarray, theta_g1: np.ndarray, delta_bound: np.ndarray, xw: np.ndarray
+) -> float:
+    """Through-origin OLS slope of the TRUE Parseval gap g_i:=(1+delta_i_bound)-theta(G0)/theta(G1)
+    on x_i*w_i (Point 73 concern #5's own Parseval-gap-vs-log-curvature decomposition; c_g isolates
+    the Parseval-gap step alone from the full c, which also includes the log(1+t)<=t curvature
+    step). Verified this session to reproduce the existing n=127/509/1021 c_g values exactly."""
+    g = (1.0 + delta_bound) - (theta_g0 / theta_g1)
+    return float(np.sum(g * xw) / np.sum(xw**2))
+
+
+def effective_sample_size(w: np.ndarray) -> float:
+    """Kish's effective sample size for weights w: (sum w)^2 / sum(w^2). Verified this session to
+    reproduce the existing n=127/509/1021 effective_sample_size_ESS values exactly."""
+    return float((w.sum() ** 2) / np.sum(w**2))
+
+
+def u_statistics_for_n(
+    rows: list[dict],
+    n: int,
+    eta_n_from_summary: float,
+    rng: np.random.Generator,
+    n_bootstrap: int = 3000,
+) -> dict:
+    """Full tightness-ratio U diagnostic for one n: weighted mean/sd (point + bootstrap), c and
+    its two robustness variants (Parseval-gap-only, trimmed), ESS, PLUS (new this run, Point 74
+    follow-up) an algebraic identity sanity-check and a trim-sensitivity diagnostic for sd_w(U)
+    itself (distinct from the pre-existing c-trimming diagnostic above)."""
+    arrs = u_row_arrays(rows)
+    u, w, xw = arrs["U"], arrs["w"], arrs["xw"]
+    reps = len(rows)
+
+    mu_w, var_w_direct = weighted_mean_and_var(u, w)
+    sd_w_direct = var_w_direct**0.5
+
+    boot_vals = bootstrap_sd_w_u(rng, u, w, n_resamples=n_bootstrap)
+    boot_mean = float(boot_vals.mean())
+    boot_ci = [float(np.percentile(boot_vals, 2.5)), float(np.percentile(boot_vals, 97.5))]
+
+    null_uniform_sd = float(1.0 / np.sqrt(12.0))  # sd of Uniform[0,1], the structureless-null value
+
+    c_full = 2.0 * mu_w
+    c_g = c_g_parseval_gap_regression(arrs["theta_G0"], arrs["theta_G1"], arrs["delta_bound"], xw)
+    c_trim1 = trimmed_c(u, w, 0.01)
+    c_trim5 = trimmed_c(u, w, 0.05)
+
+    ess = effective_sample_size(w)
+
+    # Identity check (coordinator-requested, Point 3 of this run's task): eta_n = mu_w(U)^2 +
+    # sd_w(U)^2 on RAW (non-bootstrap) values -- an exact algebraic identity by construction:
+    # eta_n = K_n/(4*J_n) = E_Q[U^2] under the weighted measure Q (weight(i) proportional to
+    # (x_i*w_i)^2), and Var_Q(U) = E_Q[U^2] - E_Q[U]^2 by the definition of variance. Independently
+    # re-derived and numerically verified this session (matches to ~1e-16) before being reported
+    # here as a correctness sanity-check on this file's own u-statistics machinery, NOT a new
+    # scientific finding.
+    identity_rhs = mu_w**2 + var_w_direct
+    identity_abs_diff = abs(eta_n_from_summary - identity_rhs)
+
+    # Trim-sensitivity diagnostic for sd_w(U) itself (coordinator-requested, Point 4): how much
+    # does excluding the top-1%/top-5% highest-weight rows move the sd_w(U) POINT ESTIMATE.
+    # Diagnostic only -- distinct from c_trim1/c_trim5 above (which trim the MEAN-based statistic
+    # c, an existing Point 73 diagnostic), and distinct from the bootstrap CI above.
+    sd_trim1 = trimmed_sd_w_u(u, w, 0.01)
+    sd_trim5 = trimmed_sd_w_u(u, w, 0.05)
+
+    return {
+        "n": n,
+        "reps": reps,
+        "zero_delta_i_bound_rows_excluded_from_U": arrs["n_excluded"],
+        "U_weighted_mean_eq_c_over_2": mu_w,
+        "sd_w_U_direct_point_estimate": sd_w_direct,
+        "sd_w_U_bootstrap_mean": boot_mean,
+        "sd_w_U_bootstrap_95CI": boot_ci,
+        "sd_w_U_bootstrap_n_resamples": n_bootstrap,
+        "null_uniform_sd": null_uniform_sd,
+        "c_full_2x_weighted_mean_U": c_full,
+        "c_g_parseval_gap_only_regression": c_g,
+        "c_trimmed_excl_top1pct": c_trim1,
+        "c_trimmed_excl_top5pct": c_trim5,
+        "mean_U_unweighted": float(u.mean()),
+        "median_U_unweighted": float(np.median(u)),
+        "effective_sample_size_ESS": ess,
+        "ESS_over_N": ess / reps,
+        "identity_check_eta_vs_muw2_plus_sdw2": {
+            "eta_n_K_over_4J_from_summary": eta_n_from_summary,
+            "mu_w_U_squared": mu_w**2,
+            "sd_w_U_direct_squared_var_w": var_w_direct,
+            "sum_muw2_plus_varw": identity_rhs,
+            "abs_diff": identity_abs_diff,
+            "note": (
+                "algebraic identity eta_n=E_Q[U^2]=mu_w(U)^2+Var_Q(U); abs_diff should be at "
+                "float-precision noise level (~1e-12 or smaller), NOT a new finding -- a "
+                "correctness sanity-check on the u-statistics machinery, on the RAW "
+                "(non-bootstrap-averaged) values"
+            ),
+        },
+        "sd_w_U_trim_sensitivity_diagnostic": {
+            "sd_w_U_full": sd_w_direct,
+            "sd_w_U_trim_excl_top1pct": sd_trim1,
+            "sd_w_U_trim_excl_top5pct": sd_trim5,
+            "relative_change_trim1pct": (sd_trim1 - sd_w_direct) / sd_w_direct,
+            "relative_change_trim5pct": (sd_trim5 - sd_w_direct) / sd_w_direct,
+            "note": (
+                "diagnostic only, NOT a replacement point estimate for sd_w(U) -- checks how "
+                "much of the full sd_w(U) is driven by the top-weight tail; "
+                "sd_full~=sd_trim1~=sd_trim5 means stable/not a tail artifact, large movement "
+                "means tail-driven"
+            ),
+        },
+    }
+
+
+def sd_w_u_loglog_fit(ns: list[int], boot_means: list[float], boot_cis: list[list[float]]) -> dict:
+    """Weighted log-log fit of sd_w(U) ~ n^b, matching the schema (and, for n=127/509/1021,
+    verified this session to reproduce the numbers) of the pre-existing
+    loglog_fit_3pt_n127_509_1021/loglog_fit_4pt_incl_n2039 blocks. Per-point SE(log sd_w(U)) is
+    derived from the bootstrap 95% CI via the normal approximation SE=(CI_hi-CI_lo)/(2*Z95) --
+    reverse-engineered and verified this session against the existing stored relative_SE_per_point
+    values before being reused here (not re-derived from scratch/guessed)."""
+    y = np.log(np.array(boot_means, dtype=float))
+    x = np.log(np.array(ns, dtype=float))
+    se_point = np.array([(ci[1] - ci[0]) / (2.0 * Z95) for ci in boot_cis])
+    rel_se = se_point / np.array(boot_means, dtype=float)
+    w = 1.0 / rel_se**2
+
+    x_design = np.column_stack([np.ones_like(x), x])
+    w_diag = np.diag(w)
+    cov = np.linalg.inv(x_design.T @ w_diag @ x_design)
+    beta = cov @ (x_design.T @ w_diag @ y)
+    intercept, slope = float(beta[0]), float(beta[1])
+    se_intercept, se_slope = float(np.sqrt(cov[0, 0])), float(np.sqrt(cov[1, 1]))
+    fitted = x_design @ beta
+    residuals = y - fitted
+
+    return {
+        "n_points": len(ns),
+        "intercept_a": intercept,
+        "intercept_a_SE": se_intercept,
+        "slope_b": slope,
+        "slope_b_SE": se_slope,
+        "slope_b_95CI": [slope - Z95 * se_slope, slope + Z95 * se_slope],
+        "residuals_log_sdwU": [float(r) for r in residuals],
+        "relative_SE_per_point": {str(n): float(r) for n, r in zip(ns, rel_se)},
+    }
+
+
 def _load_prior_run(out_path: Path) -> dict:
     """Best-effort load of a previous run's JSON, for row-reuse and for the n=1021
     180-vs-500-rep comparison. Returns {} if absent/unreadable -- absence must never be an
@@ -650,9 +906,120 @@ def main() -> None:
     )
 
     n2039_note = (
-        "n=2039 ADDED this run (v3.3, 220 reps) -- included in SIZES_REPS/summaries/power-law "
-        "fits above like every other n; no longer skipped."
+        "n=2039 raised to 500 reps this run (v3.4, Point 74 follow-up decisive test; was 220 "
+        "reps in v3.3) -- included in SIZES_REPS/summaries/power-law fits above like every other "
+        "n; n=127/509/1021 rows and summaries are UNCHANGED (0 new LP solves for them, verified "
+        "via the row-reuse validation above)."
     )
+
+    # === U-statistics tightness-ratio block (decision.md Points 73-74; v3.4 extension) ===
+    # A SINGLE rng, consumed sequentially across n in SIZES order (127,509,1021,2039) -- verified
+    # this session (before running any new n=2039 data) to reproduce metrics/ppl_gate_pilot.json's
+    # EXISTING n=127/509/1021 u_statistics_tightness_ratio entries to full float precision. Only
+    # the n=2039 entry differs from the prior (220-rep) run, both because the underlying data grew
+    # (220->500 reps) and because the bootstrap draws for n=2039 are necessarily different (a
+    # 500-row resample is not the same random experiment as a 220-row one).
+    n_bootstrap_resamples = 3000
+    rng_u = np.random.default_rng(123)
+    u_per_n = [
+        u_statistics_for_n(
+            rows_by_n[str(n)], n, summaries_by_n[n]["eta_n_K_over_4J"], rng_u, n_bootstrap_resamples
+        )
+        for n in SIZES  # SIZES is already in ascending (127,509,1021,2039) order
+    ]
+    u_per_n_by_n = {e["n"]: e for e in u_per_n}
+
+    loglog_fit_3pt = sd_w_u_loglog_fit(
+        [127, 509, 1021],
+        [u_per_n_by_n[n]["sd_w_U_bootstrap_mean"] for n in (127, 509, 1021)],
+        [u_per_n_by_n[n]["sd_w_U_bootstrap_95CI"] for n in (127, 509, 1021)],
+    )
+    loglog_fit_4pt = sd_w_u_loglog_fit(
+        list(SIZES),
+        [u_per_n_by_n[n]["sd_w_U_bootstrap_mean"] for n in SIZES],
+        [u_per_n_by_n[n]["sd_w_U_bootstrap_95CI"] for n in SIZES],
+    )
+
+    _pred_log_center = loglog_fit_3pt["intercept_a"] + loglog_fit_3pt["slope_b"] * np.log(2039)
+    _pred_log_lo = loglog_fit_3pt["intercept_a"] + (
+        loglog_fit_3pt["slope_b"] - Z95 * loglog_fit_3pt["slope_b_SE"]
+    ) * np.log(2039)
+    _pred_log_hi = loglog_fit_3pt["intercept_a"] + (
+        loglog_fit_3pt["slope_b"] + Z95 * loglog_fit_3pt["slope_b_SE"]
+    ) * np.log(2039)
+    _actual_sd_2039 = u_per_n_by_n[2039]["sd_w_U_bootstrap_mean"]
+    _actual_log_sd_2039 = float(np.log(_actual_sd_2039))
+    n2039_vs_3pt_extrapolation = {
+        "predicted_log_sd_center_from_3pt_fit": float(_pred_log_center),
+        "predicted_log_sd_95CI_slope_only": [float(_pred_log_lo), float(_pred_log_hi)],
+        "actual_log_sd_n2039": _actual_log_sd_2039,
+        "actual_sd_n2039": _actual_sd_2039,
+        "within_3pt_slope_only_band": bool(_pred_log_lo <= _actual_log_sd_2039 <= _pred_log_hi),
+        "caveat": (
+            "this band propagates slope SE only (not intercept SE or point-estimate correlation "
+            "across n), so it is a rough consistency check, not a rigorous predictive interval"
+        ),
+    }
+
+    ess_over_n_by_n = {str(n): u_per_n_by_n[n]["ESS_over_N"] for n in SIZES}
+    _sd_w_u_series = [u_per_n_by_n[n]["sd_w_U_bootstrap_mean"] for n in SIZES]
+    _ess_frac_series = [u_per_n_by_n[n]["ESS_over_N"] for n in SIZES]
+    artifact_check_ess_vs_sdwu_r = float(np.corrcoef(_ess_frac_series, _sd_w_u_series)[0, 1])
+    artifact_check_ess_vs_n_r = float(np.corrcoef(_ess_frac_series, list(SIZES))[0, 1])
+
+    u_statistics_tightness_ratio = {
+        "method_note": (
+            "sd_w(U) 'point estimate' below is the BOOTSTRAP MEAN of 3000 resampled weighted-sd "
+            "values -- 'sd_w_U_direct_point_estimate' is also reported per-n as the non-bootstrap "
+            "sample statistic, for comparison; the two should be close but are not identical by "
+            "construction (bootstrap mean of sqrt(.) is not exactly the sqrt of the mean). v3.4 "
+            "(this run): computed directly by this file's own u_statistics_for_n/bootstrap_sd_w_u "
+            "functions rather than a separate scratchpad script, reverse-verified this session to "
+            "reproduce the prior (scratchpad-produced) n=127/509/1021 values exactly before being "
+            "trusted for the new n=2039,500-rep entry."
+        ),
+        "n_bootstrap_resamples": n_bootstrap_resamples,
+        "rng_seed": 123,
+        "rng_scheme": (
+            "SINGLE np.random.default_rng(123), consumed sequentially across n in SIZES order "
+            "(127,509,1021,2039) -- verified this session to reproduce n=127/509/1021's prior "
+            "values exactly before trusting the scheme for the new n=2039,500-rep entry"
+        ),
+        "per_n": u_per_n,
+        "loglog_fit_3pt_n127_509_1021": loglog_fit_3pt,
+        "loglog_fit_4pt_incl_n2039": loglog_fit_4pt,
+        "n2039_vs_3pt_extrapolation": n2039_vs_3pt_extrapolation,
+        "ess_over_n_by_n": ess_over_n_by_n,
+        "artifact_check_ESS_fraction_vs_sd_w_U_pearson_r": artifact_check_ess_vs_sdwu_r,
+        "artifact_check_ESS_fraction_vs_n_pearson_r": artifact_check_ess_vs_n_r,
+        "artifact_check_note": (
+            "Point 73's review flagged: could a rising tail-mass fraction (falling ESS/N) with n "
+            "mechanically produce sd_w(U) shrinkage without real concentration? Both ESS/N and "
+            "sd_w(U) fall monotonically with n, so a POSITIVE Pearson r between them (both moving "
+            "the same direction) is CONSISTENT with, not proof of, the mechanical-artifact story--"
+            "with only n=4 points and both series monotone in n, r is close to mechanically forced "
+            "and has very little power to discriminate; it is reported for completeness, not as a "
+            "test. The actual quantitative rebuttal (see decision.md Point 75) is a direct "
+            "magnitude argument: weighted_mean_and_var's population (non-Bessel-corrected) "
+            "denominator induces a finite-ESS downward bias of order 1/ESS, which differs by only "
+            "~0.24% between n=127 (ESS~105) and n=2039 (ESS~70) -- far too small to explain the "
+            "observed ~152% compression of sd_w(U) between those two n. v3.4: n=2039 is now 500 "
+            "reps (was 220), so this correlation is recomputed on the updated series, not carried "
+            "over from the 220-rep run."
+        ),
+        "pre_registered_decision_thresholds_H1_H2_H3": {
+            "H1_power_law_continues": (
+                "sd_w(U)[2039,500reps] substantially below the 220-rep value of 0.0675, close to "
+                "the 3pt-fit-predicted ~0.053"
+            ),
+            "H2_real_plateau": (
+                "sd_w(U)[2039,500reps] stays near 0.065-0.070, with a materially narrower CI than "
+                "at 220 reps"
+            ),
+            "H3_intermediate_slowdown": "sd_w(U)[2039,500reps] in the 0.055-0.065 range",
+            "fixed_by_coordinator_before_this_run": True,
+        },
+    }
 
     output = {
         "protocol": (
@@ -716,6 +1083,7 @@ def main() -> None:
             "by ppl_gate_pilot.py itself, closing that point's own open provenance-chain gap)."
         ),
         "tail_concentration_trend_top5pct_share": tail_trend,
+        "u_statistics_tightness_ratio": u_statistics_tightness_ratio,
         "elapsed_seconds": time.monotonic() - started,
         "rows_by_n": rows_by_n,
     }
