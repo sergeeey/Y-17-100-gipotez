@@ -6924,3 +6924,57 @@ scripts (scratchpad, not committed): resume-logic/seed-uniqueness check, old-vs-
 t-test. Independently spot-checked against the raw JSON this session (not accepted from the
 agent's summary alone) — one framing correction made (old-vs-new batch significance).
 
+## Point 72 (2026-09-16) — Deferred check from Point 70 closed, cheaply, with a clean answer: the
+support-saturation uniqueness theorem (Codex Point 64) and the aggregated cross-Turán bound's
+equivariance requirement (Codex Point 63) use the SAME min-L2 selector object throughout —
+no hidden inconsistency between the two theorems
+
+**Context.** Point 70 flagged, as a cheap next question (not yet acted on there): does the
+support-saturation/uniqueness machinery (`|supp y|≥2Q+1`, Codex Point 64) apply to the SAME
+optimizer notion that the aggregated cross-Turán bound (Codex Point 63) formally requires (the
+unique min-L2 selector `x*`, per this session's Points 67-69 audit finding that this requirement
+is real, not merely an empirical concern)? Checked directly by reading
+`codex-20260914-susceptibility/CROSS_TURAN_ENERGY_THEORY.md` in full (read-only, per Unclaimed
+Work Ownership).
+
+**Finding: they are the same object, defined once and reused consistently.** The document's
+`## Equivariant minimum-energy selector` section (lines 31-38) defines
+`x*(G)=argmin‖x‖²₂` on each optimal face — "strict convexity makes the selector unique, and
+uniqueness makes it equivariant" — and derives the aggregated bound `(E1)` from it. The very next
+section, `## Point 64 refinement: exact energy anatomy` (lines 96-113), states
+`s=|supp(y)|≥2Q+1` and `n‖y‖²₂=(n/s)(1+CV_support(y)²)` WITHOUT redefining `x`/`y` — it continues
+directly from the same `x*`/`y*=FFT(x*)/n` notation established one section earlier. **No second,
+generic-vertex optimizer is introduced anywhere in this document.** The theory is internally
+consistent in its selector choice throughout Points 63-64.
+
+**What this does and does NOT resolve.** Does NOT mean the selector question is fully closed —
+the OPEN question remains whether the project's actual PRODUCTION code (HiGHS vertex via
+`scipy.linprog`) equals `x*` in general, not merely on the graphs already tested. That empirical
+question is exactly what Points 67-68 (n=127, n=1021) already investigated directly (not via this
+theory-text check) and found agreement to high precision on tested instances, with `n=509`
+un-resolved (Point 68) and the underlying theorem itself only proven for the min-L2 selector, not
+for an arbitrary vertex. This point closes a DIFFERENT, narrower worry: that Codex's own two
+theorems (support saturation, aggregated susceptibility bound) might silently reference two
+different optimizer notions without saying so — they do not.
+
+**Also directly confirms, independently, this session's own PPL/J_n framing (Points 66-70)**: the
+document's own `(POL)` target (line 60, `sup_n E‖x*(G)‖²₂<∞`) is explicitly named, by Codex itself,
+as "the one live analytic target," and its own "Remaining proof gaps" section (line 90) states
+`(POL)` is `[OPEN]`, requiring "positivity AND optimality, not a uniform estimate on the full
+random nullspace" — i.e. Codex's own published external-bound corollary (`|λ_n|=O(log³n)` via
+Bandeira et al. 2025's nullspace estimate) is explicitly NOT claimed to prove `(POL)`, matching
+this session's own repeated finding that bounded-first-chaos remains open. Codex's own gap list
+also independently states, as its 3rd remaining gap, that "bounded `lambda_n` alone is not the
+full `Var(X_n)=O(1/n)` theorem" — the higher-chaos residual `R_n` must still be controlled
+separately — matching this audit's own repeated point that no route closes the full hypothesis by
+itself.
+
+**Kill Analysis.** Nothing killed. A specific, narrow open question from Point 70 is now closed
+(no cross-theorem selector inconsistency in Codex's own theory document) — a genuinely cheap
+check, as anticipated, with a clean (reassuring) answer. The broader selector-empirical-validity
+question (does HiGHS==min-L2 in general, not just on tested graphs) remains open per Points 67-68.
+
+**Artifacts:** none new — this point is a direct read of an existing file
+(`codex-20260914-susceptibility/CROSS_TURAN_ENERGY_THEORY.md`, read-only, lines 1-114 in full),
+no computation performed.
+
