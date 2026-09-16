@@ -6821,3 +6821,106 @@ enumeration checking `M_n'(1/2)` against `-m·E[δ_i]` via the project's own unm
 `theta_via_lp` (`20260909-lovasz-theta-random-circulant-graphs/run.py`); a second script
 recomputing the `J_n`/`K_n` weighted slopes directly from Point 66/68's own saved summary numbers.
 
+## Point 71 (2026-09-16) — n=1021 extended to 500 reps (pre-registered kill-test executed): `J_n`'s
+slope is WEAKER than predicted (`b=0.1296`, not `0.19-0.20`), `K_n` unchanged (`p=0.218`), `η_n`
+formally confirmed stable — the predicted "center holds, SE shrinks" pattern did NOT materialize,
+but the old-vs-new-batch difference is itself NOT statistically significant (honest correction to
+the executing agent's own slightly overstated framing)
+
+**Context.** Direct user instruction: complete the pre-registered kill-test from Points 66-68 —
+extend `n=1021` from `180` to `500` reps (matching `n=127,509`), tracking `J_n`, `K_n`, and
+`η_n:=K_n/(4J_n)` jointly, per the user's own explicit specification. `ppl_gate_pilot.py` extended
+with resume logic (reuses the 180 already-computed rows by seed match, computes only the missing
+320 — independently verified this session: 500 unique seeds, zero duplicates, exact
+180/320 split matching the documented seed scheme). Regression check before the real run
+reproduced Point 66's own `J_n`/`Δχ²`/`p` numbers exactly from already-saved data, confirming the
+extended script's logic is unchanged from what was already skeptic-reviewed.
+
+**Results, independently re-verified against `metrics/ppl_gate_pilot.json` this session:**
+
+| n | reps | `J_n±SE` | `K_n±SE` | `η_n` | top1%/top5% `Z²` share | median `Z` | median `δ` |
+|---:|---:|---|---|---:|---|---:|---:|
+| 127 | 500 | 64.66±5.60 | 72.23±7.32 | 0.279 | 11.0%/40.6% | 3.559 | 0.02931 |
+| 509 | 500 | 73.43±6.81 | 74.34±6.97 | 0.253 | 14.0%/40.9% | 3.615 | 0.00742 |
+| 1021 | 500 | **86.58±8.94** | 88.80±9.47 | 0.256 | 17.2%/44.4% | 3.994 | 0.00395 |
+
+**Weighted power-law fits (`log Y=a+b·log n`, known-variance `Δχ²` convention per Point 66's own
+corrected framing):**
+
+| | `b±SE` | 95% CI | `Δχ²` (1 dof) | `p` |
+|---|---:|---|---:|---:|
+| `J_n` | 0.1296±0.0620 | [0.008, 0.251] | 4.373 | **0.037** |
+| `K_n` | 0.0847±0.0687 | [-0.050, 0.219] | 1.519 | 0.218 |
+| `J_n/K_n` | 0.0338±0.0263 | [-0.018, 0.085] | 1.648 | 0.199 |
+
+**Honest evaluation of the pre-registered prediction — corrected from the executing agent's own
+slightly overstated framing.** Points 66-68 predicted: if `J_n(1021)`'s central estimate `≈103`
+held while `SE` shrank (`180→500` reps), the slope should rise to `b≈0.19-0.20`, `z≈3.0-3.5`.
+**Actual outcome: `J_n(1021)` fell to `86.58` (from `102.66` on the same 180 reps re-used inside
+this 500), giving `b=0.1296`, `z≈2.09` (via `Δχ²`) — WEAKER than predicted, not stronger,** even
+though `p=0.037` is nominally BELOW `p=0.044` (SE also shrank, `18.61→8.94`). The naive
+extrapolation's assumption (fixed center, shrinking SE only) did not hold.
+
+**Correction to the executing agent's own report, independently checked this session**: the
+agent's write-up characterized the `180→500` shift as "not noise" (comparing the combined
+500-rep SE against the point-difference, an informal `~1.8σ` framing). This is not the right
+comparison, since the `180` reps are a SUBSET of the `500`, not independent. The correct test —
+run this session — is a Welch two-sample t-test of the NEW `320` rows' `Z²` values against the
+OLD `180` rows' `Z²` values (two genuinely independent batches): **`t=1.209`, `p=0.228`, NOT
+significant.** The new batch's own mean (`77.54`) is lower than the old batch's (`102.66`), but
+this specific difference is statistically consistent with ordinary sampling variation given the
+batch sizes and variances — **it would overclaim to say the shift is "confirmed real"; the honest
+statement is "the combined point estimate moved, the movement is not itself statistically
+distinguishable from noise between batches, and the pre-registered prediction's specific numeric
+target (`b≈0.19-0.20`) did not materialize either way."**
+
+**`η_n` formally confirmed stable, not merely "stable on the eye"**: a dedicated weighted fit on
+the `J_n/K_n` ratio itself gives `b=0.034±0.026`, `p=0.199` — statistically indistinguishable from
+a flat ratio across the full `8×` range in `n` tested. This directly answers the still-open
+question from Point 70: `J_n` and `K_n` do NOT diverge from each other in any way this data can
+detect — whatever growth exists in each, their RATIO (a proxy for cross-Turán certificate
+tightness) is not detectably drifting.
+
+**Tail-concentration correction at `n=1021`**: `top5%` share of `ΣZ²` was `0.501` on the
+original `180` reps (Point 66's own most extreme tail reading in the whole pilot); on the full
+`500`, it is `0.444` — still the heaviest of the three tested `n`, but meaningfully less extreme
+than the `180`-rep reading suggested. This partially (not fully) confirms the concern already
+raised in Point 68 that small-sample tail statistics at `n=1021` should not be over-read.
+
+**Bonus, incidental to this extension**: the script's `_provenance_note` field states this run was
+produced entirely by `ppl_gate_pilot.py`'s own `main()`, superseding the earlier `_reprocessed_note`
+(an unnamed post-processing step, flagged as an open provenance-chain gap in Point 67's own
+Skeptic Concerns). That specific gap is now closed as a side effect of this extension.
+
+**Kill Analysis.** Nothing killed. What changed: (1) `J_n`'s growth signal survives extension to
+full sample size at `n=1021` but is WEAKER in magnitude than the pre-registered prediction hoped
+(`b=0.130` vs predicted `0.19-0.20`), while remaining nominally significant (`p=0.037`) under the
+same convention as before; (2) `K_n`'s non-significance is essentially unchanged by the extension
+(`p=0.218` vs prior `0.217`) — the direct target shows no reliable growth signal at any sample
+size tested so far; (3) `η_n`'s stability is now a tested, not merely observed, finding
+(`p=0.199` for a flat ratio); (4) the `n=1021` tail was partially, not wholly, a small-sample
+artifact — it remains the heaviest tail of the three `n` even at full sample size.
+
+**What this does NOT mean.** Does NOT mean the pre-registered kill-test "failed" in the sense of
+being uninformative — per its own design (Point 68's recommendation §3), it WAS a genuine test
+that could have gone either way, and the actual result (weaker-than-predicted `J_n` growth) is
+itself the useful information, not a null outcome. Does NOT mean `J_n` and `K_n` are proven to
+track the same underlying growth — only that this specific dataset cannot currently distinguish
+"they track together" from "they diverge," since the `J_n/K_n` ratio fit itself has wide, non-
+significant bounds. Does NOT mean the old-vs-new-batch `t=1.209,p=0.228` result proves the shift
+IS noise — a `p=0.228` non-significant result is an absence of evidence for a real shift, not
+evidence of its absence, at this batch size. Does NOT resolve which of Route A / A2 / B (per the
+decision tree in Point 69/AUDIT_H-CAT31-3_2026-09-16.md §I) this data points to definitively —
+the qualitative picture (`J_n` marginally growing, `K_n` not, `η_n` stable) is UNCHANGED from
+before this extension, just measured with less optimistic magnitude than the pre-registered
+prediction hoped; per that same decision tree, this remains closest to Route A2's territory
+(`J_n↑, K_n bounded → seek a direct `E[δ_i²]=O(n⁻²)` theorem, do not jump to QADC`), now on a
+firmer, larger-sample basis than before.
+
+**Artifacts:** `ppl_gate_pilot.py` (extended with resume logic + `K_n`/`η_n`/ratio-fit
+computation, canonical sampling protocol unchanged), `metrics/ppl_gate_pilot.json` (updated,
+full 500/500/500 raw data + all summary statistics). This session's independent verification
+scripts (scratchpad, not committed): resume-logic/seed-uniqueness check, old-vs-new Welch
+t-test. Independently spot-checked against the raw JSON this session (not accepted from the
+agent's summary alone) — one framing correction made (old-vs-new batch significance).
+
