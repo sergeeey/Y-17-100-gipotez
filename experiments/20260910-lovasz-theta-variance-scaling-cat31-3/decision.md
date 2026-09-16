@@ -6978,3 +6978,160 @@ question (does HiGHS==min-L2 in general, not just on tested graphs) remains open
 (`codex-20260914-susceptibility/CROSS_TURAN_ENERGY_THEORY.md`, read-only, lines 1-114 in full),
 no computation performed.
 
+## Point 73 (2026-09-16) — Route A2 opened via Mechanism Development Mode; HEADLINE FINDING
+RETRACTED on skeptic review (`c≈1` is exactly the structureless-null prediction, and `c=2`
+exclusion is mathematically forced, not evidence) — genuine, salvaged finding: the tightness
+ratio `U:=δ_i/(2x_iw_i)` CONCENTRATES around `1/2` with shrinking weighted spread
+(`sd_w(U)≈0.149→0.093→0.068`, non-overlapping bootstrap CIs, `~n^-0.37`), a real but narrower
+and more cautious result than first drafted
+
+**Context.** This corrects the first draft of Point 73 (same session, same exploration) after
+skeptic-fallback review found the headline claim (regression-through-origin slope `c≈1.0`, framed
+as "structural, not loose") does not survive scrutiny — the most severe single correction in this
+session's now five-review pattern in the RBA/PPL/Route-A2 line, since it identifies the CENTRAL
+claim as built on a statistic with no power to show what it claimed to show, not merely an
+overclaimed scope or a precision error.
+
+**Fatal problem with the first draft, independently re-verified this session (not accepted on the
+review's word alone).** Define `U_i:=δ_i/(2x_iw_i)∈[0,1]` (well-defined since `0≤δ_i≤2x_iw_i` was
+already independently verified, Points 66-68). The through-origin slope is EXACTLY
+`c=2·⟨U⟩_w` where `⟨·⟩_w` is the `(x_iw_i)²`-weighted mean. Two consequences, both confirmed by
+direct recomputation this session:
+1. **`c=2` is mathematically IMPOSSIBLE to exceed** — since `U_i≤1` always, `c≤2` holds
+   deterministically for the sample AND every bootstrap resample. The first draft's "`c=2`
+   decisively excluded" was reporting an algebraic certainty as if it were empirical evidence.
+2. **`c≈1` is EXACTLY what a structureless null predicts.** If `U_i` had NO structure at all
+   (e.g. `U~Uniform[0,1]`, independent of `x_iw_i`), the null's own prediction is `c=1.000`
+   exactly, `η_n=⟨U²⟩_w=1/3≈0.333`, and through-origin `R²=0.75`. The first draft's own numbers
+   (`c=1.01,0.99,1.00`; `η_n=0.279,0.253,0.256`; `R²=0.919,0.965,0.982`) are close to this null on
+   the FIRST two statistics and only depart on `R²` — meaning `c≈1` **cannot discriminate**
+   "`δ_i` structurally tracks `x_iw_i`" from "the tightness ratio is unstructured noise centered
+   on the theorem's own midpoint." The "degeneracy check" in the first draft asked the wrong
+   question (is `c·x_iw_i` distinguishable from `x_iw_i`?) instead of the right one (is `c` itself
+   distinguishable from a structureless-null artifact?) — it passed by construction, not by
+   surviving a real test.
+
+**Further first-draft errors found and independently confirmed this session:**
+3. **Flat identity error**: `4η_n≡K_n/J_n` by `η_n`'s own definition (`ppl_gate_pilot.py:334`) —
+   the first draft cited the `K_n/J_n` ratios as separate corroboration of `c≈1`, when they are
+   the SAME number restated (`c²=K_n/J_n` exactly, up to the residual term).
+4. **Two inequality steps were conflated as one.** `CROSS_TURAN_ENERGY_THEORY.md` line 26
+   (`v0/v1≤1+2x_iw_i`, the real Parseval-gap step) is followed by a SEPARATE step at line 27
+   (`δ_i=log(v0/v1)≤2x_iw_i`, via `log(1+t)≤t`) — the first draft attributed the ENTIRE
+   `2x_iw_i-δ_i` slack to the Parseval gap alone. Independently recomputed this session (reusing
+   already-saved `theta_G0`,`theta_G1` per row — zero new LP solves): a regression of the TRUE
+   Parseval gap `g_i:=(1+δ_i^{bound})-θ(G0)/θ(G1)` on `x_iw_i` gives `c_g=0.912` (n=127),
+   `0.994` (n=509), `0.986` (n=1021) — genuinely different from the full `c` at `n=127`
+   specifically (`0.912` vs `1.013`, an `~10%` gap attributable to the log-curvature step, not the
+   Parseval step), converging as `n` grows. The first draft's entire "where this points"
+   interpretive section (attributing the whole slack to the Parseval/Fourier-correlation
+   mechanism) was not entitled to that attribution.
+5. **Effective sample size is small and tail-dominated**: `(x_iw_i)²`-weighting concentrates `c`'s
+   information on `≲130/120/100` (of `500`) rows at `n=127/509/1021` respectively (bound via
+   `1/Σw²`); the weighted-typical `Z` is `~4×` the median `Z`. The unweighted mean/median of `U`
+   (`0.61/0.59` at n=127, `0.56/0.54` at n=509, `0.53/0.52` at n=1021) differs meaningfully from
+   the weighted mean — confirmed this session — meaning "typical rows" and "tail-dominant rows"
+   behave somewhat differently, and the first draft's "`δ_i` tracks `x_iw_i` closely" claim was
+   not shown to hold for the bulk, only for the tail-weighted statistic.
+6. **An internal arithmetic inconsistency** at `n=1021`: the tabled `c=1.0028` does not satisfy
+   `K_n=c²J_n+n²E[resid²]` together with the tabled residual `1.59` and `R²=0.982` (all three
+   can't hold simultaneously) — traced to one exploration script reporting the bootstrap MEAN
+   under a column labeled "point estimate," not the actual point estimate. Corrected value:
+   `c=1.0036` (independently re-derived this session from the exact orthogonality identity).
+7. **The `p=0.037`-vs-`p=0.218` "tension"** the first draft flagged as evidence AGAINST easy
+   reconciliation was backwards: `J_n` and `K_n` are computed from the SAME `500` rows per `n`,
+   with `ρ≈0.86-0.98` correlation between them — the slope DIFFERENCE (`0.045`) is only `~1.5σ`,
+   not significant. There is no real tension; flagging one was itself an error, not appropriate
+   caution.
+8. **"`K_n/J_n` all close to 1" was not accurate** — `ppl_gate_pilot.py`'s own stored delta-method
+   SE for this ratio (`ratio_J_over_K_SE_delta_method`) shows `n=127`'s `J_n/K_n=0.895±0.046` is
+   `2.26σ` from 1, OUTSIDE the 95% CI — the first draft asserted "close to 1" for all three
+   without checking the one `n` where its own project already had the tool to check.
+
+**What survives, independently re-verified this session (matching the review's own numbers
+closely): the tightness ratio `U` genuinely CONCENTRATES, and this is real, differentiating
+information the mean/`c` statistic could not show.**
+
+| n | `sd_w(U)` (weighted) | 95% bootstrap CI (3000 resamples) | null's `sd`(Uniform) |
+|---:|---:|---|---:|
+| 127 | 0.1494 | [0.1352, 0.1639] | 0.2887 |
+| 509 | 0.0933 | [0.0833, 0.1037] | 0.2887 |
+| 1021 | 0.0676 | [0.0602, 0.0753] | 0.2887 |
+
+**Non-overlapping CIs across all three `n` — this shrinkage is not noise.** Weighted log-log fit:
+`sd_w(U) ~ n^b`, `b≈-0.37`. This IS a real, falsifiable, structural finding (the tightness ratio's
+DISPERSION shrinks with `n`, `3-18×` below the structureless-null value already at `n=127`, and
+further at larger `n`) — narrower and more cautious than the first draft's claim, but genuine.
+
+**Kill Analysis.** The first draft's central claim (`c≈1` as evidence of structure) is
+**[FALSIFIED as evidence]** — not falsified as a hypothesis (nothing rules out `δ_i` tracking
+`x_iw_i` in some sense), but the specific statistic offered as proof has no power to show it. What
+survives: `U`'s weighted dispersion genuinely concentrates with `n`, a real, three-point-confirmed,
+non-overlapping-CI finding. The `J_n`-vs-`K_n` "tension" is retracted (no real tension, given
+`ρ≈0.9` correlation). The Parseval-vs-log-curvature decomposition is new, real content the first
+draft was not entitled to before running it.
+
+**What this does NOT mean.** Does NOT prove `E[δ_i²]=O(n⁻²)` — `sd_w(U)→0` is a tail-weighted
+statistic (`ESS≲100-130`), not shown to hold for the bulk of the distribution. Does NOT mean the
+`n^-0.37` scaling is asymptotic law — three points is a fit, not a proof, and the statistic is
+itself tail-dominated in a way that could have its own `n`-dependent bias (the review's own
+concern: rising tail-mass fraction with `n` could mechanically tighten a leverage-weighted
+statistic independent of any real concentration). Does NOT mean Route A2 has produced a
+theorem-ready lemma — this remains Mechanism Development Mode's early stage, now with one
+correctly-identified real phenomenon (`U`'s concentration) instead of one incorrectly-identified
+one (`c≈1`).
+
+**Recommended next steps (per the review's own proposed tests, all zero new LP cost, already
+partially executed this session).** (1) **Already done, reported above**: Parseval-gap-only
+regression (`c_g`), trimmed regression (top-1%/top-5% excluded: `c` stable at `0.98-1.02` across
+trimming, i.e. NOT purely an artifact of a few outliers, though ESS remains limited), and
+`sd_w(U)` with its own bootstrap CI and `n`-scaling. (2) NOT recommended: extending to `n=2039`
+using `c` as the diagnostic (the first draft's own proposed next step) — per the review, `c→1` is
+the null's own prediction, so this would not be a differentiating test (Cheapest Differentiating
+Test Protocol's own kill signal: "test result is the same regardless of which branch is true").
+(3) If pursued further: extend the `sd_w(U)` scaling check to `n=2039` specifically (a genuinely
+differentiating test, since the null predicts NO shrinkage at all), and separately characterize
+whether the tail-concentration explanation (rising ESS-loss with `n`) can mechanically produce
+`sd_w(U)`'s observed shrinkage without a real concentration phenomenon underneath — this is the
+one loose end the review flagged as still open.
+
+**Skeptic Concerns (FL Step 8a — `reviewer`'s cap closed earlier this session; `skeptic`
+substituted per `doubt-driven-development.md` § Independent Review Fallback Policy,
+context-asymmetric — given only the first draft's claim text + the three exploration scripts +
+the raw JSON, no session history. Verdict: `WEAKENED` — this session's fifth consecutive
+skeptic-fallback review to find real, substantive problems, and the most severe: the central
+claim was built on a statistic with no power to show what it claimed.**
+- Concern (#1): `c=2` "decisively excluded" is mathematically forced (`U_i≤1⟹c≤2` deterministically
+  for the sample and every bootstrap resample), not empirical evidence. → **Fixed**: retracted;
+  restated as an algebraic certainty, not a finding.
+- Concern (#2): `c≈1` is EXACTLY the structureless-null's own prediction (any `U`-distribution
+  centered on `1/2` gives `c=1`), so it cannot discriminate structure from noise. → **Fixed**:
+  headline claim retracted; replaced with the genuinely discriminating statistic (`sd_w(U)`).
+- Concern (#3,#4): `4η_n≡K_n/J_n` is a flat identity, not independent corroboration; the
+  degeneracy check asked the wrong question. → **Fixed**: both corrected explicitly.
+- Concern (#5): two inequality steps (Parseval gap + log-curvature) were conflated as one, with
+  the log step contributing materially at `n=127` (`~10%`). → **Fixed**: `c_g` (Parseval-only)
+  computed and reported separately, independently re-verified this session.
+- Concern (#6): `c`'s effective sample size is small (`≲100-130`/`500`) and tail-dominated;
+  unweighted/median `U` differs from the weighted statistic. → **Accepted limitation**: stated
+  explicitly; trimmed regression (excl. top 1%/5%) run this session shows `c` reasonably stable
+  under trimming, partially mitigating but not eliminating the concern.
+- Concern (#7): internal arithmetic inconsistency at `n=1021` (tabled `c`, residual, `R²` not
+  mutually consistent), traced to a bootstrap-mean-vs-point-estimate mixup in one script. →
+  **Fixed**: corrected value (`c=1.0036`) independently re-derived from the exact orthogonality
+  identity this session.
+- Concern (#8): the `p=0.037`-vs-`p=0.218` "tension" was backwards — given `ρ≈0.86-0.98`
+  correlation between `J_n`/`K_n` (same rows), the slope difference is only `~1.5σ`. → **Fixed**:
+  "tension" framing retracted.
+- Concern (#9): "`K_n/J_n` all close to 1" was inaccurate at `n=127` (`2.26σ` from 1 per the
+  project's own stored delta-method SE, outside the 95% CI). → **Fixed**: corrected explicitly.
+- Concern (#10): the proposed next step (extend `c` to `n=2039`) is not a differentiating test,
+  since `c→1` is the null's own prediction. → **Fixed**: replaced with `sd_w(U)`-scaling extension
+  to `n=2039` as the actually-differentiating version of the same idea.
+
+**Artifacts:** this session's exploration scripts (scratchpad, not committed):
+`mechanism_explore1.py`/`2.py`/`3.py` (original, now-corrected exploration),
+`mechanism_corrected.py` (Parseval-gap-only regression, trimmed regression, unweighted `U`
+statistics), `sdU_bootstrap.py` (the salvaged finding's own bootstrap CI and `n`-scaling fit) —
+all using already-saved `metrics/ppl_gate_pilot.json` data, zero new LP solves throughout.
+
