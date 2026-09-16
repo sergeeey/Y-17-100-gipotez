@@ -1,0 +1,252 @@
+{
+  "n": 127,
+  "n_seeds": 25,
+  "chain_fields_in_order": [
+    "bits_g0",
+    "bits_g1",
+    "bits_comp",
+    "theta_g0",
+    "theta_g1",
+    "theta_comp",
+    "x_i",
+    "w_i",
+    "Z",
+    "Z2"
+  ],
+  "atol": 1e-09,
+  "first_divergence_tally": {
+    "H1": {
+      "IDENTICAL": 25
+    },
+    "H2": {
+      "bits_g0": 25
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 16051000,
+      "v3_branch": "B",
+      "v3_Z": 1.330240242880022,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 1.330240242880022,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 17.806185463016174
+    },
+    {
+      "seed": 16051001,
+      "v3_branch": "A",
+      "v3_Z": 1.6529989522137756,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 1.6529989522137756,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 4.3943185735932575
+    },
+    {
+      "seed": 16051002,
+      "v3_branch": "B",
+      "v3_Z": 0.21991662129993092,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 0.21991662129993092,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 2.688398106497954
+    },
+    {
+      "seed": 16051003,
+      "v3_branch": "A",
+      "v3_Z": 0.07472906689067146,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 0.07472906689067146,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 1.4118860108568292
+    },
+    {
+      "seed": 16051004,
+      "v3_branch": "A",
+      "v3_Z": 0.35225305006850083,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 0.35225305006850083,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 2.5696808459132314
+    },
+    {
+      "seed": 16051005,
+      "v3_branch": "A",
+      "v3_Z": 7.270055924330616,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 7.270055924330616,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 5.704986813489707
+    },
+    {
+      "seed": 16051006,
+      "v3_branch": "B",
+      "v3_Z": 2.1205189122907444,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 2.1205189122907444,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 3.603044101718652
+    },
+    {
+      "seed": 16051007,
+      "v3_branch": "A",
+      "v3_Z": 2.644885208472229,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 2.644885208472229,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 1.2154338938641975
+    },
+    {
+      "seed": 16051008,
+      "v3_branch": "A",
+      "v3_Z": 0.8208488070191893,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 0.8208488070191893,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 0.36316719132100106
+    },
+    {
+      "seed": 16051009,
+      "v3_branch": "B",
+      "v3_Z": 3.8919044102810503,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 3.8919044102810503,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 11.62910580750838
+    },
+    {
+      "seed": 16051010,
+      "v3_branch": "A",
+      "v3_Z": 2.2396728564000323,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 2.2396728564000323,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 4.19745966847314
+    },
+    {
+      "seed": 16051011,
+      "v3_branch": "B",
+      "v3_Z": 0.6760688720153479,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 0.6760688720153479,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 1.8390067142417716
+    },
+    {
+      "seed": 16051012,
+      "v3_branch": "A",
+      "v3_Z": 24.598476318347238,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 24.598476318347238,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 32.34073756044449
+    },
+    {
+      "seed": 16051013,
+      "v3_branch": "A",
+      "v3_Z": 8.047148711727065,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 8.047148711727065,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 4.644385505784948
+    },
+    {
+      "seed": 16051014,
+      "v3_branch": "B",
+      "v3_Z": 0.3116435118561692,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 0.3116435118561692,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 0.973070418365723
+    },
+    {
+      "seed": 16051015,
+      "v3_branch": "B",
+      "v3_Z": 4.4754887540094925,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 4.4754887540094925,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 6.181965741202846
+    },
+    {
+      "seed": 16051016,
+      "v3_branch": "B",
+      "v3_Z": 7.39841992966147,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 7.39841992966147,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 5.166516350829871
+    },
+    {
+      "seed": 16051017,
+      "v3_branch": "A",
+      "v3_Z": 2.6476074780393597e-05,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 2.6476074780393597e-05,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 1.4319778806505534
+    },
+    {
+      "seed": 16051018,
+      "v3_branch": "B",
+      "v3_Z": 10.037390423494431,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 10.037390423494431,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 6.496803818811808
+    },
+    {
+      "seed": 16051019,
+      "v3_branch": "B",
+      "v3_Z": 4.517444878205299,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 4.517444878205299,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 0.00027602053217687714
+    },
+    {
+      "seed": 16051020,
+      "v3_branch": "A",
+      "v3_Z": 0.010525271562583902,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 0.010525271562583902,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 2.831055735919104
+    },
+    {
+      "seed": 16051021,
+      "v3_branch": "B",
+      "v3_Z": 4.872979174363601,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 4.872979174363601,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 0.6882500737038545
+    },
+    {
+      "seed": 16051022,
+      "v3_branch": "B",
+      "v3_Z": 3.6006795955972986,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 3.6006795955972986,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 2.774419809292176
+    },
+    {
+      "seed": 16051023,
+      "v3_branch": "B",
+      "v3_Z": 5.252182997623387,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 5.252182997623387,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 16.088701079777245
+    },
+    {
+      "seed": 16051024,
+      "v3_branch": "B",
+      "v3_Z": 2.4390772193972627,
+      "H1_first_divergence": "IDENTICAL (no divergence end-to-end)",
+      "H1_Z": 2.4390772193972627,
+      "H2_first_divergence": "bits_g0",
+      "H2_Z": 1.3186693427761664
+    }
+  ]
+}

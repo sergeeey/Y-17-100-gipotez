@@ -48,9 +48,18 @@ check_kappa_n_large_n.py:100 `TEST_GENERATOR_INDEX = 1` and :190-225
 `sample_x_q_delta`):
 
   - v1 forced bits[0]=0 (generator 1 artificially absent) before drawing the
-    rest -- this silently DROPPED the entire "generator 1 already present"
-    branch, i.e. half of the canonical unconditioned Bernoulli(1/2) sample
-    space, even though the tested index (1) matched canon.
+    rest. CORRECTED (2026-09-16, Point 67 forensic follow-up): this does NOT
+    drop half the sample space as originally claimed here -- forcing the bit
+    to 0 post-hoc is algebraically identical to v3's own branch-conditional
+    flip_generator (proven via a per-seed forensic chain diff, 25/25 seeds,
+    zero divergence at any field; also reproduced in aggregate over 500
+    seeds, matching v3's own J_n(127) to 16 significant figures). The real
+    ~11x numerical gap between v1's reported 5.9 and v3's J_n=64.66 remains
+    UNEXPLAINED by any graph-construction mechanism tested so far -- the
+    leading candidate (not confirmed) is an aggregator mismatch, since
+    v1's target (5.9) sits within 1.7 SE of THIS SAME construction's own
+    mean_Z=5.44 (E[Z], not E[Z^2]=J_n), and J_n/mean_Z=11.9 numerically
+    matches the observed "~11x" almost exactly. See decision.md Point 67.
   - v2 fixed that omission the wrong way: it drew all m bits honestly
     unconditioned, but then picked the tested coordinate i post-hoc,
     uniformly at random from whichever bits happened to be 0. That
