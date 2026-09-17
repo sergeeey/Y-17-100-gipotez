@@ -1924,10 +1924,10 @@ nodes:
     evidence: VERIFIED-REAL        # metrics/run.json (3000 sampled graphs across 6 n values, full positive-control check on every graph, bootstrap CIs on the tail statistic); 10 tests incl. positive-control verification on independent small graphs and a regression test locking the pre-registered pair list
     l0_type: descriptive
     fl_tier: standard
-    kill_criterion: "LEAD if EVERY one of the 3 pairs shows a consistent-direction, substantial (>=50% deviation from 1.0) difference in top-decile-contribution (with disjoint 95% CIs) OR in variance, between composite and prime partners. CRITERION_INVALID if the positive control fails. REJECTED otherwise. RESULT: REJECTED -- consistent-but-not-substantial variance direction, inconsistent top-decile direction, all CIs overlap."
+    kill_criterion: "LEAD if EVERY one of the 3 pairs shows a consistent-direction, substantial (>=50% deviation from 1.0) difference in top-decile-contribution (with disjoint 95% CIs) OR in variance, between composite and prime partners. CRITERION_INVALID if the positive control fails. REJECTED otherwise. RESULT: REJECTED -- consistent-but-not-substantial variance direction, inconsistent top-decile direction, all CIs overlap. CONTINUATION (2026-09-18): tested the Revival Condition itself -- continuous divisor-count feature d(n) across 17 non-cherry-picked n in [81,567]. Literal pre-registered criterion (|Spearman rho|>=0.5, CI excl. 0) gave LEAD (rho=-0.79 for var(X)) -- but a mandatory confound check (Spearman(n,d(n))=0.77, and d(n)'s coefficient in log(var_X)~log(n)+d(n) is -0.005, p=0.64, incremental R^2=0.0003) shows this is entirely explained by d(n) correlating with n itself, not an independent effect. CORRECTED FINAL VERDICT: REJECTED. Revival needs n held fixed while d(n) varies (design-based decorrelation), not a wide-range sample where the two co-vary by arithmetic necessity."
     experiment_dir: "experiments/20260910-lovasz-theta-tail-arithmetic-cat31-2"
     source: "experiments/20260910-lovasz-theta-tail-arithmetic-cat31-2/decision.md"
-    updated: 2026-09-10
+    updated: 2026-09-18
 
   - id: H-CAT31-3
     type: hypothesis
