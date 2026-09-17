@@ -28,6 +28,7 @@
 
 
 
+
 ## Current Focus
 - **[2026-09-17, H-CAT31-3 Points 77-89 — long proof-attempt + measurement window on `(POL)`/`F4rel` for `CV²(y*)`; session just closed, read this first.]** Context: `(POL): sup_n E‖x*‖²<∞`, reduced (Point 85, exact KKT identity `s=2Q+1` non-degenerate-vertex support size) to `E[CV²(y)]=O(1)`. Four proof ROUTES attempted this window, all genuinely tried (not just cited) and all KILLED with a precise, quantified reason, not vague failure: (1) direct Talagrand transfer from Arora-Bhaskara's i.i.d.-edge technique — killed Point 81, circulant graphs lack the `Θ(n²)`-independent-bits structure the technique needs (re-confirmed independently Point 87§4A by two research agents); (2) uncertainty-principle-on-supports — killed Point 85, saturated with zero slack; (3) Young's/sup-norm convolution bounds on `F4rel` — killed Point 86, one reproduces the trivial bound exactly, the other's gap widens with `n`; (4) KKT/argmin-stability via LP non-degeneracy margins (`boyko-specialist`'s suggestion) — killed Point 88 after finding its cited source (Escande arXiv:2304.00809) was misattributed (real paper, wrong technique) and finding zero correlation between vertex margins and `CV²`, a result that itself SURVIVED a real adversarial skeptic pass testing 3 alternative explanations.
 - **[VERIFIED-COMPUTATION, Point 87, the load-bearing measurement chain this window] `CV²(y*)` measured across 6 points, `n=127→8009`, up to 300 reps each (fewer at largest `n` — LP solve cost grew from `~0.07s`/instance at `n=509` to `~15-18min`/instance at `n=8009`, a canonical-code `45s` time-limit had to be worked around with a local no-timelimit wrapper, never touching Codex's read-only `CertificateLP`).** Two separable findings, corrected TWICE by real skeptic passes before reaching their final form (see `decision.md` Point 87 §4E-4I for the full, honest before/after): (a) **dispersion of `CV²` across independent instances shrinks as the ORDINARY, trivial `n^{-1/2}` CLT-type rate** — not a mysterious `-0.53` law as a first draft claimed; that apparent deviation from `-0.5` is entirely `mean(CV²)`'s own separate drift, confirmed via an exact algebraic decomposition (`slope(std)-slope(mean)=slope(CV_of_CV2)`, verified to 4 decimals); this dispersion law holds cleanly over about one decade (`n≈500-4000`) but is REJECTED (`p=0.0017`) across the full `127-8009` range once the endpoints are included. (b) **`mean(CV²)` is genuinely, significantly increasing with `n`** (`0.987→1.050` from `n=127→8009`, `9σ`+ from `1` at the largest `n`'s) — real, not noise — but whether it converges to a constant (`≥~1.09-1.13` at 1-2σ, no upper bound established) or grows without bound is **UNRESOLVED and likely UNRESOLVABLE within this `n`-range**: a 5-model comparison (Point 87§4I) found the candidate functional forms (log-linear, log-log, `n^{-1/4}`, `1/ln n`, `n^{-1/2}`) are nearly collinear over `n∈[127,8009]` (`|corr|` up to `0.996`), so model selection there is close to uninformative, and — critically — whichever model "wins" flips entirely depending on whether the single point `n=127` (already independently flagged, twice now, as the one point driving nearly all discrimination and a likely pre-asymptotic outlier) is included or excluded.
@@ -50,14 +51,8 @@
   evidence; point 45's own negative control was not re-run per layer, so scoped as a feasibility
   demonstration, not proof the bound is informative). Two full skeptic-fallback review rounds
   (reviewer's cap stayed closed all session) caught real overclaims each time, including in the
-  same day's first-draft text — pattern worth a `patterns.md` entry: this project's own
-  self-correction discipline works, but needed adversarial review to actually catch these, not
-  self-review. `research-audit` (8/10) synced a 3-day-stale `graph.yaml` node same session;
-  literature check independently confirmed `[POTENTIALLY-NOVEL]` for the certificate and that
-  `E[θ]` itself is still open for random circulant graphs (arXiv:2502.16227, Feb 2026);
-  `negative-space-miner` built and adversarially killed a Repair Hypothesis (WEAKENED — taxonomy
-  label, not a real mechanism). Does NOT prove `Var(X_n)=O(1/n)` — Priority C reopened as viable,
-  not resolved; enumeration wall (`n~50-60`) still caps this route's reach.
+
+[summarized] same day's first-draft text — pattern worth a `patterns.md` entry: this project's own
 
 ## Project State
 - **Repo:** https://github.com/sergeeey/Y-17-100-gipotez — PUBLIC, created 2026-09-06, commit d50597f (initial import). [VERIFIED]
@@ -68,6 +63,7 @@
 - **Files transferred:** 15 (2026-09-06)
 - **Bridges scoped:** 3, все терминальны (2026-09-09): RMT/Riemann — Phase 1a READY, 1b BLOCKED (external Option A); ChernoffPy/UDE — CONFIRMED-WITH-CAVEATS, арка H-B2-1→1v закрыта 2026-09-08; May1972/TDA — CLOSED 2026-09-09 как informative negative (0 confirmed / 8 killed / 1 parked из 15 под-гипотез), арка H-B3-1→1p. **[2026-09-10] H-B3-2** (новая статья, PH₀ chirality-excess, route 3 отчёта) добавлена к той же закрытой Bridge 3 — REJECT после bug-fix-and-rerun, не реоткрывает мост (по-прежнему 0 confirmed на этой линии); Mechanism Claim Gate внутри неё — единственный устоявший позитивный побочный результат.
 - **Bridges permanently `unverified_source`** (answered 2026-09-07, not pending): 3 (Frontier R&D, TOFT/SMT, RAF Theory)
+
 
 
 
@@ -89,6 +85,7 @@
 
 
 
+
 ## Quick Commands
 ```bash
 pip install -r requirements.txt
@@ -98,6 +95,7 @@ python -m ruff check scripts/ tests/ # lint (line-length=100 pinned in pyproject
 # LEDGER summary — count by grep, never by hand:
 grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ /,"",$6); print $6}' | sort | uniq -c
 ```
+
 
 
 
@@ -125,8 +123,12 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 
+
 ## Auto-commit log
 - [2026-09-17 22:57] `371d381` (local, branch `docs/point-90-activecontext-update` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- add Point 90 addendum (Bandeira proof audit, skeptic correction raises project stakes)
+- [2026-09-17 22:55] `3147e2a` (local, branch `feature/point-90-bandeira-proof-audit-correction` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- point 90, Bandeira et al. proof-structure audit, skeptic-driven correction
+- [2026-09-17 22:14] `9f3a63f` (local, branch `feat/h-cat31-3-point-87-4k-oos-tests` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- point 87 4K, genuine out-of-sample tests close the model-comparison line: backward test 'log-linear wins' completely debunked by a lever-arm artifact (an unphysical diverging form wins instead), forward test's null result survives the identical scrutiny
+- [2026-09-17 21:59] `8d35e96` (local, branch `feat/h-cat31-3-point-87-4j-n127-n509-tightened` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- point 87 4J: tightening n=127 (and n=509) 16x gives zero new discriminating power between mean(CV^2) models -- ranking unchanged both times, a clean null result
 - [2026-09-17 21:42] `4c5c6fb` (local, branch `feature/activecontext-points-77-89-summary` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: update activeContext.md with H-CAT31-3 points 77-89 session summary
 - [2026-09-17 21:36] `291b0b5` (local, branch `feat/h-cat31-3-point-89-d2-test` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- point 89, D2 pair-weight residual test: provenance gap disclosed and closed, headline '33-sigma' result withdrawn after a devastating skeptic pass, but the qualitative kill survives
 - [2026-09-17 20:54] `6cb9c35` (local, branch `feat/h-cat31-3-point-87-4i-model-comparison` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): feat: H-CAT31-3 -- point 87, 4I: model comparison for mean(CV^2)'s functional form -- 'log-linear preferred' reading does not survive a real skeptic pass
