@@ -9685,3 +9685,97 @@ compare — uses only already-collected data, no new LP solves); (b) the still-u
 route connecting `mean(CV²)`'s drift to Bandeira et al.'s `O(log³n)`-type bound (Point 79/87§4A),
 flagged repeatedly across Points 87 and 89 as the most promising, least-explored direction.
 
+## Point 87 §4K (2026-09-17, same day) — genuine out-of-sample tests, both directions: the backward test's "log-linear wins" is completely debunked by an exceptional skeptic finding; the forward test's null result survives the identical scrutiny and closes the model-comparison line for good
+
+**Context.** An external analysis (relayed by the user, independently evaluated per standing
+practice) proposed exactly the two tests §4J's own next-step list named: (1) a backward
+out-of-sample test — fit on `n≥509`, predict the now-precisely-measured `n=127` (`0.9900±0.0054`
+from §4J's `16×`-rep re-run); (2) a forward out-of-sample test — fit on `n≤4001`, predict the
+already-measured `n=8009` (`1.0505±0.0056`) — correctly identified by the user as the more
+directly relevant direction for an "asymptotic law" question, since it tests extrapolation TOWARD
+larger `n`, not backward into a range this project has repeatedly flagged as possibly different in
+kind. Both computed using only already-published summary statistics, no new LP solves.
+
+### Backward test (predict `n=127`) — first-draft "log-linear wins with a real margin" — `FALSIFIED` by an exceptional skeptic finding, independently reproduced and extended
+
+First draft: fitting the 5 candidate forms (log-linear, log-log, `n^{-1/4}`, `1/ln n`, `n^{-1/2}`)
+on `n=509..8009` and predicting `n=127` gave z-scores from `+2.50σ` (log-linear, best) to `+5.08σ`
+(`n^{-1/2}`, worst) — read as genuine discrimination favoring log-linear. **Sent to a real,
+context-asymmetric skeptic, which found the single most structurally decisive result in this
+entire proof-attempt line (Points 77-89):**
+
+The skeptic defined a normalized "lever-arm" `u_i = (f_i(127)-f_i(509))/(f_i(509)-f_i(8009))` for
+each candidate form `f` — how far past the training range each form extrapolates backward, in its
+OWN coordinate space — and showed that the 5 models' deficits (`actual−predicted`) are an almost
+perfect LINEAR function of `u` alone (`R²=0.998`, independently reproduced here to 4 decimals).
+**Mechanistic reason, confirmed directly**: the 5 forms fit the `n≥509` TRAINING data almost
+identically well (`Δχ²=1.11` on `3` dof between best and worst — genuinely indistinguishable
+in-sample, consistent with §4I/§4J's own collinearity finding) — so their extrapolated
+predictions differ from each other almost entirely by HOW FAR they extrapolate, not by which one
+is more correct. **The skeptic then made a pre-registered, falsifiable prediction**: adding
+candidate forms with an even SMALLER lever-arm — including `n^{1/4}` and the physically
+implausible, unboundedly-GROWING `n^{1/2}` — should beat log-linear too, purely because of their
+shorter extrapolation distance, regardless of whether growth is the right shape at all.
+
+**Independently tested, not accepted on the skeptic's word**: computed directly. `n^{1/4}`:
+`z=+0.92σ` (already beats log-linear's `+2.50σ`). **`n^{1/2}` (an unbounded, diverging,
+structurally implausible form for a quantity this project has independently established stays
+`O(1)`): `z=−0.32σ` — the SINGLE BEST-FITTING form of all 7 tested, beating every "reasonable"
+candidate.** This is a complete, decisive confirmation of the skeptic's mechanism: **an
+absurd, wrong-by-construction functional form wins this specific test**, proving the entire
+"log-linear is best-supported" conclusion was an artifact of which candidate forms happened to be
+chosen, not a signal about correctness. **The backward out-of-sample test, as constructed, has
+no discriminating power and its first-draft conclusion is withdrawn entirely, not merely
+caveated.**
+
+**What the skeptic's analysis does establish, and what remains as a genuinely open, flagged
+question**: `n=127`'s actual value sits well off the smooth trend fit to `n≥509` — the mechanism
+producing this is NOT determined by this test. The skeptic additionally proposed, but this session
+did not test, a concrete alternative explanation worth flagging explicitly: `n=127` was measured
+with `16×` more reps than every training point (§4J), and since `CV²` is a nonlinear (ratio-type)
+statistic, its sample estimate carries an `O(1/reps)` bias — meaning the held-out point may simply
+be LESS BIASED than the training points, mechanically producing an apparent "deviation from
+trend" that has nothing to do with the true functional form at all. **Not tested here** — the
+cheap check (subsample the `16×`-rep `n=127` array down to `1×` reps and see if the apparent
+deviation shrinks) is flagged as a concrete next step, not run in this addendum.
+
+### Forward test (predict `n=8009`) — the SAME lever-arm mechanism is present, but the conclusion survives it — this is the test that actually closes the line
+
+Applying the identical lever-arm check to the forward direction (fit `n=509..4001`, predict
+`n=8009`): **the same mechanism is confirmed present** — `corr(u,z)=−0.999` across the original 5
+forms, essentially as strong as in the backward direction. But the DECISIVE difference, verified
+directly: **even including the two growing forms (`n^{1/4}`, `n^{1/2}`) that completely inverted
+the backward test's winner, every single candidate form (7 total) stays within `|z|≤2.14σ`** of
+the actual `n=8009` value (range: `−2.14σ` to `+1.26σ`). **The forward test's original conclusion
+— "available data cannot distinguish asymptotic forms" — is exactly the kind of conclusion that
+SURVIVES the lever-arm artifact, precisely because it never claimed one form was better than
+another; it only claimed none is clearly excluded, and that claim remains true under the harshest
+version of this critique.** This is the qualitative difference between a real null result and an
+artifact-driven "positive" result: the backward test's specific claim (one form wins) evaporated
+under scrutiny; the forward test's null claim (no form is excluded) did not, because a null claim
+has no specific winner for a lever-arm artifact to manufacture.
+
+### Verdict — the model-comparison line is now formally, robustly closed
+
+`(POL)` and `F4rel` remain **not proven**. Per the original external proposal's own explicit
+decision rule ("if all models give `|z|≲2`, the line is effectively closed: available data cannot
+distinguish asymptotic forms") — **this condition is met, verified directly, and the model-
+comparison line for `mean(CV²)`'s functional form is formally closed.** No further points, model
+comparisons, or precision-tightening on this specific question are recommended; three separate,
+independent lines of evidence now converge on the same conclusion (§4I's collinearity finding,
+§4J's ranking-invariance-under-tightening finding, and this point's lever-arm-artifact finding) —
+this is now among the best-established NULL results in this entire proof-attempt chain, not merely
+"we didn't find a signal" but "we found and diagnosed the specific mechanism by which a false
+signal was being manufactured." **Consistent with the user's own proposed sequence, the next and
+final step in this proof-attempt line is the Bandeira et al. `O(log³n)` audit** (Point 79/87§4A):
+decomposing which specific mechanism in their proof (union bound over induced subsets? maximal
+Fourier coefficient? chaining/entropy? a specific Cauchy-Schwarz step? failure to use `y≥0`?)
+produces each of the three `log n` factors, and checking whether this project's own established
+facts (positivity, `s=Θ(n)` support saturation, the exact `s=2Q+1` KKT identity) can strictly
+remove even one of them — targeting a concrete intermediate result (`O(log² n)` or `O(log n)`),
+not `O(1)` directly. `D2` (Point 89) is downgraded to "interesting heuristic, not an active proof
+route," per the already-established circularity finding (Point 89) and this point's own
+confirmation that the same lever-arm artifact affects its own out-of-sample test in the same way
+(not separately re-verified here in full, since Point 89's own residual `R` is already established,
+Point 89, to reduce algebraically to the same `mean(CV²)` question this point closes).
+
