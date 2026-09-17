@@ -8740,3 +8740,199 @@ Parseval-type identity (exact match, 5+ digits, 5 independent instances), and th
 norm bounds (Young's and sup-norm), each checked against the actual `Σx⁴` before being reported as
 valid-but-insufficient rather than assumed.
 
+## Point 87 (2026-09-17) — 4 parallel skill-based research passes + a new decisive measurement: `CV²(y*)` concentrates around 1, does not merely stay bounded
+
+**Context and trigger.** After Point 86's honest "not proven" verdict on `F4rel`, and an explicit
+user request for an honest options/probability assessment (~10-15% for `(POL)` outright, ~30-50%
+for `F4rel` alone), the user asked specifically for research aimed at "форма/равномерность
+распределения `y*`" and named top-2-obvious + top-2-non-obvious skills to try. Four skills were
+launched in parallel as background agents (per user's explicit choice, "все 4 параллельно в
+фоне"): `academic-research`, `boyko-specialist`, `cross-domain`, `negative-space-miner`. All four
+completed. In parallel, this point also runs a NEW direct numerical test (`CV²(y*)` histogram
+across many independent instances at fixed `n`, not just the mean across `n` already measured in
+Points 83-85) — proposed independently by `negative-space-miner`'s own Stage 7 as the single
+cheapest differentiating test between "structural per-instance uniformity" and "ensemble-average
+artifact hiding high per-instance variability."
+
+### 4A. Literature findings (`academic-research`, `negative-space-miner`) — [WEAK-TO-VERIFIED-REAL, agent-reported, NOT independently re-fetched by me this point]
+
+Both agents independently converged on the same primary comparator (Arora & Bhaskara's
+unpublished note on `θ(G(n,1/2))` concentration via a `Σ‖v_i‖⁴`-flatness lemma + Talagrand) and
+the same structural reason it does not transfer to circulant graphs: (a) an induced subgraph on
+an arbitrary vertex subset of `Z_n` is generally NOT itself circulant, breaking the "any subset is
+a fresh i.i.d. instance" resampling closure the proof needs; (b) Talagrand's own per-vertex
+`α_i`-indicator separation argument needs `Θ(n²)` independent edge bits, not the `Θ(n)` bits a
+circulant graph actually has. This is consistent with, and sharpens with a concrete mechanism,
+this project's own Point 81 finding (Strategy 0 killed on the same i.i.d.-vs-circulant grounds,
+independently re-derived there from the primary source, not from an agent report).
+
+Both agents also independently flagged the `E‖x*‖²=O(log³n)` (this project's own derived
+corollary, Point 79, from the TIGHT interior of Bandeira et al.'s Lemma 5) against Bandeira et
+al.'s own printed headline result `E[θ(G)]=O(√(n·log log n))` (arXiv:2502.16227, Theorem 1) as a
+possible inconsistency worth double-checking. **Re-examined here, not accepted from either agent:**
+these are two different quantities from the same paper (a bound on the mean of the *objective
+value* `θ(G)=n·y_0` vs. a bound on the *full certificate vector's* squared norm `‖x*‖²`), derived
+via different steps of the same proof — there is no direct algebraic identity forcing one bound's
+exponent to match the other's, and this project already independently re-verified in Point 79 that
+the `log³n` figure uses the paper's own tighter interior estimate, not its loosened printed
+corollary. **Verdict: [RESOLVED, not a live contradiction]** — both agents flagging it
+independently is a useful cross-check that the framing was ambiguous enough to be worth restating
+clearly (now done), but it does not indicate an actual inconsistency in this project's own prior
+work.
+
+New citations neither previously in this project's `symbols.md`/prior points, reported by the
+agents with URLs (not independently re-fetched by me — flagged accordingly):
+- Rudelson & Vershynin, "No-gaps delocalization for general random matrices" (arXiv:1506.04012,
+  *GAFA* 26 (2016)) — general delocalization for independent-entry matrices, built around the
+  **LCD (least common denominator)** of a vector: a quantitative measure of arithmetic structure,
+  where LOW LCD (rich arithmetic/periodic structure) is exactly where standard delocalization
+  techniques are known to fail or need bespoke treatment. `y*`/`x*` are, by construction,
+  Fourier-supported on `Z_n` — i.e. arithmetically structured in exactly this sense.
+- Classical LP theory (basic feasible solution sparsity: a vertex of an `m`-constraint polyhedron
+  has at most `m` nonzero coordinates) — a genuine, general BARRIER-shaped fact, not a
+  circulant-specific one: generic LP vertices are as sparse ("spiky") as the constraint count
+  allows. This project's own `s=Θ(n)` result (Point 64, via Tao's uncertainty principle,
+  independently re-derived) already rules out the *extreme* form of this barrier, but does not by
+  itself rule out moderate internal non-uniformity within that support — which is exactly the open
+  `CV²` question.
+- "Derandomizing restricted isometries via the Legendre symbol" (arXiv:1406.4089) — cited by
+  `negative-space-miner` as a counter-example to the intuition "algebraic structure is always
+  worse than i.i.d. randomness for RIP-style bounds": in this specific class, algebraic structure
+  (quadratic residues, the same flavor of structure a circulant graph on prime `n` has) can
+  substitute for genuine randomness rather than degrade it.
+
+### 4B. `boyko-specialist` — [WEAK, agent-reported niche localization, not independently re-verified]
+
+Localized the real niche to essentially the paper's own 6 co-authors; found no published
+follow-up tightening `E[θ(G)]` past `O(√n·log log n)`. Its single concrete, not-yet-tried
+suggestion: a margin/nondegeneracy-based argmin-stability argument (Escande-style,
+arXiv:2304.00809), built on the ALREADY-PROVEN exact KKT fact `|supp(x*)|+|supp(y*)|=n+1`
+(Point 85). Notable because it is the first proposed approach in this entire proof-attempt line
+(Points 77-86) that would use OPTIMALITY of the LP solution, not just feasibility — Young's,
+sup-norm, and the uncertainty-principle route (Points 85-86) all only used feasibility-level facts.
+
+### 4C. `cross-domain` and the Paley-graph positive control — [VERIFIED-COMPUTATION, by me, this point]
+
+`cross-domain` proposed the Paley graph (connection set = quadratic residues mod prime `n`) as
+the cheapest possible differentiating test: the maximally symmetric, fully deterministic special
+case of this project's own random circulant model, directly computable with the existing
+`CertificateLP` class. Computed directly (not from an agent report), reusing
+`codex-20260914-susceptibility/test_convolution_repair.py`'s `CertificateLP`, unmodified:
+
+| n | 11 | 23 | 43 | 67 | 101 | 127 |
+|---:|---:|---:|---:|---:|---:|---:|
+| `CV²(y*)` | 0.263 | 0.403 | 0.734 | 0.734 | 0.332 | 1.036 |
+
+No growth trend across this range; values stay in the same rough band the random-instance
+measurements below occupy. This is a weak, single-instance-per-`n`, small-range signal (Paley
+graphs are deterministic, so there is no averaging to shrink noise) — it does not itself establish
+anything, but it is consistent with, and does not falsify, the uniformity target.
+
+### 4D. New measurement: `CV²(y*)` distribution across independent instances at FIXED n — [VERIFIED-COMPUTATION, this point, independently re-verified from raw saved arrays]
+
+Everything measured in Points 83-85 was either a single aggregate statistic per `n` (mean
+`E‖x*‖²` or one coordinate's moments) or a trend across growing `n` — never the actual SPREAD of
+`CV²(y*)` across many independent random instances at one fixed `n`. `negative-space-miner`'s
+Stage 7 proposed exactly this as the decisive test: a narrow per-`n` histogram would support a
+structural/per-instance uniformity mechanism (this point's Repair Hypotheses H1/H2); a wide or
+bimodal one would mean any `E[CV²]=O(1)`-type bound is only an ensemble-average artifact, true in
+expectation while individual instances can be highly non-uniform (H5).
+
+Computed on `n∈{127,509,1021}`, 300 independent random circulant instances each (same generator/
+sampling code as `ppl_gate_pilot.py`/`check_pol_full_norm.py`, `CertificateLP` unmodified, fresh
+seeds `SEED_BASE + n·100000 + rep`, `rep=0..299`), `CV²` computed per-instance on that instance's
+own support:
+
+| n | reps | mean `CV²` | std | `CV_of_CV2` (std/mean) | min | p10 | p50 | p90 | max |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 127 | 300 | 0.9874 | 0.3594 | 0.3640 | 0.494 | 0.660 | 0.920 | 1.326 | 4.155 |
+| 509 | 300 | 0.9939 | 0.1319 | 0.1327 | 0.686 | 0.837 | 0.989 | 1.155 | 1.553 |
+| 1021 | 300 | 1.0042 | 0.0865 | 0.0861 | 0.785 | 0.900 | 0.996 | 1.124 | 1.343 |
+
+Independently re-verified (not accepted from the run's own printed output): the mean/std/
+`CV_of_CV2` figures above were recomputed from the raw saved `.npy` arrays in a separate Python
+process, matching to 4 decimal places.
+
+**Two findings, of different strength:**
+
+1. **`mean(CV²)` is essentially flat and near 1** across an 8× range of `n` (`0.987 → 0.994 →
+   1.004`), with no growth trend. This is a materially tighter, more direct confirmation of the
+   same qualitative picture as Points 83-85's own `E‖x*‖²`/single-coordinate measurements, using a
+   genuinely different (per-instance, not aggregate-only) estimator.
+2. **The DISPERSION of `CV²` across instances shrinks with `n`** — `CV_of_CV2`: `0.364 → 0.133 →
+   0.086` at `n=127→509→1021`. A log-log linear fit across these 3 points (least-squares,
+   independently recomputed) gives slope `≈ -0.70` (pairwise slopes `-0.73` and `-0.62`) — between
+   the `-0.5` a `1/√n` (CLT-type, effective-sample-size~support-size) scaling would predict and the
+   `-1.0` a `1/n` scaling would predict, closer to `-0.5`. **This is a genuinely new qualitative
+   claim not measured anywhere earlier in this project**: not just "`CV²` stays bounded in
+   expectation" (already the Point 83-85 target) but "`CV²` appears to CONCENTRATE around a
+   constant (~1) as `n` grows" — i.e. a per-instance, not merely ensemble-average, uniformity
+   signal. Per `negative-space-miner`'s own Stage 7 discriminator, this narrow-and-narrowing
+   histogram is the signature that favors a structural mechanism (H1/H2: RIP anti-spike +
+   circulant group-symmetry invariance) over a pure ensemble-averaging artifact (H5).
+
+**Explicit limits, stated before this gets over-read (per this session's own discipline on Points
+83-85 of not overclaiming a measurement into a proof):**
+- **n=3 points only.** The `-0.70` exponent is a weak signal from a 3-point log-log fit, not a
+  fitted asymptotic law — no error bars on the exponent itself, and the two pairwise slopes
+  (`-0.73`, `-0.62`) are not identical, so a genuinely constant power law is not established, only
+  suggested.
+- **This is NOT a proof of `(POL)` or of concentration in the rigorous (Talagrand/measure-
+  concentration) sense** — it is a numerical trend on 300+300+300 instances, three `n` values.
+  Exactly the discipline this project has applied to every measurement since Point 83: a
+  measurement narrows the space of plausible growth rates, it does not itself establish a
+  theorem.
+- Does not by itself validate any of the 4 agents' Repair Hypotheses (H1/H2/H3/H4/H5 from
+  `negative-space-miner`) — it discriminates AMONG them (favoring H1/H2 over H5, per the
+  Stage-7 logic those hypotheses were built to be tested against), it does not prove any one of
+  them mechanistically.
+
+### Skeptic-fallback review (context-asymmetric: claim + raw numbers only, no reasoning chain)
+
+Substituting for `reviewer` per `rules/doubt-driven-development.md` § Independent Review Fallback
+Policy (same substitution used throughout this window, stated explicitly each time per that
+policy's own requirement). Given: the two tables above (Paley `CV²` values; instance-histogram
+`mean`/`std`/`CV_of_CV2` at 3 `n`), the log-log slope figure, and the claim "`CV²(y*)` appears to
+concentrate around 1 with shrinking relative dispersion as `n` grows."
+
+**Skeptic verdict: `[WEAKENED]`.** Concerns raised and resolved:
+- *"3 points is too few to claim a scaling law"* → **Accepted, already stated as a limit above**;
+  point text already says "suggested," not "established," and gives both the fitted slope and the
+  two disagreeing pairwise slopes rather than hiding the disagreement.
+- *"`min(CV²)` at n=127 is 0.494, well below the p50 of 0.92 — is the distribution symmetric, or
+  is there a persistent low tail that a mean+std summary hides?"* → **Not yet checked — genuine
+  gap, not dismissed.** The percentile columns (p10/p50/p90) are reported precisely because
+  mean/std alone would hide skew, but this point does not go further and characterize the skew
+  explicitly. Recorded as an open item below, not smoothed over.
+- *"Is 300 reps enough, or could the `CV_of_CV2` shrinkage itself be a fluke of which 300 seeds
+  were drawn?"* → **Partially addressed**: `SE` on the mean at each `n` (not tabulated above but
+  computable as `std/√reps`) is `0.021/0.008/0.005` — small relative to the mean-vs-1 gaps
+  (`0.013/0.006/0.004`), so the flatness-of-mean claim is on reasonably solid footing; the
+  `CV_of_CV2` shrinkage claim itself does not have a formal SE computed here (no bootstrap CI was
+  run on `CV_of_CV2`, unlike the mean) — flagged as a real gap, not silently accepted at face
+  value.
+- *"The Paley-graph table (4C) has no error bars and n≤127 only — is it doing any real work in
+  this point, or is it decorative?"* → **Agreed, downgraded in the text above** to "weak,
+  single-instance-per-`n`... does not itself establish anything, consistent with and does not
+  falsify" — already hedged correctly before this review, not overclaimed as independent
+  confirmation.
+
+No `[FALSIFIED]` concerns — the core claims (mean flat near 1; dispersion shrinks; both
+independently re-verified from raw arrays) survive as stated, with the un-computed `CV_of_CV2`
+bootstrap CI and the unexamined skew/tail shape recorded as genuine open gaps, not resolved ones.
+
+### Verdict and next step
+
+`(POL)` and `F4rel` remain **not proven** — this point adds evidence, not a proof. But it is the
+first point in this proof-attempt line (77-86) to find a genuinely NEW, positive, quantitatively
+suggestive signal (concentration, not just boundedness) rather than another ruled-out route. The
+single most concrete, not-yet-tried next step on record, combining this point's finding with
+`boyko-specialist`'s suggestion: the KKT/argmin-stability route (4B) is the natural candidate to
+actually EXPLAIN the concentration this point measures — it is the one approach that uses
+optimality, and concentration-around-a-fixed-point is exactly the kind of statement a stability/
+margin argument would produce. Two cheap, still-unrun sensitivity checks before investing in that
+route: (a) compute the bootstrap CI on `CV_of_CV2` itself (flagged above as missing) to see if the
+shrinkage is statistically distinguishable from flat; (b) run the same instance-histogram test on
+one more `n` (e.g. `n≈2039`, already used elsewhere in this project) to get a 4th point on the
+log-log fit before treating the `~-0.7` exponent as anything more than suggestive.
+
