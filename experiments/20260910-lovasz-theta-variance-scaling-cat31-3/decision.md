@@ -10141,4 +10141,31 @@ is stated explicitly rather than assumed.
 
 **Deliverable of this arc, stated honestly:** no proof, but a substantial, well-documented negative-results package — 4 precisely-killed proof routes, a formally-closed model-comparison line, a genuine (if modest) clarification of exactly how this project's own target relates to a specific published open problem (Bandeira et al.'s own Conjecture 1 and `(SP)` sparsity conjecture), and two additional killed investigations (Points 91, 92) each surfacing a real, `[REPEAT]`-worthy methodology lesson about numeric verification discipline. Per this project's own Pearl Registry practice: the recurring pattern itself — every substantive new numeric or literature-connection claim sent to a real, context-asymmetric skeptic this entire window found at least one genuine, load-bearing error, with zero exceptions across roughly 12 independent instances (Points 87's several corrections, 89, 90 twice, 91, 92) — is itself the single most load-bearing, transferable finding of this whole window, worth a `patterns.md`/Pearl Registry entry beyond this specific experiment.
 
+## Point 94 (2026-09-18) — Point 90's remaining `[WEAK]` "mean-gap" claim corrected: the only real derivation in this project on this topic goes in the OPPOSITE direction; the forward direction needs an unestablished 4th-moment/tail condition, structurally (not literally) analogous to `F4rel`
+
+**Context.** Point 90 (`§ Second correction`) left one loose end explicitly flagged, not resolved: a relayed external-AI claim that this project's ORIGINAL target, `Var(X_n)=O(1/n)` for `X_n:=log(θ(G)/√n)`, would give the sharp Conjecture 1 constant `(1+o(1))√n` "via an earlier mean-gap connection from elsewhere in this project" — recorded as `[WEAK]`/relayed-but-unverified, not independently re-derived at the time.
+
+**Found and independently re-verified (not accepted on a search agent's report alone — re-read the primary source directly, `decision.md:215-230`, and re-derived the key step in `sympy`, `check_meangap_direction.py`).** This project DOES contain one real, checked derivation connecting `Var(X_n)` and the mean gap (an "Addendum, 2026-09-11," part of the earlier `-0.91`-exponent point): by the Lovász identity `θ(G)·θ(Ḡ)=n` and exact self-complementarity in distribution at `p=0.5`, `X_n =d= -X_n`, hence `E[X_n]=0` exactly and `E[cosh(X_n)]=E[θ]/√n`. Since `cosh(x)≥1+x²/2` for all real `x`:
+
+```
+V_n ≤ 2·(E[θ]/√n − 1)
+```
+
+— checked against 9 sweep points (`check_cosh_bound.py`), holding at 7/9 exactly and the 2 apparent violations explained by sampling noise at the lowest-replicate points, not a real contradiction.
+
+**This inequality runs in the OPPOSITE direction from what the relayed claim needs.** It shows: mean-gap closing (`E[θ]/√n→1`) FORCES the variance to vanish. It does NOT show the converse (`Var(X_n)→0` forcing the mean gap to close) — and nowhere else in this project (`decision.md`, nor any file under `codex-20260914-susceptibility/`) is the converse direction derived, or even attempted, for `X_n` specifically. **Corrected verdict, replacing the `[WEAK]`/unverified framing: the relayed claim is not merely unverified — the one directly relevant derivation this project actually has goes the other way, and the direction actually needed is not established anywhere in this project's own work.**
+
+**What, structurally, is actually missing for the forward direction — verified via `cosh`'s own Taylor expansion (`sympy`, exact): `cosh(x) = 1 + x²/2 + x⁴/24 + O(x⁶)`, so, using `E[X_n]=0`:**
+
+```
+E[cosh(X_n)] − 1 = V_n/2 + E[X_n⁴]/24 + …
+```
+
+`V_n=O(1/n)→0` alone constrains only the SECOND term of this expansion; it says nothing about `E[X_n⁴]` or the higher-order remainder, which could in principle stay bounded away from zero (or diverge) under a distribution with heavier tails even as its variance shrinks — exactly the kind of gap that requires a separate 4th-moment or uniform-integrability bound to close, not merely `L2` convergence. **This is structurally the SAME KIND of gap this project already documents for the parked `(POL)` route** (`E[n‖y*‖₂²]→1`, Point 90's own § Second correction, needed and not established) **and is structurally analogous to — though not the same object as — this project's own separately-tracked `F4rel` quantity** (`κ_x:=E[x*⁴]/(E[x*²])²`, a per-coordinate moment ratio of the LP certificate, already established at Points 85/86 as a STRICTLY STRONGER, separate open question from `(POL)`/`CV²`, not following from it). `F4rel` is about the certificate `x*`'s own coordinatewise 4th moment; the quantity actually needed here is `E[X_n⁴]` for the SCALAR `X_n=log(θ(G)/√n)` — a different object, related only by sharing the same general shape of missing ingredient ("2nd-moment control alone does not bound a convex, unbounded function's expectation"), not by being the same statement in different notation. Conflating the two would repeat exactly the kind of overreach this project's own skeptic passes have caught repeatedly this window.
+
+**Corrected verdict:** proving `Var(X_n)=O(1/n)` (this project's own original target) would NOT, by itself and via the only route this project has actually derived, give Bandeira et al.'s sharp Conjecture 1 constant — an additional, currently unestablished 4th-moment/tail condition on `X_n` would be needed too. This does not diminish the value of `Var(X_n)=O(1/n)` as a target in its own right (it remains this project's own original, still-open goal, independent of any connection to Conjecture 1) — it only corrects the specific, now-resolved claim that proving it would be a shortcut to the paper's own sharp asymptotic.
+
+**Updated `activeContext.md`** to reflect this correction, matching the practice used for every other point this window.
+
+
 
