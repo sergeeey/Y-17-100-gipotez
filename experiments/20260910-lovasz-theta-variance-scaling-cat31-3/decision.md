@@ -10167,5 +10167,13 @@ E[cosh(X_n)] − 1 = V_n/2 + E[X_n⁴]/24 + …
 
 **Updated `activeContext.md`** to reflect this correction, matching the practice used for every other point this window.
 
+**Addendum, same day — the missing condition is not merely unestablished, it can fail arbitrarily badly, not just fail to hold exactly.** An external-AI-relayed analysis proposed a specific rare-value construction to sharpen this; independently re-verified in `sympy` (`check_rare_value_counterexample.py`) before accepting: let `X_n = +2·log(n)` with probability `p_n`, `X_n = -2·log(n)` with probability `p_n`, and `X_n=0` otherwise (symmetric, so `E[X_n]=0` exactly, matching this project's own established self-complementarity fact). Choosing `p_n := 1/(8n(log n)²)` makes `Var(X_n) = 1/n` EXACTLY (verified symbolically, not approximately) — a valid, textbook example of `Var(X_n)=O(1/n)`, with `2p_n→0` confirming it is a legitimate probability distribution for all `n`. Yet:
+
+```
+E[cosh(X_n)] - 1 = (cosh(2 log n) - 1) / (4n(log n)²) → ∞  as n → ∞
+```
+
+(verified symbolically via `cosh(2 log n) = (n²+n⁻²)/2`, an exact closed form, then the limit computed directly — diverges, not merely "fails to converge to 1"). **This shows `Var(X_n)=O(1/n)` is compatible with `E[θ(G)]/√n` DIVERGING, not just failing to converge to the sharp constant `1`** — a rare, shrinking-probability tail of size `~log(n)` is enough to dominate `E[cosh(X_n)]` even as it contributes only `O(1/n)` to the variance, because `cosh` grows like `n²` at that tail scale while the variance only "sees" the tail quadratically-in-`X_n`, not exponentially. This does not claim `X_n` actually behaves this way for real random circulant graphs (no evidence either way is offered here) — it establishes that the missing uniform-integrability/tail condition identified above is not a minor technical formality: without it, `Var(X_n)=O(1/n)` genuinely does not constrain `E[θ(G)]/√n` at all, in the worst case.
+
 
 
