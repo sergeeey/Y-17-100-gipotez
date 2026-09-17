@@ -9933,24 +9933,27 @@ own `(POL)` target, even if fully proven, does **not** by itself prove the paper
 as stated. Both of its two load-bearing sub-claims were independently re-derived here (`sympy` /
 direct numeric check, not accepted on the source's own say-so) before being incorporated:
 
-**(a) `(SP)` (the authors' own sparsity conjecture, "no `cn`-sparse entrywise-positive vector in
-`ker(F̃)`") is STRICTLY WEAKER than `(POL)`-type `L₂` delocalization, not a "sharper, more specific
-version" of it as the first draft of this point claimed.** For any `y≥0` with `‖y‖₁=1`,
-Cauchy-Schwarz gives `1=‖y‖₁≤√(|supp y|)·‖y‖₂`, so a UNIFORM bound `‖y‖₂≤C/√n` (over the whole
-feasible set) does force `|supp y|=Ω(n)` — but the converse fails: **linear support size alone does
-NOT control `‖y‖₂`.** Verified directly (`verify_sp_vs_pol_gap.py`): the illustrative vector
-`y₁=1/2`, `y₂=…=y_{cn}=1/(2(cn-1))` has support `=Θ(n)` (satisfying the weak "not sparse" shape of
-`(SP)`) while `‖y‖₂→1/2` (a CONSTANT, not `O(1/√n)`), so `n‖y‖₂²→n/4→∞` — the exact POL-type
-quantity diverges even though support stays linear. **This is not merely an abstract illustration —
-this project's OWN Point 64 already proves the identical structural fact for THIS specific LP,
-exactly, not as a toy example**: the exact identity `n‖y‖₂²=(n/s)(1+CV_support(y)²)` with `s=Θ(n)`
-support saturation (Point 64, re-confirmed Points 83-89) shows the sparsity factor `n/s` alone has
-bounded expectation — **the entire POL burden lives in `CV_support²` (weight unevenness among the
-support), not in support size at all.** `(SP)` only constrains `s`; it says nothing about `CV²`.
-Consequence for Point 90's Step (a): checking `(SP)` vs `(POL)` for "logical equivalence" (as the
-original next-step list proposed) is not the right framing — `(SP)` is a genuinely weaker, necessary
-but nowhere near sufficient condition for `(POL)`, and this project's own prior work already
-demonstrates the gap concretely, not just abstractly.
+**(a) CORRECTED A THIRD TIME (external analysis, independently re-checked): `(SP)` and `(POL)` are
+not directly comparable as formally stated — the previous wording ("`(SP)` is STRICTLY WEAKER than
+`(POL)`") itself overstated the relationship by glossing over a quantifier mismatch.** `(SP)` is a
+claim over ALL positive kernel vectors (no `cn`-sparse one exists ANYWHERE in the feasible set —
+existential/worst-case over the whole polytope); `(POL)` concerns only the DISTINGUISHED optimizer
+`y*` specifically, and only in EXPECTATION, not almost-surely or worst-case. A clean single
+implication between them (in either direction) is not established, and asserting one overreaches in
+the same spirit as the point's earlier overclaims. **What IS correctly established, and is the
+right, narrower statement Point 64 actually supports: for the SAME vector, linear support size is a
+strictly weaker property than `L₂`-flatness — `|supp y|=Θ(n)` does NOT control `n‖y‖₂²`, even when
+both are asked of the identical `y`.** Verified directly (`verify_sp_vs_pol_gap.py`): the
+illustrative vector `y₁=1/2`, `y₂=…=y_{cn}=1/(2(cn-1))` has support `=Θ(n)` while `‖y‖₂→1/2` (a
+CONSTANT, not `O(1/√n)`), so `n‖y‖₂²→n/4→∞` — support size and `L₂`-flatness are independent axes for
+one and the same vector. This project's OWN Point 64 proves the identical fact exactly for `y=y*`,
+not as a toy example: `n‖y‖₂²=(n/s)(1+CV_support(y)²)`, `s=Θ(n)` bounded, all the POL burden in
+`CV_support²`. Consequence for Point 90's Step (a): comparing `(SP)` and `(POL)` for "logical
+equivalence" (the original framing) or even "strictly weaker" (the second-draft framing) is not the
+right question — the correctly-supported claim is narrower: sparsity control (which `(SP)` is about)
+and flatness control (which `(POL)` is about) are different axes for the same object, and Point 64
+already demonstrates this concretely for `y*` specifically, without needing to relate `(SP)` and
+`(POL)` as global propositions at all.
 
 **(b) Lemma 5, as a general (sign-unconstrained) RIP-type bound over the WHOLE kernel, CANNOT be
 sharpened to `O(1)` — the paper's own `n/log n`-sparse kernel-vector counterexample (already quoted
@@ -9969,7 +9972,18 @@ UNKNOWN constant, not Conjecture 1's specific `(1+o(1))√n`.** Via Cauchy-Schwa
 `E[θ(G)]≤n·√(K/n)=√K·√n`. This is `O(√n)` — matching the trivial lower bound's ORDER, which DOES
 close the `log log n` gap in Theorem 1's rate — but the constant is `√K`, not `1`, unless `(POL)` is
 additionally strengthened to `E[n‖y*‖₂²]→1` specifically (a much stronger, convergent-to-a-precise-
-value statement, not the `sup_n(…)<∞` boundedness `(POL)` actually asserts). **Corrected verdict:
+value statement, not the `sup_n(…)<∞` boundedness `(POL)` actually asserts). **Precision correction
+(external analysis, independently re-checked via `verify_cs_slack_not_necessary.py`): `E[n‖y*‖₂²]→1`
+is SUFFICIENT for Conjecture 1 via this specific Cauchy-Schwarz route, but is NOT shown to be
+NECESSARY in general.** `θ(G)=⟨y*,g⟩=‖y*‖₂‖g‖₂·cos(angle)` exactly, and Cauchy-Schwarz is tight only
+when `y*` is aligned with `g` (`cos(angle)→1`) — nothing forces this alignment, since `y*` is
+constrained to the feasible polytope, not free to point along `g`. Writing `E[n‖y*‖₂²]→c`, reaching
+`E[θ(G)]/√n→1` needs `√c·E[cos(angle)]→1`, i.e. `E[cos(angle)]→1/√c` — solvable for any `c>1` given
+enough Cauchy-Schwarz slack (verified symbolically: `c=2` needs `E[cos(angle)]=1/√2`, `c=4` needs
+`1/2`, etc.), not only at `c=1`. So Conjecture 1 could in principle hold even if `(POL)`'s own bound
+`K` (equivalently `c`) exceeds `1`, provided the angle between `y*` and `g` compensates — this
+project's own work says nothing about that angle, so `E[n‖y*‖₂²]→1` should be read as one sufficient
+route to the sharp constant, not the unique or necessary one. **Corrected verdict:
 `(POL)`, even fully proven exactly as currently stated, would prove the RIGHT ORDER (`Θ(√n)`,
 closing the paper's own headline rate gap) but NOT the sharp constant Conjecture 1 specifically
 claims.** The relayed analysis separately asserts that this project's ORIGINAL target
@@ -9992,9 +10006,11 @@ statement Lemma 5 proves for reasons unrelated to what is needed here), would cl
 Theorem 1 (removing `log log n`), matching the paper's own trivial lower bound's rate.** **Corrected
 (see the second correction subsection above): this does NOT extend to the sharp CONSTANT — proving
 `(POL)` as currently stated (`sup_n E‖x*‖²<∞`) gives `E[θ(G)]=O(√n)` with an unspecified constant,
-not the `(1+o(1))√n` Conjecture 1 specifically claims; getting the sharp constant would need `(POL)`
-strengthened to a convergence statement (`E[n‖y*‖₂²]→1`), which is a materially stronger, currently
-unmotivated claim not established or even attempted by this project's own `CV²` work.** One caveat
+not the `(1+o(1))√n` Conjecture 1 specifically claims; one SUFFICIENT (not shown necessary — see the
+third correction subsection above) route to the sharp constant would need `(POL)` strengthened to a
+convergence statement (`E[n‖y*‖₂²]→1`), which is a materially stronger, currently unmotivated claim
+not established or even attempted by this project's own `CV²` work — a different route without this
+exact Cauchy-Schwarz alignment requirement is not ruled out either.** One caveat
 not yet resolved: Lemma 5 bounds `‖y‖₂/‖y‖₁` uniformly over the ENTIRE feasible polytope (kernel of
 `F_wt`, intersected with the sign/support constraints), which is a priori a *stronger* statement
 than what is needed — this project's `(POL)` concerns only the specific LP-optimal `y*`, which could
@@ -10031,11 +10047,14 @@ short, currently-unclosed link away from closing the ORDER of Theorem 1's rate �
 if proven exactly as stated.** **Three concrete next steps, in order of cost, neither yet
 attempted**: (a) — cheap, no computation — formally state the paper's own sparsity conjecture
 (`no cn-sparse entrywise-positive vector in ker(F_wt)`) in this project's own established notation
-(`s`, `Q`, `y*`) and confirm explicitly (not just assert) that it is a STRICTLY WEAKER, necessary-
-but-not-sufficient condition for `(POL)` — established above via Point 64's own exact identity
-(`n‖y‖₂²=(n/s)(1+CV_support²)`, sparsity factor `n/s` bounded, all the burden in `CV_support²`) —
-rather than the earlier framing of this step ("check whether logically equivalent to, stronger than,
-or weaker than") which incorrectly left the direction of the relationship open; this project's own
+(`s`, `Q`, `y*`) — per the third correction above, do NOT frame this as checking `(SP)` vs `(POL)`
+for logical equivalence or strict weakness (both overreach given the quantifier mismatch: `(SP)` is
+a worst-case statement over the WHOLE feasible set, `(POL)` concerns only `y*` in expectation); the
+well-supported, narrower question is whether Point 64's own exact identity
+(`n‖y‖₂²=(n/s)(1+CV_support²)`, sparsity factor `n/s` bounded, all the burden in `CV_support²`)
+demonstrates the same sparsity-vs-flatness gap for `y*` specifically that the toy counterexample
+shows in general — already answered YES, so this step is really about writing that connection down
+precisely rather than resolving a still-open comparison; this project's own
 `s=Θ(n)` fact (Points 64/85) already shows the sparsest POSSIBLE case (`s=O(1)`, i.e. `c` independent
 of `n`) is already ruled out, so the open sparsity range to further constrain is specifically
 `s=Θ(n)` vs. the stronger `s=(1-o(1))n`-type density the conjecture would need, worth stating
