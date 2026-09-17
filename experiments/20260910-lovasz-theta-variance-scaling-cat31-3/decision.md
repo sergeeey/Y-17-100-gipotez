@@ -9061,3 +9061,167 @@ slope (now estimated from `n=509,1021,2039` only) continues to hold, and whether
 the only outlier or whether `n=509` also turns out to be pre-asymptotic once a longer baseline
 exists.
 
+## Point 88 (2026-09-17) — genuine attempt at the KKT/argmin-stability route (Point 87's 4B): citation mismatch found, direct margin-uniformity correlation killed with a cheap test
+
+**Context.** Point 87's § 4B recorded `boyko-specialist`'s single concrete, not-yet-tried
+suggestion: a "margin/nondegeneracy-based argmin-stability argument (Escande-style,
+arXiv:2304.00809)," built on the already-proven exact KKT fact `|supp(x*)|+|supp(y*)|=n+1`
+(Point 85) — the first approach in this proof-attempt line (77-87) proposed to use OPTIMALITY of
+the LP vertex, not just feasibility. This point is a genuine attempt at that route, following the
+same discipline as Points 77/85/86: verify the cited source first, then attempt the argument, then
+run the cheapest differentiating test before investing further — not a literature summary.
+
+### Step 1 — citation verification (before building anything on it) — [VERIFIED-REAL, but MISMATCH on the attributed technique]
+
+Per this session's standing rule ("never trust an agent's report at face value"), `Agent(verifier)`
+was sent to independently fetch and read arXiv:2304.00809 directly (not to re-confirm
+`boyko-specialist`'s characterization from memory). Result: **the paper is real** — Paul Escande,
+"On the Concentration of the Minimizers of Empirical Risks," *JMLR* 25 (2024) 1-53 (arXiv preprint
+April 2023) — confirmed via direct PDF read (pages 1-10), not just an abstract fetch. **But its
+actual content does not match what was attributed to it.** The paper derives concentration
+inequalities for the DISTANCE between empirical-risk minimizers and true-risk minimizers in general
+M-estimation problems (barycenters, LASSO, entropic-Wasserstein barycenters), under a Hölder-type
+local growth/error-bound condition on the risk function (its own Assumption 2) — a curvature
+condition on an OBJECTIVE FUNCTION near its minimizer, in a statistical estimation setting. **No
+LP theory, no duality, no complementary slackness, no "distance of a dual solution from the
+feasible-region boundary" appears anywhere in the paper's introduction or preliminaries.**
+`boyko-specialist`'s specific characterization of this paper ("Escande-style" LP margin argument)
+is a **misattributed/hallucinated technique attached to a real paper** — the paper itself is not
+hallucinated, but the specific mathematical content credited to it is. This is recorded honestly,
+not smoothed over: `boyko-specialist`'s underlying IDEA (LP-vertex non-degeneracy margins governing
+solution stability) is legitimate, standard LP sensitivity theory in its own right — it does not
+need this citation, and should not have been attributed to it.
+
+### Step 2 — the actual KKT structure of this project's LP, derived directly from `CertificateLP.solve()` — [VERIFIED-COMPUTATION]
+
+Re-deriving the LP directly from `codex-20260914-susceptibility/test_convolution_repair.py`
+(`CertificateLP.solve()`, read in full, not assumed): for free-generator set `free⊆{1,...,m}`, the
+LP is `maximize Σ_{k∈free} 2x_k` subject to `Σ_{k∈free} 2cos(2πtk/n)x_k ≥ -1` for `t=0,...,m`.
+Substituting the definition `y_t = (1/n)[1 + Σ_{k∈free}2x_k cos(2πtk/n)]` shows **each constraint
+`t` is algebraically identical to `y_t≥0`, with slack exactly `n·y_t`.** This is a genuine,
+previously-undocumented structural clarification worth stating explicitly: **`y` is the (scaled)
+PRIMAL SLACK of this LP, not its dual/Lagrange multiplier** — the actual LP dual variables are a
+separate quantity (`res.ineqlin.marginals` in the `scipy.optimize.linprog`/HiGHS output), nonzero
+exactly where `y_t=0` (complementary slackness), zero exactly where `y_t>0` (i.e., where `t∈supp(y)`).
+This gives two natural non-degeneracy margins to test:
+- **Primal margin**: `min_{t∈supp(y)} y_t` — how close the smallest ACTIVE (nonzero) constraint
+  is to becoming tight. A small primal margin means the vertex is close to a different, adjacent
+  vertex (small perturbation could zero out that coordinate).
+- **Dual margin**: `min_{t∉supp(y)} |λ_t|` — how close the smallest nonzero Lagrange multiplier
+  (on a currently-tight constraint) is to zero. A small dual margin means the vertex is close to a
+  vertex where that constraint becomes slack instead.
+
+### Step 3 — cheapest differentiating test: does either margin predict `CV²`? — [VERIFIED-COMPUTATION, independently corrected before being trusted]
+
+Per `rules/falsification-ladder.md` § Cheapest Differentiating Test Protocol: before attempting a
+full derivation connecting vertex-margin to `CV²`, check computationally whether such a connection
+is even plausible. Computed both margins and `CV²(y*)` jointly on `n=509`, 300 independent
+instances (same protocol as Point 87).
+
+**A real bug was caught and fixed before trusting any correlation number, not after**: a first
+version of this script computed `CV²` from only the first half of the frequency spectrum
+(`y[:m+1]`) for efficiency, reasoning (incorrectly) that duplicating each value under the `y_t=
+y_{n-t}` symmetry wouldn't change the mean/variance. This is WRONG: index `t=0` has multiplicity 1
+in the full `n`-length spectrum while every other support index has multiplicity 2, so a naive
+half-array mean/variance is NOT equal to the correctly-weighted full-array one. First-version
+output: `mean CV²=1.298` at `n=509` — inconsistent with Point 87's own established baseline
+(`0.9939`) at the same `n`. Diagnosed directly (compared `x`, full `y`, and `CV²` against the
+canonical `CertificateLP.solve()` output on an identical instance) before proceeding — found the
+solver itself was correct (`x` and full `y` matched the canonical output exactly), the bug was
+purely in the half-array summary statistic. Corrected to use the full `y` array for `CV²` (margins
+correctly stay defined over the `m+1` actual LP constraints, a different and legitimately smaller
+index set). Corrected run reproduces the Point 87 baseline exactly (`mean CV²=0.9939`, matching to
+4 decimals), confirming the fix before trusting the correlation numbers.
+
+**Result: no meaningful correlation, in either direction.**
+
+| pair | Pearson `r` | log-log `r` |
+|---|---:|---:|
+| `primal_margin_rel` vs `CV²` | `−0.084` | `−0.067` |
+| `dual_margin` vs `CV²` | `0.073` | `0.031` |
+
+With `n=300` samples, `SE(r)≈1/√300≈0.058` under the null of no correlation — every one of these
+four values is within `~1.2-1.5σ` of zero, none approaches conventional significance, and even a
+"significant" `r≈0.08` would explain `<1%` of `CV²`'s variance (`r²<0.01`). **This directly kills
+the simple, naive version of the argmin-stability idea**: whether a given random instance's LP
+vertex is close to degenerate (small primal or dual margin) does NOT predict whether that same
+instance's `y*` is unusually uneven (`CV²` far from its typical value). The two quantities appear
+to vary essentially independently across the ensemble of random instances.
+
+### Kill Analysis (per `rules/falsification-ladder.md` § Anti-Overfitting Gate)
+
+**What this kills**: the specific, direct hypothesis "per-instance LP-vertex non-degeneracy margin
+(primal or dual) predicts per-instance `CV²`" — the most natural, cheapest-to-test reading of
+`boyko-specialist`'s suggestion, and the one a stability/sensitivity argument in the classical LP
+sense would most directly produce. Also kills citing Escande arXiv:2304.00809 specifically for any
+future LP-margin argument in this project — that paper answers a different question.
+
+**What this does NOT kill**: (a) the general idea that SOME argument using LP optimality (not just
+feasibility) could still work — this test only rules out the single most direct, per-instance
+correlational form of it, not every possible optimality-based argument; (b) any argument that uses
+the margins in aggregate/ensemble form rather than per-instance (e.g., a claim about the
+DISTRIBUTION of margins across the ensemble, rather than instance-by-instance pairing with `CV²`)
+— not tested here; (c) Point 87's own `~1/√n`-law finding for `n≥509`, which is independent of this
+route and unaffected by this result.
+
+**Relaxation Map, if this route is revisited**: (i) test whether the margins predict something
+OTHER than `CV²` directly — e.g., whether small margins predict instability of `CV²` itself under
+a one-bit perturbation (a genuinely dynamic stability claim, closer to what LP sensitivity theory
+actually proves, rather than a static cross-sectional correlation); (ii) test a MULTI-coordinate
+margin statistic (e.g., the full margin distribution's shape, not just its minimum) rather than a
+single worst-case margin, which may be too crude a summary; (iii) look for a genuine LP-duality
+paper on random-polytope vertex uniformity (not the misattributed Escande citation) via a fresh,
+narrowly-scoped literature pass, if this route is pursued further.
+
+### Skeptic-fallback review — real agent, context-asymmetric, three concrete attacks each independently tested afterward
+
+Ran `Agent(skeptic)` on the raw claim + summary-statistics table only (no reasoning chain, no
+access to the code or raw arrays — exactly the numbers reported above). **Verdict: `FALSIFIED`**,
+with three specific, well-reasoned lines of attack, each making a concrete, testable empirical
+prediction — not vague doubt. Per this session's discipline, a skeptic's `FALSIFIED` is itself a
+claim requiring independent verification, not something to accept on its word (symmetric to how
+`boyko-specialist`'s citation was checked in Step 1, not trusted). All three attacks were
+re-tested directly against the raw 300-instance data (previously only reported as summary
+statistics to the skeptic):
+
+| # | Skeptic's attack | Skeptic's prediction | Direct test result | Verdict on the attack |
+|---|---|---|---|---|
+| 1 | The two raw correlations have opposite signs (`−0.084` vs `+0.073`); if the two margins are themselves strongly correlated (`ρ(primal,dual)` inferred as `0.45-0.9` from how closely their summary-stat ratios track each other), a Steiger-type test on the DIFFERENCE of the two correlations rejects "both are zero" at `1.9-6.1σ` | `ρ(primal_margin_rel, dual_margin)` should be substantially positive (`0.45+`) | **Directly measured: Pearson `ρ=−0.0074`, Spearman `ρ=0.027`** — indistinguishable from zero. Joint regression `CV²~primal+dual`: `R²=0.012`, `F(2,297)=1.85`, `p=0.16` — not significant. The near-constant ratio in the summary statistics (mean/std/min/max) that motivated this attack was a coincidence, not evidence of correlation between the two margins themselves. | **Does not survive** — its central empirical premise was tested directly and is false |
+| 2 | A stability/KKT argument predicts a variance (heteroscedasticity) effect on `CV²`, not a mean-shift — Pearson `r` (even log-transformed) is structurally blind to this, so "no correlation" doesn't mean "no relationship" | `corr(\|CV²−mean(CV²)\|, margin)` should show a real effect; `Var(CV²)` should be visibly higher in low-margin deciles | **Directly measured: `corr(\|CV²−mean\|, log(primal))=−0.014`, `corr(\|CV²−mean\|, log(dual))=−0.060`** — both near zero. `Var(CV²)` across 10 primal-margin deciles ranges `0.0104–0.0268` with no monotonic pattern (lowest-margin decile: `0.0175`; highest: `0.0113`; the actual max, `0.0268`, is in the MIDDLE decile 6) — consistent with noise, not a stability-driven heteroscedasticity effect | **Does not survive** — the specific pattern it predicts is absent from the data |
+| 3a | `primal_margin_rel` and `CV²` share a common random factor `s` (support size) by construction (`primal_margin_rel=slack·s`, `CV²=s‖y‖²−1`), so part of the observed correlation could be a mechanical ratio artifact (Pearson's 1897 spurious-ratio-correlation effect), not physical | Partial correlations controlling for `s` should differ materially from the raw ones; margins should correlate with `s` | **Directly measured: `corr(primal_margin_rel,s)=−0.040`, `corr(dual_margin,s)=−0.095`** — both weak, so the shared-factor concern is much smaller than feared. **Partial correlations**: `partial_corr(primal,CV²\|s)=−0.107` (up somewhat from raw `−0.084`, but still `<2σ` at `n=300`), `partial_corr(dual,CV²\|s)=+0.041` (essentially unchanged). Unnormalized `slack_raw` (no `s`-dependent normalization at all) vs `CV²`: `r=−0.056`. **Genuine side-finding, not previously noted anywhere in this project: `corr(CV²,s)=−0.371`** — `CV²` itself correlates moderately with support size (larger support → somewhat more uniform), a real, separate observation worth flagging for a future point, unrelated to the margin question | **Partially survives as a caveat, does not reverse the verdict** — the shared-factor concern is real in principle but small in practice; partial correlations remain non-significant |
+| 3b (secondary) | No pre-registered MCID/equivalence test — the 95% CI on `r(primal,CV²)` (`[−0.196,+0.029]`, Fisher-z) does not exclude a meaningful effect (`\|r\|` up to `~0.2`) | — (methodological point, not a specific empirical prediction) | **Addressed by the weight of evidence across ALL tests above**, not a single CI: joint regression `p=0.16`; Spearman `p=0.49`/`p=0.29`; heteroscedasticity near zero; partial correlations non-significant. A single non-significant `r` with a wide CI would indeed be weak evidence alone — five converging null results from five different angles is stronger | **Accepted as a fair methodological point**; addressed via converging multi-test evidence rather than a single number |
+| 3d (secondary) | The "sanity check" (mean/std matching Point 87's baseline to 4 decimals) is itself suspicious — for genuinely independent 300-instance samples, agreement that precise has `~0.4%` probability, implying the SAME seeds were reused, meaning this checks pipeline determinism, not correctness, and there is "no positive control" | — | **This is correct about the mechanism, but the skeptic's inference about intent is backwards**: the same `SEED_BASE`-derived seeds as Point 87 were used ON PURPOSE, stated explicitly in this point's own Step 3 text ("Corrected run reproduces the Point 87 baseline exactly... confirming the fix before trusting the correlation numbers") — this was never meant as an independent replication, it is a computational-correctness check (does this new script solve the SAME instances correctly, matching a value already independently established in Point 87). The skeptic read it as a claimed independent replication because that framing wasn't explicit enough at the time; corrected here | **Not accepted as stated** — the skeptic's technical point (same seeds ⇒ not independent) is correct, but its conclusion ("no positive control exists") is wrong: matching a known-correct value from a different measurement IS the positive control, by design, not a coincidence to be suspicious of |
+
+Also directly tested, beyond what the skeptic proposed, as a natural extension of its own Attack 2
+line (does the relationship strengthen in the most probably-informative tail): the bottom decile
+by margin (`n=30` each). `primal_margin_rel` bottom decile: `r(margin,CV²)=−0.154`,
+`r(margin,\|CV²−mean\|)=−0.210`; `dual_margin` bottom decile: `r(margin,CV²)=+0.228`,
+`r(margin,\|CV²−mean\|)=+0.098`. These are the largest-magnitude correlations found anywhere in
+this re-analysis, but at `n=30` (`SE(r)≈0.19`) none reach even `1.5σ` — genuinely underpowered to
+resolve, not evidence either way, honestly reported as such rather than rounded up or down.
+
+**Net effect of the skeptic pass**: every one of its three specific, falsifiable predictions
+(strong inter-margin correlation; heteroscedasticity; a shared-factor artifact large enough to
+explain the result) was tested directly against the raw data and did NOT hold up. This is a
+stronger, not weaker, basis for the original kill verdict than the two-number check alone would
+have been — the claim survived a genuine, sharp adversarial attack with concrete empirical stakes,
+not just a rhetorical one. Per the Recomposition Gate (`falsification-ladder.md` § Step 8a): the
+individually-tested sub-claims (no raw correlation; no inter-margin amplification; no
+heteroscedasticity; no material shared-factor confound) do combine validly to support the full
+claim ("this direct form of the KKT-margin hypothesis is not supported by the data") — no
+additional untested assumption is smuggled in by stating them together.
+
+### Verdict
+
+`(POL)` and `F4rel` remain **not proven**. The KKT/argmin-stability route, in the specific form
+`boyko-specialist` suggested and as most directly tested here, is **killed** (not merely "not yet
+tried," as it stood after Point 87) — and this verdict is now considerably better-supported than
+the original two-number check, having survived a genuine adversarial pass whose three concrete
+alternative explanations were each tested and found absent. Side-findings worth keeping: the
+citation misattribution (corrected here so it isn't propagated), a clean structural clarification
+of this project's own LP (`y` = primal slack, not dual), and a new, unexplained observation
+(`corr(CV²,s)≈−0.37` — larger support size correlates with somewhat more uniform `y*`) that is
+unrelated to the margin question but may be worth a future point of its own. No cheap next step is
+queued from this specific KKT-margin route; the most concrete remaining lead on record is still
+Point 87's own `~1/√n` finding for `n≥509`, which this point neither strengthens nor weakens.
+
