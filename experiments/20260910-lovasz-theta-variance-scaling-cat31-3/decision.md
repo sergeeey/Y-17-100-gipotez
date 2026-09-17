@@ -9497,3 +9497,95 @@ unrelated to the margin question but may be worth a future point of its own. No 
 queued from this specific KKT-margin route; the most concrete remaining lead on record is still
 Point 87's own `~1/√n` finding for `n≥509`, which this point neither strengthens nor weakens.
 
+## Point 89 (2026-09-17) — the "D2" pair-weight hypothesis: genuine provenance gap disclosed and closed; residual test run, headline "33σ" result WITHDRAWN after a devastating skeptic pass, but the qualitative kill survives
+
+**Provenance, disclosed explicitly (Gate 1 discipline).** An external analysis (relayed by the
+user) introduced an object called "D2" and a residual-test formula not found anywhere in this
+experiment's own `decision.md` (`grep`-verified: zero matches for "D2", "Γ_n", "pair weight",
+"Dirichlet(2" before this point). The user explicitly disclosed, unprompted, that this was
+imported from an earlier, different branch of the broader project without stating its origin at
+first — exactly the kind of artifact-identity gap `artifact-provenance-gates.md` Gate 1 exists to
+catch, caught and corrected here rather than silently absorbed. **D2, stated precisely**: for the
+support `{0,±b_1,...,±b_Q}` of `y*` (so `s=2Q+1`, matching this project's own established exact
+KKT identity, Point 85), define pair-weights `p_j = 2y_{b_j}/(1-y_0)` (summing to `1`); D2
+heuristically models `(p_1,...,p_Q) ≈ Dirichlet(2,...,2)`, which has an exact large-`Q` limit
+`E[Q·Σp_j²]→3/2`. Combined with the identity `Γ:=(2Q+1)‖y‖²` this predicts
+`Γ ≈ μ_D2(Q,y_0) := (2Q+1)y_0² + 1.5(1-y_0)²`. **A genuinely useful, previously-unnoticed algebraic
+fact, verified directly**: `Γ = (2Q+1)‖y‖² = s‖y‖² = CV²+1` exactly (using this project's own
+`CV²=s‖y‖²−1` identity from Point 88) — meaning the D2 residual `R:=Γ−μ_D2` is computable
+**entirely from data this project already has**, no new LP solves needed for the already-measured
+`n` values.
+
+### Test run and first-draft (withdrawn) headline finding
+
+Computed `Q`, `y_0`, `Γ`, `μ_D2`, `R` per-instance on `300` fresh solves at `n=127,509,1021,2039`
+(same seeds/protocol as every other addendum in this chain). **Positive control passed exactly**:
+`Γ−1` matched the already-published `mean(CV²)` values (`0.9874/0.9939/1.0042/1.0303`) to 4
+decimals — confirms the LP solves and the `Γ=CV²+1` identity, though (see skeptic finding 4
+below) this specific check does NOT validate the NEW quantities `Q`/`y_0`/`μ_D2` introduced here.
+Raw result: `E[R]` is clearly positive and DECREASING with `n` (`0.2284→0.1201→0.0998→0.0942`,
+`SE` shrinking `0.0181→0.0058→0.0035→0.0023`). A first-draft fit `R=a+b/Q` gave `a=0.0847±0.0026`
+(`33σ` from zero, `χ²=0.538` on `2` dof) — read as "D2 does not explain the drift; the residual
+converges to a real, nonzero constant `≈0.085`, not to `0`."
+
+### Skeptic-fallback review — real agent, context-asymmetric — headline number WITHDRAWN, not merely caveated
+
+Sent to `Agent(skeptic)` with only the raw table + the claim, no reasoning chain. **Verdict:
+`FALSIFIED`** for the specific `a=0.0847±0.0026, 33σ` claim (the qualitative `R>0` finding
+separately survives — see below). Every point independently re-derived and confirmed exactly
+before being accepted, matching the skeptic's own numbers to the last digit:
+
+| Skeptic finding | Independent re-derivation | Verdict |
+|---|---|---|
+| **Model-shopping**: `1/Q` was one arbitrary choice among several equally "natural" finite-size forms; refitting `R=a+b/√Q` gives `a=0.0583±0.0056` (`10.4σ`), and `R=a+b/ln Q` gives `a=−0.0256±0.0165` (**`−1.6σ` — consistent with ZERO**). The spread of `a` across forms (`−0.026` to `+0.085`, width `≈0.11`) is `~40×` the quoted `SE` | **Confirmed exactly**: reproduced all three fits to 4 decimals | **Accepted, headline withdrawn**: "33σ" is an artifact of which functional form was tried, not a property of the data |
+| **The `1/Q` choice actively contradicts D2's OWN algebra**: `y_0·√Q` is empirically CONSTANT across all 4 points (`≈0.50`, confirmed `0.5068/0.5014/0.4975/0.5007`) — i.e. `y_0` is not an independently-varying measurement, it is determined by `Q` to `~0.5%`. Substituting `y_0=0.5/√Q` into `μ_D2` gives leading finite-size correction `∝Q^{-1/2}`, NOT `Q^{-1}` — the analyst fit the wrong leading power relative to the model's own structure. Separately: `Q/n≈0.25` throughout (confirmed `0.246/0.249/0.251/0.249`), correcting this point's own initial framing of "`Q≈n/2`" | **Confirmed exactly**: `μ_D2(y_0=0.5/√Q) = 2 − 1.5Q^{-1/2} + 0.625Q^{-1} + O(Q^{-3/2})`, matched numerically to 4 decimals at all 4 `n` | **Accepted**: `Q/n≈1/4` (not `1/2`) corrected; `1/Q` was the wrong leading-order form to fit, given D2's own structure |
+| **Nearly all discriminating power between forms comes from the single point `n=127`** (already flagged elsewhere in this project as a likely pre-asymptotic outlier, Point 87§4F/4I): excluding it, `R=a+b/\ln Q` gives `a=0.0141±0.0212` — `0.7σ`, cleanly consistent with `0` | **Confirmed exactly**: reproduced `0.0141±0.0212`, `χ²=1.55` (1 dof) | **Accepted**: same "`n=127` drives everything" pattern already found once in 4I's model comparison, now found a second time in an unrelated test — a real, recurring methodological lesson for this whole `n`-range, not a one-off |
+| **Circularity**: since `Γ=CV²+1` exactly, `R=(2−μ_D2)+(CV²−1)` — and with `y_0√Q≈0.5` fixed, `(2−μ_D2)` is a nearly-deterministic function of `n` alone. **`R`'s trend is therefore not independent new information — it is algebraically the SAME already-studied `mean(CV²)` drift from Points 87/4I/4G, relabeled.** | **Confirmed exactly**: `(2−μ_D2)+(CV²−1)` reproduces `R` to 4 decimals at all 4 `n` (e.g. `n=2039`: `0.0639+0.0303=0.0942=R`) | **Accepted, most important finding of this point**: the D2 residual test, AS RUN HERE, does not add independent evidence beyond what Points 87/4I already established (and already found inconclusive) — it is the same question in different notation |
+| **The "positive control" (`Γ−1=CV²`) validates only arithmetic, not the model**: `Γ` was DEFINED as `CV²+1` by construction, so this match is a tautology — it does not test whether `Q`/`y_0` were extracted correctly, nor whether `μ_D2` itself is a sound approximation, even at finite `Q`. A REAL positive control (not run here) would generate synthetic `y` with pair-weights drawn from an actual `Dirichlet(2,...,2)` at the observed `(Q,y_0)` and confirm `R→0` on that synthetic data | **Accepted as a valid methodological gap**, not run in this point — flagged as the concrete next step if this line is pursued further | **Accepted, not run — recorded as an open gap, not silently closed** |
+
+### What survives — the qualitative kill, independent of functional form
+
+**`R>0` at every tested `n`, with overwhelming significance regardless of which functional form
+is used to describe its trend** (e.g. `R=0.0942±0.0023` at `n=2039` is `41σ` from zero on its own,
+with no extrapolation or functional-form assumption at all). **This licenses exactly one
+qualitative claim, and no more**: `D2` (the `Dirichlet(2,...,2)` pair-weight heuristic) does
+**NOT** fully explain `Γ` (equivalently, `mean(CV²)`'s value) at any of the tested `n≤2039` — a
+real, substantial, structurally-uniform gap exists between the simple pair-weight heuristic and
+the actual measured energy. **What does NOT survive**: any specific claim about where `R`
+converges, whether it converges to `0` or to a positive constant, or what functional form
+describes its approach — the data cannot currently distinguish these (forms ranging from
+"consistent with `R→0`" to "`R→0.085`" all fit acceptably well once `n=127`'s outsized leverage
+and the wrong-power-law critique are accounted for).
+
+### Skeptic's proposed decisive test — not yet run, recorded for a future point
+
+A genuinely differentiating test exists and is cheap: predictions for `R` at `n=8009` (data this
+project already has the LP pipeline for, per Point 87§4H) diverge meaningfully across the
+candidate forms (`a+b/Q` predicts `≈0.087`; a zero-asymptote `c/ln Q` form predicts `≈0.076`),
+with an estimated required separation of `≥12σ` achievable with only `30-50` reps at that `n`
+(cheap relative to `n=8009`'s own `~15min/instance` LP cost, since 30-50 reps is far fewer than
+the `12` already run for Point 87§4H's own mean-drift measurement at that `n`). **Not run in this
+point** — flagged as the concrete next step, not executed here, per this session's practice of
+not silently expanding scope mid-point.
+
+### Verdict
+
+`(POL)` and `F4rel` remain **not proven**. The D2 line of inquiry, precisely because its
+provenance was disclosed rather than hidden, turned into a genuinely useful methodological
+lesson rather than a wasted detour: (1) the qualitative finding (`D2` alone does not explain `Γ`)
+is real and robust; (2) the quantitative headline (`R→0.085`, `33σ`) does not survive and is
+explicitly withdrawn, not merely softened; (3) most importantly, **this specific residual test, as
+constructed, is algebraically equivalent to the already-open `mean(CV²)` drift question from
+Points 87/4I/4G** — it does not open a new, independent line of evidence, a fact only visible
+after the skeptic's circularity finding, not before. Per the user's own framing before this test
+was run ("if `ER` itself grows, D2 fails as an explanation for the mean; if `ER≈0`, a concrete
+mechanism exists") — the honest outcome is a third case neither option anticipated: `R` is
+robustly positive and shrinking, but whether it approaches `0` or a positive floor is exactly as
+undetermined as `mean(CV²)`'s own asymptotic behavior, because the two questions turn out to be
+the same question. **This is consistent with, and does not override, the user's own final
+recommendation** (stop the model-fitting exercise, avoid turning absence of information into "a
+thicker Excel file") — if anything, the circularity finding strengthens that recommendation: not
+only does comparing more asymptotic curves add little (4I), but reformulating the same question
+through a different heuristic (D2) adds little either, unless a genuinely independent quantity
+(not algebraically reducible to `mean(CV²)`) is found to test against.
+
