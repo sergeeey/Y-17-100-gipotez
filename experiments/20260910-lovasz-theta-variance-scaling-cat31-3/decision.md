@@ -9112,25 +9112,132 @@ arithmetic) before being written here:
    require `E‖x*‖²`/`CV²` to stay `O(1)`, which a slowly-growing-but-bounded mean would still
    satisfy, but a genuinely unbounded drift would not.
 
+### 4H. Addendum (2026-09-17, same day) — a 6th point (`n=8009`): `mean(CV²)` keeps growing (not leveling off), dispersion side genuinely underpowered at `REPS=12` — [VERIFIED-COMPUTATION]
+
+Extended to a 6th point, `n=8009` (first prime `≥8009`). **A real cost obstacle was surfaced
+honestly to the user before committing resources, not silently absorbed**: single-instance timing
+at this size came in at `~14-18` minutes per LP solve (`857s`/`1054s` for 2 test instances,
+confirming the `solve_no_timelimit()` wrapper from 4G, not a new implementation) — far past this
+addendum's own `5-10` minute feasibility threshold. Reported to the user with explicit cost
+estimates for several `REPS` options; user chose `n≈8009` with `10-15` reps over a smaller,
+faster-but-less-informative `n`. Ran `REPS=12`, total wall time `9793s` (`~2.7h`).
+
+| n | reps | mean `CV²` | SE(mean) | `(mean−1)/SE` | `std` | `CV_of_CV2` | bootstrap 95% CI |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 8009 | 12 | 1.0505 | 0.0056 | **9.02** | 0.0195 | 0.0186 | `[0.0098, 0.0254]` |
+
+Independently re-verified from the raw saved array to 4 decimals.
+
+**First-draft framing (immediately below, struck through in spirit not in text) claimed the
+aggregate dispersion fit "survives" and the mean's increments look merely "noisy." Sent to a real,
+context-asymmetric skeptic — an unusually thorough pass that found real problems in three separate
+places, including a genuine arithmetic error in this addendum's own first draft. All corrected
+below, each independently re-derived (not accepted on the skeptic's own numbers) before being
+written up. See § Skeptic-fallback review for the full Response Matrix.**
+
+### Corrected findings
+
+**1. Dispersion side (`std(CV²)`): "the aggregate fit survives" was a true but nearly empty
+statement — the test had almost no power to detect the very break it was checking for.**
+`n=8009`'s `REPS=12` point carries only `~1.1%` of the total weight in a 5-point weighted fit
+(`n≥509`); a test that can't be moved by the new point can't meaningfully "confirm" anything about
+it. A two-sided test at this power (`slope=−0.529±0.032`, `0.9σ` from `−0.5`) has only `~15%`
+power to distinguish `H0: law holds everywhere` from `H1: the law breaks exactly as steeply as
+locally observed` — non-rejection was near-guaranteed under BOTH hypotheses. The correct verdict
+is **not tested**, not **survives**. Separately, and more informative: if `n=127` (excluded from
+this fit as a likely pre-asymptotic outlier, per 4F's own documented case) is instead FORCED onto
+the same `−0.5` line anchored on `n=509..4001`, its residual is `+8.3σ` — i.e. `n=127` deviates
+from `−0.5` in the SAME direction (steeper decline than `−0.5` would predict... actually shallower;
+`n=127`'s dispersion is higher than the line predicts) as `n=8009`'s local deviation. **Both ends
+of the currently-measured range show tension with a single clean `−0.5` law across all 6 points**
+(a 6-point fit including `n=127` gives slope `−0.616±0.017`, `6.7σ` from `−0.5`, `χ²=17.3` on `4`
+dof, `p=0.0017` — clearly rejected) — the `−0.5` law is well-established only across roughly ONE
+decade (`n≈500-4000`), not the full `127-8009` range measured so far. This had not been stated
+plainly before this correction.
+
+**2. `n=8009`'s specific low `std` value is NOT simply "noise from 12 reps" — that attribution
+was asserted, not tested, and part of it is a known, correctable small-sample bias, not
+randomness.** Using the EXACT chi-square-based sampling SE for `ln(std)` at `reps=12`
+(`σ=0.2232`, not the `0.2132` approximation used in the first draft — a `~5%` difference) and the
+known downward bias of the log-std estimator at small sample sizes (`E[ln(ŝ)]−ln(σ) ≈ −0.047` at
+`reps=12`, computed via the digamma function, independently re-derived and matching): after
+correcting for this bias, the deviation from the `−0.5`-anchored prediction shrinks from `z=−2.35`
+to `z=−2.05` — still a real, non-trivial deviation (not attributable to bias alone), but smaller
+than first reported, and "noise" is the wrong word for the `~9%` of the original deviation that
+bias fully explains. **What remains after the bias correction (`z≈−2.05`) is honestly
+undetermined**: a genuinely cheap, not-yet-run validation exists using already-collected data —
+subsampling `n=2039`'s existing `300` reps and `n=4001`'s existing `100` reps into disjoint groups
+of `12` and empirically checking how often a `12`-sample `std` deviates this much from the
+full-sample value — but this requires the original raw arrays, which were not retained on disk
+past this session (see caveat below); flagged as the concrete next validation step, not run here.
+
+**3. `mean(CV²)`'s increments are NOT well-described as "noisy around a persistently positive
+value" — a proper test shows something both cleaner and more nuanced than that phrase suggests,
+and one part of the original framing was a genuine arithmetic error.** The `127→509` interval
+spans `2` octaves in `n` (`509/127≈4.0×`), while every other interval spans almost exactly `1`
+octave — the first draft's increments (`+0.0065,+0.0103,+0.0261,+0.0075,+0.0127`) were compared as
+if equally spaced, which they are not. Octave-normalized: `+0.0032,+0.0103,+0.0262,+0.0077,
++0.0127` per octave. **A weighted least-squares fit of `mean(CV²)` vs `ln(n)` across all 6 points
+gives a clean, well-fitting constant log-linear drift**: `+0.0141±0.0018` per octave (`χ²=4.94` on
+`4` dof, a GOOD fit — not "noisy," a well-described smooth trend). Two further, more careful
+tests, independently run:
+   - **"Is the mean already flat for `n≥2039`?" — rejected**: weighted constant-mean test on
+     `{2039,4001,8009}` alone gives `χ²=8.95` on `2` dof (`p≈0.011`) — the mean is NOT already
+     flat at currently-measured values.
+   - **"Is unbounded log growth distinguishable from asymptotic saturation to a higher
+     constant?" — NOT resolved, and the first draft's "not evidence of leveling off" was too
+     strong a claim, corrected here.** A saturating alternative model, `mean = a + b·n^{-1/4}`
+     (same number of free parameters as the log-linear fit), gives `a=1.102±0.010` (a genuine
+     asymptote) with `χ²=6.87` on `4` dof — only `Δχ²=1.9` worse than the log-linear model
+     (`≈1.4σ` preference, far from decisive). **The data through `n=8009` cannot distinguish
+     "`mean(CV²)` grows without bound (slowly, logarithmically)" from "`mean(CV²)` saturates
+     around `≈1.10`"** — both remain live descriptions.
+
+**A genuine coupling between findings 2 and 3, flagged explicitly rather than left implicit**: the
+originally-reported `(mean−1)/SE=9.02` — described in the first draft as "the largest deviation
+yet" — uses `SE(mean)=std/√12`, and `std` is exactly the same quantity finding 2 questions as
+possibly biased low. If finding 2's own alternative (`std≈0.0323`, the `−0.5`-law prediction) were
+used instead, `SE(mean)` would be `0.0093` and `z` would be `5.4` — SMALLER than `n=4001`'s own
+`8.34`, not "the largest yet." **These two z-scores are not independent facts and should not be
+quoted together without this caveat** — reported here explicitly so this addendum does not
+silently repeat the coupling error.
+
+### Skeptic-fallback review — real agent, context-asymmetric, every numeric correction independently re-derived before being accepted
+
+| First-draft claim | Skeptic verdict | Independent re-derivation | Response |
+|---|---|---|---|
+| Aggregate 5-point fit "survives" the `−0.5` law | `WEAKENED` | Confirmed: `n=8009` carries `~1.1%` of fit weight; power against the locally-observed alternative `≈15%`; `n=127` (excluded here) shows an `8.3σ` residual against the same line, and a 6-point fit including it rejects a single `−0.5` law at `p=0.0017` | **Accepted, corrected**: "survives" → "not meaningfully tested"; both-ends tension with `n=127` now stated explicitly |
+| Local `4001→8009` deviation is "noise from `reps=12`," non-contradictory with the aggregate result via "appropriate downweighting" | `NEEDS-REAL-DATA` | Confirmed: exact chi-square SE is `0.2232` not `0.2132`; small-sample log-std bias is `−0.047` (digamma-derived), explaining `~9%` of the deviation; bias-corrected `z=−2.05` (from `−2.35`); the "appropriate downweighting" argument is circular (its own weight is derived assuming the null) | **Accepted, corrected**: bias-corrected number substituted; "noise" language replaced with "undetermined, cheap validation not yet run"; circular reasoning flagged and removed |
+| Mean increments "noisy around a persistently positive value," "not evidence of leveling off" | `WEAKENED` | Confirmed arithmetic error (first interval is `2` octaves, not `1`); confirmed clean log-linear fit (`χ²=4.94`/`4`dof) contradicts "noisy" as a characterization; confirmed the saturating-model comparison (`Δχ²=1.9`, `~1.4σ`) means "not evidence of leveling off" is an overclaim — the data cannot distinguish unbounded slow growth from saturation near `1.10` | **Accepted, corrected**: octave normalization fixed; "noisy" replaced with the fitted trend; "not evidence of leveling off" walked back to "cannot distinguish growth from saturation near ≈1.10" |
+
+No claim in this addendum survived first-draft wording unchanged — recorded as the review doing
+exactly what it is for, not as a failure of the addendum. One recommended validation (subsampling
+existing `n=2039`/`n=4001` raw arrays into groups of `12` to empirically calibrate the small-`reps`
+attribution) was NOT run — the raw arrays were not retained on disk past their originating
+sessions — flagged as the concrete, cheap next step rather than silently dropped.
+
 ### Verdict and next step
 
-`(POL)` and `F4rel` remain **not proven** — this point adds evidence, not a proof, and — per the
-skeptic pass — the evidence is now more precisely characterized, not simply "more robust" as a
-first draft claimed. What survives across all 5 points: `CV²` stays `O(1)` across every instance
-measured (max `4.155`, `n=127`'s own value); its instance-to-instance dispersion shrinks at
-essentially the ordinary `n^{-1/2}` rate expected for an average over `Θ(n)` terms — not a mystery
-requiring its own explanation; and `mean(CV²)` is real, significantly (not noise) drifting upward
-across `n≥509`, with its long-run limit genuinely unresolved. This is a more accurate, if less
-dramatic, picture than the original "the `~1/√n` law is confirmed and considerably more robust"
-framing — a case of adversarial review sharpening rather than merely validating the finding. The
-KKT/argmin-stability route flagged here as the next step (4B) was subsequently attempted and
-killed in Point 88 (citation mismatch found; direct margin-CV² correlation tested and absent,
-surviving its own real adversarial skeptic pass) — it is NOT still open. **The most concrete
-remaining next step, if this line is pursued further**: since the dispersion side of the question
-is now essentially resolved (ordinary `n^{-1/2}` behavior, no further points needed to establish
-this), the open question worth a further point is specifically about `mean(CV²)`'s long-run
-behavior — a 6th point at `n≈8000-16000`, with enough reps to get `SE(mean)` tight enough to
-distinguish "still growing at the same log-log rate" from "leveling off," would be the differentiating test, not a further refinement of the dispersion slope.
+`(POL)` and `F4rel` remain **not proven** — six points in, still evidence, not a proof, and — per
+this addendum's own skeptic pass — the evidence is honestly messier at both ends of the measured
+range than either 4G's clean dispersion story or a first-draft reading of this point suggested.
+What survives: `CV²` stays `O(1)` across all `1212` total instances measured across 6 `n` values
+(max observed `4.155`); a `−0.5`-type dispersion law holds cleanly across roughly one decade
+(`n≈500-4000`) but is NOT established across the full `127-8009` range (rejected at `p=0.0017`
+when `n=127` is included); and `mean(CV²)` follows a clean, well-fit log-linear drift
+(`+0.0141±0.0018`/octave) through `n=8009`, with the data unable to distinguish continued slow
+growth from saturation near `≈1.10`. **The KKT/argmin-stability route (4B) remains killed per
+Point 88, not reopened by this finding.** The most concrete remaining next steps, in order of
+cost: (a) — cheapest, uses no new LP solves — if a future session still has access to raw
+per-instance arrays at `n=2039`/`4001`, run the subsampling validation flagged in finding 2
+before trusting any further conclusions about small-`reps` bias at this problem size; (b) a 7th
+point specifically designed to discriminate the log-linear-vs-saturating models for `mean(CV²)`
+(the two models' predictions diverge most at very large `n` — e.g. at `n≈64000` they differ by
+`≈0.011`, requiring `SE(mean)≲0.004`, i.e. `reps≳25` given `std≈0.007` there under either model)
+— expensive, and only worth it if the mean's asymptotic behavior specifically is still a priority;
+(c) an analytic argument for `mean(CV²)`'s drift, checking first whether it is already implied by
+Bandeira et al.'s existing `O(log³n)`-type bound (Point 79/87§4A) before running further expensive
+numerical points.
 
 ## Point 88 (2026-09-17) — genuine attempt at the KKT/argmin-stability route (Point 87's 4B): citation mismatch found, direct margin-uniformity correlation killed with a cheap test
 
