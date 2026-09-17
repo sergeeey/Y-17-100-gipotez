@@ -9589,3 +9589,99 @@ only does comparing more asymptotic curves add little (4I), but reformulating th
 through a different heuristic (D2) adds little either, unless a genuinely independent quantity
 (not algebraically reducible to `mean(CV²)`) is found to test against.
 
+## Point 87 §4J (2026-09-17, same day) — testing 4I's own recommendation (tighten `n=127`): the tightened point provides ZERO new discriminating power between candidate forms — a sharp, independently-confirmed null result
+
+**Context.** Point 87§4I's own two mutually-exclusive branches ("if `n=127` is in the same regime,
+`16×` more reps should let it discriminate properly rather than by leverage; if judged
+pre-asymptotic, exclude it") were tested directly, per explicit user instruction, rather than left
+as an unresolved choice. `n=127` was re-run with `4800` reps (`16×` the original `300`) using the
+identical protocol; `n=509` was then ALSO re-run at `4800` reps (user's explicit follow-up
+instruction) to check whether the finding below is specific to `n=127` or a more general property
+of tightening any low-`n` point. **Both re-runs' first `300` reps exactly reproduce the
+already-published baselines** (`n=127`: `0.9874/0.3594`; `n=509`: `0.9939/0.1319`) — confirms
+determinism, not a new instance-generation run. Full results: `n=127` `mean=0.9900±0.0054` (`SE`
+tightened `3.8×`); `n=509` `mean=1.0003±0.0020` (`SE` tightened `3.85×`, and `n=509`'s weight is
+now the LARGEST of all 6 points, `~4×` `n=127`'s).
+
+### First-draft (corrected) headline, and the real skeptic pass that corrected it
+
+First draft, after tightening `n=127` alone, read the resulting `χ²` jump across all 5 models
+(roughly doubling to tripling) as new evidence that `n=127` belongs to a different regime,
+supporting exclusion. **Sent to a real, context-asymmetric skeptic — `FALSIFIED`, independently
+re-derived and confirmed before acceptance:**
+
+1. **The `χ²` increase is not diagnostic on its own — most of it is a predictable, nearly-mechanical
+   consequence of increasing one point's weight `14.7×`, not new information.** Freezing each
+   model's OLD best-fit parameters and recomputing `χ²` with only the NEW weight gives an upper
+   bound the skeptic derived algebraically; independently verified here: the frozen-parameter bound
+   substantially OVERSHOOTS the actual refit `χ²` (e.g. log-linear: bound `16.55` vs actual refit
+   `10.20`, a `38%` reduction from genuine re-optimization) — so real re-fitting did occur, this
+   is not pure arithmetic reweighting, correcting the skeptic's own strongest framing slightly.
+   **But the decisive fact, independently confirmed exactly**: **the RANKING of all 5 models is
+   completely unchanged** (`log-linear < log-log < n^{-1/4} < 1/ln n < n^{-1/2}`, identical before
+   and after) — reconfirmed again after ALSO tightening `n=509` (`χ²` grows further, `10.66→44.24`
+   across the same order, ranking still unchanged). **A tightened point that leaves every model's
+   relative ranking exactly where it was provides zero new discriminating information about which
+   functional form is correct** — it only sharpens (correctly) that none of the 5 forms fits all 6
+   points comfortably, a different and less specific conclusion than "n=127 is a different regime."
+2. **The two branches of 4I's own decision framework were used in mutually contradictory ways in
+   the first draft, caught by the skeptic and confirmed here**: treating the tightened `n=127` as
+   evidence for "different regime, exclude" (this addendum's first-draft framing) while
+   SIMULTANEOUSLY treating it as fully trustworthy input driving the D2 asymptote selection (next
+   section) is inconsistent — if `n=127` is genuinely out-of-regime, it should be excluded from
+   BOTH fits, not selectively kept where it supports a preferred conclusion and discarded where it
+   does not.
+3. **A single pre-asymptotic-regime point at the edge of a 6-point grid is not operationally
+   distinguishable from "the model family lacks the right curvature," given the available data** —
+   the gap between `n=127` and `n=509` is `4×`, twice the `2×` step everywhere else in the grid;
+   there is no point IN that gap to show whether a genuine regime transition or a smooth
+   deviation is responsible. No claim here favors either explanation over the other.
+
+### Honest residue
+
+**What survives**: tightening low-`n` points is now confirmed, twice, to add essentially no
+power to discriminate among the 5 candidate functional forms for `mean(CV²)` — the open question
+from 4I (unbounded slow growth vs. saturation `≥~1.09-1.13`) remains exactly as open as it was.
+**What does not survive**: any reading of the `χ²` degradation as evidence specifically FOR
+excluding `n=127` from the asymptotic regime, or specifically FOR any one of the 5 forms. The
+skeptic's own proposed decisive test (fit on `n=509..8009` only, excluding `n=127` entirely, then
+compare the OUT-OF-SAMPLE prediction at `n=127` against the now-precise `0.9900±0.0054`) was not
+run in this addendum — flagged as the one genuinely informative next step on this specific
+question, cheaper than any further LP solves since it uses only already-collected data.
+
+### D2 residual test (Point 89) update — same two points, sharper tension, not resolved
+
+Re-running Point 89's `R=Γ-μ_D2` residual with both tightened points (`n=127`: `E[R]=0.2310±
+0.0047`; `n=509`: `E[R]=0.1252±0.0015`, both consistent with the original `300`-rep values well
+within `1σ` — no shift in central estimate, only precision): refitting the three candidate
+asymptote forms on `n=127,509,1021,2039`:
+
+| form | `a` (OLD, 300 reps) | `a` (NEW, both tightened) | `χ²` (OLD) | `χ²` (NEW) |
+|---|---:|---:|---:|---:|
+| `1/Q` | `0.0847±0.0026` (`33σ`) | `0.0869±0.0017` (`51σ`) | `0.54` | `4.95` |
+| `1/√Q` | `0.0583±0.0056` (`10σ`) | `0.0432±0.0032` (`14σ`) | `8.32` | `30.22` |
+| `1/ln Q` | `−0.0256±0.0165` (`−2σ`) | `−0.0725±0.0075` (`−10σ`) | `10.66` | `44.04` |
+
+`1/Q` remains the only marginally-acceptable fit (`χ²=4.95` on `2` dof, `p≈0.08` — no longer as
+clean as before but not decisively rejected); `1/√Q` and `1/ln Q` are now decisively rejected. This
+SHARPENS, but does not resolve, the tension already flagged in Point 89: `D2`'s own internal
+algebra (`y_0·√Q≈`const, confirmed again here) predicts `1/√Q` as the correct leading-order
+correction, yet `1/√Q` is empirically the worse-fitting of the two non-`1/Q` forms, while the
+theoretically-unmotivated `1/Q` continues to fit best. **No resolution is claimed here** — this is
+recorded as an open, sharpened tension, consistent with Point 89's own already-flagged circularity
+finding (this whole residual reduces algebraically to the same open `mean(CV²)` question) rather
+than as new evidence for either explanation.
+
+### Verdict
+
+`(POL)` and `F4rel` remain **not proven**. This addendum closes out 4I's own proposed test
+(tighten `n=127`) with a clean, independently-confirmed null result on discriminating power,
+while sharpening (not resolving) the D2 tension from Point 89. Per the user's own standing
+recommendation (park the model-fitting line), and reinforced by this addendum's own finding
+(tightening low-`n` points doesn't help either), **no further points in this specific
+model-comparison line are recommended**. The two genuinely different next steps that remain
+concrete: (a) the skeptic's own proposed out-of-sample test (fit excluding `n=127`, predict, then
+compare — uses only already-collected data, no new LP solves); (b) the still-untried analytic
+route connecting `mean(CV²)`'s drift to Bandeira et al.'s `O(log³n)`-type bound (Point 79/87§4A),
+flagged repeatedly across Points 87 and 89 as the most promising, least-explored direction.
+
