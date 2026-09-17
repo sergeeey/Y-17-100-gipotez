@@ -9224,20 +9224,114 @@ range than either 4G's clean dispersion story or a first-draft reading of this p
 What survives: `CV²` stays `O(1)` across all `1212` total instances measured across 6 `n` values
 (max observed `4.155`); a `−0.5`-type dispersion law holds cleanly across roughly one decade
 (`n≈500-4000`) but is NOT established across the full `127-8009` range (rejected at `p=0.0017`
-when `n=127` is included); and `mean(CV²)` follows a clean, well-fit log-linear drift
-(`+0.0141±0.0018`/octave) through `n=8009`, with the data unable to distinguish continued slow
-growth from saturation near `≈1.10`. **The KKT/argmin-stability route (4B) remains killed per
-Point 88, not reopened by this finding.** The most concrete remaining next steps, in order of
-cost: (a) — cheapest, uses no new LP solves — if a future session still has access to raw
-per-instance arrays at `n=2039`/`4001`, run the subsampling validation flagged in finding 2
-before trusting any further conclusions about small-`reps` bias at this problem size; (b) a 7th
-point specifically designed to discriminate the log-linear-vs-saturating models for `mean(CV²)`
-(the two models' predictions diverge most at very large `n` — e.g. at `n≈64000` they differ by
-`≈0.011`, requiring `SE(mean)≲0.004`, i.e. `reps≳25` given `std≈0.007` there under either model)
-— expensive, and only worth it if the mean's asymptotic behavior specifically is still a priority;
-(c) an analytic argument for `mean(CV²)`'s drift, checking first whether it is already implied by
-Bandeira et al.'s existing `O(log³n)`-type bound (Point 79/87§4A) before running further expensive
-numerical points.
+when `n=127` is included); and `mean(CV²)` is genuinely increasing through `n=8009` — **the
+specific "clean log-linear drift, `+0.0141/octave`" characterization is itself superseded by 4I
+below**, which found this preference for log-linear over alternative forms does not survive
+scrutiny. **The KKT/argmin-stability route (4B) remains killed per Point 88, not reopened by this
+finding.**
+
+### 4I. Addendum (2026-09-17, same day) — model comparison for `mean(CV²)`'s functional form: the "log-linear preferred" reading does NOT survive a real skeptic pass — [VERIFIED-COMPUTATION]
+
+**Context.** An external analysis (relayed by the user, independently evaluated per this
+project's standing practice for any external critique — not accepted at face value) proposed the
+honest summary "mean drift real; asymptotic divergence UNKNOWN" (matching 4H's own corrected
+verdict exactly) and recommended comparing candidate finite-size-correction MODELS on the
+already-collected 6 points rather than running further expensive LP solves. Sound methodology,
+adopted here. Five 2-parameter models (`mean = a + b·f(n)`) were fit via weighted least squares to
+all 6 points (`127,509,1021,2039,4001,8009`): log-linear (`f=ln n`, unbounded), log-log
+(`f=ln ln n`, unbounded, slower), and three saturating forms (`f=n^{-1/4}`, `f=1/ln n`,
+`f=n^{-1/2}`). First-draft reading of the resulting `χ²` values (`4.94/5.66/6.87/7.95/13.47`
+respectively, all `4` dof) concluded "the two unbounded models fit best; the trivial `n^{-1/2}`
+saturating form fits clearly worst."
+
+**Sent to a real, context-asymmetric skeptic — `FALSIFIED` on the two main claims, for reasons
+independently re-derived and confirmed exactly (all numbers below reproduced to 2-3 decimals in a
+separate process) before being accepted:**
+
+1. **Structural flaw: the comparison could not have favored saturation even in principle.**
+   Saturating models `a+b·n^{-α}` form a continuous family that converges to the unbounded
+   log-linear model as `α→0` (Taylor expansion: `n^{-α}=1-α·ln n+O(α²)`). The three saturating
+   forms actually tested (`α=0.25,0.5`, and `1/ln n`) were all drawn from the "fast saturation"
+   region of this family — the part easiest to reject. **Explicit counter-examples, computed
+   directly**: `n^{-0.05}` gives `χ²=4.99` (asymptote `1.43`) and `n^{-0.10}` gives `χ²=5.20`
+   (asymptote `1.23`) — both beat the log-log model (`5.66`) and sit within `0.05-0.27` of the
+   "best" log-linear fit. **The conclusion "unbounded beats saturating" was an artifact of which
+   three `α` values happened to be chosen, not a property of the data.**
+2. **The entire `n^{-1/2}`-is-worst result is driven by ONE data point, `n=127` — and the ranking
+   INVERTS without it.** `n=127` contributes `47%` of `n^{-1/2}`'s total `χ²` (independently
+   verified: `6.32` of `13.47`) despite carrying the LEAST statistical weight of any point
+   (`SE=0.0207`, `~30×` less weight than `n=2039`'s `SE=0.0038`) — a point this project's own 4F
+   already flagged as a likely pre-asymptotic outlier. **Refitting on `n=509..8009` only (`n=127`
+   excluded, `5` points): `n^{-1/2}`'s `χ²` drops to `3.42`, BEATING log-linear's `3.93`.
+   Refitting on the 4 LARGEST `n` only (`n=1021..8009`): `n^{-1/2}` is now the BEST of all 5
+   models (`χ²=1.52`), and log-linear is the WORST (`χ²=3.93`)** — a complete inversion of the
+   first-draft ranking, independently reproduced exactly. **This makes the original conclusion
+   self-contradictory on its own terms**: this project already treats `n=127` as possibly not
+   representative of the asymptotic regime (4F), yet the "log-linear preferred" reading depended
+   entirely on including it.
+3. **A further, structural finding, also independently confirmed**: the regressors used are
+   nearly collinear over the sampled range (`corr(ln n, ln ln n)=0.996`, `corr(ln n, n^{-1/4})
+   =−0.987`, `corr(ln n, n^{-1/2})=−0.942`) — meaning these 5 forms are, numerically, close to the
+   same curve stretched slightly differently over `n∈[127,8009]`, and the `χ²` differences between
+   them (`Δχ²≈1-9` on `4` dof, where `sd(χ²₄)=√8≈2.83`) are mostly within the family's own natural
+   scatter, not a real discriminating signal. The earlier "`~1.4σ`," "`~2.9σ`" language converting
+   `Δχ²` to sigma was ALSO flagged as invalid: that conversion only applies to NESTED models
+   differing by one parameter, and these 5 forms are not nested.
+4. **One genuinely mislabeled premise, corrected**: the "naive CLT-type guess" for `mean(CV²)`'s
+   finite-size correction is `a+b/n` (bias of a sample mean/moment scales as `O(1/n)`), NOT
+   `a+b·n^{-1/2}` (that rate belongs to `std(CV²)`, a different quantity, per 4G) — the `n^{-0.5}`
+   form tested was never actually the "naive" one. The TRUE naive model, checked directly, IS
+   decisively rejected: `χ²=35.5` on `4` dof (`p≈4×10⁻⁷`) — this is the one result from this whole
+   comparison that survives cleanly regardless of which points are included or excluded.
+
+**What survives, stated as the honest residue after this correction — not a defeat, a sharper
+question:** `mean(CV²)` is genuinely growing and is NOT explained by fast (`O(1/n)`) finite-size
+bias alone (`χ²=35.5`, decisively rejected). Beyond that, **this specific 5-model comparison
+cannot distinguish continued slow growth from slow saturation** — the honest quantitative
+statement, from a profile over the saturating family's own `α`, is a ONE-SIDED constraint: if
+`mean(CV²)` does saturate, the plateau is `≥≈1.13` at `1σ` / `≥≈1.09` at `2σ`, with NO upper bound
+established by this data. Discriminating further within `n≤8009` is close to impossible given the
+near-perfect collinearity found above.
+
+**A genuinely useful, previously-unconsidered practical recommendation, independently verified as
+sound**: the cheapest differentiating test is NOT a larger `n` (Point 87's own next-step list
+previously proposed `n≈64000-16000⁻¹`, now recognized as both expensive and, per the collinearity
+finding, not even guaranteed to discriminate) — **it is MORE REPS AT THE ALREADY-CHEAPEST POINT,
+`n=127`**, since that single point currently drives `17-47%` of every model's `χ²` depending on
+functional form. Two mutually exclusive, explicit next branches, to be chosen BEFORE any
+recomputation (not decided after seeing which one gives a preferred answer, per this project's own
+Anti-Overfitting Gate discipline): (a) if `n=127` is judged to be in the same asymptotic regime as
+the rest, increasing its rep count `~16×` (cheap — `n=127` is by far this project's fastest LP
+size) would substantially tighten its `SE` and let it discriminate properly rather than by
+leverage; (b) if `n=127` is judged pre-asymptotic (this project's own standing position since 4F),
+it should be EXCLUDED from any future asymptotic-form fit — in which case, per finding 2 above,
+**the preference already flips toward saturation** with the currently-available 5 points.
+
+### Skeptic-fallback review
+
+Given above — every numeric claim independently re-derived and matched to 2-3 decimals before
+acceptance, per this session's standing rule that an agent's `[VERIFIED]` is this session's
+`[INFERRED]` until checked. No claim from the first draft survived unchanged. Verdict recorded
+directly in the corrected findings above rather than as a separate table, since the entire
+addendum consists of corrections to a single external-relay claim, not a multi-part original
+argument.
+
+### Verdict (supersedes 4H's "clean log-linear drift" framing)
+
+`(POL)` and `F4rel` remain **not proven**. The single robust finding from this model-comparison
+exercise: `mean(CV²)`'s growth is NOT `O(1/n)` bias (decisively rejected, `χ²=35.5`). Everything
+beyond that — whether it is unbounded slow (log-type) growth or saturation to some constant
+`≥≈1.09-1.13` — remains genuinely undetermined by the 6 points collected so far, and this
+addendum's own model-comparison approach cannot resolve it further without either (a) many more
+reps at the cheap, currently-highest-leverage point `n=127`, or (b) accepting this project's own
+prior judgment that `n=127` is pre-asymptotic and excluding it, which itself flips the preference
+toward saturation. **Next step, in order of cost**: (a) — cheapest — rerun `n=127` with `~16×`
+more reps (or, equivalently, formally exclude it per 4F's standing position and re-examine the
+5-model ranking on the remaining 5 points, already computed above); (b) the analytic-argument
+route from 4H (checking whether Bandeira et al.'s `O(log³n)`-type bound already constrains
+`mean(CV²)`'s growth rate) remains open and untried, and is now MORE attractive relative to
+further numerical points, given how little the last two additions (n=8009, and this model
+comparison) moved the needle per unit of computational and review cost.
 
 ## Point 88 (2026-09-17) — genuine attempt at the KKT/argmin-stability route (Point 87's 4B): citation mismatch found, direct margin-uniformity correlation killed with a cheap test
 
