@@ -8653,3 +8653,90 @@ uncertainty-principle saturation at every vertex, `|supp(x)|+|supp(y)|=n+1` exac
 the live instance: `Q=28,f=35,s=57,71+57=128=n+1`) — all independently re-verified by direct
 recomputation before being accepted, not taken on the review's word.
 
+## Point 86 (2026-09-16) — GENUINE PROOF ATTEMPT at `F4rel` (per direct user instruction, "attack
+F4rel" — the strictly easier target identified as Option B after Point 85). Result: NOT PROVEN.
+A clean, useful reformulation is established (`x*` is literally the characteristic function of
+the optimal frequency distribution `y*`, evaluated pointwise) but the two natural attack routes
+via standard convolution-norm inequalities (Young's inequality; sup-norm interpolation) both
+proved insufficient — and by a MARGIN THAT WORSENS with `n`, not one that merely falls short by a
+constant. This is real, honest negative information, not a wasted attempt: it shows `F4rel`, like
+`(POL)`, cannot be closed by crude aggregate norms of `y*` and needs its actual SHAPE
+
+**Context.** Direct continuation of Point 85's proof-attempt discipline, targeting the specific,
+strictly-easier lemma identified in the prior status discussion: `F4rel: E[x*_i⁴] =
+O((E[x*_i²])²)`, a single-graph marginal 4th-moment statement (no joint `x*,w*` dependence
+question, unlike `MIX4`).
+
+**1. A clean, useful reformulation, verified numerically.** Since `y*≥0` and `Σy*=1` (already
+established, Point 85), `y*` IS a probability distribution on `Z_n`, and `x*_t = Σ_k y*_k
+cos(2πkt/n)` — **`x*` is literally the (real) characteristic function of `Y*~y*` evaluated at
+frequency `t`**: `x*_t = E_{Y*}[cos(2πY*t/n)] = φ_{Y*}(2πt/n)`. Confirmed exactly on a live
+instance (`x[1]` matches the direct char.-fn. sum to 10 decimal digits). This immediately confirms
+`|x*_t|≤1` for every `t` (average of bounded cosines), and, by this project's own already-
+established prime-multiplicative-orbit-transitivity (Point 4), **all `m` nonzero coordinates have
+the identical marginal distribution** — so `κ_x` measured at the fixed `GEN_INDEX=1` (as Points
+66-85 have done throughout) is representative of every coordinate, not a special/atypical choice.
+
+**2. First attack: Young's convolution inequality — FAILS, recovers only the already-known
+trivial bound.** Since `x²`'s Fourier transform is the circular autoconvolution `y*⊛y*`
+(`FFT(x²)/n = y*⊛y*`, confirmed exactly: `Σx_t⁴ = n·‖y*⊛y*‖₂²` matches the direct sum to 5+
+decimal digits on 5 independent instances), and Young's convolution inequality gives
+`‖y*⊛y*‖₂≤‖y*‖₁‖y*‖₂=‖y*‖₂` (using `‖y*‖₁=1`): **`Σ_t x*_t⁴ ≤ Σ_t x*_t²` — i.e. `E[x*_i⁴]≤
+E[x*_i²]/m = O(1/n)`.** This is the SAME order as the trivial pointwise bound `x_t⁴≤x_t²` (since
+`|x_t|≤1`) — Young's inequality here is exactly as lossy as not using it at all, and gives `O(1/n)`
+where `F4rel` (combined with POL) needs `O(1/n²)`. **A first-draft version of this point claimed a
+sharper bound from this route (`n·‖y‖_∞·‖y‖²` scaling); re-derivation found that claim algebraically
+wrong (conflated two different interpolation inequalities) — caught and corrected before being
+written up as a result, not after.**
+
+**3. Second attack: sup-norm interpolation — technically valid, but the wrong order and the gap
+WORSENS with `n`.** The correct pointwise bound: `(y*⊛y*)_k ≤ ‖y*‖_∞·Σ_jy*_j = ‖y*‖_∞` for every
+`k` (one factor capped by the max, the other summed to `1`), giving `‖y*⊛y*‖₂² ≤ ‖y*‖_∞·‖y*⊛y*‖₁ =
+‖y*‖_∞` (using `‖y*⊛y*‖₁=‖y*‖₁²=1`), hence **`Σx*_t⁴ ≤ n·‖y*‖_∞`.** Checked numerically (5
+instances per `n`, all four `n`):
+
+| n | mean `n‖y*‖_∞` (the bound) | mean `Σx*_t⁴` (actual) | bound/actual |
+|---:|---:|---:|---:|
+| 127 | 11.35 | 1.482 | `7.7×` |
+| 509 | 22.65 | 1.086 | `20.9×` |
+| 1021 | 31.42 | 1.040 | `30.2×` |
+| 2039 | 45.58 | 1.021 | `44.6×` |
+
+**The bound is valid (always above the actual value, as it must be) but the gap WIDENS with `n`
+(`7.7×→44.6×`), because `n‖y*‖_∞` itself is growing (`11.35→45.58`, roughly `~n^{0.3}`) while the
+true `Σx*_t⁴` stays essentially flat (`1.48→1.02`).** This is a materially different, more
+informative finding than "the bound isn't tight enough" — a bound whose own looseness GROWS with
+`n` cannot be patched with a better constant; it is bounding the wrong quantity's growth rate
+entirely. `‖y*‖_∞` (the single largest weight in the optimal distribution) is evidently not the
+right handle — the TRUE `Σx*_t⁴` is governed by something about `y*`'s overall SHAPE (how evenly
+mass is spread across its `s=Θ(n)` support points), not by its single largest value or its total
+mass alone.
+
+**Honest verdict.** `F4rel` is NOT proven. Both attempted routes — Young's inequality (using only
+`‖y*‖_1`) and sup-norm interpolation (using only `‖y*‖_∞`) — are proven, by direct computation, to
+be the WRONG TOOLS: one reproduces the trivial bound exactly, the other is valid but increasingly
+loose. **This reinforces, rather than resolves, Point 85's own finding**: `F4rel`, exactly like
+`(POL)`, resists crude norm-based arguments and requires genuine information about the SHAPE
+(evenness/dispersion) of the optimal certificate — the same "how uneven can the optimal LP
+solution be" question this entire proof-attempt line keeps arriving at from different starting
+points, now confirmed a third time (after `(POL)`'s `CV²(y)` reduction and the uncertainty-
+principle dead-end) via yet another independent route.
+
+**What this does NOT mean.** Does NOT mean `F4rel` is false — nothing here counts as evidence
+against it; Point 83's own empirical `κ_x` series (bounded, mildly declining across all 4 tested
+`n`) is unaffected by this point and remains the best available evidence FOR it. Does NOT mean no
+inequality-based proof is possible — Young's and sup-norm interpolation are two specific, crude
+tools among many; a genuinely useful attack likely needs an inequality that is sensitive to `y*`'s
+SUPPORT SIZE `s` (already known `=Θ(n)`, Point 64) or its DISPERSION (`CV²(y)`, Point 85's own
+established target for `(POL)`) — not just its `L¹`/`L^∞` norms, which this point shows are
+provably insufficient, not merely untried. Does NOT mean this attempt was wasted — ruling out two
+natural, standard approaches with a precise, quantified reason (not "didn't work," but "wrong by a
+growing factor, here's exactly why") is genuine information, in the same spirit as Point 85's own
+clean elimination of the uncertainty-principle route.
+
+**Artifacts:** No committed code changes — verified via scratchpad computation (not committed) on
+live LP solves across all 4 `n`: the characteristic-function identity, the `Σx⁴=n‖y⊛y‖²`
+Parseval-type identity (exact match, 5+ digits, 5 independent instances), and the two convolution-
+norm bounds (Young's and sup-norm), each checked against the actual `Σx⁴` before being reported as
+valid-but-insufficient rather than assumed.
+
