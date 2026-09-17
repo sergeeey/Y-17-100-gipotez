@@ -8956,19 +8956,108 @@ bootstrap over the regression itself, neither done in this addendum. The open it
 `n` (e.g. `n≈2039`) for a 4th log-log point" from 4D's own next-step list remains open and is not
 addressed by this addendum.
 
+### 4F. Addendum (2026-09-17, same day) — the 4th point (`n=2039`): dispersion shrinkage continues, but does NOT simply confirm the 3-point trend — [VERIFIED-COMPUTATION]
+
+Same protocol as 4D/4E exactly (`CertificateLP` unmodified, same
+`sample_circulant_neighbors` sampling, seeds `SEED_BASE + n·100000 + rep`, `rep=0..299`,
+20,000-resample bootstrap with the same fixed bootstrap seed), extended to `n=2039`
+(`m=1019`, roughly double `n=1021`'s size — the LP solves accordingly took `~4.2 minutes` per
+25 reps vs. seconds at the smaller `n`'s, `~1260s` total for 300 reps). Independently
+re-verified from the raw saved array in a separate process (not accepted from the run's own
+printed output), matching to 4 decimal places:
+
+| n | reps | mean `CV²` | SE(mean) | `(mean−1)/SE` | `CV_of_CV2` | bootstrap 95% CI |
+|---:|---:|---:|---:|---:|---:|---:|
+| 127 | 300 | 0.9874 | 0.0207 | −0.61 | 0.3640 | `[0.2820, 0.4533]` |
+| 509 | 300 | 0.9939 | 0.0076 | −0.80 | 0.1327 | `[0.1194, 0.1457]` |
+| 1021 | 300 | 1.0042 | 0.0050 | 0.85 | 0.0861 | `[0.0789, 0.0931]` |
+| 2039 | 300 | 1.0303 | 0.0038 | **8.07** | 0.0632 | `[0.0579, 0.0683]` |
+
+**One honest correction to 4D/4E's framing that survives independent scrutiny (below), plus a
+first-draft "deceleration" reading that did NOT survive a real skeptic pass and was withdrawn
+before publication — recorded as such, not silently fixed:**
+
+1. **The mean is no longer "flat near 1."** At `n=127,509,1021` the mean sat within `~1 SE` of
+   `1.0` (`(mean−1)/SE` of `−0.61/−0.80/0.85` — statistically indistinguishable from exactly `1`).
+   At `n=2039` the deviation is `8.07 SE` — a departure from `1` too large to be sampling noise at
+   this rep count, not necessarily a "real" trend in a stronger sense (see skeptic verdict below).
+   **This does not by itself mean `E[CV²]` is unbounded or growing without limit** (`1.03` is still
+   `O(1)`, and still far below `log³n`-type ceilings) — but the specific claim "`CV²` concentrates
+   around the constant `1`" (as stated in 4D) is overclaimed; the honest statement is "`CV²`
+   concentrates around *some* constant close to `1`, and whether that constant is exactly `1` is
+   not resolved by 4 points."
+2. **A first-draft version of this addendum claimed the dispersion-shrinkage rate was
+   "decelerating, not constant,"** citing the pairwise log-log slopes `127→509: −0.727`,
+   `509→1021: −0.621`, `1021→2039: −0.449` as a monotonic deceleration. **This claim was sent to a
+   genuine, independent `skeptic` agent (context-asymmetric: only the raw numbers above, no
+   reasoning chain) and FALSIFIED — then independently re-verified here, not accepted from the
+   skeptic on its own word.** Propagating the bootstrap SE on each `CV_of_CV2` through to the
+   pairwise slopes (delta method) gives slope SEs of `±0.096/±0.094/±0.086` — the successive slope
+   differences are only `0.78σ` and `1.36σ` apart, not a statistically distinguishable trend. A
+   single constant power law across all 4 points is NOT rejected by a weighted least-squares fit
+   (`χ²=4.74`, `2` dof, `p≈0.09`). **Restricted to the 3 larger `n` (`509,1021,2039`) alone, the
+   least-squares slope is `−0.53`** (independently recomputed, matching the skeptic's own
+   `−0.529±0.047` to within rounding) — close to the `−0.5` a clean `1/√n` (CLT/effective-sample-
+   size~support-size) law predicts. **The better-supported reading, replacing the withdrawn
+   "deceleration" claim: `n=127` behaves as a likely pre-asymptotic outlier, and for `n≥509` the
+   data is compatible with a single, simple `~1/√n` dispersion-shrinkage law** — a cleaner and more
+   parsimonious story than the one first drafted, not a messier one.
+
+**A second, more speculative skeptic claim was checked and does NOT survive — recorded so the
+error and its correction are both visible, not just the correction.** The skeptic agent was
+(mistakenly) briefed that the overall observed `CV²` maximum was `~1.24` — an error in this
+addendum's own briefing: `n=127`'s actual observed maximum is `4.155` (correctly reported in 4D's
+own table), not `~1.24`. Working from the incorrect `1.24` figure, the skeptic inferred that
+`n=127`'s `std=0.359` was hard to reconcile with the mean/reported-max and speculated a possible
+`~12%`-mass mixture component near `CV²≈0`. **Checked directly against the raw `n=127` array**:
+`0` of `300` instances have `CV²<0.1` (`p1=0.544`, `p5=0.618` — no mass anywhere near `0`). The
+mixture hypothesis does not survive contact with the actual data; it was an artifact of the wrong
+number handed to the skeptic, not a real feature of the distribution. `n=127`'s wide spread is
+adequately explained by an ordinary right-skewed distribution with a heavy tail up to `4.155`, no
+mixture needed.
+
+**What is still solid, re-confirmed rather than undermined:** the dispersion shrinkage ITSELF
+remains real and significant across all 4 points — every consecutive pair of bootstrap 95% CIs is
+non-overlapping (`n=2039`'s `[0.058,0.068]` vs. `n=1021`'s `[0.079,0.093]`, same pattern as every
+earlier step). `CV_of_CV2` has shrunk monotonically and significantly across all 4 measured `n`
+(`0.364 → 0.133 → 0.086 → 0.063`). What changed after the skeptic pass is not whether it shrinks,
+but the shape of that shrinkage: not a decelerating, non-power-law trend (withdrawn), but likely a
+single, clean, near-`1/√n` power law for `n≥509`, with `n=127` as an outlier point rather than
+part of the same regime.
+
+### Skeptic-fallback review of this addendum — real agent, context-asymmetric, not self-review
+
+Ran `Agent(skeptic)` on the raw claim + numbers table only (no reasoning chain, no access to code
+or raw arrays — summary statistics only), per `rules/falsification-ladder.md` § Context Asymmetry
+Rule. Verdicts, and this session's response per § Step 8a's response matrix:
+
+| Claim | Skeptic verdict | Response |
+|---|---|---|
+| 1. `CV²` stays `O(1)`, dispersion shrinks monotonically & significantly (non-overlapping CIs) | `WEAKENED` | **Accepted with doc**: core CI-non-overlap claim re-verified and kept; language softened from implying a clean overall law to stating only what the pairwise CI tests actually license |
+| 2. Mean departs from `1` by `8.07σ` at `n=2039`, a genuine (not noise) departure | `WEAKENED` (skeptic: reword "real" → "not sampling noise"; closer to `NEEDS-REAL-DATA` on whether it is a genuine trend vs. a one-off) | **Accepted with doc**: reworded above from "real upward departure" to "too large to be sampling noise... not necessarily a trend in a stronger sense" |
+| 3. Dispersion-shrinkage rate is decelerating (not a constant power law) | **`FALSIFIED`** | **Fixed**: claim withdrawn and replaced with the better-supported reading (single `~1/√n` law for `n≥509`, `n=127` an outlier) — independently re-verified via delta-method slope SEs and a weighted `χ²` fit before accepting the skeptic's verdict, not taken on its word |
+
+No claim survives as originally drafted unchanged — this is recorded as the review doing its job,
+not as a failure of the addendum. The skeptic's own more speculative aside (the `n=127` mixture
+hypothesis) was itself checked against raw data and rejected, per this session's standing rule
+that an agent's `[VERIFIED]`-sounding claim is this session's `[INFERRED]` until independently
+checked — applying the same discipline to the falsifier as to the original claim.
+
 ### Verdict and next step
 
-`(POL)` and `F4rel` remain **not proven** — this point adds evidence, not a proof. But it is the
-first point in this proof-attempt line (77-86) to find a genuinely NEW, positive, quantitatively
-suggestive signal (concentration, not just boundedness) rather than another ruled-out route, and
-(per 4E) the dispersion-shrinkage half of that signal is now bootstrap-confirmed as statistically
-real, not just a 3-point trend. The single most concrete, not-yet-tried next step on record,
-combining this point's finding with `boyko-specialist`'s suggestion: the KKT/argmin-stability
-route (4B) is the natural candidate to actually EXPLAIN the concentration this point measures — it
-is the one approach that uses optimality, and concentration-around-a-fixed-point is exactly the
-kind of statement a stability/margin argument would produce. One cheap, still-unrun sensitivity
-check before investing in that route: run the same instance-histogram test on one more `n` (e.g.
-`n≈2039`, already used elsewhere in this project) to get a 4th point on the log-log fit before
-treating the `~-0.7` exponent as anything more than suggestive — the bootstrap CI in 4E confirms
-the shrinkage is real, but not yet what its precise rate is.
+`(POL)` and `F4rel` remain **not proven** — this point adds evidence, not a proof. What survives
+across all 4 points, post-skeptic: `CV²` stays `O(1)` (max `4.155` across `1200` total instances,
+`n=127`'s own value — corrected from an earlier misstatement of `~1.24`), its instance-to-instance
+dispersion shrinks monotonically and significantly with `n`, and — the net effect of the skeptic
+pass — the shrinkage is now BETTER explained, not worse: likely a single, simple `~1/√n` law for
+`n≥509`, with `n=127` a probable pre-asymptotic outlier rather than evidence of a more complex,
+decelerating trend. This is a cleaner finding after adversarial review than before it, which is
+the outcome this process is supposed to produce. **This still leaves the KKT/argmin-stability
+route (4B) as the most concrete not-yet-tried next step** — a stability/margin argument producing
+a clean `1/√n`-type concentration rate around a near-`1` constant is, if anything, a more natural
+target for such an argument than an irregular, decelerating trend would have been. The next cheap
+check, if this line is pursued further: a 5th point at `n≈4000-8000` to see whether the `~1/√n`
+slope (now estimated from `n=509,1021,2039` only) continues to hold, and whether `n=127` remains
+the only outlier or whether `n=509` also turns out to be pre-asymptotic once a longer baseline
+exists.
 
