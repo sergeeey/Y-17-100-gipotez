@@ -9880,6 +9880,25 @@ proof (one without the `g_small`/`g_large` split) — and if Lemma 5 were sharpe
 `‖g‖₂=O(n)`**, a fact the skeptic correctly noted was NOT established in the excerpt it was given
 (only `‖g‖∞` is bounded there, via Lemma 3).
 
+**Self-caught arithmetic slip in the skeptic prompt itself, independently reconciled — a second,
+smaller instance of the same "never trust a number without re-derivation" discipline, applied to my
+OWN prompt, not just the skeptic's output.** The skeptic prompt I sent stated `‖g_large‖₂ =
+O(√n/log⁴n)` (an exponent error — this understates the true rate by a factor of `√n`). Before the
+skeptic's response arrived, I independently re-derived the correct value via `sympy`
+(`verify_bandeira_algebra.py`: `sparsity_I = n/L^10` from Lemma 4, `g_large_inf = √(n·L)` from
+Lemma 3, giving `g_large_2_squared = n²/L^9`, hence `‖g_large‖₂ = n/L^{4.5} = O(n/log^{4.5}n)`,
+NOT `O(√n/log⁴n)`) and used the CORRECTED value in my own algebraic conclusion (`Term2 =
+‖y‖₂·‖g_large‖₂ = O(√n/log³n)` using the tight interior Lemma 5 rate) — so the flawed number in the
+prompt text did not propagate into this point's own written conclusions. **The skeptic, working
+independently from the same (flawed) prompt text, reconstructed `‖g_large‖₂` itself via its own two
+internal consistency checks and arrived at `O(n/log^{4.5}n)` — matching my independently-derived
+correction exactly, not the erroneous number stated in the prompt.** This is verified by direct
+comparison of the two derivations' final exponents, not accepted on either party's say-so. Two
+independent re-derivations converging on the same corrected value, from a prompt that itself
+contained the wrong one, is stronger evidence for `O(n/log^{4.5}n)` than either derivation alone —
+and confirms neither my own slip nor any skeptic-side confusion caused by it reached this point's
+final claims.
+
 **Re-reading the primary source directly (ar5iv HTML, full text, `mcp__Claude_Browser__navigate` +
 `get_page_text` + `javascript_tool` text search on `"Cauchy"`, 2026-09-17) resolves this: the paper
 states `‖g‖₂=n` explicitly, in the paragraph immediately following Theorem 1** — and it is not an
