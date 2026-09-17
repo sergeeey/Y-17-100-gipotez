@@ -9925,52 +9925,122 @@ project needed to resolve independently — the paper's own authors already answ
 affirmative, in their own discussion paragraph**, and my original draft's opposite claim was wrong,
 not merely unsupported. `[FALSIFIED]` → **corrected, not merely "accepted as limitation."**
 
+### Second correction (external-AI-relayed analysis, independently re-verified before acceptance) — POL implies only `E[θ(G)]=O(√n)`, NOT the sharp `(1+o(1))√n` of Conjecture 1; and `(SP)` is strictly weaker than `(POL)`
+
+An external-AI-authored analysis (relayed by the user, per standing practice of never accepting a
+relayed claim at face value) identified a genuine overclaim in the paragraphs above — this project's
+own `(POL)` target, even if fully proven, does **not** by itself prove the paper's own Conjecture 1
+as stated. Both of its two load-bearing sub-claims were independently re-derived here (`sympy` /
+direct numeric check, not accepted on the source's own say-so) before being incorporated:
+
+**(a) `(SP)` (the authors' own sparsity conjecture, "no `cn`-sparse entrywise-positive vector in
+`ker(F̃)`") is STRICTLY WEAKER than `(POL)`-type `L₂` delocalization, not a "sharper, more specific
+version" of it as the first draft of this point claimed.** For any `y≥0` with `‖y‖₁=1`,
+Cauchy-Schwarz gives `1=‖y‖₁≤√(|supp y|)·‖y‖₂`, so a UNIFORM bound `‖y‖₂≤C/√n` (over the whole
+feasible set) does force `|supp y|=Ω(n)` — but the converse fails: **linear support size alone does
+NOT control `‖y‖₂`.** Verified directly (`verify_sp_vs_pol_gap.py`): the illustrative vector
+`y₁=1/2`, `y₂=…=y_{cn}=1/(2(cn-1))` has support `=Θ(n)` (satisfying the weak "not sparse" shape of
+`(SP)`) while `‖y‖₂→1/2` (a CONSTANT, not `O(1/√n)`), so `n‖y‖₂²→n/4→∞` — the exact POL-type
+quantity diverges even though support stays linear. **This is not merely an abstract illustration —
+this project's OWN Point 64 already proves the identical structural fact for THIS specific LP,
+exactly, not as a toy example**: the exact identity `n‖y‖₂²=(n/s)(1+CV_support(y)²)` with `s=Θ(n)`
+support saturation (Point 64, re-confirmed Points 83-89) shows the sparsity factor `n/s` alone has
+bounded expectation — **the entire POL burden lives in `CV_support²` (weight unevenness among the
+support), not in support size at all.** `(SP)` only constrains `s`; it says nothing about `CV²`.
+Consequence for Point 90's Step (a): checking `(SP)` vs `(POL)` for "logical equivalence" (as the
+original next-step list proposed) is not the right framing — `(SP)` is a genuinely weaker, necessary
+but nowhere near sufficient condition for `(POL)`, and this project's own prior work already
+demonstrates the gap concretely, not just abstractly.
+
+**(b) Lemma 5, as a general (sign-unconstrained) RIP-type bound over the WHOLE kernel, CANNOT be
+sharpened to `O(1)` — the paper's own `n/log n`-sparse kernel-vector counterexample (already quoted
+in this point, item 3 above) already rules this out.** The "full sharpening to `O(1)`" language in
+the correction above must be read as applying to a POSITIVITY-RESTRICTED analogue of Lemma 5 (i.e.
+a uniform bound only over the positive part of the feasible polytope), not the general signed
+kernel — the paper's own "suppose `y` is a feasible vector [positive, in the LP]..." illustrative
+paragraph is itself already scoped this way, so the `‖g‖₂=n` correction above is unaffected, but
+Point 90's language should have made this restriction explicit rather than leaving "sharpening
+Lemma 5" ambiguous between the (impossible) general and the (open) positivity-restricted versions.
+
+**(c) The core overclaim, independently re-derived (`verify_pol_conjecture1_gap.py`): `(POL)`
+(`E[n‖y*‖₂²]≤K` for SOME constant `K`, not necessarily `1`) gives only `E[θ(G)]=O(√n)`, with an
+UNKNOWN constant, not Conjecture 1's specific `(1+o(1))√n`.** Via Cauchy-Schwarz
+(`θ(G)=⟨y*,g⟩≤‖y*‖₂‖g‖₂=n‖y*‖₂`) then Jensen (`√` concave, `E[‖y*‖₂]≤√(E[‖y*‖₂²])≤√(K/n)`):
+`E[θ(G)]≤n·√(K/n)=√K·√n`. This is `O(√n)` — matching the trivial lower bound's ORDER, which DOES
+close the `log log n` gap in Theorem 1's rate — but the constant is `√K`, not `1`, unless `(POL)` is
+additionally strengthened to `E[n‖y*‖₂²]→1` specifically (a much stronger, convergent-to-a-precise-
+value statement, not the `sup_n(…)<∞` boundedness `(POL)` actually asserts). **Corrected verdict:
+`(POL)`, even fully proven exactly as currently stated, would prove the RIGHT ORDER (`Θ(√n)`,
+closing the paper's own headline rate gap) but NOT the sharp constant Conjecture 1 specifically
+claims.** The relayed analysis separately asserts that this project's ORIGINAL target
+(`Var(X_n)=O(1/n)` for `X_n:=log(θ(G)/√n)`), via an earlier "mean-gap" connection from elsewhere in
+this project, would give the sharp `(1+o(1))√n` directly — **this specific claim is NOT
+independently re-derived in this point and is recorded here as `[WEAK]`/relayed-but-unverified, not
+accepted at the same evidence level as (a)-(c) above**, which were checked directly.
+
 ### Honest assessment — what this changes, and what it does not
 
-**What this DOES change, and more substantially than the first draft claimed**: Lemma 5, applied to
-the ACTUAL optimizer `y*` (not a worst-case bound over the whole feasible polytope, which is what
-Lemma 5 as stated proves) is closely related to what this project has been calling `(POL)`/
-`E‖x*‖²=O(1)` — and the paper's own authors' illustrative paragraph shows that an `O(1)`-tight
-version of exactly this kind of bound, applied via one-term Cauchy-Schwarz to the exact identity
-`‖g‖₂=n`, directly proves their own Conjecture 1 (`E[θ(G)]=(1+o(1))√n`), with no split needed and no
-`log log n` term. **This means this project's `(POL)` target is not a tangential side-quest relative
-to the paper's headline gap — a sufficiently strong version of it, applied to the optimizer
-specifically (not to all feasible `y`, which is a strictly harder, worst-case statement Lemma 5
-proves for reasons unrelated to what is needed here), would DIRECTLY close Conjecture 1.** One
-caveat not yet resolved: Lemma 5 bounds `‖y‖₂/‖y‖₁` uniformly over the ENTIRE feasible polytope
-(kernel of `F_wt`, intersected with the sign/support constraints), which is a priori a *stronger*
-statement than what is needed — this project's `(POL)` concerns only the specific LP-optimal `y*`,
-which could plausibly have `O(1)`-tight `‖y*‖₂/‖y*‖₁` even in a world where Lemma 5's tight bound
-over the WHOLE polytope genuinely requires the `log^{3/2}n` factor (some other, non-optimal
-feasible point could be the one saturating Lemma 5's own worst case). This distinction — "worst
-case over the polytope" vs "the actual optimizer" — was not addressed in either the original draft
-or the skeptic's review, and is the one open link left in this chain: it has NOT been shown that
-`(POL)` (a statement about `y*` alone) actually implies the sharpened uniform bound Lemma 5 would
-need, or vice versa; they are closely related, not shown to be equivalent.
+**What this DOES change**: Lemma 5, applied to the ACTUAL optimizer `y*` (not a worst-case bound
+over the whole feasible polytope, which is what Lemma 5 as stated proves) is closely related to
+what this project has been calling `(POL)`/`E‖x*‖²=O(1)` — and the paper's own authors' illustrative
+paragraph shows that an `O(1)`-tight version of exactly this kind of bound, applied via one-term
+Cauchy-Schwarz to the exact identity `‖g‖₂=n`, gives the clean `Θ(√n)` ORDER directly, with no split
+needed and no `log log n` term. **This means this project's `(POL)` target is not a tangential
+side-quest relative to the paper's headline gap — a sufficiently strong version of it, applied to
+the optimizer specifically (not to all feasible `y`, which is a strictly harder, worst-case
+statement Lemma 5 proves for reasons unrelated to what is needed here), would close the ORDER gap in
+Theorem 1 (removing `log log n`), matching the paper's own trivial lower bound's rate.** **Corrected
+(see the second correction subsection above): this does NOT extend to the sharp CONSTANT — proving
+`(POL)` as currently stated (`sup_n E‖x*‖²<∞`) gives `E[θ(G)]=O(√n)` with an unspecified constant,
+not the `(1+o(1))√n` Conjecture 1 specifically claims; getting the sharp constant would need `(POL)`
+strengthened to a convergence statement (`E[n‖y*‖₂²]→1`), which is a materially stronger, currently
+unmotivated claim not established or even attempted by this project's own `CV²` work.** One caveat
+not yet resolved: Lemma 5 bounds `‖y‖₂/‖y‖₁` uniformly over the ENTIRE feasible polytope (kernel of
+`F_wt`, intersected with the sign/support constraints), which is a priori a *stronger* statement
+than what is needed — this project's `(POL)` concerns only the specific LP-optimal `y*`, which could
+plausibly have `O(1)`-tight `‖y*‖₂/‖y*‖₁` even in a world where Lemma 5's tight bound over the WHOLE
+polytope genuinely requires the `log^{3/2}n` factor (some other, non-optimal feasible point could be
+the one saturating Lemma 5's own worst case). This distinction — "worst case over the polytope" vs
+"the actual optimizer" — was not addressed in either the original draft or the skeptic's review, and
+is one open link left in this chain: it has NOT been shown that `(POL)` (a statement about `y*`
+alone) actually implies the sharpened uniform bound Lemma 5 would need, or vice versa; they are
+closely related, not shown to be equivalent. Separately, `(SP)` (the paper's own sparsity
+conjecture) is now established as a strictly WEAKER condition than `(POL)`, not merely a "related"
+one — see the second correction subsection above; Step (a) below is corrected accordingly.
 
 **What this does NOT change**: `(POL)` and `F4rel` remain **not proven** — this point is a
 literature/proof-structure finding, not a new numerical result or a proof attempt in itself. This
 project's own `s=Θ(n)` support-saturation fact and Point 87's extensive `CV²` measurement program
 remain exactly as strong (or as inconclusive) as before this correction — nothing here adds new
-numerical evidence for `(POL)` itself. What changes is the STAKES: if `(POL)`-for-the-optimizer
-can be connected rigorously to Lemma 5's polytope-wide bound (the one open link above), proving it
-would not merely be "related to" the paper's open problem — it would settle Conjecture 1 outright.
+numerical evidence for `(POL)` itself. What changes is the STAKES, corrected twice now within this
+same point: `(POL)`-for-the-optimizer, if connected rigorously to Lemma 5's polytope-wide bound (the
+one open link above), would settle the ORDER of Theorem 1's rate (closing `log log n`) — a genuine,
+strong, publishable intermediate target — but it would NOT by itself settle the paper's own sharp
+Conjecture 1, which needs a materially stronger, convergent (not merely bounded) statement.
 
 ### Verdict and next step
 
-This is recorded as a genuine, substantive finding, strengthened (not weakened) by the skeptic
-round and the correction it forced — the clearest evidence yet in this proof-attempt line
-(Points 77-90) that this project's overall direction is well-aimed, and that its stakes are higher
-than the point's own first draft claimed: `(POL)`, applied to the optimizer specifically, is one
-short, currently-unclosed link away from directly proving the paper's own Conjecture 1. **Three
-concrete next steps, in order of cost, neither yet attempted**: (a) — cheap, no computation —
-formally state the paper's own sparsity conjecture (`no cn-sparse entrywise-positive vector in
-ker(F_wt)`) in this project's own established notation (`s`, `Q`, `y*`) and check whether it is
-logically equivalent to, strictly stronger than, or strictly weaker than `(POL)` as currently
-defined — this project's own `s=Θ(n)` fact (Points 64/85) already shows the sparsest POSSIBLE case
-(`s=O(1)`, i.e. `c` independent of `n`) is already ruled out, so the open sparsity range to further
-constrain is specifically `s=Θ(n)` vs. the stronger `s=(1-o(1))n`-type density the conjecture would
-need, worth stating precisely rather than assumed; (b) — cheap, no computation — close the one open
+This is recorded as a genuine, substantive finding, corrected TWICE now (once by a real skeptic
+agent, once by an independently-verified external analysis) and net-strengthened by both rounds —
+the clearest evidence yet in this proof-attempt line (Points 77-90) that this project's overall
+direction is well-aimed. **Corrected framing of the stakes (superseding the single-correction
+version above, which itself overclaimed): `(POL)`, applied to the optimizer specifically, is one
+short, currently-unclosed link away from closing the ORDER of Theorem 1's rate — proving
+`E[θ(G)]=Θ(√n)` and eliminating `log log n` — but NOT from proving the paper's own sharp Conjecture 1
+(`(1+o(1))√n`), which needs a strictly stronger, convergent statement `(POL)` does not provide even
+if proven exactly as stated.** **Three concrete next steps, in order of cost, neither yet
+attempted**: (a) — cheap, no computation — formally state the paper's own sparsity conjecture
+(`no cn-sparse entrywise-positive vector in ker(F_wt)`) in this project's own established notation
+(`s`, `Q`, `y*`) and confirm explicitly (not just assert) that it is a STRICTLY WEAKER, necessary-
+but-not-sufficient condition for `(POL)` — established above via Point 64's own exact identity
+(`n‖y‖₂²=(n/s)(1+CV_support²)`, sparsity factor `n/s` bounded, all the burden in `CV_support²`) —
+rather than the earlier framing of this step ("check whether logically equivalent to, stronger than,
+or weaker than") which incorrectly left the direction of the relationship open; this project's own
+`s=Θ(n)` fact (Points 64/85) already shows the sparsest POSSIBLE case (`s=O(1)`, i.e. `c` independent
+of `n`) is already ruled out, so the open sparsity range to further constrain is specifically
+`s=Θ(n)` vs. the stronger `s=(1-o(1))n`-type density the conjecture would need, worth stating
+precisely rather than assumed — though per the correction above, resolving this alone would still
+only bear on `(SP)`, not directly on `(POL)`'s own `CV²` burden; (b) — cheap, no computation — close the one open
 link named above: does `(POL)`/`CV²=O(1)` for the OPTIMAL `y*` alone (this project's own target)
 actually imply, or is it implied by, a sharpened `O(1/√n)` bound on `‖y‖₂/‖y‖₁` over the WHOLE
 feasible polytope (what Lemma 5, fully sharpened, would give)? These need not be equivalent — `y*`
