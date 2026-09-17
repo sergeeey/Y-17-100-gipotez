@@ -9779,3 +9779,197 @@ confirmation that the same lever-arm artifact affects its own out-of-sample test
 (not separately re-verified here in full, since Point 89's own residual `R` is already established,
 Point 89, to reduce algebraically to the same `mean(CV²)` question this point closes).
 
+## Point 90 (2026-09-17, same day) — the Bandeira et al. `log log n` proof-structure audit: the target this project has pursued since Point 77 is EXACTLY the paper's own stated open direction, and its own `log³n` slack is provably not the bottleneck
+
+**Context.** Per Point 87§4K's verdict, the `mean(CV²)` model-comparison line is formally closed;
+per the user's own proposed sequence, this point executes the next step: a direct, careful
+proof-structure audit of Bandeira, Błasiok, Dmitriev, Faure, Kireeva, Kunisky, "The Lovász number
+of random circulant graphs" (arXiv:2502.16227) — specifically, tracing where each `log`-factor in
+their `√n ≤ E[θ(G)] ≤ C√(n·log log n)` bound (Theorem 1) actually originates, and whether this
+project's own established facts (positivity `y≥0`, support saturation `s=Θ(n)`, the exact
+`s=2Q+1` KKT identity) engage with the load-bearing step or a non-load-bearing one. **Read directly
+from the primary source (ar5iv HTML, full text), not from an agent's paraphrase or this project's
+own earlier secondary citations of it** — per this session's standing discipline of treating an
+agent's `[VERIFIED]` as this session's `[INFERRED]` until independently checked.
+
+### The proof's structure, traced explicitly
+
+Theorem 1's proof (§III) decomposes `θ(G)=⟨y,g⟩` (Lemma 2, where `g=Fb` is a DETERMINISTIC
+function of the random `±1` edge-indicator vector `b`, and `y` is the LP optimizer) into two terms
+via a threshold split on `g`'s coordinates, `g=g_small+g_large`:
+
+- **`⟨y,g_small⟩ ≤ ‖y‖₁·‖g_small‖∞ = O(√(n·log log n))`** — uses ONLY `‖y‖₁=1` (a trivial
+  feasibility fact, not positivity, not optimality, not the kernel/kernel-sparsity structure at
+  all) and a purely probabilistic fact about `g` itself: Lemma 3 (Hoeffding + union bound) gives
+  the crude bound `‖g‖∞=O(√(n log n))`; Lemma 4 then shows, via Markov's inequality on the COUNT
+  of "large" coordinates (`E|I|≤n/log^{20}n`), that only a vanishing fraction of `g`'s coordinates
+  exceed the tighter threshold `C√(n·log log n)` — this is where the paper's own `log log n`
+  factor is born, and it has **nothing to do with `y*`, positivity, or the kernel structure**.
+- **`⟨y,g_large⟩ ≤ ‖y‖₂·‖g_large‖₂ = O(√n)`** — uses Cauchy-Schwarz, Lemma 5 (the RIP-based kernel
+  bound `‖y‖₂≤(log²n/√n)‖y‖₁` — THIS is where this project's own `E‖x*‖²=O(log³n)` corollary
+  comes from, Point 79), AND Lemma 4's sparsity bound on `g_large`. **Independently verified,
+  algebraically, that this term's `log`-power cancels almost exactly against `g_large`'s
+  sparsity-driven `ℓ₂`-norm bound, leaving a CLEAN `O(√n)` contribution with no residual log
+  factor in the final answer.**
+
+**The single most important structural fact, independently re-derived here, not previously stated
+this explicitly anywhere in this project's own prior points (77-89) despite Lemma 5 being read
+and cited multiple times**: **the `log log n` gap in the paper's own headline Theorem 1 comes
+ENTIRELY from the `g_small` term (Lemma 3/4, a purely probabilistic fact about the deterministic
+objective vector `g`) — Lemma 5's own `log³n`-scale kernel bound (this project's own repeatedly-
+cited `O(log³n)` ceiling) is NOT the bottleneck for the paper's own final result at all.** The
+paper's authors themselves generously round Lemma 5's tight interior rate (`log^{3/2}n` on `‖y‖₂`,
+matching this project's own "tight interior" reading, Point 79) UP to `log²n` in their printed
+statement — precisely because their proof did not need it any tighter; `g_large`'s own sparsity
+(from Lemma 4) absorbs the slack with room to spare. **This means that WITHIN THE CURRENT TWO-TERM
+PROOF ARCHITECTURE, this project's proof-attempt target — showing `E‖x*‖²=O(1)` rather than
+`O(log³n)` — is not what closes Theorem 1's `log log n` headline gap; that gap, as currently
+proven, lives entirely in the separate, simpler, `y*`-independent `g_small` step.** A *partial*
+sharpening of Lemma 5 (e.g. shaving one log power off `log²n`) would only tighten the `g_large`
+term's already-slack margin, not change the `log log n` rate. **A claim about a FULL sharpening —
+whether removing ALL of Lemma 5's log-loss would let a different, simpler proof skip the split
+entirely and remove `log log n` too — was originally overclaimed here and is corrected below.**
+
+### What the paper's own authors say is actually needed — verified via direct quotation, not paraphrase
+
+Two passages, quoted directly from the primary source, both previously unquoted this precisely in
+this project despite Point 79's earlier citation of the same paper:
+
+1. **"[O]ur upper bound proof only uses the fact that feasible solutions of Equation 3 lie on a
+   (random) nullspace of a subsampled DFT matrix, and omits the positivity constraint `y≥0`.
+   However, ... we believe that this constraint is important for tighter results."** — the
+   paper's own authors explicitly state that positivity (`y≥0`) is UNUSED in their proof and
+   identify it as the specific missing ingredient for a tighter bound. This is exactly the
+   structural fact this project's entire proof-attempt line (Points 77-89: KKT/argmin-stability,
+   the `D2`/Dirichlet pair-weight heuristic, the uncertainty-principle-on-supports route, the
+   direct `CV²` measurement program) has been trying to exploit — not a tangential or
+   independently-invented target, but precisely the gap the paper's own authors name.
+2. **Conjecture 1 (the paper's own, stated explicitly): `E[θ(G)] = (1+o(1))·√n`** — i.e. NO
+   `log log n` gap at all, matching the trivial lower bound (`√n`, proven via vertex-transitivity
+   and Jensen's inequality, Point 79) up to a vanishing relative error. The paper's authors
+   explicitly connect this to a SPARSITY question, quoted directly: **"[I]t is still possible
+   that no `cn`-sparse entrywise positive vector exists in the kernel of `F_wt`, for small enough
+   constant `c>0`."** — this is, verified directly, essentially the SAME question this project has
+   been probing via `s=|supp(y*)|=Θ(n)` (Points 64/85) — the paper's own conjectured mechanism for
+   removing the `log log n` gap is that POSITIVE kernel vectors cannot be as sparse as the general
+   (sign-unconstrained) RIP bound allows, a genuinely sharper, more specific version of exactly
+   this project's own established support-saturation fact.
+3. Also noted, a genuine LIMIT on any purely-RIP-based (sign-agnostic) approach, independently
+   confirmed present in the text: **"[T]here exist `n/log n`-sparse vectors in the kernel of
+   `F_wt`, which contradicts the desired inequality"** — i.e. general (non-positive) kernel
+   vectors CAN be as sparse as `n/log n`, meaning no sign-agnostic RIP argument alone can ever
+   close Conjecture 1; positivity is not merely helpful but NECESSARY for any proof along these
+   lines. This directly explains, post hoc, why Points 77-86's various positivity-free or
+   feasibility-only routes (Talagrand transfer, uncertainty-principle-on-supports, Young's/
+   sup-norm) all failed with precisely-quantified, non-vanishing gaps rather than nearly closing —
+   they were, in retrospect, attempting exactly the kind of argument the paper's own authors
+   already knew cannot succeed without positivity.
+
+### Skeptic-fallback review and correction — `‖g‖₂=n` is an EXACT identity, stated directly by the paper, and reverses the original counterfactual
+
+A first draft of this point (same day) claimed: *"Sharpening Lemma 5 alone (even all the way to
+`O(1)`) would not, by itself, shrink Theorem 1's `√(n log log n)` upper bound."* This was sent to a
+real, context-asymmetric skeptic agent (given only the algebraic claim + the specific passage text,
+no session history). **Verdict: `[WEAKENED]`.** The algebraic core survived (no `log` factor
+carries from Lemma 5 into `g_large`'s contribution; `g_small`'s `√(loglog n)` dominates within the
+current split — independently confirmed via `sympy`, `verify_bandeira_algebra.py`), but the skeptic
+found the specific counterfactual **`[FALSIFIED]`**: it is a claim about a *different, hypothetical*
+proof (one without the `g_small`/`g_large` split) — and if Lemma 5 were sharpened all the way to
+`O(1)`, the split might not be needed at all, in which case a direct one-term Cauchy-Schwarz bound
+`⟨y,g⟩≤‖y‖₂‖g‖₂` could plausibly give a clean `O(√n)` with no `log log n` term — **provided
+`‖g‖₂=O(n)`**, a fact the skeptic correctly noted was NOT established in the excerpt it was given
+(only `‖g‖∞` is bounded there, via Lemma 3).
+
+**Re-reading the primary source directly (ar5iv HTML, full text, `mcp__Claude_Browser__navigate` +
+`get_page_text` + `javascript_tool` text search on `"Cauchy"`, 2026-09-17) resolves this: the paper
+states `‖g‖₂=n` explicitly, in the paragraph immediately following Theorem 1** — and it is not an
+assumption, a high-probability estimate, or something requiring independent justification. It is an
+**exact, deterministic identity**: `g=Fb` where `b∈{±1}ⁿ` (every coordinate has magnitude exactly
+1) and `F` is the (non-unitary) DFT matrix, so by Parseval's identity for this normalization,
+`‖Fb‖₂² = n·‖b‖₂² = n·n = n²`, giving `‖g‖₂=n` for EVERY realization of `b`, not just with high
+probability. Quoted directly:
+
+> *"suppose that `y` is a feasible vector with `‖y‖₁=1` and its mass is spread almost uniformly
+> among its coordinates, i.e. that `‖y‖₂ ≤ (c/√n)‖y‖₁ = c/√n`, for some constant `c>0`. Since
+> `‖g‖₂=n`, Cauchy-Schwarz inequality would give `⟨y,g⟩ ≤ ‖y‖₂‖g‖₂ ≤ c·√n`, proving upper bound in
+> Theorem 1 without the extra `log log n` factor."*
+
+This is the paper's own authors sketching **exactly** the counterfactual the skeptic raised — in
+their own words, as their own stated motivation for Conjecture 1 — and confirming it goes through:
+an `O(1/√n)` (no-log) bound on `‖y‖₂/‖y‖₁`, applied via one-term Cauchy-Schwarz using the EXACT
+`‖g‖₂=n` identity, gives the clean `√n` rate directly, with no split and no `log log n` term.
+
+**The corrected claim, replacing the original overreach:** whether *partial* Lemma 5 sharpening
+helps (within the current two-term architecture) is settled and negative, as before. Whether a
+*full* sharpening to `O(1)` would remove the `log log n` term is **not an open question this
+project needed to resolve independently — the paper's own authors already answer it, in the
+affirmative, in their own discussion paragraph**, and my original draft's opposite claim was wrong,
+not merely unsupported. `[FALSIFIED]` → **corrected, not merely "accepted as limitation."**
+
+### Honest assessment — what this changes, and what it does not
+
+**What this DOES change, and more substantially than the first draft claimed**: Lemma 5, applied to
+the ACTUAL optimizer `y*` (not a worst-case bound over the whole feasible polytope, which is what
+Lemma 5 as stated proves) is closely related to what this project has been calling `(POL)`/
+`E‖x*‖²=O(1)` — and the paper's own authors' illustrative paragraph shows that an `O(1)`-tight
+version of exactly this kind of bound, applied via one-term Cauchy-Schwarz to the exact identity
+`‖g‖₂=n`, directly proves their own Conjecture 1 (`E[θ(G)]=(1+o(1))√n`), with no split needed and no
+`log log n` term. **This means this project's `(POL)` target is not a tangential side-quest relative
+to the paper's headline gap — a sufficiently strong version of it, applied to the optimizer
+specifically (not to all feasible `y`, which is a strictly harder, worst-case statement Lemma 5
+proves for reasons unrelated to what is needed here), would DIRECTLY close Conjecture 1.** One
+caveat not yet resolved: Lemma 5 bounds `‖y‖₂/‖y‖₁` uniformly over the ENTIRE feasible polytope
+(kernel of `F_wt`, intersected with the sign/support constraints), which is a priori a *stronger*
+statement than what is needed — this project's `(POL)` concerns only the specific LP-optimal `y*`,
+which could plausibly have `O(1)`-tight `‖y*‖₂/‖y*‖₁` even in a world where Lemma 5's tight bound
+over the WHOLE polytope genuinely requires the `log^{3/2}n` factor (some other, non-optimal
+feasible point could be the one saturating Lemma 5's own worst case). This distinction — "worst
+case over the polytope" vs "the actual optimizer" — was not addressed in either the original draft
+or the skeptic's review, and is the one open link left in this chain: it has NOT been shown that
+`(POL)` (a statement about `y*` alone) actually implies the sharpened uniform bound Lemma 5 would
+need, or vice versa; they are closely related, not shown to be equivalent.
+
+**What this does NOT change**: `(POL)` and `F4rel` remain **not proven** — this point is a
+literature/proof-structure finding, not a new numerical result or a proof attempt in itself. This
+project's own `s=Θ(n)` support-saturation fact and Point 87's extensive `CV²` measurement program
+remain exactly as strong (or as inconclusive) as before this correction — nothing here adds new
+numerical evidence for `(POL)` itself. What changes is the STAKES: if `(POL)`-for-the-optimizer
+can be connected rigorously to Lemma 5's polytope-wide bound (the one open link above), proving it
+would not merely be "related to" the paper's open problem — it would settle Conjecture 1 outright.
+
+### Verdict and next step
+
+This is recorded as a genuine, substantive finding, strengthened (not weakened) by the skeptic
+round and the correction it forced — the clearest evidence yet in this proof-attempt line
+(Points 77-90) that this project's overall direction is well-aimed, and that its stakes are higher
+than the point's own first draft claimed: `(POL)`, applied to the optimizer specifically, is one
+short, currently-unclosed link away from directly proving the paper's own Conjecture 1. **Three
+concrete next steps, in order of cost, neither yet attempted**: (a) — cheap, no computation —
+formally state the paper's own sparsity conjecture (`no cn-sparse entrywise-positive vector in
+ker(F_wt)`) in this project's own established notation (`s`, `Q`, `y*`) and check whether it is
+logically equivalent to, strictly stronger than, or strictly weaker than `(POL)` as currently
+defined — this project's own `s=Θ(n)` fact (Points 64/85) already shows the sparsest POSSIBLE case
+(`s=O(1)`, i.e. `c` independent of `n`) is already ruled out, so the open sparsity range to further
+constrain is specifically `s=Θ(n)` vs. the stronger `s=(1-o(1))n`-type density the conjecture would
+need, worth stating precisely rather than assumed; (b) — cheap, no computation — close the one open
+link named above: does `(POL)`/`CV²=O(1)` for the OPTIMAL `y*` alone (this project's own target)
+actually imply, or is it implied by, a sharpened `O(1/√n)` bound on `‖y‖₂/‖y‖₁` over the WHOLE
+feasible polytope (what Lemma 5, fully sharpened, would give)? These need not be equivalent — `y*`
+being well-behaved does not obviously constrain other feasible points — and this project's own
+`s=2Q+1` KKT identity (Point 85) plus the exact LP structure (`CertificateLP`) may be enough to
+check this analytically without new computation; (c) — a genuine, still-untried proof attempt —
+check whether this project's own established exact facts (the `s=2Q+1` KKT identity, Point 85; the
+`Q`-scaling structural facts surfaced in the `D2` line, Point 89, even though `D2` itself as a
+proof route is downgraded) can be used to directly attack the paper's OWN stated sparsity
+conjecture, rather than the `(POL)`/`CV²` reformulation this project has used so far — attacking
+the ORIGINAL, primary-source-stated conjecture directly may be a cleaner target than this
+project's own derived reformulation, now that the reformulation's relationship to the original
+is stated explicitly rather than assumed.
+
+**Skeptic Response Matrix (Step 8a):**
+| Concern | Response |
+|---|---|
+| Counterfactual "sharpening Lemma 5 to `O(1)` would not help Theorem 1" is a claim about a hypothetical proof architecture never verified | **Corrected** — re-read primary source directly, found the paper's own text (`‖g‖₂=n`, exact identity + their own Cauchy-Schwarz sketch) settles this in the OPPOSITE direction; original claim replaced, not merely caveated |
+| `‖g‖₂=O(n)` was asserted without verification in the passage given to the skeptic | **Resolved** — `‖g‖₂=n` is an exact identity (Parseval, `|b_j|=1` for all `n` coordinates), stated directly in the paper, independently re-derivable from `g=Fb` with no additional assumption needed |
+| Algebraic core (no log survives Lemma 5 into `g_large`; `g_small` dominates within current split) | `[CONFIRMED-REAL]` by skeptic, matches independent `sympy` verification — unchanged by this correction |
+
