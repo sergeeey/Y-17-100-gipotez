@@ -9043,23 +9043,94 @@ hypothesis) was itself checked against raw data and rejected, per this session's
 that an agent's `[VERIFIED]`-sounding claim is this session's `[INFERRED]` until independently
 checked — applying the same discipline to the falsifier as to the original claim.
 
+### 4G. Addendum (2026-09-17, same day) — a 5th point (`n=4001`) independently reproduces the `~1/√n` slope almost exactly — [VERIFIED-COMPUTATION]
+
+Extended the instance-histogram measurement to a 5th, considerably larger point: `n=4001` (first
+prime `≥4001`, matching this project's convention of prime `n`). **A real implementation obstacle
+was hit and fixed honestly, not silently worked around**: the canonical, read-only
+`CertificateLP.solve()` (Codex's own code, per this project's Unclaimed Work Ownership
+convention — not modified) has a hardcoded `time_limit=45.0` seconds for the underlying
+`linprog` call. At `n=4001` a single LP solve legitimately needs `~53-56s` (confirmed by timing 3
+individual solves without any cap before committing to a full run) — the canonical function's own
+time limit is simply too tight for this problem size, and the run failed at `n=4001` on the first
+attempt (`RuntimeError: theta LP failed n=4001: Time limit reached`). Fixed the ONLY way consistent
+with not touching Codex's file: wrote a separate, local `solve_no_timelimit()` wrapper (same
+mathematical logic as `CertificateLP.solve()`, verified line-for-line against it, just without the
+time cap), used only in this addendum's own scratchpad script. Given `~54s/instance`, reduced the
+rep count from `300` to `100` for this point alone (an explicit precision/runtime tradeoff, stated
+here rather than silently applied) — total run time `~91` minutes.
+
+| n | reps | mean `CV²` | SE(mean) | `(mean−1)/SE` | `CV_of_CV2` | bootstrap 95% CI |
+|---:|---:|---:|---:|---:|---:|---:|
+| 4001 | 100 | 1.0378 | 0.0045 | 8.34 | 0.0437 | `[0.0360, 0.0509]` |
+
+Independently re-verified from the raw saved array in a separate process, matching the run's own
+printed output to 4 decimals.
+
+**First-draft framing (below) was sent to a real, context-asymmetric skeptic and substantially
+corrected — the corrected version follows in the next subsection. Recorded honestly, not silently
+rewritten**: the original two findings claimed (a) the near-identical 3-point-vs-4-point slope
+(`−0.53→−0.53`) was "out-of-sample confirmation" making the law "considerably more robust," and
+(b) the mean's drift pattern (`+0.0065,+0.0103,+0.0261,+0.0075`) was "an open, unresolved pattern"
+too ambiguous to characterize further. **Both claims were wrong, independently re-verified as
+wrong** (not just asserted by the skeptic) — see § Skeptic-fallback review below for the full
+Response Matrix, and § Corrected findings for what actually survives.
+
+### Skeptic-fallback review — real agent, context-asymmetric, every claim independently re-derived from the raw summary statistics before being accepted
+
+Sent the raw 4-point table (`n,reps,mean,CV_of_CV2,bootstrap CI`) plus the two claims above to
+`Agent(skeptic)`, no reasoning chain. **Verdict: `WEAKENED`**, with an unusually sharp, entirely
+correct central argument. Per this session's standing discipline, every one of its claims was
+independently re-derived from the published summary statistics (not accepted on the skeptic's own
+arithmetic) before being written here:
+
+| Skeptic's claim | Independent re-derivation | Verdict |
+|---|---|---|
+| Algebraic identity: since `CV_of_CV2=std/mean`, `slope(ln CV_of_CV2) = slope(ln std) − slope(ln mean)` — so the `−0.53` composite slope's deviation from the "trivial" `−0.5` is entirely attributable to the mean's OWN slope, not to anything specific about the dispersion | **Confirmed exactly**: `slope(ln std)=−0.5076`, `slope(ln mean)=+0.0226`, and `−0.5076−0.0226=−0.5302` matches the directly-fitted `slope(ln CV_of_CV2)=−0.5302` to 4 decimals (pure algebra, must hold exactly — it did) | **Confirmed, accepted** — this is the single most important correction in this addendum |
+| Raw `std(CV²)` is statistically indistinguishable from the "trivial" `n^{-1/2}` CLT-type rate; a fixed-exponent (`−0.5`) model fits the 4-point `CV_of_CV2` data just as well as a free exponent | **Confirmed**: fixed-slope-`(−0.5)` weighted fit gives `χ²=1.76` (3 dof); free-slope fit gives `χ²=1.27` (2 dof); `Δχ²=0.50` for 1 extra parameter — nowhere near the `3.84` needed for significance at `p<0.05`. The free exponent buys nothing | **Confirmed, accepted** |
+| The mean is genuinely, significantly non-constant across `n≥509` — NOT an "open, could be noise" question | **Confirmed**: weighted `χ²` for a constant-mean model across the 4 points `=43.3` (3 dof) — overwhelmingly rejected (`p≈2×10⁻⁹`); weighted `slope(ln mean)=+0.0229±0.0037` — `6.2σ` from zero. A smooth log-linear drift model fits well (low residual `χ²`). The original addendum's "5 points aren't enough to say if this is noise" was simply wrong — it is clearly not noise | **Confirmed, accepted — original framing corrected** |
+| The "near-identical slope, out-of-sample confirmation" framing overstates a low-power test; a genuine prediction (fit on `n=509,1021,2039` ONLY, then compare to the actual `n=4001` observation) has a wide enough uncertainty band that it would not have distinguished this result from a meaningfully different exponent | **Confirmed**: refitting on the 3 points EXCLUDING `n=4001` gives slope `−0.535`, predicting `CV_of_CV2(4001)=0.0432` against the observed `0.0437` — a genuine out-of-sample z-score of only `0.12σ` (independently computed via the classical prediction-interval formula, `SE_pred=0.089` in log-space). A z this close to zero is itself weak evidence of a stringent test — a properly-computed acceptance region at this precision would not have ruled out meaningfully different exponents either. **The original "considerably more robust" language is corrected to a more modest, accurate claim** | **Confirmed, accepted — original framing corrected** |
+| `n=127` was excluded from the "`n≥509`" domain without republishing its own value alongside the 4-point line's prediction there, risking a post-hoc-selected domain | **Checked**: `n=127`'s own `CV_of_CV2=0.364` (already published in 4D) sits `34%` above what the 4-point `n≥509` line predicts there (`0.271`) — consistent with, not contradicting, 4F's own documented case (independent skeptic pass, `χ²`-style test) for treating `n=127` as a distinct, likely pre-asymptotic regime rather than silently cherry-picked. Restated explicitly here so the exclusion is never implicit | **Accepted as a fair transparency request, not a defect** — the exclusion was already justified in 4F, now stated with the actual number alongside it |
+
+### Corrected findings (replacing the original two above)
+
+1. **The raw dispersion of `CV²` across instances shrinks at essentially the trivial, expected rate
+   for an average over `Θ(n)`-sized support: `std(CV²) ∝ n^{-1/2}` (fitted slope `−0.508`,
+   statistically indistinguishable from exactly `−0.5`).** This is a cleaner, more satisfying
+   resolution than the original "mysterious `−0.53` law" framing — it is NOT evidence of some
+   special structure beyond ordinary concentration-of-an-average behavior for a statistic built
+   from `Θ(n)` roughly-independent-ish terms. The composite ratio `CV_of_CV2` differs from exactly
+   `−0.5` only because of the mean's own separate, real drift (next point) — not because the
+   dispersion itself deviates from the naive rate.
+2. **`mean(CV²)` is genuinely, significantly increasing across `n=509→4001` (`+0.0229±0.0037` in
+   log-log slope, `6.2σ` from zero) — this is a real, not-noise finding, though its ultimate
+   asymptotic behavior remains open.** A smooth log-linear drift describes the 4 points reasonably
+   well; the specific "large middle jump" pattern originally described is not a real distinguishable
+   feature (the two smaller increments are each within `~1.3σ` of the smooth trend). What genuinely
+   remains unresolved with only 4-5 points: whether this slow growth saturates at some constant
+   above `1`, or continues indefinitely — this project's target quantities ((POL), `F4rel`) only
+   require `E‖x*‖²`/`CV²` to stay `O(1)`, which a slowly-growing-but-bounded mean would still
+   satisfy, but a genuinely unbounded drift would not.
+
 ### Verdict and next step
 
-`(POL)` and `F4rel` remain **not proven** — this point adds evidence, not a proof. What survives
-across all 4 points, post-skeptic: `CV²` stays `O(1)` (max `4.155` across `1200` total instances,
-`n=127`'s own value — corrected from an earlier misstatement of `~1.24`), its instance-to-instance
-dispersion shrinks monotonically and significantly with `n`, and — the net effect of the skeptic
-pass — the shrinkage is now BETTER explained, not worse: likely a single, simple `~1/√n` law for
-`n≥509`, with `n=127` a probable pre-asymptotic outlier rather than evidence of a more complex,
-decelerating trend. This is a cleaner finding after adversarial review than before it, which is
-the outcome this process is supposed to produce. **This still leaves the KKT/argmin-stability
-route (4B) as the most concrete not-yet-tried next step** — a stability/margin argument producing
-a clean `1/√n`-type concentration rate around a near-`1` constant is, if anything, a more natural
-target for such an argument than an irregular, decelerating trend would have been. The next cheap
-check, if this line is pursued further: a 5th point at `n≈4000-8000` to see whether the `~1/√n`
-slope (now estimated from `n=509,1021,2039` only) continues to hold, and whether `n=127` remains
-the only outlier or whether `n=509` also turns out to be pre-asymptotic once a longer baseline
-exists.
+`(POL)` and `F4rel` remain **not proven** — this point adds evidence, not a proof, and — per the
+skeptic pass — the evidence is now more precisely characterized, not simply "more robust" as a
+first draft claimed. What survives across all 5 points: `CV²` stays `O(1)` across every instance
+measured (max `4.155`, `n=127`'s own value); its instance-to-instance dispersion shrinks at
+essentially the ordinary `n^{-1/2}` rate expected for an average over `Θ(n)` terms — not a mystery
+requiring its own explanation; and `mean(CV²)` is real, significantly (not noise) drifting upward
+across `n≥509`, with its long-run limit genuinely unresolved. This is a more accurate, if less
+dramatic, picture than the original "the `~1/√n` law is confirmed and considerably more robust"
+framing — a case of adversarial review sharpening rather than merely validating the finding. The
+KKT/argmin-stability route flagged here as the next step (4B) was subsequently attempted and
+killed in Point 88 (citation mismatch found; direct margin-CV² correlation tested and absent,
+surviving its own real adversarial skeptic pass) — it is NOT still open. **The most concrete
+remaining next step, if this line is pursued further**: since the dispersion side of the question
+is now essentially resolved (ordinary `n^{-1/2}` behavior, no further points needed to establish
+this), the open question worth a further point is specifically about `mean(CV²)`'s long-run
+behavior — a 6th point at `n≈8000-16000`, with enough reps to get `SE(mean)` tight enough to
+distinguish "still growing at the same log-log rate" from "leveling off," would be the differentiating test, not a further refinement of the dispersion slope.
 
 ## Point 88 (2026-09-17) — genuine attempt at the KKT/argmin-stability route (Point 87's 4B): citation mismatch found, direct margin-uniformity correlation killed with a cheap test
 
