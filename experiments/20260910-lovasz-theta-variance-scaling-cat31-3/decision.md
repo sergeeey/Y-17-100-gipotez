@@ -8921,18 +8921,54 @@ No `[FALSIFIED]` concerns — the core claims (mean flat near 1; dispersion shri
 independently re-verified from raw arrays) survive as stated, with the un-computed `CV_of_CV2`
 bootstrap CI and the unexamined skew/tail shape recorded as genuine open gaps, not resolved ones.
 
+### 4E. Addendum (2026-09-17, same day) — bootstrap CI on `CV_of_CV2` closes the gap flagged above — [VERIFIED-COMPUTATION]
+
+The skeptic review above (4D) flagged the missing formal uncertainty on the `CV_of_CV2` shrinkage
+itself as an open gap, not a resolved one. Closed here: the full instance-generation pipeline
+(same `CertificateLP`, same `sample_circulant_neighbors` sampling, same seeds
+`SEED_BASE + n·100000 + rep`, `rep=0..299`) was re-run from scratch for `n=127,509,1021` —
+**reproducing the exact `mean`/`std` figures from 4D to 4 decimal places on every one of the 3
+`n` values**, confirming the original measurement is deterministic and not an artifact of a
+since-discarded run. Each `n`'s 300-instance `CV²` array was then bootstrap-resampled (20,000
+resamples with replacement, fixed independent bootstrap seed) to get a percentile 95% CI directly
+on `CV_of_CV2 = std(CV²)/mean(CV²)` (not just on the mean, which already had an informal SE
+estimate in 4D):
+
+| n | `CV_of_CV2` point estimate | bootstrap 95% CI | bootstrap SE |
+|---:|---:|---:|---:|
+| 127 | 0.3640 | `[0.2820, 0.4533]` | 0.0450 |
+| 509 | 0.1327 | `[0.1194, 0.1457]` | 0.0067 |
+| 1021 | 0.0861 | `[0.0789, 0.0931]` | 0.0036 |
+
+**All three 95% CIs are non-overlapping and monotonically decreasing** (`127`'s CI upper bound
+`0.453` is well above `509`'s lower bound `0.119`, and `509`'s lower bound `0.119` is itself above
+`1021`'s upper bound `0.093`). This is the specific thing 4D's skeptic review said was missing:
+the dispersion shrinkage is not merely a point-estimate trend that could plausibly be noise from
+which 300 seeds were drawn — it is now a statistically distinguishable effect at each of the two
+steps (`127→509`, `509→1021`), independently, at the 95% level.
+
+**What this does and does not upgrade.** It upgrades "the dispersion shrinks" from a bare point-
+estimate observation to a statistically supported one. It does **not** upgrade the `~-0.70`
+log-log slope itself into anything more than 4D's own "suggestive, 3 points, not a fitted
+asymptotic law" — a formal CI on the log-log SLOPE (as opposed to on each individual
+`CV_of_CV2` value) was not computed here, and would need either more `n` values or an explicit
+bootstrap over the regression itself, neither done in this addendum. The open item "run one more
+`n` (e.g. `n≈2039`) for a 4th log-log point" from 4D's own next-step list remains open and is not
+addressed by this addendum.
+
 ### Verdict and next step
 
 `(POL)` and `F4rel` remain **not proven** — this point adds evidence, not a proof. But it is the
 first point in this proof-attempt line (77-86) to find a genuinely NEW, positive, quantitatively
-suggestive signal (concentration, not just boundedness) rather than another ruled-out route. The
-single most concrete, not-yet-tried next step on record, combining this point's finding with
-`boyko-specialist`'s suggestion: the KKT/argmin-stability route (4B) is the natural candidate to
-actually EXPLAIN the concentration this point measures — it is the one approach that uses
-optimality, and concentration-around-a-fixed-point is exactly the kind of statement a stability/
-margin argument would produce. Two cheap, still-unrun sensitivity checks before investing in that
-route: (a) compute the bootstrap CI on `CV_of_CV2` itself (flagged above as missing) to see if the
-shrinkage is statistically distinguishable from flat; (b) run the same instance-histogram test on
-one more `n` (e.g. `n≈2039`, already used elsewhere in this project) to get a 4th point on the
-log-log fit before treating the `~-0.7` exponent as anything more than suggestive.
+suggestive signal (concentration, not just boundedness) rather than another ruled-out route, and
+(per 4E) the dispersion-shrinkage half of that signal is now bootstrap-confirmed as statistically
+real, not just a 3-point trend. The single most concrete, not-yet-tried next step on record,
+combining this point's finding with `boyko-specialist`'s suggestion: the KKT/argmin-stability
+route (4B) is the natural candidate to actually EXPLAIN the concentration this point measures — it
+is the one approach that uses optimality, and concentration-around-a-fixed-point is exactly the
+kind of statement a stability/margin argument would produce. One cheap, still-unrun sensitivity
+check before investing in that route: run the same instance-histogram test on one more `n` (e.g.
+`n≈2039`, already used elsewhere in this project) to get a 4th point on the log-log fit before
+treating the `~-0.7` exponent as anything more than suggestive — the bootstrap CI in 4E confirms
+the shrinkage is real, but not yet what its precise rate is.
 
