@@ -5,8 +5,8 @@
 | Field | Value |
 |-------|-------|
 | **Entity** | Random quasi-pure states `ρ_Δ` (Eq. 16 of Yang, Imai & Pezzè, arXiv:2601.21801: `ρ_Δ = (U_Δ⊗I)ρ_0(U_Δ†⊗I) = Σ_a q_a\|φ_a,Δ⟩⟨φ_a,Δ\|⊗\|a⟩⟨a\|`), small Hilbert space dimension `d` and parameter count `s`, chosen strictly BELOW the dimension threshold of the paper's own inequality (15). |
-| **Falsifiable predicate** | Does the Partial Commutativity Condition (PCC, Eq. 8: `⟨ψ_a,Δ\|[L_i,L_j]\|ψ_b,Δ⟩=0` for all `i≠j,a,b`, `L_i` = symmetric logarithmic derivatives) hold for a sampled quasi-pure state WHILE the exact hollowization criterion for QCRB saturation (Theorem 1 of the same paper) FAILS — i.e. does a counterexample to "PCC is sufficient for QCRB saturation, restricted to quasi-pure states" exist below the threshold where the paper's own Theorem 3 guarantees sufficiency? |
-| **Measurable outcome** | For each sampled quasi-pure state: compute SLDs numerically, check PCC (boolean), check the exact hollowization criterion (boolean, via Theorem 1's own conditions, not a separate POVM optimization). PCC-true-but-hollowization-false on ANY sampled instance = a genuine counterexample (closes the open conjecture in the negative). Zero counterexamples across a pre-registered sample size = LEAD toward the conjecture holding in the tested regime (not a proof). |
+| **Falsifiable predicate** | Does the Partial Commutativity Condition (PCC, Eq. 8: `⟨ψ_a,Δ\|[L_i,L_j]\|ψ_b,Δ⟩=0` for all `i≠j,a,b`, `L_i` = symmetric logarithmic derivatives) hold for a sampled quasi-pure state WHILE the paper's own Observation 2 exact impossibility criterion (`dim(V^⊥)<d`, `V^⊥` = orthogonal complement of the span of vectorized `W_ij,ab`/`M_i,ab` operators — a pure rank/SVD computation, NOT a constructive search) CERTIFIES that saturation is impossible — i.e. does a counterexample to "PCC is sufficient for QCRB saturation, restricted to quasi-pure states" exist below the threshold where the paper's own Theorem 3 guarantees sufficiency? |
+| **Measurable outcome** | For each sampled quasi-pure state: compute SLDs numerically, check PCC (explicit residual, not a bare boolean), and separately compute `dim(V^⊥)` via SVD (explicit rank with a documented singular-value tolerance). PCC-holds-with-margin AND `dim(V^⊥)<d`-with-margin, confirmed at increased numerical precision and by a second, independent reconstruction of the same physical state (different basis/parametrization, not reusing the first pass's tolerances/objects) = a CERTIFIED counterexample. **This is a one-directional test: `dim(V^⊥)≥d` does NOT certify saturability exists — it only means this specific fast check did not find a violation.** Zero certified counterexamples across the pre-registered sample is reported ONLY as "no counterexample found via this exact test under this sampling distribution" — NOT as evidence toward sufficiency (a positive sufficiency claim would need Theorem 3-style construction, out of scope below threshold). |
 
 > Gate rule satisfied: entity, predicate, outcome all concretely specified from a
 > directly-read primary source (arXiv:2601.21801, HTML full text, Eq. 8/15/16, Theorem
@@ -97,13 +97,19 @@ direct fetches of the HTML full text (not abstract-only, not a search-engine par
 ## Falsifiable Claim
 
 **Claim:** Among randomly sampled quasi-pure states with `(d,s)` chosen below the Eq.
-(15) threshold, PCC holds while the exact hollowization criterion (Theorem 1) fails for
-at least one sampled instance (a genuine counterexample to "PCC sufficient for
-quasi-pure states").
+(15) threshold, PCC holds (with margin) while the paper's own exact Observation 2
+impossibility criterion (`dim(V^⊥)<d`, a pure rank/SVD computation) certifies saturation
+is impossible (with margin, robust to increased precision, independently reconstructed)
+for at least one sampled instance — a genuine, certified counterexample to "PCC
+sufficient for quasi-pure states."
 
-**Check:** Numerically compute SLDs, PCC, and Theorem 1's own criterion for each sampled
-instance; report the fraction where PCC holds; among those, report the fraction where
-Theorem 1 also holds. Any PCC-true/Theorem-1-false instance is a found counterexample.
+**Check:** Numerically compute SLDs, PCC residual, and `dim(V^⊥)` via SVD for each
+sampled instance; report the fraction where PCC holds with margin; among those, report
+the fraction where `dim(V^⊥)<d` with margin. Any PCC-true/rank-deficient instance is a
+CANDIDATE, promoted to a counterexample only after independent re-derivation (Step 6 in
+the experiment's own protocol). A clean sample (no candidates) is reported as "no
+counterexample found via this exact test" — explicitly not evidence for sufficiency,
+since the rank test is one-directional (see Zero-Signal Gate above).
 
 ---
 
@@ -114,7 +120,7 @@ Theorem 1 also holds. Any PCC-true/Theorem-1-false instance is a found counterex
 | # | Assumption | Type | Role | Depends On | Evidence | Status |
 |---|---|---|---|---|---|---|
 | A1 | SLDs `L_i` for a quasi-pure `ρ_Δ` can be computed numerically by solving `(L_iρ+ρL_i)/2=∂_iρ` (a linear system in `L_i` for each parameter direction, standard in quantum metrology) | mathematical/tooling | core | — | standard technique, not yet implemented in this project | unknown |
-| A2 | PCC (Eq. 8) and Theorem 1's criterion can both be evaluated as direct numerical checks on the computed `L_i`, `ψ_a`, `P_ab`, `W_ij,ab`, `M_i,ab` objects, with a well-defined numerical tolerance for "=0" | mathematical | core | A1 | direct consequence of the paper's own exact algebraic definitions | alive |
+| A2 | PCC (Eq. 8) and `dim(V^⊥)` (Observation 2's rank/SVD criterion, built from the vectorized `W_ij,ab`/`M_i,ab` objects) can both be evaluated as direct numerical checks on the computed `L_i`, `ψ_a`, `P_ab`, with a well-defined, PRE-REGISTERED numerical tolerance for "=0" and for rank-deficiency (singular-value threshold) | mathematical | core | A1 | direct consequence of the paper's own exact algebraic definitions; the rank test (not a constructive optimizer search) is the load-bearing choice here, per the correction below | alive |
 | A3 | A random sampling scheme for quasi-pure states at small `(d,s)` below the Eq. 15 threshold can be constructed that is not pathologically degenerate (e.g. avoids exactly-repeated eigenvalues by construction, which would trivially satisfy or violate PCC for uninteresting reasons) | operational | belt | — | not yet designed | unknown |
 | A4 | A negative finding (zero counterexamples in N samples) is informative, not merely "didn't search enough" — requires a pre-registered sample size and an honest LEAD (not CONFIRMED) framing per this project's own AOG discipline | operational | peripheral | — | matches this project's own established vocabulary for existence-search null results | alive |
 
@@ -157,9 +163,11 @@ experiment can proceed.
 (if real) is more likely a small-dimension phenomenon, matching how PCC's general
 insufficiency (Observation 2) was itself demonstrated on a small case.
 
-**Falsification:** this claim's LEAD status (if no counterexample found) is wrong if a
-counterexample is later found at ANY `(d,s)` below threshold not covered by this
-experiment's own sample — the search is inherently incomplete, not a proof.
+**Falsification:** this experiment's own "no counterexample found" report (if that is the
+outcome) is wrong if a counterexample is later found at ANY `(d,s)` below threshold not
+covered by this experiment's own sample — the search is inherently incomplete, and (per
+the correction above) even a fully clean sample is NOT a LEAD toward sufficiency, only an
+absence of this specific type of certified violation.
 
 ---
 
@@ -169,16 +177,28 @@ experiment's own sample — the search is inherently incomplete, not a proof.
    specific, pre-registered sample tested here.
 2. Does NOT touch the ALREADY-CLOSED general (non-quasi-pure) insufficiency result
    (Observation 2) — that is settled, not re-tested.
-3. A negative result (no counterexample) does NOT prove PCC is sufficient for quasi-pure
-   states — it is LEAD-level evidence in the tested regime only, per this project's own
-   Anti-Overfitting Gate discipline (a null existence-search result is not a proof).
+3. A negative result (no counterexample found via the exact rank test) does NOT prove
+   PCC is sufficient for quasi-pure states, and is explicitly NOT reported as LEAD-level
+   evidence toward sufficiency — the rank test (`dim(V^⊥)<d` ⟹ impossible) is
+   ONE-DIRECTIONAL per the paper's own Observation 2; `dim(V^⊥)≥d` never certifies that a
+   saturating measurement exists, only that this specific fast check found no violation.
+   A genuine positive-sufficiency claim would require Theorem 3-style construction, which
+   is out of scope for this experiment below the Eq. 15 threshold.
 4. Does NOT require or attempt to reproduce Theorem 3's own constructive algorithm above
    threshold — that is already proven; this experiment only searches BELOW it.
+5. Does NOT treat an optimizer's failure to construct a saturating measurement as
+   evidence of impossibility, anywhere in this experiment — impossibility is established
+   ONLY via the exact `dim(V^⊥)<d` rank/SVD certificate (Observation 2), independently
+   reconstructed, never via a non-convex search's non-convergence.
 
 ## MCID
 
-MCID: a single found counterexample (any PCC-true/Theorem-1-false instance) is
-sufficient to answer the question in the negative — no threshold needed for a positive
-finding. For a negative (LEAD) finding, MCID is the pre-registered sample size (to be
-set in controls.md before running, per this project's own discipline against post-hoc
-sample-size selection).
+MCID: a single CERTIFIED counterexample (PCC-true-with-margin AND `dim(V^⊥)<d`-with-
+margin, robust to increased precision, independently reconstructed by a second pass not
+reusing the first's basis/tolerances) is sufficient to answer the question in the
+negative — no further confirmation needed once certified. A "candidate" that fails
+independent reconstruction is NOT reported as a counterexample and does not count toward
+the pre-registered sample. For the "no counterexample found" outcome, MCID is the
+pre-registered sample size (`N=200`, set in controls.md before running) — and the report
+language itself (not a threshold) is what prevents overclaiming: "not found" is stated
+as exactly that, never as evidence of sufficiency.
