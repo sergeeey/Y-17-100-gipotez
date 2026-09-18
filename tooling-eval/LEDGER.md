@@ -789,21 +789,50 @@
 | 2026-09-09 | Bridge 8's собственный feasibility-gate (пункт 1, предзарегистрирован ДО проверки) выполнен → провалился: grep реального кода `PRJ-CHERNOFFPY` (внутреннего и внешнего репо) на torch/neural/UDE/identifiab дал 0 совпадений | practice | falsification-ladder.md Mechanism Claim Gate (Step 0a) — «общая инфраструктура» была непроверенным mechanism-claim, названным ДО проверки | `CAUGHT` | поймало собственную непроверенную посылку ADR-082 («переносится код, не вывод») в тот же день, до запуска хоть одного эксперимента — Bridge 8 status: proposed → rejected |
 | 2026-09-09 | Bridge 9 кандидаты (#39, #43 из Numerical LA кластера): полный текст первичного источника (arXiv:2602.05394) прочитан через `mcp__arxiv__*` ДО регистрации в graph.yaml, не после | tool | falsification-ladder.md Step -4 (Source Trace) + урок ADR-083 применён на шаг раньше в цикле | `CAUGHT` | нашло, что #39 — proof-existence вопрос (не FL-эмпирически тестируем), и что #43 УЖЕ разрешён отрицательно самой статьёй (v3, апдейт 20 августа 2026, раньше заявленной даты каталога 6 сентября) — ноль записей в graph.yaml, ноль потраченного эксперимента |
 | 2026-09-09 | 4 фоновых pytest-прогона (дубли, накопленные за несколько тиков без осознания, что предыдущие ещё живы) — обнаружены пользователем через goal check-in, не самостоятельно | practice | ресурс-менеджмент фоновых задач — не проверял `TaskList`/статус перед запуском очередного дубля | `MISSED` | пользователь заметил зависание раньше меня; TaskStop остановил все 4, содержательных потерь нет (частичный лог показал 0 падений на ~22% прогона) |
+| 2026-09-19 | `/boyko-capability-audit` (HYPOTHESIS: catches объясняются lever 5/7; COUNTER: multi-path convergence, lever 4) — скилл сам не самоарбитрировал на Шаге 4, а по своему же протоколу передал решение context-asymmetric skeptic'у (claim.md+controls.md+draft decision.md+код, без reasoning chain) | agent | falsification-ladder.md Context Asymmetry Rule; `/boyko-capability-audit`'s собственный `GATE: DELEGATE-TO-SKEPTIC` | `CAUGHT` | обе гипотезы FALSIFIED: реальная доля lever 5 в CAUGHT при ручном прочтении колонки «Тип» ≈13-19%, не 73%/39%; keyword-классификация несостоятельна (9+ строк, где skeptic/reviewer — ОБЪЕКТ находки, не ловец); multi-path convergence — только ~2% строк, а не системный паттерн; `reject_gate_guard.py`/`promotion_gate_guard.py` дают 0 срабатываний из-за реального format-parsing бага в `verdicts.py` (нужен `"Verdict:"` с двоеточием на той же строке — H-CAT7-1's `## Verdict`\n`**REJECT**` формат не матчится ни одним из 4 паттернов), не из-за «soft-nudge растворился в тексте», как предполагала исходная гипотеза; ~56% CAUGHT объясняется НЕ названным ни в одной из двух гипотез `practice`-levers (pre-registered kill criteria, controls, чтение первичных источников) |
+| 2026-09-19 | H-CAT7-1's decision.md: Kill Analysis / Revival Condition / «What this does NOT mean» секции всё ещё несли отозванные (Second/Third Addenda) claims «ZLDC is a local minimax optimum» без `CORRECTED`-пометки, хотя остальной файл уже был исправлен — side-finding того же capability-audit skeptic'а, не запрошенный явно | agent | integrity.md: withdrawn-claim без correction marker в секции, которую копируют в `null_results/` и грепают будущие сессии, — конкретно то место, где staleness дороже всего | `CAUGHT` | независимо перепроверено прямым Read (строки 212-309) перед правкой — подтверждено дословно; исправлено 4 места (Kill Analysis bullet, Revival Condition, «What this does NOT mean» пункты 2/4/5, плюс добавлен предупреждающий баннер в начале секции «What was found instead», которую skeptic явно не назвал, но которая является ПЕРВЫМ местом, где читатель встречает отозванный claim) |
 
-## Сводка (считать командой ниже, не вручную)
+## Сводка
+
+**`CORRECTED 2026-09-19`:** предыдущая версия этой таблицы (`CAUGHT | 243`) была
+устаревшей — под ней уже лежало 107+ дополнительных строк данных, не учтённых при
+подсчёте (сама эта запись обнаружена как side-finding контекст-асимметричного skeptic
+в рамках `/boyko-capability-audit` прогона). Отдельно найдено (тем же прогоном): исходная
+`awk`-команда сама по себе хрупкая — колонка «Тип» в этом файле не всегда содержит один
+чистый вердикт в backtick-обёртке (`` `CAUGHT` ``); часть строк несёт длинный поясняющий
+текст СРАЗУ после закрывающего backtick без пробела (`` `CAUGHT`(explanation...) ``), что
+`awk -F'|' '{gsub(/ /,"",$6)...}'` не изолирует надёжно как отдельное значение поля. Ниже —
+подсчёт через прямой grep по литеральному backtick-паттерну (устойчив к этой проблеме):
 
 ```bash
-grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ /,"",$6); print $6}' | sort | uniq -c
+grep -c '`CAUGHT`' tooling-eval/LEDGER.md   # 350
+grep -c '`OK`' tooling-eval/LEDGER.md       # 126
+grep -c '`MISSED`' tooling-eval/LEDGER.md   # 10
+grep -c '`NOISE`' tooling-eval/LEDGER.md    # 33
+grep -c '`BLOCKED`' tooling-eval/LEDGER.md  # 6
+grep -c '`NOT-YET`' tooling-eval/LEDGER.md  # 4
+grep -cE '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md  # 518 total data rows
 ```
 
 | Исход | Кол-во |
 |---|---|
-| CAUGHT | 243 |
-| OK | 116 |
-| MISSED | 4 |
-| NOISE | 30 |
-| BLOCKED | 4 |
-| NOT-YET | 3 |
+| CAUGHT | 350 |
+| OK | 126 |
+| MISSED | 10 |
+| NOISE | 33 |
+| BLOCKED | 6 |
+| NOT-YET | 4 |
+
+**Известная неточность, не устранённая этой правкой:** сумма (529) превышает число
+строк данных (518) на 11 — минимум одна строка (`4 фоновых pytest-прогона...` раздел,
+запись про переход `MISSED→CAUGHT`) буквально содержит ОБА backtick-токена в одном
+поле, так как описывает смену вердикта внутри одной находки, а не одно чистое состояние.
+Подсчёт по grep-паттерну корректно фиксирует наличие каждого токена, но не гарантирует
+взаимоисключающую категоризацию строк — эта колонка не строго категориальна. Разница
+(~11 строк) мала относительно общего объёма и не меняет качественный вывод capability-audit
+skeptic'а (см. `activeContext.md`): доля lever 5 (verification/skeptic) в реальных
+catch'ах, посчитанная вручную по смыслу колонки «Тип», ниже, чем формальный keyword-подсчёт
+предполагал.
 
 **Наблюдение после сессии 1a:** все `NOISE` — хуки с keyword-эвристикой, не различающие тип задачи (scaffolding vs research) и источник текста (запрос пользователя vs уведомление агента). `routing-floor` — 2/3 до порога действия (pearl №1).
 

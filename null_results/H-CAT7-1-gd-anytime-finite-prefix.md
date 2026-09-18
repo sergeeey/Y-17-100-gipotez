@@ -45,6 +45,17 @@ re-derived from the PEPit numbers alone agrees.
 
 ## What was found instead — the substantive result
 
+**`CORRECTED 2026-09-19`: the positive claim in this section ("ZLDC is a local minimax
+optimum") is WITHDRAWN. Read this section for the mechanism (the asymmetric obstruction,
+the kink at 5 named horizons) — that part is measured and stands — but not for its
+original conclusion.** Point 3 below overstated what 42 probes (12 structurally floored)
+and a "13-point sweep" (actually 6 schedules) could show; a rigorous LP-based follow-up
+found a real descent direction whose failure on direct execution indicates a non-smooth
+kink, not local optimality. The honest status is UNRESOLVED, not CONFIRMED. See the
+**Second Addendum** (line ~481, the measured kink) and the **Third Addendum** (line ~556,
+independent convergent self-correction) for the full corrected account before citing
+anything below as a live finding.
+
 The interesting finding is not the FAIL; it is *why*.
 
 **1. The found schedule is ZLDC inflated, not a new structure.** Entry by entry the
@@ -215,11 +226,20 @@ sharpens the train/test contrast and must be read as luck, not as insight.
 
 * The claim exactly as pre-registered: no prefix-consistent schedule found beats ZLDC by
   ≥5% at every `n ∈ {4,5,7,8,11,12,15,16,19,20,23,24}`.
-* The **"inflate the schedule" direction**, killed hard and mechanistically, not
-  statistically: uniform up-scaling is catastrophic past +0.5%, and 42 local probes plus
-  a 13-point structural sweep all fail to improve the worst horizon. This is the
-  direction the sparse-horizon optimiser actually found, so it is the direction that
-  mattered.
+* The **"inflate the schedule" direction, for UNIFORM scaling specifically**: uniform
+  up-scaling is catastrophic past +0.5% (Claim 4 in the Second Addendum below, confirmed
+  real). **`CORRECTED 2026-09-19`: the rest of this bullet, as originally drafted, is
+  WITHDRAWN — do not read past this sentence as a live finding.** The original text
+  claimed "42 local probes plus a 13-point structural sweep all fail to improve the
+  worst horizon," offered as proof that no direction improves on ZLDC. Both the count and
+  the conclusion are wrong: only 30 of the 42 probes could have shown improvement (12
+  are structurally floored at `worst_ratio≥1.0` regardless of any real local structure,
+  per the `index=23` probe); the "13-point sweep" is 6 distinct schedules, not 13,
+  directly contradicted by its own metrics file; and a rigorous LP-based follow-up found
+  a genuine descent direction whose failure on direct execution indicates a non-smooth
+  kink, not local optimality. See the **Second and Third Addenda below** for the full,
+  corrected account — the honest status of "does any direction improve on ZLDC" is
+  UNRESOLVED, not "killed."
 * **Sparse-horizon training as a method** for this problem: optimising on six horizons
   produced a schedule 1.9–3.1× *worse* at the six unseen ones. Any future attempt that
   scores a prefix schedule on a sparse horizon set is reproducing a known failure.
@@ -267,24 +287,37 @@ screen — the `c`-sweep in this folder is that screen, and it currently returns
 1.0 at the paper's own parameter.
 
 Not a theorem-level contradiction, so this is `parked`-eligible rather than permanently
-closed. No immediate follow-up is proposed: V2's cost is the binding constraint and the
-finding above (ZLDC is locally minimax-optimal at these horizons) is already the useful
-output.
+closed. No immediate follow-up is proposed: V2's cost is the binding constraint.
+**`CORRECTED 2026-09-19`:** this paragraph originally closed with "the finding above
+(ZLDC is locally minimax-optimal at these horizons) is already the useful output" — that
+claim is WITHDRAWN (see Second/Third Addenda below); the useful output of this experiment
+is the main REJECT verdict plus the measured non-smooth-kink structural fact at 5 named
+horizons, not a confirmed local-optimality claim.
 
 ## What this does NOT mean
 
 1. Does **not** resolve the COLT 2024 open problem of Kornowski & Shamir, and does not
    narrow the `[n^{-1.334}, n^{-1.119}]` interval of Tsai/Fatkhullin/Zhang/He.
-2. Does **not** show ZLDC is optimal. It shows ZLDC is a *local* minimax optimum within
-   the probed neighbourhood and structural family, at `n ≤ 24`, under a local search.
+2. **`CORRECTED 2026-09-19`:** Does **not** show ZLDC is optimal — this item originally
+   also claimed ZLDC IS a local minimax optimum; that positive claim is WITHDRAWN (see
+   Second/Third Addenda). The honest statement: local optimality at ZLDC, `n≤24`, under
+   the probed neighbourhood and structural family, is UNRESOLVED.
 3. Does **not** transfer to `G_n`, to larger horizons, or to non-prefix-consistent
    schedules.
-4. The FAIL is a **bounded-budget** FAIL for existence ("not found under this search"),
-   but the local-optimality finding is *not* budget-bounded in the same way: the 42
-   probes and the `c`-sweep are direct evaluations with no optimiser in the loop.
-5. The positive control reproduces an *empirical* literature number (`n^{-1.178}`, no
-   stated uncertainty in the source), not a theorem. Agreement is order-of-magnitude
-   evidence that the harness finds near-optimal schedules — nothing more.
+4. **`CORRECTED 2026-09-19`:** this item originally asserted the local-optimality finding
+   is "not budget-bounded... 42 probes and the c-sweep are direct evaluations with no
+   optimiser in the loop" as if that settled the question. It does not: 12 of the 42
+   probes are structurally floored regardless of real structure, and the LP-based
+   follow-up (Second Addendum) shows single-gradient direct evaluations are themselves
+   unreliable at ZLDC's own non-smooth points. "No optimiser in the loop" does not imply
+   "conclusive" when the objective is not smooth where it's being evaluated.
+5. **`CORRECTED 2026-09-19`:** superseded by the Third Addendum — the positive control
+   has since completed in full (it was incomplete when this item was first written).
+   The completed run does NOT cleanly reproduce `n^{-1.178}` (cold-start-verified fit:
+   `-1.1601±0.0203`; spread across defensible fits is `2.9×` the largest individual SE).
+   "Order-of-magnitude evidence the harness finds near-optimal schedules" still holds;
+   "agreement with the literature number" does not — see the Third Addendum for the full
+   corrected account.
 
 ## Pearl Gate
 
