@@ -1,0 +1,3 @@
+n= 15 ceiling_recheck=0.9198 (x1.087) 5%-reachable=True (1432.3s)
+n= 19 ceiling_recheck=0.9673 (x1.034) 5%-reachable=False (1866.8s)
+n= 23 ceiling_recheck=0.8686 (x1.151) 5%-reachable=True (5347.3s)

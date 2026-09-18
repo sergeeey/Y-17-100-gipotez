@@ -1,0 +1,9 @@
+{
+  "baseline_worst_ratio": 1.0,
+  "baseline_argmax_n": 2,
+  "candidate_worst_ratio": 1.274244795104525,
+  "candidate_argmax_n": 21,
+  "d": 0.01,
+  "u": 0.005,
+  "verdict": "SKEPTIC_DIRECTION_DID_NOT_IMPROVE"
+}

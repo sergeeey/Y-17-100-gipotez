@@ -1,0 +1,81 @@
+benchmark computed
+{
+  "note": "post-registration strongest-case run: every horizon is a training horizon",
+  "K": 24,
+  "horizons": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24
+  ],
+  "pass_ratio_threshold": 0.9523809523809523,
+  "worst_ratio": 1.0000000064205927,
+  "best_ratio": 0.999999947931832,
+  "mean_ratio": 0.9999999974531532,
+  "horizons_meeting_5pct": [],
+  "n_horizons_meeting_5pct": 0,
+  "n_horizons_total": 23,
+  "horizons_worse_than_benchmark": [
+    5,
+    7,
+    8,
+    10,
+    11,
+    12,
+    14,
+    15,
+    16,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24
+  ],
+  "VERDICT": "FAIL",
+  "seconds": 6241.0,
+  "total_pep_solves": 9895
+}
+  n=  2 ratio=1.0000 
+  n=  3 ratio=1.0000 
+  n=  4 ratio=1.0000 
+  n=  5 ratio=1.0000 
+  n=  6 ratio=1.0000 
+  n=  7 ratio=1.0000 
+  n=  8 ratio=1.0000 
+  n=  9 ratio=1.0000 
+  n= 10 ratio=1.0000 
+  n= 11 ratio=1.0000 
+  n= 12 ratio=1.0000 
+  n= 13 ratio=1.0000 
+  n= 14 ratio=1.0000 
+  n= 15 ratio=1.0000 
+  n= 16 ratio=1.0000 
+  n= 17 ratio=1.0000 
+  n= 18 ratio=1.0000 
+  n= 19 ratio=1.0000 
+  n= 20 ratio=1.0000 
+  n= 21 ratio=1.0000 
+  n= 22 ratio=1.0000 
+  n= 23 ratio=1.0000 
+  n= 24 ratio=1.0000 
