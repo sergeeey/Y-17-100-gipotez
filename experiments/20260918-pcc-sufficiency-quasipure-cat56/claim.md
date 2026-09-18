@@ -5,8 +5,8 @@
 | Field | Value |
 |-------|-------|
 | **Entity** | Random quasi-pure states `ρ_Δ` (Eq. 16 of Yang, Imai & Pezzè, arXiv:2601.21801: `ρ_Δ = (U_Δ⊗I)ρ_0(U_Δ†⊗I) = Σ_a q_a\|φ_a,Δ⟩⟨φ_a,Δ\|⊗\|a⟩⟨a\|`), small Hilbert space dimension `d` and parameter count `s`, chosen strictly BELOW the dimension threshold of the paper's own inequality (15). |
-| **Falsifiable predicate** | Does the Partial Commutativity Condition (PCC, Eq. 8: `⟨ψ_a,Δ\|[L_i,L_j]\|ψ_b,Δ⟩=0` for all `i≠j,a,b`, `L_i` = symmetric logarithmic derivatives) hold for a sampled quasi-pure state WHILE the paper's own Observation 2 exact impossibility criterion (`dim(V^⊥)<d`, `V^⊥` = orthogonal complement of the span of vectorized `W_ij,ab`/`M_i,ab` operators — a pure rank/SVD computation, NOT a constructive search) CERTIFIES that saturation is impossible — i.e. does a counterexample to "PCC is sufficient for QCRB saturation, restricted to quasi-pure states" exist below the threshold where the paper's own Theorem 3 guarantees sufficiency? |
-| **Measurable outcome** | For each sampled quasi-pure state: compute SLDs numerically, check PCC (explicit residual, not a bare boolean), and separately compute `dim(V^⊥)` via SVD (explicit rank with a documented singular-value tolerance). PCC-holds-with-margin AND `dim(V^⊥)<d`-with-margin, confirmed at increased numerical precision and by a second, independent reconstruction of the same physical state (different basis/parametrization, not reusing the first pass's tolerances/objects) = a CERTIFIED counterexample. **This is a one-directional test: `dim(V^⊥)≥d` does NOT certify saturability exists — it only means this specific fast check did not find a violation.** Zero certified counterexamples across the pre-registered sample is reported ONLY as "no counterexample found via this exact test under this sampling distribution" — NOT as evidence toward sufficiency (a positive sufficiency claim would need Theorem 3-style construction, out of scope below threshold). |
+| **Falsifiable predicate** | Does the Partial Commutativity Condition (PCC, Eq. 8: `⟨ψ_a,Δ\|[L_i,L_j]\|ψ_b,Δ⟩=0` for all `i≠j,a,b`, `L_i` = symmetric logarithmic derivatives) hold for a sampled quasi-pure state WHILE either of TWO independent exact impossibility certificates fires: (1) the paper's Observation 2 rank test (`dim(V^⊥)<d`, `V^⊥` = orthogonal complement of the span of vectorized `W_ij,ab`/`M_i,ab` operators — a rank/SVD computation), or (2) the paper's own Theorem S4 completeness-feasibility test (does a non-negative weight vector `α^(ω)∈[0,1]` exist with `Σα^(ω)=d`, `Σα^(ω)v^(ω)=0`? — an exact LINEAR PROGRAM feasibility check, not a non-convex search; the paper states directly: "if such {α^(ω)} does not exist, then the QCRB is not saturable") — i.e. does a counterexample to "PCC is sufficient for QCRB saturation, restricted to quasi-pure states" exist below the threshold where the paper's own Theorem 3 guarantees sufficiency? |
+| **Measurable outcome** | For each sampled quasi-pure state, in order: (a) check PCC (explicit residual, not a bare boolean) — if PCC fails, skip; (b) if PCC holds, run BOTH exact tests: the Observation 2 rank test (SVD, with the Rank-Certificate Gate below) and the Theorem S4 `α^(ω)` LP-feasibility test; (c) EITHER test certifying non-saturability, with the rank test additionally passing a numerical-stability protocol (singular-value spectrum logged, re-derived at increased precision, tolerance swept over a pre-registered range, independently reconstructed) = a CONFIRMED counterexample, naming which test fired. **`dim(V^⊥)≥d` AND `α`-LP-feasible together do NOT certify saturability exists** — the paper explicitly allows non-saturability for reasons outside both tests. Zero confirmed counterexamples across the pre-registered sample is reported ONLY as "no counterexample found via EITHER exact test under this sampling distribution" — never as evidence toward sufficiency. |
 
 > Gate rule satisfied: entity, predicate, outcome all concretely specified from a
 > directly-read primary source (arXiv:2601.21801, HTML full text, Eq. 8/15/16, Theorem
@@ -97,19 +97,36 @@ direct fetches of the HTML full text (not abstract-only, not a search-engine par
 ## Falsifiable Claim
 
 **Claim:** Among randomly sampled quasi-pure states with `(d,s)` chosen below the Eq.
-(15) threshold, PCC holds (with margin) while the paper's own exact Observation 2
-impossibility criterion (`dim(V^⊥)<d`, a pure rank/SVD computation) certifies saturation
-is impossible (with margin, robust to increased precision, independently reconstructed)
-for at least one sampled instance — a genuine, certified counterexample to "PCC
-sufficient for quasi-pure states."
+(15) threshold, PCC holds (with margin) while EITHER of two exact impossibility
+certificates fires — (1) Observation 2's rank test `dim(V^⊥)<d`, passing the full
+Rank-Certificate Gate below, or (2) Theorem S4's `α^(ω)` completeness-feasibility LP
+being infeasible — for at least one sampled instance — a genuine, certified
+counterexample to "PCC sufficient for quasi-pure states."
 
-**Check:** Numerically compute SLDs, PCC residual, and `dim(V^⊥)` via SVD for each
-sampled instance; report the fraction where PCC holds with margin; among those, report
-the fraction where `dim(V^⊥)<d` with margin. Any PCC-true/rank-deficient instance is a
-CANDIDATE, promoted to a counterexample only after independent re-derivation (Step 6 in
-the experiment's own protocol). A clean sample (no candidates) is reported as "no
-counterexample found via this exact test" — explicitly not evidence for sufficiency,
-since the rank test is one-directional (see Zero-Signal Gate above).
+**Check:** Numerically compute SLDs, PCC residual, `dim(V^⊥)` via SVD, and the `α^(ω)`
+LP-feasibility for each sampled instance; report the fraction where PCC holds with
+margin; among those, report which (if any) of the two exact tests fires. Any PCC-true
+instance where test 1 (with its full stability protocol) or test 2 fires is a CANDIDATE,
+promoted to CONFIRMED only after independent re-derivation. A clean sample (neither test
+fires on any PCC-true instance) is reported as "no counterexample found via either exact
+test" — explicitly not evidence for sufficiency: the paper itself allows non-saturability
+for reasons outside both tests, so a clean result only means these two specific,
+named avenues found nothing, not that saturability holds.
+
+## Rank-Certificate Gate (mandatory before test 1 may promote CANDIDATE -> CONFIRMED)
+
+A floating-point `dim(V^⊥)<d` finding is not automatically a certificate — a small
+singular value can be a true zero or an ill-conditioned nonzero. Before any rank-test
+finding counts as a candidate:
+1. Log the full singular-value spectrum, not just the computed rank.
+2. Re-derive at substantially increased numerical precision (e.g. `mpmath`/`sympy`).
+3. Sweep the rank tolerance over a pre-registered range (not chosen post-hoc); if rank
+   changes within this range, status is `NUMERICALLY_AMBIGUOUS`, not a candidate.
+4. Reconstruct `V^⊥`/the underlying matrix via an independently-implemented formula.
+5. Where inputs admit a rational/algebraic form (e.g. rationally-parametrized test
+   states), verify the rank defect with exact arithmetic for the final candidate.
+
+Only a defect stable across all 5 checks may promote to CONFIRMED.
 
 ---
 
@@ -177,19 +194,26 @@ absence of this specific type of certified violation.
    specific, pre-registered sample tested here.
 2. Does NOT touch the ALREADY-CLOSED general (non-quasi-pure) insufficiency result
    (Observation 2) — that is settled, not re-tested.
-3. A negative result (no counterexample found via the exact rank test) does NOT prove
-   PCC is sufficient for quasi-pure states, and is explicitly NOT reported as LEAD-level
-   evidence toward sufficiency — the rank test (`dim(V^⊥)<d` ⟹ impossible) is
-   ONE-DIRECTIONAL per the paper's own Observation 2; `dim(V^⊥)≥d` never certifies that a
-   saturating measurement exists, only that this specific fast check found no violation.
-   A genuine positive-sufficiency claim would require Theorem 3-style construction, which
-   is out of scope for this experiment below the Eq. 15 threshold.
+3. A negative result (no counterexample found via EITHER exact test) does NOT prove PCC
+   is sufficient for quasi-pure states, and is explicitly NOT reported as LEAD-level
+   evidence toward sufficiency — both tests are ONE-DIRECTIONAL (each certifies
+   impossibility when it fires; neither firing never certifies that saturation happens).
+   The paper's own text (Section IV / Theorem S4) explicitly allows non-saturability for
+   reasons outside both named tests, so a doubly-clean sample is weaker evidence than
+   "not found by the rank test alone" — it is "not found by either of the two specific
+   named exact tests," nothing more. A genuine positive-sufficiency claim would require
+   Theorem 3-style construction, out of scope below the Eq. 15 threshold.
 4. Does NOT require or attempt to reproduce Theorem 3's own constructive algorithm above
    threshold — that is already proven; this experiment only searches BELOW it.
 5. Does NOT treat an optimizer's failure to construct a saturating measurement as
    evidence of impossibility, anywhere in this experiment — impossibility is established
-   ONLY via the exact `dim(V^⊥)<d` rank/SVD certificate (Observation 2), independently
-   reconstructed, never via a non-convex search's non-convergence.
+   ONLY via the two named exact certificates (Observation 2's rank test, stability-gated;
+   Theorem S4's `α^(ω)` LP-feasibility), never via a non-convex search's non-convergence.
+6. Does NOT treat a numerically-detected rank deficiency as certified without passing the
+   full Rank-Certificate Gate (singular-value logging, precision escalation, tolerance
+   sweep, independent reconstruction, exact arithmetic where feasible) — a rank finding
+   that varies under this protocol is `NUMERICALLY_AMBIGUOUS`, reported as its own
+   category, never silently folded into either "counterexample" or "no counterexample."
 
 ## MCID
 
