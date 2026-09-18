@@ -2341,6 +2341,28 @@ nodes:
     source: "experiments/20260918-gd-anytime-finite-prefix-cat7/decision.md"
     updated: 2026-09-18
 
+  - id: PROB-CAT56
+    type: problem
+    title: "Is the Partial Commutativity Condition (PCC) sufficient for QCRB saturation, restricted to quasi-pure states specifically, at (d,s) below the paper's own Theorem 3 threshold (Eq. 15)? (open, per Ref. [38]'s conjecture)"
+    status: open                    # PCC's insufficiency IN GENERAL is already proven (Observation 2, not open) -- the narrower quasi-pure-state-specific question is explicitly still open per the source's own text
+    evidence: VERIFIED-REAL         # formal statements (Eq. 8 PCC, Eq. 15 threshold, Eq. 16 quasi-pure parametrization, Theorem 1/2/3) read directly from arXiv:2601.21801 HTML full text via two direct fetches, not a catalog paraphrase or abstract-only summary
+    catalog: "raw-100"
+    catalog_ref: "#56"
+    source: "Yang, Imai & Pezzè, 'A geometric criterion for optimal measurements in multiparameter quantum metrology', arXiv:2601.21801 (2026), Eq. 8/15/16, Theorem 1/2/3, and the explicit quote 'for generic quasi-pure states, whether PCC is sufficient or not is still open, as conjectured in Ref. [38]'"
+    updated: 2026-09-18
+
+  - id: H-CAT56-1
+    type: hypothesis
+    title: "PCC-SUFFICIENCY-QUASIPURE-v1: among randomly sampled quasi-pure states at (d,s) below the Eq. 15 threshold, does a counterexample exist where PCC holds but the exact hollowization criterion (Theorem 1) fails?"
+    status: proposed                # claim.md + controls.md written and source-traced (ADR-123 two-part gate passed: source-traced to a specific real open question + open-access verified); SLD computation harness not yet implemented -- A1 (numerical SLD solve for quasi-pure states) is the principal/cut-vertex assumption
+    evidence: UNKNOWN                # no computation run yet
+    l0_type: descriptive
+    kill_criterion: "Pre-registered (controls.md): N=200 random quasi-pure states at the smallest feasible (d,s) below the Eq. 15 threshold; escalate to one more (d,s) pair at the same N if the first is clean; stop after 2 pairs regardless of outcome. ANY single PCC-true/Theorem-1-false instance found = counterexample, closes the conjecture in the negative immediately. Zero counterexamples across both pairs = LEAD (not CONFIRMED) toward sufficiency in the tested regime only, per this project's own Anti-Overfitting Gate discipline for null existence-search results."
+    fl_tier: standard
+    experiment_dir: "experiments/20260918-pcc-sufficiency-quasipure-cat56"
+    source: "experiments/20260918-pcc-sufficiency-quasipure-cat56/claim.md"
+    updated: 2026-09-18
+
   - id: H-B2-3
     type: hypothesis
     title: "Does the K_ref-based transient-growth predictor (H-B2-2), refit once as a dimensionless K_ref(T(A-WI)) feature, transfer WITHOUT refitting to new observation windows T and to a structurally different matrix family?"
@@ -2641,6 +2663,7 @@ edges:
   # ───────────────────────── scope expansion (2026-09-09, ADR-087) ─────────────────────────
   - {from: PROB-CAT-30, to: H-CAT30-1, type: grounds, since: 2026-09-18, note: "Conjecture 16 of arXiv:2603.29571 is the formal object this hypothesis tried (and structurally failed) to test"}
   - {from: PROB-CAT7, to: H-CAT7-1, type: grounds, since: 2026-09-18, note: "Tsai/Fatkhullin/Zhang/He 2026's confirmed [1.119,1.334] gap is the formal open interval this bounded finite-horizon proxy is designed to generate structural hypotheses about, without claiming to close it"}
+  - {from: PROB-CAT56, to: H-CAT56-1, type: grounds, since: 2026-09-18, note: "the narrower, still-open quasi-pure-state-specific PCC-sufficiency question (distinct from the already-closed general case) is the formal object this counterexample search targets, below Theorem 3's own proven threshold"}
   - {from: H-CAT30-1, to: H-CAT30-2, type: depends_on, since: 2026-09-18, note: "H-CAT30-2 directly implements H-CAT30-1's own named revival condition (n=n(d) scaling) -- and was independently REJECTED for a different mechanism (Gram-matrix concentration, not span-confinement), broadening H-CAT30-1's own Kill Analysis retroactively"}
   - {from: PROB-CAT-37, to: H-CAT37-1, type: grounds, since: 2026-09-09, note: "Problem 2.20 of arXiv:2602.05394 is the formal object this hypothesis tests"}
   - {from: PROB-CAT-31, to: H-CAT31-1, type: grounds, since: 2026-09-09, note: "Conjecture 18 of arXiv:2603.29571 is the formal object this hypothesis tests"}
