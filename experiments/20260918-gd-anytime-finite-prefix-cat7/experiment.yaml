@@ -1,0 +1,65 @@
+id: 20260918-gd-anytime-finite-prefix-cat7
+hypothesis_id: H-CAT7-1
+estimand: GD-ANYTIME-FINITE-v1
+catalog_item: 7
+date: 2026-09-18
+
+question_type: descriptive   # L0 gate, claim.md
+
+population: >-
+  1-smooth convex functions, PEP worst case (Taylor-Hendrickx-Glineur 2017
+  interpolation), normalised L = 1, ||x_0 - x*||^2 <= 1, f* = 0.
+
+intervention: >-
+  A single prefix-consistent positive stepsize schedule of length K = 24, found by
+  outer non-convex search (multi-start L-BFGS-B with exact envelope-theorem
+  gradients) over exact PEP worst-case values.
+
+comparator: >-
+  Zhang-Lee-Du-Chen anytime schedule (arXiv:2411.17668, COLT 2025 = ref [14] of
+  arXiv:2607.02053), the published O(n^{-1.119}) anytime construction, reconstructed
+  exactly from its own definitions.  NOT silver (non-anytime), NOT Das Gupta
+  per-horizon (non-anytime).
+
+endpoint: >-
+  R_n = worst-case f(x_n) - f* after n gradient steps, exact PEP value.
+
+summary_measure: >-
+  ratio R_n(candidate[:n]) / R_n(zldc[:n]), reported per horizon (absolute ratio,
+  not an average).
+
+mcid: 0.952381        # = 1/1.05, the pre-registered 5% margin, required at EVERY n
+
+intercurrent_event: >-
+  Cross-horizon schedule variation.  Handled by a HARD prefix-consistency constraint
+  (composite strategy), not by treating it as nuisance: exactly one master array
+  exists and horizon n is scored on master[:n].
+
+horizons:
+  K: 24
+  N_train: [4, 8, 12, 16, 20, 24]
+  N_test: [5, 7, 11, 15, 19, 23]
+  positive_control: [10, 20, 30, 40, 50]
+  ceiling: [4, 5, 7, 8, 11, 12, 15, 16, 19, 20, 23, 24]
+
+pass_rule: >-
+  PASS iff ratio <= 0.952381 at EVERY n in N_train union N_test.  Train-only margin,
+  or a large average with one horizon short, is FAIL.
+
+gates:
+  substrate_gate: metrics/substrate_check.json
+  positive_control: metrics/positive_control.json
+  negative_control: metrics/prefix_consistency_check.json
+  ceiling: metrics/ceiling.json
+  main_test: metrics/prefix_search.json
+  no_collapse: metrics/no_collapse_tests.json
+
+outcome_vocabulary: [KILLED, CONFIRMED, LEAD, BLOCKED-INFRASTRUCTURE]
+
+environment:
+  python: 3.13.2
+  numpy: 2.3.4
+  scipy: 1.16.3
+  cvxpy: 1.9.2
+  pepit: 0.5.1
+  solver: CLARABEL (tol 1e-9), SCS fallback

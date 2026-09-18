@@ -1,0 +1,6 @@
+data_swap                FAIL  worst_train=0.9969 worst_test=1.1890 (1097.3s)
+noise_injection_seed_a   FAIL  worst_train=0.9714 worst_test=3.4498 (1769.2s)
+noise_injection_seed_b   FAIL  worst_train=0.9714 worst_test=3.4498 (1376.7s)
+scale_small_train        FAIL  worst_train=0.9659 worst_test=1.5449 (196.3s)
+scale_large_train        FAIL  worst_train=0.9860 worst_test=3.8165 (1630.2s)
+convention_flip_Gn       FAIL  worst_train=1.0000 worst_test=1.0000 (416.4s)

@@ -1,0 +1,12 @@
+All checks passed!
+n=  4 ceiling_ratio=0.8987 (max improvement x1.113) 5%-reachable=True
+n=  5 ceiling_ratio=0.9415 (max improvement x1.062) 5%-reachable=True
+n=  7 ceiling_ratio=0.9447 (max improvement x1.059) 5%-reachable=True
+n=  8 ceiling_ratio=0.9054 (max improvement x1.105) 5%-reachable=True
+n= 11 ceiling_ratio=0.9101 (max improvement x1.099) 5%-reachable=True
+n= 12 ceiling_ratio=0.8761 (max improvement x1.141) 5%-reachable=True
+n= 15 ceiling_ratio=0.9490 (max improvement x1.054) 5%-reachable=True
+n= 16 ceiling_ratio=0.9330 (max improvement x1.072) 5%-reachable=True
+n= 19 ceiling_ratio=0.9748 (max improvement x1.026) 5%-reachable=False
+
+[exited with code 127]

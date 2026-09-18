@@ -1,0 +1,124 @@
+{
+  "optima_source": "computed in check_prefix_consistency.py",
+  "k_prefix": 10,
+  "coincidence_tolerance_relative": 0.001,
+  "probe_A_pairwise_numeric": [
+    {
+      "n_a": 6,
+      "n_b": 10,
+      "k": 6,
+      "max_rel_diff": 0.052379446986262956,
+      "max_abs_diff": 0.10803940303107584,
+      "coincide": false
+    },
+    {
+      "n_a": 6,
+      "n_b": 14,
+      "k": 6,
+      "max_rel_diff": 0.01852793615005186,
+      "max_abs_diff": 0.06494643272444867,
+      "coincide": false
+    },
+    {
+      "n_a": 6,
+      "n_b": 18,
+      "k": 6,
+      "max_rel_diff": 0.9009331739637044,
+      "max_abs_diff": 2.090894493923296,
+      "coincide": false
+    },
+    {
+      "n_a": 10,
+      "n_b": 14,
+      "k": 10,
+      "max_rel_diff": 0.09245831948461004,
+      "max_abs_diff": 0.23858731120024945,
+      "coincide": false
+    },
+    {
+      "n_a": 10,
+      "n_b": 18,
+      "k": 10,
+      "max_rel_diff": 2.3470375524774485,
+      "max_abs_diff": 5.201780145129282,
+      "coincide": false
+    },
+    {
+      "n_a": 14,
+      "n_b": 18,
+      "k": 10,
+      "max_rel_diff": 2.312511920304171,
+      "max_abs_diff": 5.440367456329533,
+      "coincide": false
+    }
+  ],
+  "probe_B_functional_truncation": [
+    {
+      "n": 6,
+      "R_n_of_truncated_n50_optimum": 0.02188101900467336,
+      "R_n_of_own_optimum": 0.020205162983813495,
+      "excess_ratio": 1.0829419699411684
+    },
+    {
+      "n": 10,
+      "R_n_of_truncated_n50_optimum": 0.012262040906852898,
+      "R_n_of_own_optimum": 0.010667080048786977,
+      "excess_ratio": 1.149521785790601
+    },
+    {
+      "n": 14,
+      "R_n_of_truncated_n50_optimum": 0.007781748692898736,
+      "R_n_of_own_optimum": 0.007710657711092657,
+      "excess_ratio": 1.009219833698986
+    }
+  ],
+  "first_k_of_each_optimum": {
+    "6": [
+      1.41421,
+      2.06249,
+      1.4142,
+      3.50532,
+      1.41421,
+      2.06263
+    ],
+    "10": [
+      1.41497,
+      1.98536,
+      1.42017,
+      3.41585,
+      1.45205,
+      1.95459,
+      1.39745,
+      6.616,
+      1.42552,
+      1.85468
+    ],
+    "14": [
+      1.44038,
+      2.02616,
+      1.44038,
+      3.44038,
+      1.44038,
+      2.02616,
+      1.44038,
+      6.85459,
+      1.44038,
+      2.02616
+    ],
+    "18": [
+      1.64223,
+      1.41424,
+      2.35174,
+      1.41443,
+      2.68832,
+      1.41447,
+      2.8815,
+      1.41422,
+      4.77127,
+      1.41409
+    ]
+  },
+  "any_pair_coincides": false,
+  "functional_prefixes_equivalent": false,
+  "RESULT": "PASS"
+}
