@@ -10309,6 +10309,37 @@ This does not add a new verdict — it restates Points 96/98's own already-writt
 
 **Artifacts:** none (documentation-only correction, no new computation — matches this point's own nature as an epistemic-status audit, not a new experiment).
 
+## Point 100 (2026-09-18) — C5 revival condition (a) checked against real literature via `boyko-specialist`: a non-empirical `E[θ(G_n)]` upper bound EXISTS (Bandeira/Ferber 2025, already used elsewhere in this project) but is many orders of magnitude too weak to reach `V_n=O(1/n)` via the `V_n≤2g_n/√n` route — closes C5's own named revival condition (a) as unreachable with current field knowledge, not merely untried
+
+**Context.** Per the user's explicit choice (after Point 99's checkpoint), dispatched `boyko-specialist` to search for exactly what Point 97's revival condition (a) names: an independent, non-empirical (not Monte Carlo) upper bound on `E[θ(G_n)]` for structured random circulant graphs, via LP/SDP duality or a union-bound argument.
+
+**Found, `[VERIFIED]` via direct fetch of the primary source (not accepted from a search-engine summary alone):** Bandeira & Ferber, "The Lovász number of random circulant graphs" (arXiv:2502.16227) — the SAME paper this project already uses extensively for `E‖x*‖²=O(log³n)` and the `CV²` ceiling (Points 90/92) — proves, via a modified LP in the frequency domain plus the restricted isometry property (RIP) of the subsampled DFT matrix, **Theorem 1**: `√n ≤ E[θ(G)] ≤ C√(n·log log n)` for dense random circulant graphs (confirmed via `randomstrasse101.math.ethz.ch/posts/lovasz-circulant/`, citing the same arXiv ID this project already cites at lines 3189/8771/8807/9788/10045). A second, unrelated 2025 paper (Feige & Grinberg, arXiv:2506.02952, `[VERIFIED]` via direct fetch) targets ordinary Erdős–Rényi `G(n,1/2)` (not circulant graphs) and gives only a **conjectured**, not proven, bound (`E[θ]<1.55√n`, "heuristics and experiments," explicitly not rigorous) — checked and set aside as inapplicable to this project's circulant-graph model.
+
+**Independently re-derived here before accepting anything (`c5_bandeira_bound_check.py`): plugging Theorem 1 into this project's own established inequality `V_n≤2(E[θ]/√n-1)=2g_n/√n` (Point 94) gives a bound that is USELESS for the headline claim, and gets WORSE with `n`, not better.**
+```
+V_n ≤ 2(C√(log log n) - 1)
+```
+This is `O(√(log log n))` — a bound that **grows** (however slowly) with `n`, never shrinks. Numerically (`C=1`, qualitative — the paper's exact constant is not needed to see the shape): `V_n` bound is `0.71` at `n=509`, `0.85` at `n=2039`, `0.97` at `n=8191`, `1.13` at `n=10⁵`, `1.48` at `n=10⁹` — nowhere close to the target `1/n` (`0.00196`, `0.00049`, `0.00012`, `0.00001`, `~0` respectively at those same `n`), and the gap widens as `n` grows, the opposite of what a useful bound for an `O(1/n)` claim needs to do.
+
+**Checked the best possible case too — even the field's own SHARP, still-OPEN Conjecture 1 (`E[θ(G)]=(1+o(1))√n`), if proven, would not be enough.** Conjecture 1 only pins down `g_n=o(√n)` (any vanishing relative error); `V_n=O(1/n)` via this same inequality needs `g_n=O(n^{-1/2})` — an ADDITIVE precision requirement, not a relative one, and a much stronger statement than "leading order is `√n`." Modeling the loosest admissible `o(1)` factor as `ε_n=1/ln(n)` (a generous stand-in for "conjecture proven, but only barely"): the resulting `V_n` bound is `163×` too loose at `n=509`, `535×` at `n=2039`, `1818×` at `n=8191`, `17372×` at `n=10⁵` — and this ratio also GROWS with `n`. **Even proving the field's own hardest open conjecture would not close this route via the mean-gap inequality; a bound at least `O(n^{-1/2})` in absolute (not relative) terms would be needed, which no result in this literature search approaches, proven or conjectured.**
+
+**`boyko-specialist` Phase 5 verdict, applied honestly:**
+```
+Решено ли уже (существует ли нужный non-empirical bound)? Да, существует НЕДОСТАТОЧНЫЙ.
+Кем: Bandeira & Ferber 2025 (arXiv:2502.16227), Theorem 1 -- proven, not conjectural.
+Подходит нам: НЕТ -- ни один известный или даже гипотетический результат в этой нише
+  не даёт нужной АБСОЛЮТНОЙ (не относительной) точности O(n^-1/2) на E[theta].
+Дешёвый следующий шаг: закрыть C5's revival condition (a) как "unreachable given
+  current field knowledge," не как "not yet tried" -- избегает будущей сессии
+  повторно тратящей поиск на этот же вопрос без нового математического входа.
+```
+
+**Kill Analysis.** What is killed: C5's own revival condition (a) as a viable near-term path — not because no non-empirical bound on `E[θ]` exists (one does, and is already central to this project's own literature base), but because the ENTIRE achievable precision class for this quantity (proven or even optimistically conjectured) is many orders of magnitude too coarse for what the `V_n≤2g_n/√n` inequality needs. This is a genuine, informative negative result about the STRUCTURE of the mean-gap route itself, not merely "didn't find a paper." What is NOT killed: `C0` itself (untouched — this only concerns one specific proof STRATEGY for reaching it); Point 94's own inequality (exact, unaffected); the theoretical possibility of a *fundamentally different* route to bounding `g_n` at `O(n^{-1/2})` precision (not via a general concentration/LP-duality bound on `E[θ]`, which this search shows is structurally the wrong order of magnitude for this purpose — a future attempt would need to target `g_n` DIRECTLY at that precision, not derive it from a general `E[θ]` bound).
+
+**Revival condition, if ever reopened:** a technique that bounds `g_n=E[θ(G_n)]-√n` DIRECTLY at `O(n^{-1/2})` absolute precision — not via any general-purpose bound on `E[θ]` itself (this search shows that class of result is structurally ~`O(√(n log log n))`-to-`O(√n·o(1))`-precision, off by a `√n`-to-`n`-sized factor from what's needed). No such technique is known to exist in the literature searched here; this is a genuinely open question, not a gap in this search.
+
+**Artifacts:** `c5_bandeira_bound_check.py` (scratchpad, independent verification of the arithmetic above — not committed, reproducible from the formulas quoted in this point).
+
 
 
 
