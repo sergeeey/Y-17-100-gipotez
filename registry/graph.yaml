@@ -1893,6 +1893,16 @@ nodes:
     source: "experiments/20260909-forsythe-conjecture-restart-cg-search/decision.md"
     updated: 2026-09-10
 
+  - id: PROB-CAT-30
+    type: problem
+    title: "Sharp tensor concentration inequalities for order-r symmetric tensors, not reducible to naive matricization (Conjecture 16, Type-2 constant of Tensors)"
+    status: open                     # proven for p>=2r (BGJ+24, sharpened by Aden-Ali 2025); OPEN for p<2r ("volumetric barrier"), per the source's own words
+    evidence: VERIFIED-REAL          # formal statement (Conjecture 16) read directly from arXiv:2603.29571 HTML full text via browser fetch, not a catalog paraphrase
+    catalog: "raw-100"
+    catalog_ref: "#30"
+    source: "Bandeira, Dmitriev, Lucca, Nizic-Nikolac, Rodder, Randomstrasse101: Open Problems of 2025, arXiv:2603.29571 (2026), Entry 8, Conjecture 16"
+    updated: 2026-09-18
+
   - id: PROB-CAT-31
     type: problem
     title: "Typical Lovász theta number of random dense circulant graphs: does E[theta(G)] = (1+o(1))sqrt(n)? (Conjecture 18)"
@@ -1902,6 +1912,20 @@ nodes:
     catalog_ref: "#31"
     source: "Bandeira, Dmitriev, Lucca, Nizic-Nikolac, Rodder, Randomstrasse101: Open Problems of 2025, arXiv:2603.29571 (2026), Entry 9, Conjecture 18"
     updated: 2026-09-09
+
+  - id: H-CAT30-1
+    type: hypothesis
+    title: "Does E||sum_i g_i T_i||_{I_2} stay dimension-free (up to polylog) as d grows, for r=3, p=2 (the open p<2r regime of Conjecture 16), using a fixed-n=20 random rank-1 tensor family T_i=a_i^{otimes 3}?"
+    status: killed                 # decision.md: REJECTED -- pilot design is DEGENERATE, not informative about the open regime
+    evidence: VERIFIED-REAL
+    evidence_mode: simulation      # ADR-122: Monte Carlo estimation of a tensor injective norm, not a real-world dataset
+    verification_strength: strong  # FL Step 8a context-asymmetric skeptic pass (FALSIFIED verdict) + independent re-derivation of every load-bearing number before acceptance
+    l0_type: descriptive
+    kill_criterion: "Pre-registered: LEAD if 95% CI on weighted power-law exponent beta (log(E-norm) vs log(d)) excludes 0 AND is bounded away from [-0.1,0.1]; else INFORMATIVE-NEGATIVE. RESULT: killed before the kill criterion could even apply -- a context-asymmetric skeptic proved the construction is mathematically DEGENERATE: f(x)=sum_i g_i<a_i,x>^3 depends on x only through u=Ax in R^n, so the optimum is confined to span{a_i} (<=n=20 dimensions) regardless of d. Independently re-verified: the observed 'plateau' (2.1565) matches the closed-form E[max_i|g_i|]=2.1667 (n=20 order statistic, computed two independent ways -- 4M-sample Monte Carlo and numerical integration, agreeing to 4 decimals) to 0.48%; the optimizer's x* lies EXACTLY in span{a_i} at every tested d up to d=400 (residual ~1e-16, machine precision). The pilot's own kill criterion was derivable in 3 lines before running any code -- not a real test. Conjecture 16 itself remains untouched/genuinely open; only this fixed-n construction's ability to probe the open p<2r regime is killed. Revival requires n=n(d) scaling (Relaxation Map in decision.md) so the search space is genuinely d-dimensional."
+    fl_tier: standard
+    experiment_dir: "experiments/20260918-tensor-concentration-injective-norm-cat30"
+    source: "experiments/20260918-tensor-concentration-injective-norm-cat30/decision.md"
+    updated: 2026-09-18
 
   - id: H-CAT31-1
     type: hypothesis
@@ -2533,6 +2557,7 @@ edges:
   - {from: PRJ-CHERNOFFPY, to: BRIDGE-8-UDE-IDENTIFIABILITY, type: grounds, since: 2026-09-09, note: "existing UDE/Neural-ODE codebase is the candidate infrastructure to reuse -- feasibility of partial-observable variants not yet checked, see Novelty/Transfer Gate in project doc"}
 
   # ───────────────────────── scope expansion (2026-09-09, ADR-087) ─────────────────────────
+  - {from: PROB-CAT-30, to: H-CAT30-1, type: grounds, since: 2026-09-18, note: "Conjecture 16 of arXiv:2603.29571 is the formal object this hypothesis tried (and structurally failed) to test"}
   - {from: PROB-CAT-37, to: H-CAT37-1, type: grounds, since: 2026-09-09, note: "Problem 2.20 of arXiv:2602.05394 is the formal object this hypothesis tests"}
   - {from: PROB-CAT-31, to: H-CAT31-1, type: grounds, since: 2026-09-09, note: "Conjecture 18 of arXiv:2603.29571 is the formal object this hypothesis tests"}
   - {from: H-CAT31-1, to: H-CAT31-2, type: grounds, since: 2026-09-10, note: "H-CAT31-2 reuses H-CAT31-1's own cross-validated theta_via_lp/sample_circulant_neighbors unchanged, and reframes H-CAT31-1's own mean-ratio finding as a statement about E[cosh(X)-1] whose tail structure H-CAT31-1 itself never examined"}
