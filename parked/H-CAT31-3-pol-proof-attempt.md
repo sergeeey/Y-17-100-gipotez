@@ -1,12 +1,30 @@
-# PARKED — H-CAT31-3 `(POL)` proof-attempt line (Points 77–92)
+# PARKED — H-CAT31-3 active search (Points 77–95), scope extended 2026-09-18
 
-**Date parked:** 2026-09-18
-**Scope note:** this entry parks ONLY the `(POL)` proof-attempt sub-line (Points 77–92) within
-the broader `H-CAT31-3` experiment, not the whole experiment (which has separate, still-open
-questions: `F4rel`, `R_n`, composite `n`, and the project's own original target
-`Var(log(θ(G)/√n))=O(1/n)`). The graph node `H-CAT31-3` already records `RESULT: REJECTED` for a
-narrower, earlier claim (the direct `-1` log-log slope exponent, killed ~Point 54) — that verdict
-is untouched here.
+**Date parked:** 2026-09-18 (originally scoped to Points 77–92; extended same day after Point 95)
+**Scope note:** this entry parks the ENTIRE active-search effort on `H-CAT31-3` as of Point 95 —
+not just the `(POL)` proof-attempt sub-line (Points 77–92), but also the two follow-ups attempted
+after it: `F4rel` (found gated on the already-parked `(POL)` — its clean route to the main theorem
+needs `J_n=O(1)`, but `F4rel`+the current second-moment bound only gives `J_n=O(log⁶n)`, not new
+leverage) and `R_n` (Point 95: a pre-registered tightened-reps follow-up, found by a real skeptic
+review to leave the scaling question as open as before — the weighted 95% CI on `R_n`'s own scaling
+exponent contains BOTH `b=0`, the target hypothesis's own plateau, and `b=1`, a scenario where
+`Var(X_n)` does not decay as `1/n` at all). This is a deliberate research PAUSE, not a KILL — none
+of `(POL)`, `F4rel`, or `R_n`'s scaling is disproven, only every attempted cheap next step has
+stopped yielding new information. This does NOT park the broader `H-CAT31-3` experiment's
+`composite n` question in a different sense than before (H-CAT31-2's own divisor-feature test of
+it was separately `REJECTED`, not merely parked — see that experiment's own decision.md) or, most
+importantly, the project's own original target `Var(log(θ(G)/√n))=O(1/n)` as a claim in its own
+right, independent of any specific proof route to it. The graph node `H-CAT31-3` already records
+`RESULT: REJECTED` for a narrower, earlier claim (the direct `-1` log-log slope exponent, killed
+~Point 54) — that verdict is untouched here.
+
+**Why extended (not just the original `(POL)` scope):** `F4rel`'s only clean path to the main
+theorem needs the already-parked `(POL)`'s own tighter second-moment bound, so it offers no
+independent route (Point 92's own algebra, independently re-checked). `R_n`'s own pre-registered
+follow-up (Point 95) was the ONE concrete, ready-to-run next step available at the time of the
+original PARK — it has now been run, and a real skeptic review found it does not discriminate
+between the target hypothesis and its negation. No further ready, non-tautological cheap next step
+remains for this experiment as of 2026-09-18.
 
 **Deviation from `parked/INDEX.md`'s own template, stated explicitly:** the template instructs
 copying the filled-in `decision.md` into this file. `decision.md` for this experiment is over
@@ -91,12 +109,22 @@ an unrelated paper) that bounds `CV²`-type quantities for LP/SDP optimizer coor
 search if reviving); (c) a low-density (small `c`), prime-`n`, structured (non-generic-objective)
 follow-up to Point 91's killed investigation that avoids all three of its named bugs and finds a
 genuine sub-Tao-floor sparse vertex — Point 91's own "what survives" section names the concrete
-setup needed.
+setup needed; **(d) for `R_n` specifically (Point 95's own named fallback, cheapest first):**
+combine the old (200/150/80-rep) and new (800/600/160-rep) draws via inverse-variance weighting at
+each `n`; equalize rep counts across all tested `n` (removes both the estimator-bias/`n` confound
+and the "how many power-law comparisons 'fail' depends on rep count" artifact); reformulate the
+target explicitly as a `95%` CI on the scaling exponent `b` in `n·R_n∝n^b`, with a PRE-REGISTERED
+stopping rule for how many points/reps would be needed to exclude `b=1`; use a BCa or studentized
+bootstrap for `n·R_n` specifically (its CI is visibly skewed and sits near the `b=0` boundary,
+exactly where percentile-bootstrap coverage is weakest).
 
-**What this project's own original target still has going for it:** the project's OWN stated
-original target, `Var(log(θ(G)/√n))=O(1/n)`, is a DIFFERENT (and per an external analysis relayed
-mid-session, potentially stronger-implying) claim than `(POL)` — proving it would give the paper's
-own sharp Conjecture 1 directly (per a "mean-gap" connection referenced but not independently
-re-derived in this arc, flagged `[WEAK]` in Point 90). This target is NOT parked by this entry —
-it was the project's target before the `(POL)` detour began at Point 77, and remains open,
-untouched by this specific proof-attempt line's failure.
+**What this project's own original target still has going for it, corrected (Point 94):** the
+project's OWN stated original target, `Var(log(θ(G)/√n))=O(1/n)`, is a DIFFERENT claim than
+`(POL)` — but the "mean-gap" connection to Bandeira et al.'s sharp Conjecture 1 that was originally
+relayed and flagged `[WEAK]` was found, on independent derivation, to run in the OPPOSITE direction
+(`decision.md:215-230`'s own real result shows mean-gap-closing forces variance to vanish, not the
+converse) — and a rare-value counterexample (Point 94 addendum, `sympy`-verified) shows
+`Var(X_n)=O(1/n)` alone is compatible with the mean gap DIVERGING, not merely missing the sharp
+constant. This target is NOT parked by this entry — it was the project's target before the `(POL)`
+detour began at Point 77, and remains genuinely open — just without the shortcut to Conjecture 1
+the original relayed claim suggested.
