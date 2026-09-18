@@ -2317,6 +2317,28 @@ nodes:
     source: "experiments/20260910-forsythe-s4-minimal-dimension-search/decision.md"
     updated: 2026-09-10
 
+  - id: PROB-CAT7
+    type: problem
+    title: "Optimal anytime convergence rate of gradient descent (R_n, function-value gap) with an arbitrary positive stepsize schedule -- true exponent lies in [1.334, 1.119], gap open"
+    status: open                    # COLT 2024 open problem (Kornowski & Shamir), partial answer via Zhang et al.'s O(n^-1.119) upper bound and Tsai/Fatkhullin/Zhang/He 2026's o(n^-4/3) lower bound -- gap between 1.119 and 1.334 confirmed still open as of the 2026-07-02 lower-bound paper
+    evidence: VERIFIED-REAL         # both sources read directly (COLT proceedings PDF page 1 abstract via direct fetch; arXiv:2607.02053 pages 1-6 read in full, Theorem 1.1 quoted verbatim, not a search-engine paraphrase)
+    catalog: "raw-100"
+    catalog_ref: "#7"
+    source: "Kornowski & Shamir, COLT 2024, PMLR v247:5335-5339 (open problem); Tsai, Fatkhullin, Zhang & He, 'Lower Bounds for Anytime Acceleration of Gradient Descent', arXiv:2607.02053 (2026-07-02), Theorem 1.1"
+    updated: 2026-09-18
+
+  - id: H-CAT7-1
+    type: hypothesis
+    title: "GD-ANYTIME-FINITE-v1: does a single prefix-consistent stepsize schedule (PEP-optimal under a hard cross-horizon prefix constraint) beat the O(n^-1.119) anytime benchmark's worst-case R_n on a pre-registered finite N_train/N_test horizon set, by >=5% margin at every tested n?"
+    status: proposed                # claim.md + controls.md written and source-traced (ADR-123 two-part gate passed); PEPit implementation not yet started -- A1 (exact O(n^-1.119) benchmark schedule) and A2 (PEPit prefix-constraint feasibility) both still open per claim.md's own HD-MAVP table
+    evidence: UNKNOWN                # no computation run yet
+    l0_type: descriptive
+    kill_criterion: "Pre-registered (controls.md): PASS requires >=5% R_n improvement over the benchmark at EVERY tested n in BOTH N_train and N_test (not average, not train-only). FAIL if no improvement found within the solver budget, OR improvement found on N_train but vanishes/reverses on N_test (the exact failure mode the prefix constraint exists to catch -- distinguishes a genuine anytime-structural finding from silently re-deriving Das Gupta et al.'s already-published PER-HORIZON n^-1.178 result, which the source paper itself cites as evidence toward an UNRELATED conjecture, not an anytime rate). Explicitly BLOCKED-INFRASTRUCTURE, not FAIL, if PEPit cannot express the hard prefix constraint (A2) -- substrate failure is never recorded as evidence against the claim, per falsification-ladder.md Step 2a."
+    fl_tier: standard
+    experiment_dir: "experiments/20260918-gd-anytime-finite-prefix-cat7"
+    source: "experiments/20260918-gd-anytime-finite-prefix-cat7/claim.md"
+    updated: 2026-09-18
+
   - id: H-B2-3
     type: hypothesis
     title: "Does the K_ref-based transient-growth predictor (H-B2-2), refit once as a dimensionless K_ref(T(A-WI)) feature, transfer WITHOUT refitting to new observation windows T and to a structurally different matrix family?"
@@ -2616,6 +2638,7 @@ edges:
 
   # ───────────────────────── scope expansion (2026-09-09, ADR-087) ─────────────────────────
   - {from: PROB-CAT-30, to: H-CAT30-1, type: grounds, since: 2026-09-18, note: "Conjecture 16 of arXiv:2603.29571 is the formal object this hypothesis tried (and structurally failed) to test"}
+  - {from: PROB-CAT7, to: H-CAT7-1, type: grounds, since: 2026-09-18, note: "Tsai/Fatkhullin/Zhang/He 2026's confirmed [1.119,1.334] gap is the formal open interval this bounded finite-horizon proxy is designed to generate structural hypotheses about, without claiming to close it"}
   - {from: H-CAT30-1, to: H-CAT30-2, type: depends_on, since: 2026-09-18, note: "H-CAT30-2 directly implements H-CAT30-1's own named revival condition (n=n(d) scaling) -- and was independently REJECTED for a different mechanism (Gram-matrix concentration, not span-confinement), broadening H-CAT30-1's own Kill Analysis retroactively"}
   - {from: PROB-CAT-37, to: H-CAT37-1, type: grounds, since: 2026-09-09, note: "Problem 2.20 of arXiv:2602.05394 is the formal object this hypothesis tests"}
   - {from: PROB-CAT-31, to: H-CAT31-1, type: grounds, since: 2026-09-09, note: "Conjecture 18 of arXiv:2603.29571 is the formal object this hypothesis tests"}
