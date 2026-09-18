@@ -29,6 +29,7 @@
 
 
 
+
 ## Current Focus
 - **[2026-09-17, H-CAT31-3 Points 77-89 — long proof-attempt + measurement window on `(POL)`/`F4rel` for `CV²(y*)`; session just closed, read this first.]** Context: `(POL): sup_n E‖x*‖²<∞`, reduced (Point 85, exact KKT identity `s=2Q+1` non-degenerate-vertex support size) to `E[CV²(y)]=O(1)`. Four proof ROUTES attempted this window, all genuinely tried (not just cited) and all KILLED with a precise, quantified reason, not vague failure: (1) direct Talagrand transfer from Arora-Bhaskara's i.i.d.-edge technique — killed Point 81, circulant graphs lack the `Θ(n²)`-independent-bits structure the technique needs (re-confirmed independently Point 87§4A by two research agents); (2) uncertainty-principle-on-supports — killed Point 85, saturated with zero slack; (3) Young's/sup-norm convolution bounds on `F4rel` — killed Point 86, one reproduces the trivial bound exactly, the other's gap widens with `n`; (4) KKT/argmin-stability via LP non-degeneracy margins (`boyko-specialist`'s suggestion) — killed Point 88 after finding its cited source (Escande arXiv:2304.00809) was misattributed (real paper, wrong technique) and finding zero correlation between vertex margins and `CV²`, a result that itself SURVIVED a real adversarial skeptic pass testing 3 alternative explanations.
 - **[VERIFIED-COMPUTATION, Point 87, the load-bearing measurement chain this window] `CV²(y*)` measured across 6 points, `n=127→8009`, up to 300 reps each (fewer at largest `n` — LP solve cost grew from `~0.07s`/instance at `n=509` to `~15-18min`/instance at `n=8009`, a canonical-code `45s` time-limit had to be worked around with a local no-timelimit wrapper, never touching Codex's read-only `CertificateLP`).** Two separable findings, corrected TWICE by real skeptic passes before reaching their final form (see `decision.md` Point 87 §4E-4I for the full, honest before/after): (a) **dispersion of `CV²` across independent instances shrinks as the ORDINARY, trivial `n^{-1/2}` CLT-type rate** — not a mysterious `-0.53` law as a first draft claimed; that apparent deviation from `-0.5` is entirely `mean(CV²)`'s own separate drift, confirmed via an exact algebraic decomposition (`slope(std)-slope(mean)=slope(CV_of_CV2)`, verified to 4 decimals); this dispersion law holds cleanly over about one decade (`n≈500-4000`) but is REJECTED (`p=0.0017`) across the full `127-8009` range once the endpoints are included. (b) **`mean(CV²)` is genuinely, significantly increasing with `n`** (`0.987→1.050` from `n=127→8009`, `9σ`+ from `1` at the largest `n`'s) — real, not noise — but whether it converges to a constant (`≥~1.09-1.13` at 1-2σ, no upper bound established) or grows without bound is **UNRESOLVED and likely UNRESOLVABLE within this `n`-range**: a 5-model comparison (Point 87§4I) found the candidate functional forms (log-linear, log-log, `n^{-1/4}`, `1/ln n`, `n^{-1/2}`) are nearly collinear over `n∈[127,8009]` (`|corr|` up to `0.996`), so model selection there is close to uninformative, and — critically — whichever model "wins" flips entirely depending on whether the single point `n=127` (already independently flagged, twice now, as the one point driving nearly all discrimination and a likely pre-asymptotic outlier) is included or excluded.
@@ -52,11 +53,8 @@
   overclaim the user also caught), reopening Priority C (bounded-moment-order route) as viable.
   Point 49 (layer-aggregated closure test) directly refuted a further objection ("no known
   technique for per-layer moments") by running it — real result `A_n≈1`, but only
-  non-tautological from `n=37` onward (small-`n` cases are LP dimension-count identities, not
-  evidence; point 45's own negative control was not re-run per layer, so scoped as a feasibility
-  demonstration, not proof the bound is informative). Two full skeptic-fallback review rounds
-  (reviewer's cap stayed closed all session) caught real overclaims each time, including in the
 
+[summarized] non-tautological from `n=37` onward (small-`n` cases are LP dimension-count identities, not
 [summarized] same day's first-draft text — pattern worth a `patterns.md` entry: this project's own
 
 ## Project State
@@ -77,11 +75,13 @@
 
 
 
+
 ## Architecture (файлы этой папки)
 - `00-catalog/` — источники задач (raw + verified subset + skeptic assessment)
 - `01-cross-domain-bridges/` — главный рабочий файл + H-7 контекст (два разных проекта!)
 - `02-related-projects-context/` — ChernoffPy, May 1972
 - `03-methodology-rules/` — переиспользуемые правила (execution rules, submission gate, ESV scoring)
+
 
 
 
@@ -109,6 +109,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 
 
+
 ## Open Questions (для пользователя)
 1. ~~Frontier R&D / TOFT / RAF Theory — реальны на другом компьютере, или нет?~~ **[VERIFIED —
    прямая цитата пользователя, 2026-09-07, эта сессия]:** "на другой машине может и раньше были
@@ -120,6 +121,7 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 
 ---
 *Создан: 2026-09-06 при переносе из Obsidian vault.*
+
 
 
 
