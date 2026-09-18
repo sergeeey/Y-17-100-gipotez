@@ -407,3 +407,78 @@ kink using a genuine subdifferential (convex hull of dual-optimal directions acr
 tied active constraints), not a single arbitrary dual solution's gradient" as a named,
 cheap addition — the LP and its verification script already exist in this folder and
 would need only the subdifferential extension, not new machinery.
+
+## Second Addendum — the non-smoothness hypothesis is no longer a hypothesis, it is measured
+
+A `reviewer` pass on the three new verification scripts (`skeptic_descent_check.py`,
+`local_minimax_lp.py`, `verify_lp_direction.py`) was dispatched to check for a mundane
+bug (sign error, off-by-one, wrong horizon slicing) before accepting the "UNRESOLVED,
+most likely non-smooth" language above as final. It found none — and settled the
+question with a decisive, executed measurement rather than by inspection.
+
+**Direct evidence, not inference:** for each horizon, the one-sided finite-difference
+derivatives `D+(d) = (log R_n(zl+εd) - log R_n(zl))/ε` and `D-(d) = (log R_n(zl) -
+log R_n(zl-εd))/ε` were computed along the LP's own found direction `d`, at `ε` spanning
+three orders of magnitude (`1e-3` to `1e-5`, stable plateau confirming a real limit, not
+solver noise — `1e-6`/`1e-7` show the expected FD noise floor beyond that range). On 18 of
+23 horizons, `D+ ≈ -D-` to 5 decimal places, matching the analytic envelope-theorem
+gradient exactly — confirming `_gradient` in `pep_core.py` has no sign, indexing, or
+convention bug (an error there would not produce agreement on 18 horizons of differing
+length). On exactly the 5 horizons already flagged as suspect
+(`n=3,9,13,17,21`), **both one-sided derivatives are POSITIVE simultaneously** — e.g. at
+`n=21`: `D+=+50.97`, `D-=+7.22` (stable across the ε sweep). A differentiable function
+cannot have same-signed one-sided derivatives; this is the textbook signature of a kink,
+not solver imprecision, and it is now a measured fact, not a plausible-sounding
+explanation. Per-coordinate decomposition at `n=21` finds the kink present in 20 of 21
+active coordinates, absent only in the schedule's own longest join-step coordinate — the
+analytic gradient's value at every kinked coordinate sits between its own two one-sided
+slopes, the expected signature of one arbitrary element of a non-trivial subdifferential
+(multiple simultaneously-optimal dual solutions), not a numerically inaccurate solve
+(`prob.status='optimal'`, not `'optimal_inaccurate'`, at every checked point).
+
+**Corrected framing (upgrade from "most likely" to measured):** ZLDC's own SDP, at 5 of
+the 23 tested horizons, has a non-unique optimal dual solution — a genuine mathematical
+kink in `R_n(h)` as a function of the schedule, coinciding exactly with horizons whose
+last step is one of the construction's own long join-steps. The envelope-theorem
+gradient `pep_core.py` returns at those horizons is a real, correctly-computed element of
+the subdifferential — not a bug — but using one arbitrary element per horizon in a
+first-order LP is provably not a valid local-optimality test there, which is exactly why
+both the original claim and the LP's own proposed refutation failed on direct execution.
+**The "UNRESOLVED" verdict above is unchanged in substance — local optimality at ZLDC
+still cannot be settled by any method tried here — but its cause is now a confirmed,
+measured structural fact (non-unique dual solutions at 5 specific horizons) rather than a
+plausible surrounding explanation.**
+
+**Three concrete fixes applied to the scripts as a result, not merely noted:**
+1. `local_minimax_lp.py` now runs a smoothness pre-check (probing `D+(d)+D-(d)` at each
+   horizon along its own found direction) BEFORE printing or saving a verdict, and
+   correctly flags all 5 kinked horizons on re-run (`[3, 9, 13, 17, 21]`, matching the
+   reviewer's independently-derived set exactly). `metrics/local_minimax_lp.json` now
+   carries `"is_locally_stationary": null` with an explicit note, replacing the earlier
+   unconditional `false` — that field's earlier value was a real defect (a script output
+   asserting a conclusion its own method cannot support at a kink), now corrected.
+2. `substrate_check.py`'s gradient finite-difference check is noted as a real scope gap,
+   not fixed in this experiment: it was run only at random smooth points (`n∈{3,5,7}`,
+   `h~U[0.3,2.5]`), never at ZLDC or at `n>7` — so the Substrate Gate's `gradient: true`
+   verdict was correctly read as "the gradient code is not obviously broken," and
+   incorrectly OVER-read (in the first draft of this decision.md) as license to trust the
+   gradient anywhere, including at ZLDC's own kinked horizons. Recorded here as a named
+   scope limitation on the Substrate Gate itself, not silently absorbed.
+3. `skeptic_descent_check.py`'s `baseline_argmax_n=2` field is a tie-breaking artifact
+   (all 23 horizons are exactly tied at `worst_ratio=1.0` for ZLDC itself; `argmax` returns
+   only the first) — noted here rather than corrected in the script, since the tie itself
+   (not which index numpy happens to report first) is the substantive fact, already
+   stated explicitly elsewhere in this file.
+
+**Pearl Gate, replacing the withdrawn one:** the non-unique-dual-solution mechanism is a
+better-formed, measured candidate for a Pearl than the withdrawn local-optimum claim was.
+
+| field | value |
+|---|---|
+| source | `20260918-gd-anytime-finite-prefix-cat7` |
+| observation | For the ZLDC anytime construction, the PEP-optimal dual solution is non-unique (a measured kink in `R_n(h)`, confirmed via asymmetric one-sided derivatives) at exactly the horizons whose last step is one of the construction's own long join-steps (`n=3,9,13,17,21` along the tested direction) — i.e. the construction's own "boundary between safe and overshoot regimes" design goal coincides with genuine non-smoothness of the worst-case value function, not merely a numerical near-tie. |
+| falsifiable prediction | For any concatenation-based anytime schedule with the same safe/overshoot structure (e.g. Grimmer et al., Zhang & Jiang, matching the withdrawn Pearl's transfer candidates), the horizons ending on a long join-step will show asymmetric one-sided derivatives (`D+(d)` and `D-(d)` same-signed) for generic directions `d`, while horizons ending mid-block will not. Testable at the same cost as this experiment's own `D+/D-` probe. |
+| impact_score | 4 — a real structural fact about one construction family's value function, transferable to sibling constructions, narrower than the withdrawn claim it replaces (which asserted local optimality, not merely non-smoothness) |
+| trigger_condition | any future experiment computing PEP-based gradients at a concatenation-endpoint horizon for this schedule family |
+| next_check | 2026-11-15 |
+| status | pending |

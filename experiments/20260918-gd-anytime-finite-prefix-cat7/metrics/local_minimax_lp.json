@@ -1,7 +1,14 @@
 {
   "lp_status": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
   "optimal_t": -0.2190553356158804,
-  "is_locally_stationary": false,
+  "kinked_horizons": [
+    3,
+    9,
+    13,
+    17,
+    21
+  ],
+  "is_locally_stationary": null,
   "direction": [
     1.0,
     1.0,
@@ -27,5 +34,6 @@
     1.0,
     1.0,
     1.0
-  ]
+  ],
+  "note": "is_locally_stationary is None when kinked_horizons is non-empty: the first-order LP test is invalid at a kink and neither branch of the dichotomy may be read as a verdict there."
 }
