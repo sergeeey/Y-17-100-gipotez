@@ -1,0 +1,82 @@
+{
+  "fit4_reproduced": {
+    "label": "K_n",
+    "model": "log(K_n) = a + b*log(n), weighted least squares, weights=1/SE(log K_n)^2",
+    "n_points": 4,
+    "intercept_a": 3.9422919433042525,
+    "intercept_a_SE": 0.33000985241836167,
+    "slope_b": 0.06710392021827094,
+    "slope_b_SE": 0.05156492736512774,
+    "slope_b_95CI": [
+      -0.03396148028280328,
+      0.16816932071934515
+    ],
+    "slope_interpretation": "b=0 would mean K_n bounded (no power-law growth); b>0 growing; b<0 shrinking",
+    "relative_SE_K_n_per_point": {
+      "127": 0.10137445898181566,
+      "509": 0.09378297517205941,
+      "1021": 0.10661922469361787,
+      "2039": 0.11372809402853908
+    },
+    "delta_method_caveat": "SE(log Y)~=SE(Y)/Y is a first-order approximation; flagged unreliable per-point if relative SE exceeds 0.3",
+    "delta_method_reliable": true,
+    "residuals_log_Y": [
+      0.01248323867364931,
+      -0.05188097356240817,
+      0.07911841412207732,
+      -0.0294367782412861
+    ],
+    "chi2_flat_model": 2.6323594169090136,
+    "chi2_flat_model_dof": 3,
+    "chi2_power_law_model": 0.9388525413009603,
+    "chi2_power_law_model_dof": 2,
+    "delta_chi2_dof1": 1.6935068756080534,
+    "delta_chi2_p_value": 0.19313933018176566,
+    "significance_test_note": "Delta-chi-squared test for slope=0 (nested flat-vs-power-law models under this script's known-variance convention), chi2 with 1 dof -- NOT a t-test; corrected framing per decision.md Point 66 skeptic-fallback review"
+  },
+  "fit3_excl127": {
+    "label": "K_n_excl127",
+    "model": "log(K_n_excl127) = a + b*log(n), weighted least squares, weights=1/SE(log K_n_excl127)^2",
+    "n_points": 3,
+    "intercept_a": 3.7535261119199994,
+    "intercept_a_SE": 0.7242418013523108,
+    "slope_b": 0.09407836553779468,
+    "slope_b_SE": 0.10557435900192318,
+    "slope_b_95CI": [
+      -0.1128435757968768,
+      0.30100030687246615
+    ],
+    "slope_interpretation": "b=0 would mean K_n_excl127 bounded (no power-law growth); b>0 growing; b<0 shrinking",
+    "relative_SE_K_n_excl127_per_point": {
+      "509": 0.09378297517205941,
+      "1021": 0.10661922469361787,
+      "2039": 0.11372809402853908
+    },
+    "delta_method_caveat": "SE(log Y)~=SE(Y)/Y is a first-order approximation; flagged unreliable per-point if relative SE exceeds 0.3",
+    "delta_method_reliable": true,
+    "residuals_log_Y": [
+      -0.031231970407371357,
+      0.08099078098599577,
+      -0.0462220135089213
+    ],
+    "chi2_flat_model": 1.647196026435346,
+    "chi2_flat_model_dof": 2,
+    "chi2_power_law_model": 0.8531190198665023,
+    "chi2_power_law_model_dof": 1,
+    "delta_chi2_dof1": 0.7940770065688437,
+    "delta_chi2_p_value": 0.37287016835626585,
+    "significance_test_note": "Delta-chi-squared test for slope=0 (nested flat-vs-power-law models under this script's known-variance convention), chi2 with 1 dof -- NOT a t-test; corrected framing per decision.md Point 66 skeptic-fallback review"
+  },
+  "leverage_pct_numerator": {
+    "127": 49.34398971326005,
+    "509": 2.3160844826044538,
+    "1021": 25.370251682530927,
+    "2039": 22.969674121604566
+  },
+  "leverage_pct_denominator": {
+    "127": 56.45369203326889,
+    "509": 0.23878943757310034,
+    "1021": 8.62428698748236,
+    "2039": 34.68323154167564
+  }
+}

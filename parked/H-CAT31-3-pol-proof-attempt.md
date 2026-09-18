@@ -118,6 +118,28 @@ stopping rule for how many points/reps would be needed to exclude `b=1`; use a B
 bootstrap for `n·R_n` specifically (its CI is visibly skewed and sits near the `b=0` boundary,
 exactly where percentile-bootstrap coverage is weakest).
 
+**(d) EXECUTED 2026-09-18 (decision.md Point 98) — still inconclusive for `R_n` itself, but a real,
+precise positive side-finding for the project's own original target.** Pooled old+new draws,
+equalized to `800-1000` reps at `n=509/1021/2039` (`~159min` LP-solve time at `n=2039` alone), BCa
+bootstrap + nested-bootstrap exponent CI, exactly as specified above. A first-draft result looked
+like a genuinely new, concerning finding (CI excluding both `0` and `1`) but a context-asymmetric
+skeptic found a real methodological bug (delta-method log-SE instead of the already-equivariant
+BCa interval) — corrected, `R_n`'s own exponent CI is `[-0.04,1.01]`, landing back in the SAME
+`STILL INCONCLUSIVE` bucket as Point 95, even at `5×` the effective sample size (more data bought
+precision, `SE` narrowed `0.479→0.268`, matching pure `√5` scaling, not resolution). **The genuinely
+valuable result of this revival effort was a byproduct, not the target**: the SAME pooled data,
+fit DIRECTLY on `n·Var(X_n)` (bypassing the `R_n` decomposition entirely), gives `b_Var=
+-0.042±0.046`, `95%` CI `[-0.13,0.05]` — `5×` more precise than the `R_n`-only fit and consistent
+with (mildly supporting) `Var(X_n)=O(1/n)` directly, the single most informative confirmatory
+number for the project's headline claim `C0` produced by any experiment to date at these 3 `n`.
+**Updated revival condition for `R_n`'s own scaling question specifically**, named by the same
+skeptic review: a single additional point at `n≈8191` (next convenient prime, doubling the tested
+log-`n` range from `1.39` to `2.78` natural-log units) would be more informative than any further
+rep-count increase at the existing 3 points — pre-registered kill criterion: predicted `n·R_n`
+under the pure power-law scenario vs. the log-saturating/flat alternative diverge by `~3.5σ` at
+`n=8191` at comparable rep counts. Not pursued in this point (uncosted fresh LP-solve budget at a
+new `n`, matching this project's own discipline against manufactured compute expansion).
+
 **What this project's own original target still has going for it, corrected (Point 94):** the
 project's OWN stated original target, `Var(log(θ(G)/√n))=O(1/n)`, is a DIFFERENT claim than
 `(POL)` — but the "mean-gap" connection to Bandeira et al.'s sharp Conjecture 1 that was originally

@@ -2106,6 +2106,26 @@ nodes:
     # established. H-CAT31-3 stays lead.
     title: "Direct follow-up from the deep external novelty audit's own Track 1 finding (re-analysis of H-CAT31-1's committed data suggested Var(log(theta(G)/sqrt(n))) ~ n^-0.96): on a wider n range (32..3000, up from 10..2560) with more replicates (40-300 vs the original's tapering 25->6), is the exponent consistent with exactly -1 (Var =~ C/n)?"
     status: lead                   # 2026-09-10 decision.md: REJECTED for the pre-registered exponent=-1 hypothesis specifically, but the underlying phenomenon (variance shrinks with n as a stable, precisely-measured power law) survives -- Kill Analysis distinguishes the two. Weighted-OLS fit across 9 points (n=32..3000, 40-300 reps each): slope=-0.9126, SE=0.0264, 95% CI=[-0.9751,-0.8501] -- excludes -1.0 (and -0.5, -2.0) with real precision, not a wide inconclusive interval. Stability check (slope on n=32..1024 subset = -0.900 vs n=256..3000 subset = -0.897) shows no drift toward -1 as n grows, arguing against a simple finite-size-correction-toward-(-1) explanation. Substrate gate (theta(C_5)=sqrt(5) exact, theta(G)*theta(Gbar)=9 exact) and negative control (p=0 gives Var=0.0 exactly) both passed before trusting any new large-n solve.
+    # UPDATE 2026-09-18 (Points 93-98, same-day PARK then partial revival, per parked/H-CAT31-3-pol-proof-attempt.md):
+    # (POL)/F4rel/R_n active search PARKED after Point 95 (inconclusive R_n scaling, CI for exponent
+    # b contains both b=0 and b=1). User then executed the PARK's own named R_n revival plan in full
+    # (Point 98): pooled old+new draws, equalized to 800-1000 reps at n=509/1021/2039, BCa+nested
+    # bootstrap. First-draft "excludes both 0 and 1" result was FALSIFIED by a real skeptic (delta-
+    # method log-SE bug instead of the already-equivariant BCa interval) -- corrected, R_n's own
+    # exponent CI is [-0.04,1.01], STILL INCONCLUSIVE, matching Point 95's own bucket even at 5x the
+    # effective sample size. BUT the SAME pooled data, fit DIRECTLY on n*Var(X_n) (not decomposed via
+    # R_n), gives b_Var=-0.042+/-0.046, 95% CI=[-0.13,0.05] -- the single most precise, most positive
+    # confirmatory number for the headline C0=Var(X_n)=O(1/n) claim this project has produced to date,
+    # at these 3 n. Also this same day: Point 96 ran K_n's own missing n=127-leverage robustness check
+    # (K_n=O(1), a proven-sufficient-not-necessary route, per Point 78's own correction) -- corrected
+    # from an initial skeptic-caught "78% growth needed" arithmetic error to the true "33% growth
+    # needed" figure; K_n's own scaling remains genuinely open, uninformative at current power. Point
+    # 97 found the separately-proposed C5 (mean-gap g_n=E[theta]-sqrt(n)=O(n^-1/2)) route is
+    # ALGEBRAICALLY near-redundant with V_n's own already-measured exponent (g_n/sqrt(n) ~= V_n/2 via
+    # cosh's Taylor expansion) -- confirmed numerically to <1.5% -- and the dataset used contains ZERO
+    # prime n (all composite/powers-of-2), a second, independent reason not to trust it as evidence
+    # for the prime-n headline claim. status stays `lead`: none of C1-C5 individually proves or kills
+    # C0; the direct Var(X_n) fit above is the strongest single positive data point on record.
     # UPDATE 2026-09-13 (research-audit, score 8/10): decision.md extended to Point 48 via
     # Mechanism Development Mode (structural param n, mechanism not yet understood, triggers met).
     # 4 independent LP-dual/sensitivity attempts on the geometric route (points 6,8,9a,31) all

@@ -1,0 +1,115 @@
+{
+  "rows": [
+    {
+      "n": 32,
+      "n_reps": 300,
+      "ratio": 1.0726857609333678,
+      "g_n": 0.4111727556135087,
+      "se_g_n": 0.11173711060495613
+    },
+    {
+      "n": 64,
+      "n_reps": 300,
+      "ratio": 1.0536269782366963,
+      "g_n": 0.4290158258935701,
+      "se_g_n": 0.10810347923938245
+    },
+    {
+      "n": 128,
+      "n_reps": 300,
+      "ratio": 1.027038213712911,
+      "g_n": 0.30590246828112794,
+      "se_g_n": 0.11608669606469435
+    },
+    {
+      "n": 256,
+      "n_reps": 250,
+      "ratio": 1.020811883604738,
+      "g_n": 0.3329901376758073,
+      "se_g_n": 0.12406747461811286
+    },
+    {
+      "n": 512,
+      "n_reps": 200,
+      "ratio": 1.0125892049277945,
+      "g_n": 0.28486118957409834,
+      "se_g_n": 0.15055308033819284
+    },
+    {
+      "n": 1024,
+      "n_reps": 150,
+      "ratio": 1.0047799137996876,
+      "g_n": 0.152957241590002,
+      "se_g_n": 0.18721116383749475
+    },
+    {
+      "n": 1536,
+      "n_reps": 100,
+      "ratio": 1.0099235071554469,
+      "g_n": 0.3889204638352415,
+      "se_g_n": 0.24438892074014726
+    },
+    {
+      "n": 2048,
+      "n_reps": 80,
+      "ratio": 0.9954214037352038,
+      "g_n": -0.20720361389777747,
+      "se_g_n": 0.2226481244546518
+    },
+    {
+      "n": 3000,
+      "n_reps": 40,
+      "ratio": 1.0004662853813293,
+      "g_n": 0.025539502158896252,
+      "se_g_n": 0.36831307521597495
+    }
+  ],
+  "usable_ns": [
+    32,
+    64,
+    128,
+    256,
+    512,
+    1536
+  ],
+  "fit": {
+    "label": "g_n",
+    "model": "log(g_n) = a + b*log(n), weighted least squares, weights=1/SE(log g_n)^2",
+    "n_points": 6,
+    "intercept_a": -0.577751023417082,
+    "intercept_a_SE": 0.6288076094958697,
+    "slope_b": -0.08709259471918662,
+    "slope_b_SE": 0.13372108063844743,
+    "slope_b_95CI": [
+      -0.3491810967443199,
+      0.17499590730594666
+    ],
+    "slope_interpretation": "b=0 would mean g_n bounded (no power-law growth); b>0 growing; b<0 shrinking",
+    "relative_SE_g_n_per_point": {
+      "32": 0.27175222355925255,
+      "64": 0.25198016649903415,
+      "128": 0.3794892428197386,
+      "256": 0.37258603358067777,
+      "512": 0.5285138370842576,
+      "1536": 0.6283776336430521
+    },
+    "delta_method_caveat": "SE(log Y)~=SE(Y)/Y is a first-order approximation; flagged unreliable per-point if relative SE exceeds 0.3",
+    "delta_method_reliable": false,
+    "residuals_log_Y": [
+      -0.009150867036565535,
+      0.09369747174086263,
+      -0.1841620301848752,
+      -0.0389474907943248,
+      -0.13469036977647586,
+      0.27236347710525
+    ],
+    "chi2_flat_model": 1.0628439911611378,
+    "chi2_flat_model_dof": 5,
+    "chi2_power_law_model": 0.6386517663768206,
+    "chi2_power_law_model_dof": 4,
+    "delta_chi2_dof1": 0.4241922247843172,
+    "delta_chi2_p_value": 0.5148525834289899,
+    "significance_test_note": "Delta-chi-squared test for slope=0 (nested flat-vs-power-law models under this script's known-variance convention), chi2 with 1 dof -- NOT a t-test; corrected framing per decision.md Point 66 skeptic-fallback review"
+  },
+  "z_vs_neg_half": 3.087825818557545
+}
