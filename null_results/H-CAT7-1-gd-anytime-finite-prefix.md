@@ -99,7 +99,7 @@ steps.**
 | **Substrate Gate** (FL 2a) | **READY** — closed form `1/(4Nh+2)` to 9.3e-9; PEPit cross-implementation to 3.5e-5; analytic gradient vs FD, noise-limited not error-limited; schedule algebra exact |
 | **Benchmark reconstruction** (A1) | **VERIFIED** — primitivity potential (their Definition 2) saturated at exactly `0.500000` for silver orders 1–5 and every ZLDC concatenation of length 2…40; endpoint rate `R_n ≤ 1/A_n` and Lemma 7 hold at every checked point |
 | **— its own negative control** | constant `h=3` → `3.96e6`; silver-3 with one step changed → `441.8`. The test is not one that accepts everything |
-| **Positive control** | **PASS, in a reconstructed form** — per-horizon-optimal `R_n` over `n=4…19` fits `n^{-1.118 ± 0.016}` (r²=0.999) against `N` steps, `n^{-1.253 ± 0.023}` against `N+1` iterates; the literature's empirical `n^{-1.178}` (Das Gupta et al., `n ≤ 50`) lies between the two index conventions. **Deviation:** the pre-registered run at `n ∈ {10,…,50}` (`pep_unconstrained_baseline.py`) was still executing when this record was written — the exact PEP costs ~13 s per solve at `n=50` and grows ≈ `n^{3.5}` — so the fit above uses `n = 4…19` instead. It is order-of-magnitude evidence about the harness, **not** a reproduction of Das Gupta et al.'s number at their horizon range; that remains outstanding |
+| **Positive control** | **PASS on what it actually tests, with an explicit non-reproduction** — the harness finds schedules **8.6%** better than the benchmark at `n=10` and **15.9%** better at `n=20`, matching the 5.9–15.1% headroom measured independently by cold starts at `n ≤ 23`. But it does **not** cleanly reproduce the `n^{-1.178}` exponent: see the dedicated section below |
 | **Adversarial prefix check** (the control this experiment exists to add) | **PASS** — per-horizon optima do **not** share prefixes. Probe A (numeric): pairwise max relative differences 1.9%–235%. Probe B (functional, independent of A's arithmetic): truncating the `n=18` optimum costs 0.9%–15% versus each horizon's own optimum. Per-horizon ≠ anytime, so the prefix constraint is testing something genuinely new |
 | **Ceiling** | per-horizon headroom over ZLDC is 3.4%–15.1% across `n=4…23`; only at `n=19` is it below the pre-registered 5% bar |
 | **No-collapse, all 7** | **verdict stable** — six independent perturbations (horizon split, 3 random seeds, training sets of 2/6/11/23 horizons, `G_n` instead of `R_n`) all return FAIL; plus the negative-control and alternative-tool rows above |
@@ -129,15 +129,63 @@ distinct. Incidentally informative — from purely random starts the optimiser c
 the benchmark even on the training horizons (worst train 0.9972 / 1.0301 / 1.0066), so
 the 3–5% training-horizon gain reported above depends on starting from ZLDC or silver.
 
+## The positive control's exponent is not a reproduction — a correction to an earlier draft
+
+The pre-registered run (`n ∈ {10,20,30,40,50}`) completed after ~5 hours, and its
+large-`n` points turned out not to be optima at all:
+
+| n | 10 | 20 | 30 | 40 | 50 |
+|---|---|---|---|---|---|
+| ratio to benchmark | **0.9145** | **0.8407** | 0.9806 | 0.9976 | 0.9856 |
+| iterations | 168 | 300 (maxiter) | 106 | **3** | 41 |
+| exit | ABNORMAL | maxiter | converged | ABNORMAL | converged |
+
+`n=40` exited after **three iterations**. `n=30` and `n=50` report "converged" but land
+at ratios of 0.98, far outside the 0.87–0.93 band that cold-started optimisation produces
+at neighbouring horizons — they come from the same warm-start chain whose sticking was
+demonstrated directly at `n=15`, and were never cold-started. *Converged does not mean
+good*, which is the same lesson the ceiling re-check already taught.
+
+Pooling every per-horizon optimum obtained anywhere in this experiment
+(`metrics/positive_control_analysis.json`):
+
+| fit | exponent |
+|---|---|
+| all horizons `4…50`, vs `N` | **−1.1129 ± 0.0173** |
+| cold-start-verified `4…23`, vs `N` | **−1.1601 ± 0.0203** |
+| cold-start-verified `4…23`, vs `N+1` | −1.2873 ± 0.0218 |
+| pre-registered run alone `10…50`, vs `N` | −1.0445 ± 0.0403 |
+
+The exclusion of `n = 30,40,50` is **provenance-based** (outside the cold-start-verified
+range, hence upper bounds rather than optima), not residual-based. An earlier draft of
+that filter keyed on "ratio < 0.95" and wrongly dropped `n=19` — a genuinely
+cold-started horizon whose high ratio is a real property of the horizon; corrected.
+
+**The honest uncertainty is the spread between defensible fits — 0.116, i.e. 2.9× the
+largest individual standard error.** The fitted exponent is governed by per-horizon
+optimiser quality, not by the mathematics. The literature's `−1.178` is compatible with
+the best-optimised fit (`−1.1601`, ≈0.9 σ), but **no single number here is an estimate of
+the per-horizon-optimal rate**, and this is not a reproduction of Das Gupta et al.
+
+*(An earlier draft of this record quoted `−1.118 ± 0.016` from a partial `n = 4…19` fit as
+the positive-control result. That figure is superseded: its formal standard error
+understated the real uncertainty by roughly 3×, for exactly the reason above.)*
+
 ## The pre-registered MCID was mis-calibrated — recorded, not hidden
 
-The 5% margin was fixed in `controls.md` before any ceiling was known. It turns out to
-be **unachievable at `n=19` by any schedule at all**: the unconstrained per-horizon
-optimum there, re-optimised from 8 diverse cold starts, is only 3.4% better than ZLDC
-(`ceiling ratio 0.9673`). A FAIL at `n=19` therefore carries no information about
-prefix-consistency — it reports that the benchmark is near-optimal at that horizon.
-This is an estimand defect (an MCID set without a feasibility check), not a result, and
-the revival condition below replaces the absolute margin with a ceiling-relative one.
+The 5% margin was fixed in `controls.md` before any ceiling was known. At `n=19` the
+unconstrained per-horizon optimum, re-optimised from 8 diverse cold starts, is only 3.4%
+better than ZLDC (`ceiling ratio 0.9673`) — so the bar is **out of reach of this search**
+there, and a FAIL at that horizon carries little information about prefix-consistency.
+This is an estimand defect (an MCID set without a feasibility check), and the revival
+condition below replaces the absolute margin with a ceiling-relative one.
+
+**CORRECTED 2026-09-19:** this paragraph previously read "unachievable at `n=19` by any
+schedule at all". That is wrong and contradicted `caveats.md` § 3. Every ceiling here is
+a value *achieved* by a local multi-start search, hence an **upper bound** on the true
+optimal `R_n`; the true headroom is at least what is tabulated, and a global optimiser
+could in principle reach 5%. "Out of reach of this search" is the defensible claim; "out
+of reach for any schedule" is not.
 
 **A correction found by re-checking, worth recording separately.** `ceiling.py` warm-starts
 each horizon from the previous optimum, which correlates neighbouring results. The
@@ -482,3 +530,55 @@ better-formed, measured candidate for a Pearl than the withdrawn local-optimum c
 | trigger_condition | any future experiment computing PEP-based gradients at a concatenation-endpoint horizon for this schedule family |
 | next_check | 2026-11-15 |
 | status | pending |
+
+## Third Addendum — the original implementation session's own late self-correction, converging independently with the skeptic/reviewer cascade
+
+After the Second Addendum above was written and pushed, the original builder agent (the
+one that produced this experiment's PEP harness and first drafts) turned out to still be
+running in the background on its own follow-up work, unaware of the skeptic/reviewer
+cascade above (a separate agent invocation, not a message to it). Its own late report,
+independently:
+
+1. **Re-derived the same claim-1 correction** the skeptic already made (true entrywise
+   range `-1.41%` to `+9.38%`, mass `+2.91%` not `+3.4%`) — via a DIFFERENT route (reading
+   `metrics/prefix_search.json`'s master schedule directly, rather than the skeptic's
+   closed-form `A_24` derivation). Spot-checked here: both routes agree to the number
+   already recorded in the Second Addendum above. Two independent methods landing on the
+   same corrected figure is stronger confirmation than either alone.
+2. **Re-derived the same claim-3 correction** (the `local_optimality_probe.py`
+   `index=23,sign=+1` probe reports `worst_ratio=1.0` at `argmax_n=2` because the metric
+   is floored by the untouched `n=2` ratio, not because no improving direction exists) —
+   independently, before reading the skeptic's own version of this same finding.
+3. **Found and corrected a genuine overclaim of its OWN that neither the skeptic nor this
+   session's own review had caught**: the original text said the 5% bar is "unreachable
+   at `n=19` by ANY schedule" — this overstates what a local multi-start search can
+   establish (every ceiling value is an achieved UPPER BOUND on the true optimum, not a
+   proof of infeasibility). Corrected to "out of reach of THIS search" throughout
+   `decision.md`, `result_summary.md`, `controls.md`.
+4. **Completed the positive control run** that was left "still executing" in the Second
+   Addendum's own text. The completed run reveals the earlier order-of-magnitude estimate
+   (`b=-1.118±0.016`, from a partial `n=4..19` fit) understated its own uncertainty by
+   roughly 3×: `n=40`'s optimizer exited after 3 iterations (not a real optimum), and
+   `n=30`/`n=50` "converged" to a stuck warm-start chain, not genuine per-horizon optima.
+   Pooling only cold-start-verified horizons gives `b=-1.1601±0.0203`; the spread across
+   defensible fits (`0.116`) is `2.9×` the largest individual standard error — the
+   literature's `-1.178` remains compatible (`~0.9σ`) but no single number from this
+   experiment should be quoted as *the* per-horizon-optimal rate.
+
+**Explicitly did NOT reproduce or vouch for** the Second Addendum's own LP/kink-measurement
+work (the "UNRESOLVED, non-smooth kink" finding) — correctly identified it as another
+session's work (per `memory-protocol.md`'s Unclaimed Work Ownership convention), left it
+untouched, and said plainly that it does not vouch for that specific chain, only that its
+own earlier claim was independently found to be overstated regardless.
+
+**Net effect on the project's own record:** three separate, independent review passes
+(context-asymmetric skeptic, this project's own direct spot-checks, and now the original
+implementation session's own late self-review) converged on the same core correction to
+Claims 1/3, from three different methods. This is the strongest convergent-evidence
+pattern this experiment has produced — and it converged on WITHDRAWING the "substantive
+positive finding," not confirming it. The main REJECT verdict (Claim 6) is untouched by
+any of this and remains 3-way independently confirmed as before. The positive control's
+own exponent, now fully computed, is downgraded from "order-of-magnitude evidence" to
+"the harness works, but its fitted exponent is dominated by per-horizon optimizer quality,
+not usable as a literature-reproduction number" — a further, honest narrowing, not a
+reversal of the main verdict.
