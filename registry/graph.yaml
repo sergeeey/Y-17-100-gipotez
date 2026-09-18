@@ -1927,6 +1927,20 @@ nodes:
     source: "experiments/20260918-tensor-concentration-injective-norm-cat30/decision.md"
     updated: 2026-09-18
 
+  - id: H-CAT30-2
+    type: hypothesis
+    title: "Redesign of H-CAT30-1 implementing its own named revival condition (n=n(d) scaling, two independent scales n=d and n=d^1.5) -- does R(d)=E||sum g_i T_i||_{I_2}/sqrt(Sigma||T_i||_{I_2}^2) grow with d once span-confinement is structurally impossible (rank(A)=d confirmed)?"
+    status: killed                 # decision.md: REJECTED -- foreordained-null via Gram-matrix concentration, a different mechanism than H-CAT30-1
+    evidence: VERIFIED-REAL
+    evidence_mode: simulation      # ADR-122: Monte Carlo estimation of a tensor injective norm, not a real-world dataset
+    verification_strength: strong  # FL Step 8a context-asymmetric skeptic pass (FALSIFIED verdict) + independent re-derivation of every load-bearing number before acceptance
+    l0_type: descriptive
+    kill_criterion: "Pre-registered: LEAD if 95% CI on beta (log(R) vs log(d)) excludes 0 AND is bounded away from [-0.1,0.1] in the POSITIVE direction, on BOTH scales; else INFORMATIVE-NEGATIVE. RESULT: reclassified REJECTED (foreordained-null, not INFORMATIVE-NEGATIVE) -- a context-asymmetric skeptic proved ||S||_{I_2} reduces to a closed form as the Gram matrix G=AA^T concentrates toward I_n for ANY isotropic random rank-1 family: at exactly G=I, ||S||_{I_2}=max_i|g_i| EXACTLY (order statistic, zero tensor-structure information). Predicted beta=-0.376/-0.585 (zero fitted params, from tabulated E[max_i|g_i|]) vs observed -0.3673/-0.5613 (2.5%/4% gap). Independently re-verified 3 ways: exact recovery on an orthonormal canary (0.0000% deficit at n=80, matching both the closed form and an independently-implemented brute-force search); confirmed run.py never calls its own claimed scipy_cross_check (grep returns zero matches); confirmed the two 'independent' scales were not independent -- beta_B/beta_A=1.528 matches the arithmetically forced 1.5 ratio (n(d)=d^1.5 on Scale B), meaning both scales measured the same n-dependence through different d-parametrizations. Kill Analysis broadened retroactively to cover H-CAT30-1 too: the entire isotropic-random-rank-1-family approach is killed across two independently-discovered mechanisms (span-confinement, then Gram-concentration). Revival requires a non-isotropic/structured tensor family (e.g. coherent frames) or genuine adversarial search over the family itself, not merely a different n(d) scaling."
+    fl_tier: standard
+    experiment_dir: "experiments/20260918-tensor-concentration-redesign-cat30-2"
+    source: "experiments/20260918-tensor-concentration-redesign-cat30-2/decision.md"
+    updated: 2026-09-18
+
   - id: H-CAT31-1
     type: hypothesis
     title: "Random dense circulant graphs (n=10..2560, p=0.5): theta(G)/sqrt(n) stays close to 1 across ~3 orders of magnitude in n, consistent with the tight Conjecture 18 rather than only the weaker published O(sqrt(n log log n)) upper bound"
@@ -2558,6 +2572,7 @@ edges:
 
   # ───────────────────────── scope expansion (2026-09-09, ADR-087) ─────────────────────────
   - {from: PROB-CAT-30, to: H-CAT30-1, type: grounds, since: 2026-09-18, note: "Conjecture 16 of arXiv:2603.29571 is the formal object this hypothesis tried (and structurally failed) to test"}
+  - {from: H-CAT30-1, to: H-CAT30-2, type: depends_on, since: 2026-09-18, note: "H-CAT30-2 directly implements H-CAT30-1's own named revival condition (n=n(d) scaling) -- and was independently REJECTED for a different mechanism (Gram-matrix concentration, not span-confinement), broadening H-CAT30-1's own Kill Analysis retroactively"}
   - {from: PROB-CAT-37, to: H-CAT37-1, type: grounds, since: 2026-09-09, note: "Problem 2.20 of arXiv:2602.05394 is the formal object this hypothesis tests"}
   - {from: PROB-CAT-31, to: H-CAT31-1, type: grounds, since: 2026-09-09, note: "Conjecture 18 of arXiv:2603.29571 is the formal object this hypothesis tests"}
   - {from: H-CAT31-1, to: H-CAT31-2, type: grounds, since: 2026-09-10, note: "H-CAT31-2 reuses H-CAT31-1's own cross-validated theta_via_lp/sample_circulant_neighbors unchanged, and reframes H-CAT31-1's own mean-ratio finding as a statement about E[cosh(X)-1] whose tail structure H-CAT31-1 itself never examined"}
