@@ -140,6 +140,16 @@ under the pure power-law scenario vs. the log-saturating/flat alternative diverg
 `n=8191` at comparable rep counts. Not pursued in this point (uncosted fresh LP-solve budget at a
 new `n`, matching this project's own discipline against manufactured compute expansion).
 
+**Epistemic-status correction (decision.md Point 99, 2026-09-18):** "skeptic" throughout this
+section means a same-model, context-asymmetric dispatch (no cross-model channel is wired in this
+repo, per `pearl_registry/INDEX.md`'s own 2026-07-19 row) — per `rules/falsification-ladder.md`'s
+Independent Verification Strength Ladder this is `INTERNALLY CROSS-CHECKED` (Weak-Medium), not
+`INDEPENDENTLY_VERIFIED`. The corrected findings themselves are unaffected (all independently
+re-derived with fresh code before acceptance); only the strength label. Separately, `b_Var`
+above is supporting empirical evidence consistent with `C0` at these 3 `n`, not proof of the
+asymptotic rate — three points cannot establish an asymptotic claim on their own. One-line status
+for this whole revival: **C1/C2/C3 revival: INCONCLUSIVE → PARKED.**
+
 **What this project's own original target still has going for it, corrected (Point 94):** the
 project's OWN stated original target, `Var(log(θ(G)/√n))=O(1/n)`, is a DIFFERENT claim than
 `(POL)` — but the "mean-gap" connection to Bandeira et al.'s sharp Conjecture 1 that was originally

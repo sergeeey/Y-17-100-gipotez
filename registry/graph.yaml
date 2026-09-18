@@ -2125,7 +2125,18 @@ nodes:
     # cosh's Taylor expansion) -- confirmed numerically to <1.5% -- and the dataset used contains ZERO
     # prime n (all composite/powers-of-2), a second, independent reason not to trust it as evidence
     # for the prime-n headline claim. status stays `lead`: none of C1-C5 individually proves or kills
-    # C0; the direct Var(X_n) fit above is the strongest single positive data point on record.
+    # C0; the direct Var(X_n) fit above is supporting empirical evidence consistent with C0 at these
+    # 3 n, not proof of the asymptotic rate (Point 99 correction).
+    # UPDATE 2026-09-18 (Point 99, epistemic-status correction, no new computation): all "skeptic"
+    # verdicts in Points 96-98 ran the SAME model in an isolated context (this repo has no wired
+    # cross-model channel, per pearl_registry/INDEX.md 2026-07-19 row) -- correct label per this
+    # project's own Independent Verification Strength Ladder is INTERNALLY CROSS-CHECKED (Weak-Medium),
+    # not INDEPENDENTLY_VERIFIED. The 3 corrected findings (K_n overclaim, C5 redundancy, R_n
+    # delta-method bug) are unaffected -- all independently re-derivable from raw data and were in
+    # fact re-derived with fresh code before acceptance; only the verification-strength label changes.
+    # One-line status: Main claim C0 OPEN. C1-C3 revival executed (Point 98), non-discriminating,
+    # re-PARKED. C4 claim OPEN/empirical channel exhausted. C5 claim OPEN/tested route invalid as
+    # discriminator. No new active numerical branch justified by this phase alone.
     # UPDATE 2026-09-13 (research-audit, score 8/10): decision.md extended to Point 48 via
     # Mechanism Development Mode (structural param n, mechanism not yet understood, triggers met).
     # 4 independent LP-dual/sensitivity attempts on the geometric route (points 6,8,9a,31) all
