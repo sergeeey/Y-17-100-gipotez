@@ -2137,6 +2137,14 @@ nodes:
     # One-line status: Main claim C0 OPEN. C1-C3 revival executed (Point 98), non-discriminating,
     # re-PARKED. C4 claim OPEN/empirical channel exhausted. C5 claim OPEN/tested route invalid as
     # discriminator. No new active numerical branch justified by this phase alone.
+    # UPDATE 2026-09-18 (Point 100, boyko-specialist dispatch on C5's revival condition (a)):
+    # found the exact literature this route needed -- Bandeira/Ferber 2025's own Theorem 1
+    # (E[theta(G)]<=C*sqrt(n log log n), proven) -- but plugged into V_n<=2g_n/sqrt(n) (Point 94)
+    # it gives an O(sqrt(log log n)) bound that GROWS with n, 163x-17372x too loose vs the O(1/n)
+    # target even under the field's own best-case still-OPEN sharp conjecture. Closes C5's revival
+    # condition (a) as structurally unreachable via any general E[theta] bound, proven or
+    # conjectured -- not "not yet found." A future attempt needs g_n bounded DIRECTLY at
+    # O(n^-1/2) absolute precision, not derived from a general E[theta] bound.
     # UPDATE 2026-09-13 (research-audit, score 8/10): decision.md extended to Point 48 via
     # Mechanism Development Mode (structural param n, mechanism not yet understood, triggers met).
     # 4 independent LP-dual/sensitivity attempts on the geometric route (points 6,8,9a,31) all

@@ -160,3 +160,14 @@ converse) — and a rare-value counterexample (Point 94 addendum, `sympy`-verifi
 constant. This target is NOT parked by this entry — it was the project's target before the `(POL)`
 detour began at Point 77, and remains genuinely open — just without the shortcut to Conjecture 1
 the original relayed claim suggested.
+
+**C5's own revival condition (a) checked and CLOSED (decision.md Point 100, 2026-09-18):**
+`boyko-specialist` located the exact literature this route needed — Bandeira & Ferber 2025's own
+Theorem 1 (`E[θ(G)]≤C√(n·log log n)`, proven, not conjectural) — but plugging it into
+`V_n≤2g_n/√n` (Point 94) gives an `O(√(log log n))` bound on `V_n` that GROWS with `n`, off by
+many orders of magnitude from the `O(1/n)` target (`163×`-`17372×` too loose across
+`n=509..10⁵`, even under the field's own best-case still-OPEN sharp conjecture). **This closes
+revival condition (a) as structurally unreachable via any general `E[θ]` bound, proven or
+conjectured — not merely "not yet found."** A future attempt would need a technique bounding
+`g_n` DIRECTLY at `O(n^{-1/2})` absolute precision, not derived from any general-purpose bound on
+`E[θ]` itself.
