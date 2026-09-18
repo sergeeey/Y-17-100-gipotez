@@ -65,8 +65,9 @@ asymptotic match to 0.5%, and exact `x*∈span{a_i}` to machine precision).
   open regime (a d-dimensional search requires `n` to scale with `d`, which this design never had).
 - The numerical pipeline — verified correct via 4 independent checks (analytic-vs-finite-difference
   gradient match, power-iteration-vs-Nelder-Mead cross-check, exact single-tensor norm
-  verification to 10 decimals, restart-count robustness) — all now locked in as regression tests
-  (`tests/test_tensor_injective_norm.py`, 4/4 passing).
+  verification to 10 decimals, restart-count robustness), plus the span-confinement structural
+  check itself — all 5 now locked in as regression tests (`tests/test_tensor_injective_norm.py`,
+  5/5 passing).
 - The `d≫n` regime as a genuine, useful **positive-control canary** for any future optimizer on
   this problem class: it has an exact closed-form answer (`E[max_i|g_i|]`) that any correct
   implementation MUST reproduce — valuable as a substrate/oracle-adequacy check, not as evidence

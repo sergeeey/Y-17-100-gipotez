@@ -9,15 +9,10 @@ H-CAT31-3 Point 95's own n*R_n weighted-constant test.
 """
 
 import json
+from pathlib import Path
 
 import numpy as np
 from scipy import stats
-
-with open("tensor_conj16_pilot_result.json") as f:
-    data = json.load(f)
-
-results = data["results"]
-d_all = sorted(int(d) for d in results.keys())
 
 
 def weighted_power_law_fit(d_values, results):
@@ -52,42 +47,67 @@ def weighted_constant_chi2(d_values, results):
     return const, chi2, dof, p
 
 
-print("=== Full range d in {5,10,20,40,80,160} ===")
-a, b, se_b, chi2, dof = weighted_power_law_fit(d_all, results)
-print(
-    f"beta={b:.4f} se={se_b:.4f} 95% CI=[{b - 1.96 * se_b:.4f},{b + 1.96 * se_b:.4f}] "
-    f"chi2={chi2:.2f}(dof={dof}) p={1 - stats.chi2.cdf(chi2, dof):.2e}"
-)
+def main():
+    pilot_path = Path(__file__).resolve().parent / "metrics" / "run.json"
+    with open(pilot_path) as f:
+        data = json.load(f)
+    results = data["results"]
+    d_all = sorted(int(d) for d in results.keys())
 
-print("\n=== Asymptotic tail d in {40,80,160} only ===")
-d_tail = [d for d in d_all if d >= 40]
-a2, b2, se_b2, chi2_2, dof2 = weighted_power_law_fit(d_tail, results)
-ci = [b2 - 1.96 * se_b2, b2 + 1.96 * se_b2]
-p_tail = (1 - stats.chi2.cdf(chi2_2, dof2)) if dof2 > 0 else float("nan")
-print(
-    f"beta={b2:.4f} se={se_b2:.4f} 95% CI=[{ci[0]:.4f},{ci[1]:.4f}] "
-    f"chi2={chi2_2:.2f}(dof={dof2}) p={p_tail:.3f}"
-)
+    print("=== Full range d in {5,10,20,40,80,160} ===")
+    _a, b, se_b, chi2, dof = weighted_power_law_fit(d_all, results)
+    print(
+        f"beta={b:.4f} se={se_b:.4f} 95% CI=[{b - 1.96 * se_b:.4f},{b + 1.96 * se_b:.4f}] "
+        f"chi2={chi2:.2f}(dof={dof}) p={1 - stats.chi2.cdf(chi2, dof):.2e}"
+    )
 
-print("\n=== Weighted flat-constant test, tail d in {40,80,160} ===")
-const, chi2c, dofc, pc = weighted_constant_chi2(d_tail, results)
-print(f"weighted constant={const:.4f}  chi2={chi2c:.3f}(dof={dofc})  p={pc:.3f}")
+    print("\n=== Asymptotic tail d in {40,80,160} only ===")
+    d_tail = [d for d in d_all if d >= 40]
+    _a2, b2, se_b2, chi2_2, dof2 = weighted_power_law_fit(d_tail, results)
+    ci = [b2 - 1.96 * se_b2, b2 + 1.96 * se_b2]
+    p_tail = (1 - stats.chi2.cdf(chi2_2, dof2)) if dof2 > 0 else float("nan")
+    print(
+        f"beta={b2:.4f} se={se_b2:.4f} 95% CI=[{ci[0]:.4f},{ci[1]:.4f}] "
+        f"chi2={chi2_2:.2f}(dof={dof2}) p={p_tail:.3f}"
+    )
 
-print("\n=== Weighted flat-constant test, ALL d (sanity, expect to fail given transient) ===")
-const_all, chi2c_all, dofc_all, pc_all = weighted_constant_chi2(d_all, results)
-print(f"weighted constant={const_all:.4f}  chi2={chi2c_all:.3f}(dof={dofc_all})  p={pc_all:.2e}")
+    print("\n=== Weighted flat-constant test, tail d in {40,80,160} ===")
+    const, chi2c, dofc, pc = weighted_constant_chi2(d_tail, results)
+    print(f"weighted constant={const:.4f}  chi2={chi2c:.3f}(dof={dofc})  p={pc:.3f}")
 
-out = {
-    "full_range_fit": {
-        "beta": b,
-        "se_beta": se_b,
-        "ci95": [b - 1.96 * se_b, b + 1.96 * se_b],
-        "chi2": chi2,
-        "dof": dof,
-    },
-    "tail_fit_d_ge_40": {"beta": b2, "se_beta": se_b2, "ci95": ci, "chi2": chi2_2, "dof": dof2},
-    "tail_flat_constant_test": {"const": const, "chi2": chi2c, "dof": dofc, "p": pc},
-    "all_flat_constant_test": {"const": const_all, "chi2": chi2c_all, "dof": dofc_all, "p": pc_all},
-}
-with open("tail_fit_analysis_result.json", "w") as f:
-    json.dump(out, f, indent=2)
+    print("\n=== Weighted flat-constant test, ALL d (sanity, expect to fail given transient) ===")
+    const_all, chi2c_all, dofc_all, pc_all = weighted_constant_chi2(d_all, results)
+    print(
+        f"weighted constant={const_all:.4f}  chi2={chi2c_all:.3f}(dof={dofc_all})  p={pc_all:.2e}"
+    )
+
+    out = {
+        "full_range_fit": {
+            "beta": b,
+            "se_beta": se_b,
+            "ci95": [b - 1.96 * se_b, b + 1.96 * se_b],
+            "chi2": chi2,
+            "dof": dof,
+        },
+        "tail_fit_d_ge_40": {
+            "beta": b2,
+            "se_beta": se_b2,
+            "ci95": ci,
+            "chi2": chi2_2,
+            "dof": dof2,
+        },
+        "tail_flat_constant_test": {"const": const, "chi2": chi2c, "dof": dofc, "p": pc},
+        "all_flat_constant_test": {
+            "const": const_all,
+            "chi2": chi2c_all,
+            "dof": dofc_all,
+            "p": pc_all,
+        },
+    }
+    out_path = Path(__file__).resolve().parent / "metrics" / "tail_fit_analysis_result.json"
+    with open(out_path, "w") as f:
+        json.dump(out, f, indent=2)
+
+
+if __name__ == "__main__":
+    main()
