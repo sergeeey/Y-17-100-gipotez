@@ -1,0 +1,585 @@
+{
+  "purpose": "independent second-path reconstruction (corrected protocol, step 4)",
+  "candidates_from_main_search": 0,
+  "note": "No candidate counterexample was produced by the main search or the extension, so this module is exercised on ordinary samples to verify the machinery itself rather than left untested.",
+  "rows": [
+    {
+      "label": "bipartite(d_sys=2,r=2,s=2)",
+      "d": 4,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 8,
+        "dim_V_perp": 8,
+        "pcc_violation": 1.3953114419823772e-14,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 8,
+        "dim_V_perp": 8,
+        "pcc_violation": 3.797022432147783e-12,
+        "certified_not_saturable": false,
+        "gram_rank": 8,
+        "mpmath_rank": {
+          "1e-05": 8,
+          "1e-06": 8,
+          "1e-07": 8,
+          "1e-08": 8
+        },
+        "basis_rotated": true,
+        "generator_rescale": 1.7434487534308984,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 1.3076027374880554e-15,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "bipartite(d_sys=2,r=2,s=2)",
+      "d": 4,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 8,
+        "dim_V_perp": 8,
+        "pcc_violation": 1.3360980656388938e-13,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 8,
+        "dim_V_perp": 8,
+        "pcc_violation": 2.1976668964620433e-11,
+        "certified_not_saturable": false,
+        "gram_rank": 8,
+        "mpmath_rank": {
+          "1e-05": 8,
+          "1e-06": 8,
+          "1e-07": 8,
+          "1e-08": 8
+        },
+        "basis_rotated": true,
+        "generator_rescale": 1.303789597446752,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 3.0965990617522234e-15,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "bipartite(d_sys=2,r=2,s=2)",
+      "d": 4,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 8,
+        "dim_V_perp": 8,
+        "pcc_violation": 1.641372384612074e-13,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 8,
+        "dim_V_perp": 8,
+        "pcc_violation": 1.6853310841981035e-11,
+        "certified_not_saturable": false,
+        "gram_rank": 8,
+        "mpmath_rank": {
+          "1e-05": 8,
+          "1e-06": 8,
+          "1e-07": 8,
+          "1e-08": 8
+        },
+        "basis_rotated": true,
+        "generator_rescale": 1.0303514374711922,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 9.51835736817832e-16,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "bipartite(d_sys=3,r=2,s=2)",
+      "d": 6,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 12,
+        "dim_V_perp": 24,
+        "pcc_violation": 2.2101435388858805e-15,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 12,
+        "dim_V_perp": 24,
+        "pcc_violation": 4.0475245222944976e-11,
+        "certified_not_saturable": false,
+        "gram_rank": 12,
+        "mpmath_rank": {
+          "1e-05": 12,
+          "1e-06": 12,
+          "1e-07": 12,
+          "1e-08": 12
+        },
+        "basis_rotated": true,
+        "generator_rescale": 1.7916375853284774,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 1.2072410659857133e-15,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "bipartite(d_sys=3,r=2,s=2)",
+      "d": 6,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 12,
+        "dim_V_perp": 24,
+        "pcc_violation": 2.3428811646038084e-14,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 12,
+        "dim_V_perp": 24,
+        "pcc_violation": 8.383740627750596e-12,
+        "certified_not_saturable": false,
+        "gram_rank": 12,
+        "mpmath_rank": {
+          "1e-05": 12,
+          "1e-06": 12,
+          "1e-07": 12,
+          "1e-08": 12
+        },
+        "basis_rotated": true,
+        "generator_rescale": 1.9888747826917323,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 2.9509868088564566e-15,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "bipartite(d_sys=3,r=2,s=2)",
+      "d": 6,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 12,
+        "dim_V_perp": 24,
+        "pcc_violation": 3.763949394257623e-14,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 12,
+        "dim_V_perp": 24,
+        "pcc_violation": 7.285952106158478e-12,
+        "certified_not_saturable": false,
+        "gram_rank": 12,
+        "mpmath_rank": {
+          "1e-05": 12,
+          "1e-06": 12,
+          "1e-07": 12,
+          "1e-08": 12
+        },
+        "basis_rotated": true,
+        "generator_rescale": 0.9340782958115628,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 1.2419689607233063e-15,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "bipartite(d_sys=4,r=2,s=2)",
+      "d": 8,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 12,
+        "dim_V_perp": 52,
+        "pcc_violation": 1.4552967984553647e-14,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 12,
+        "dim_V_perp": 52,
+        "pcc_violation": 6.01964287210476e-12,
+        "certified_not_saturable": false,
+        "gram_rank": 12,
+        "mpmath_rank": {
+          "1e-05": 12,
+          "1e-06": 12,
+          "1e-07": 12,
+          "1e-08": 12
+        },
+        "basis_rotated": true,
+        "generator_rescale": 1.8545580822046523,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 2.1804049896972296e-15,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "bipartite(d_sys=4,r=2,s=2)",
+      "d": 8,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 12,
+        "dim_V_perp": 52,
+        "pcc_violation": 2.7017163272227256e-14,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 12,
+        "dim_V_perp": 52,
+        "pcc_violation": 1.962650886085229e-11,
+        "certified_not_saturable": false,
+        "gram_rank": 12,
+        "mpmath_rank": {
+          "1e-05": 12,
+          "1e-06": 12,
+          "1e-07": 12,
+          "1e-08": 12
+        },
+        "basis_rotated": true,
+        "generator_rescale": 1.4994191167960484,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 3.3415937221947002e-15,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "bipartite(d_sys=4,r=2,s=2)",
+      "d": 8,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 12,
+        "dim_V_perp": 52,
+        "pcc_violation": 2.13934410258006e-14,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 12,
+        "dim_V_perp": 52,
+        "pcc_violation": 1.625099718640976e-11,
+        "certified_not_saturable": false,
+        "gram_rank": 12,
+        "mpmath_rank": {
+          "1e-05": 12,
+          "1e-06": 12,
+          "1e-07": 12,
+          "1e-08": 12
+        },
+        "basis_rotated": true,
+        "generator_rescale": 0.7286177613835685,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 9.561334950754159e-16,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "generic(d=3,r=2,s=2)",
+      "d": 3,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 3,
+        "dim_V_perp": 6,
+        "pcc_violation": 1.5869763322885105e-16,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 3,
+        "dim_V_perp": 6,
+        "pcc_violation": 1.2007622599202288e-11,
+        "certified_not_saturable": false,
+        "gram_rank": 3,
+        "mpmath_rank": {
+          "1e-05": 3,
+          "1e-06": 3,
+          "1e-07": 3,
+          "1e-08": 3
+        },
+        "basis_rotated": true,
+        "generator_rescale": 0.6122957688613188,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 2.360377104079607e-15,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "generic(d=3,r=2,s=2)",
+      "d": 3,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 3,
+        "dim_V_perp": 6,
+        "pcc_violation": 7.82315449225595e-17,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 3,
+        "dim_V_perp": 6,
+        "pcc_violation": 4.456870813423461e-11,
+        "certified_not_saturable": false,
+        "gram_rank": 3,
+        "mpmath_rank": {
+          "1e-05": 3,
+          "1e-06": 3,
+          "1e-07": 3,
+          "1e-08": 3
+        },
+        "basis_rotated": true,
+        "generator_rescale": 1.218926863797327,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 9.719804545736222e-16,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "generic(d=3,r=2,s=2)",
+      "d": 3,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 3,
+        "dim_V_perp": 6,
+        "pcc_violation": 1.0033855727623456e-16,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 3,
+        "dim_V_perp": 6,
+        "pcc_violation": 1.29064628988606e-10,
+        "certified_not_saturable": false,
+        "gram_rank": 3,
+        "mpmath_rank": {
+          "1e-05": 3,
+          "1e-06": 3,
+          "1e-07": 3,
+          "1e-08": 3
+        },
+        "basis_rotated": true,
+        "generator_rescale": 1.6152029329240825,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 1.8277934455314972e-15,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "generic(d=4,r=2,s=2)",
+      "d": 4,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 8,
+        "dim_V_perp": 8,
+        "pcc_violation": 1.2810230591888777e-15,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 8,
+        "dim_V_perp": 8,
+        "pcc_violation": 2.292876040702929e-11,
+        "certified_not_saturable": false,
+        "gram_rank": 8,
+        "mpmath_rank": {
+          "1e-05": 8,
+          "1e-06": 8,
+          "1e-07": 8,
+          "1e-08": 8
+        },
+        "basis_rotated": true,
+        "generator_rescale": 0.9143800098271055,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 6.265829234983879e-16,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "generic(d=4,r=2,s=2)",
+      "d": 4,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 8,
+        "dim_V_perp": 8,
+        "pcc_violation": 1.5266522400886264e-15,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 8,
+        "dim_V_perp": 8,
+        "pcc_violation": 9.906735289524201e-11,
+        "certified_not_saturable": false,
+        "gram_rank": 8,
+        "mpmath_rank": {
+          "1e-05": 8,
+          "1e-06": 8,
+          "1e-07": 8,
+          "1e-08": 8
+        },
+        "basis_rotated": true,
+        "generator_rescale": 2.324574482538287,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 8.580068017222611e-16,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "generic(d=4,r=2,s=2)",
+      "d": 4,
+      "r": 2,
+      "s": 2,
+      "first_path": {
+        "dim_V": 8,
+        "dim_V_perp": 8,
+        "pcc_violation": 1.5571805096371071e-15,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 8,
+        "dim_V_perp": 8,
+        "pcc_violation": 1.751233676048354e-10,
+        "certified_not_saturable": false,
+        "gram_rank": 8,
+        "mpmath_rank": {
+          "1e-05": 8,
+          "1e-06": 8,
+          "1e-07": 8,
+          "1e-08": 8
+        },
+        "basis_rotated": true,
+        "generator_rescale": 1.5449573187800207,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 7.283440293680259e-16,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "generic(d=6,r=2,s=3)",
+      "d": 6,
+      "r": 2,
+      "s": 3,
+      "first_path": {
+        "dim_V": 24,
+        "dim_V_perp": 12,
+        "pcc_violation": 5.863251240158508e-16,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 24,
+        "dim_V_perp": 12,
+        "pcc_violation": 2.157066258070174e-10,
+        "certified_not_saturable": false,
+        "gram_rank": 24,
+        "mpmath_rank": {
+          "1e-05": 24,
+          "1e-06": 24,
+          "1e-07": 24,
+          "1e-08": 24
+        },
+        "basis_rotated": true,
+        "generator_rescale": 1.7922710509738518,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 3.021231211582678e-15,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "generic(d=6,r=2,s=3)",
+      "d": 6,
+      "r": 2,
+      "s": 3,
+      "first_path": {
+        "dim_V": 24,
+        "dim_V_perp": 12,
+        "pcc_violation": 3.0018461673485943e-15,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 24,
+        "dim_V_perp": 12,
+        "pcc_violation": 1.7883901957983335e-10,
+        "certified_not_saturable": false,
+        "gram_rank": 24,
+        "mpmath_rank": {
+          "1e-05": 24,
+          "1e-06": 24,
+          "1e-07": 24,
+          "1e-08": 24
+        },
+        "basis_rotated": true,
+        "generator_rescale": 0.8805689752368246,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 3.370069692148814e-15,
+      "verdicts_agree": true,
+      "pass": true
+    },
+    {
+      "label": "generic(d=6,r=2,s=3)",
+      "d": 6,
+      "r": 2,
+      "s": 3,
+      "first_path": {
+        "dim_V": 24,
+        "dim_V_perp": 12,
+        "pcc_violation": 2.4659257169160167e-15,
+        "certified_not_saturable": false
+      },
+      "second_path": {
+        "dim_V": 24,
+        "dim_V_perp": 12,
+        "pcc_violation": 3.1557869861854387e-10,
+        "certified_not_saturable": false,
+        "gram_rank": 24,
+        "mpmath_rank": {
+          "1e-05": 24,
+          "1e-06": 24,
+          "1e-07": 24,
+          "1e-08": 24
+        },
+        "basis_rotated": true,
+        "generator_rescale": 1.4829094918634413,
+        "drho_from": "central finite differences of exp(-i sum lam G)",
+        "fd_relative_noise_floor": 1e-10
+      },
+      "closed_form_sld_rel_disagreement": 3.577598620345772e-15,
+      "verdicts_agree": true,
+      "pass": true
+    }
+  ],
+  "all_pass": true,
+  "max_closed_form_sld_disagreement": 3.577598620345772e-15
+}

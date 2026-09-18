@@ -1,0 +1,102 @@
+{
+  "mode": "probe_check",
+  "rows": [
+    {
+      "dims": [
+        2,
+        2,
+        2
+      ],
+      "d": 4,
+      "dim_V_perp": [
+        8
+      ],
+      "above_eq15_threshold": false,
+      "samples": 8,
+      "probe_constructed": 8,
+      "probe_success_rate": 1.0,
+      "max_cfim_qfim_rel_gap": 2.9052688570367148e-15,
+      "max_povm_completeness_error": 4.46581950667816e-15,
+      "povm_sizes": [
+        8
+      ],
+      "lp_slacks": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "seconds": 23.95
+    },
+    {
+      "dims": [
+        3,
+        2,
+        2
+      ],
+      "d": 6,
+      "dim_V_perp": [
+        24
+      ],
+      "above_eq15_threshold": false,
+      "samples": 8,
+      "probe_constructed": 8,
+      "probe_success_rate": 1.0,
+      "max_cfim_qfim_rel_gap": 1.4355641983307431e-11,
+      "max_povm_completeness_error": 8.62261758037615e-13,
+      "povm_sizes": [
+        24
+      ],
+      "lp_slacks": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "seconds": 26.88
+    },
+    {
+      "dims": [
+        4,
+        2,
+        2
+      ],
+      "d": 8,
+      "dim_V_perp": [
+        52
+      ],
+      "above_eq15_threshold": true,
+      "samples": 8,
+      "probe_constructed": 0,
+      "probe_success_rate": 0.0,
+      "max_cfim_qfim_rel_gap": null,
+      "max_povm_completeness_error": null,
+      "povm_sizes": [],
+      "lp_slacks": [
+        8.000000000056513,
+        8.0,
+        8.000000000000023,
+        8.0,
+        8.0,
+        8.0,
+        7.999999999999705,
+        8.0
+      ],
+      "seconds": 94.02
+    }
+  ],
+  "interpretation": "Saturability is guaranteed by the paper at every configuration listed. Any row with probe_success_rate < 1 is a measured FALSE-NEGATIVE rate for the search-based route; the same code succeeds elsewhere, so it is a property of searching, not a bug.",
+  "probe_works_somewhere": true,
+  "probe_false_negative_somewhere": true,
+  "pass": true,
+  "seed": 314159,
+  "pcc_margin_tol": 1e-10
+}

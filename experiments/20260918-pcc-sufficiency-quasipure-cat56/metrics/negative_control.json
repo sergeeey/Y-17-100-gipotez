@@ -1,0 +1,11 @@
+{
+  "mode": "negative_control",
+  "n": 500,
+  "pcc_true_fraction": 0.0,
+  "min_pcc_violation": 0.03978373139462725,
+  "median_pcc_violation": 0.2870353467284102,
+  "expected": "PCC false for essentially all unrelated random Hermitian matrices",
+  "pass": true,
+  "seed": 5620260918,
+  "pcc_margin_tol": 1e-10
+}

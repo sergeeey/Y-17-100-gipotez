@@ -1,0 +1,137 @@
+{
+  "arm_A_real_samples": {
+    "rows": [
+      {
+        "d": 3,
+        "r": 2,
+        "s": 2,
+        "k": 1,
+        "exact_dim_V": 3,
+        "exact_dim_V_perp": 6,
+        "pcc_exactly_zero": true,
+        "certified_not_saturable_exact": false,
+        "q": [
+          "1/3",
+          "2/3"
+        ],
+        "float_dim_V": 3,
+        "float_dim_V_perp": 6,
+        "float_pcc_violation": 0.0,
+        "float_rank_plateau": {
+          "1e-05": 3,
+          "1e-06": 3,
+          "1e-08": 3,
+          "1e-10": 3,
+          "1e-12": 3
+        },
+        "float_rank_gap_ratio": 7904585335343867.0,
+        "exact_and_float_agree": true
+      },
+      {
+        "d": 4,
+        "r": 2,
+        "s": 2,
+        "k": 2,
+        "exact_dim_V": 8,
+        "exact_dim_V_perp": 8,
+        "pcc_exactly_zero": true,
+        "certified_not_saturable_exact": false,
+        "q": [
+          "1/3",
+          "2/3"
+        ],
+        "float_dim_V": 8,
+        "float_dim_V_perp": 8,
+        "float_pcc_violation": 5.052207393315918e-18,
+        "float_rank_plateau": {
+          "1e-05": 8,
+          "1e-06": 8,
+          "1e-08": 8,
+          "1e-10": 8,
+          "1e-12": 8
+        },
+        "float_rank_gap_ratio": 541274606231908.7,
+        "exact_and_float_agree": true
+      },
+      {
+        "d": 5,
+        "r": 2,
+        "s": 2,
+        "k": 3,
+        "exact_dim_V": 12,
+        "exact_dim_V_perp": 13,
+        "pcc_exactly_zero": true,
+        "certified_not_saturable_exact": false,
+        "q": [
+          "1/3",
+          "2/3"
+        ],
+        "float_dim_V": 12,
+        "float_dim_V_perp": 13,
+        "float_pcc_violation": 4.4941713651610743e-17,
+        "float_rank_plateau": {
+          "1e-05": 12,
+          "1e-06": 12,
+          "1e-08": 12,
+          "1e-10": 12,
+          "1e-12": 12
+        },
+        "float_rank_gap_ratio": Infinity,
+        "exact_and_float_agree": true
+      },
+      {
+        "d": 5,
+        "r": 3,
+        "s": 2,
+        "k": 2,
+        "exact_dim_V": 12,
+        "exact_dim_V_perp": 13,
+        "pcc_exactly_zero": true,
+        "certified_not_saturable_exact": false,
+        "q": [
+          "1/6",
+          "1/3",
+          "1/2"
+        ],
+        "float_dim_V": 12,
+        "float_dim_V_perp": 13,
+        "float_pcc_violation": 5.873832695218989e-18,
+        "float_rank_plateau": {
+          "1e-05": 12,
+          "1e-06": 12,
+          "1e-08": 12,
+          "1e-10": 12,
+          "1e-12": 12
+        },
+        "float_rank_gap_ratio": 122020382527227.9,
+        "exact_and_float_agree": true
+      }
+    ],
+    "all_agree": true,
+    "all_pcc_exact": true,
+    "any_certified": false
+  },
+  "arm_B_injected_rank_deficiency": {
+    "rows": [
+      {
+        "d": 3,
+        "target_dim_V": 7,
+        "exact_rank": 7,
+        "exact_dim_V_perp": 2,
+        "fires": true,
+        "ok": true
+      },
+      {
+        "d": 4,
+        "target_dim_V": 13,
+        "exact_rank": 13,
+        "exact_dim_V_perp": 3,
+        "fires": true,
+        "ok": true
+      }
+    ],
+    "pass": true
+  },
+  "conclusion": "Exact rational arithmetic reproduces the float64 dim V on every constructed quasi-pure sample, so the float rank used throughout the experiment is not a conditioning artefact; and exact arithmetic does fire on an injected rank-deficient stack, so a NO from arm A is a measurement.",
+  "pass": true
+}

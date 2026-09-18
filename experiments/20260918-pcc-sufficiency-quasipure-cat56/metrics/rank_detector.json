@@ -1,0 +1,733 @@
+{
+  "mode": "rank_detector",
+  "n": 80,
+  "all_ok": true,
+  "fired_when_expected": 40,
+  "expected_fires": 40,
+  "false_fires": 0,
+  "pass": true,
+  "rows": [
+    {
+      "d": 3,
+      "target_dim_V": 7,
+      "measured_dim_V": 7,
+      "dim_V_perp": 2,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 7,
+      "measured_dim_V": 7,
+      "dim_V_perp": 2,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 7,
+      "measured_dim_V": 7,
+      "dim_V_perp": 2,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 7,
+      "measured_dim_V": 7,
+      "dim_V_perp": 2,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 7,
+      "measured_dim_V": 7,
+      "dim_V_perp": 2,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 7,
+      "measured_dim_V": 7,
+      "dim_V_perp": 2,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 7,
+      "measured_dim_V": 7,
+      "dim_V_perp": 2,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 7,
+      "measured_dim_V": 7,
+      "dim_V_perp": 2,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 7,
+      "measured_dim_V": 7,
+      "dim_V_perp": 2,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 7,
+      "measured_dim_V": 7,
+      "dim_V_perp": 2,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 3,
+      "measured_dim_V": 3,
+      "dim_V_perp": 6,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 3,
+      "measured_dim_V": 3,
+      "dim_V_perp": 6,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 3,
+      "measured_dim_V": 3,
+      "dim_V_perp": 6,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 3,
+      "measured_dim_V": 3,
+      "dim_V_perp": 6,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 3,
+      "measured_dim_V": 3,
+      "dim_V_perp": 6,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 3,
+      "measured_dim_V": 3,
+      "dim_V_perp": 6,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 3,
+      "measured_dim_V": 3,
+      "dim_V_perp": 6,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 3,
+      "measured_dim_V": 3,
+      "dim_V_perp": 6,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 3,
+      "measured_dim_V": 3,
+      "dim_V_perp": 6,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 3,
+      "target_dim_V": 3,
+      "measured_dim_V": 3,
+      "dim_V_perp": 6,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 13,
+      "measured_dim_V": 13,
+      "dim_V_perp": 3,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 13,
+      "measured_dim_V": 13,
+      "dim_V_perp": 3,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 13,
+      "measured_dim_V": 13,
+      "dim_V_perp": 3,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 13,
+      "measured_dim_V": 13,
+      "dim_V_perp": 3,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 13,
+      "measured_dim_V": 13,
+      "dim_V_perp": 3,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 13,
+      "measured_dim_V": 13,
+      "dim_V_perp": 3,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 13,
+      "measured_dim_V": 13,
+      "dim_V_perp": 3,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 13,
+      "measured_dim_V": 13,
+      "dim_V_perp": 3,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 13,
+      "measured_dim_V": 13,
+      "dim_V_perp": 3,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 13,
+      "measured_dim_V": 13,
+      "dim_V_perp": 3,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 9,
+      "measured_dim_V": 9,
+      "dim_V_perp": 7,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 9,
+      "measured_dim_V": 9,
+      "dim_V_perp": 7,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 9,
+      "measured_dim_V": 9,
+      "dim_V_perp": 7,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 9,
+      "measured_dim_V": 9,
+      "dim_V_perp": 7,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 9,
+      "measured_dim_V": 9,
+      "dim_V_perp": 7,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 9,
+      "measured_dim_V": 9,
+      "dim_V_perp": 7,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 9,
+      "measured_dim_V": 9,
+      "dim_V_perp": 7,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 9,
+      "measured_dim_V": 9,
+      "dim_V_perp": 7,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 9,
+      "measured_dim_V": 9,
+      "dim_V_perp": 7,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 4,
+      "target_dim_V": 9,
+      "measured_dim_V": 9,
+      "dim_V_perp": 7,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 21,
+      "measured_dim_V": 21,
+      "dim_V_perp": 4,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 21,
+      "measured_dim_V": 21,
+      "dim_V_perp": 4,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 21,
+      "measured_dim_V": 21,
+      "dim_V_perp": 4,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 21,
+      "measured_dim_V": 21,
+      "dim_V_perp": 4,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 21,
+      "measured_dim_V": 21,
+      "dim_V_perp": 4,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 21,
+      "measured_dim_V": 21,
+      "dim_V_perp": 4,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 21,
+      "measured_dim_V": 21,
+      "dim_V_perp": 4,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 21,
+      "measured_dim_V": 21,
+      "dim_V_perp": 4,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 21,
+      "measured_dim_V": 21,
+      "dim_V_perp": 4,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 21,
+      "measured_dim_V": 21,
+      "dim_V_perp": 4,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 17,
+      "measured_dim_V": 17,
+      "dim_V_perp": 8,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 17,
+      "measured_dim_V": 17,
+      "dim_V_perp": 8,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 17,
+      "measured_dim_V": 17,
+      "dim_V_perp": 8,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 17,
+      "measured_dim_V": 17,
+      "dim_V_perp": 8,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 17,
+      "measured_dim_V": 17,
+      "dim_V_perp": 8,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 17,
+      "measured_dim_V": 17,
+      "dim_V_perp": 8,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 17,
+      "measured_dim_V": 17,
+      "dim_V_perp": 8,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 17,
+      "measured_dim_V": 17,
+      "dim_V_perp": 8,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 17,
+      "measured_dim_V": 17,
+      "dim_V_perp": 8,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 5,
+      "target_dim_V": 17,
+      "measured_dim_V": 17,
+      "dim_V_perp": 8,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 31,
+      "measured_dim_V": 31,
+      "dim_V_perp": 5,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 31,
+      "measured_dim_V": 31,
+      "dim_V_perp": 5,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 31,
+      "measured_dim_V": 31,
+      "dim_V_perp": 5,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 31,
+      "measured_dim_V": 31,
+      "dim_V_perp": 5,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 31,
+      "measured_dim_V": 31,
+      "dim_V_perp": 5,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 31,
+      "measured_dim_V": 31,
+      "dim_V_perp": 5,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 31,
+      "measured_dim_V": 31,
+      "dim_V_perp": 5,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 31,
+      "measured_dim_V": 31,
+      "dim_V_perp": 5,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 31,
+      "measured_dim_V": 31,
+      "dim_V_perp": 5,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 31,
+      "measured_dim_V": 31,
+      "dim_V_perp": 5,
+      "should_fire": true,
+      "fired": true,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 27,
+      "measured_dim_V": 27,
+      "dim_V_perp": 9,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 27,
+      "measured_dim_V": 27,
+      "dim_V_perp": 9,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 27,
+      "measured_dim_V": 27,
+      "dim_V_perp": 9,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 27,
+      "measured_dim_V": 27,
+      "dim_V_perp": 9,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 27,
+      "measured_dim_V": 27,
+      "dim_V_perp": 9,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 27,
+      "measured_dim_V": 27,
+      "dim_V_perp": 9,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 27,
+      "measured_dim_V": 27,
+      "dim_V_perp": 9,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 27,
+      "measured_dim_V": 27,
+      "dim_V_perp": 9,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 27,
+      "measured_dim_V": 27,
+      "dim_V_perp": 9,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    },
+    {
+      "d": 6,
+      "target_dim_V": 27,
+      "measured_dim_V": 27,
+      "dim_V_perp": 9,
+      "should_fire": false,
+      "fired": false,
+      "ok": true
+    }
+  ],
+  "seed": 5620260918,
+  "pcc_margin_tol": 1e-10
+}
