@@ -1,0 +1,167 @@
+{
+  "literature_exponent": -1.178,
+  "per_horizon_best_known": [
+    {
+      "n": 4,
+      "R_n": 0.03124723206845324,
+      "benchmark": 0.03476936916485283,
+      "ratio": 0.8987,
+      "source": "ceiling_warmstart_chain"
+    },
+    {
+      "n": 5,
+      "R_n": 0.02407163498545294,
+      "benchmark": 0.025567323404623407,
+      "ratio": 0.9415000000000001,
+      "source": "ceiling_warmstart_chain"
+    },
+    {
+      "n": 7,
+      "R_n": 0.01690650682819076,
+      "benchmark": 0.017896164738213996,
+      "ratio": 0.9446999999999999,
+      "source": "ceiling_warmstart_chain"
+    },
+    {
+      "n": 8,
+      "R_n": 0.014713637720029801,
+      "benchmark": 0.016250980472752155,
+      "ratio": 0.9054,
+      "source": "ceiling_warmstart_chain"
+    },
+    {
+      "n": 10,
+      "R_n": 0.01065974104353049,
+      "benchmark": 0.011656055129649321,
+      "ratio": 0.9145239040964621,
+      "source": "positive_control(nit=168)"
+    },
+    {
+      "n": 11,
+      "R_n": 0.009703353184337456,
+      "benchmark": 0.010661853845003249,
+      "ratio": 0.9101,
+      "source": "ceiling_warmstart_chain"
+    },
+    {
+      "n": 12,
+      "R_n": 0.008809525165794786,
+      "benchmark": 0.010055387702082851,
+      "ratio": 0.8761000000000001,
+      "source": "ceiling_warmstart_chain"
+    },
+    {
+      "n": 15,
+      "R_n": 0.006873037161511889,
+      "benchmark": 0.0074725423436232475,
+      "ratio": 0.9197722602906425,
+      "source": "ceiling_8_cold_starts"
+    },
+    {
+      "n": 16,
+      "R_n": 0.006689125409463583,
+      "benchmark": 0.007169480610357537,
+      "ratio": 0.933,
+      "source": "ceiling_warmstart_chain"
+    },
+    {
+      "n": 19,
+      "R_n": 0.005521582938167219,
+      "benchmark": 0.0057084960099339,
+      "ratio": 0.967257037327973,
+      "source": "ceiling_8_cold_starts"
+    },
+    {
+      "n": 20,
+      "R_n": 0.00464922826185832,
+      "benchmark": 0.005529923018003544,
+      "ratio": 0.8407401417202406,
+      "source": "positive_control(nit=300)"
+    },
+    {
+      "n": 23,
+      "R_n": 0.003995000077450307,
+      "benchmark": 0.004599209837026293,
+      "ratio": 0.8686274858103344,
+      "source": "ceiling_8_cold_starts"
+    },
+    {
+      "n": 30,
+      "R_n": 0.0033162581525689847,
+      "benchmark": 0.0033817651269850693,
+      "ratio": 0.9806293542110993,
+      "source": "positive_control(nit=106)"
+    },
+    {
+      "n": 40,
+      "R_n": 0.0025117256978377405,
+      "benchmark": 0.0025178155698058514,
+      "ratio": 0.9975812875092434,
+      "source": "positive_control(nit=3)"
+    },
+    {
+      "n": 50,
+      "R_n": 0.001906508002246918,
+      "benchmark": 0.0019342928229480233,
+      "ratio": 0.9856356698574941,
+      "source": "positive_control(nit=41)"
+    }
+  ],
+  "cold_start_verified_horizons_used": [
+    4,
+    5,
+    7,
+    8,
+    10,
+    11,
+    12,
+    15,
+    16,
+    19,
+    20,
+    23
+  ],
+  "excluded_horizons": [
+    30,
+    40,
+    50
+  ],
+  "exclusion_rule": "provenance-based: n > 23 was never cold-started, so those points are upper bounds on R_n rather than optima.  No value-based criterion is used.",
+  "fits": {
+    "all_horizons_vs_N": {
+      "exponent": -1.1128916970088791,
+      "stderr": 0.01728483914622118,
+      "intercept": -1.945635541295968,
+      "r2": 0.9968738598773292
+    },
+    "converged_only_vs_N": {
+      "exponent": -1.160087841327952,
+      "stderr": 0.02026801958255556,
+      "intercept": -1.8427500980316938,
+      "r2": 0.9969568927363526
+    },
+    "converged_only_vs_N_plus_1": {
+      "exponent": -1.2872608344872303,
+      "stderr": 0.021770635307694575,
+      "intercept": -1.4106032226391467,
+      "r2": 0.9971478743027035
+    },
+    "preregistered_run_only_vs_N": {
+      "exponent": -1.0444910171865218,
+      "stderr": 0.04027405880953158,
+      "intercept": -2.1689762499760774,
+      "r2": 0.995559520537536
+    },
+    "preregistered_run_only_vs_N_plus_1": {
+      "exponent": -1.0954875967500866,
+      "stderr": 0.04661198776309748,
+      "intercept": -1.9542181519405857,
+      "r2": 0.9945980671214476
+    }
+  },
+  "exponent_spread_same_convention": 0.11559682414143024,
+  "largest_single_fit_stderr": 0.04027405880953158,
+  "spread_over_stderr": 2.9,
+  "honest_uncertainty_note": "The spread across same-convention fits is 0.116, i.e. 2.9x the largest individual fit's standard error (0.040).  The fitted exponent is dominated by per-horizon optimiser quality, not by the underlying mathematics, so no single value should be quoted as an estimate of the per-horizon-optimal rate, and the formal standard errors understate the real uncertainty.",
+  "positive_control_verdict": "PASS on its actual function -- the harness finds schedules up to 15.9% better than the published anytime benchmark (n=20, ratio 0.8407) and 8.6% better at n=10 -- but it does NOT cleanly reproduce the literature's -1.178 exponent, because under-optimisation at large n biases the fit toward flatness."
+}

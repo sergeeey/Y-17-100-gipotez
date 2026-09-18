@@ -1,5 +1,34 @@
 # manifest.md — H-CAT7-1 artifacts
 
+## Provenance note (added 2026-09-19) — this folder has two authors
+
+The implementation session that produced the PEP harness, the controls and the first
+version of `decision.md`/`result_summary.md`/`controls.md` did **not** write the
+following, which were found already present in the folder:
+
+* `skeptic_descent_check.py`, `local_minimax_lp.py`, `verify_lp_direction.py` (and their
+  `metrics/*.json`);
+* the section of `decision.md` beginning **"Addendum — FL Step 8a executed…"**.
+
+They appear to come from a separate session working in the same directory (the situation
+`memory-protocol.md` § Unclaimed Work Ownership describes). They have been left exactly
+as found — not edited, not deleted, not restated as this session's own work.
+
+Their substantive corrections were **not** taken on trust either. Three of the
+load-bearing ones were re-checked here with fresh code and **confirmed**, and the
+sections this session wrote have been corrected accordingly:
+
+| correction | independently re-verified? |
+|---|---|
+| The structural claim quoted `quick_probe`'s schedule, not the main run's: true entrywise range is **−1.41%…+9.38%** with **4 of 24 entries below ZLDC**, and mass is **+2.91%**, not +3.4% | **yes** — recomputed from `metrics/prefix_search.json` |
+| `local_optimality_probe`'s `worst_ratio` is floored at 1.0 for any perturbation leaving entries 0–1 untouched (the `n=2` ratio pins it); the `index=23, sign=+1` probe reports exactly `1.0` at `argmax_n=2` | **yes** — read directly from `metrics/local_optimality_probe.json` |
+| "unreachable at `n=19` by any schedule" overstates a local-search upper bound | **yes** — by inspection; it contradicted this folder's own `caveats.md` § 3 |
+
+The addendum's further conclusion — that local optimality at ZLDC is **UNRESOLVED**
+rather than confirmed, on the strength of an LP-derived descent direction that also fails
+on the real objective — has **not** been reproduced by this session and is not vouched
+for here.
+
 ## Blocker resolution (claim.md HD-MAVP A1 / A2)
 
 **A1 — benchmark schedule: RESOLVED, no fallback downgrade.**

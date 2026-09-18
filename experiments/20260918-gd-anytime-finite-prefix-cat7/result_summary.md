@@ -56,14 +56,22 @@ construction rather than by convention.
 
 ## 4. Structural finding — the optimiser stays inside ZLDC's family and inflates it
 
-The prefix-consistent schedule found on the pre-registered training horizons is not a
-new structure. Entry by entry it is ZLDC scaled up by 1–7.5%, with total stepsize mass
-57.13 vs ZLDC's 55.27 (**+3.4%**), preserving ZLDC's alternating pattern (`≈1.414` at
-every even index) and its long steps at indices 9, 13, 17, 21.
+**CORRECTED 2026-09-19.** An earlier version of this section described the schedule as
+"ZLDC scaled up by 1–7.5%, mass +3.4%". Those numbers came from the **reduced-budget
+`quick_probe` schedule**, not from the main run's master — two different schedules were
+conflated. Re-measured directly against `metrics/prefix_search.json`:
 
-That +3.4% mass increase is almost exactly the improvement realised at the trained
-horizons (ratios 0.956–0.968, i.e. 3.2–4.4% better), consistent with the `R_n ≲ 1/(2A_n)`
-scaling the construction's own potential argument gives.
+| quantity | corrected value |
+|---|---|
+| entrywise change vs ZLDC | **−1.41% to +9.38%** (not "+1 to +7.5%") |
+| entries *below* ZLDC | **4 of 24** (the schedule is not a uniform inflation) |
+| total stepsize mass | 56.88 vs 55.27 = **+2.91%** (not +3.4%) |
+
+What survives the correction: the schedule remains inside ZLDC's structural family —
+the alternating pattern and the long steps at indices 9/13/17/21 are preserved — and the
+mass increase still tracks the realised gain at trained horizons (ratios 0.947–0.972),
+consistent with `R_n ≲ 1/(2A_n)`. What does not survive: the characterisation as a
+uniform inflation, and three of the four numbers used to state it.
 
 **The training set coincided exactly with ZLDC's own structure, which was not by
 design.** ZLDC's concatenation endpoints inside `n ≤ 24` are `{2,4,6,8,12,16,20,24}`;
@@ -103,10 +111,17 @@ re-check is for — and at `n = 19` it **is** the case: the re-checked ceiling i
 
 (bold = cold-start re-check with 8 diverse starts, superseding the warm-start value)
 
-So `n = 19` is the single horizon among those measured where the pre-registered bar is
-out of reach for any schedule. Everywhere else the headroom is 5.9%–15.1%, i.e. the bar
-was feasible in principle — and the candidate still missed it by a wide margin at every
-test horizon.
+**CORRECTED 2026-09-19.** An earlier version said the bar is "out of reach for any
+schedule" at `n=19`. That overstates what these numbers can establish, and contradicts
+`caveats.md` § 3, which states the point correctly. Every ceiling here is a value
+*achieved* by a local multi-start search, so it is an **upper bound on the true optimal
+`R_n`** — the true headroom is therefore **at least** what is tabulated, possibly more. A
+better (e.g. branch-and-bound) optimum could reach 5% at `n=19`.
+
+The defensible statement: at `n=19`, the best schedule found by 8 independent cold starts
+improves on the benchmark by only 3.4%, so the 5% bar is **out of reach of this search**
+there — which is enough to make a FAIL at that horizon uninformative about
+prefix-consistency, but is not a statement about all schedules.
 
 ## 6. Main test (pre-registered) — FAIL
 
@@ -131,11 +146,32 @@ Trained on **every** horizon `2..24` (`dense_train_test.py`, post-registration),
 optimiser converged to a schedule identical to ZLDC within `4.4e-7` — ratio
 `1.0000000` at all 23 horizons.
 
-Because that is exactly the shape of a result that could be an optimiser stall, the
-neighbourhood was probed **directly, with no optimiser in the loop**
-(`local_optimality_probe.py`): 42 probes — uniform scalings, random multiplicative
-directions at 1% and 5%, single-coordinate ±5%. **None** beat ZLDC's worst-over-horizons
-ratio; the minimum achieved was exactly 1.0.
+**CORRECTED 2026-09-19 — this claim is weaker than first stated, and its headline number
+was an artifact.** ZLDC is one of the three starting points of `dense_train_test.py`, so
+"converged to ZLDC" is equally consistent with a stall at the start point. That was the
+reason for probing the neighbourhood directly (`local_optimality_probe.py`, 42 probes,
+no optimiser in the loop) — but the probe's own metric has a defect:
+
+`worst_ratio` is the max over horizons `2..24`, and a perturbation that leaves entries 0
+and 1 alone cannot change the `n=2` ratio, which therefore pins the metric at ≥1.0
+regardless of what happens elsewhere. 12 of the 42 probes (single-coordinate at index
+≥2) are subject to this floor. Verified in `metrics/local_optimality_probe.json`: the
+`index=23, sign=+1` probe reports `worst_ratio = 1.0` with `argmax_n = 2` — i.e. **the
+reported "minimum exactly 1.0" comes from a probe that was structurally incapable of
+going below 1.0, and which may well have improved `n=24`.**
+
+What still stands: the other 30 probes (10 uniform scalings and 16 random directions,
+which do move entries 0/1, plus the 2 single-coordinate probes at index 0/1) genuinely
+could have gone below 1.0 and did not, and 11 of the 12 floored probes independently
+produced ratios >1 at other horizons. What does not stand: "42 probes, none improved,
+minimum exactly 1.0" as evidence of an exhausted neighbourhood.
+
+A separate line of work in this folder (**not mine** — see the provenance note in
+`decision.md`) went further, deriving a first-order descent direction from the analytic
+gradients and then finding that it too fails on the real objective at every step size in
+both signs. On that account the local-optimality question at ZLDC is recorded as
+**UNRESOLVED**, not confirmed. I have not independently reproduced that work and do not
+vouch for it here; I report only that my own claim above was overstated.
 
 The uniform-scaling slice shows why, and is the mechanism:
 
@@ -154,12 +190,29 @@ construction's own free parameter `c` in `k_j = ⌊2·2^{cj}⌋`): 13 values, so
 **2× gains at individual horizons** (best ratio 0.50), none improving the worst horizon;
 best worst-ratio **1.0**, attained by the paper's own `c = log₂ρ`.
 
-## 8. Positive control (reconstructed) — PASS
+## 8. Positive control — PASS on the harness, explicit non-reproduction of the exponent
 
-Per-horizon-optimal `R_n` at `n = 4…19` fits `n^{−1.1183 ± 0.0155}` (r² = 0.99866)
-against gradient steps and `n^{−1.2528 ± 0.0225}` against iterates; the literature's
-empirical `n^{−1.178}` lies between the two index conventions. Deviation from the
-pre-registered horizon range recorded in `controls.md`.
+The pre-registered run completed. It finds schedules **8.6%** better than the benchmark
+at `n=10` and **15.9%** better at `n=20` — matching the 5.9–15.1% headroom measured
+independently by cold starts at `n ≤ 23`. That is what this control exists to establish,
+and it passes.
+
+Its large-`n` points, however, are not optima: `n=40` exited after **3 iterations**, and
+`n=30`/`n=50` "converged" to ratios of 0.98 — far outside the 0.87–0.93 cold-start band —
+via the same warm-start chain whose sticking was demonstrated at `n=15`.
+
+| fit (pooled over every optimum obtained anywhere) | exponent |
+|---|---|
+| all horizons `4…50`, vs `N` | −1.1129 ± 0.0173 |
+| cold-start-verified `4…23`, vs `N` | **−1.1601 ± 0.0203** |
+| cold-start-verified `4…23`, vs `N+1` | −1.2873 ± 0.0218 |
+| pre-registered run alone `10…50`, vs `N` | −1.0445 ± 0.0403 |
+
+Same-convention fits span **0.116 = 2.9× the largest standard error**. The exponent here
+is governed by optimiser quality per horizon, not by the mathematics, so no single value
+is an estimate of the per-horizon-optimal rate. The literature's `−1.178` is compatible
+with the best-optimised fit (≈0.9 σ) but is **not** reproduced. Exclusion of
+`n = 30,40,50` is provenance-based (never cold-started), not residual-based.
 
 ## 9. Adversarial prefix check — PASS
 

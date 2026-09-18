@@ -33,23 +33,53 @@ _Known-good input: reproduce the ALREADY-PUBLISHED per-horizon result (Das Gupta
 python pep_unconstrained_baseline.py        # pre-registered horizons {10,20,30,40,50}
 ```
 
-**Result: [x] PASS** — in a *reconstructed* form, with the deviation stated.
+**Result: [x] PASS on the question this control actually asks** — can the harness find
+good schedules? — **but it does NOT cleanly reproduce the `−1.178` exponent.** Full
+analysis in `metrics/positive_control_analysis.json`.
 
-Per-horizon-optimal `R_n` at `n ∈ {4,5,7,8,11,12,15,16,19}` (from `ceiling.py` /
-`recheck_ceiling.py`) fits a power law with exponent
+The pre-registered run completed (after ~5 h). Its per-horizon results:
 
-* **−1.1183 ± 0.0155** (r² = 0.99866) against `N` gradient steps,
-* **−1.2528 ± 0.0225** (r² = 0.99775) against `N+1` iterates,
+| n | ratio to benchmark | iterations | L-BFGS-B exit |
+|---|---|---|---|
+| 10 | **0.9145** | 168 | ABNORMAL |
+| 20 | **0.8407** | 300 | hit maxiter |
+| 30 | 0.9806 | 106 | converged |
+| 40 | 0.9976 | **3** | ABNORMAL |
+| 50 | 0.9856 | 41 | converged |
 
-and the literature's empirical `−1.178` lies between the two index conventions. The
-harness therefore finds near-optimal per-horizon schedules, which is what this control
-exists to establish.
+**The harness clearly works:** it finds schedules 8.6% and 15.9% better than the
+published anytime benchmark at `n = 10` and `n = 20`, consistent with the 5.9%–15.1%
+headroom measured independently by cold-start optimisation at `n ≤ 23`.
 
-**Deviation recorded honestly:** the pre-registered run at `n ∈ {10,…,50}` costs ~13 s
-per exact PEP solve at `n=50` and did not complete inside the session; the fit above is
-over `n = 4…19` instead. It is order-of-magnitude evidence about the harness, and it is
-*not* a reproduction of Das Gupta et al.'s number at their horizon range. See
-`decision.md` § "What this does NOT mean" item 5.
+**But the large-`n` points are not optima.** `n=40` exited abnormally after **3
+iterations** — that is not an optimisation. `n=30` and `n=50` report "converged" yet sit
+at ratios 0.98, far outside the 0.87–0.93 band cold starts produce at neighbouring
+horizons; they come from the same warm-start chain whose sticking was demonstrated
+directly at `n=15` (0.9490 → 0.9198 under 8 cold starts), and they were never
+cold-started. "Converged" does not mean "good".
+
+Fitted exponents, pooling every per-horizon optimum obtained anywhere in this experiment:
+
+| fit | exponent | r² |
+|---|---|---|
+| all horizons `4…50`, vs `N` steps | **−1.1129 ± 0.0173** | 0.9969 |
+| cold-start-verified range `4…23`, vs `N` steps | **−1.1601 ± 0.0203** | 0.9970 |
+| cold-start-verified range `4…23`, vs `N+1` iterates | −1.2873 ± 0.0218 | 0.9972 |
+| pre-registered run alone `10…50`, vs `N` steps | −1.0445 ± 0.0403 | 0.9956 |
+
+The exclusion of `n = 30,40,50` is **provenance-based, not value-based**: those horizons
+lie outside the range where cold-start verification was ever performed, so they are upper
+bounds on `R_n` rather than optima. No residual-size criterion is used. (An earlier draft
+of this filter used "ratio < 0.95" and wrongly dropped `n=19`, a horizon that *was*
+cold-started and whose high ratio is a real property of that horizon; corrected.)
+
+**The honest uncertainty is the spread, not the standard error.** Same-convention fits
+span **0.116**, which is **2.9×** the largest individual standard error (0.040). The
+fitted exponent here is governed by per-horizon optimiser quality, not by the underlying
+mathematics. So: the literature's `−1.178` is compatible with the best-optimised fit
+(`−1.1601`, ~0.9 σ away), but **no single value from this experiment should be quoted as
+an estimate of the per-horizon-optimal decay rate**, and this is not a reproduction of
+Das Gupta et al.'s result. See `decision.md` § "What this does NOT mean" item 5.
 
 ---
 
