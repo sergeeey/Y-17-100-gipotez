@@ -1,0 +1,86 @@
+{
+  "verdict": "READY",
+  "tol_rel": 1e-08,
+  "checks": {
+    "A_pure_qubit": {
+      "max_abs_err_L_vs_2drho": 1.0532500405730103e-15,
+      "max_abs_err_QFI_vs_1": 1.1102230246251565e-15,
+      "pass": true
+    },
+    "B_mixed_qubit_closed_form": {
+      "max_abs_err_L": 1.5650600981148427e-14,
+      "max_rel_err_QFI": 3.646610041171665e-15,
+      "pass": true
+    },
+    "C_qutrit_vs_lyapunov": {
+      "max_abs_err_vs_independent_solver": 1.0453668780599286e-14,
+      "max_defining_equation_residual": 1.824579480180258e-15,
+      "pass": true
+    },
+    "D_quasipure_samplers": {
+      "rows": [
+        {
+          "model": "bipartite(d_sys=2,r=2,s=2)",
+          "samples": 8,
+          "max_quasipurity_violation": 1.932576222504104e-16,
+          "max_sld_support_block_norm": 6.597024983200201e-16,
+          "max_sld_residual": 5.831503107103657e-16,
+          "max_rel_fd_vs_analytic_drho": 6.630882829196035e-11,
+          "pass": true
+        },
+        {
+          "model": "bipartite(d_sys=3,r=2,s=2)",
+          "samples": 8,
+          "max_quasipurity_violation": 3.2734961256800174e-16,
+          "max_sld_support_block_norm": 1.953412828872143e-15,
+          "max_sld_residual": 1.4055697589085032e-15,
+          "max_rel_fd_vs_analytic_drho": 7.421581648548396e-11,
+          "pass": true
+        },
+        {
+          "model": "generic(d=4,r=2,s=2)",
+          "samples": 8,
+          "max_quasipurity_violation": 1.0342357281171125e-15,
+          "max_sld_support_block_norm": 3.4078394330891216e-15,
+          "max_sld_residual": 7.435697468527668e-15,
+          "max_rel_fd_vs_analytic_drho": 6.886383759018088e-10,
+          "pass": true
+        },
+        {
+          "model": "generic(d=6,r=2,s=4)",
+          "samples": 8,
+          "max_quasipurity_violation": 1.6252257166312503e-15,
+          "max_sld_support_block_norm": 5.850310250590354e-15,
+          "max_sld_residual": 1.6425212354060455e-14,
+          "max_rel_fd_vs_analytic_drho": 2.004587028286322e-09,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    "E_plumbing": {
+      "max_herm_vec_round_trip_err": 1.193812447098184e-16,
+      "max_inner_product_err": 4.440892098500626e-16,
+      "max_threshold_err_vs_hand_arithmetic": 0.0,
+      "hand_checked_thresholds": {
+        "3": 6.0,
+        "4": 12.0,
+        "5": 18.0,
+        "6": 25.0,
+        "7": 33.0,
+        "8": 42.0
+      },
+      "pass": true
+    },
+    "F_degenerate_spectrum_handling": {
+      "eigenvalues": [
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "note": "spectral SLD sets the 0+0 block to 0 (standard kernel freedom); W and M are provably independent of that block, see decision.md",
+      "pass": true
+    }
+  }
+}

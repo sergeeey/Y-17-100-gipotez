@@ -1,0 +1,98 @@
+{
+  "purpose": "self-falsification of the 'search-based verdict is unsound' claim",
+  "configuration": "bipartite d_sys=4, r=2, s=2 (d=8), ABOVE the Eq. (15) threshold, so Theorem 3 guarantees a saturating projective measurement exists",
+  "rows": [
+    {
+      "n_starts": 250,
+      "dim_V_perp": 52,
+      "d": 8,
+      "successes": 0,
+      "trials": 3,
+      "lp_slacks": [
+        7.999999999999998,
+        8.0,
+        7.999999999999381
+      ],
+      "n_v_sampled": [
+        null,
+        null,
+        null
+      ],
+      "seconds": 25.1
+    },
+    {
+      "n_starts": 500,
+      "dim_V_perp": 52,
+      "d": 8,
+      "successes": 0,
+      "trials": 3,
+      "lp_slacks": [
+        7.999999999999839,
+        8.0,
+        8.00000000000043
+      ],
+      "n_v_sampled": [
+        null,
+        null,
+        null
+      ],
+      "seconds": 50.1
+    },
+    {
+      "n_starts": 1000,
+      "dim_V_perp": 52,
+      "d": 8,
+      "successes": 0,
+      "trials": 3,
+      "lp_slacks": [
+        7.999999999999998,
+        7.999999999999712,
+        7.99999999998775
+      ],
+      "n_v_sampled": [
+        null,
+        null,
+        null
+      ],
+      "seconds": 55.0
+    },
+    {
+      "n_starts": 2000,
+      "dim_V_perp": 52,
+      "d": 8,
+      "successes": 0,
+      "trials": 3,
+      "lp_slacks": [
+        8.0,
+        8.000000000000016,
+        7.999999999998835
+      ],
+      "n_v_sampled": [
+        null,
+        null,
+        null
+      ],
+      "seconds": 79.2
+    },
+    {
+      "n_starts": 4000,
+      "dim_V_perp": 52,
+      "d": 8,
+      "successes": 0,
+      "trials": 3,
+      "lp_slacks": [
+        7.999999999999998,
+        7.845185996301435,
+        8.000000000000002
+      ],
+      "n_v_sampled": [
+        null,
+        null,
+        null
+      ],
+      "seconds": 121.0
+    }
+  ],
+  "probe_ever_succeeded": false,
+  "interpretation": "If probe_ever_succeeded is true, the d=8 failure is an under-resourced search and the claim must be weakened to 'this search was too small'. If it stays false across a 16x range of start counts while the same code succeeds at d=4/d=6, the failure is a property of searching this variety, not of the budget."
+}

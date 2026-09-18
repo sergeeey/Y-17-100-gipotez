@@ -1,0 +1,70 @@
+{
+  "question": "is the d=8 constructive failure a budget problem or a coverage problem?",
+  "rows": [
+    {
+      "trial": 0,
+      "d": 8,
+      "dim_V": 12,
+      "dim_V_perp": 52,
+      "random_starts": 400,
+      "random_solutions": 400,
+      "lp_slack_random_only": 8.0000000000004,
+      "branch_solutions_per_ancilla": [
+        200,
+        200
+      ],
+      "max_theorem1_violation_of_branch_vectors": 4.3021142204224816e-16,
+      "lp_slack_branch_only": 0.0,
+      "lp_slack_pooled": 0.0,
+      "constructed_from_branches": {
+        "povm_size": 26,
+        "completeness_error": 3.050138948631142e-14,
+        "cfim_qfim_rel_gap": 2.0324718626132403e-15
+      }
+    },
+    {
+      "trial": 1,
+      "d": 8,
+      "dim_V": 12,
+      "dim_V_perp": 52,
+      "random_starts": 400,
+      "random_solutions": 400,
+      "lp_slack_random_only": 8.0,
+      "branch_solutions_per_ancilla": [
+        200,
+        200
+      ],
+      "max_theorem1_violation_of_branch_vectors": 4.371503159461554e-16,
+      "lp_slack_branch_only": 0.0,
+      "lp_slack_pooled": 0.0,
+      "constructed_from_branches": {
+        "povm_size": 26,
+        "completeness_error": 3.492687427313625e-14,
+        "cfim_qfim_rel_gap": 1.2392482215604486e-15
+      }
+    },
+    {
+      "trial": 2,
+      "d": 8,
+      "dim_V": 12,
+      "dim_V_perp": 52,
+      "random_starts": 400,
+      "random_solutions": 400,
+      "lp_slack_random_only": 8.0,
+      "branch_solutions_per_ancilla": [
+        200,
+        200
+      ],
+      "max_theorem1_violation_of_branch_vectors": 4.0245584642661925e-16,
+      "lp_slack_branch_only": 0.0,
+      "lp_slack_pooled": 0.0,
+      "constructed_from_branches": {
+        "povm_size": 26,
+        "completeness_error": 1.870012301526076e-12,
+        "cfim_qfim_rel_gap": 6.728929862327915e-15
+      }
+    }
+  ],
+  "branch_restricted_search_succeeds": true,
+  "conclusion": "The optimal POVM the paper constructs is a product basis with a definite ancilla index -- a measure-zero subvariety that Gaussian random starts reach with probability zero. Restricting the search to those branches recovers it. The failure was therefore a COVERAGE failure of the sampler, which is exactly why a failed search can never be read as a non-existence certificate: the same code, same budget, same state, different start distribution, opposite answer."
+}
