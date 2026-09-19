@@ -1,0 +1,567 @@
+[
+  {
+    "class": "control Eq16 d_sys=2 r=2 s=2 (d=4)",
+    "n_states": 12,
+    "n_saturable_by_lp": 12,
+    "n_found_at_d": 12,
+    "n_no_solution_up_to_d_plus_3": 0,
+    "sizes_found": [
+      4
+    ],
+    "dim_v_perp_values": [
+      8
+    ],
+    "below_theorem3_threshold_note": "see decision text; d=4 needs dimVperp-1 >= 12",
+    "seconds": 39.00990843772888,
+    "rows": [
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      }
+    ]
+  },
+  {
+    "class": "control Eq16 d_sys=3 r=2 s=2 (d=6)",
+    "n_states": 12,
+    "n_saturable_by_lp": 12,
+    "n_found_at_d": 12,
+    "n_no_solution_up_to_d_plus_3": 0,
+    "sizes_found": [
+      6
+    ],
+    "dim_v_perp_values": [
+      24
+    ],
+    "below_theorem3_threshold_note": "see decision text; d=4 needs dimVperp-1 >= 12",
+    "seconds": 43.4605188369751,
+    "rows": [
+      {
+        "d": 6,
+        "dim_v_perp": 24,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 24,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 24,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 24,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 24,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 24,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 24,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 24,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 24,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 24,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 24,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 24,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 24,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 24,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 24,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 24,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 24,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 24,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 24,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 24,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 24,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 24,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 24,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 24,
+        "min_size_found": 6
+      }
+    ]
+  },
+  {
+    "class": "generic d=4 r=2 s=2",
+    "n_states": 12,
+    "n_saturable_by_lp": 12,
+    "n_found_at_d": 12,
+    "n_no_solution_up_to_d_plus_3": 0,
+    "sizes_found": [
+      4
+    ],
+    "dim_v_perp_values": [
+      8
+    ],
+    "below_theorem3_threshold_note": "see decision text; d=4 needs dimVperp-1 >= 12",
+    "seconds": 51.227664947509766,
+    "rows": [
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      },
+      {
+        "d": 4,
+        "dim_v_perp": 8,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 8,
+        "min_size_found": 4
+      }
+    ]
+  },
+  {
+    "class": "generic d=5 r=2 s=3",
+    "n_states": 12,
+    "n_saturable_by_lp": 12,
+    "n_found_at_d": 12,
+    "n_no_solution_up_to_d_plus_3": 0,
+    "sizes_found": [
+      5
+    ],
+    "dim_v_perp_values": [
+      10
+    ],
+    "below_theorem3_threshold_note": "see decision text; d=4 needs dimVperp-1 >= 12",
+    "seconds": 64.74714875221252,
+    "rows": [
+      {
+        "d": 5,
+        "dim_v_perp": 10,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 10,
+        "min_size_found": 5
+      },
+      {
+        "d": 5,
+        "dim_v_perp": 10,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 10,
+        "min_size_found": 5
+      },
+      {
+        "d": 5,
+        "dim_v_perp": 10,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 10,
+        "min_size_found": 5
+      },
+      {
+        "d": 5,
+        "dim_v_perp": 10,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 10,
+        "min_size_found": 5
+      },
+      {
+        "d": 5,
+        "dim_v_perp": 10,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 10,
+        "min_size_found": 5
+      },
+      {
+        "d": 5,
+        "dim_v_perp": 10,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 10,
+        "min_size_found": 5
+      },
+      {
+        "d": 5,
+        "dim_v_perp": 10,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 10,
+        "min_size_found": 5
+      },
+      {
+        "d": 5,
+        "dim_v_perp": 10,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 10,
+        "min_size_found": 5
+      },
+      {
+        "d": 5,
+        "dim_v_perp": 10,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 10,
+        "min_size_found": 5
+      },
+      {
+        "d": 5,
+        "dim_v_perp": 10,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 10,
+        "min_size_found": 5
+      },
+      {
+        "d": 5,
+        "dim_v_perp": 10,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 10,
+        "min_size_found": 5
+      },
+      {
+        "d": 5,
+        "dim_v_perp": 10,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 10,
+        "min_size_found": 5
+      }
+    ]
+  },
+  {
+    "class": "generic d=6 r=2 s=4",
+    "n_states": 12,
+    "n_saturable_by_lp": 12,
+    "n_found_at_d": 12,
+    "n_no_solution_up_to_d_plus_3": 0,
+    "sizes_found": [
+      6
+    ],
+    "dim_v_perp_values": [
+      12
+    ],
+    "below_theorem3_threshold_note": "see decision text; d=4 needs dimVperp-1 >= 12",
+    "seconds": 81.84187245368958,
+    "rows": [
+      {
+        "d": 6,
+        "dim_v_perp": 12,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 12,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 12,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 12,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 12,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 12,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 12,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 12,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 12,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 12,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 12,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 12,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 12,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 12,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 12,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 12,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 12,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 12,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 12,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 12,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 12,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 12,
+        "min_size_found": 6
+      },
+      {
+        "d": 6,
+        "dim_v_perp": 12,
+        "lp_slack": 0.0,
+        "saturable_by_lp_sample": true,
+        "lp_povm_size": 12,
+        "min_size_found": 6
+      }
+    ]
+  }
+]
