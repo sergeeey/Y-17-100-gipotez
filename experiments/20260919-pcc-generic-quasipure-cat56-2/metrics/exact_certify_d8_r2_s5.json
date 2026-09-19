@@ -1,0 +1,53 @@
+{
+ "d": 8,
+ "r": 2,
+ "k": 6,
+ "s": 5,
+ "seed": 1,
+ "lll": true,
+ "kernel_dims": [
+  24,
+  20,
+  16,
+  12,
+  8
+ ],
+ "max_bits_of_entries_in_stack": 554,
+ "max_bits_of_B_entries": 467,
+ "lyapunov_exact_zero": true,
+ "pcc_exact_zero": true,
+ "qfim_det_nonzero": true,
+ "qfim_det_bits": 1189,
+ "primes": [
+  2147483629,
+  2147383633
+ ],
+ "rank_mod_p": [
+  54,
+  54
+ ],
+ "need_dimV_ge": 57,
+ "dimV_lower_bound_exact": 54,
+ "dimVperp_upper_bound_exact": 10,
+ "exact_certified_dimVperp_lt_d": false,
+ "seconds_build": 0.14813756942749023,
+ "seconds_total": 0.18279528617858887,
+ "resources": {
+  "affinity": [
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23
+  ],
+  "nice": 16384,
+  "threads_env": {
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1"
+  },
+  "peak_rss_mb": 73.138176
+ }
+}

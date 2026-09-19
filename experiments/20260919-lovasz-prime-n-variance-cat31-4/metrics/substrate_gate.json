@@ -1,0 +1,10 @@
+{
+  "theta_c5": 2.23606797749979,
+  "c5_ok": true,
+  "prime_n": 67,
+  "theta_g_times_gbar": 67.00000000000028,
+  "identity_ok": true,
+  "negative_control_var": 0.0,
+  "negative_control_ok": true,
+  "substrate_ready": true
+}

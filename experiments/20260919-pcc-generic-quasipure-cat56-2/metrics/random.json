@@ -1,0 +1,125 @@
+{
+ "n_per_config": 200,
+ "seed": 20260919,
+ "configs": [
+  {
+   "d": 6,
+   "r": 2,
+   "k": 4,
+   "s": 4,
+   "n": 200,
+   "need_dimV": 31,
+   "pcc_ok": 200,
+   "qfim_full": 200,
+   "robust": 200,
+   "max_dimV": 24,
+   "min_dimVperp": 12,
+   "LB": 9,
+   "n_fires_robust_pcc_qfim": 0,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    24
+   ],
+   "r2_plus_s_plus_1": 9
+  },
+  {
+   "d": 7,
+   "r": 2,
+   "k": 5,
+   "s": 4,
+   "n": 200,
+   "need_dimV": 43,
+   "pcc_ok": 200,
+   "qfim_full": 200,
+   "robust": 198,
+   "max_dimV": 40,
+   "min_dimVperp": 9,
+   "LB": 9,
+   "n_fires_robust_pcc_qfim": 0,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    40
+   ],
+   "r2_plus_s_plus_1": 9
+  },
+  {
+   "d": 8,
+   "r": 2,
+   "k": 6,
+   "s": 5,
+   "n": 200,
+   "need_dimV": 57,
+   "pcc_ok": 200,
+   "qfim_full": 200,
+   "robust": 200,
+   "max_dimV": 54,
+   "min_dimVperp": 10,
+   "LB": 10,
+   "n_fires_robust_pcc_qfim": 0,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    54
+   ],
+   "r2_plus_s_plus_1": 10
+  },
+  {
+   "d": 10,
+   "r": 3,
+   "k": 7,
+   "s": 5,
+   "n": 200,
+   "need_dimV": 91,
+   "pcc_ok": 200,
+   "qfim_full": 200,
+   "robust": 200,
+   "max_dimV": 85,
+   "min_dimVperp": 15,
+   "LB": 15,
+   "n_fires_robust_pcc_qfim": 0,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    85
+   ],
+   "r2_plus_s_plus_1": 15
+  },
+  {
+   "d": 11,
+   "r": 3,
+   "k": 8,
+   "s": 5,
+   "n": 200,
+   "need_dimV": 111,
+   "pcc_ok": 200,
+   "qfim_full": 200,
+   "robust": 200,
+   "max_dimV": 106,
+   "min_dimVperp": 15,
+   "LB": 15,
+   "n_fires_robust_pcc_qfim": 0,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    106
+   ],
+   "r2_plus_s_plus_1": 15
+  }
+ ],
+ "seconds": 18.391521215438843,
+ "resources": {
+  "affinity": [
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23
+  ],
+  "nice": 16384,
+  "threads_env": {
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1"
+  },
+  "peak_rss_mb": 77.934592
+ }
+}

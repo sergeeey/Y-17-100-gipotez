@@ -1,0 +1,36 @@
+{
+  "primary_fit": {
+    "slope": -0.9231374095914612,
+    "intercept": 1.0818165346431774,
+    "se": 0.03413818018541992,
+    "ci95": [
+      -1.0066705272636876,
+      -0.8396042919192348
+    ],
+    "dof": 6
+  },
+  "category": "P-MINUS-ONE",
+  "controls": {
+    "positive_control_truth_minus1": {
+      "true_slope": -1.0,
+      "n_sims": 2000,
+      "coverage_of_truth": 0.9535,
+      "fraction_ci_excludes_minus1": 0.0465
+    },
+    "power_control_truth_composite": {
+      "true_slope": -0.9126,
+      "n_sims": 2000,
+      "coverage_of_truth": 0.9525,
+      "fraction_ci_excludes_minus1": 0.8535
+    },
+    "symmetry_control_max_abs_z": 1.5369594762119068
+  }
+}
+n=   67 reps= 300 var=5.52078e-02 nVar=3.6989 meanX_z=+1.54
+n=  127 reps= 300 var=3.50486e-02 nVar=4.4512 meanX_z=+0.27
+n=  251 reps= 300 var=1.88532e-02 nVar=4.7322 meanX_z=-1.10
+n=  509 reps= 250 var=9.42882e-03 nVar=4.7993 meanX_z=-0.27
+n= 1021 reps= 200 var=5.16581e-03 nVar=5.2743 meanX_z=+0.16
+n= 2053 reps= 200 var=3.27368e-03 nVar=6.7209 meanX_z=+0.71
+n= 3001 reps= 200 var=1.47542e-03 nVar=4.4277 meanX_z=+0.77
+n= 4093 reps= 100 var=1.30367e-03 nVar=5.3359 meanX_z=-0.74

@@ -542,6 +542,10 @@ Three side-findings are testable and do not belong to this claim. Proposed rows 
    states outside the sample and nothing about the general conjecture.
 4. Does **not** establish that `dim 𝒱` cannot reach `d² − d + 1`. The sweep is bounded
    (`d ≤ 8`, `r ≤ 3`, `s ≤ 8`, 8 samples per cell) and the obstruction is unexplained.
+   **`UPDATE 2026-09-19`:** settled by `H-CAT56-2` (`experiments/20260919-pcc-generic-quasipure-cat56-2/`):
+   `dim 𝒱` *does* reach `d² − d + 1` for generic quasi-pure states from `d = 22` (`r = 2`, `s = 16`),
+   giving a certified counterexample to PCC sufficiency; below that size it provably cannot. The
+   "unexplained obstruction" was the extra orthogonality `A_j ⟂ 𝒱_M`, costing `s` dimensions.
 5. The `r² + 1` bound (S4/S5) is derived under PCC and a parameter-independent spectrum, and
    verified on 21 models — it is not a statement about arbitrary mixed states.
 6. Nothing here is a statement about experimental quantum metrology. Every object is a

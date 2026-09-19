@@ -1,0 +1,253 @@
+{
+ "rows": [
+  {
+   "d": 22,
+   "r": 2,
+   "k": 20,
+   "s": 16,
+   "pcc_violation_rel": 2.2953949210615793e-17,
+   "dim_M": 64,
+   "dim_W": 399,
+   "dim_V": 463,
+   "dim_Vperp": 21,
+   "fires": true,
+   "plateau_M_W": {
+    "1e-05": [
+     64,
+     399
+    ],
+    "1e-06": [
+     64,
+     399
+    ],
+    "1e-08": [
+     64,
+     399
+    ],
+    "1e-10": [
+     64,
+     399
+    ],
+    "1e-12": [
+     64,
+     399
+    ]
+   },
+   "plateau_flat": true,
+   "gram_dims_M_W": [
+    64,
+    399
+   ],
+   "gram_agrees": true,
+   "gap_M": Infinity,
+   "gap_W": 48664284516462.18,
+   "dim_P": 16,
+   "dim_Q": 1,
+   "identity_rhs": 21,
+   "identity_holds": true,
+   "LB": 21,
+   "vperp_ge_LB": true,
+   "qfim_rank": 16,
+   "nullspace_dims": [
+    80,
+    76,
+    72,
+    68,
+    64,
+    60,
+    56,
+    52,
+    48,
+    44,
+    40,
+    36,
+    32,
+    28,
+    24,
+    20
+   ],
+   "seed": 20260919,
+   "full_pipeline": {
+    "q": [
+     0.29074740426536044,
+     0.7092525957346395
+    ],
+    "runs": [
+     {
+      "rotated_basis": false,
+      "dim_V": 463,
+      "dim_Vperp": 21,
+      "pcc_holds": true,
+      "pcc_violation": 3.5659279061483753e-16,
+      "sld_residual": 1.3747067898028203e-16,
+      "qfim_rank": 16,
+      "rank_plateau": {
+       "1e-05": 463,
+       "1e-06": 463,
+       "1e-08": 463,
+       "1e-10": 463,
+       "1e-12": 463
+      },
+      "gram_rank": 463,
+      "rank_gap_ratio": 236497703589.07074,
+      "rank_is_robust": true,
+      "certified_not_saturable": true
+     },
+     {
+      "rotated_basis": true,
+      "dim_V": 463,
+      "dim_Vperp": 21,
+      "pcc_holds": true,
+      "pcc_violation": 3.7206254271789844e-15,
+      "sld_residual": 1.7765319902965568e-14,
+      "qfim_rank": 16,
+      "rank_plateau": {
+       "1e-05": 463,
+       "1e-06": 463,
+       "1e-08": 463,
+       "1e-10": 463,
+       "1e-12": 463
+      },
+      "gram_rank": 463,
+      "rank_gap_ratio": 202456192305.255,
+      "rank_is_robust": true,
+      "certified_not_saturable": true
+     }
+    ]
+   },
+   "seconds": 1.6107304096221924
+  },
+  {
+   "d": 23,
+   "r": 3,
+   "k": 20,
+   "s": 12,
+   "pcc_violation_rel": 2.0877555310878283e-17,
+   "dim_M": 108,
+   "dim_W": 399,
+   "dim_V": 507,
+   "dim_Vperp": 22,
+   "fires": true,
+   "plateau_M_W": {
+    "1e-05": [
+     108,
+     399
+    ],
+    "1e-06": [
+     108,
+     399
+    ],
+    "1e-08": [
+     108,
+     399
+    ],
+    "1e-10": [
+     108,
+     399
+    ],
+    "1e-12": [
+     108,
+     399
+    ]
+   },
+   "plateau_flat": true,
+   "gram_dims_M_W": [
+    108,
+    399
+   ],
+   "gram_agrees": true,
+   "gap_M": Infinity,
+   "gap_W": 122785702102605.66,
+   "dim_P": 12,
+   "dim_Q": 1,
+   "identity_rhs": 22,
+   "identity_holds": true,
+   "LB": 22,
+   "vperp_ge_LB": true,
+   "qfim_rank": 12,
+   "nullspace_dims": [
+    120,
+    111,
+    102,
+    93,
+    84,
+    75,
+    66,
+    57,
+    48,
+    39,
+    30,
+    21
+   ],
+   "seed": 20260919,
+   "full_pipeline": {
+    "q": [
+     0.1774111728337229,
+     0.4327788760920539,
+     0.389809951074223
+    ],
+    "runs": [
+     {
+      "rotated_basis": false,
+      "dim_V": 507,
+      "dim_Vperp": 22,
+      "pcc_holds": true,
+      "pcc_violation": 3.0066353750166686e-16,
+      "sld_residual": 1.897798582379341e-16,
+      "qfim_rank": 12,
+      "rank_plateau": {
+       "1e-05": 507,
+       "1e-06": 507,
+       "1e-08": 507,
+       "1e-10": 507,
+       "1e-12": 507
+      },
+      "gram_rank": 507,
+      "rank_gap_ratio": 1769902688182.2969,
+      "rank_is_robust": true,
+      "certified_not_saturable": true
+     },
+     {
+      "rotated_basis": true,
+      "dim_V": 507,
+      "dim_Vperp": 22,
+      "pcc_holds": true,
+      "pcc_violation": 6.321234352230266e-16,
+      "sld_residual": 3.872638985217292e-15,
+      "qfim_rank": 12,
+      "rank_plateau": {
+       "1e-05": 507,
+       "1e-06": 507,
+       "1e-08": 507,
+       "1e-10": 507,
+       "1e-12": 507
+      },
+      "gram_rank": 507,
+      "rank_gap_ratio": 1026493983273.3955,
+      "rank_is_robust": true,
+      "certified_not_saturable": true
+     }
+    ]
+   },
+   "seconds": 1.2123987674713135
+  }
+ ],
+ "resources": {
+  "affinity": [
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23
+  ],
+  "nice": 16384,
+  "threads_env": {
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1"
+  },
+  "peak_rss_mb": 113.647616
+ }
+}

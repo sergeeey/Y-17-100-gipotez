@@ -1,0 +1,139 @@
+{
+ "rank_detector_float": [
+  {
+   "d": 4,
+   "fires_at_rank_d2-d+1": 40,
+   "fires_at_rank_d2-d": 0
+  },
+  {
+   "d": 6,
+   "fires_at_rank_d2-d+1": 40,
+   "fires_at_rank_d2-d": 0
+  },
+  {
+   "d": 8,
+   "fires_at_rank_d2-d+1": 40,
+   "fires_at_rank_d2-d": 0
+  },
+  {
+   "d": 12,
+   "fires_at_rank_d2-d+1": 40,
+   "fires_at_rank_d2-d": 0
+  },
+  {
+   "d": 22,
+   "fires_at_rank_d2-d+1": 40,
+   "fires_at_rank_d2-d": 0
+  }
+ ],
+ "rank_detector_exact_fp": [
+  {
+   "injected_rank": 31,
+   "rank_mod_p": 31,
+   "d": 6,
+   "fires": true
+  },
+  {
+   "injected_rank": 30,
+   "rank_mod_p": 30,
+   "d": 6,
+   "fires": false
+  }
+ ],
+ "eq16_negative_control": [
+  {
+   "d": 8,
+   "r": 2,
+   "s": 3,
+   "samples": 20,
+   "pcc_true": 20,
+   "min_dimVperp": 40,
+   "fires": 0
+  },
+  {
+   "d": 12,
+   "r": 2,
+   "s": 3,
+   "samples": 20,
+   "pcc_true": 20,
+   "min_dimVperp": 120,
+   "fires": 0
+  },
+  {
+   "d": 22,
+   "r": 2,
+   "s": 4,
+   "samples": 20,
+   "pcc_true": 20,
+   "min_dimVperp": 444,
+   "fires": 0
+  }
+ ],
+ "random_blocks_pcc": {
+  "n": 200,
+  "pcc_true": 0,
+  "min_violation": 0.06896833668536087,
+  "median": 0.1413638562467031
+ },
+ "small_s_d22": [
+  {
+   "d": 22,
+   "r": 2,
+   "k": 20,
+   "s": 4,
+   "n": 20,
+   "need_dimV": 463,
+   "pcc_ok": 20,
+   "qfim_full": 20,
+   "robust": 20,
+   "max_dimV": 40,
+   "min_dimVperp": 444,
+   "LB": 444,
+   "n_fires_robust_pcc_qfim": 0,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    40
+   ],
+   "r2_plus_s_plus_1": 9
+  },
+  {
+   "d": 22,
+   "r": 2,
+   "k": 20,
+   "s": 10,
+   "n": 20,
+   "need_dimV": 463,
+   "pcc_ok": 20,
+   "qfim_full": 20,
+   "robust": 20,
+   "max_dimV": 220,
+   "min_dimVperp": 264,
+   "LB": 264,
+   "n_fires_robust_pcc_qfim": 0,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    220
+   ],
+   "r2_plus_s_plus_1": 15
+  }
+ ],
+ "seconds": 9.16007399559021,
+ "resources": {
+  "affinity": [
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23
+  ],
+  "nice": 16384,
+  "threads_env": {
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1"
+  },
+  "peak_rss_mb": 116.334592
+ }
+}

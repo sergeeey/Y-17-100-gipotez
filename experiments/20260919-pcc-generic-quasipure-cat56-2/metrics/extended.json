@@ -1,0 +1,165 @@
+{
+ "n_per_config": 40,
+ "seed": 20260920,
+ "configs": [
+  {
+   "d": 22,
+   "r": 2,
+   "k": 20,
+   "s": 16,
+   "n": 40,
+   "need_dimV": 463,
+   "pcc_ok": 40,
+   "qfim_full": 40,
+   "robust": 40,
+   "max_dimV": 463,
+   "min_dimVperp": 21,
+   "LB": 21,
+   "n_fires_robust_pcc_qfim": 40,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    463
+   ],
+   "r2_plus_s_plus_1": 21
+  },
+  {
+   "d": 23,
+   "r": 2,
+   "k": 21,
+   "s": 17,
+   "n": 40,
+   "need_dimV": 507,
+   "pcc_ok": 40,
+   "qfim_full": 40,
+   "robust": 40,
+   "max_dimV": 507,
+   "min_dimVperp": 22,
+   "LB": 22,
+   "n_fires_robust_pcc_qfim": 40,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    507
+   ],
+   "r2_plus_s_plus_1": 22
+  },
+  {
+   "d": 24,
+   "r": 2,
+   "k": 22,
+   "s": 18,
+   "n": 40,
+   "need_dimV": 553,
+   "pcc_ok": 40,
+   "qfim_full": 40,
+   "robust": 40,
+   "max_dimV": 553,
+   "min_dimVperp": 23,
+   "LB": 23,
+   "n_fires_robust_pcc_qfim": 40,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    553
+   ],
+   "r2_plus_s_plus_1": 23
+  },
+  {
+   "d": 23,
+   "r": 3,
+   "k": 20,
+   "s": 12,
+   "n": 40,
+   "need_dimV": 507,
+   "pcc_ok": 40,
+   "qfim_full": 40,
+   "robust": 40,
+   "max_dimV": 507,
+   "min_dimVperp": 22,
+   "LB": 22,
+   "n_fires_robust_pcc_qfim": 40,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    507
+   ],
+   "r2_plus_s_plus_1": 22
+  },
+  {
+   "d": 24,
+   "r": 3,
+   "k": 21,
+   "s": 13,
+   "n": 40,
+   "need_dimV": 553,
+   "pcc_ok": 40,
+   "qfim_full": 40,
+   "robust": 40,
+   "max_dimV": 553,
+   "min_dimVperp": 23,
+   "LB": 23,
+   "n_fires_robust_pcc_qfim": 40,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    553
+   ],
+   "r2_plus_s_plus_1": 23
+  },
+  {
+   "d": 22,
+   "r": 2,
+   "k": 20,
+   "s": 4,
+   "n": 40,
+   "need_dimV": 463,
+   "pcc_ok": 40,
+   "qfim_full": 40,
+   "robust": 40,
+   "max_dimV": 40,
+   "min_dimVperp": 444,
+   "LB": 444,
+   "n_fires_robust_pcc_qfim": 0,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    40
+   ],
+   "r2_plus_s_plus_1": 9
+  },
+  {
+   "d": 22,
+   "r": 2,
+   "k": 20,
+   "s": 10,
+   "n": 40,
+   "need_dimV": 463,
+   "pcc_ok": 40,
+   "qfim_full": 40,
+   "robust": 40,
+   "max_dimV": 220,
+   "min_dimVperp": 264,
+   "LB": 264,
+   "n_fires_robust_pcc_qfim": 0,
+   "n_below_LB": 0,
+   "distinct_dimV": [
+    220
+   ],
+   "r2_plus_s_plus_1": 15
+  }
+ ],
+ "seconds": 156.87065386772156,
+ "resources": {
+  "affinity": [
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23
+  ],
+  "nice": 16384,
+  "threads_env": {
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1"
+  },
+  "peak_rss_mb": 86.450176
+ }
+}
