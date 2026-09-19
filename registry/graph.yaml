@@ -112,6 +112,15 @@ nodes:
     source: "01-cross-domain-bridges/Cross-Domain Bridge Lab — Project.md § Bridge 1"
     updated: 2026-09-06
 
+  - id: B10-LP-VERTEX-COUNT
+    type: bridge
+    title: "LP basic-solution count: Lovasz-theta LP vertex support (H-CAT31-3) <-> explicit POVM size (H-CAT56-1/2)"
+    status: rejected               # 2026-09-19: BRIDGE-TRIVIAL (independent skeptic pass, context-asymmetric). Both sides are LP basic solutions, so support <= rank of the constraint/candidate columns (fundamental theorem of LP); side B: support_1em8 == q in 895/895 rows, but support <= q is a theorem (w_0>0) and q is written into the spec before the run; side A: POVM size == rank of span of candidate outer products (52 random, 26 for the LMCC-branch candidates, 3/3, orchestrator check scripts/bridge10_povm_rank_check.py). The common part is the solver, not the physics; no new prediction. Barvinok-Pataki / Sturm-Zhang / Huang-Zhang / Ai-Huang-Zhang are the known toolkit, valid for few constraint matrices, not for dim V in the hundreds. One residual kept: minimal number of rank-one POVM elements (solver-independent, >= d), proposed as H-CAT56-3, not registered.
+    evidence: VERIFIED-REAL
+    mechanism: "Basic feasible solutions of an LP have support at most the rank of the active constraint columns; both computations return such solutions"
+    source: "01-cross-domain-bridges/Bridge 10 — LP basic-solution count (Lovász) and POVM size (PCC) — TRIVIAL (2026-09-19).md"
+    updated: 2026-09-19
+
   - id: B2-CHERNOFF-UDE
     type: bridge
     title: "Chernoff operator semigroups ↔ Neural ODE / UDE stability bounds"
