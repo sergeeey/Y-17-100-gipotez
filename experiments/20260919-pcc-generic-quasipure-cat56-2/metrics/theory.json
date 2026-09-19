@@ -1,0 +1,31 @@
+{
+ "samples_checked": 234,
+ "identity_failures": 0,
+ "lb_failures": 0,
+ "failures": [],
+ "first_d_where_min_s_LB_lt_d": {
+  "2": 22,
+  "3": 23,
+  "4": 31,
+  "5": 41
+ },
+ "seconds": 7.002912759780884,
+ "resources": {
+  "affinity": [
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23
+  ],
+  "nice": 16384,
+  "threads_env": {
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1"
+  },
+  "peak_rss_mb": 79.773696
+ }
+}

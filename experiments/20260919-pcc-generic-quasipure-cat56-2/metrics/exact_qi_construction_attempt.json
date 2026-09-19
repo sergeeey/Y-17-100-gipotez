@@ -1,0 +1,9 @@
+{
+  "what": "attempt to build an explicit Gaussian-rational (Q(i)) firing state with exact_certify.py",
+  "config": {"d": 22, "r": 2, "s": 16, "seed": 20260919},
+  "control_that_worked": "exact_certify.py at d=8,r=2,s=5 (metrics/exact_certify_d8_r2_s5.json): exact PCC, exact Lyapunov, exact QFIM determinant, rank_mod_p = 54 = float dim V",
+  "lll_variant": "sympy 1.14 DomainMatrix.lll raised AssertionError (mu_small) at the first large kernel; run aborted after 11 s",
+  "nolll_variant": "no-LLL RREF kernel construction did not finish; killed after ~30 min wall clock (entry size of kernel vectors grows exponentially with the stage number)",
+  "consequence": "no explicit Q(i) point for the firing configurations; replaced by fp_certify.py (exact in F_p[i]) plus a lifting argument stated as a derivation, not machine-checked",
+  "note": "timings are wall-clock observations of this session, not measured by a script"
+}

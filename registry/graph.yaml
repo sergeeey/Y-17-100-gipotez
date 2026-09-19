@@ -2344,7 +2344,7 @@ nodes:
   - id: PROB-CAT56
     type: problem
     title: "Is the Partial Commutativity Condition (PCC) sufficient for QCRB saturation for GENERIC quasi-pure states (Yang arXiv:2405.00405 Eq. 12 definition, Pi_r*d(rho)*Pi_r=0), still open per Ref. [38]'s conjecture -- narrower than the original catalog title, see UPDATE below"
-    status: open                    # UPDATE 2026-09-19: PCC's sufficiency for the Eq. (16) classical-ancilla quasi-pure SUBCLASS is NOT open -- it is a PROVEN theorem (source's own End Matter, LMCC construction), independently confirmed 3 ways: (1) H-CAT56-1's background agent read the LaTeX e-print (main-final.tex) directly; (2) the user independently fetched and quoted the same End Matter passage; (3) this session's own direct fetch of arxiv.org/html/2601.21801v1 confirms verbatim, line ~2224: "the QCRB for the state given by Eq. (16) can be saturated by...(LMCC)" and line ~2298: "for generic quasi-pure states, whether PCC is sufficient or not is still open, as conjectured in Ref. [38]". The genuinely open question is this narrower one (generic quasi-pure, Ref.[38]/Yang 2405.00405 Eq.12 definition), NOT the Eq.(16) engineering-recipe subclass H-CAT56-1 was pre-registered against.
+    status: partially_solved        # UPDATE 2026-09-19 (later): H-CAT56-2 found certified counterexamples (d=22,r=2,s=16 and d=23,r=3,s=12) -- PCC is NOT sufficient for generic quasi-pure states when the number of parameters is large relative to d; sufficiency at smaller (d,s) stays open because the certified test provably cannot fire there (r=2,d<=21; r=3,d<=22). Earlier note: PCC's sufficiency for the Eq. (16) classical-ancilla quasi-pure SUBCLASS is NOT open -- it is a PROVEN theorem (source's own End Matter, LMCC construction), independently confirmed 3 ways: (1) H-CAT56-1's background agent read the LaTeX e-print (main-final.tex) directly; (2) the user independently fetched and quoted the same End Matter passage; (3) this session's own direct fetch of arxiv.org/html/2601.21801v1 confirms verbatim, line ~2224: "the QCRB for the state given by Eq. (16) can be saturated by...(LMCC)" and line ~2298: "for generic quasi-pure states, whether PCC is sufficient or not is still open, as conjectured in Ref. [38]". The genuinely open question is this narrower one (generic quasi-pure, Ref.[38]/Yang 2405.00405 Eq.12 definition), NOT the Eq.(16) engineering-recipe subclass H-CAT56-1 was pre-registered against.
     evidence: VERIFIED-REAL         # formal statements (Eq. 8 PCC, Eq. 15 threshold, Eq. 16 quasi-pure parametrization, Theorem 1/2/3, End Matter LMCC proof) read directly from arXiv:2601.21801 HTML full text AND LaTeX e-print, 3 independent fetches
     catalog: "raw-100"
     catalog_ref: "#56"
@@ -2363,6 +2363,34 @@ nodes:
     fl_tier: standard
     experiment_dir: "experiments/20260918-pcc-sufficiency-quasipure-cat56"
     source: "experiments/20260918-pcc-sufficiency-quasipure-cat56/decision.md"
+    updated: 2026-09-19
+
+  - id: H-CAT56-2
+    type: hypothesis
+    title: "PCC-GENERIC-QUASIPURE-v2: for GENERIC quasi-pure states (Yang arXiv:2405.00405 Eq.12) satisfying PCC in the only regime where the certified no-go can fire (r^2+1<d), does any state have exact-certified dim V_perp < d (a real counterexample to PCC sufficiency)? Plus the structural question: why does measured dim V stay below the certifying ceiling?"
+    status: confirmed               # RESULT 2026-09-19: a certified counterexample EXISTS -- generic quasi-pure state d=22, r=2, k=20, s=16 with PCC true, full-rank QFIM, dim V=463, dim V_perp=21<22 (second config d=23,r=3,s=12: 22<23), so by Observation 2 its QCRB cannot be saturated: PCC is NOT sufficient for generic quasi-pure states in this many-parameters regime. Found by a background agent, then re-checked by the orchestrator: (1) the necessity argument behind Observation 2 re-derived from scratch (F=Q iff (L_i-c_i)|omega> in ker rho; saturating rank-one elements lie in V_perp; d independent rank-one projectors needed => dim V_perp>=d); (2) independent full 22x22 code sharing nothing with the agent's, 4/4 runs (2 seeds x plain/rotated basis) give dim V_perp=21, tolerance-stable, PCC residual <=2e-14. Proven structural result: dim V_perp >= r^2+max(s,2kr-s r^2)+max(1,k^2-C(s,2)r^2), so the certified test can NEVER fire for r=2,d<=21 and r=3,d<=22 (first firing sizes d=22,23,31,41 for r=2..5). Caveats: exactness over Q(i) is F_p-check + lifting argument, not machine-checked; novelty NOT established (keyword scan of 3 arXiv papers only); result is specific to many parameters relative to d; sufficiency at smaller d/s remains open. Found in a pilot before claim.md was written (registered as such).
+    evidence: VERIFIED-REAL
+    evidence_mode: deductive        # elementary linear-algebra identity + explicit constructed states
+    verification_strength: medium   # independent re-derivation + independently written full-matrix code, both by the same model family; exact Q(i) certificate absent; no external reproduction
+    l0_type: descriptive
+    kill_criterion: "Pre-registered in the experiment's own claim.md/controls.md (numbers fixed before results). A single exact-rank-certified instance (PCC true, dim V_perp < d, Rank-Certificate Gate passed) = counterexample. Zero certified instances = only 'not found under this sampler/optimizer', never evidence of sufficiency; dim V_perp >= d never certifies saturability."
+    fl_tier: standard
+    experiment_dir: "experiments/20260919-pcc-generic-quasipure-cat56-2"
+    source: "experiments/20260919-pcc-generic-quasipure-cat56-2/decision.md"
+    updated: 2026-09-19
+
+  - id: H-CAT31-4
+    type: hypothesis
+    title: "PRIME-N-VARIANCE-LAW-v1: for prime n in [67,4093], is the log-log slope of Var(log(theta(G)/sqrt(n))) (random dense circulant graphs, p=1/2) distinguishable from -1 and consistent with the composite-n slope -0.9126 measured in H-CAT31-3?"
+    status: killed                  # RESULT 2026-09-19: locked category P-MINUS-ONE -- prime slope -0.9231, 95% CI [-1.0067,-0.8396] contains -1 (by 0.0067) and the composite slope -0.9126; all pre-registered controls passed (coverage 95.35%, power 85.35%, symmetry max|z| 1.54, independent verify agrees 1e-9, seed block 2 replicates). Killed as registered, but honest reading: primes cannot reject n^-1 and are statistically indistinguishable from composites (post-registration slope difference -0.011 +/- 0.09; joint common slope -0.918 [-0.963,-0.874], post hoc). Instance-bootstrap CI [-0.965,-0.872] excludes -1 while the locked t-interval does not -- boundary case. First launch (12 unpinned workers) rebooted the machine; resumed with 4 pinned workers, design unchanged.; sweep running at registration time
+    evidence: VERIFIED-REAL
+    evidence_mode: empirical
+    verification_strength: medium   # independent re-derivation of the slope by a different fit path (agree 1.7e-9) and an independent seed block; same-model analysis
+    l0_type: descriptive
+    kill_criterion: "Pre-registered in claim.md: 8 primes 67..4093, weighted OLS slope CI. P-CONSISTENT (CI excludes -1 and overlaps composite band [-0.9751,-0.8501]) supports the claim; P-MINUS-ONE or P-OTHER kills it; half-width > 0.10 = UNDERPOWERED (not a kill). Power control: fraction of simulated CIs excluding -1 when truth is -0.9126 must be >= 0.60."
+    fl_tier: standard
+    experiment_dir: "experiments/20260919-lovasz-prime-n-variance-cat31-4"
+    source: "experiments/20260919-lovasz-prime-n-variance-cat31-4/decision.md"
     updated: 2026-09-19
 
   - id: H-B2-3
@@ -2663,8 +2691,12 @@ edges:
   - {from: PRJ-CHERNOFFPY, to: BRIDGE-8-UDE-IDENTIFIABILITY, type: grounds, since: 2026-09-09, note: "existing UDE/Neural-ODE codebase is the candidate infrastructure to reuse -- feasibility of partial-observable variants not yet checked, see Novelty/Transfer Gate in project doc"}
 
   # ───────────────────────── scope expansion (2026-09-09, ADR-087) ─────────────────────────
+  - {from: PROB-CAT-30, to: H-CAT30-2, type: grounds, since: 2026-09-19, note: "same formal object as H-CAT30-1 (Conjecture 16 of arXiv:2603.29571); edge added to satisfy INV1, which H-CAT30-2 violated since registration on 2026-09-18 (it had only a depends_on edge)"}
   - {from: PROB-CAT-30, to: H-CAT30-1, type: grounds, since: 2026-09-18, note: "Conjecture 16 of arXiv:2603.29571 is the formal object this hypothesis tried (and structurally failed) to test"}
   - {from: PROB-CAT7, to: H-CAT7-1, type: grounds, since: 2026-09-18, note: "Tsai/Fatkhullin/Zhang/He 2026's confirmed [1.119,1.334] gap is the formal open interval this bounded finite-horizon proxy is designed to generate structural hypotheses about, without claiming to close it"}
+  - {from: PROB-CAT56, to: H-CAT56-2, type: grounds, since: 2026-09-19, note: "the genuinely open question after H-CAT56-1's REPEAT: PCC sufficiency for generic quasi-pure states, not the Eq.(16) subfamily the source proves"}
+  - {from: H-CAT56-1, to: H-CAT56-2, type: grounds, since: 2026-09-19, note: "H-CAT56-1's Relaxation Map V1 (pre-register the generic class) and V2 (explain the dim V ceiling) are the direct design source"}
+  - {from: H-CAT31-3, to: H-CAT31-4, type: grounds, since: 2026-09-19, note: "H-CAT31-3's composite-n slope -0.9126 [-0.9751,-0.8501] is the finding this prime-n sweep tests; all its n were composite"}
   - {from: PROB-CAT56, to: H-CAT56-1, type: grounds, since: 2026-09-18, note: "the narrower, still-open quasi-pure-state-specific PCC-sufficiency question (distinct from the already-closed general case) is the formal object this counterexample search targets, below Theorem 3's own proven threshold"}
   - {from: H-CAT30-1, to: H-CAT30-2, type: depends_on, since: 2026-09-18, note: "H-CAT30-2 directly implements H-CAT30-1's own named revival condition (n=n(d) scaling) -- and was independently REJECTED for a different mechanism (Gram-matrix concentration, not span-confinement), broadening H-CAT30-1's own Kill Analysis retroactively"}
   - {from: PROB-CAT-37, to: H-CAT37-1, type: grounds, since: 2026-09-09, note: "Problem 2.20 of arXiv:2602.05394 is the formal object this hypothesis tests"}
