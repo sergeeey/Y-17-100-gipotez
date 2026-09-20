@@ -1,0 +1,108 @@
+{"m": 8, "c": 2, "seed": 50820, "built": true, "bit_curve": [1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2], "dimV_float": 425, "max_bits": 2}
+{"m": 8, "c": 2, "seed": 50821, "built": true, "bit_curve": [1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1], "dimV_float": 355, "max_bits": 2}
+{"m": 8, "c": 2, "seed": 50822, "built": true, "bit_curve": [1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2], "dimV_float": 318, "max_bits": 2}
+{"m": 8, "c": 2, "seed": 50823, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 3, 7, 26], "dimV_float": 85, "max_bits": 26}
+{"m": 8, "c": 2, "seed": 50824, "built": true, "bit_curve": [1, 1, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1], "dimV_float": 369, "max_bits": 2}
+{"m": 8, "c": 2, "seed": 50825, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 3, 4], "dimV_float": 395, "max_bits": 4}
+{"m": 8, "c": 2, "seed": 50826, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2], "dimV_float": 306, "max_bits": 2}
+{"m": 8, "c": 2, "seed": 50827, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 2, 4], "dimV_float": 397, "max_bits": 4}
+{"m": 8, "c": 2, "seed": 50828, "built": true, "bit_curve": [1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 3], "dimV_float": 376, "max_bits": 3}
+{"m": 8, "c": 2, "seed": 50829, "built": true, "bit_curve": [1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1], "dimV_float": 344, "max_bits": 2}
+{"m": 8, "c": 2, "seed": 50830, "built": true, "bit_curve": [1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 3, 4], "dimV_float": 369, "max_bits": 4}
+{"m": 8, "c": 2, "seed": 50831, "built": true, "bit_curve": [1, 1, 1, 1, 2, 2, 1, 2, 1, 1, 1, 2, 1, 2, 2, 1], "dimV_float": 448, "max_bits": 2}
+{"m": 8, "c": 3, "seed": 50830, "built": true, "bit_curve": [1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 6, 27], "dimV_float": 49, "max_bits": 27}
+{"m": 8, "c": 3, "seed": 50831, "built": true, "bit_curve": [1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 2, 4], "dimV_float": 449, "max_bits": 4}
+{"m": 8, "c": 3, "seed": 50832, "built": true, "bit_curve": [1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 3, 6], "dimV_float": 439, "max_bits": 6}
+{"m": 8, "c": 3, "seed": 50833, "built": true, "bit_curve": [1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 2, 1, 1, 5, 17], "dimV_float": 118, "max_bits": 17}
+{"m": 8, "c": 3, "seed": 50834, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2], "dimV_float": 439, "max_bits": 2}
+{"m": 8, "c": 3, "seed": 50835, "built": true, "bit_curve": [1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 5, 6], "dimV_float": 396, "max_bits": 6}
+{"m": 8, "c": 3, "seed": 50836, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 5, 6, 17, 76], "dimV_float": 4, "max_bits": 76}
+{"m": 8, "c": 3, "seed": 50837, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 21], "dimV_float": 112, "max_bits": 21}
+{"m": 8, "c": 3, "seed": 50838, "built": true, "bit_curve": [1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 7], "dimV_float": 403, "max_bits": 7}
+{"m": 8, "c": 3, "seed": 50839, "built": true, "bit_curve": [1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2, 3, 7, 21], "dimV_float": 116, "max_bits": 21}
+{"m": 8, "c": 3, "seed": 50840, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 2, 2, 2, 11], "dimV_float": 344, "max_bits": 11}
+{"m": 8, "c": 3, "seed": 50841, "built": true, "bit_curve": [1, 1, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 1, 2, 2, 3], "dimV_float": 415, "max_bits": 3}
+{"m": 8, "c": 4, "seed": 50840, "built": true, "bit_curve": [1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 3, 5, 6], "dimV_float": 400, "max_bits": 6}
+{"m": 8, "c": 4, "seed": 50841, "built": true, "bit_curve": [1, 1, 2, 2, 1, 2, 1, 2, 1, 1, 1, 2, 1, 3, 16, 62], "dimV_float": 4, "max_bits": 62}
+{"m": 8, "c": 4, "seed": 50842, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 10, 29, 112], "dimV_float": 4, "max_bits": 112}
+{"m": 8, "c": 4, "seed": 50843, "built": false, "bit_curve": [1, 1, 1, 1, 1, 1, 2, 1, 5, 5, 8, 10, 27, 85, 413]}
+{"m": 8, "c": 4, "seed": 50844, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 7, 19, 91], "dimV_float": 4, "max_bits": 91}
+{"m": 8, "c": 4, "seed": 50845, "built": true, "bit_curve": [1, 2, 1, 1, 2, 1, 1, 2, 2, 2, 1, 2, 2, 9, 37, 120], "dimV_float": 4, "max_bits": 120}
+{"m": 8, "c": 4, "seed": 50846, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2, 3, 4, 6, 10, 20], "dimV_float": 126, "max_bits": 20}
+{"m": 8, "c": 4, "seed": 50847, "built": true, "bit_curve": [1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 1, 2, 2, 3, 5, 8], "dimV_float": 405, "max_bits": 8}
+{"m": 8, "c": 4, "seed": 50848, "built": true, "bit_curve": [1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 11, 46, 152], "dimV_float": 4, "max_bits": 152}
+{"m": 8, "c": 4, "seed": 50849, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 4, 20], "dimV_float": 114, "max_bits": 20}
+{"m": 8, "c": 4, "seed": 50850, "built": true, "bit_curve": [1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 2, 2, 2, 1, 4, 6], "dimV_float": 410, "max_bits": 6}
+{"m": 8, "c": 4, "seed": 50851, "built": true, "bit_curve": [1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 2, 2, 1, 2, 5, 18], "dimV_float": 121, "max_bits": 18}
+{"m": 14, "c": 2, "seed": 51420, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 2, 2, 6, 16, 48, 160], "dimV_float": 4, "max_bits": 160}
+{"m": 14, "c": 2, "seed": 51421, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 2, 4, 10], "dimV_float": 395, "max_bits": 10}
+{"m": 14, "c": 2, "seed": 51422, "built": true, "bit_curve": [1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 2], "dimV_float": 404, "max_bits": 2}
+{"m": 14, "c": 2, "seed": 51423, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 9], "dimV_float": 410, "max_bits": 9}
+{"m": 14, "c": 2, "seed": 51424, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 5, 13], "dimV_float": 317, "max_bits": 13}
+{"m": 14, "c": 2, "seed": 51425, "built": true, "bit_curve": [1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 4, 9, 31], "dimV_float": 18, "max_bits": 31}
+{"m": 14, "c": 2, "seed": 51426, "built": true, "bit_curve": [1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 3, 5, 24], "dimV_float": 106, "max_bits": 24}
+{"m": 14, "c": 2, "seed": 51427, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2, 16], "dimV_float": 113, "max_bits": 16}
+{"m": 14, "c": 2, "seed": 51428, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 9, 29], "dimV_float": 17, "max_bits": 29}
+{"m": 14, "c": 2, "seed": 51429, "built": true, "bit_curve": [1, 2, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 2, 2, 6], "dimV_float": 443, "max_bits": 6}
+{"m": 14, "c": 2, "seed": 51430, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 3, 10], "dimV_float": 437, "max_bits": 10}
+{"m": 14, "c": 2, "seed": 51431, "built": false, "bit_curve": [1, 1, 1, 1, 2, 1, 1, 3, 2, 2, 2, 5, 7, 21, 87, 472]}
+{"m": 14, "c": 3, "seed": 51430, "built": false, "bit_curve": [1, 1, 1, 1, 2, 2, 1, 2, 1, 2, 2, 6, 13, 47, 207, 909]}
+{"m": 14, "c": 3, "seed": 51431, "built": true, "bit_curve": [1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 2, 2, 4, 8, 29, 116], "dimV_float": 4, "max_bits": 116}
+{"m": 14, "c": 3, "seed": 51432, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 10, 47, 247], "dimV_float": 4, "max_bits": 247}
+{"m": 14, "c": 3, "seed": 51433, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 2, 2, 11, 44, 145], "dimV_float": 4, "max_bits": 145}
+{"m": 14, "c": 3, "seed": 51434, "built": false, "bit_curve": [1, 1, 1, 1, 1, 2, 2, 1, 2, 1, 2, 3, 11, 33, 155, 655]}
+{"m": 14, "c": 3, "seed": 51435, "built": true, "bit_curve": [1, 1, 1, 2, 2, 2, 1, 2, 2, 2, 3, 2, 4, 11, 50, 225], "dimV_float": 4, "max_bits": 225}
+{"m": 14, "c": 3, "seed": 51436, "built": true, "bit_curve": [1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 2, 2, 3, 9, 54, 266], "dimV_float": 4, "max_bits": 266}
+{"m": 14, "c": 3, "seed": 51437, "built": false, "bit_curve": [1, 1, 1, 2, 2, 1, 3, 3, 2, 2, 2, 6, 9, 23, 99, 517]}
+{"m": 14, "c": 3, "seed": 51438, "built": false, "bit_curve": [1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 9, 33, 158, 760]}
+{"m": 14, "c": 3, "seed": 51439, "built": true, "bit_curve": [1, 1, 1, 1, 1, 2, 2, 1, 1, 2, 2, 2, 4, 15, 43, 176], "dimV_float": 4, "max_bits": 176}
+{"m": 14, "c": 3, "seed": 51440, "built": false, "bit_curve": [1, 1, 1, 1, 1, 1, 3, 2, 3, 2, 2, 4, 8, 39, 204, 888]}
+{"m": 14, "c": 3, "seed": 51441, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 7, 31, 149], "dimV_float": 4, "max_bits": 149}
+{"m": 14, "c": 4, "seed": 51440, "built": false, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 2, 3, 7, 15, 35, 178, 887]}
+{"m": 14, "c": 4, "seed": 51441, "built": false, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 13, 48, 145, 496]}
+{"m": 14, "c": 4, "seed": 51442, "built": false, "bit_curve": [1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 2, 2, 9, 40, 183, 803]}
+{"m": 14, "c": 4, "seed": 51443, "built": true, "bit_curve": [1, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2, 3, 10, 45, 225], "dimV_float": 4, "max_bits": 225}
+{"m": 14, "c": 4, "seed": 51444, "built": true, "bit_curve": [1, 1, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 3, 7, 31, 159], "dimV_float": 4, "max_bits": 159}
+{"m": 14, "c": 4, "seed": 51445, "built": false, "bit_curve": [1, 1, 1, 2, 1, 2, 2, 1, 2, 2, 3, 8, 30, 158, 792]}
+{"m": 14, "c": 4, "seed": 51446, "built": false, "bit_curve": [1, 1, 2, 2, 2, 2, 2, 3, 4, 16, 34, 99, 299, 1597]}
+{"m": 14, "c": 4, "seed": 51447, "built": false, "bit_curve": [1, 1, 1, 1, 1, 2, 1, 2, 4, 5, 18, 54, 291, 1312]}
+{"m": 14, "c": 4, "seed": 51448, "built": false, "bit_curve": [1, 1, 2, 2, 1, 3, 2, 3, 4, 3, 4, 8, 18, 120, 429]}
+{"m": 14, "c": 4, "seed": 51449, "built": true, "bit_curve": [1, 1, 1, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 27, 100], "dimV_float": 4, "max_bits": 100}
+{"m": 14, "c": 4, "seed": 51450, "built": false, "bit_curve": [1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 4, 5, 15, 55, 175, 843]}
+{"m": 14, "c": 4, "seed": 51451, "built": false, "bit_curve": [1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 3, 6, 21, 80, 327, 1166]}
+{"m": 20, "c": 2, "seed": 52020, "built": true, "bit_curve": [1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 3, 3, 11, 61], "dimV_float": 4, "max_bits": 61}
+{"m": 20, "c": 2, "seed": 52021, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 2, 14, 42, 168], "dimV_float": 4, "max_bits": 168}
+{"m": 20, "c": 2, "seed": 52022, "built": false, "bit_curve": [1, 2, 2, 1, 1, 3, 1, 2, 2, 2, 3, 3, 13, 44, 148, 738]}
+{"m": 20, "c": 2, "seed": 52023, "built": true, "bit_curve": [1, 2, 1, 1, 1, 2, 2, 1, 2, 2, 2, 3, 4, 7, 26, 119], "dimV_float": 4, "max_bits": 119}
+{"m": 20, "c": 2, "seed": 52024, "built": false, "bit_curve": [1, 1, 2, 1, 1, 2, 2, 1, 2, 1, 3, 10, 34, 92, 483]}
+{"m": 20, "c": 2, "seed": 52025, "built": true, "bit_curve": [1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 4, 14, 62, 311], "dimV_float": 4, "max_bits": 311}
+{"m": 20, "c": 2, "seed": 52026, "built": true, "bit_curve": [1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 12, 51, 247], "dimV_float": 4, "max_bits": 247}
+{"m": 20, "c": 2, "seed": 52027, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 2, 2], "dimV_float": 404, "max_bits": 2}
+{"m": 20, "c": 2, "seed": 52028, "built": true, "bit_curve": [1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 2, 2, 5, 16, 46], "dimV_float": 4, "max_bits": 46}
+{"m": 20, "c": 2, "seed": 52029, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 4, 15, 77], "dimV_float": 4, "max_bits": 77}
+{"m": 20, "c": 2, "seed": 52030, "built": false, "bit_curve": [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 5, 19, 112, 531]}
+{"m": 20, "c": 2, "seed": 52031, "built": true, "bit_curve": [1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 5, 12, 51], "dimV_float": 4, "max_bits": 51}
+{"m": 20, "c": 3, "seed": 52030, "built": true, "bit_curve": [1, 1, 1, 1, 1, 2, 2, 1, 2, 2, 2, 2, 3, 6, 34, 173], "dimV_float": 4, "max_bits": 173}
+{"m": 20, "c": 3, "seed": 52031, "built": true, "bit_curve": [1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 2, 4, 12, 38, 152], "dimV_float": 4, "max_bits": 152}
+{"m": 20, "c": 3, "seed": 52032, "built": false, "bit_curve": [1, 1, 2, 1, 2, 1, 1, 1, 2, 2, 3, 5, 12, 49, 247, 1242]}
+{"m": 20, "c": 3, "seed": 52033, "built": false, "bit_curve": [1, 1, 2, 1, 1, 1, 2, 2, 2, 2, 2, 3, 6, 33, 166, 748]}
+{"m": 20, "c": 3, "seed": 52034, "built": false, "bit_curve": [1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 3, 8, 31, 153, 768]}
+{"m": 20, "c": 3, "seed": 52035, "built": false, "bit_curve": [1, 1, 1, 2, 2, 2, 4, 2, 5, 15, 49, 211, 1117]}
+{"m": 20, "c": 3, "seed": 52036, "built": false, "bit_curve": [1, 1, 2, 1, 1, 1, 2, 2, 1, 2, 3, 8, 29, 103, 525]}
+{"m": 20, "c": 3, "seed": 52037, "built": false, "bit_curve": [1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 2, 4, 8, 27, 113, 544]}
+{"m": 20, "c": 3, "seed": 52038, "built": false, "bit_curve": [1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 2, 6, 20, 114, 530]}
+{"m": 20, "c": 3, "seed": 52039, "built": false, "bit_curve": [1, 1, 1, 2, 2, 1, 2, 2, 3, 2, 5, 10, 21, 117, 467]}
+{"m": 20, "c": 3, "seed": 52040, "built": false, "bit_curve": [1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 8, 22, 75, 297, 1494]}
+{"m": 20, "c": 3, "seed": 52041, "built": false, "bit_curve": [1, 1, 1, 2, 1, 2, 1, 2, 1, 2, 2, 9, 27, 82, 419]}
+{"m": 20, "c": 4, "seed": 52040, "built": false, "bit_curve": [1, 1, 2, 2, 2, 2, 4, 3, 6, 27, 76, 261, 1194]}
+{"m": 20, "c": 4, "seed": 52041, "built": false, "bit_curve": [1, 1, 2, 2, 2, 1, 1, 2, 2, 4, 16, 62, 311, 1347]}
+{"m": 20, "c": 4, "seed": 52042, "built": false, "bit_curve": [1, 1, 2, 2, 2, 2, 2, 2, 2, 4, 11, 32, 155, 802]}
+{"m": 20, "c": 4, "seed": 52043, "built": false, "bit_curve": [1, 1, 2, 1, 3, 3, 7, 7, 22, 43, 148, 677]}
+{"m": 20, "c": 4, "seed": 52044, "built": true, "bit_curve": [1, 1, 2, 1, 2, 1, 2, 1, 2, 2, 2, 2, 11, 37, 135, 389], "dimV_float": 4, "max_bits": 389}
+{"m": 20, "c": 4, "seed": 52045, "built": false, "bit_curve": [1, 1, 2, 2, 1, 2, 1, 2, 2, 3, 9, 40, 201, 1018]}
+{"m": 20, "c": 4, "seed": 52046, "built": false, "bit_curve": [1, 1, 2, 1, 1, 2, 2, 5, 12, 46, 134, 586]}
+{"m": 20, "c": 4, "seed": 52047, "built": false, "bit_curve": [1, 2, 2, 1, 2, 3, 2, 5, 16, 51, 141, 615]}
+{"m": 20, "c": 4, "seed": 52048, "built": false, "bit_curve": [1, 2, 2, 2, 2, 2, 2, 2, 2, 4, 10, 32, 158, 761]}
+{"m": 20, "c": 4, "seed": 52049, "built": false, "bit_curve": [1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 8, 45, 214, 935]}
+{"m": 20, "c": 4, "seed": 52050, "built": false, "bit_curve": [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 12, 49, 182, 918]}
+{"m": 20, "c": 4, "seed": 52051, "built": false, "bit_curve": [1, 2, 1, 2, 2, 2, 4, 4, 15, 24, 81, 333, 1126]}
