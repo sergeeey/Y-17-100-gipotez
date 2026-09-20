@@ -44,11 +44,11 @@ number of POVM elements may exceed d).
 ## 3. Scope of the result (gate 8)
 
 Refuted: "PCC is sufficient for **single-copy, matrix** saturation F^C = F^Q of the QCRB for generic
-quasi-pure states". Not addressed by anything here: scalar weighted bounds Tr[W F^-1] for particular W,
+quasi-pure states". Not addressed by anything here: scalar bounds with singular weights,
 collective measurements on N copies or asymptotics, the Holevo bound, the Eq. (16) ancilla subclass
 (sufficiency already proven there), any pure-state limit.
 
-Nonsaturation for the matrix bound does not imply nonsaturation for every scalar weighted bound.
+Correction 2026-09-20 (later): for every POSITIVE-DEFINITE weight W the scalar bound Tr[W F^-1] is saturated iff the matrix bound is. `[PROOF]`: F^C <= F^Q gives (F^C)^-1 >= (F^Q)^-1 (if F^C is singular the scalar cost is infinite, no saturation); Tr[W((F^C)^-1 - (F^Q)^-1)] = 0 with W > 0 and a PSD difference forces the difference to be 0, i.e. F^C = F^Q. So single-copy non-saturation of the matrix bound implies non-saturation of the scalar bound for every full-rank weight. It does NOT cover singular weights (for example estimating one parameter of the s), where saturation can still occur.
 
 ## 4. Two corrections to the previous report
 
