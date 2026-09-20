@@ -1,0 +1,89 @@
+[
+  {
+    "d": 8,
+    "r": 2,
+    "s": 2,
+    "pcc_residual": 2.62567580736011e-15,
+    "quasi_pure_residual": 3.550628285987165e-17,
+    "qfim_eigs": [
+      2.3620459999396646,
+      4.000000000000004
+    ],
+    "dimV_tol1e-06": 12,
+    "dimV_tol1e-08": 12,
+    "dimV_tol1e-10": 12,
+    "dimV_tol1e-12": 12,
+    "dimVperp": 52,
+    "dimVperp_ge_d_(saturation_not_excluded)": true,
+    "gap_ratio": null,
+    "paper_F_Q_set": [
+      2.3620459999396624,
+      4.0
+    ],
+    "params": {
+      "q": 0.3,
+      "theta": 0.7,
+      "l1": 0.4,
+      "l2": 0.9
+    },
+    "qfim_matches_paper_formula": true
+  },
+  {
+    "d": 8,
+    "r": 2,
+    "s": 2,
+    "pcc_residual": 4.132671528076419e-15,
+    "quasi_pure_residual": 4.31998418717529e-17,
+    "qfim_eigs": [
+      3.5885011172553507,
+      4.000000000000006
+    ],
+    "dimV_tol1e-06": 12,
+    "dimV_tol1e-08": 12,
+    "dimV_tol1e-10": 12,
+    "dimV_tol1e-12": 12,
+    "dimVperp": 52,
+    "dimVperp_ge_d_(saturation_not_excluded)": true,
+    "gap_ratio": null,
+    "paper_F_Q_set": [
+      3.588501117255346,
+      4.0
+    ],
+    "params": {
+      "q": 0.5,
+      "theta": 1.1,
+      "l1": 0.2,
+      "l2": 0.3
+    },
+    "qfim_matches_paper_formula": true
+  },
+  {
+    "d": 8,
+    "r": 2,
+    "s": 2,
+    "pcc_residual": 1.6381371396649577e-15,
+    "quasi_pure_residual": 4.3798893058307826e-17,
+    "qfim_eigs": [
+      3.3213173162611316,
+      4.000000000000007
+    ],
+    "dimV_tol1e-06": 12,
+    "dimV_tol1e-08": 12,
+    "dimV_tol1e-10": 12,
+    "dimV_tol1e-12": 12,
+    "dimVperp": 52,
+    "dimVperp_ge_d_(saturation_not_excluded)": true,
+    "gap_ratio": null,
+    "paper_F_Q_set": [
+      3.321317316261134,
+      4.0
+    ],
+    "params": {
+      "q": 0.8,
+      "theta": 0.4,
+      "l1": 1.0,
+      "l2": 0.6
+    },
+    "qfim_matches_paper_formula": true
+  }
+]
