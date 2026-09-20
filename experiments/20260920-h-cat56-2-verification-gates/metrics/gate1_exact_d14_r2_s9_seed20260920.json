@@ -1,0 +1,59 @@
+{
+  "d": 14,
+  "r": 2,
+  "k": 12,
+  "s": 9,
+  "seed": 20260920,
+  "lll": true,
+  "kernel_dims": [
+    48,
+    44,
+    40,
+    36,
+    32,
+    28,
+    24,
+    20,
+    16
+  ],
+  "max_bits_of_entries_in_stack": 94608,
+  "max_bits_of_B_entries": 76707,
+  "lyapunov_exact_zero": true,
+  "pcc_exact_zero": true,
+  "qfim_det_nonzero": true,
+  "qfim_det_bits": 198208,
+  "primes": [
+    2147483629,
+    2147383633
+  ],
+  "rank_mod_p": [
+    179,
+    179
+  ],
+  "need_dimV_ge": 183,
+  "dimV_lower_bound_exact": 179,
+  "dimVperp_upper_bound_exact": 17,
+  "exact_certified_dimVperp_lt_d": false,
+  "seconds_build": 2.421159029006958,
+  "seconds_total": 20.394670486450195,
+  "resources": {
+    "affinity": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "nice": 16384,
+    "threads_env": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    },
+    "peak_rss_mb": 241.688576
+  },
+  "total_seconds": 20.62593674659729,
+  "kernel_backend": "python-flint 0.9.0 nullspace+lll"
+}
