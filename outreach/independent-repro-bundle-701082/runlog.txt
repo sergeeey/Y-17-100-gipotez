@@ -1,0 +1,76 @@
+PATH_B_CLEAN {
+  "label": "clean",
+  "max_abs_entry": 78,
+  "pcc_exact": true,
+  "qfim_det_nonzero_moduli": true,
+  "det_moduli": {
+    "1000003": 791689,
+    "1000033": 692480,
+    "999983": 551616,
+    "1000039": 223979
+  },
+  "n_rows": 544,
+  "n_cols": 968,
+  "rank_moduli": {
+    "1000003": 463,
+    "1000033": 463,
+    "999983": 463,
+    "1000039": 463
+  },
+  "rank_moduli_agree": true,
+  "flint_rank": 463,
+  "dimV": 463,
+  "dimVperp": 21,
+  "fires": true
+}
+PATH_B_NEG_FLIP {
+  "label": "flip_B0_Re00",
+  "max_abs_entry": 78,
+  "pcc_exact": false,
+  "qfim_det_nonzero_moduli": true,
+  "det_moduli": {
+    "1000003": 623766,
+    "1000033": 238057,
+    "999983": 953426,
+    "1000039": 349153
+  },
+  "n_rows": 544,
+  "n_cols": 968,
+  "rank_moduli": {
+    "1000003": 464,
+    "1000033": 464,
+    "999983": 464,
+    "1000039": 464
+  },
+  "rank_moduli_agree": true,
+  "flint_rank": 464,
+  "dimV": 464,
+  "dimVperp": 20,
+  "fires": true
+}
+PATH_B_NEG_SINGULAR {
+  "label": "duplicate_B0_as_B1",
+  "max_abs_entry": 78,
+  "pcc_exact": true,
+  "qfim_det_nonzero_moduli": false,
+  "det_moduli": {
+    "1000003": 0,
+    "1000033": 0,
+    "999983": 0,
+    "1000039": 0
+  },
+  "n_rows": 544,
+  "n_cols": 968,
+  "rank_moduli": {
+    "1000003": 459,
+    "1000033": 459,
+    "999983": 459,
+    "1000039": 459
+  },
+  "rank_moduli_agree": true,
+  "flint_rank": 459,
+  "dimV": 459,
+  "dimVperp": 25,
+  "fires": false
+}
+PATH_B_VERDICT {"path_b_pass": true, "singular_control_ok": true}

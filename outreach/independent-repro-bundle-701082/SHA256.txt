@@ -1,0 +1,4 @@
+blocks_flat_canonical_sha256=4f2fce7cf7562ad99c6e7eaee0bb54afd1809ec8588de5726b7e1aab057274f3
+n_blocks=16
+flat_len=80
+max_abs=78

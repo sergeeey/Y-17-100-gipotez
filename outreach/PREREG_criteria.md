@@ -10,11 +10,15 @@ Rules: the claim text is not rewritten after answers arrive. Any change caused b
 - **INCONCLUSIVE:** no answer in 30 days, or the answer is "cannot tell". This does NOT count as PASS.
 - Strength ladder for the checker (falsification-ladder.md): another instance of the same model = weak; a different model = medium; independent human = strong. The internal blind pass run on 2026-09-20 is weak and is recorded as such.
 
-## Channel A: authors (`2026-09-20-authors-email-DRAFT.md`)
+## Channel A: authors
 
-- **Novelty support:** the authors say they do not know such an example and name no hidden condition that this construction violates.
-- **Novelty FAIL:** the authors cite a publication with the same generic quasi-pure counterexample, or show that the example is outside the class (for instance a violated condition on the SLD support-kernel blocks).
-- **No answer / vague answer:** status stays `NOVELTY UNRESOLVED`. Silence is not support.
+- **Active draft (2026-09-22):** `outreach/2026-09-22-authors-email-DRAFT-v2.md` (PASS-SMALL instance seed 701082; Obs2 caveat; NOT SENT).
+- **Superseded draft:** `outreach/2026-09-20-authors-email-DRAFT.md` (pre-exact-instance).
+- **Send checklist:** `outreach/SEND_CHECKLIST_channel_A.md`.
+- Outcome criteria (unchanged by draft v2):
+  - **Novelty support:** the authors say they do not know such an example and name no hidden condition that this construction violates.
+  - **Novelty FAIL:** the authors cite a publication with the same generic quasi-pure counterexample, or show that the example is outside the class (for instance a violated condition on the SLD support-kernel blocks).
+  - **No answer / vague answer:** status stays `NOVELTY UNRESOLVED`. Silence is not support.
 - Even a "novelty support" reply is additional evidence only. The literature audit (`experiments/20260920-h-cat56-2-verification-gates/novelty_audit.md`) remains a separate gate.
 
 ## Independence
