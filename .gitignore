@@ -34,3 +34,8 @@ experiments/*/data/
 .DS_Store
 Thumbs.db
 .obsidian/workspace*.json
+
+# --- H-CAT56-2 reproducible search byproducts (2026-09-22 housekeeping) ---
+experiments/20260919-pcc-generic-quasipure-cat56-2/candidates/exact_blocks_d22_r2_s16_seed*.json
+/tmp/
+/tmp_swap/
