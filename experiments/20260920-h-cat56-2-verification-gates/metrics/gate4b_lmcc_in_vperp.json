@@ -1,0 +1,41 @@
+[
+ {
+  "q": 0.3,
+  "theta": 0.7,
+  "projector_norms_min_max": [
+   0.9999999999999998,
+   1.0000000000000002
+  ],
+  "completeness_residual": 4.079219866531555e-16,
+  "max_abs_<pi|generator|pi>": 1.3662029939608823e-16,
+  "negative_control_random_vector_max": 0.5423670379172629,
+  "F_C_minus_F_Q_max_abs": 1.3322676295501878e-15,
+  "n_generators": 12
+ },
+ {
+  "q": 0.5,
+  "theta": 1.1,
+  "projector_norms_min_max": [
+   0.9999999999999998,
+   1.0000000000000002
+  ],
+  "completeness_residual": 4.80740671595891e-16,
+  "max_abs_<pi|generator|pi>": 1.8012712791864013e-16,
+  "negative_control_random_vector_max": 0.6839068273635887,
+  "F_C_minus_F_Q_max_abs": 2.6645352591003757e-15,
+  "n_generators": 12
+ },
+ {
+  "q": 0.8,
+  "theta": 0.4,
+  "projector_norms_min_max": [
+   0.9999999999999998,
+   1.0000000000000004
+  ],
+  "completeness_residual": 6.967285285409252e-16,
+  "max_abs_<pi|generator|pi>": 1.1102230246251565e-16,
+  "negative_control_random_vector_max": 0.38705816822235994,
+  "F_C_minus_F_Q_max_abs": 2.6645352591003757e-15,
+  "n_generators": 12
+ }
+]

@@ -1,0 +1,10 @@
+{
+ "n_rows": 544,
+ "n_cols": 968,
+ "max_abs_entry_B": 78,
+ "pcc_exact_full_commutators": true,
+ "qfim_det_nonzero_exact": true,
+ "dimV_over_Q_exact": 463,
+ "dimVperp_exact": 21,
+ "fires_dimVperp_lt_d": true
+}

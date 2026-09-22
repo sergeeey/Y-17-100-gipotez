@@ -1,0 +1,31 @@
+{
+  "path_b_pass": true,
+  "singular_control_ok": true,
+  "clean": {
+    "label": "clean",
+    "max_abs_entry": 78,
+    "pcc_exact": true,
+    "qfim_det_nonzero_moduli": true,
+    "det_moduli": {
+      "1000003": 791689,
+      "1000033": 692480,
+      "999983": 551616,
+      "1000039": 223979
+    },
+    "n_rows": 544,
+    "n_cols": 968,
+    "rank_moduli": {
+      "1000003": 463,
+      "1000033": 463,
+      "999983": 463,
+      "1000039": 463
+    },
+    "rank_moduli_agree": true,
+    "flint_rank": 463,
+    "dimV": 463,
+    "dimVperp": 21,
+    "fires": true
+  },
+  "neg_flip_pcc": false,
+  "neg_singular_qfim_ok_nonzero": false
+}
