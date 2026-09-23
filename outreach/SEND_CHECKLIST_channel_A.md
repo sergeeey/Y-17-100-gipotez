@@ -12,7 +12,7 @@ Preferred order: (1) hand ZIP + `THIRD_PARTY_BRIEF.md` → (2) 24h cooling-off �
 - [ ] Read `OBS2_DEEP_READ_2026-09-22.md` + `REF29_NULL_IFF_READ_2026-09-22.md` (U1 = HOLD)
 - [ ] Optional: ZIP already handed under `THIRD_PARTY_BRIEF.md` (U3 started; do not wait forever)
 - [ ] Re-run locally: `python verify_exact_Q.py instance_d22_r2_s16.jsonl 701082`
-- [ ] Confirm draft text = `outreach/2026-09-22-authors-email-DRAFT-v2.md` (or newer)
+- [ ] Confirm draft text = `outreach/2026-09-23-authors-email-DRAFT-v4.md` (or newer) — v4 already passed a context-blind skeptic pass (packet: `2026-09-23-authors-email-DRAFT-v3-skeptic-packet.md`, verdict SEND-WITH-EDITS, all 7 required fixes applied). Do not re-edit the text after this freeze; a text edit resets the cooling-off clock.
 - [ ] Fill commit hash in the email body at send time
 - [ ] Submission Gate: 24h cooling-off after last substantive edit to claim/email
 - [ ] Decide OPTIONAL AI-disclosure paragraph (keep / remove)

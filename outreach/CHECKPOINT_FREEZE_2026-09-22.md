@@ -36,3 +36,24 @@ Main residual risk is **not** “is 463 wrong?” — it is **misreading the the
 - Not peer review.
 - Local Path A≠B is stronger than a single-stack self-check, weaker than an independent human lab.
 - Observation 2 / Ref.[29] consistency is a reading gate, not novelty.
+
+## Addendum 2026-09-23 — outreach text frozen, cooling-off started
+
+Email draft went through one more round: v3 got a context-blind skeptic pass (packet `2026-09-23-authors-email-DRAFT-v3-skeptic-packet.md`,
+verdict SEND-WITH-EDITS, 7 required fixes: Eq.(16) hedge, local-implementation disclosure, a genuine positive control on the rank step via the
+paper's own LMCC example, the full-22×22/484-dim ambient-space detail folded into question 1, the unitary-conjugation parametric-family sentence,
+I/we cleanup, search-selection disclosure, softened subject line). v4 (`2026-09-23-authors-email-DRAFT-v4.md`) applies all required fixes.
+`independent-repro-bundle-701082/FORMAT.md` also fixed (unnormalised `Tr ρ = 3` now flagged with an invariance note, `s`/size of `F` spelled out)
+and the ZIP was rebuilt and re-verified byte-for-byte against the folder.
+
+Split status:
+
+```text
+SCIENCE:                        READY FOR AUTHOR INQUIRY
+NOVELTY (U2):                   UNRESOLVED
+EXTERNAL HUMAN REPRODUCTION (U3): OPEN
+EMAIL:                          READY, SUBJECT TO FINAL SUBMISSION GATE
+```
+
+No further text edits are planned. The 24h Submission Gate cooling-off is counted from this freeze commit, not from v2 or v3. No new internal
+recomputation of 463/21 is planned or needed — the next decision-relevant evidence is external (author reply or third-party reproduction).
