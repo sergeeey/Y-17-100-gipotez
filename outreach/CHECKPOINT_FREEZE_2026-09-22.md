@@ -64,6 +64,14 @@ The owner sent the email (from sergeikuch80@gmail.com, To Jing Yang, Cc Imai/Pez
 the frozen v4: `outreach/2026-09-23-authors-email-SENT.md`. All required skeptic fixes are present in the sent text, in places phrased more
 precisely than v4. 30-day clock for U2 outcomes (novelty support / FAIL / silence, `PREREG_criteria.md`) starts today.
 
+**Process-gate deviation, recorded honestly, not retroactively fixable.** `v4` was frozen at commit `a21a1b5`, `2026-09-23 08:55:38 +05:00`
+(`git log` timestamp). The email was sent at `10:38` the same day -- about 1h42m later, not the 24h this file itself specifies. The sent text
+is also a further rewrite relative to the frozen v4 (see the diff in `2026-09-23-authors-email-SENT.md`), so there was no stable, unedited
+text sitting through a cooling-off period at all -- wording was still being finalized close to send time. This is a real deviation from the
+Submission Gate's own 24h rule, not a nitpick: the gate exists precisely to catch a hasty final edit, and this send had one. The math and
+diff quality are unaffected (checked separately, above), but the process claim "cooling-off satisfied" would be false if stated, so it is not
+stated. Filed here so a future reader does not assume the gate ran as designed.
+
 ```text
 SCIENCE:                          READY FOR AUTHOR INQUIRY (unchanged)
 NOVELTY (U2):                     UNRESOLVED, awaiting reply (30-day clock started 2026-09-23)
