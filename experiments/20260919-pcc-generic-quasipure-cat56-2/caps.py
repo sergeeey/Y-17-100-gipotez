@@ -20,7 +20,11 @@ def apply() -> None:
     p = psutil.Process()
     try:
         p.cpu_affinity(CORES)
-    except (AttributeError, psutil.Error, OSError):
+    # WHY: on a machine/container with fewer than 24 logical CPUs, psutil raises a plain
+    # ValueError for an out-of-range core index -- not AttributeError/psutil.Error/OSError,
+    # so it was falling through uncaught and crashing every script that imports this module
+    # (found 2026-09-23, external audit; reproduced by requesting a nonexistent core).
+    except (AttributeError, psutil.Error, OSError, ValueError):
         pass
     try:
         p.nice(psutil.BELOW_NORMAL_PRIORITY_CLASS)

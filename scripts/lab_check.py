@@ -135,7 +135,12 @@ def main(graph_path: Path = GRAPH) -> int:
         inc = [e for e in edges if e["to"] == h["id"] and e["type"] == "grounds"]
         if not inc:
             errors.append(f"INV1 {h['id']}: no incoming `grounds` edge")
-        if not str(h.get("kill_criterion", "")).strip():
+        # WHY: `h.get("kill_criterion", "")` returns None (not the "" default) when the key is
+        # present with an explicit `null` in YAML, and str(None) = "None" is non-empty -- so
+        # `kill_criterion: null` was silently passing this check. Check for None explicitly
+        # before falling back to the empty-string case (found 2026-09-23, external audit).
+        kc = h.get("kill_criterion")
+        if kc is None or not str(kc).strip():
             errors.append(f"INV1 {h['id']}: empty kill_criterion")
 
     # invariant 2

@@ -73,6 +73,19 @@ def test_inv3_catches_stale_parked_incident(tmp_path: Path, capsys) -> None:
     assert "INV3 H" in capsys.readouterr().out
 
 
+def test_inv1_catches_null_kill_criterion(tmp_path: Path, capsys) -> None:
+    """Regression for the 2026-09-23 external-audit finding: `h.get("kill_criterion", "")`
+    returns None (not the "" default) when the YAML value is an explicit `null`, and
+    str(None) = "None" is non-empty -- so `kill_criterion: null` was silently passing INV1."""
+    nodes = [
+        _node("B", "bridge", "verified_grounding"),
+        _node("H", "hypothesis", "confirmed", kill_criterion=None),
+    ]
+    edges = [{"from": "B", "to": "H", "type": "grounds"}]
+    assert lab_check.main(_write(tmp_path, nodes, edges)) == 1
+    assert "INV1 H: empty kill_criterion" in capsys.readouterr().out
+
+
 def test_dangling_edge_and_bad_status_detected(tmp_path: Path, capsys) -> None:
     nodes = [_node("H", "hypothesis", "almost_done")]  # status not in vocabulary
     edges = [{"from": "GHOST", "to": "H", "type": "grounds"}]
