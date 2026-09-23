@@ -30,3 +30,9 @@ Preferred order: (1) hand ZIP + `THIRD_PARTY_BRIEF.md` → (2) 24h cooling-off �
 
 - Log send time + message-id in `outreach/PREREG_criteria.md` addendum (new file preferred)
 - Start 30-day clock for Channel A outcomes (novelty support / FAIL / silence)
+
+## SENT — 2026-09-23, 10:38
+
+Sent by the owner from sergeikuch80@gmail.com. Exact text: `outreach/2026-09-23-authors-email-SENT.md` (diffed against the frozen v4;
+all required skeptic fixes preserved, in places phrased more precisely than v4). 30-day clock for Channel A outcomes starts 2026-09-23.
+Do not re-send. Any correction now goes as a follow-up email, not a resend, and gets its own dated file.

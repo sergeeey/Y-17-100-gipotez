@@ -2377,7 +2377,7 @@ nodes:
   - id: H-CAT56-2
     type: hypothesis
     title: "PCC-GENERIC-QUASIPURE-v2: for GENERIC quasi-pure states (Yang arXiv:2405.00405 Eq.12) satisfying PCC in the only regime where the certified no-go can fire (r^2+1<d), does any state have exact-certified dim V_perp < d (a real counterexample to PCC sufficiency)? Plus the structural question: why does measured dim V stay below the certifying ceiling?"
-    status: confirmed               # FREEZE 2026-09-22: "exact counterexample package internally certified; portability passed via independent local reimplementation; theorem-chain read and consistent; novelty and external reproduction unresolved." Three gates MUST stay separate: (1) object math 463/21 closed; (2) portability local Path A+B closed; (3) novelty/U2+U3 OPEN. Publication claim BLOCKED-BY-NOVELTY. Earlier RESULT 2026-09-19: certified counterexample EXISTS -- d=22,r=2,s=16 PCC, full-rank QFIM, dimV=463, dimV_perp=21<22 (also d=23,r=3,s=12). Obs2 + Ref[29] read HOLD. Do not merge portability into novelty.
+    status: confirmed               # FREEZE 2026-09-22, updated 2026-09-23: "exact counterexample package internally certified; portability passed via independent local reimplementation; theorem-chain read and consistent; novelty and external reproduction unresolved." Three gates MUST stay separate: (1) object math 463/21 closed; (2) portability local Path A+B closed; (3) novelty/U2+U3 OPEN. Publication claim BLOCKED-BY-NOVELTY. Earlier RESULT 2026-09-19: certified counterexample EXISTS -- d=22,r=2,s=16 PCC, full-rank QFIM, dimV=463, dimV_perp=21<22 (also d=23,r=3,s=12). Obs2 + Ref[29] read HOLD. 2026-09-23: author email SENT (outreach/2026-09-23-authors-email-SENT.md), 30-day U2 clock started; U3 still OPEN. Do not merge portability into novelty.
     evidence: VERIFIED-REAL
     evidence_mode: deductive        # elementary linear-algebra identity + explicit constructed states
     verification_strength: medium   # 2026-09-22: PASS-SMALL exact Q(i) seed 701082; Path A verify_exact_Q + Path B path_b_independent (no h2_core import) both 463/21; flip/singular controls OK; still same-lab/same-owner, NOT external human U3. Prior: Obs2/Ref29 read HOLD. Novelty unresolved. See outreach/CHECKPOINT_FREEZE_2026-09-22.md
@@ -2386,7 +2386,7 @@ nodes:
     fl_tier: standard
     experiment_dir: "experiments/20260919-pcc-generic-quasipure-cat56-2"
     source: "experiments/20260919-pcc-generic-quasipure-cat56-2/decision.md"
-    updated: 2026-09-22
+    updated: 2026-09-23
 
   - id: H-CAT31-4
     type: hypothesis

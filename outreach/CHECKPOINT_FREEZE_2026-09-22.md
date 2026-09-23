@@ -57,3 +57,18 @@ EMAIL:                          READY, SUBJECT TO FINAL SUBMISSION GATE
 
 No further text edits are planned. The 24h Submission Gate cooling-off is counted from this freeze commit, not from v2 or v3. No new internal
 recomputation of 463/21 is planned or needed — the next decision-relevant evidence is external (author reply or third-party reproduction).
+
+## Addendum 2026-09-23, 10:38 — email SENT
+
+The owner sent the email (from sergeikuch80@gmail.com, To Jing Yang, Cc Imai/Pezzè), outside this session's tools. Exact text and a diff against
+the frozen v4: `outreach/2026-09-23-authors-email-SENT.md`. All required skeptic fixes are present in the sent text, in places phrased more
+precisely than v4. 30-day clock for U2 outcomes (novelty support / FAIL / silence, `PREREG_criteria.md`) starts today.
+
+```text
+SCIENCE:                          READY FOR AUTHOR INQUIRY (unchanged)
+NOVELTY (U2):                     UNRESOLVED, awaiting reply (30-day clock started 2026-09-23)
+EXTERNAL HUMAN REPRODUCTION (U3): OPEN
+EMAIL:                            SENT — 2026-09-23, 10:38
+```
+
+Next internal action, if any: only in response to an actual reply, or per `THIRD_PARTY_BRIEF.md` for U3. No new recomputation, no resend.
