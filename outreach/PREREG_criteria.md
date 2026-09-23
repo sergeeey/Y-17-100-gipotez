@@ -12,7 +12,8 @@ Rules: the claim text is not rewritten after answers arrive. Any change caused b
 
 ## Channel A: authors
 
-- **Active draft (2026-09-22):** `outreach/2026-09-22-authors-email-DRAFT-v2.md` (PASS-SMALL instance seed 701082; Obs2 caveat; NOT SENT).
+- **Active draft (2026-09-23):** `outreach/2026-09-23-authors-email-DRAFT-v4.md` (PASS-SMALL instance seed 701082; Obs2 caveat; context-blind skeptic pass on v3 with verdict SEND-WITH-EDITS, edits applied; NOT SENT). No further text edits planned; the 24h Submission Gate cooling-off is counted from this freeze.
+- Superseded: `outreach/2026-09-22-authors-email-DRAFT-v2.md`, `outreach/2026-09-20-authors-email-DRAFT.md`, `outreach/2026-09-23-authors-email-DRAFT-v3-skeptic-packet.md` (skeptic-review packet only, not a send candidate itself).
 - **Superseded draft:** `outreach/2026-09-20-authors-email-DRAFT.md` (pre-exact-instance).
 - **Send checklist:** `outreach/SEND_CHECKLIST_channel_A.md`.
 - Outcome criteria (unchanged by draft v2):

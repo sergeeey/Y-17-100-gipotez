@@ -2,8 +2,11 @@
 
 ## State
 
-- `d = 22`, `r = 2`, `k = 20`, `s = 16`
-- In the eigenbasis: `ρ = diag(1, 2, 0, …, 0)` (support = first `r` coordinates)
+- `d = 22`, `r = 2`, `k = 20`, `s = 16` (`s` = number of parameters / SLD blocks)
+- In the eigenbasis: `ρ = diag(1, 2, 0, …, 0)` (support = first `r` coordinates).
+  Unnormalised representative (`Tr ρ = 3`): all checks below (PCC, `det F ≠ 0`, `rank V`)
+  are invariant under `ρ → ρ / Tr ρ`, since the weights `q` and `ρ` enter only through
+  positive scalar factors that do not change Hermiticity, nonsingularity, or rank.
 - Generic quasi-pure: SLD has the block form
   `L_i = [[0, A_i^†], [A_i, 0]]` with `A_i` a complex `k × r` matrix
 - Construction: `A_i = -2i B_i`, where `B_i = Re_i + i Im_i` are the stored Gaussian-integer blocks
@@ -45,13 +48,13 @@ For all `i < j`, the **support–support** block of `[L_i, L_j]` must be the zer
 
 ### 2. QFIM nonsingular
 
-With weights `q = (1, 2)` on the support eigenvalues:
+With weights `q = (1, 2)` on the support eigenvalues (`q` is `ρ`'s support diagonal, unnormalised same as `ρ` above):
 
 ```text
-F_ij = Re sum_{a=0}^{1} q_a (A_i^† A_j)_{aa}
+F_ij = Re sum_{a=0}^{1} q_a (A_i^† A_j)_{aa}      i, j = 1..s
 ```
 
-Require `det F ≠ 0` over ℤ (or FLINT / exact det).
+`F` is the `s × s = 16 × 16` SLD QFIM. Require `det F ≠ 0` over ℤ (or FLINT / exact det).
 
 ### 3. Real dimension of V
 
