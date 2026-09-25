@@ -1,0 +1,17 @@
+SANITY d=23 r=3 s=12: {'sld_ok': True, 'pcc_ok': True, 'det_qfim_nonzero': True, 'qfim_rank': 12, 'dim_V': 507, 'dim_Vperp': 22}
+=== EXACT d=41 r=5 s=14 p=998244353 seed=1 (t=14s)
+   stage dims: [335, 310, 285, 260, 235, 210, 185, 160, 135, 110, 85, 60, 35]
+    {'sld_ok': True, 'pcc_ok': True, 'det_qfim_nonzero': True, 'qfim_rank': 14, 'dim_V': 1641, 'dim_Vperp': 40}
+=== EXACT d=41 r=5 s=14 p=998244353 seed=2 (t=141s)
+   stage dims: [335, 310, 285, 260, 235, 210, 185, 160, 135, 110, 85, 60, 35]
+    {'sld_ok': True, 'pcc_ok': True, 'det_qfim_nonzero': True, 'qfim_rank': 14, 'dim_V': 1641, 'dim_Vperp': 40}
+=== EXACT d=41 r=5 s=14 p=1000000007 seed=1 (t=264s)
+   stage dims: [335, 310, 285, 260, 235, 210, 185, 160, 135, 110, 85, 60, 35]
+    {'sld_ok': True, 'pcc_ok': True, 'det_qfim_nonzero': True, 'qfim_rank': 14, 'dim_V': 1641, 'dim_Vperp': 40}
+=== EXACT d=41 r=5 s=14 p=1000000007 seed=2 (t=801s)
+   stage dims: [335, 310, 285, 260, 235, 210, 185, 160, 135, 110, 85, 60, 35]
+    {'sld_ok': True, 'pcc_ok': True, 'det_qfim_nonzero': True, 'qfim_rank': 14, 'dim_V': 1641, 'dim_Vperp': 40}
+N1 corrupt B_5: {'sld_ok': True, 'pcc_ok': False, 'det_qfim_nonzero': True, 'qfim_rank': 14} fail pairs: [(1, 5), (2, 5), (3, 5), (4, 5), (5, 6), (5, 7), (5, 8), (5, 9), (5, 10), (5, 11), (5, 12), (5, 13), (5, 14)]
+N2 B_14 := B_13: {'sld_ok': True, 'pcc_ok': True, 'det_qfim_nonzero': False, 'qfim_rank': 13, 'dim_V': 1620, 'dim_Vperp': 61}
+N3 s=15 stage dims tail: [60, 35, 14] {'sld_ok': True, 'pcc_ok': True, 'det_qfim_nonzero': False, 'qfim_rank': 14, 'dim_V': 1641, 'dim_Vperp': 40}
+done in 1585s
