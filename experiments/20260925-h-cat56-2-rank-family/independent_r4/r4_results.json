@@ -1,0 +1,361 @@
+{
+ "sanity_d23": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 12,
+  "det_qfim": 46527069,
+  "det_qfim_nonzero": true,
+  "n_V_generators": 702,
+  "V_all_hermitian": true,
+  "dim_V": 507,
+  "dim_Vperp": 22
+ },
+ "d31_p998244353_seed1": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 13,
+  "det_qfim": 173088590,
+  "det_qfim_nonzero": true,
+  "n_V_generators": 1456,
+  "V_all_hermitian": true,
+  "dim_V": 931,
+  "dim_Vperp": 30,
+  "stage_dims": [
+   200,
+   184,
+   168,
+   152,
+   136,
+   120,
+   104,
+   88,
+   72,
+   56,
+   40,
+   24
+  ]
+ },
+ "d31_p998244353_seed2": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 13,
+  "det_qfim": 962391579,
+  "det_qfim_nonzero": true,
+  "n_V_generators": 1456,
+  "V_all_hermitian": true,
+  "dim_V": 931,
+  "dim_Vperp": 30,
+  "stage_dims": [
+   200,
+   184,
+   168,
+   152,
+   136,
+   120,
+   104,
+   88,
+   72,
+   56,
+   40,
+   24
+  ]
+ },
+ "d31_p1000000007_seed1": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   1000000005
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 13,
+  "det_qfim": 152387063,
+  "det_qfim_nonzero": true,
+  "n_V_generators": 1456,
+  "V_all_hermitian": true,
+  "dim_V": 931,
+  "dim_Vperp": 30,
+  "complex_rank_over_Fp2_flattened": 931,
+  "stage_dims": [
+   200,
+   184,
+   168,
+   152,
+   136,
+   120,
+   104,
+   88,
+   72,
+   56,
+   40,
+   24
+  ]
+ },
+ "d31_p1000000007_seed2": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   1000000005
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 13,
+  "det_qfim": 541238816,
+  "det_qfim_nonzero": true,
+  "n_V_generators": 1456,
+  "V_all_hermitian": true,
+  "dim_V": 931,
+  "dim_Vperp": 30,
+  "complex_rank_over_Fp2_flattened": 931,
+  "stage_dims": [
+   200,
+   184,
+   168,
+   152,
+   136,
+   120,
+   104,
+   88,
+   72,
+   56,
+   40,
+   24
+  ]
+ },
+ "N1": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": false,
+  "pcc_fail_pairs": [
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    5,
+    10
+   ],
+   [
+    5,
+    11
+   ],
+   [
+    5,
+    12
+   ],
+   [
+    5,
+    13
+   ]
+  ],
+  "BdagB_hermitian_fail_pairs": [
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    5,
+    10
+   ],
+   [
+    5,
+    11
+   ],
+   [
+    5,
+    12
+   ],
+   [
+    5,
+    13
+   ]
+  ],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 13,
+  "det_qfim": 461071641,
+  "det_qfim_nonzero": true
+ },
+ "N2": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 12,
+  "det_qfim": 0,
+  "det_qfim_nonzero": false,
+  "n_V_generators": 1456,
+  "V_all_hermitian": true,
+  "dim_V": 920,
+  "dim_Vperp": 41
+ },
+ "N3": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 13,
+  "det_qfim": 0,
+  "det_qfim_nonzero": false,
+  "n_V_generators": 1680,
+  "V_all_hermitian": true,
+  "dim_V": 931,
+  "dim_Vperp": 30,
+  "stage_dims": [
+   200,
+   184,
+   168,
+   152,
+   136,
+   120,
+   104,
+   88,
+   72,
+   56,
+   40,
+   24,
+   13
+  ]
+ }
+}
