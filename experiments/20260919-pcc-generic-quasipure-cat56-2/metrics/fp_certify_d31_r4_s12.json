@@ -1,0 +1,95 @@
+{
+ "d": 31,
+ "r": 4,
+ "k": 27,
+ "s": 12,
+ "float_generic_kernel_dims": [
+  216,
+  200,
+  184,
+  168,
+  152,
+  136,
+  120,
+  104,
+  88,
+  72,
+  56,
+  40
+ ],
+ "runs": [
+  {
+   "p": 67108837,
+   "seed": 20260919,
+   "kernel_dims_mod_p": [
+    216,
+    200,
+    184,
+    168,
+    152,
+    136,
+    120,
+    104,
+    88,
+    72,
+    56,
+    40
+   ],
+   "lyapunov_zero": true,
+   "pcc_zero": true,
+   "qfim_det_nonzero_mod_p": true,
+   "rank_mod_p": 920,
+   "need": 931,
+   "dimVperp_mod_p": 41,
+   "fires_mod_p": false,
+   "seconds": 14.460486650466919,
+   "kernel_dims_equal_float_generic": true
+  },
+  {
+   "p": 67108777,
+   "seed": 20260920,
+   "kernel_dims_mod_p": [
+    216,
+    200,
+    184,
+    168,
+    152,
+    136,
+    120,
+    104,
+    88,
+    72,
+    56,
+    40
+   ],
+   "lyapunov_zero": true,
+   "pcc_zero": true,
+   "qfim_det_nonzero_mod_p": true,
+   "rank_mod_p": 920,
+   "need": 931,
+   "dimVperp_mod_p": 41,
+   "fires_mod_p": false,
+   "seconds": 14.375821113586426,
+   "kernel_dims_equal_float_generic": true
+  }
+ ],
+ "all_ok": false,
+ "resources": {
+  "affinity": [
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23
+  ],
+  "nice": 16384,
+  "threads_env": {
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1"
+  },
+  "peak_rss_mb": 198.77888
+ }
+}
