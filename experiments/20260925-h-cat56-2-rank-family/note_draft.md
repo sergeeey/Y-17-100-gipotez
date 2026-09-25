@@ -45,7 +45,7 @@ F_p-lifting certificate (`fp_certify.py`, primes 67108837 and 67108777), predict
 | 31 | 4 | 27 | 13 | 30 | yes |
 | 41 | 5 | 36 | 14 | 40 | yes |
 
-`[VERIFIED]` at F_p. These become Q(i) instances only through the lifting lemma (`lifting_lemma.md`), which is my derivation, not machine-checked and not
+`[VERIFIED]` at F_p; for r = 3 additionally reproduced by a blind from-scratch implementation (`independent_r3/REPORT.md`: dim V-perp 22 on two other primes and in float, blind d = 8 control matched; same definitions, different model instance). These become Q(i) instances only through the lifting lemma (`lifting_lemma.md`), which is my derivation, not machine-checked and not
 reviewed by anyone else; treat Result 2 as `[INFERRED]` until it is.
 
 ## 6. Where the dimension test can first fire (computed, not proven for all k)
