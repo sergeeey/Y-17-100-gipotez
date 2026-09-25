@@ -1,0 +1,92 @@
+=== FLOAT d=23 r=3 s=12 seed=1
+SLD residual max = 1.24e-16 ; structure/Hermitian residual = 0.00e+00
+A_i = c_i B_i, c_i (least squares): [0.-2.j 0.-2.j 0.-2.j] ... max|c+2i| = 4.44e-16
+  stage j=2 nullity=111  smallest retained sv=7.294e-01  largest dropped sv=0.000e+00
+  stage j=3 nullity=102  smallest retained sv=6.278e-01  largest dropped sv=0.000e+00
+  stage j=4 nullity=93  smallest retained sv=4.540e-01  largest dropped sv=0.000e+00
+  stage j=5 nullity=84  smallest retained sv=4.377e-01  largest dropped sv=0.000e+00
+  stage j=6 nullity=75  smallest retained sv=3.762e-01  largest dropped sv=0.000e+00
+  stage j=7 nullity=66  smallest retained sv=2.943e-01  largest dropped sv=0.000e+00
+  stage j=8 nullity=57  smallest retained sv=2.287e-01  largest dropped sv=0.000e+00
+  stage j=9 nullity=48  smallest retained sv=2.027e-01  largest dropped sv=0.000e+00
+  stage j=10 nullity=39  smallest retained sv=1.417e-01  largest dropped sv=0.000e+00
+  stage j=11 nullity=30  smallest retained sv=1.015e-01  largest dropped sv=0.000e+00
+  stage j=12 nullity=21  smallest retained sv=5.077e-02  largest dropped sv=0.000e+00
+PCC max |Pi [Li,Lj] Pi| = 1.04e-15   (scale of |L|max = 6.80e-01)
+QFIM eig min/max = 1.179e+00 / 1.620e+01  det = 5.072e+09  cond=1.37e+01
+generators: 702 ; max Hermiticity defect 1.14e-16
+largest ratio sv[i]/sv[i+1] at i=506 : sv[506]=1.409707e-02  sv[507]=1.776929e-15  ratio=7.933e+12
+singular values around cutoff (index: value):
+   503: 4.331562e-02
+   504: 3.546306e-02
+   505: 3.057648e-02
+   506: 1.409707e-02
+   507: 1.776929e-15
+   508: 1.331223e-15
+   509: 1.285977e-15
+   510: 1.263665e-15
+   511: 1.247923e-15
+sv max = 5.721e+00 ; sv[0]/sv[rank-1] = 4.058e+02
+tolerance used (geometric mean of the two sides of the gap) = 5.005e-09 ; relative to sv[0]: 8.749e-10
+numerical dim V (real coords, sv>tol) = 507 ; complex flattened rank = 507 ; d^2 = 529 ; dim V-perp = 22 (complex-rank version 22)
+second-largest ratio (for gap-uniqueness): 11.578019930676557
+next-largest of dropped sv: 1.77692926912372e-15  smallest kept: 0.014097071737099487
+=== FLOAT d=23 r=3 s=12 seed=2
+SLD residual max = 1.11e-16 ; structure/Hermitian residual = 0.00e+00
+A_i = c_i B_i, c_i (least squares): [ 0.-2.j -0.-2.j -0.-2.j] ... max|c+2i| = 4.44e-16
+  stage j=2 nullity=111  smallest retained sv=7.576e-01  largest dropped sv=0.000e+00
+  stage j=3 nullity=102  smallest retained sv=4.718e-01  largest dropped sv=0.000e+00
+  stage j=4 nullity=93  smallest retained sv=4.130e-01  largest dropped sv=0.000e+00
+  stage j=5 nullity=84  smallest retained sv=3.434e-01  largest dropped sv=0.000e+00
+  stage j=6 nullity=75  smallest retained sv=3.235e-01  largest dropped sv=0.000e+00
+  stage j=7 nullity=66  smallest retained sv=3.093e-01  largest dropped sv=0.000e+00
+  stage j=8 nullity=57  smallest retained sv=2.869e-01  largest dropped sv=0.000e+00
+  stage j=9 nullity=48  smallest retained sv=2.332e-01  largest dropped sv=0.000e+00
+  stage j=10 nullity=39  smallest retained sv=1.467e-01  largest dropped sv=0.000e+00
+  stage j=11 nullity=30  smallest retained sv=1.087e-01  largest dropped sv=0.000e+00
+  stage j=12 nullity=21  smallest retained sv=5.767e-02  largest dropped sv=0.000e+00
+PCC max |Pi [Li,Lj] Pi| = 1.15e-15   (scale of |L|max = 6.79e-01)
+QFIM eig min/max = 2.186e+00 / 1.585e+01  det = 1.337e+10  cond=7.25e+00
+generators: 702 ; max Hermiticity defect 1.24e-16
+largest ratio sv[i]/sv[i+1] at i=506 : sv[506]=2.960642e-04  sv[507]=1.699580e-15  ratio=1.742e+11
+singular values around cutoff (index: value):
+   503: 6.099957e-02
+   504: 3.498740e-02
+   505: 1.299947e-02
+   506: 2.960642e-04
+   507: 1.699580e-15
+   508: 1.418160e-15
+   509: 1.338854e-15
+   510: 1.292183e-15
+   511: 1.258987e-15
+sv max = 5.456e+00 ; sv[0]/sv[rank-1] = 1.843e+04
+tolerance used (geometric mean of the two sides of the gap) = 7.094e-10 ; relative to sv[0]: 1.300e-10
+numerical dim V (real coords, sv>tol) = 507 ; complex flattened rank = 507 ; d^2 = 529 ; dim V-perp = 22 (complex-rank version 22)
+second-largest ratio (for gap-uniqueness): 43.907607263994755
+next-largest of dropped sv: 1.6995799904131382e-15  smallest kept: 0.00029606424592846245
+=== FLOAT d=8 r=2 s=5 seed=1
+SLD residual max = 0.00e+00 ; structure/Hermitian residual = 0.00e+00
+A_i = c_i B_i, c_i (least squares): [-0.-2.j  0.-2.j -0.-2.j] ... max|c+2i| = 8.88e-16
+  stage j=2 nullity=20  smallest retained sv=9.168e-01  largest dropped sv=0.000e+00
+  stage j=3 nullity=16  smallest retained sv=6.155e-01  largest dropped sv=0.000e+00
+  stage j=4 nullity=12  smallest retained sv=3.808e-01  largest dropped sv=0.000e+00
+  stage j=5 nullity=8  smallest retained sv=2.481e-01  largest dropped sv=0.000e+00
+PCC max |Pi [Li,Lj] Pi| = 9.75e-16   (scale of |L|max = 1.12e+00)
+QFIM eig min/max = 1.704e+00 / 1.284e+01  det = 2.748e+03  cond=7.54e+00
+generators: 60 ; max Hermiticity defect 2.48e-16
+largest ratio sv[i]/sv[i+1] at i=53 : sv[53]=7.072214e-02  sv[54]=6.450344e-16  ratio=1.096e+14
+singular values around cutoff (index: value):
+   50: 1.411432e-01
+   51: 1.304501e-01
+   52: 1.260495e-01
+   53: 7.072214e-02
+   54: 6.450344e-16
+   55: 4.028500e-16
+   56: 2.922677e-16
+   57: 2.653066e-16
+   58: 2.015912e-16
+sv max = 5.573e+00 ; sv[0]/sv[rank-1] = 7.879e+01
+tolerance used (geometric mean of the two sides of the gap) = 6.754e-09 ; relative to sv[0]: 1.212e-09
+numerical dim V (real coords, sv>tol) = 54 ; complex flattened rank = 54 ; d^2 = 64 ; dim V-perp = 10 (complex-rank version 10)
+second-largest ratio (for gap-uniqueness): 3.587431286417887
+next-largest of dropped sv: 6.450344399235306e-16  smallest kept: 0.07072213714145564

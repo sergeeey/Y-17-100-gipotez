@@ -1,0 +1,463 @@
+{
+ "d23_p998244353_seed1": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 12,
+  "det_qfim": 46527069,
+  "det_qfim_nonzero": true,
+  "n_V_generators": 702,
+  "V_all_hermitian": true,
+  "dim_V": 507,
+  "dim_Vperp": 22,
+  "stage_dims": [
+   111,
+   102,
+   93,
+   84,
+   75,
+   66,
+   57,
+   48,
+   39,
+   30,
+   21
+  ]
+ },
+ "d23_p998244353_seed2": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 12,
+  "det_qfim": 134848364,
+  "det_qfim_nonzero": true,
+  "n_V_generators": 702,
+  "V_all_hermitian": true,
+  "dim_V": 507,
+  "dim_Vperp": 22,
+  "stage_dims": [
+   111,
+   102,
+   93,
+   84,
+   75,
+   66,
+   57,
+   48,
+   39,
+   30,
+   21
+  ]
+ },
+ "d23_p1000000007_seed1": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   1000000005
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 12,
+  "det_qfim": 456304791,
+  "det_qfim_nonzero": true,
+  "n_V_generators": 702,
+  "V_all_hermitian": true,
+  "dim_V": 507,
+  "dim_Vperp": 22,
+  "complex_rank_over_Fp2_flattened": 507,
+  "stage_dims": [
+   111,
+   102,
+   93,
+   84,
+   75,
+   66,
+   57,
+   48,
+   39,
+   30,
+   21
+  ]
+ },
+ "d23_p1000000007_seed2": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   1000000005
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 12,
+  "det_qfim": 603579015,
+  "det_qfim_nonzero": true,
+  "n_V_generators": 702,
+  "V_all_hermitian": true,
+  "dim_V": 507,
+  "dim_Vperp": 22,
+  "complex_rank_over_Fp2_flattened": 507,
+  "stage_dims": [
+   111,
+   102,
+   93,
+   84,
+   75,
+   66,
+   57,
+   48,
+   39,
+   30,
+   21
+  ]
+ },
+ "N1": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": false,
+  "pcc_fail_pairs": [
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    5,
+    10
+   ],
+   [
+    5,
+    11
+   ],
+   [
+    5,
+    12
+   ]
+  ],
+  "BdagB_hermitian_fail_pairs": [
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    5,
+    10
+   ],
+   [
+    5,
+    11
+   ],
+   [
+    5,
+    12
+   ]
+  ],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 12,
+  "det_qfim": 824696157,
+  "det_qfim_nonzero": true
+ },
+ "N2": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 11,
+  "det_qfim": 0,
+  "det_qfim_nonzero": false,
+  "n_V_generators": 702,
+  "V_all_hermitian": true,
+  "dim_V": 498,
+  "dim_Vperp": 31
+ },
+ "N3": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 12,
+  "det_qfim": 0,
+  "det_qfim_nonzero": false,
+  "n_V_generators": 819,
+  "V_all_hermitian": true,
+  "dim_V": 507,
+  "dim_Vperp": 22,
+  "stage_dims": [
+   111,
+   102,
+   93,
+   84,
+   75,
+   66,
+   57,
+   48,
+   39,
+   30,
+   21,
+   12
+  ]
+ },
+ "N3b_p1000000007_seed2": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   1000000005
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 12,
+  "det_qfim": 0,
+  "det_qfim_nonzero": false,
+  "n_V_generators": 819,
+  "V_all_hermitian": true,
+  "dim_V": 507,
+  "dim_Vperp": 22
+ },
+ "N3b_p998244353_seed2": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 12,
+  "det_qfim": 0,
+  "det_qfim_nonzero": false,
+  "n_V_generators": 819,
+  "V_all_hermitian": true,
+  "dim_V": 507,
+  "dim_Vperp": 22
+ },
+ "d8_p998244353_seed1": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 5,
+  "det_qfim": 416839487,
+  "det_qfim_nonzero": true,
+  "n_V_generators": 60,
+  "V_all_hermitian": true,
+  "dim_V": 54,
+  "dim_Vperp": 10,
+  "stage_dims": [
+   20,
+   16,
+   12,
+   8
+  ]
+ },
+ "d8_p998244353_seed2": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   998244351
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 5,
+  "det_qfim": 355588656,
+  "det_qfim_nonzero": true,
+  "n_V_generators": 60,
+  "V_all_hermitian": true,
+  "dim_V": 54,
+  "dim_Vperp": 10,
+  "stage_dims": [
+   20,
+   16,
+   12,
+   8
+  ]
+ },
+ "d8_p1000000007_seed1": {
+  "sld_ok": true,
+  "L_hermitian": true,
+  "L_structure_[[0,Adag],[A,0]]": true,
+  "degenerate_block_of_drho_zero": true,
+  "A_equals_c_B_all_i": true,
+  "c_pair": [
+   0,
+   1000000005
+  ],
+  "c_is_minus_2i": true,
+  "pcc_ok": true,
+  "pcc_fail_pairs": [],
+  "BdagB_hermitian_fail_pairs": [],
+  "qfim_trace_imag_zero": true,
+  "qfim_symmetric": true,
+  "qfim_rank": 5,
+  "det_qfim": 577289745,
+  "det_qfim_nonzero": true,
+  "n_V_generators": 60,
+  "V_all_hermitian": true,
+  "dim_V": 54,
+  "dim_Vperp": 10,
+  "complex_rank_over_Fp2_flattened": 54,
+  "stage_dims": [
+   20,
+   16,
+   12,
+   8
+  ]
+ }
+}

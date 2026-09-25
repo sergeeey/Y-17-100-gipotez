@@ -1,0 +1,256 @@
+=== EXACT d=23 r=3 s=12 p=998244353 seed=1  (t=1s)
+   stage solution-space dims (j=2..12): [111, 102, 93, 84, 75, 66, 57, 48, 39, 30, 21]
+   pipeline
+     sld_ok                                 True
+     L_hermitian                            True
+     L_structure_[[0,Adag],[A,0]]           True
+     degenerate_block_of_drho_zero          True
+     A_equals_c_B_all_i                     True
+     c_pair                                 (0, 998244351)
+     c_is_minus_2i                          True
+     pcc_ok                                 True
+     pcc_fail_pairs                         []
+     BdagB_hermitian_fail_pairs             []
+     qfim_trace_imag_zero                   True
+     qfim_symmetric                         True
+     qfim_rank                              12
+     det_qfim                               46527069
+     det_qfim_nonzero                       True
+     n_V_generators                         702
+     V_all_hermitian                        True
+     dim_V                                  507
+     dim_Vperp                              22
+=== EXACT d=23 r=3 s=12 p=998244353 seed=2  (t=4s)
+   stage solution-space dims (j=2..12): [111, 102, 93, 84, 75, 66, 57, 48, 39, 30, 21]
+   pipeline
+     sld_ok                                 True
+     L_hermitian                            True
+     L_structure_[[0,Adag],[A,0]]           True
+     degenerate_block_of_drho_zero          True
+     A_equals_c_B_all_i                     True
+     c_pair                                 (0, 998244351)
+     c_is_minus_2i                          True
+     pcc_ok                                 True
+     pcc_fail_pairs                         []
+     BdagB_hermitian_fail_pairs             []
+     qfim_trace_imag_zero                   True
+     qfim_symmetric                         True
+     qfim_rank                              12
+     det_qfim                               134848364
+     det_qfim_nonzero                       True
+     n_V_generators                         702
+     V_all_hermitian                        True
+     dim_V                                  507
+     dim_Vperp                              22
+=== EXACT d=23 r=3 s=12 p=1000000007 seed=1  (t=7s)
+   stage solution-space dims (j=2..12): [111, 102, 93, 84, 75, 66, 57, 48, 39, 30, 21]
+   pipeline
+     sld_ok                                 True
+     L_hermitian                            True
+     L_structure_[[0,Adag],[A,0]]           True
+     degenerate_block_of_drho_zero          True
+     A_equals_c_B_all_i                     True
+     c_pair                                 (0, 1000000005)
+     c_is_minus_2i                          True
+     pcc_ok                                 True
+     pcc_fail_pairs                         []
+     BdagB_hermitian_fail_pairs             []
+     qfim_trace_imag_zero                   True
+     qfim_symmetric                         True
+     qfim_rank                              12
+     det_qfim                               456304791
+     det_qfim_nonzero                       True
+     n_V_generators                         702
+     V_all_hermitian                        True
+     dim_V                                  507
+     dim_Vperp                              22
+     complex_rank_over_Fp2_flattened        507
+=== EXACT d=23 r=3 s=12 p=1000000007 seed=2  (t=21s)
+   stage solution-space dims (j=2..12): [111, 102, 93, 84, 75, 66, 57, 48, 39, 30, 21]
+   pipeline
+     sld_ok                                 True
+     L_hermitian                            True
+     L_structure_[[0,Adag],[A,0]]           True
+     degenerate_block_of_drho_zero          True
+     A_equals_c_B_all_i                     True
+     c_pair                                 (0, 1000000005)
+     c_is_minus_2i                          True
+     pcc_ok                                 True
+     pcc_fail_pairs                         []
+     BdagB_hermitian_fail_pairs             []
+     qfim_trace_imag_zero                   True
+     qfim_symmetric                         True
+     qfim_rank                              12
+     det_qfim                               603579015
+     det_qfim_nonzero                       True
+     n_V_generators                         702
+     V_all_hermitian                        True
+     dim_V                                  507
+     dim_Vperp                              22
+     complex_rank_over_Fp2_flattened        507
+=== N1 corrupt B_5[0,0].re += 1
+   N1
+     sld_ok                                 True
+     L_hermitian                            True
+     L_structure_[[0,Adag],[A,0]]           True
+     degenerate_block_of_drho_zero          True
+     A_equals_c_B_all_i                     True
+     c_pair                                 (0, 998244351)
+     c_is_minus_2i                          True
+     pcc_ok                                 False
+     pcc_fail_pairs                         [(1, 5), (2, 5), (3, 5), (4, 5), (5, 6), (5, 7), (5, 8), (5, 9), (5, 10), (5, 11), (5, 12)]
+     BdagB_hermitian_fail_pairs             [(1, 5), (2, 5), (3, 5), (4, 5), (5, 6), (5, 7), (5, 8), (5, 9), (5, 10), (5, 11), (5, 12)]
+     qfim_trace_imag_zero                   True
+     qfim_symmetric                         True
+     qfim_rank                              12
+     det_qfim                               824696157
+     det_qfim_nonzero                       True
+=== N2 B_12 := B_11
+   N2
+     sld_ok                                 True
+     L_hermitian                            True
+     L_structure_[[0,Adag],[A,0]]           True
+     degenerate_block_of_drho_zero          True
+     A_equals_c_B_all_i                     True
+     c_pair                                 (0, 998244351)
+     c_is_minus_2i                          True
+     pcc_ok                                 True
+     pcc_fail_pairs                         []
+     BdagB_hermitian_fail_pairs             []
+     qfim_trace_imag_zero                   True
+     qfim_symmetric                         True
+     qfim_rank                              11
+     det_qfim                               0
+     det_qfim_nonzero                       False
+     n_V_generators                         702
+     V_all_hermitian                        True
+     dim_V                                  498
+     dim_Vperp                              31
+=== N3 d=23 r=3 s=13  stage dims: [111, 102, 93, 84, 75, 66, 57, 48, 39, 30, 21, 12]
+   N3
+     sld_ok                                 True
+     L_hermitian                            True
+     L_structure_[[0,Adag],[A,0]]           True
+     degenerate_block_of_drho_zero          True
+     A_equals_c_B_all_i                     True
+     c_pair                                 (0, 998244351)
+     c_is_minus_2i                          True
+     pcc_ok                                 True
+     pcc_fail_pairs                         []
+     BdagB_hermitian_fail_pairs             []
+     qfim_trace_imag_zero                   True
+     qfim_symmetric                         True
+     qfim_rank                              12
+     det_qfim                               0
+     det_qfim_nonzero                       False
+     n_V_generators                         819
+     V_all_hermitian                        True
+     dim_V                                  507
+     dim_Vperp                              22
+=== N3b d=23 r=3 s=13 p=1000000007 seed=2 stage dims last: [30, 21, 12]
+   N3b
+     sld_ok                                 True
+     L_hermitian                            True
+     L_structure_[[0,Adag],[A,0]]           True
+     degenerate_block_of_drho_zero          True
+     A_equals_c_B_all_i                     True
+     c_pair                                 (0, 1000000005)
+     c_is_minus_2i                          True
+     pcc_ok                                 True
+     pcc_fail_pairs                         []
+     BdagB_hermitian_fail_pairs             []
+     qfim_trace_imag_zero                   True
+     qfim_symmetric                         True
+     qfim_rank                              12
+     det_qfim                               0
+     det_qfim_nonzero                       False
+     n_V_generators                         819
+     V_all_hermitian                        True
+     dim_V                                  507
+     dim_Vperp                              22
+=== N3b d=23 r=3 s=13 p=998244353 seed=2 stage dims last: [30, 21, 12]
+   N3b
+     sld_ok                                 True
+     L_hermitian                            True
+     L_structure_[[0,Adag],[A,0]]           True
+     degenerate_block_of_drho_zero          True
+     A_equals_c_B_all_i                     True
+     c_pair                                 (0, 998244351)
+     c_is_minus_2i                          True
+     pcc_ok                                 True
+     pcc_fail_pairs                         []
+     BdagB_hermitian_fail_pairs             []
+     qfim_trace_imag_zero                   True
+     qfim_symmetric                         True
+     qfim_rank                              12
+     det_qfim                               0
+     det_qfim_nonzero                       False
+     n_V_generators                         819
+     V_all_hermitian                        True
+     dim_V                                  507
+     dim_Vperp                              22
+=== POSCTRL d=8 r=2 s=5 p=998244353 seed=1 stage dims: [20, 16, 12, 8]
+   d8
+     sld_ok                                 True
+     L_hermitian                            True
+     L_structure_[[0,Adag],[A,0]]           True
+     degenerate_block_of_drho_zero          True
+     A_equals_c_B_all_i                     True
+     c_pair                                 (0, 998244351)
+     c_is_minus_2i                          True
+     pcc_ok                                 True
+     pcc_fail_pairs                         []
+     BdagB_hermitian_fail_pairs             []
+     qfim_trace_imag_zero                   True
+     qfim_symmetric                         True
+     qfim_rank                              5
+     det_qfim                               416839487
+     det_qfim_nonzero                       True
+     n_V_generators                         60
+     V_all_hermitian                        True
+     dim_V                                  54
+     dim_Vperp                              10
+=== POSCTRL d=8 r=2 s=5 p=998244353 seed=2 stage dims: [20, 16, 12, 8]
+   d8
+     sld_ok                                 True
+     L_hermitian                            True
+     L_structure_[[0,Adag],[A,0]]           True
+     degenerate_block_of_drho_zero          True
+     A_equals_c_B_all_i                     True
+     c_pair                                 (0, 998244351)
+     c_is_minus_2i                          True
+     pcc_ok                                 True
+     pcc_fail_pairs                         []
+     BdagB_hermitian_fail_pairs             []
+     qfim_trace_imag_zero                   True
+     qfim_symmetric                         True
+     qfim_rank                              5
+     det_qfim                               355588656
+     det_qfim_nonzero                       True
+     n_V_generators                         60
+     V_all_hermitian                        True
+     dim_V                                  54
+     dim_Vperp                              10
+=== POSCTRL d=8 r=2 s=5 p=1000000007 seed=1 stage dims: [20, 16, 12, 8]
+   d8
+     sld_ok                                 True
+     L_hermitian                            True
+     L_structure_[[0,Adag],[A,0]]           True
+     degenerate_block_of_drho_zero          True
+     A_equals_c_B_all_i                     True
+     c_pair                                 (0, 1000000005)
+     c_is_minus_2i                          True
+     pcc_ok                                 True
+     pcc_fail_pairs                         []
+     BdagB_hermitian_fail_pairs             []
+     qfim_trace_imag_zero                   True
+     qfim_symmetric                         True
+     qfim_rank                              5
+     det_qfim                               577289745
+     det_qfim_nonzero                       True
+     n_V_generators                         60
+     V_all_hermitian                        True
+     dim_V                                  54
+     dim_Vperp                              10
+     complex_rank_over_Fp2_flattened        54
+done in 50s
