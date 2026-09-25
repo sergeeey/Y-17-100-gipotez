@@ -1,0 +1,12 @@
+d   r  s   kind        pred  got(p1,p2)   qfim_nonzero(p1,p2)  verdict
+22  2  16  fire        21    [21, 21]     [True, True]         OK
+23  3  12  fire        22    [22, 22]     [True, True]         OK
+31  4  13  fire        30    [30, 30]     [True, True]         OK
+41  5  14  fire        40    [40, 40]     [True, True]         OK
+31  4  12  below       41    [41, 41]     [True, True]         OK
+41  5  13  below       61    [61, 61]     [True, True]         OK
+23  3  11  below       31    [31, 31]     [True, True]         OK
+31  4  14  degenerate  30    [30, 30]     [False, False]       OK
+41  5  15  degenerate  40    [40, 40]     [False, False]       OK
+23  3  13  degenerate  22    [22, 22]     [False, False]       OK
+ALL REGISTERED / AMENDED PREDICTIONS HELD
