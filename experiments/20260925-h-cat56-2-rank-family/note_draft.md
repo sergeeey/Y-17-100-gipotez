@@ -11,7 +11,7 @@ Working title (novelty unresolved, no priority claim): *A partially commuting, n
 - Setting: a state family rho(theta), theta in R^s, rank r < d, generic quasi-pure (Pi_r d_i rho Pi_r = 0, Yang arXiv:2405.00405 Eq. 12), nonsingular
   QFIM, single-copy measurements. PCC: Pi_r [L_i, L_j] Pi_r = 0. PCC is necessary for saturation (Yang, Pang, Zhou, Jordan, PRA 100, 032104 = Ref. [13] of Nurdin).
 - Yang, Imai, Pezze (arXiv:2601.21801): "for generic quasi-pure states, whether PCC is sufficient or not is still open, as conjectured in Ref. [38]"
-  `[DOCS, read]`. Their Observation 2: `dim V-perp < d` implies the QCRB cannot be saturated. They give no explicit example in this class `[DOCS, read]`.
+  `[DOCS, read]`. (Ref. [38] is arXiv:2405.00405 under its v1 title; v1 read in full has only an outlook remark on PCC on p. 4, no explicit conjecture, so this is the 2026 authors' framing.) Their Observation 2: `dim V-perp < d` implies the QCRB cannot be saturated. They give no explicit example in this class `[DOCS, read]`.
 - Nurdin (arXiv:2402.11567 v5, read pp. 5-13): necessary-and-sufficient conditions (Condition 1 and corrected Condition 2'); all of its examples are
   saturable cases; it states PCC as necessary and does not claim it sufficient. The earlier lab audit line "Nurdin says PCC is not sufficient" was wrong and is withdrawn (novelty_audit.md addendum). `[DOCS, read]`
 

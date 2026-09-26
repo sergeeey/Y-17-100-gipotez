@@ -1978,6 +1978,7 @@ nodes:
 
   - id: H-CAT31-3
     type: hypothesis
+    # 2026-09-27 (literature check, reports/2026-09-27-breakthrough-information-search.md): the external open problem is Conjecture 18 on the MEAN E theta = (1+o(1))sqrt(n); no source found mentions variance/concentration, so the variance target has no external anchor.
     # Codex independent attempt 2026-09-14 (no status promotion): derivation and code in
     # experiments/20260910-lovasz-theta-variance-scaling-cat31-3/codex-20260914-susceptibility/.
     # Zero-mean quadratic density control removes first-chaos score noise; generic
