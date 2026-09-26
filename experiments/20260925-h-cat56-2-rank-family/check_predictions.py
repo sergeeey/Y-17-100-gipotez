@@ -30,9 +30,11 @@ CONFIGS = [
     (23, 3, 12, "fire"),
     (31, 4, 13, "fire"),
     (41, 5, 14, "fire"),
+    (54, 6, 16, "fire"),  # registered and committed in claim_r6.md (f02dc51) before the run
     (31, 4, 12, "below"),
     (41, 5, 13, "below"),
     (23, 3, 11, "below"),
+    (54, 6, 15, "below"),  # claim_r6.md
     (31, 4, 14, "degenerate"),
     (41, 5, 15, "degenerate"),
     (23, 3, 13, "degenerate"),

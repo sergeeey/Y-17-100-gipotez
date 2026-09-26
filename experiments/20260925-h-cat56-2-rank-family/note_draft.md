@@ -36,7 +36,7 @@ the full 22 x 22 definitions; own integer-arithmetic rank over Q(i) with FLINT) 
 `dim V = 463`, `dim V^perp = 484 - 463 = 21 < 22`. `[VERIFIED]` by both, same laboratory. The lower bound `dim V >= 463` is all the non-saturation theorem needs.
 
 ## 5. Result 2: the same mechanism at ranks 2-5 (existence, not explicit)
-F_p-lifting certificate (`fp_certify.py`, primes 67108837 and 67108777), predictions registered before the r = 4, 5 runs (claim.md):
+F_p-lifting certificate (`fp_certify.py`, primes 67108837 and 67108777), predictions registered before the r = 4, 5 runs (claim.md) and, for r = 6, registered AND committed before the run (`claim_r6.md`, commit f02dc51); r = 6 has the F_p certificate and a below-crossing control (54,6,15) -> 73 only, no independent-code check (d = 54 is about an hour per exact run):
 
 | d | r | k | s | dim V^perp (F_p, both primes) | < d |
 |---|---|---|---|---|---|
@@ -44,6 +44,7 @@ F_p-lifting certificate (`fp_certify.py`, primes 67108837 and 67108777), predict
 | 23 | 3 | 20 | 12 | 22 | yes |
 | 31 | 4 | 27 | 13 | 30 | yes |
 | 41 | 5 | 36 | 14 | 40 | yes |
+| 54 | 6 | 48 | 16 | 53 | yes |
 
 `[VERIFIED]` at F_p; for r = 3, 4 and 5 additionally reproduced by a blind from-scratch implementation (`independent_r3/REPORT.md`: dim V-perp 22 on two other primes and in float, blind d = 8 control matched; `independent_r4/REPORT.md` and `independent_r5/REPORT.md`: 30 and 40 on four exact runs each and in float, same unchanged library, and a duplicate-block control at r = 5 that gave its registered value 61; same definitions, different model instance). These become Q(i) instances only through the lifting lemma (`lifting_lemma.md`), which is my derivation, not machine-checked and not
 reviewed by anyone else; treat Result 2 as `[INFERRED]` until it is.
