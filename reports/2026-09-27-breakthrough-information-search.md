@@ -27,6 +27,24 @@ papers years old, so "0 citing works" is a weak negative).
   open size; whether a five-node core two-cycle with a transverse Hopf point exists is unknown. Our earlier search (differential evolution, region clipped at LOG_BOUND = 3.0, the Hopf term never executed for the final candidates) was not aimed at this.
 - **Still missing:** sections C.3-C.5 (pp. 108-122, the Hopf point and weight coordinates) have not been read in detail; a rigorous existence or nonexistence certificate method for n = 7 is not yet designed.
 
+### 2b. Sections C.3-C.5 read on page images (pp. 108-122): the necessity question `[DOCS, read]`
+- **Structure of the eight-node seed (p. 109, C.3.1-C.3.5).** Two monic quartics: `P` (four fixed roots) and `Q_q` (`q` free plus three fixed roots), and a constant `C = 0.31355365301369736`; `f_pm(t,q) = P(t) Q_q(t) pm C` are octics.
+  The six core nodes are the roots of `f_-` other than `eta_-`, `eta_+` (its 3rd and 6th roots); the two external nodes `h_-`, `h_+` are the 2nd and 7th roots of `f_+`. At core nodes `PQ = C`, at external nodes `PQ = -C`,
+  so the squared two-block multiplier is exactly 1 (p. 110; p. 118, C.4.24).
+- **Two-cycle.** `T_4 w^P(a) = w^Q(a)` and `T_4 w^Q(a) = w^P(a)` exactly (p. 110); a one-parameter family in `a`.
+- **Hopf point (Lemma C.3.1, pp. 111-113).** Seven-dimensional leading vector field in `(a, u, B in R^3, e_-, e_+)` (C.3.12); unique `q*` with spectrum `-1, 1, 2, +-i w*, 1 +- i w*`, `3.72 < w* < 3.724`, transversality
+  `|d Re lambda_H / dq| > 1.94`; the characteristic polynomial is `(lambda+1)(lambda-1)(lambda-2) q_theta(lambda(lambda-1))`, where the quadratic `q_theta(theta) = theta^2 - tau theta + K_theta` comes from a 2 x 2 external block (eigenvalues 2 and `d`; pp. 113-114).
+  `[INFERRED]` In this realisation the oscillating pair arises from that 2 x 2 block, i.e. it uses two external modes; with a single external node the block would be 1 x 1 and could not produce a complex pair through this route.
+- **Scale of the certification (Prop. C.1.2 p. 107; pp. 114-117, 120).** Dyadic constants `eps_0 = 2^-500000000`, `M = 2^600000000`; nodes translated to lie in `(1, 10)` (p. 114); weights scaled as `t`, `t^2` (pp. 116, 120). These are proof constants and are typically
+  pessimistic, so they do NOT show that a real counterexample needs such tiny parameters; what they show is that the construction is a multiscale, small-amplitude Hopf-born orbit shadowed by an exact orbit.
+- **Necessity: not proved on these pages.** Nothing on pp. 108-122 states or proves that a core of at least five nodes, or exactly two external nodes, is necessary for a counterexample; these pages construct one. The only general size statements seen are
+  `n >= s+1` (otherwise the iteration terminates), limit supports between `s+1` and `2s` nodes (p. 4), and existence in dimension `s+4` (Thm 1.1). Pages 6-10 (the degree-independent spectral core) and Part B were not read.
+  So the earlier inference "only n = 7 is open" is **not supported** by C.3-C.5 and is withdrawn as a working assumption; n = 5, 6, 7 are all open.
+- **Consequence for the earlier search `[INFERRED]`.** In this mechanism a counterexample is a slow, near-neutral oscillation around the two-cycle family with weights at scales `t`, `t^2`; a black-box search that looks for non-decay of the residual gap within at most 5000
+  restarts could not be expected to see it, so the recorded INFORMATIVE_NEGATIVE for n = 5, 6, 7 says even less than assumed.
+- **What a theory-informed search would have to do.** Classify the two-cycles of `T_4` on m = 5, 6, 7 nodes through the `(P, Q, C)` structure (the paper does this kind of analysis for s = 2, 3 only, Parts A and B), then linearise for a transverse Hopf point and certify with interval arithmetic and Sturm counts.
+  This is research-level algebra, not a cheap step; feasibility is unknown.
+
 ## 3. H-CAT31-3 (Lovasz theta of random circulant graphs)
 - **The external open problem is the MEAN, not our variance target.** ETH "Randomstrasse101" Problems 17/18 (post of 21-22 May 2025) and the open-problems compilation arXiv:2603.29571 (March 2026), both from html summaries `[WEAK]` on wording:
   Conjecture 18: `E theta(G) = (1 + o(1)) sqrt(n)` for random dense circulant graphs; progress in 2025 (Bandeira, Blasiok, Dmitriev, Faure, Kireeva, Kunisky, arXiv:2502.16227): "a precise lower bound and an upper bound

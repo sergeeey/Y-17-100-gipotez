@@ -2317,6 +2317,8 @@ nodes:
 
   - id: H-CAT37-2
     type: hypothesis
+    # 2026-09-27: arXiv:2609.04659 v2 pp. 108-122 (C.3-C.5) read on page images: they CONSTRUCT the eight-node seed (six-node core two-cycle + two neutral external nodes, certified transverse Hopf point) and do not prove that
+    # a five-node core or two external nodes is necessary; minimality of s+4 is an open question by the authors' own words (p. 146). n=5,6,7 all open; the earlier black-box negative is weaker than recorded. See reports/2026-09-27-breakthrough-information-search.md section 2b.
     title: "Targeted (differential-evolution) search for an s=4 Forsythe counterexample below the published dimension s+4=8: does one exist at n in {5,6,7}?"
     status: lead                     # INFORMATIVE_NEGATIVE, not proof -- see decision.md. Not `killed`: does not rule out the possibility, only this search strategy's failure to find one
     evidence: VERIFIED-REAL
