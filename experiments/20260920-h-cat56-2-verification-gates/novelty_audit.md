@@ -5,7 +5,7 @@ Every reading here went through WebFetch's summarising model unless stated; `[WE
 | Source | What I checked | Finding |
 |---|---|---|
 | arXiv:2601.21801 (Yang, Imai, Pezze), PDF read directly | main text p. 4, End Matter, Supplemental S1 | States "for generic quasi-pure states, whether PCC is sufficient or not is still open, as conjectured in Ref. [38]". No counterexample. `[DOCS, read]` |
-| arXiv:2405.00405 (Yang) | v4 definition, Eq. (12) | Defines quasi-pure states; the conjecture. Citation list unavailable: Semantic Scholar 0, INSPIRE query returned garbage (1607 unrelated hits) |
+| arXiv:2405.00405 (Yang) | v4 definition, Eq. (12) | Defines quasi-pure states; the conjecture. **CORRECTED 2026-09-27: Ref. [38] of 2601.21801 is this arXiv id under its v1 title; v1 read in full contains no explicit PCC-sufficiency conjecture, only an outlook remark (p. 4); see reports/2026-09-27-breakthrough-information-search.md.** Citation list unavailable: Semantic Scholar 0, INSPIRE query returned garbage (1607 unrelated hits) |
 | arXiv:2602.12097 | full-text search for `quasi-pure` | absent; its counterexamples concern other rank-deficient classes |
 | arXiv:2608.10490 | abstract | single-parameter Heisenberg-limit metrology, unrelated |
 | arXiv:2609.18558, 2504.06812 | abstracts | semiclassical geometric tensor; no PCC / quasi-pure / counterexample |
