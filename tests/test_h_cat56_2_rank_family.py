@@ -44,7 +44,7 @@ def _saved(d: int, r: int, s: int) -> dict:
 
 
 def test_closed_form_min_lb_holds_for_k_at_least_r() -> None:
-    for r in (2, 3, 4, 5):
+    for r in (2, 3, 4, 5, 6):
         for k in range(r, 41):
             s_star = math.ceil(2 * k * r / (r * r + 1))
             assert cf.exact_min(k, r)[0] == r * r + s_star + 1, (r, k)
@@ -58,7 +58,7 @@ def test_closed_form_is_known_to_fail_for_degenerate_small_k() -> None:
 
 
 def test_first_firing_size_matches_registered_thresholds() -> None:
-    assert {r: _first_firing_d(r) for r in (2, 3, 4, 5)} == {2: 22, 3: 23, 4: 31, 5: 41}
+    assert {r: _first_firing_d(r) for r in (2, 3, 4, 5, 6)} == {2: 22, 3: 23, 4: 31, 5: 41, 6: 54}
 
 
 def test_no_firing_below_threshold_for_r2() -> None:

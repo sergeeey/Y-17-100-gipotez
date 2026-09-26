@@ -53,3 +53,9 @@ Novelty (U2) is unchanged and still `WEAK`; the email is sent and not to be rese
 `test_h_cat56_2_gates`, `test_lab_check`, `test_h_cat56_2_caps`: 29 passed. `ruff check` clean, `scripts/lab_check.py` OK, independent `reviewer` pass done (above).
 Side effect recorded for ADR-125: the full run rewrote two unrelated tracked files (`experiments/20260908-chernoff-neuralode-nd-kreiss-crossimpl-smalleps/metrics/run.json`
 and `...-kreiss-estimate-bias-check/metrics/run.json`); both were restored with `git checkout` before this commit and are NOT part of it.
+
+## Addendum 2026-09-26: r = 6 (d = 54, s = 16)
+Registered and committed BEFORE the run (`claim_r6.md`, commit f02dc51), prediction from the closed form, unchanged `fp_certify.py`, same two primes: **(54,6,16) fires with dim V-perp = 53 (< 54), (54,6,15) gives 73 (no fire), both on both primes, all flags true**,
+kernel dims 576, 540, ..., 36 as counted; `check_predictions.py` reports OK for both. Runtimes 588 s and about 16 min for the two configs. Count of registered predictions across both claim files: 12, of which 9 held and 3 failed (the three ill-posed
+above-crossing rows of the r = 2..5 batch, see claim.md addenda); the two r = 6 predictions both held. Same lab and same code: breadth, not independence; existence only (lifting lemma unreviewed); no independent-code check at d = 54 (too slow, said in advance).
+Status unchanged (PARTIALLY_SUPPORTED); U2 and U3 unchanged.
