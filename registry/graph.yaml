@@ -2317,6 +2317,9 @@ nodes:
 
   - id: H-CAT37-2
     type: hypothesis
+    # 2026-09-27 (Part B, pp. 21-27 of 21-107, B.5-B.10 NOT read): Part B proves convergence ALWAYS happens for s in {2,3} (no counterexample exists there at any n), so it is the mirror-image
+    # problem, not a necessity tool for s=4's minimal dimension. It supplies the general support-size bracket s+1..2s via a real proof (already known); its classify-and-rule-out method (B.5-B.10, unread) is the
+    # template a real n=5,6,7 attempt for s=4 would need to imitate, not something already done for s=4 in the paper.
     # 2026-09-27: arXiv:2609.04659 v2 pp. 108-122 (C.3-C.5) read on page images: they CONSTRUCT the eight-node seed (six-node core two-cycle + two neutral external nodes, certified transverse Hopf point) and do not prove that
     # a five-node core or two external nodes is necessary; minimality of s+4 is an open question by the authors' own words (p. 146). n=5,6,7 all open; the earlier black-box negative is weaker than recorded. See reports/2026-09-27-breakthrough-information-search.md section 2b.
     title: "Targeted (differential-evolution) search for an s=4 Forsythe counterexample below the published dimension s+4=8: does one exist at n in {5,6,7}?"

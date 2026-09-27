@@ -45,6 +45,17 @@ papers years old, so "0 citing works" is a weak negative).
 - **What a theory-informed search would have to do.** Classify the two-cycles of `T_4` on m = 5, 6, 7 nodes through the `(P, Q, C)` structure (the paper does this kind of analysis for s = 2, 3 only, Parts A and B), then linearise for a transverse Hopf point and certify with interval arithmetic and Sturm counts.
   This is research-level algebra, not a cheap step; feasibility is unknown.
 
+### 2c. Part B (pp. 21-27 read of 21-107; B.5-B.10 NOT read) `[DOCS, read]`
+- **Part B is the mirror-image problem, not a necessity tool for s=4.** Theorem B.1.1 (p. 22) proves that for restart length THREE (and s=2, Part A), the restarted-CG iteration converges to a two-cycle for EVERY dimension n and every A, b, x0 -- i.e. no
+  counterexample exists at any n for s in {2,3}. So the "minimal dimension" question this file investigates is specific to s >= 4 and does not arise for s <= 3; Part B never asks it.
+- **What Part B does prove, generalisably (pp. 23-26, Lemmas B.2.1, B.3.2, B.3.3).** A support-size classification: a block terminates iff the active-node count `|S| <= s`; nonterminating orbits need `|S| >= s+1`; the omega-limit support lies between `s+1` and `2s`
+  (for s=3: between 4 and 6), proved via a degree-(s-1) polynomial argument (lower bound) and a degree-2s polynomial `PQ - C` (upper bound). This is the SAME `s+1..2s` fact already cited in Part C (p. 4); here it is the actual proof, not new information for s=4's bracket (5..8).
+- **Methodological transfer, not textual `[INFERRED]`:** the paper's own way of settling "does non-convergence happen at THIS support size" for s=3 is to classify every possible support (4, 5, 6 nodes) and rule out persistent oscillation at each, via the machinery in B.5-B.10
+  (shadowing comparisons, log cocycles on the five- and six-node boundary strata -- not read). This is the template one would need to redo AT s=4, per candidate n in {5,6,7}, to either construct or rule out a transverse Hopf point there -- symmetric to what C.3-C.5 did for n=8.
+  Nothing in the paper carries this out for s=4; it is not written anywhere in the text, so this is a research task, not a reading task.
+- **Revised reading:** Part B does not narrow n=5,6,7 for H-CAT37-2 at all; it explains WHY no minimal-dimension question exists for s<=3 and gives the general support-size argument already known. B.5-B.10 (pp. 28-106) were not read; they contain the technique that a
+  genuine attempt at n=5,6,7 for s=4 would need to imitate, at a cost of deep study, not a quick read.
+
 ## 3. H-CAT31-3 (Lovasz theta of random circulant graphs)
 - **The external open problem is the MEAN, not our variance target.** ETH "Randomstrasse101" Problems 17/18 (post of 21-22 May 2025) and the open-problems compilation arXiv:2603.29571 (March 2026), both from html summaries `[WEAK]` on wording:
   Conjecture 18: `E theta(G) = (1 + o(1)) sqrt(n)` for random dense circulant graphs; progress in 2025 (Bandeira, Blasiok, Dmitriev, Faure, Kireeva, Kunisky, arXiv:2502.16227): "a precise lower bound and an upper bound
