@@ -66,5 +66,14 @@ papers years old, so "0 citing works" is a weak negative).
   Not read: the OpenReview version of the paper and the ETH research-collection item (HTTP 500 at fetch time).
 - **Still missing:** a proof idea for `E theta / sqrt n = 1 + o(1)` with a rate (not data: finite growth cannot exclude a plateau); an independent mathematical reviewer; optionally the pre-registered n approx 8191 point.
 
+### 3b. arXiv:2502.16227 v1 read in full (6 pages, all sections and references) `[DOCS, read]`
+- **Exact statement (Theorem 1, p. 1):** `sqrt(n) <= E theta(G) <= C sqrt(n log log n)` for a dense random circulant graph on n vertices (Definition 4: odd n, adjacency row from `n-1)/2` iid uniform bits).
+- **Lower bound proof (p. 4), a real methodological parallel to our own project:** uses the EXACT identity `theta(G) theta(Gbar) = n` (Lovász, cited [18] Thm 8) plus Jensen's inequality and the fact that `G` and `Gbar` are equal IN DISTRIBUTION for this random model (distributional self-complementarity),
+  giving `E log theta(G) >= (1/2) log n`, hence `E theta(G) >= sqrt(n)`. This is the same combination -- exact theta(G)theta(Gbar)=n identity + distributional self-complementarity -- that H-CAT31-3's own decision.md already uses at p=0.5 for its own target; here it proves a fact about the MEAN, not the variance.
+- **Upper bound:** SDP -> LP reduction for circulant graphs, then the restricted isometry property (RIP) of a subsampled discrete Fourier transform matrix (Lemma 8, citing Haviv-Regev 2017).
+- **Section IV "Discussion" (p. 4), verbatim confirmation of Conjecture 18:** "Based on numerical observations, we formulate the following conjecture ... E theta(G) = (1+o(1)) sqrt(n)." No rate is conjectured beyond `o(1)`.
+- **Variance/concentration: absent from the full text.** Confirmed now by a full read (not just a search) of all sections including "Discussion" and the reference list: theta(G)'s variance, fluctuations or concentration are never mentioned. This closes the earlier `[WEAK]` finding at `[DOCS, read]` strength: the mean is the only externally anchored target; H-CAT31-3's own variance target still has no anchor in this paper.
+- **Not accessible (technical, not content):** the ETH research-collection item (HTTP 500 on two separate fetch attempts) and the OpenReview PDF (returns a browser-verification page, not content) remain unread. Whether the ETH item is an independent student report or a mirror of this same paper is unknown.
+
 ## Cross-cutting
 The Forsythe resolution (2609.04659) was AI-assisted and Lean-verified by its authors; a Lean route exists in principle for machine-checking our lifting lemma, but it is heavy and not started.
