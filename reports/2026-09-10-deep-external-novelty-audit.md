@@ -98,6 +98,8 @@ None of this required external literature access. All of it is `[VERIFIED-DEDUCT
 2. **p21CIP exact 0/15 fragility rate (Boolean network A2)** — the one measured residual in that whole
    cluster that isn't derivable from a definition. A structural explanation (if found) would lift it from
    observation to lemma about this specific network's p21CIP rule.
+
+   **DISPOSITION 2026-09-27** (research-audit follow-up): checked `H-B7-19`'s own `kill_criterion` (`registry/graph.yaml`) directly -- p21CIP's rule is a full 4-input truth table (16 rows), 1 excluded as `CRITERION_INVALID`, so 15/16 is the EXHAUSTIVE meaningfully-testable space, not a sample. Per this audit's own B7 verdict (symmetry reduction / canalization, established techniques), a structural explanation would be a registry lemma of strictly internal value, not an external-novelty candidate. **Lead closed: no park, no new H-number, no further action pending.** If a structural explanation is found later in passing, record it as a comment on `H-B7-19`, not as a new node.
 3. **The α_ε(A)-vs-κ(V)/ω(A) threshold at N≥40 (flagged by agent C, outside the assigned claim list)**
    — an empirically localized boundary between what resolvent/pseudospectral information predicts and
    what pure spectral/numerical-abscissa information cannot, on p<1e-6 evidence. Named in the project's

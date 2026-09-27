@@ -10361,3 +10361,33 @@ This is `O(√(log log n))` — a bound that **grows** (however slowly) with `n`
 
 
 
+
+
+## Addendum 2026-09-27: identifiability finding + restart triggers (research-audit follow-up)
+
+**Three committed exponent estimates for the same target, not three separate facts:** the 2026-09-10 deep
+audit's own re-analysis gave -0.96; this experiment's own committed full-range OLS slope is -0.9126 (line
+`slope  = -0.9126` above); the (POL) revival's `n*Var(X_n)` fit gives `b_Var=-0.042+/-0.046` (parked/INDEX.md),
+implying `Var(X_n) ~ n^{b_Var-1} = n^{-1.04+/-0.05}`. These three intervals alternately include and exclude
+-1.0 across sessions. **This is the signature of model non-identifiability (pure power law n^-1 vs a
+log-corrected model), not of the target being falsified** -- a single point estimate excluding -1.0 does not
+discriminate between the two, exactly as the skeptic's own alternative-model check already found (line 10256:
+`g~sqrt(log n)/n` fits equally well, local slope -0.404, statistically indistinguishable from -0.5 at this
+range). **Corrected framing for this node: the target is NOT falsified, it is currently non-identifiable
+from the available (n, replicate) range**, not "REJECTED for exponent=-1" as an earlier chat summary stated.
+
+**External anchor check, closed 2026-09-27 (was open as of the 2026-09-26 addendum in the rank-family
+report):** read Problem 17 (Erdos-Renyi G(n,1/2), Randomstrasse101) directly, verbatim: "Let G be distributed
+as G(n,1/2). Then, E theta(G) = (1+o(1)) sqrt(n)." No mention of variance, fluctuations or concentration
+anywhere on the page for either Problem 17 or Problem 18 (circulant). **This target's variance/exponent
+question has NO external literature anchor, from either candidate source.** The n~8191 point (parked's own
+named revival condition) would be a discriminator between the power-law and log-corrected model, not
+evidence toward an unanchored asymptotic rate -- do not invest in it as proof of C0, only as model
+discrimination, and only if a fresh trigger below fires.
+
+**Restart triggers for this node (not calendar-based):** (a) a literature anchor for variance/fluctuations of
+theta(G) surfaces (neither Problem 17 nor 18 currently gives one); (b) an independent proof idea for
+`E[theta]/sqrt(n) = 1 + O(1/n)` appears (the only route that would sharpen `E[theta] >= sqrt(n)` from Lovasz's
+own exact identity into something informative for Var); (c) the n~8191 point is actually computed and
+materially changes which model fits better. Until one fires, this node stays `lead`, not `parked` and not a
+new H-number.
