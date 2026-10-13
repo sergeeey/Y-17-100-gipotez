@@ -1,0 +1,24 @@
+start 10 converged 8 time 29s
+start 20 converged 15 time 63s
+start 30 converged 24 time 76s
+start 40 converged 32 time 98s
+start 50 converged 39 time 128s
+start 60 converged 46 time 156s
+start 70 converged 52 time 198s
+start 80 converged 57 time 237s
+start 90 converged 64 time 263s
+start 100 converged 72 time 276s
+start 110 converged 81 time 289s
+start 120 converged 89 time 307s
+start 130 converged 97 time 326s
+start 140 converged 105 time 342s
+start 150 converged 114 time 353s
+N 3 starts 150 scale 0.7 converged 114
+67 dimL=2 spec(alg,geo)= ((8, 8), (1, 1))
+32 dimL=9 spec(alg,geo)= ((9, 9),)
+6 dimL=3 spec(alg,geo)= ((7, 7), (2, 2))
+4 dimL=2 spec(alg,geo)= ((7, 7), (2, 2))
+2 dimL=3 spec(alg,geo)= ((4, 4), (2, 2), (2, 2), (1, 1))
+1 dimL=3 spec(alg,geo)= ((5, 5), (4, 4))
+1 dimL=3 spec(alg,geo)= ((5, 5), (3, 3), (1, 1))
+1 dimL=3 spec(alg,geo)= ((3, 3), (2, 2), (2, 2), (1, 1), (1, 1))

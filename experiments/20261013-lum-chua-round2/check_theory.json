@@ -1,0 +1,42 @@
+{
+ "HY": {
+  "G_matches_grad_F_dot_XL": true,
+  "F_matches": true,
+  "deg": 6,
+  "lead_nonzero": true,
+  "n_nonpositive_real_roots_exact": 1,
+  "neg_roots": [
+   "-5.11022058908"
+  ],
+  "Delta_b": "0.0280360509461",
+  "k_numeric": 1,
+  "deg_numeric": 6,
+  "factor_200Y1_minus_117_divides_R": true
+ },
+ "FPTT21": {
+  "G_matches_grad_F_dot_XL": true,
+  "F_matches": true,
+  "deg": 6,
+  "lead_nonzero": true,
+  "n_nonpositive_real_roots_exact": 1,
+  "neg_roots": [
+   "-53151.7999184"
+  ],
+  "Delta_b": "0.000156953696494",
+  "k_numeric": 1,
+  "deg_numeric": 6
+ },
+ "GRS": {
+  "G_matches_grad_F_dot_XL": true,
+  "F_matches": true,
+  "deg": 6,
+  "lead_nonzero": true,
+  "n_nonpositive_real_roots_exact": 1,
+  "neg_roots": [
+   "-8.73536644012"
+  ],
+  "Delta_b": "2792.20415236",
+  "k_numeric": 1,
+  "deg_numeric": 6
+ }
+}

@@ -1,0 +1,4 @@
+PA vertex degrees [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5]
+   MATCHES Gale k=6 mu=(0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1)
+PB vertex degrees [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5]
+   MATCHES Gale k=6 mu=(0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1)

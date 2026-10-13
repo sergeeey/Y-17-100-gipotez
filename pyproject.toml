@@ -15,10 +15,11 @@ target-version = "py311"
 select = ["E", "F", "I", "UP", "RUF"]
 
 [tool.ruff.lint.per-file-ignores]
-# WHY: one-off research scripts of the 2026-10-03 autonomous round. They were run and
-# independently verified as they are (see skeptic_verdict.md in each folder); restyling them
-# now would change what was verified. Scoped to these dated folders, not to experiments/**.
+# WHY: one-off research scripts of the 2026-10-03 and 2026-10-13 autonomous rounds. They were
+# run and independently verified as they are (see skeptic_verdict.md in each folder); restyling
+# them now would change what was verified. Scoped to these dated folders, not to experiments/**.
 "experiments/20261003-*/**" = ["E", "F", "I", "UP", "RUF"]
+"experiments/20261013-*/**" = ["E", "F", "I", "UP", "RUF"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
