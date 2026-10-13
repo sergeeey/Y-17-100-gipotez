@@ -2520,9 +2520,51 @@ nodes:
     source: "00-catalog/Список 50 задач — глубокий аудит ТОП-5, историческая справка (2026-10-03).md § 2; arXiv:2310.03816"
     updated: 2026-10-03
 
+  - id: H-CYBE-001
+    type: hypothesis
+    title: "C-YBE-001: a search over four explicit 9×9 ansätze produces an exact vertex-QYBE solution outside the diagonal family, SCC support, and the registered closed forms (I, P, HMR, Jimbo, Cremmer-Gervais, Gaussian)."
+    status: killed
+    evidence: VERIFIED-SYNTHETIC
+    evidence_mode: formal
+    verification_strength: medium
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "Locked in experiments/20261003-c-ybe-001/research/claim.md before the search. CONFIRMED only for an O1-exact invertible matrix that misses every registered rejector. KILLED if every least_squares start (12 per ansatz, seed 20261003, max_nfev=40) is above the residual cut, singular, or rejected. That kill does not prove the ideal is trivial. LEAD if a numerical survivor fails exact reconstruction."
+    experiment_dir: "experiments/20261003-c-ybe-001"
+    source: "experiments/20261003-c-ybe-001/research/claim.md"
+    updated: 2026-10-03
+
+  - id: H-CYBE-002
+    type: hypothesis
+    title: "Monomial shift family R(e_i⊗e_j)=w_ij e_{i+1}⊗e_{j-1} with the 5-parameter weight matrix solves the vertex QYBE, and the witness (2,3,5,7,11) lies outside additive-charge conservation and outside the product-eigenvector class. World novelty is not claimed."
+    status: confirmed
+    evidence: VERIFIED-SYNTHETIC
+    evidence_mode: formal
+    verification_strength: medium
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "Locked in experiments/20261003-c-ybe-001/research/claim_monomial.md before the check. M1 dies if the symbolic residual in A,B,C,D,E is not identically zero or the witness fails O1. M2 dies if R^3-(ACE)I or det-(ACE)^3 is nonzero. M3 dies if the witness commutant has dimension >1. M4 dies if the witness has a product eigenvector. World novelty is outside the claim."
+    experiment_dir: "experiments/20261003-c-ybe-001"
+    source: "experiments/20261003-c-ybe-001/research/claim_monomial.md"
+    updated: 2026-10-03
+
+  - id: H-CYBE-003
+    type: hypothesis
+    title: "At the witness (2,3,5,7,11) every first-order vertex-QYBE deformation lies in the span of the 5-parameter shift family and GL_3 conjugations."
+    status: confirmed
+    evidence: VERIFIED-SYNTHETIC
+    evidence_mode: formal
+    verification_strength: medium
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "Locked in experiments/20261003-c-ybe-001/research/claim_moduli.md before the run. G2 dies if a family tangent or a gl_3 conjugation misses the kernel, or if dim ker is strictly larger than the rank of that span. The brief count 14 is not the comparison value."
+    experiment_dir: "experiments/20261003-c-ybe-001"
+    source: "experiments/20261003-c-ybe-001/research/claim_moduli.md"
+    updated: 2026-10-03
+
   # ───────────────── Round 1 of the sequential autonomous run on the 5 audited problems (2026-10-03/04) ─────────────────
   # Written by the orchestrator session, NOT by the workers. Each worker's own folder has decision.md; each has an
-  # independent verifier verdict in skeptic_verdict.md. H-CYBE-00x (a parallel session, not part of this commit) work on the
+  # independent verifier verdict in skeptic_verdict.md. H-CYBE-00x above belong to a parallel session working on the
   # same Yang-Baxter dim-3 problem; the H-YBE-1 worker was not aware of them.
   - id: SUB-COXETER-N3-FINITE-VOLUME
     type: substrate
@@ -2619,6 +2661,20 @@ nodes:
     round3_dir: "experiments/20261013-ybe-dim3-round2"
     verdict_note_r3: "ROUND 3 (2026-10-13, experiments/20261013-ybe-dim3-round2): REPEAT. Candidate idx 88 is ALREADY_KNOWN: the Hietarinta 1993 Sec 2.1.1 diagonal dressing of H1,4 (verifier read the page images, residual 1e-17). Candidate idx 101 is an exact 3-parameter family F(e,u,v), YBE identically zero over Q(e,u,v), spectrum (7,2); it is not in the H-CYBE-002 shift family (shift family braid charpoly (x-C)^3(x^2-AE)^3, every eigenvalue has multiplicity >=3) and not in Hietarinta 1993 (not upper triangular in any basis, not Sec 2.2 or 2.1.2); the wider literature was NOT searched, novelty is UNVERIFIABLE, no claim. The sampler hits are F^T images, not F. U(1)-free region: informed starts from G1 recover the solution up to noise 0.4, and generic scale-1.0 starts give clean non-Gaussian U(1)-free (7,2) Hecke-type solutions (4 of 88) that the worker missed; their relation to F is undetermined."
     updated: 2026-10-13
+
+  - id: H-YBE-C3-TWIN-001
+    type: hypothesis
+    title: "For each of the 38 minimal primes P_k of the quadratic obstruction ideal I2 at R0=S(x)S^-1 (constant QYBE, C^3), the scheme S/I2 is generically reduced at a general point of V(P_k) (class A), so no second component of the same dimension with the same reduced tangent cone can sit next to it. Operational part of the open completeness question; does NOT test or support 'exactly nine components'."
+    status: running
+    evidence: UNVERIFIED
+    verification_strength: none
+    l0_type: descriptive
+    fl_tier: full
+    kill_criterion: "Pre-registered in experiments/20261014-ybe-c3-twin-exclusion/PROTOCOL.md section 9: rejected for P_k if, with controls C0-C3 passed, the maximum exact rank of the 170x33 Jacobian over 3 admissible random points is below codim_k AND the exact local length U_k > 1. This rejects a sufficient condition only; it is not a proof that a twin exists. H9 (nine components) is refuted only by an exact certificate of a tenth component (PROTOCOL.md section 9)."
+    experiment_dir: "experiments/20261014-ybe-c3-twin-exclusion"
+    source: "experiments/20261014-ybe-c3-twin-exclusion/PROTOCOL.md"
+    pilot_note: "PILOT (2026-10-14): 1 of 38 primes done. P12 (commuting, L4=span{S^a(x)S^b}): exact Jacobian rank 18,18,18,18 at 4 random points (seed 20261014, N=1e6), expected 33-15=18, dim span(L4+gauge)=15 -> class A, VERIFIED-REAL for P12 only. The other 37 primes are blocked: no list of the 38 primes with confirmed provenance exists in the repo (radical/std runs timed out). The nine-component catalog is not confirmed in the repo (11,11,13 MISSING_FORMULA; LAB.md 2026-10-07 keeps six as a lower bound)."
+    updated: 2026-10-14
 
 edges:
   # grounding of bridges
@@ -2886,6 +2942,12 @@ edges:
 
   - {from: SUB-LUMCHUA-DISCONTINUOUS-PWL, to: H-LUMCHUA-1, type: grounds, since: 2026-10-03, note: "published 3<=L*<=8 gap (arXiv:2210.12125) is the formal object this numerical search targets"}
   - {from: H-LUMCHUA-1, to: SUB-LUMCHUA-DISCONTINUOUS-PWL, type: tested_on, since: 2026-10-03}
+  - {from: SUB-QYBE-DIM3, to: H-CYBE-001, type: grounds, since: 2026-10-03, note: "open classification of constant QYBE in dimension 3, outside the already classified SCC/ACC ansätze"}
+  - {from: H-CYBE-001, to: SUB-QYBE-DIM3, type: tested_on, since: 2026-10-03}
+  - {from: SUB-QYBE-DIM3, to: H-CYBE-002, type: grounds, since: 2026-10-03, note: "monomial operators sit outside the SCC/ACC search of H-CYBE-001. 2026-10-03: the shift is conjugate by x|->-x to (a,b)|->(a-1,b+1), the output swap of the cyclic biquandle; invariant weights are the three orbit coordinates of arXiv:2108.03019 Remark 3.9"}
+  - {from: H-CYBE-002, to: SUB-QYBE-DIM3, type: tested_on, since: 2026-10-03}
+  - {from: H-CYBE-002, to: H-CYBE-003, type: grounds, since: 2026-10-03, note: "tangent-space question at the witness of the confirmed shift family"}
+  - {from: H-CYBE-003, to: SUB-QYBE-DIM3, type: tested_on, since: 2026-10-03}
 
   # Round 1 of the sequential autonomous run (2026-10-04)
   - {from: SUB-COXETER-N3-FINITE-VOLUME, to: H-COXETER-1, type: grounds, since: 2026-10-04, note: "survey page + Tumarkin 2004 define the n=dim+3 problem; H-COXETER-1 reproduces one published class with a validated toolkit"}
@@ -2898,3 +2960,6 @@ edges:
   - {from: H-DDEQ-1, to: SUB-DDEQ-IGONIN-2604, type: tested_on, since: 2026-10-04}
   - {from: SUB-QYBE-DIM3, to: H-YBE-1, type: grounds, since: 2026-10-04, note: "open classification of the constant YBE in dimension 3 outside SCC/ACC; same substrate as H-CYBE-001/002/003"}
   - {from: H-YBE-1, to: SUB-QYBE-DIM3, type: tested_on, since: 2026-10-04}
+  - {from: H-CYBE-002, to: H-YBE-1, type: links_to, since: 2026-10-04, note: "parallel line by another session (monomial shift family outside ACC); the two weak-charge candidates of H-YBE-1 must be compared with it before any novelty claim; no dependency established yet"}
+  - {from: SUB-QYBE-DIM3, to: H-YBE-C3-TWIN-001, type: grounds, since: 2026-10-14, note: "constant QYBE in dimension 3; local completeness question at R0=S(x)S^-1, operational twin-exclusion part"}
+  - {from: H-YBE-C3-TWIN-001, to: SUB-QYBE-DIM3, type: tested_on, since: 2026-10-14}
