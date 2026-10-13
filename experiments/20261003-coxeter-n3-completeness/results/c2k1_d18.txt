@@ -1,0 +1,1 @@
+{"d": 18, "c": 2, "k": 1, "n": 20, "labels": [0, 3, 4, 5, 6, 99], "roots": 124, "leaves": 836, "vinberg_calls": 0, "nodes": 11415, "secs": 36.8, "found": 0}

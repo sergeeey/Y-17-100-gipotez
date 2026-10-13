@@ -2486,6 +2486,133 @@ nodes:
     source: "arXiv:2602.05394, Problem 2.20; arXiv:2609.04659 (external resolution)"
     updated: 2026-09-10
 
+  # ───────────────────────── "50 problems" side-list audit (2026-10-03, outside the 141-catalog) ─────────────────────────
+  - id: SUB-LUMCHUA-DISCONTINUOUS-PWL
+    type: substrate
+    category: open_problem
+    title: "Discontinuous (Filippov) 2-zone planar PWL limit-cycle count: continuous case PROVEN <=1 (Freire-Ponce-Rodrigo-Torres 1998; Carmona-Fernandez-Sanchez-Novaes 2019), discontinuous case open with 3<=L*<=8 (Carmona-Fernandez-Sanchez-Novaes, arXiv:2210.12125, 2022/23)"
+    status: active
+    evidence: VERIFIED-REAL
+    source: "00-catalog/Список 50 задач — глубокий аудит ТОП-5, историческая справка (2026-10-03).md § 4; arXiv:2210.12125; IME/Unicamp RP-2019-03 (full text read)"
+    updated: 2026-10-03
+
+  - id: H-LUMCHUA-1
+    type: hypothesis
+    title: "A discontinuous (Filippov) 2-zone planar PWL system with a_L != a_R exists with >3 limit cycles (would narrow the known gap 3<=L*<=8)"
+    status: running
+    evidence: UNVERIFIED
+    l0_type: descriptive   # does not cleanly fit EstimandOps L0 -- this is a deterministic existence question, not population-based; see claim.md's own note
+    fl_tier: standard
+    kill_criterion: "Round 1 (2026-10-03): 40 uniform-random draws of (T_L,D_L,a_L,T_R,D_R,a_R) with focus condition + T_L*T_R<0 enforced, a_L,a_R in [-5,5] independent -> max 1 sign change found, never 2+. REPEAT, not falsified: blind random search in this 6D box essentially never samples the structured region multi-cycle examples require (decision.md Rationale). Positive control (continuous a_L=a_R) correctly found exactly 1 cycle on a calibrated example and never >1 across 35 configs -- code validated against the proven theorem before the search."
+    verdict_note: "ROUND 2 (2026-10-03/04, folder experiments/20261003-lum-chua-continuation): REPEAT, no >=4 cycles. CORRECTION of the round-1 explanation: round 1's Lienard family (a_L != a_R) is a strict subfamily with a continuous x-component, so NO sliding region; the published 3-cycle Huan-Yang / Llibre-Ponce mechanism has a sliding segment and was never inside round 1's search space. Round 2: closed-form half-return map 118x faster, agrees with DOP853 to 8e-11; the Huan-Yang system gives exactly 3 crossing cycles matching the published values to <=1.1e-14 (the real positive control of the discontinuous class); continuation from the continuous 1-cycle example gives only 0/1 cycles along single parameters, max 2 in the (a_L,beta) grid (two 2-cycle systems verified by two methods); structured search near HY and 1500 uniform random general focus-focus systems never reach 4 (89 percent of sigma=0.003 HY perturbations keep 3 cycles). Independent verifier: reproducible core CONFIRMED, negative search WEAKENED (detector blind to the published FPTT21 3-cycle system, count capped at d<200, evolution-strategy objective gamed by domain-end roots). Verifier also found arXiv:2508.02321 (Carmona-Fernandez-Sanchez-Novaes, JDE 2025, [DOCS via verifier, not yet opened by the orchestrator]): proves Huan-Yang, FPTT21 and GRS have exactly 3 cycles and bounds focus-focus systems by 7 (not 8), with a resultant-based criterion. Cycles with more than 2 crossings need not be counted (monotone first-return map; derived and tested by the verifier). Not found != L*=3."
+    experiment_dir: "experiments/20261003-lum-chua-continuation"
+    source: "experiments/20261003-lum-chua-continuation/claim.md; decision.md; skeptic_verdict.md; round 1 in experiments/20261003-lum-chua-discontinuous-pwl-limit-cycles/"
+    updated: 2026-10-04
+
+  - id: SUB-QYBE-DIM3
+    type: substrate
+    category: open_problem
+    title: "Constant quantum Yang-Baxter equation on C^3⊗C^3 (9×9). SCC classified in all dimensions; ACC in dimension 3 classified by Hietarinta–Martin–Rowell (arXiv:2310.03816, Proc. R. Soc. A 2024). Full classification without an ansatz is open."
+    status: active
+    evidence: VERIFIED-REAL
+    source: "00-catalog/Список 50 задач — глубокий аудит ТОП-5, историческая справка (2026-10-03).md § 2; arXiv:2310.03816"
+    updated: 2026-10-03
+
+  # ───────────────── Round 1 of the sequential autonomous run on the 5 audited problems (2026-10-03/04) ─────────────────
+  # Written by the orchestrator session, NOT by the workers. Each worker's own folder has decision.md; each has an
+  # independent verifier verdict in skeptic_verdict.md. H-CYBE-00x (a parallel session, not part of this commit) work on the
+  # same Yang-Baxter dim-3 problem; the H-YBE-1 worker was not aware of them.
+  - id: SUB-COXETER-N3-FINITE-VOLUME
+    type: substrate
+    category: open_problem
+    title: "Hyperbolic Coxeter polytopes of finite volume with n=dim+3 facets: none for dim>=17 (Tumarkin 2004), unique one in dim 16, compact only in dim 2..6 and 8; full classification across dim 2..16 incomplete (Felikson-Tumarkin survey; Roberts 2015 for one non-simple vertex)"
+    status: active
+    evidence: VERIFIED-REAL
+    source: "00-catalog/Список 50 задач — глубокий аудит ТОП-5, историческая справка (2026-10-03).md § 1; https://www.maths.dur.ac.uk/users/anna.felikson/Polytopes/polytopes.html"
+    updated: 2026-10-04
+
+  - id: SUB-CARPET-GRAPH-SPECTRA
+    type: substrate
+    category: open_problem
+    title: "Laplacian spectra of Sierpinski carpet vertex graphs (levels 1..5, V up to 41584) versus gasket spectral decimation (Fukushima-Shima 1992). Gasket spectrum is fully described; for the carpet no decimation is known"
+    status: active
+    evidence: VERIFIED-REAL
+    source: "00-catalog/Список 50 задач — глубокий аудит ТОП-5, историческая справка (2026-10-03).md § 5; arXiv:1902.03408; experiments/20261003-carpet-spectrum/"
+    updated: 2026-10-04
+
+  - id: SUB-DDEQ-IGONIN-2604
+    type: substrate
+    category: theorem_family
+    title: "Matrix Lax representations, gauge equivalence, fake MLR and Miura-type transformations for evolutionary differential-difference equations (S. Igonin, arXiv:2604.26870, 2026; arXiv:2410.01474)"
+    status: active
+    evidence: VERIFIED-REAL
+    source: "arXiv:2604.26870; 00-catalog/Список 50 задач — глубокий аудит ТОП-5, историческая справка (2026-10-03).md § 3"
+    updated: 2026-10-04
+
+  - id: H-COXETER-1
+    type: hypothesis
+    title: "Pyramids over a product of three simplices (finite-volume Coxeter polytopes with n=dim+3 facets, labels 3..12/inf, no dotted edges) occur only in dimensions 4,5,6,7,11 (56 classes). Reproduction of Tumarkin 2004 within a stated alphabet; NOT a classification."
+    status: confirmed
+    evidence: VERIFIED-REAL
+    evidence_mode: exhaustive
+    verification_strength: medium
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "Locked in experiments/20261003-coxeter-n3-completeness/claim.md before the enumeration. Toolkit untrusted if the Vinberg-criterion and the independent cone/extreme-ray implementations disagree on any control or on the mutant test, or if the known n=d+2 pyramid dimension set {3..13,17} is not reproduced. RESULT: 0 disagreements (99 positives, 900 mutants, 256 enumerated); n=d+2 set reproduced exactly; n=d+3: 56 classes in dims 4,5,6,7,11 (13,15,12,13,3). Independent verifier re-derived 56 classes with its own code (1,254,890 triples, no pair table) and a lemma-free brute force at d=4,5. Matches the primary text of Tumarkin 2004 (dimension at most 11) and CONTRADICTS the survey page's dimension list for this class (4..9,13): documentary discrepancy, Tumarkin's Tables 4/5 are images and were not read."
+    experiment_dir: "experiments/20261003-coxeter-n3-completeness"
+    source: "experiments/20261003-coxeter-n3-completeness/decision.md; skeptic_verdict.md"
+    updated: 2026-10-04
+
+  - id: Q-ROBERTS-D4-DISCREPANCY
+    type: question
+    title: "Two finite-volume Coxeter 4-polytopes (one non-simple vertex, non-pyramidal, non-compact, no dotted edge) were accepted by both validators of the Coxeter worker and by the verifier's independent Vinberg+Qhull pipeline, but are absent from Roberts' dim-4 appendix (arXiv:1511.08451), where every diagram has a dashed ultraparallel edge. Roberts incomplete, definition mismatch, or a flaw shared by all validators: unresolved."
+    status: open
+    evidence: CONFLICT
+    blocks: []
+    source: "experiments/20261003-coxeter-n3-completeness/skeptic_verdict.md (claim 5, REFUTED); needs CoxIter or an author check"
+    updated: 2026-10-04
+
+  - id: H-CARPET-1
+    type: hypothesis
+    title: "A polynomial spectral-decimation map R (degree <= 6, R(0)=0; relaxed family: free R(0), degree <= 3) relates the spectra of consecutive Sierpinski carpet vertex graphs, as z(5-z) does for the gasket. Narrow claim only; no analytic statement about the continuum carpet."
+    status: killed
+    evidence: VERIFIED-REAL
+    evidence_mode: empirical
+    verification_strength: medium
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "Pre-registered in experiments/20261003-carpet-spectrum/claim.md before any carpet spectrum was computed: REJECTED if after the controls pass the best polynomial of every degree 2..6 has matched fraction < 0.5 on carpet pairs 2->3, 3->4 (4->5), for both L1=D-A and L2=I-D^-1A. RESULT: best matched fraction 0.000 on all pairs (levels up to 5, V=41584), both operators, also for cell-adjacency graphs and the relaxed family. Controls: gasket recovers R=z(5-z) (93/95, 189/191), path graph recovers z(4-z); jittered gasket 0.000. Independent verifier: REJECT survives its wider search; wording weakened (the 0.000 is a search-filter artifact, the honest statement is that no candidate beat bare interpolation; the 0.9 survival bar was arithmetically unreachable, so only the 0.5 kill side discriminated). Not covered: rational maps, level-dependent maps, Dirichlet boundary, continuum. NEG1 grid control missed its own threshold (documented amendment). Walk dimension d_w=2.091/2.099 from eigenvalue ratios, matches 2.097 (literature number from a secondary source only)."
+    experiment_dir: "experiments/20261003-carpet-spectrum"
+    source: "experiments/20261003-carpet-spectrum/decision.md; skeptic_verdict.md"
+    updated: 2026-10-04
+
+  - id: H-DDEQ-1
+    type: hypothesis
+    title: "The explicit identities printed in arXiv:2604.26870 (matrix Lax representations, Miura-type transformations, gauge transformations, Theorems 1-3 on the paper's instances) hold when recomputed independently, and eq. (72)/(67) with alpha=3/2 has the stated 5-point higher symmetry. Verification of a published result; nothing new is claimed."
+    status: confirmed
+    evidence: VERIFIED-REAL
+    evidence_mode: exhaustive
+    verification_strength: medium
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "Pre-registered in experiments/20261003-ddeq-lax-verification/claim.md: a discrepancy only if a residual is nonzero in exact/high-precision arithmetic AND survives re-reading the source and an independent re-derivation; the checker is invalid if the Toda positive control returns nonzero or any negative control returns zero. RESULT: 31 example checks + 15 theorem-instance checks pass, no discrepancy. Independent verifier (own dual-number mpmath lattice code, no shared code) CONFIRMED C1-C5, negative controls all fail as required. Caveats: only one positive control (Toda; Volterra control was dropped), two of the 31 PASS lines are tautological by construction, symmetry evidence is a bounded-ansatz necessary condition, sqrt Miura map (113) verifiable only for component 1."
+    experiment_dir: "experiments/20261003-ddeq-lax-verification"
+    source: "experiments/20261003-ddeq-lax-verification/decision.md; skeptic_verdict.md"
+    updated: 2026-10-04
+
+  - id: H-YBE-1
+    type: hypothesis
+    title: "A numerically found constant-YBE solution in dimension 3 exists that is not conjugate to any SCC/ACC solution under the L(R)-criterion (no Lie-charge element with three distinct eigenvalues). Two weak-charge candidates exist; novelty NOT established. Parallel to H-CYBE-001/002 (other session)."
+    status: running
+    evidence: UNVERIFIED
+    verification_strength: medium
+    l0_type: descriptive
+    fl_tier: standard
+    kill_criterion: "Pre-registered in experiments/20261003-ybe-dim3-beyond-acc/claim.md: REJECTED if every converged dim-3 solution (>=2000 random starts) is conjugate to ACC/SCC or a known construction; LEAD needs a component that passes all controls, has no AP-spectrum element in L(R), is not a known construction after a documented literature check, and is rationalised to residual < 1e-13. RESULT round 1: REPEAT. 237 of 2140 starts converged, all ACC/SCC/trivial (213 are c*Id or c*flip); uninformative because the sampler has no demonstrated power in the U(1)-free region (0/25 recovery of the Gaussian solutions at noise >= 0.4). Weak-charge ansatz q=(0,0,1): 148 solutions, 2 candidates (idx 88, 101 of d3_w001.npz): L(R)=scalars+diag(0,0,1); verifier confirmed residual 2.7e-17, explicit gauge equivalence of the charge-0 block to Hietarinta H1,4 (idx 88) and H2,1 (idx 101); R101 is Hecke-type (7,2), tangent dimension 11 vs 10 for ACC family V.2.1. Block-diagonality is imposed by the mask; not rationalised; literature (Hietarinta 1993 upper-triangular list, Lovitz thesis) not read. Must be compared with the shift family of H-CYBE-002."
+    experiment_dir: "experiments/20261003-ybe-dim3-beyond-acc"
+    source: "experiments/20261003-ybe-dim3-beyond-acc/decision.md; skeptic_verdict.md"
+    updated: 2026-10-04
+
 edges:
   # grounding of bridges
   - {from: PRJ-H7-TAD,        to: B1-RMT-RIEMANN-HIC, type: grounds,   since: 2026-09-06}
@@ -2749,3 +2876,18 @@ edges:
   - {from: H-CAT31-2, to: SUB-RANDOM-CIRCULANT-GRAPHS, type: tested_on, since: 2026-09-10}
   - {from: H-CAT37-1, to: SUB-RESTARTED-KRYLOV-SPD-MATRICES, type: tested_on, since: 2026-09-10}
   - {from: H-CAT37-2, to: SUB-RESTARTED-KRYLOV-SPD-MATRICES, type: tested_on, since: 2026-09-10}
+
+  - {from: SUB-LUMCHUA-DISCONTINUOUS-PWL, to: H-LUMCHUA-1, type: grounds, since: 2026-10-03, note: "published 3<=L*<=8 gap (arXiv:2210.12125) is the formal object this numerical search targets"}
+  - {from: H-LUMCHUA-1, to: SUB-LUMCHUA-DISCONTINUOUS-PWL, type: tested_on, since: 2026-10-03}
+
+  # Round 1 of the sequential autonomous run (2026-10-04)
+  - {from: SUB-COXETER-N3-FINITE-VOLUME, to: H-COXETER-1, type: grounds, since: 2026-10-04, note: "survey page + Tumarkin 2004 define the n=dim+3 problem; H-COXETER-1 reproduces one published class with a validated toolkit"}
+  - {from: H-COXETER-1, to: SUB-COXETER-N3-FINITE-VOLUME, type: tested_on, since: 2026-10-04}
+  - {from: SUB-COXETER-N3-FINITE-VOLUME, to: Q-ROBERTS-D4-DISCREPANCY, type: grounds, since: 2026-10-04, note: "the discrepancy appeared while comparing the k=2 non-pyramidal family with Roberts' dim-4 appendix"}
+  - {from: H-COXETER-1, to: Q-ROBERTS-D4-DISCREPANCY, type: links_to, since: 2026-10-04, note: "same toolkit; the verifier REFUTED the worker's claim that the k=2 family matches Roberts"}
+  - {from: SUB-CARPET-GRAPH-SPECTRA, to: H-CARPET-1, type: grounds, since: 2026-10-04, note: "Fukushima-Shima gasket decimation is the control; arXiv:1902.03408 reports no decimation evidence on magic carpets"}
+  - {from: H-CARPET-1, to: SUB-CARPET-GRAPH-SPECTRA, type: tested_on, since: 2026-10-04}
+  - {from: SUB-DDEQ-IGONIN-2604, to: H-DDEQ-1, type: grounds, since: 2026-10-04, note: "the paper's printed identities are the formal objects recomputed"}
+  - {from: H-DDEQ-1, to: SUB-DDEQ-IGONIN-2604, type: tested_on, since: 2026-10-04}
+  - {from: SUB-QYBE-DIM3, to: H-YBE-1, type: grounds, since: 2026-10-04, note: "open classification of the constant YBE in dimension 3 outside SCC/ACC; same substrate as H-CYBE-001/002/003"}
+  - {from: H-YBE-1, to: SUB-QYBE-DIM3, type: tested_on, since: 2026-10-04}

@@ -1,0 +1,418 @@
+{
+ "cell4_L1_2to3": [
+  {
+   "d": 2,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 379,
+   "n_coarse": 45
+  },
+  {
+   "d": 3,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 379,
+   "n_coarse": 45
+  },
+  {
+   "d": 4,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 379,
+   "n_coarse": 45
+  },
+  {
+   "d": 5,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 379,
+   "n_coarse": 45
+  },
+  {
+   "d": 6,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 379,
+   "n_coarse": 45
+  }
+ ],
+ "cell4_L1_3to4": [
+  {
+   "d": 2,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 3055,
+   "n_coarse": 379
+  },
+  {
+   "d": 3,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 3055,
+   "n_coarse": 379
+  },
+  {
+   "d": 4,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 3055,
+   "n_coarse": 379
+  },
+  {
+   "d": 5,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 3055,
+   "n_coarse": 379
+  },
+  {
+   "d": 6,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 3055,
+   "n_coarse": 379
+  }
+ ],
+ "cell4_L2_2to3": [
+  {
+   "d": 2,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 368,
+   "n_coarse": 44
+  },
+  {
+   "d": 3,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 368,
+   "n_coarse": 44
+  },
+  {
+   "d": 4,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 368,
+   "n_coarse": 44
+  },
+  {
+   "d": 5,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 368,
+   "n_coarse": 44
+  },
+  {
+   "d": 6,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 368,
+   "n_coarse": 44
+  }
+ ],
+ "cell4_L2_3to4": [
+  {
+   "d": 2,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 3020,
+   "n_coarse": 368
+  },
+  {
+   "d": 3,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 3020,
+   "n_coarse": 368
+  },
+  {
+   "d": 4,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 3020,
+   "n_coarse": 368
+  },
+  {
+   "d": 5,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 3020,
+   "n_coarse": 368
+  },
+  {
+   "d": 6,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 3020,
+   "n_coarse": 368
+  }
+ ],
+ "cell8_L1_2to3": [
+  {
+   "d": 2,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 372,
+   "n_coarse": 47
+  },
+  {
+   "d": 3,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 372,
+   "n_coarse": 47
+  },
+  {
+   "d": 4,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 372,
+   "n_coarse": 47
+  },
+  {
+   "d": 5,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 372,
+   "n_coarse": 47
+  },
+  {
+   "d": 6,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 372,
+   "n_coarse": 47
+  }
+ ],
+ "cell8_L1_3to4": [
+  {
+   "d": 2,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 2928,
+   "n_coarse": 372
+  },
+  {
+   "d": 3,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 2928,
+   "n_coarse": 372
+  },
+  {
+   "d": 4,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 2928,
+   "n_coarse": 372
+  },
+  {
+   "d": 5,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 2928,
+   "n_coarse": 372
+  },
+  {
+   "d": 6,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 2928,
+   "n_coarse": 372
+  }
+ ],
+ "cell8_L2_2to3": [
+  {
+   "d": 2,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 372,
+   "n_coarse": 46
+  },
+  {
+   "d": 3,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 372,
+   "n_coarse": 46
+  },
+  {
+   "d": 4,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 372,
+   "n_coarse": 46
+  },
+  {
+   "d": 5,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 372,
+   "n_coarse": 46
+  },
+  {
+   "d": 6,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 372,
+   "n_coarse": 46
+  }
+ ],
+ "cell8_L2_3to4": [
+  {
+   "d": 2,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 2928,
+   "n_coarse": 372
+  },
+  {
+   "d": 3,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 2928,
+   "n_coarse": 372
+  },
+  {
+   "d": 4,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 2928,
+   "n_coarse": 372
+  },
+  {
+   "d": 5,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 2928,
+   "n_coarse": 372
+  },
+  {
+   "d": 6,
+   "n_candidates_stage1": 0,
+   "matched": 0,
+   "frac": 0.0,
+   "coverage": 0.0,
+   "a": null,
+   "n_fine": 2928,
+   "n_coarse": 372
+  }
+ ]
+}

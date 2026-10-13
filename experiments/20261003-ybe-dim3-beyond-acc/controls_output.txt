@@ -1,0 +1,59 @@
+[C0] Jacobian check (random R0, random direction): rel err = 7.89e-11
+[C1] braid residual (family I): 1.18e-15 ; vertex-form residual R=P*checkR: 1.23e-15
+     perturbed (negative): braid 5.26e+01 ; vertex 5.26e+01  (both must be O(1))
+
+[C2] Table-1 families of arXiv:2310.03816, random params (rel. residual ||F||/||R||^3, |det R|, dimL, cc-class)
+   I   generic (b-branch 0)   res=6.14e-18  |det|=1.16e-01  dimL=2  distinct  
+   I   generic (b-branch 1)   res=2.03e-17  |det|=4.76e-01  dimL=2  distinct  
+   I   generic, beta-form     res=1.92e-17  |det|=1.65e-01  dimL=2  distinct  
+   III.1.1                    res=7.36e-18  |det|=3.33e+01  dimL=2  distinct  
+   III.1.2 w=w                res=3.89e-17  |det|=2.62e+01  dimL=2  distinct  
+   III.1.2 w=w^2              res=6.53e-17  |det|=2.89e+01  dimL=2  distinct  
+   V.2.1                      res=8.25e-18  |det|=1.29e+01  dimL=2  distinct  
+   V.2.2                      res=6.41e-18  |det|=3.17e-02  dimL=2  distinct  
+   V.4.a                      res=1.46e-17  |det|=1.32e+01  dimL=2  distinct  
+   V.4.b                      res=2.12e-17  |det|=3.56e+00  dimL=2  distinct  
+   V.5.1.1 w=w                res=3.26e-17  |det|=1.00e+00  dimL=2  distinct  
+   V.5.1.1 w=w^2              res=5.37e-17  |det|=1.00e+00  dimL=2  distinct  
+   V.5.1.2 s=i                res=1.35e-17  |det|=1.00e+00  dimL=2  distinct  
+   V.5.1.2 s=-i               res=1.72e-17  |det|=1.00e+00  dimL=2  distinct  
+   V.7 eps=1                  res=2.80e-17  |det|=1.00e+00  dimL=2  distinct  
+   VI.2.1a eps=1              res=7.17e-18  |det|=1.00e+00  dimL=2  distinct  
+   V.7 eps=-1                 res=8.37e-18  |det|=1.00e+00  dimL=2  distinct  
+   VI.2.1a eps=-1             res=9.39e-18  |det|=1.00e+00  dimL=2  distinct  
+   VI.2.1p w=w                res=5.44e-17  |det|=1.00e+00  dimL=2  distinct  
+   VI.2.2 w=w                 res=4.15e-17  |det|=1.00e+00  dimL=2  distinct  
+   VI.2.1p w=w^2              res=7.82e-17  |det|=1.00e+00  dimL=2  distinct  
+   VI.2.2 w=w^2               res=6.36e-17  |det|=1.00e+00  dimL=2  distinct  
+   worst residual among 22 families = 7.82e-17 ; failing: none
+
+[C3] negative controls
+   200 random complex 9x9: min rel residual = 2.394e-01 (must be >> 1e-12)
+   I   generic (b-branch 0)   perturbed entry (2,2)+=0.05 -> res=3.11e-03
+   I   generic (b-branch 1)   perturbed entry (2,2)+=0.05 -> res=2.04e-03
+   I   generic, beta-form     perturbed entry (2,2)+=0.05 -> res=6.06e-03
+   III.1.1                    perturbed entry (2,2)+=0.05 -> res=2.38e-03
+   III.1.2 w=w                perturbed entry (2,2)+=0.05 -> res=3.80e-03
+   III.1.2 w=w^2              perturbed entry (2,2)+=0.05 -> res=2.01e-03
+
+[C4] Hietarinta dim-2 families (braided form) residual / invariants
+   H3,1      res=2.29e-17 |det|=1.25e+00 dimL=2 distinct  tangent=6
+   H2,1      res=6.41e-17 |det|=3.03e+01 dimL=2 distinct  tangent=5
+   H2,2      res=6.66e-17 |det|=1.31e+01 dimL=2 distinct  tangent=5
+   H2,3      res=3.15e-17 |det|=8.38e+00 dimL=2 degenerate tangent=6
+   H1,1      res=4.29e-17 |det|=3.90e+01 dimL=1 U1-free   tangent=5
+   H1,2      res=4.38e-17 |det|=1.56e+00 dimL=1 U1-free   tangent=5
+   H1,3      res=4.23e-17 |det|=7.02e+01 dimL=2 degenerate tangent=5
+   H1,4      res=1.68e-17 |det|=3.62e+00 dimL=1 U1-free   tangent=5
+   H0,1      res=0.00e+00 |det|=1.00e+00 dimL=1 U1-free   tangent=5
+   H0,2      res=0.00e+00 |det|=4.00e+00 dimL=1 U1-free   tangent=4
+   P (flip)  res=0.00e+00 |det|=1.00e+00 dimL=4 distinct  tangent=16
+
+[C5] L-test: invariance under local conjugation + known cases
+   I   generic (b-branch 0)   orig: dimL=2 distinct | conj by random g(x)g: res=1.0e-16 dimL=2 distinct
+   V.2.1                      orig: dimL=2 distinct | conj by random g(x)g: res=8.5e-17 dimL=2 distinct
+   VI.2.2 w=w                 orig: dimL=2 distinct | conj by random g(x)g: res=5.7e-17 dimL=2 distinct
+   Gaussian (1/sqrt3)(I + w(P+P^2)), P=X(x)Z: res=1.19e-16 dimL=1 U1-free   [2609.38290: only scalar M => expect U1-free]
+   Gaussian x I + y P + y P^2 (x=-eta/sqrt3, y=1+x): res=1.25e-16 dimL=1 U1-free
+   flip P (dim3): res=0.00e+00 dimL=9 distinct (expect dimL=9)
+   identity: res=0.00e+00 dimL=9

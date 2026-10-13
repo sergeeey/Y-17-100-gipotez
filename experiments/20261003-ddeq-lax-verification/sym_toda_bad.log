@@ -1,0 +1,8 @@
+[toda_bad] ansatz size = 220 unknown coefficients; vars=10
+[toda_bad] matrix (722, 220), built in 4.1s
+[toda_bad] nullity = 0; smallest singular values near gap: [] | sv just above tol: ['1.02e+00', '8.37e-01', '5.21e-01'] | sv below tol (max 5): []
+[toda_bad_baseweight] ansatz size = 80 unknown coefficients; vars=10
+[toda_bad_baseweight] matrix (271, 80), built in 0.9s
+[toda_bad_baseweight] nullity = 1; smallest singular values near gap: [] | sv just above tol: ['1.38e+00', '1.20e+00', '9.33e-01'] | sv below tol (max 5): ['1.3e-15']
+[toda_bad_baseweight] sol#0: exact_verified=True, stencil span = [-1,1], #terms = [3, 2]
+SAVED toda_bad

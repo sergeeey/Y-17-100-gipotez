@@ -1,0 +1,7 @@
+chunk 0 starts 200 ok 3 elapsed 84s
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\serge\miniconda3\envs\ape311\Lib\multiprocessing\spawn.py", line 108, in spawn_main
+    source_process = _winapi.OpenProcess(
+                     ^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 87] Параметр задан неверно

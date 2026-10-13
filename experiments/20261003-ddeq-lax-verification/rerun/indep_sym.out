@@ -1,0 +1,4 @@
+commutator comp1 = 0
+commutator comp2 = 0
+NEG (G1 += u1_0^2 u2_0) comp1 nonzero: True
+G1/F1 proportional?  True

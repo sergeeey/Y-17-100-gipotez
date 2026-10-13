@@ -1,0 +1,7 @@
+seeds 99
+mutation differential: {"n_mut": 900, "sig_ok": 900, "V_and_Gv": 47, "V_not_Gv": 4, "notV_and_Gv": 0, "neither": 849}
+V_not_Gv reasons: {"spacelike ray # of #": 4}
+V_not_Gv Vinberg-fvector Euler sum: {"1": 1, "not1": 3, "err": 0}
+SOUNDNESS VIOLATIONS (Gv and not V): [] 0
+stored c2k2 candidates: {"n": 0, "V": 0, "Gv": 0, "V_not_Gv": 0, "euler1": 0, "euler_not1": 0, "euler_err": 0}
+secs 1.0

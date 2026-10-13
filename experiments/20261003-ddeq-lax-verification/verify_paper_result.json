@@ -1,0 +1,159 @@
+{
+ "(68) is MLR for (67)": {
+  "symbolic_zero": true,
+  "numeric_max": 3.982729777831131e-59,
+  "PASS": true
+ },
+ "(71) is MLR for (72)": {
+  "symbolic_zero": true,
+  "numeric_max": 3.982729777831131e-59,
+  "PASS": true
+ },
+ "(89) is MT from (85) to (67): component u1": {
+  "symbolic_zero": true,
+  "numeric_max": 6.223015277861142e-61,
+  "PASS": true
+ },
+ "(89) is MT from (85) to (67): component u2": {
+  "symbolic_zero": true,
+  "numeric_max": 0.0,
+  "PASS": true
+ },
+ "(90),(91) is MLR for (85)": {
+  "symbolic_zero": true,
+  "numeric_max": 9.956824444577827e-60,
+  "PASS": true
+ },
+ "Lemma 4: (71)[u->Phi] equals printed (90),(91) (M part)": {
+  "symbolic_zero": true,
+  "numeric_max": 0.0,
+  "PASS": true
+ },
+ "Lemma 4: (71)[u->Phi] equals printed (90),(91) (U part)": {
+  "symbolic_zero": true,
+  "numeric_max": 0.0,
+  "PASS": true
+ },
+ "gauge(95): computed S(G)MG^-1 equals printed (96)": {
+  "symbolic_zero": true,
+  "numeric_max": 6.223015277861142e-61,
+  "PASS": true
+ },
+ "gauge(95): computed DtG G^-1+GUG^-1 equals printed (97)": {
+  "symbolic_zero": true,
+  "numeric_max": 1.419625360262073e-60,
+  "PASS": true
+ },
+ "(96),(97) is MLR for (85)": {
+  "symbolic_zero": true,
+  "numeric_max": 2.987047333373348e-59,
+  "PASS": true
+ },
+ "diag gauge: computed equals printed (100) (M)": {
+  "symbolic_zero": true,
+  "numeric_max": 0.0,
+  "PASS": true
+ },
+ "diag gauge: computed equals printed (100) (U)": {
+  "symbolic_zero": true,
+  "numeric_max": 3.111507638930571e-61,
+  "PASS": true
+ },
+ "(100) is MLR for (85)": {
+  "symbolic_zero": true,
+  "numeric_max": 6.223015277861142e-60,
+  "PASS": true
+ },
+ "(107) satisfied by (108) branch +1": {
+  "symbolic_zero": null,
+  "numeric_max": 2.800356875037514e-60,
+  "PASS": true
+ },
+ "(110) is MT from (113) to (85) branch +1: u1": {
+  "symbolic_zero": null,
+  "numeric_max": 8.342729856882593e-60,
+  "PASS": true
+ },
+ "(110) is MT from (113) to (85) branch +1: u2": {
+  "symbolic_zero": null,
+  "numeric_max": 0.0,
+  "PASS": true
+ },
+ "Remark 6 (100)[->Phi] MLR for (113) at lam=q branch +1": {
+  "symbolic_zero": null,
+  "numeric_max": 2.9892253887205994e-57,
+  "PASS": true
+ },
+ "branch1_note": "checked",
+ "(107) satisfied by (108) branch -1": {
+  "symbolic_zero": null,
+  "numeric_max": 3.189295329903835e-60,
+  "PASS": true
+ },
+ "(110) is MT from (113) to (85) branch -1: u1": {
+  "symbolic_zero": null,
+  "numeric_max": 1.493523666686674e-59,
+  "PASS": true
+ },
+ "(110) is MT from (113) to (85) branch -1: u2": {
+  "symbolic_zero": null,
+  "numeric_max": 0.0,
+  "PASS": true
+ },
+ "Remark 6 (100)[->Phi] MLR for (113) at lam=q branch -1": {
+  "symbolic_zero": null,
+  "numeric_max": 2.987047333373348e-59,
+  "PASS": true
+ },
+ "branch-1_note": "checked",
+ "(118),(119) is MLR for (114)": {
+  "symbolic_zero": true,
+  "numeric_max": 9.334522916791713e-61,
+  "PASS": true
+ },
+ "(115) is MT from (114) to Toda (116)": {
+  "symbolic_zero": true,
+  "numeric_max": 7.778769097326427e-62,
+  "PASS": true
+ },
+ "(117) is MLR for Toda (116)": {
+  "symbolic_zero": true,
+  "numeric_max": 1.5557538194652854e-61,
+  "PASS": true
+ },
+ "gauge G(3.2): computed equals printed (120) (M)": {
+  "symbolic_zero": true,
+  "numeric_max": 0.0,
+  "PASS": true
+ },
+ "gauge G(3.2): computed equals printed (120) (U)": {
+  "symbolic_zero": true,
+  "numeric_max": 3.111507638930571e-61,
+  "PASS": true
+ },
+ "(120) is MLR for (114)": {
+  "symbolic_zero": true,
+  "numeric_max": 6.223015277861142e-61,
+  "PASS": true
+ },
+ "(126) is MT from (128) to (114): u1": {
+  "symbolic_zero": true,
+  "numeric_max": 2.4892061111444567e-60,
+  "PASS": true
+ },
+ "(126) is MT from (128) to (114): u2": {
+  "symbolic_zero": true,
+  "numeric_max": 1.804674430579731e-59,
+  "PASS": true
+ },
+ "Remark 7: (120)[->Phi126] MLR for (128) at lam=c": {
+  "symbolic_zero": true,
+  "numeric_max": 1.804674430579731e-59,
+  "PASS": true
+ },
+ "Remark 7: same with free lam (NOT claimed by paper; informational)": {
+  "symbolic_zero": true,
+  "numeric_max": 1.804674430579731e-59,
+  "PASS": true
+ }
+}

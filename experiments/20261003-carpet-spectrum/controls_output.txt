@@ -1,0 +1,60 @@
+== POS1_gasket_3to4  (fine distinct 24, coarse distinct 12) 0.3s
+   d=2 matched=21/23 frac=1.000 cov=1.000 a=[5.0, -1.0]
+   d=3 matched=21/23 frac=1.000 cov=1.000 a=[5.0, -1.0, 3.33067e-16]
+   d=4 matched=21/23 frac=1.000 cov=1.000 a=[5.0, -1.0, 5.60663e-15, -9.99201e-16]
+   d=5 matched=21/23 frac=1.000 cov=1.000 a=[5.0, -1.0, 1.50505e-14, -5.68989e-15, 7.77156e-16]
+   d=6 matched=21/23 frac=1.000 cov=1.000 a=[5.0, -1.0, 3.37595e-14, -4.30281e-14, 3.35842e-15, 6.66134e-16]
+== POS1_gasket_5to6  (fine distinct 96, coarse distinct 48) 3.4s
+   d=2 matched=93/95 frac=1.000 cov=1.000 a=[5.0, -1.0]
+   d=3 matched=93/95 frac=1.000 cov=1.000 a=[5.0, -1.0, 0.0]
+   d=4 matched=93/95 frac=1.000 cov=1.000 a=[5.0, -1.0, 5.13478e-15, -5.55112e-16]
+   d=5 matched=93/95 frac=1.000 cov=1.000 a=[5.0, -1.0, 1.81036e-14, -5.19029e-15, 5.55112e-16]
+   d=6 matched=93/95 frac=1.000 cov=1.000 a=[5.0, -1.0, -1.01634e-13, 1.45439e-14, -4.996e-16, 2.22045e-16]
+== POS1_gasket_6to7  (fine distinct 192, coarse distinct 96) 4.1s
+   d=2 matched=189/191 frac=1.000 cov=1.000 a=[5.0, -1.0]
+   d=3 matched=189/191 frac=1.000 cov=1.000 a=[5.0, -1.0, -3.33067e-16]
+   d=4 matched=189/191 frac=1.000 cov=1.000 a=[5.0, -1.0, -1.01863e-14, 8.88178e-16]
+   d=5 matched=189/191 frac=1.000 cov=1.000 a=[5.0, -1.0, -6.08263e-14, 1.04639e-14, -6.66134e-16]
+   d=6 matched=189/191 frac=1.000 cov=1.000 a=[5.0, -1.0, -1.33966e-13, 1.13243e-14, -9.15934e-16, 2.22045e-16]
+== POS2_path_32to64  (fine distinct 64, coarse distinct 32) 4.3s
+   d=2 matched=62/63 frac=1.000 cov=1.000 a=[4.0, -1.0]
+   d=3 matched=62/63 frac=1.000 cov=1.000 a=[4.0, -1.0, 1.11022e-16]
+   d=4 matched=62/63 frac=1.000 cov=1.000 a=[4.0, -1.0, -1.27676e-15, -4.32987e-15]
+   d=5 matched=62/63 frac=1.000 cov=1.000 a=[4.0, -1.0, 3.58047e-15, -1.9984e-15, 3.33067e-16]
+   d=6 matched=62/63 frac=1.000 cov=1.000 a=[4.0, -1.0, -4.81282e-14, 1.92901e-14, -4.38538e-15, 5.55112e-16]
+== POS2_path_128to256  (fine distinct 256, coarse distinct 128) 4.2s
+   d=2 matched=254/255 frac=1.000 cov=1.000 a=[4.0, -1.0]
+   d=3 matched=254/255 frac=1.000 cov=1.000 a=[4.0, -1.0, 7.77156e-16]
+   d=4 matched=254/255 frac=1.000 cov=1.000 a=[4.0, -1.0, -1.44329e-15, -4.32987e-15]
+   d=5 matched=254/255 frac=1.000 cov=1.000 a=[4.0, -1.0, 7.81319e-15, -3.33067e-16, 0.0]
+   d=6 matched=254/255 frac=1.000 cov=1.000 a=[4.0, -1.0, -6.01776e-14, 1.33227e-14, -2.55351e-15, 2.22045e-16]
+== POS2_path_256to512  (fine distinct 512, coarse distinct 256) 3.6s
+   d=2 matched=510/511 frac=1.000 cov=1.000 a=[4.0, -1.0]
+   d=3 matched=510/511 frac=1.000 cov=1.000 a=[4.0, -1.0, -4.44089e-16]
+   d=4 matched=510/511 frac=1.000 cov=1.000 a=[4.0, -1.0, -3.05311e-15, -4.32987e-15]
+   d=5 matched=510/511 frac=1.000 cov=1.000 a=[4.0, -1.0, -4.03844e-15, -1.44329e-15, 2.22045e-16]
+   d=6 matched=510/511 frac=1.000 cov=1.000 a=[4.0, -1.0, 5.41164e-14, -1.0783e-14, -4.44089e-16, 2.22045e-16]
+== NEG1_grid_8to16  (fine distinct 129, coarse distinct 33) 3.3s
+   d=2 matched=32/128 frac=0.260 cov=1.000 a=[1.0, 5.50046e-17]
+   d=3 matched=15/128 frac=0.122 cov=0.250 a=[4.0, -1.0, 2.22045e-16]
+   d=4 matched=0/128 frac=0.000 cov=0.000 a=None
+   d=5 matched=0/128 frac=0.000 cov=0.000 a=None
+   d=6 matched=0/128 frac=0.000 cov=0.000 a=None
+== NEG1_grid_16to32  (fine distinct 513, coarse distinct 129) 2.7s
+   d=2 matched=128/512 frac=0.252 cov=1.000 a=[1.0, 0.0]
+   d=3 matched=31/512 frac=0.061 cov=0.125 a=[4.0, -1.0, -6.66134e-16]
+   d=4 matched=0/512 frac=0.000 cov=0.000 a=None
+   d=5 matched=0/512 frac=0.000 cov=0.000 a=None
+   d=6 matched=0/512 frac=0.000 cov=0.000 a=None
+== NEG2_jittered_gasket_5to6  (fine distinct 1095, coarse distinct 48) 1.9s
+   d=2 matched=0/1094 frac=0.000 cov=0.000 a=None
+   d=3 matched=0/1094 frac=0.000 cov=0.000 a=None
+   d=4 matched=0/1094 frac=0.000 cov=0.000 a=None
+   d=5 matched=0/1094 frac=0.000 cov=0.000 a=None
+   d=6 matched=0/1094 frac=0.000 cov=0.000 a=None
+== NEG2_jittered_gasket_6to7  (fine distinct 3281, coarse distinct 96) 1.9s
+   d=2 matched=2/3280 frac=0.001 cov=0.021 a=[5.00004, -1.00768]
+   d=3 matched=0/3280 frac=0.000 cov=0.000 a=None
+   d=4 matched=0/3280 frac=0.000 cov=0.000 a=None
+   d=5 matched=0/3280 frac=0.000 cov=0.000 a=None
+   d=6 matched=0/3280 frac=0.000 cov=0.000 a=None

@@ -1,0 +1,21 @@
+== CTRL_B1_gasket_shifted(R(0)=1) fine 96 coarse 48 18s
+   d=2 matched=95/96 frac=0.990 cov=1.000 cands=32 a(c0,c1,..)=[1.0, 5.0, -1.0]
+   d=3 matched=95/96 frac=0.990 cov=1.000 cands=20 a(c0,c1,..)=[1.0, 5.0, -1.0, -8.8818e-16]
+== CTRL_B2_gasket_flipped(R decreasing) fine 96 coarse 48 18s
+   d=2 matched=95/96 frac=0.990 cov=1.000 cands=32 a(c0,c1,..)=[7.0, -5.0, 1.0]
+   d=3 matched=95/96 frac=0.990 cov=1.000 cands=20 a(c0,c1,..)=[7.0, -5.0, 1.0, 8.8818e-16]
+== NEG_B_jittered_gasket fine 1095 coarse 48 17s
+   d=2 matched=0/1095 frac=0.000 cov=0.000 cands=0 a(c0,c1,..)=None
+   d=3 matched=0/1095 frac=0.000 cov=0.000 cands=0 a(c0,c1,..)=None
+== carpet_L1_2to3 fine 510 coarse 67 19s
+   d=2 matched=0/510 frac=0.000 cov=0.000 cands=0 a(c0,c1,..)=None
+   d=3 matched=0/510 frac=0.000 cov=0.000 cands=0 a(c0,c1,..)=None
+== carpet_L1_3to4 fine 3948 coarse 510 19s
+   d=2 matched=0/3948 frac=0.000 cov=0.000 cands=0 a(c0,c1,..)=None
+   d=3 matched=0/3948 frac=0.000 cov=0.000 cands=0 a(c0,c1,..)=None
+== carpet_L2_2to3 fine 509 coarse 69 18s
+   d=2 matched=0/509 frac=0.000 cov=0.000 cands=0 a(c0,c1,..)=None
+   d=3 matched=0/509 frac=0.000 cov=0.000 cands=0 a(c0,c1,..)=None
+== carpet_L2_3to4 fine 3933 coarse 509 21s
+   d=2 matched=0/3933 frac=0.000 cov=0.000 cands=0 a(c0,c1,..)=None
+   d=3 matched=0/3933 frac=0.000 cov=0.000 cands=0 a(c0,c1,..)=None

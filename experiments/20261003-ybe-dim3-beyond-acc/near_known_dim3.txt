@@ -1,0 +1,23 @@
+N=3 noise=0.20 trials/family=2
+  I   generic (b-branch 0)   n=2 same-signature=0 no-convergence=2 other=0
+  I   generic (b-branch 1)   n=2 same-signature=0 no-convergence=2 other=0
+  I   generic, beta-form     n=2 same-signature=0 no-convergence=2 other=0
+  III.1.1                    n=2 same-signature=0 no-convergence=2 other=0
+  III.1.2 w=w                n=2 same-signature=0 no-convergence=2 other=0
+  III.1.2 w=w^2              n=2 same-signature=0 no-convergence=2 other=0
+  V.2.1                      n=2 same-signature=0 no-convergence=1 other=1
+  V.2.2                      n=2 same-signature=0 no-convergence=2 other=0
+  V.4.a                      n=2 same-signature=0 no-convergence=2 other=0
+  V.4.b                      n=2 same-signature=0 no-convergence=2 other=0
+  V.5.1.1 w=w                n=2 same-signature=0 no-convergence=2 other=0
+  V.5.1.1 w=w^2              n=2 same-signature=0 no-convergence=2 other=0
+  V.5.1.2 s=i                n=2 same-signature=0 no-convergence=2 other=0
+  V.5.1.2 s=-i               n=2 same-signature=0 no-convergence=2 other=0
+  V.7 eps=1                  n=2 same-signature=0 no-convergence=1 other=1
+  VI.2.1a eps=1              n=2 same-signature=0 no-convergence=1 other=1
+  V.7 eps=-1                 n=2 same-signature=0 no-convergence=1 other=1
+  VI.2.1a eps=-1             n=2 same-signature=0 no-convergence=0 other=2
+  VI.2.1p w=w                n=2 same-signature=0 no-convergence=2 other=0
+  VI.2.2 w=w                 n=2 same-signature=0 no-convergence=0 other=2
+  VI.2.1p w=w^2              n=2 same-signature=0 no-convergence=2 other=0
+  VI.2.2 w=w^2               n=2 same-signature=0 no-convergence=1 other=1

@@ -1,0 +1,20 @@
+round-1 positive control: n= 1 [(-0.810643077223129, 2.887682559866273)] (expect y_Lentry=y1~2.887683)
+horizon check HY: 23 NaN starts, 0 have a return within 12pi/w (rest truly never return)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\serge\miniconda3\envs\ape311\Lib\multiprocessing\spawn.py", line 113, in spawn_main
+    new_handle = reduction.duplicate(pipe_handle,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\serge\miniconda3\envs\ape311\Lib\multiprocessing\reduction.py", line 79, in duplicate
+    return _winapi.DuplicateHandle(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] Отказано в доступе
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\serge\miniconda3\envs\ape311\Lib\multiprocessing\spawn.py", line 113, in spawn_main
+    new_handle = reduction.duplicate(pipe_handle,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\serge\miniconda3\envs\ape311\Lib\multiprocessing\reduction.py", line 79, in duplicate
+    return _winapi.DuplicateHandle(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] Отказано в доступе

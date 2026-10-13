@@ -1,0 +1,28 @@
+L1 level 1 V=16 full dense 0.0s
+L1 level 2 V=96 full dense 0.0s
+L1 level 3 V=688 full dense 0.8s
+   sector sx=1 sy=1 size 172 eig 0s
+   sector sx=1 sy=-1 size 172 eig 0s
+   sector sx=-1 sy=1 size 172 eig 0s
+   sector sx=-1 sy=-1 size 172 eig 0s
+   sector-vs-full max abs diff = 2.75e-14
+L1 level 4 V=5280 full dense 25.9s
+   sector sx=1 sy=1 size 1320 eig 2s
+   sector sx=1 sy=-1 size 1320 eig 2s
+   sector sx=-1 sy=1 size 1320 eig 2s
+   sector sx=-1 sy=-1 size 1320 eig 2s
+   sector-vs-full max abs diff = 4.47e-14
+L2 level 1 V=16 full dense 0.0s
+L2 level 2 V=96 full dense 0.0s
+L2 level 3 V=688 full dense 0.5s
+   sector sx=1 sy=1 size 172 eig 0s
+   sector sx=1 sy=-1 size 172 eig 0s
+   sector sx=-1 sy=1 size 172 eig 0s
+   sector sx=-1 sy=-1 size 172 eig 0s
+   sector-vs-full max abs diff = 4.88e-15
+L2 level 4 V=5280 full dense 27.1s
+   sector sx=1 sy=1 size 1320 eig 2s
+   sector sx=1 sy=-1 size 1320 eig 2s
+   sector sx=-1 sy=1 size 1320 eig 2s
+   sector sx=-1 sy=-1 size 1320 eig 2s
+   sector-vs-full max abs diff = 1.78e-14

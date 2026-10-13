@@ -1,0 +1,18 @@
+[CONTROL_gasket_5to6] distinct 96/48 nesting(identity)=0.495 best_frac raw=1.000 no-identity=1.000 pair-sum top=(4.999999999999997, 47) maxmult=366 5s
+      d=2 matched=93/95 frac=1.000 cov=1.000 a=[5.0, -1.0]
+      d=3 matched=93/95 frac=1.000 cov=1.000 a=[5.0, -1.0, 0.0]
+      d=4 matched=93/95 frac=1.000 cov=1.000 a=[5.0, -1.0, 5.1348e-15, -5.5511e-16]
+      d=5 matched=93/95 frac=1.000 cov=1.000 a=[5.0, -1.0, 1.8104e-14, -5.1903e-15, 5.5511e-16]
+      d=6 matched=93/95 frac=1.000 cov=1.000 a=[5.0, -1.0, -1.0163e-13, 1.4544e-14, -4.996e-16, 2.2204e-16]
+[carpet_L1_4to5] distinct 31092/3948 nesting(identity)=0.000 best_frac raw=0.000 no-identity=0.000 pair-sum top=(nan, -1) maxmult=128 5s
+      d=2 matched=0/31091 frac=0.000 cov=0.000 a=None
+      d=3 matched=0/31091 frac=0.000 cov=0.000 a=None
+      d=4 matched=0/31091 frac=0.000 cov=0.000 a=None
+      d=5 matched=0/31091 frac=0.000 cov=0.000 a=None
+      d=6 matched=0/31091 frac=0.000 cov=0.000 a=None
+[carpet_L2_4to5] distinct 31121/3933 nesting(identity)=0.000 best_frac raw=0.000 no-identity=0.000 pair-sum top=(nan, -1) maxmult=100 5s
+      d=2 matched=0/31120 frac=0.000 cov=0.000 a=None
+      d=3 matched=0/31120 frac=0.000 cov=0.000 a=None
+      d=4 matched=0/31120 frac=0.000 cov=0.000 a=None
+      d=5 matched=0/31120 frac=0.000 cov=0.000 a=None
+      d=6 matched=0/31120 frac=0.000 cov=0.000 a=None

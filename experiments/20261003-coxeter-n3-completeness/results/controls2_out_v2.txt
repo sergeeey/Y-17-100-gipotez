@@ -1,0 +1,8 @@
+seeds 99
+unmutated verified positives (seeds): {"n": 99, "V": 99, "Gv": 99, "both": 99, "euler_bad": 0, "nullity_hist": {"2": 40, "1": 53, "0": 6}}
+mutation differential: {"n_mut": 900, "sig_ok": 900, "V_and_Gv": 205, "V_not_Gv": 0, "notV_and_Gv": 0, "neither": 695}
+V_not_Gv reasons: {}
+V_not_Gv Vinberg-fvector Euler sum: {"1": 0, "not1": 0, "err": 0}
+SOUNDNESS VIOLATIONS (Gv and not V): [] 0
+stored c2k2 candidates: {"n": 1803, "V": 1803, "Gv": 7, "V_not_Gv": 1796, "euler1": 20, "euler_not1": 279, "euler_err": 0}
+secs 14.7

@@ -1,0 +1,8 @@
+[cell4_L1_2to3] distinct fine 380 coarse 46 best_frac=0.000 d2:0 d3:0 d4:0 d5:0 d6:0 29s
+[cell4_L1_3to4] distinct fine 3056 coarse 380 best_frac=0.000 d2:0 d3:0 d4:0 d5:0 d6:0 27s
+[cell4_L2_2to3] distinct fine 369 coarse 45 best_frac=0.000 d2:0 d3:0 d4:0 d5:0 d6:0 20s
+[cell4_L2_3to4] distinct fine 3021 coarse 369 best_frac=0.000 d2:0 d3:0 d4:0 d5:0 d6:0 21s
+[cell8_L1_2to3] distinct fine 373 coarse 48 best_frac=0.000 d2:0 d3:0 d4:0 d5:0 d6:0 14s
+[cell8_L1_3to4] distinct fine 2929 coarse 373 best_frac=0.000 d2:0 d3:0 d4:0 d5:0 d6:0 16s
+[cell8_L2_2to3] distinct fine 373 coarse 47 best_frac=0.000 d2:0 d3:0 d4:0 d5:0 d6:0 8s
+[cell8_L2_3to4] distinct fine 2929 coarse 373 best_frac=0.000 d2:0 d3:0 d4:0 d5:0 d6:0 15s
