@@ -1,0 +1,9 @@
+json keys/type <class 'dict'> ['cache_format', 'content', 'main_file', 'source_files', 'unmatched_includes']
+G1_10gon canonical (5, (0, 1, 0, 1, 0, 1, 1, 1, 0, 2)) in one-pair d=4 list: True | disjoint pairs: 1
+G2_8gon canonical (4, (0, 1, 1, 0, 1, 1, 0, 3)) in one-pair d=4 list: True | disjoint pairs: 2
+all d=4 one-pair types (k, mu, #disjoint):
+   4 (0, 1, 1, 0, 2, 0, 1, 2) 11 1
+   4 (0, 1, 1, 0, 1, 1, 0, 3) 10 2
+   5 (0, 1, 0, 1, 0, 1, 0, 1, 1, 2) 10 2
+   5 (0, 1, 0, 1, 0, 1, 1, 1, 0, 2) 11 1
+   6 (0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1) 12 0

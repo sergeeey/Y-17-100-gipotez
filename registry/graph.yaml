@@ -2507,7 +2507,9 @@ nodes:
     verdict_note: "ROUND 2 (2026-10-03/04, folder experiments/20261003-lum-chua-continuation): REPEAT, no >=4 cycles. CORRECTION of the round-1 explanation: round 1's Lienard family (a_L != a_R) is a strict subfamily with a continuous x-component, so NO sliding region; the published 3-cycle Huan-Yang / Llibre-Ponce mechanism has a sliding segment and was never inside round 1's search space. Round 2: closed-form half-return map 118x faster, agrees with DOP853 to 8e-11; the Huan-Yang system gives exactly 3 crossing cycles matching the published values to <=1.1e-14 (the real positive control of the discontinuous class); continuation from the continuous 1-cycle example gives only 0/1 cycles along single parameters, max 2 in the (a_L,beta) grid (two 2-cycle systems verified by two methods); structured search near HY and 1500 uniform random general focus-focus systems never reach 4 (89 percent of sigma=0.003 HY perturbations keep 3 cycles). Independent verifier: reproducible core CONFIRMED, negative search WEAKENED (detector blind to the published FPTT21 3-cycle system, count capped at d<200, evolution-strategy objective gamed by domain-end roots). Verifier also found arXiv:2508.02321 (Carmona-Fernandez-Sanchez-Novaes, JDE 2025, [DOCS via verifier, not yet opened by the orchestrator]): proves Huan-Yang, FPTT21 and GRS have exactly 3 cycles and bounds focus-focus systems by 7 (not 8), with a resultant-based criterion. Cycles with more than 2 crossings need not be counted (monotone first-return map; derived and tested by the verifier). Not found != L*=3."
     experiment_dir: "experiments/20261003-lum-chua-continuation"
     source: "experiments/20261003-lum-chua-continuation/claim.md; decision.md; skeptic_verdict.md; round 1 in experiments/20261003-lum-chua-discontinuous-pwl-limit-cycles/"
-    updated: 2026-10-04
+    round3_dir: "experiments/20261013-lum-chua-round2"
+    verdict_note_r3: "ROUND 3 (2026-10-13, experiments/20261013-lum-chua-round2): REPEAT. Cycle counter fixed: the round-1 noise filter was about 5000x the measured float64 noise and hid the FPTT21 cycles; count_cycles2 finds exactly 3 crossing cycles on HY, FPTT21 and GRS (confirmed by the verifier in 50-digit arithmetic), 1 on the continuous example, 0 on a stable focus. arXiv:2508.02321 read in full: focus-focus bound 7 (Cor 1), Thm 6 gives at most k+2 for k nonpositive roots of the resultant; the gap 3 vs 7 stays open. 3119 canonical-form systems counted, none with 4 or more. The verifier WEAKENED the search claims: the stored k was wrong in 1186 of 3119 systems and the k>=3 stage was an empty or mislabelled set, dmax=1e4 missed cycles in 2 of 246 near-Hopf systems, so every count is a lower bound only. The Lienard canonical form with the x-prime jump b is conjugate to the original HY system (the round-1 strict-subfamily statement holds only at b=0)."
+    updated: 2026-10-13
 
   - id: SUB-QYBE-DIM3
     type: substrate
@@ -2561,16 +2563,19 @@ nodes:
     kill_criterion: "Locked in experiments/20261003-coxeter-n3-completeness/claim.md before the enumeration. Toolkit untrusted if the Vinberg-criterion and the independent cone/extreme-ray implementations disagree on any control or on the mutant test, or if the known n=d+2 pyramid dimension set {3..13,17} is not reproduced. RESULT: 0 disagreements (99 positives, 900 mutants, 256 enumerated); n=d+2 set reproduced exactly; n=d+3: 56 classes in dims 4,5,6,7,11 (13,15,12,13,3). Independent verifier re-derived 56 classes with its own code (1,254,890 triples, no pair table) and a lemma-free brute force at d=4,5. Matches the primary text of Tumarkin 2004 (dimension at most 11) and CONTRADICTS the survey page's dimension list for this class (4..9,13): documentary discrepancy, Tumarkin's Tables 4/5 are images and were not read."
     experiment_dir: "experiments/20261003-coxeter-n3-completeness"
     source: "experiments/20261003-coxeter-n3-completeness/decision.md; skeptic_verdict.md"
-    updated: 2026-10-04
+    round3_dir: "experiments/20261013-coxeter-round2"
+    verdict_note_r3: "ROUND 3 (2026-10-13, experiments/20261013-coxeter-round2): the two round-1 d=4 diagrams PA, PB are genuine finite-volume Coxeter 4-polytopes (new exact validator and the verifier's independent mpmath+Qhull pipeline, f-vector (12,25,20,7,1), one non-simple vertex) and equal P_{7,1}, P_{7,2} of Ma-Zheng arXiv:2401.13698v3 (edge-labelled graph isomorphism, cusp counts 1 and 3); Roberts dim-4 list is incomplete (it uses 2 of the 5 Gale types with one non-simple vertex), not our enumeration. The survey vs primary dimension discrepancy is NOT closed: Tumarkin Lemma 4 bounds the dimension by 11 and the enumeration gives 4,5,6,7,11, while the survey and Ma-Zheng repeat 4..9,13; the verifier rendered poly/pyram3.pdf and found finite-volume candidates only at d=4,5,6,7,11, but Tumarkin Tables 4/5 were read by nobody. The k=2 non-pyramidal family for d>=5 and the dimension-16 reproduction are NOT done."
+    updated: 2026-10-13
 
   - id: Q-ROBERTS-D4-DISCREPANCY
     type: question
     title: "Two finite-volume Coxeter 4-polytopes (one non-simple vertex, non-pyramidal, non-compact, no dotted edge) were accepted by both validators of the Coxeter worker and by the verifier's independent Vinberg+Qhull pipeline, but are absent from Roberts' dim-4 appendix (arXiv:1511.08451), where every diagram has a dashed ultraparallel edge. Roberts incomplete, definition mismatch, or a flaw shared by all validators: unresolved."
-    status: open
-    evidence: CONFLICT
+    status: resolved
+    evidence: VERIFIED-REAL
     blocks: []
     source: "experiments/20261003-coxeter-n3-completeness/skeptic_verdict.md (claim 5, REFUTED); needs CoxIter or an author check"
-    updated: 2026-10-04
+    resolution: "2026-10-13: Roberts dim-4 list is incomplete. PA and PB equal P_{7,1} and P_{7,2} of Ma-Zheng arXiv:2401.13698v3, which add 140 polytopes missing from Roberts (verified by the round-2 verifier: edge-labelled graph isomorphism and matching cusp counts). Not a defect of our toolkit."
+    updated: 2026-10-13
 
   - id: H-CARPET-1
     type: hypothesis
@@ -2611,7 +2616,9 @@ nodes:
     kill_criterion: "Pre-registered in experiments/20261003-ybe-dim3-beyond-acc/claim.md: REJECTED if every converged dim-3 solution (>=2000 random starts) is conjugate to ACC/SCC or a known construction; LEAD needs a component that passes all controls, has no AP-spectrum element in L(R), is not a known construction after a documented literature check, and is rationalised to residual < 1e-13. RESULT round 1: REPEAT. 237 of 2140 starts converged, all ACC/SCC/trivial (213 are c*Id or c*flip); uninformative because the sampler has no demonstrated power in the U(1)-free region (0/25 recovery of the Gaussian solutions at noise >= 0.4). Weak-charge ansatz q=(0,0,1): 148 solutions, 2 candidates (idx 88, 101 of d3_w001.npz): L(R)=scalars+diag(0,0,1); verifier confirmed residual 2.7e-17, explicit gauge equivalence of the charge-0 block to Hietarinta H1,4 (idx 88) and H2,1 (idx 101); R101 is Hecke-type (7,2), tangent dimension 11 vs 10 for ACC family V.2.1. Block-diagonality is imposed by the mask; not rationalised; literature (Hietarinta 1993 upper-triangular list, Lovitz thesis) not read. Must be compared with the shift family of H-CYBE-002."
     experiment_dir: "experiments/20261003-ybe-dim3-beyond-acc"
     source: "experiments/20261003-ybe-dim3-beyond-acc/decision.md; skeptic_verdict.md"
-    updated: 2026-10-04
+    round3_dir: "experiments/20261013-ybe-dim3-round2"
+    verdict_note_r3: "ROUND 3 (2026-10-13, experiments/20261013-ybe-dim3-round2): REPEAT. Candidate idx 88 is ALREADY_KNOWN: the Hietarinta 1993 Sec 2.1.1 diagonal dressing of H1,4 (verifier read the page images, residual 1e-17). Candidate idx 101 is an exact 3-parameter family F(e,u,v), YBE identically zero over Q(e,u,v), spectrum (7,2); it is not in the H-CYBE-002 shift family (shift family braid charpoly (x-C)^3(x^2-AE)^3, every eigenvalue has multiplicity >=3) and not in Hietarinta 1993 (not upper triangular in any basis, not Sec 2.2 or 2.1.2); the wider literature was NOT searched, novelty is UNVERIFIABLE, no claim. The sampler hits are F^T images, not F. U(1)-free region: informed starts from G1 recover the solution up to noise 0.4, and generic scale-1.0 starts give clean non-Gaussian U(1)-free (7,2) Hecke-type solutions (4 of 88) that the worker missed; their relation to F is undetermined."
+    updated: 2026-10-13
 
 edges:
   # grounding of bridges

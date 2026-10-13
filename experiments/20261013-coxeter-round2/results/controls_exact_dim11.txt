@@ -1,0 +1,6 @@
+dim11 E8~+A1~+A1~ pyramid (n=14)   exact3.ok=True vinberg_exact=True | cox2.ok=True | expect True | PASS | 235.3s
+      d=11 n_rays=37 ideal=2 nonsimple=1 fvec=[37, 216, 669, 1365, 1968, 2058, 1572, 870, 340, 89, 14, 1] euler=1 disjoint=0
+dim11 with 12-13:4  NEG            exact3.ok=False vinberg_exact=False | cox2.ok=False | expect False | PASS | 26.4s
+      reason: spacelike rays: 17 of 37
+dim11 with 1-13:6 NEG              exact3.ok=False vinberg_exact=False | cox2.ok=False | expect False | PASS | 31.8s
+      reason: spacelike rays: 15 of 37

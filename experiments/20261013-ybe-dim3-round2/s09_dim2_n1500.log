@@ -1,0 +1,176 @@
+start 10 converged 10 time 0s
+start 20 converged 20 time 1s
+start 30 converged 30 time 1s
+start 40 converged 40 time 2s
+start 50 converged 50 time 2s
+start 60 converged 60 time 2s
+start 70 converged 70 time 3s
+start 80 converged 80 time 4s
+start 90 converged 90 time 5s
+start 100 converged 99 time 7s
+start 110 converged 109 time 8s
+start 120 converged 119 time 9s
+start 130 converged 129 time 10s
+start 140 converged 138 time 12s
+start 150 converged 146 time 16s
+start 160 converged 155 time 18s
+start 170 converged 165 time 18s
+start 180 converged 175 time 19s
+start 190 converged 185 time 20s
+start 200 converged 194 time 23s
+start 210 converged 204 time 24s
+start 220 converged 214 time 24s
+start 230 converged 224 time 26s
+start 240 converged 234 time 27s
+start 250 converged 244 time 28s
+start 260 converged 253 time 30s
+start 270 converged 263 time 31s
+start 280 converged 272 time 33s
+start 290 converged 281 time 35s
+start 300 converged 291 time 36s
+start 310 converged 301 time 37s
+start 320 converged 311 time 38s
+start 330 converged 321 time 39s
+start 340 converged 330 time 42s
+start 350 converged 340 time 42s
+start 360 converged 349 time 45s
+start 370 converged 358 time 47s
+start 380 converged 368 time 48s
+start 390 converged 378 time 49s
+start 400 converged 388 time 50s
+start 410 converged 398 time 51s
+start 420 converged 408 time 51s
+start 430 converged 418 time 52s
+start 440 converged 428 time 53s
+start 450 converged 438 time 54s
+start 460 converged 448 time 55s
+start 470 converged 458 time 56s
+start 480 converged 468 time 56s
+start 490 converged 478 time 57s
+start 500 converged 488 time 58s
+start 510 converged 498 time 60s
+start 520 converged 508 time 61s
+start 530 converged 517 time 63s
+start 540 converged 527 time 64s
+start 550 converged 537 time 66s
+start 560 converged 547 time 67s
+start 570 converged 557 time 68s
+start 580 converged 567 time 69s
+start 590 converged 576 time 71s
+start 600 converged 586 time 72s
+start 610 converged 596 time 73s
+start 620 converged 606 time 74s
+start 630 converged 616 time 74s
+start 640 converged 626 time 75s
+start 650 converged 635 time 78s
+start 660 converged 644 time 80s
+start 670 converged 654 time 81s
+start 680 converged 664 time 82s
+start 690 converged 674 time 83s
+start 700 converged 684 time 84s
+start 710 converged 694 time 85s
+start 720 converged 703 time 88s
+start 730 converged 713 time 89s
+start 740 converged 723 time 90s
+start 750 converged 733 time 91s
+start 760 converged 743 time 92s
+start 770 converged 753 time 92s
+start 780 converged 763 time 93s
+start 790 converged 773 time 94s
+start 800 converged 783 time 95s
+start 810 converged 793 time 96s
+start 820 converged 803 time 97s
+start 830 converged 813 time 97s
+start 840 converged 823 time 98s
+start 850 converged 833 time 99s
+start 860 converged 843 time 100s
+start 870 converged 853 time 101s
+start 880 converged 863 time 102s
+start 890 converged 872 time 104s
+start 900 converged 882 time 105s
+start 910 converged 891 time 107s
+start 920 converged 901 time 108s
+start 930 converged 911 time 109s
+start 940 converged 921 time 110s
+start 950 converged 931 time 111s
+start 960 converged 941 time 112s
+start 970 converged 950 time 114s
+start 980 converged 960 time 114s
+start 990 converged 970 time 116s
+start 1000 converged 979 time 118s
+start 1010 converged 989 time 120s
+start 1020 converged 999 time 121s
+start 1030 converged 1009 time 122s
+start 1040 converged 1019 time 123s
+start 1050 converged 1028 time 125s
+start 1060 converged 1037 time 127s
+start 1070 converged 1047 time 128s
+start 1080 converged 1057 time 129s
+start 1090 converged 1067 time 130s
+start 1100 converged 1077 time 131s
+start 1110 converged 1086 time 133s
+start 1120 converged 1095 time 136s
+start 1130 converged 1105 time 137s
+start 1140 converged 1115 time 138s
+start 1150 converged 1125 time 139s
+start 1160 converged 1135 time 140s
+start 1170 converged 1145 time 140s
+start 1180 converged 1155 time 141s
+start 1190 converged 1164 time 144s
+start 1200 converged 1173 time 146s
+start 1210 converged 1182 time 148s
+start 1220 converged 1192 time 149s
+start 1230 converged 1202 time 150s
+start 1240 converged 1212 time 151s
+start 1250 converged 1222 time 152s
+start 1260 converged 1232 time 153s
+start 1270 converged 1242 time 154s
+start 1280 converged 1252 time 155s
+start 1290 converged 1261 time 157s
+start 1300 converged 1271 time 158s
+start 1310 converged 1281 time 159s
+start 1320 converged 1291 time 161s
+start 1330 converged 1301 time 162s
+start 1340 converged 1311 time 163s
+start 1350 converged 1321 time 164s
+start 1360 converged 1331 time 165s
+start 1370 converged 1341 time 166s
+start 1380 converged 1351 time 167s
+start 1390 converged 1361 time 167s
+start 1400 converged 1371 time 168s
+start 1410 converged 1381 time 169s
+start 1420 converged 1391 time 170s
+start 1430 converged 1401 time 171s
+start 1440 converged 1411 time 172s
+start 1450 converged 1420 time 175s
+start 1460 converged 1429 time 177s
+start 1470 converged 1438 time 180s
+start 1480 converged 1448 time 180s
+start 1490 converged 1458 time 181s
+start 1500 converged 1468 time 182s
+N 2 starts 1500 scale 1.0 converged 1468
+408 dimL=2 spec(alg,geo)= ((3, 3), (1, 1))
+389 dimL=1 spec(alg,geo)= ((2, 2), (2, 2))
+232 dimL=2 spec(alg,geo)= ((1, 1), (1, 1), (1, 1), (1, 1))
+165 dimL=4 spec(alg,geo)= ((4, 4),)
+126 dimL=1 spec(alg,geo)= ((3, 3), (1, 1))
+109 dimL=2 spec(alg,geo)= ((2, 2), (2, 2))
+21 dimL=1 spec(alg,geo)= ((2, 2), (1, 1), (1, 1))
+6 dimL=2 spec(alg,geo)= ((2, 2), (1, 1), (1, 1))
+4 dimL=1 spec(alg,geo)= ((4, 3),)
+4 dimL=2 spec(alg,geo)= ((2, 3), (1, 3), (1, 1))
+2 dimL=2 spec(alg,geo)= ((1, 2), (1, 2), (1, 1), (1, 1))
+1 dimL=2 spec(alg,geo)= ((2, 2), (1, 2), (1, 2))
+1 dimL=1 spec(alg,geo)= ((3, 3), (1, 3))
+  ref H3,1 dimL=2 ((1, 1), (1, 1), (1, 1), (1, 1))  hit count 232
+  ref H2,1 dimL=2 ((3, 3), (1, 1))  hit count 408
+  ref H2,2 dimL=2 ((2, 2), (2, 2))  hit count 109
+  ref H2,3 dimL=2 ((3, 1), (1, 1))  hit count 0
+  ref H1,1 dimL=1 ((2, 2), (2, 2))  hit count 389
+  ref H1,2 dimL=1 ((2, 2), (2, 2))  hit count 389
+  ref H1,3 dimL=2 ((3, 3), (1, 1))  hit count 408
+  ref H1,4 dimL=1 ((2, 2), (1, 1), (1, 1))  hit count 21
+  ref H0,1 dimL=1 ((3, 2), (1, 1))  hit count 0
+  ref H0,2 dimL=1 ((2, 2), (2, 2))  hit count 389
+  ref P (flip) dimL=4 ((3, 3), (1, 1))  hit count 0
+  ref Id dimL=4 ((4, 4),)  hit count 165

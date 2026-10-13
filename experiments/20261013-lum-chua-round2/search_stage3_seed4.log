@@ -1,0 +1,5 @@
+phase A: draws 52411 seeds with k>=3: 40
+phase B: steps 8084 pool 3000 k-hist {3: 2998, 4: 2}
+phase C counted 637 hist (k,count):n {'(3, 0)': 524, '(3, 1)': 113}
+phase D evals 407 hist (k,count):n {'(3, 0)': 67, '(3, 1)': 340}
+max count overall 1 violations Thm6: 0 done 319

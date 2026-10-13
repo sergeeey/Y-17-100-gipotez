@@ -1,0 +1,39 @@
+calib HY_paper_eq2 {'max_rel_err': 2.019849030509281e-15, 'n': 38, 'sec': 0.2}
+calib FPTT21_paper_eq3 {'max_rel_err': 1.3329787420432754e-15, 'n': 60, 'sec': 0.3}
+calib GRS_paper_eq4 {'max_rel_err': 1.749634893800671e-15, 'n': 32, 'sec': 0.1}
+noise_rel used 2.0198490305092812e-14
+HY_original_shifted {'count': 3, 'n_roots_total': 3, 'degenerate': False, 'flat_share': 0.0, 'rejected': 0, 'hidden_pairs': 0, 'n_near_tangent': 0, 'kappa': 1.7603042750281803, 'ambiguous_gaps': 0, 'n_valid': 3819, 'old_counter': {'sign_changes': 3, 'noise_suspect': 0}, 'sec': 2.2}
+    root {'y0': -0.486061649126593, 'y1': 1.6811945105189359, 'mult': 1.1184707738022261, 'crossing': True, 'tag': 'float'}
+    root {'y0': -0.08891408094288145, 'y1': 0.9657998558466827, 'mult': 0.8961707399491861, 'crossing': True, 'tag': 'float'}
+    root {'y0': 0.16382622762708288, 'y1': 0.6188541651825255, 'mult': 2.1839705057747896, 'crossing': True, 'tag': 'float'}
+HY_paper_eq2 {'count': 3, 'n_roots_total': 3, 'degenerate': False, 'flat_share': 0.0, 'rejected': 0, 'hidden_pairs': 0, 'n_near_tangent': 0, 'kappa': 1.7603042750281803, 'ambiguous_gaps': 0, 'n_valid': 3819, 'old_counter': {'sign_changes': 3, 'noise_suspect': 0}, 'sec': 2.3}
+    root {'y0': -0.486061649126593, 'y1': 1.6811945105189359, 'mult': 1.1184707738022261, 'crossing': True, 'tag': 'float'}
+    root {'y0': -0.08891408094288145, 'y1': 0.9657998558466827, 'mult': 0.8961707399491861, 'crossing': True, 'tag': 'float'}
+    root {'y0': 0.16382622762708288, 'y1': 0.6188541651825255, 'mult': 2.1839705057747896, 'crossing': True, 'tag': 'float'}
+HY_canonical {'count': 3, 'n_roots_total': 3, 'degenerate': False, 'flat_share': 0.0, 'rejected': 0, 'hidden_pairs': 0, 'n_near_tangent': 0, 'kappa': 1.760304275028181, 'ambiguous_gaps': 0, 'n_valid': 3420, 'old_counter': {'sign_changes': 3, 'noise_suspect': 0}, 'sec': 2.5}
+    root {'y0': -3.4303082456329497, 'y1': 7.405972552594654, 'mult': 1.118470773916928, 'crossing': True, 'tag': 'float'}
+    root {'y0': -1.4445704047144035, 'y1': 3.8289992792334107, 'mult': 0.89617074030299, 'crossing': True, 'tag': 'float'}
+    root {'y0': -0.18086886186458329, 'y1': 2.0942708259126235, 'mult': 2.1839705013338975, 'crossing': True, 'tag': 'float'}
+FPTT21_paper_eq3 {'count': 3, 'n_roots_total': 3, 'degenerate': False, 'flat_share': 0.0, 'rejected': 0, 'hidden_pairs': 0, 'n_near_tangent': 0, 'kappa': 0.9999999700386175, 'ambiguous_gaps': 0, 'n_valid': 8000, 'old_counter': {'sign_changes': 1, 'noise_suspect': 0}, 'sec': 2.3}
+    root {'y0': -273.6148822708417, 'y1': 405.2156491717059, 'mult': 0.9999999962605048, 'crossing': True, 'tag': 'float'}
+    root {'y0': -201.1638687283393, 'y1': 297.91821488968185, 'mult': 1.0000000033908725, 'crossing': True, 'tag': 'float'}
+    root {'y0': -132.95230243215292, 'y1': 196.899787714181, 'mult': 0.9999999837531967, 'crossing': True, 'tag': 'float'}
+FPTT21_canonical {'count': 3, 'n_roots_total': 3, 'degenerate': False, 'flat_share': 0.0, 'rejected': 0, 'hidden_pairs': 0, 'n_near_tangent': 0, 'kappa': 0.9999999700386175, 'ambiguous_gaps': 0, 'n_valid': 8000, 'old_counter': {'sign_changes': 1, 'noise_suspect': 0}, 'sec': 2.3}
+    root {'y0': -273.864073342453, 'y1': 404.96645810009454, 'mult': 0.9999999960563467, 'crossing': True, 'tag': 'float'}
+    root {'y0': -201.41305979995064, 'y1': 297.6690238180705, 'mult': 1.0000000036689003, 'crossing': True, 'tag': 'float'}
+    root {'y0': -133.20149350376425, 'y1': 196.65059664256967, 'mult': 0.9999999839969647, 'crossing': True, 'tag': 'float'}
+GRS_paper_eq4 {'count': 3, 'n_roots_total': 3, 'degenerate': False, 'flat_share': 0.0, 'rejected': 0, 'hidden_pairs': 0, 'n_near_tangent': 0, 'kappa': 1.7328695163288768, 'ambiguous_gaps': 0, 'n_valid': 3349, 'old_counter': {'sign_changes': 3, 'noise_suspect': 0}, 'sec': 2.4}
+    root {'y0': 0.32210511337814374, 'y1': -2.79849875107951, 'mult': 1.675810801042953, 'crossing': True, 'tag': 'float'}
+    root {'y0': 1.4975203018049958, 'y1': -4.359064864196913, 'mult': 0.8767206144994396, 'crossing': True, 'tag': 'float'}
+    root {'y0': 5.1908341624538785, 'y1': -10.996716405813387, 'mult': 1.157921132747717, 'crossing': True, 'tag': 'float'}
+GRS_canonical {'count': 3, 'n_roots_total': 3, 'degenerate': False, 'flat_share': 0.0, 'rejected': 0, 'hidden_pairs': 0, 'n_near_tangent': 0, 'kappa': 1.7328695163288768, 'ambiguous_gaps': 0, 'n_valid': 3349, 'old_counter': {'sign_changes': 3, 'noise_suspect': 0}, 'sec': 2.2}
+    root {'y0': -5.194834162453837, 'y1': 10.992716405813301, 'mult': 1.157921133507764, 'crossing': True, 'tag': 'float'}
+    root {'y0': -1.5015203018050158, 'y1': 4.355064864196946, 'mult': 0.8767206152356479, 'crossing': True, 'tag': 'float'}
+    root {'y0': -0.3261051133781374, 'y1': 2.7944987510795043, 'mult': 1.6758107997106855, 'crossing': True, 'tag': 'float'}
+ONE_CYCLE_continuous_lienard {'count': 1, 'n_roots_total': 1, 'degenerate': False, 'flat_share': 0.0, 'rejected': 0, 'hidden_pairs': 0, 'n_near_tangent': 0, 'kappa': 0.4678345404609766, 'ambiguous_gaps': 0, 'n_valid': 8000, 'old_counter': {'sign_changes': 1, 'noise_suspect': 0}, 'sec': 1.8}
+    root {'y0': -0.810643077223129, 'y1': 2.887682559866273, 'mult': 0.43087202203262365, 'crossing': True, 'tag': 'float'}
+NEG_global_stable_focus_linear {'count': 0, 'n_roots_total': 0, 'degenerate': False, 'flat_share': 0.0, 'rejected': 0, 'hidden_pairs': 0, 'n_near_tangent': 0, 'kappa': 0.35345459999959755, 'ambiguous_gaps': 0, 'n_valid': 3452, 'old_counter': {'sign_changes': 0, 'noise_suspect': 0}, 'sec': 0.9}
+EXTRA_both_traces_negative_with_jump_b {'count': 1, 'n_roots_total': 1, 'degenerate': False, 'flat_share': 0.0, 'rejected': 0, 'hidden_pairs': 0, 'n_near_tangent': 0, 'kappa': 0.3178224894650739, 'ambiguous_gaps': 0, 'n_valid': 8000, 'old_counter': {'sign_changes': 1, 'noise_suspect': 0}, 'sec': 1.7}
+    root {'y0': -0.8228904415063283, 'y1': 1.1857092339680706, 'mult': 0.4003844446810447, 'crossing': True, 'tag': 'float'}
+NEG_stable_focus_b0 {'count': 0, 'n_roots_total': 0, 'degenerate': False, 'flat_share': 0.0, 'rejected': 0, 'hidden_pairs': 0, 'n_near_tangent': 0, 'kappa': 0.3178224894650739, 'ambiguous_gaps': 0, 'n_valid': 3635, 'old_counter': {'sign_changes': 0, 'noise_suspect': 0}, 'sec': 0.9}
+DEGEN_center_both_G_identically_0 {'count': None, 'n_roots_total': 0, 'degenerate': True, 'flat_share': 1.0, 'rejected': 0, 'hidden_pairs': 0, 'n_near_tangent': 0, 'kappa': 1.0, 'ambiguous_gaps': 0, 'n_valid': 5819, 'old_counter': {'sign_changes': 951, 'noise_suspect': 1584}, 'sec': 7.8}
