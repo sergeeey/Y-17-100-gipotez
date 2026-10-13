@@ -1,0 +1,44 @@
+mask z2 free entries 41
+starts 20 ok 4 elapsed 2s
+starts 40 ok 8 elapsed 5s
+starts 60 ok 13 elapsed 9s
+starts 80 ok 15 elapsed 13s
+starts 100 ok 18 elapsed 17s
+starts 120 ok 18 elapsed 21s
+starts 140 ok 24 elapsed 25s
+starts 160 ok 30 elapsed 29s
+starts 180 ok 33 elapsed 33s
+starts 200 ok 39 elapsed 37s
+starts 220 ok 43 elapsed 41s
+starts 240 ok 48 elapsed 44s
+starts 260 ok 54 elapsed 48s
+starts 280 ok 56 elapsed 52s
+starts 300 ok 58 elapsed 56s
+starts 320 ok 61 elapsed 60s
+starts 340 ok 66 elapsed 64s
+starts 360 ok 72 elapsed 68s
+starts 380 ok 78 elapsed 72s
+starts 400 ok 82 elapsed 75s
+starts 420 ok 84 elapsed 80s
+starts 440 ok 88 elapsed 84s
+starts 460 ok 92 elapsed 87s
+starts 480 ok 97 elapsed 91s
+starts 500 ok 101 elapsed 95s
+starts 520 ok 103 elapsed 99s
+starts 540 ok 105 elapsed 103s
+starts 560 ok 110 elapsed 107s
+starts 580 ok 114 elapsed 111s
+starts 600 ok 119 elapsed 115s
+starts 620 ok 125 elapsed 119s
+starts 640 ok 125 elapsed 123s
+starts 660 ok 129 elapsed 128s
+starts 680 ok 132 elapsed 132s
+starts 700 ok 138 elapsed 136s
+DONE starts 700 ok 138 elapsed 136s
+   ('gauss', 'stall') 233
+   ('near_flip', 'ok') 94
+   ('near_flip', 'stall') 140
+   ('near_id', 'ok') 44
+   ('near_id', 'slow') 1
+   ('near_id', 'stall') 187
+   ('near_id', 'sublinear') 1

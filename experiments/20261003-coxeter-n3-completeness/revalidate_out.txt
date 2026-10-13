@@ -1,0 +1,4 @@
+('results\\c2k1', 'found-line') {"n": 95, "vin_fin": 95, "geo_ok": 95, "both": 95, "euler_bad": 0, "reasons": {}, "d": {"10": [5, 5], "11": [5, 5], "12": [2, 2], "13": [3, 3], "17": [1, 1], "6": [27, 27], "7": [26, 26], "8": [16, 16], "9": [10, 10]}}
+('results\\c2k2', 'disagree-line') {"n": 914, "vin_fin": 914, "geo_ok": 0, "both": 0, "euler_bad": 0, "reasons": {"spacelike ray # of #": 914}, "d": {"3": [604, 0], "4": [278, 0], "5": [32, 0]}}
+('results\\c2k2', 'found-line') {"n": 889, "vin_fin": 889, "geo_ok": 7, "both": 7, "euler_bad": 0, "reasons": {"spacelike ray # of #": 882}, "d": {"3": [605, 1], "4": [284, 6]}}
+('results\\c3k1', 'found-line') {"n": 56, "vin_fin": 56, "geo_ok": 56, "both": 56, "euler_bad": 0, "reasons": {}, "d": {"11": [3, 3], "4": [13, 13], "5": [15, 15], "6": [12, 12], "7": [13, 13]}}

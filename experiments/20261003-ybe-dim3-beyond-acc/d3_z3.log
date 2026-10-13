@@ -1,0 +1,42 @@
+mask z3 free entries 27
+starts 20 ok 6 elapsed 2s
+starts 40 ok 10 elapsed 5s
+starts 60 ok 14 elapsed 9s
+starts 80 ok 17 elapsed 13s
+starts 100 ok 22 elapsed 16s
+starts 120 ok 26 elapsed 20s
+starts 140 ok 34 elapsed 23s
+starts 160 ok 40 elapsed 27s
+starts 180 ok 50 elapsed 30s
+starts 200 ok 58 elapsed 34s
+starts 220 ok 60 elapsed 38s
+starts 240 ok 66 elapsed 41s
+starts 260 ok 72 elapsed 45s
+starts 280 ok 78 elapsed 48s
+starts 300 ok 80 elapsed 52s
+starts 320 ok 85 elapsed 56s
+starts 340 ok 89 elapsed 60s
+starts 360 ok 93 elapsed 63s
+starts 380 ok 98 elapsed 67s
+starts 400 ok 100 elapsed 71s
+starts 420 ok 106 elapsed 75s
+starts 440 ok 109 elapsed 79s
+starts 460 ok 114 elapsed 83s
+starts 480 ok 120 elapsed 86s
+starts 500 ok 124 elapsed 91s
+starts 520 ok 132 elapsed 94s
+starts 540 ok 138 elapsed 98s
+starts 560 ok 141 elapsed 102s
+starts 580 ok 144 elapsed 106s
+starts 600 ok 150 elapsed 110s
+starts 620 ok 154 elapsed 114s
+starts 640 ok 160 elapsed 118s
+starts 660 ok 163 elapsed 122s
+starts 680 ok 168 elapsed 126s
+starts 700 ok 172 elapsed 130s
+DONE starts 700 ok 172 elapsed 130s
+   ('gauss', 'stall') 233
+   ('near_flip', 'ok') 113
+   ('near_flip', 'stall') 121
+   ('near_id', 'ok') 59
+   ('near_id', 'stall') 174

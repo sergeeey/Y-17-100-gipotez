@@ -1,0 +1,46 @@
+{
+ "POS Toda (116) with MLR (117)": {
+  "symbolic_zero": true,
+  "numeric_max": 2.4892061111444567e-60,
+  "expected_zero": true,
+  "ok": true
+ },
+ "NEG Toda: M12 w1_0 -> w1_1": {
+  "symbolic_zero": false,
+  "numeric_max": 14.942857142857143,
+  "expected_zero": false,
+  "ok": true
+ },
+ "NEG Toda: M11 w2_1 -> w2_0": {
+  "symbolic_zero": false,
+  "numeric_max": 15.4,
+  "expected_zero": false,
+  "ok": true
+ },
+ "NEG Toda: U22 w2_0 -> w2_1": {
+  "symbolic_zero": false,
+  "numeric_max": 15.4,
+  "expected_zero": false,
+  "ok": true
+ },
+ "NEG Toda: U21 1 -> 2": {
+  "symbolic_zero": false,
+  "numeric_max": 7.571428571428571,
+  "expected_zero": false,
+  "ok": true
+ },
+ "NEG Toda: perturbed equation F2 += w1_0*w2_0": {
+  "symbolic_zero": false,
+  "numeric_max": 4.0,
+  "expected_zero": false,
+  "ok": true
+ },
+ "POS gauge-transformed Toda MLR (random G, eq (12))": {
+  "symbolic_zero": true,
+  "numeric_max": 1.7324874533565419e-57,
+  "expected_zero": true,
+  "ok": true
+ },
+ "volterra_U": "none found",
+ "controls_valid": true
+}

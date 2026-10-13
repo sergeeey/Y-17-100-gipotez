@@ -1,0 +1,15 @@
+time 419.8873465061188 jobs 2541
+aL count histogram [56 65] max 1 ambig 0
+aR count histogram [59 62] max 1 ambig 0
+beta count histogram [54 67] max 1 ambig 0
+aL_beta count histogram [684 403   2] max 2 ambig 0
+aL_aR count histogram [670 419] max 1 ambig 0
+-- aL transitions in sign-change count:
+   aL=-6.000 -> n=0  y1=[]
+   aL=-0.400 -> n=1  y1=['1.7820']
+-- aR transitions in sign-change count:
+   aR=-6.000 -> n=0  y1=[]
+   aR=-0.100 -> n=1  y1=['0.1967']
+-- beta transitions in sign-change count:
+   beta=-4.000 -> n=0  y1=[]
+   beta=-0.400 -> n=1  y1=['1.3751']

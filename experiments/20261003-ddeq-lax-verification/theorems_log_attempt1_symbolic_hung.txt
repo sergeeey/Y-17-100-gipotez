@@ -1,0 +1,6 @@
+Thm3: Delta != 0 for some j (=> NOT fake) : Toda (117)                      PASS nonzero per component u1,u2 = [True, True]
+Thm3: Delta != 0 for some j (=> NOT fake) : (118)                           PASS nonzero per component u1,u2 = [True, True]
+Thm3: Delta != 0 for some j (=> NOT fake) : (90)                            PASS nonzero per component u1,u2 = [True, True]
+Thm3: Delta != 0 for some j (=> NOT fake) : (100)                           PASS nonzero per component u1,u2 = [True, True]
+Thm3: Delta != 0 for some j (=> NOT fake) : (68)                            PASS nonzero per component u1,u2 = [True, True]
+Thm3: Delta != 0 for some j (=> NOT fake) : (120)                           PASS nonzero per component u1,u2 = [True, True]

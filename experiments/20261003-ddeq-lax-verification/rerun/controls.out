@@ -1,0 +1,10 @@
+POS Toda (116) with MLR (117)                           sym_zero=True  num=2.489e-60 expected_zero=True -> OK
+NEG Toda: M12 w1_0 -> w1_1                              sym_zero=False num=1.494e+01 expected_zero=False -> OK
+NEG Toda: M11 w2_1 -> w2_0                              sym_zero=False num=1.540e+01 expected_zero=False -> OK
+NEG Toda: U22 w2_0 -> w2_1                              sym_zero=False num=1.540e+01 expected_zero=False -> OK
+NEG Toda: U21 1 -> 2                                    sym_zero=False num=7.571e+00 expected_zero=False -> OK
+NEG Toda: perturbed equation F2 += w1_0*w2_0            sym_zero=False num=4.000e+00 expected_zero=False -> OK
+POS gauge-transformed Toda MLR (random G, eq (12))      sym_zero=True  num=1.732e-57 expected_zero=True -> OK
+Volterra: no U in ansatz for M=[[lam,u0],[-1,0]] (candidate M wrong or ansatz too small)
+CONTROLS VALID
+done-controls 0

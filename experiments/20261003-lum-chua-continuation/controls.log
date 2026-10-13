@@ -1,0 +1,5 @@
+round-1 positive control: n= 1 [(-0.810643077223129, 2.887682559866273)] (expect y_Lentry=y1~2.887683)
+horizon check HY: 23 NaN starts, 0 have a return within 12pi/w (rest truly never return)
+continuous scan (a_L=a_R), T_L T_R<0: counts histogram [411 389] max 1 ambig gaps total 0
+same-sign traces scan (T_L T_R>0): counts histogram [300] max 0
+time 157.52208423614502

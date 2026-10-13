@@ -1,0 +1,34 @@
+(68) is MLR for (67)                                                   sym=True   num=3.98e-59 -> PASS
+(71) is MLR for (72)                                                   sym=True   num=3.98e-59 -> PASS
+(89) is MT from (85) to (67): component u1                             sym=True   num=6.22e-61 -> PASS
+(89) is MT from (85) to (67): component u2                             sym=True   num=0.00e+00 -> PASS
+(90),(91) is MLR for (85)                                              sym=True   num=9.96e-60 -> PASS
+Lemma 4: (71)[u->Phi] equals printed (90),(91) (M part)                sym=True   num=0.00e+00 -> PASS
+Lemma 4: (71)[u->Phi] equals printed (90),(91) (U part)                sym=True   num=0.00e+00 -> PASS
+gauge(95): computed S(G)MG^-1 equals printed (96)                      sym=True   num=6.22e-61 -> PASS
+gauge(95): computed DtG G^-1+GUG^-1 equals printed (97)                sym=True   num=1.42e-60 -> PASS
+(96),(97) is MLR for (85)                                              sym=True   num=2.99e-59 -> PASS
+(96) depends on u_1? -> False
+diag gauge: computed equals printed (100) (M)                          sym=True   num=0.00e+00 -> PASS
+diag gauge: computed equals printed (100) (U)                          sym=True   num=3.11e-61 -> PASS
+(100) is MLR for (85)                                                  sym=True   num=6.22e-60 -> PASS
+(100) u-tame: True
+(107) satisfied by (108) branch +1                                     sym=None   num=2.80e-60 -> PASS
+(110) is MT from (113) to (85) branch +1: u1                           sym=None   num=8.34e-60 -> PASS
+(110) is MT from (113) to (85) branch +1: u2                           sym=None   num=0.00e+00 -> PASS
+Remark 6 (100)[->Phi] MLR for (113) at lam=q branch +1                 sym=None   num=2.99e-57 -> PASS
+(107) satisfied by (108) branch -1                                     sym=None   num=3.19e-60 -> PASS
+(110) is MT from (113) to (85) branch -1: u1                           sym=None   num=1.49e-59 -> PASS
+(110) is MT from (113) to (85) branch -1: u2                           sym=None   num=0.00e+00 -> PASS
+Remark 6 (100)[->Phi] MLR for (113) at lam=q branch -1                 sym=None   num=2.99e-59 -> PASS
+(118),(119) is MLR for (114)                                           sym=True   num=9.33e-61 -> PASS
+(115) is MT from (114) to Toda (116)                                   sym=True   num=7.78e-62 -> PASS
+(117) is MLR for Toda (116)                                            sym=True   num=1.56e-61 -> PASS
+gauge G(3.2): computed equals printed (120) (M)                        sym=True   num=0.00e+00 -> PASS
+gauge G(3.2): computed equals printed (120) (U)                        sym=True   num=3.11e-61 -> PASS
+(120) is MLR for (114)                                                 sym=True   num=6.22e-61 -> PASS
+(126) is MT from (128) to (114): u1                                    sym=True   num=2.49e-60 -> PASS
+(126) is MT from (128) to (114): u2                                    sym=True   num=1.80e-59 -> PASS
+Remark 7: (120)[->Phi126] MLR for (128) at lam=c                       sym=True   num=1.80e-59 -> PASS
+Remark 7: same with free lam (NOT claimed by paper; informational)     sym=True   num=1.80e-59 -> PASS
+DONE; any FAIL: []

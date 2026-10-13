@@ -1,0 +1,150 @@
+{
+ "CTRL_B1_gasket_shifted(R(0)=1)": [
+  {
+   "d": 2,
+   "matched": 95,
+   "frac": 0.9895833333333334,
+   "coverage": 1.0,
+   "a": [
+    1.0000000000000144,
+    4.999999999999996,
+    -1.0
+   ],
+   "n_fine": 96,
+   "n_cands": 32
+  },
+  {
+   "d": 3,
+   "matched": 95,
+   "frac": 0.9895833333333334,
+   "coverage": 1.0,
+   "a": [
+    1.0000000000000535,
+    4.999999999999957,
+    -0.9999999999999931,
+    -8.881784197001252e-16
+   ],
+   "n_fine": 96,
+   "n_cands": 20
+  }
+ ],
+ "CTRL_B2_gasket_flipped(R decreasing)": [
+  {
+   "d": 2,
+   "matched": 95,
+   "frac": 0.9895833333333334,
+   "coverage": 1.0,
+   "a": [
+    6.9999999999999805,
+    -4.999999999999995,
+    1.0
+   ],
+   "n_fine": 96,
+   "n_cands": 32
+  },
+  {
+   "d": 3,
+   "matched": 95,
+   "frac": 0.9895833333333334,
+   "coverage": 1.0,
+   "a": [
+    6.999999999999949,
+    -4.999999999999957,
+    0.9999999999999936,
+    8.881784197001252e-16
+   ],
+   "n_fine": 96,
+   "n_cands": 20
+  }
+ ],
+ "NEG_B_jittered_gasket": [
+  {
+   "d": 2,
+   "matched": 0,
+   "frac": 0.0,
+   "a": null,
+   "n_fine": 1095,
+   "n_cands": 0
+  },
+  {
+   "d": 3,
+   "matched": 0,
+   "frac": 0.0,
+   "a": null,
+   "n_fine": 1095,
+   "n_cands": 0
+  }
+ ],
+ "carpet_L1_2to3": [
+  {
+   "d": 2,
+   "matched": 0,
+   "frac": 0.0,
+   "a": null,
+   "n_fine": 510,
+   "n_cands": 0
+  },
+  {
+   "d": 3,
+   "matched": 0,
+   "frac": 0.0,
+   "a": null,
+   "n_fine": 510,
+   "n_cands": 0
+  }
+ ],
+ "carpet_L1_3to4": [
+  {
+   "d": 2,
+   "matched": 0,
+   "frac": 0.0,
+   "a": null,
+   "n_fine": 3948,
+   "n_cands": 0
+  },
+  {
+   "d": 3,
+   "matched": 0,
+   "frac": 0.0,
+   "a": null,
+   "n_fine": 3948,
+   "n_cands": 0
+  }
+ ],
+ "carpet_L2_2to3": [
+  {
+   "d": 2,
+   "matched": 0,
+   "frac": 0.0,
+   "a": null,
+   "n_fine": 509,
+   "n_cands": 0
+  },
+  {
+   "d": 3,
+   "matched": 0,
+   "frac": 0.0,
+   "a": null,
+   "n_fine": 509,
+   "n_cands": 0
+  }
+ ],
+ "carpet_L2_3to4": [
+  {
+   "d": 2,
+   "matched": 0,
+   "frac": 0.0,
+   "a": null,
+   "n_fine": 3933,
+   "n_cands": 0
+  },
+  {
+   "d": 3,
+   "matched": 0,
+   "frac": 0.0,
+   "a": null,
+   "n_fine": 3933,
+   "n_cands": 0
+  }
+ ]
+}

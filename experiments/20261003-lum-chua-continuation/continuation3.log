@@ -1,0 +1,12 @@
+aL n_pts 121 hist [56, 65] spurious 0 ambig 0
+   aL=-6.000 -> n=0
+   aL=-0.400 -> n=1
+aR n_pts 121 hist [59, 62] spurious 0 ambig 0
+   aR=-6.000 -> n=0
+   aR=-0.100 -> n=1
+beta n_pts 121 hist [54, 67] spurious 0 ambig 0
+   beta=-4.000 -> n=0
+   beta=-0.400 -> n=1
+aL_beta n_pts 625 hist [393, 231, 1] spurious 0
+2-cycle points: [(-3.5, 4.0)]
+wall 440.2744059562683

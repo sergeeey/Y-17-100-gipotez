@@ -1,0 +1,6 @@
+[kn_bad] ansatz size = 1210 unknown coefficients; vars=10
+[kn_bad] matrix (8542, 1210), built in 51.0s
+[kn_bad] nullity = 2; smallest singular values near gap: [] | sv just above tol: ['2.12e+00', '1.79e+00', '1.43e+00'] | sv below tol (max 5): ['1.5e-15', '4.4e-16']
+[kn_bad] sol#0: exact_verified=True, stencil span = [0,0], #terms = [1, 1]
+[kn_bad] sol#1: exact_verified=True, stencil span = [-1,1], #terms = [3, 2]
+SAVED kn_bad

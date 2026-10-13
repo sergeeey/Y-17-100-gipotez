@@ -1,0 +1,16 @@
+{"d": 5, "c": 3, "k": 1, "n": 8, "labels": [0, 3, 4, 5, 6, 99], "roots": 3, "leaves": 1010, "vinberg_calls": 72, "nodes": 3784, "secs": 17.9, "found": 15}
+n=8 [0-1:inf 1-7:3 2-3:inf 3-7:3 4-5:3 4-6:3 5-6:3 6-7:3] ['A1~', 'A1~', 'A2~'] noncompact nonsimple=1
+n=8 [0-1:inf 1-7:3 2-3:inf 2-7:3 3-7:3 4-5:3 4-6:3 5-6:3 6-7:3] ['A1~', 'A1~', 'A2~'] noncompact nonsimple=1
+n=8 [0-1:inf 0-7:3 1-7:3 2-3:inf 2-7:3 3-7:3 4-5:3 4-6:3 5-6:3 6-7:3] ['A1~', 'A1~', 'A2~'] noncompact nonsimple=1
+n=8 [0-1:inf 1-7:3 2-3:inf 3-7:3 4-5:4 5-6:4 6-7:3] ['A1~', 'A1~', 'C2~'] noncompact nonsimple=1
+n=8 [0-1:inf 1-7:3 2-3:inf 3-7:3 4-5:4 5-6:4 5-7:3] ['A1~', 'A1~', 'C2~'] noncompact nonsimple=1
+n=8 [0-1:inf 1-7:3 2-3:inf 3-7:3 4-5:4 4-7:3 5-6:4 6-7:3] ['A1~', 'A1~', 'C2~'] noncompact nonsimple=1
+n=8 [0-1:inf 1-7:3 2-3:inf 2-7:3 3-7:3 4-5:4 5-6:4 6-7:3] ['A1~', 'A1~', 'C2~'] noncompact nonsimple=1
+n=8 [0-1:inf 1-7:3 2-3:inf 2-7:3 3-7:3 4-5:4 5-6:4 5-7:3] ['A1~', 'A1~', 'C2~'] noncompact nonsimple=1
+n=8 [0-1:inf 1-7:3 2-3:inf 2-7:3 3-7:3 4-5:4 4-7:3 5-6:4 6-7:3] ['A1~', 'A1~', 'C2~'] noncompact nonsimple=1
+n=8 [0-1:inf 0-7:3 1-7:3 2-3:inf 2-7:3 3-7:3 4-5:4 5-6:4 6-7:3] ['A1~', 'A1~', 'C2~'] noncompact nonsimple=1
+n=8 [0-1:inf 0-7:3 1-7:3 2-3:inf 2-7:3 3-7:3 4-5:4 5-6:4 5-7:3] ['A1~', 'A1~', 'C2~'] noncompact nonsimple=1
+n=8 [0-1:inf 0-7:3 1-7:3 2-3:inf 2-7:3 3-7:3 4-5:4 4-7:3 5-6:4 6-7:3] ['A1~', 'A1~', 'C2~'] noncompact nonsimple=1
+n=8 [0-1:inf 1-7:3 2-3:inf 3-7:3 4-5:3 4-7:3 5-6:6] ['A1~', 'A1~', 'G2~'] noncompact nonsimple=1
+n=8 [0-1:inf 1-7:3 2-3:inf 2-7:3 3-7:3 4-5:3 4-7:3 5-6:6] ['A1~', 'A1~', 'G2~'] noncompact nonsimple=1
+n=8 [0-1:inf 0-7:3 1-7:3 2-3:inf 2-7:3 3-7:3 4-5:3 4-7:3 5-6:6] ['A1~', 'A1~', 'G2~'] noncompact nonsimple=1

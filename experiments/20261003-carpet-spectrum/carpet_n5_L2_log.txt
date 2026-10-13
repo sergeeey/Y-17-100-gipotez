@@ -1,0 +1,5 @@
+   sector sx=1 sy=1 size 10396 eig 202s
+   sector sx=1 sy=-1 size 10396 eig 183s
+   sector sx=-1 sy=1 size 10396 eig 190s
+   sector sx=-1 sy=-1 size 10396 eig 143s
+L2 level 5 sectors done 765s

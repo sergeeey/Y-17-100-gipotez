@@ -1,0 +1,8 @@
+base HY: (3, 0.00012908608085999257)
+sigma=0.01: invalid=0 hist(0..)=[296, 486, 5, 413, 0, 0, 0, 0] max=3  (313s)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\serge\miniconda3\envs\ape311\Lib\multiprocessing\spawn.py", line 108, in spawn_main
+    source_process = _winapi.OpenProcess(
+                     ^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 87] Параметр задан неверно

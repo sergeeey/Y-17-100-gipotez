@@ -1,0 +1,18 @@
+Thm3: Delta != 0 for some j (=> NOT fake) : Toda (117)                      PASS nonzero per component u1,u2 = [True, True]
+Thm3: Delta != 0 for some j (=> NOT fake) : (118)                           PASS nonzero per component u1,u2 = [True, True]
+Thm3: Delta != 0 for some j (=> NOT fake) : (90)                            PASS nonzero per component u1,u2 = [True, True]
+Thm3: Delta != 0 for some j (=> NOT fake) : (100)                           PASS nonzero per component u1,u2 = [True, True]
+Thm3: Delta != 0 for some j (=> NOT fake) : (68)                            PASS nonzero per component u1,u2 = [True, True]
+Thm3: Delta != 0 for some j (=> NOT fake) : (120)                           PASS nonzero per component u1,u2 = [True, True]
+Thm3: Delta == 0 for deliberately FAKE MLR S(G)M0G^-1 (G#0)                 PASS 
+Thm3: Delta == 0 for deliberately FAKE MLR S(G)M0G^-1 (G#1)                 PASS 
+Thm2 covariance Delta(M~)=S(G)Delta(M)S(G)^-1 : M=(118), G#0                PASS 
+Thm2 covariance Delta(M~)=S(G)Delta(M)S(G)^-1 : M=(100), G#0                PASS 
+Thm2 covariance Delta(M~)=S(G)Delta(M)S(G)^-1 : M=(118), G#1                PASS 
+Thm2 covariance Delta(M~)=S(G)Delta(M)S(G)^-1 : M=(100), G#1                PASS 
+Thm2 NEG control: wrong covariance formula (G instead of S(G)) must FAIL    PASS 
+Thm1 cond (27) p=1 holds for (90) [paper says it does]                      PASS 
+Thm1 cond (27) p=1 holds for (118) [paper says it does]                     PASS 
+Thm1 (28): gauge G=S^-1(M(a0,u1)^-1) applied to (118) leaves no u_1-dependence PASS free symbols ['a1', 'lam', 'u1_0', 'u2_0']
+Thm1 NEG control: cond (27) FAILS for a matrix with entangled u_0,u_1       PASS 
+DONE; FAIL: []

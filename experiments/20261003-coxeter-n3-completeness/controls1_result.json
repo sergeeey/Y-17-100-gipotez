@@ -1,0 +1,71 @@
+{
+ "library_bad": [],
+ "simplices": {
+  "3": {
+   "candidates": 32,
+   "compact": 9,
+   "noncompact": 23,
+   "disagree": 0,
+   "euler_bad": 0,
+   "secs": 0.1
+  },
+  "4": {
+   "candidates": 14,
+   "compact": 5,
+   "noncompact": 9,
+   "disagree": 0,
+   "euler_bad": 0,
+   "secs": 0.1
+  },
+  "5": {
+   "candidates": 12,
+   "compact": 0,
+   "noncompact": 12,
+   "disagree": 0,
+   "euler_bad": 0,
+   "secs": 0.1
+  },
+  "6": {
+   "candidates": 3,
+   "compact": 0,
+   "noncompact": 3,
+   "disagree": 0,
+   "euler_bad": 0,
+   "secs": 0.1
+  },
+  "7": {
+   "candidates": 4,
+   "compact": 0,
+   "noncompact": 4,
+   "disagree": 0,
+   "euler_bad": 0,
+   "secs": 0.1
+  },
+  "8": {
+   "candidates": 4,
+   "compact": 0,
+   "noncompact": 4,
+   "disagree": 0,
+   "euler_bad": 0,
+   "secs": 0.1
+  },
+  "9": {
+   "candidates": 3,
+   "compact": 0,
+   "noncompact": 3,
+   "disagree": 0,
+   "euler_bad": 0,
+   "secs": 0.1
+  }
+ },
+ "hand": {
+  "Lanner [3,5,3] (pos)": "{'vinberg': (True, True, 'ok'), 'geo': (True, True, 'ok')}",
+  "Lanner [5,3,5] (pos)": "{'vinberg': (True, True, 'ok'), 'geo': (True, True, 'ok')}",
+  "Lanner [5,3,3,5] dim4 (pos)": "{'vinberg': (True, True, 'ok'), 'geo': (True, True, 'ok')}",
+  "E10=T(2,3,7) dim9 (pos nc)": "{'vinberg': (True, False, 'ok'), 'geo': (True, False, 'ok')}",
+  "neg: chain [3,5,4]": "{'vinberg': (False, False, 'edge (1, 2) has 1 extensions'), 'geo': (False, False, 'spacelike/mixed ray')}",
+  "neg: E11 sig(10,2)": "{'vinberg': (False, False, 'edge (0, 1, 2, 3, 4, 5, 6, 7, 9) has 1 extensions'), 'geo': (False, False, 'spacelike/mixed ray')}",
+  "neg: chain [5,3,3,3,5]": "{'vinberg': (False, False, 'edge (0, 1, 2, 3) has 1 extensions'), 'geo': (False, False, 'spacelike/mixed ray')}",
+  "neg: Lanner [3,5,3] label 5->6": "{'vinberg': (True, False, 'ok'), 'geo': (True, False, 'ok')}"
+ }
+}
