@@ -1,0 +1,41 @@
+== T1: is the clean-vs-arm AUROC driven by the base-sample SET (clean seeds 0-99 vs arms 100-199)?
+C1 clean mean 0.53036 | arm means range 0.52616 0.533
+   r-AUROC over 16 arms: mean 0.4902 share<0.5 0.562
+C2 clean mean 0.53277 | arm means range 0.52765 0.53301
+   r-AUROC over 16 arms: mean 0.4685 share<0.5 0.688
+C3 clean mean 0.52895 | arm means range 0.52675 0.53232
+   r-AUROC over 16 arms: mean 0.4953 share<0.5 0.625
+
+== T2: pairing value. Same seed => same base sample; at 0.5 % only 2 of 400 nodes differ.
+C1 0.005 corr(Pt,Bg)=0.053 corr(Pb,Bb)=-0.129 paired d(Pt-Bg)=0.0020 p=0.231 paired d(Pb-Bb)=-0.0034 p=0.095
+C1 0.01 corr(Pt,Bg)=-0.185 corr(Pb,Bb)=-0.314 paired d(Pt-Bg)=-0.0048 p=0.121 paired d(Pb-Bb)=-0.0054 p=0.045
+C1 0.05 corr(Pt,Bg)=0.018 corr(Pb,Bb)=-0.084 paired d(Pt-Bg)=0.0000 p=0.799 paired d(Pb-Bb)=-0.0016 p=0.460
+C1 0.2 corr(Pt,Bg)=0.032 corr(Pb,Bb)=-0.149 paired d(Pt-Bg)=-0.0012 p=0.837 paired d(Pb-Bb)=0.0001 p=0.937
+    C1 P_targeted paired r(20%)-r(0.5%) = 0.0007  sd_diff=0.0221  corr=-0.005  p=0.483
+    C1 P_bridge paired r(20%)-r(0.5%) = 0.0023  sd_diff=0.0236  corr=-0.108  p=0.359
+    C1 B_bridge paired r(20%)-r(0.5%) = -0.0012  sd_diff=0.0226  corr=-0.072  p=0.710
+    C1 B_growth paired r(20%)-r(0.5%) = 0.0039  sd_diff=0.0220  corr=0.024  p=0.087
+C2 0.005 corr(Pt,Bg)=0.006 corr(Pb,Bb)=-0.020 paired d(Pt-Bg)=0.0006 p=0.739 paired d(Pb-Bb)=-0.0005 p=0.829
+C2 0.01 corr(Pt,Bg)=0.048 corr(Pb,Bb)=0.098 paired d(Pt-Bg)=-0.0017 p=0.487 paired d(Pb-Bb)=0.0013 p=0.531
+C2 0.05 corr(Pt,Bg)=-0.014 corr(Pb,Bb)=0.109 paired d(Pt-Bg)=0.0017 p=0.550 paired d(Pb-Bb)=-0.0004 p=0.708
+C2 0.2 corr(Pt,Bg)=-0.046 corr(Pb,Bb)=-0.133 paired d(Pt-Bg)=-0.0038 p=0.042 paired d(Pb-Bb)=-0.0036 p=0.222
+    C2 P_targeted paired r(20%)-r(0.5%) = -0.0020  sd_diff=0.0218  corr=0.052  p=0.441
+    C2 P_bridge paired r(20%)-r(0.5%) = -0.0000  sd_diff=0.0218  corr=0.058  p=0.855
+    C2 B_bridge paired r(20%)-r(0.5%) = 0.0030  sd_diff=0.0202  corr=0.084  p=0.108
+    C2 B_growth paired r(20%)-r(0.5%) = 0.0024  sd_diff=0.0238  corr=-0.154  p=0.264
+C3 0.005 corr(Pt,Bg)=-0.105 corr(Pb,Bb)=0.010 paired d(Pt-Bg)=0.0011 p=0.545 paired d(Pb-Bb)=0.0028 p=0.255
+C3 0.01 corr(Pt,Bg)=-0.072 corr(Pb,Bb)=0.128 paired d(Pt-Bg)=0.0006 p=0.554 paired d(Pb-Bb)=-0.0006 p=0.760
+C3 0.05 corr(Pt,Bg)=0.011 corr(Pb,Bb)=0.087 paired d(Pt-Bg)=0.0008 p=0.899 paired d(Pb-Bb)=0.0029 p=0.224
+C3 0.2 corr(Pt,Bg)=-0.303 corr(Pb,Bb)=0.063 paired d(Pt-Bg)=-0.0013 p=0.640 paired d(Pb-Bb)=-0.0006 p=0.853
+    C3 P_targeted paired r(20%)-r(0.5%) = -0.0034  sd_diff=0.0230  corr=-0.063  p=0.229
+    C3 P_bridge paired r(20%)-r(0.5%) = -0.0027  sd_diff=0.0232  corr=0.029  p=0.229
+    C3 B_bridge paired r(20%)-r(0.5%) = 0.0007  sd_diff=0.0224  corr=0.083  p=0.826
+    C3 B_growth paired r(20%)-r(0.5%) = -0.0010  sd_diff=0.0219  corr=0.076  p=0.613
+
+== T5: re-apply decision with C4 on B_growth (as written in claim.md) + strict reading
+P_targeted C1 [('0.005', False, False, False, False), ('0.01', False, False, False, False), ('0.05', False, False, False, False)] lenient_all: False strict_all: False
+P_targeted C2 [('0.005', False, False, False, False), ('0.01', False, False, False, False), ('0.05', False, False, False, False)] lenient_all: False strict_all: False
+P_targeted C3 [('0.005', False, False, False, False), ('0.01', False, False, False, False), ('0.05', False, False, False, False)] lenient_all: False strict_all: False
+P_bridge C1 [('0.005', False, False, False, False), ('0.01', False, False, False, False), ('0.05', False, False, False, False)] lenient_all: False strict_all: False
+P_bridge C2 [('0.005', False, False, False, False), ('0.01', False, False, False, False), ('0.05', False, False, False, False)] lenient_all: False strict_all: False
+P_bridge C3 [('0.005', False, False, False, False), ('0.01', False, False, False, False), ('0.05', False, False, False, False)] lenient_all: False strict_all: False

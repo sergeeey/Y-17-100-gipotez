@@ -2474,6 +2474,32 @@ nodes:
     source: "arXiv:2602.05394, Problem 2.20; arXiv:2609.04659 (external resolution)"
     updated: 2026-09-10
 
+  - id: ART-EXT-NLM-SYNTH-20261014
+    type: artifact
+    title: "External LLM-generated 'synthetic cartography' report pasted into session 2026-10-14: 13 hypotheses, Top-5, Syn-H1..H3, scores table, MVP code (Syn-H1/H1: Wigner-Dyson r-statistic of graph Laplacians as OOD/poisoning/TAD-merge marker)"
+    status: valid                 # как артефакт существует; его утверждения НЕ верифицированы, вердикт на него не переносится на H-SYN1-RSTAT-MEM-001 и наоборот (Gate 1)
+    evidence: UNVERIFIED
+    date_created: 2026-10-14
+    provenance: illustration      # LLM-синтез без прогона; в отчёте нет ни одного результата вычислений
+    source: "chat paste 2026-10-14 (файла нет, хеш недоступен); перепроверка: experiments/20261014-syn-h1-rstat-memory-graph/"
+    note: "Перепроверка 2026-10-14 (синтетический пилот, VERIFIED-SYNTHETIC): константы Poisson/GOE/GUE верны (large-N); код отчёта на seed 42 даёт 0.516 для 'Poisson'-арма, собственный критерий успеха False, MWU p=0.22; 30 графов/арм 0.533 vs 0.535, p=0.58; Mann-Whitney по r_i некорректен (lag-1 corr 0.29). Ссылка на 'Frontier R&D Research Document' = постоянно unverified_source (CLAUDE.md проекта). Hi-C ветка противоречит ART-TAD-R-HONEST."
+    updated: 2026-10-14
+
+  - id: H-SYN1-RSTAT-MEM-001
+    type: hypothesis
+    title: "Syn-H1 (narrowed): the level-spacing ratio <r~> of the kNN-graph Laplacian of an agent-memory embedding graph detects 0.5-5% poisoned insertions with AUROC at least 0.05 above the best cheap structural baseline, and not on benign bridging/growth insertions"
+    status: killed                # 2026-10-14 decision.md: REJECT as pre-registered (C1 premise failed). S4 exploratory
+    evidence: VERIFIED-REAL       # тексты и эмбеддинги реальные (3 локальных корпуса); яд синтетический (шаблонный), заявлено в caveats.md
+    verification_strength: medium # Agent(reviewer) + Agent(skeptic, opus, контекст-асимметрия, WEAKENED); скрипты скептика прогнаны мной (audit/)
+    verdict_note: "Clean kNN memory graphs (k=5/10/20, N=400, nomic-embed-text) of 3 markdown corpora: <r~> 0.529-0.533 = GOE, equals Gaussian-noise kNN null 0.5299; not Poisson 0.386 (S3). S4 (exploratory): <r~> not detected at MDE~0.10 AUROC; lambda2/modularity/centroid-cos see structural bridges (AUROC 0.81-0.93 at 5 %) but equally for benign bridges and not for stealth poison; <r~> responds only to forced disconnection (AUROC 0.72-0.99) and is dominated by #components/lambda2 (1.0). Scope: kNN/eps graphs, one embedder, markdown corpora of one author. Revival: knowledge-graph memory where #components is unavailable (parked, practically unlikely)."
+    l0_type: predictive           # 'отравление -> делокализация' = mechanism UNTESTED, не заявляется
+    fl_tier: full
+    kill_criterion: "Pre-registered in experiments/20261014-syn-h1-rstat-memory-graph/claim.md (Pre-registered protocol): KILLED if premise fails (S3: clean <r~> within 0.05 of Poisson 0.386 AND spread over kNN k<=0.05, on >=2 of 3 corpora) OR signal only at 20% poison OR upper CI(dAUC)<0.05 at <=5% poison on >=2 corpora; CONFIRMED only if C1-C4 all hold; everything exploratory capped at LEAD. MDE(~0.10) > MCID(0.05) -> null is reported as 'not detected at MDE', never 'falsified'."
+    experiment_dir: "experiments/20261014-syn-h1-rstat-memory-graph"
+    source: "experiments/20261014-syn-h1-rstat-memory-graph/claim.md"
+    mechanism: UNTESTED
+    updated: 2026-10-14
+
 edges:
   # grounding of bridges
   - {from: PRJ-H7-TAD,        to: B1-RMT-RIEMANN-HIC, type: grounds,   since: 2026-09-06}
@@ -2737,3 +2763,6 @@ edges:
   - {from: H-CAT31-2, to: SUB-RANDOM-CIRCULANT-GRAPHS, type: tested_on, since: 2026-09-10}
   - {from: H-CAT37-1, to: SUB-RESTARTED-KRYLOV-SPD-MATRICES, type: tested_on, since: 2026-09-10}
   - {from: H-CAT37-2, to: SUB-RESTARTED-KRYLOV-SPD-MATRICES, type: tested_on, since: 2026-09-10}
+  - {from: ART-EXT-NLM-SYNTH-20261014, to: H-SYN1-RSTAT-MEM-001, type: grounds, since: 2026-10-14, note: "источник идеи (Syn-H1), narrowed до предсказательного детектора; утверждения отчёта о Hi-C, новизне 9.8 и 'на 2-3 шага раньше guardrails' НЕ унаследованы"}
+  - {from: ART-TAD-R-HONEST, to: H-SYN1-RSTAT-MEM-001, type: links_to, since: 2026-10-14, note: "честное Hi-C <r>: WT 0.5113 vs auxin 0.5130, delta +0.0018 -- исходный отчёт использует Hi-C как поддержку H1; здесь не используется"}
+  - {from: H-B1-1a, to: H-SYN1-RSTAT-MEM-001, type: links_to, since: 2026-10-14, note: "та же статистика <r~>; референсные Poisson/GOE/GUE значения; графовый субстрат другой, зависимости нет"}

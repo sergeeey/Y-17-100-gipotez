@@ -1,0 +1,6 @@
+C1 {'eps_raw': 0.5003, 'eps_fd': 0.1491, 'eps_iso': 0.1205, 'eps_giant_n': 328.0, 'eps_giant_r': 0.5103, 'knn10_centered': 0.5345, 'mutual10_raw': 0.5113, 'mutual10_ncomp': 26.1333, 'gauss_knn10': 0.5299, 'colshuf_knn10': 0.5312}
+C2 {'eps_raw': 0.4678, 'eps_fd': 0.3611, 'eps_iso': 0.2499, 'eps_giant_n': 205.4, 'eps_giant_r': 0.493, 'knn10_centered': 0.5297, 'mutual10_raw': 0.4969, 'mutual10_ncomp': 24.2333, 'gauss_knn10': 0.5299, 'colshuf_knn10': 0.5315}
+C3 {'eps_raw': 0.489, 'eps_fd': 0.2797, 'eps_iso': 0.2201, 'eps_giant_n': 256.3667, 'eps_giant_r': 0.5104, 'knn10_centered': 0.5294, 'mutual10_raw': 0.5083, 'mutual10_ncomp': 36.0667, 'gauss_knn10': 0.5299, 'colshuf_knn10': 0.5262}
+C1 cos(P_bridge[i],B_bridge[i]) = 0.7472 vs cos(P_bridge[i],B_bridge[i-1]) = 0.7477 (equal => NOT item-matched)
+C2 cos(P_bridge[i],B_bridge[i]) = 0.7011 vs cos(P_bridge[i],B_bridge[i-1]) = 0.6999 (equal => NOT item-matched)
+C3 cos(P_bridge[i],B_bridge[i]) = 0.744 vs cos(P_bridge[i],B_bridge[i-1]) = 0.7434 (equal => NOT item-matched)

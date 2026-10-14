@@ -1,0 +1,33 @@
+{
+  "per_corpus": {
+    "C1": {
+      "P1_some_construction_near_poisson": false,
+      "constructions_not_evaluable": [
+        "eps10"
+      ],
+      "knn_spread": 0.002197810186449378,
+      "P2_spread_le_0.05": true,
+      "both": false
+    },
+    "C2": {
+      "P1_some_construction_near_poisson": false,
+      "constructions_not_evaluable": [
+        "eps10"
+      ],
+      "knn_spread": 0.003261567147864075,
+      "P2_spread_le_0.05": true,
+      "both": false
+    },
+    "C3": {
+      "P1_some_construction_near_poisson": false,
+      "constructions_not_evaluable": [
+        "eps10"
+      ],
+      "knn_spread": 0.0024481285806080555,
+      "P2_spread_le_0.05": true,
+      "both": false
+    }
+  },
+  "PREMISE_HOLDS": false,
+  "verdict": "PREMISE_KILLED"
+}
