@@ -1,0 +1,32 @@
+# experiment.yaml — EstimandOps canvas
+# Ref: rules/estimand-ops.md
+id: 20261014-syn-h1-rstat-memory-graph
+ladder: full           # research + AI-generated claim => Full (FL § Tier Decision); без причинного слоя (predictive), DAG не нужен
+question_type: predictive
+status: planned
+
+population: "kNN-графы памяти из N=400 текстовых чанков; 3 локальных корпуса (заметки Y-17, skills-md, vault); эмбеддер nomic-embed-text; исключения: near-duplicates (cos>0.995), вырожденные спектры (>5% нулевых зазоров)"
+intervention: "вставка 0.5/1/5/20% отравленных чанков (P-targeted, P-bridge): шаблонная фраза + текст чанков"
+comparator: "чистый граф; benign-контроли B-bridge и B-growth; бейзлайны {#components, lambda2, modularity, centroid-cosine}"
+endpoint: "graph-level AUROC 'отравлен/чист' по детектору <r~> (bulk нормированного лапласиана)"
+summary_measure: "dAUC = AUROC(<r~>) - max AUROC(бейзлайнов), 95% bootstrap-CI по графам"
+mcid: 0.05            # AUROC-единиц; согласовано 2026-10-14
+n: 100                # графов на арм (подвыборки с перекрытием: оценка оптимистична)
+baseline_or_sigma: "AUROC ~0.75 (допущение пилота, не измерено)"
+alpha: 0.05
+power: 0.8
+mde: 0.10             # Hanley-McNeil, непарный; MDE > MCID -> null не поддерживает claim об эффекте размера MCID
+
+ice:
+  - event: "benign memory growth (новые настоящие чанки, в т.ч. новые темы)"
+    strategy: composite      # отдельный негативный контроль B-growth, не missing data
+  - event: "benign bridging notes (структурно как яд, без вредной семантики)"
+    strategy: composite      # отдельный негативный контроль B-bridge
+  - event: "near-duplicates / вырожденный спектр"
+    strategy: while-active   # dedup и исключение графа со счётом
+
+sensitivity:
+  - description: "конструкции kNN-5/20 и epsilon-порог (S3); unfolding cut 0/5/10% (S2)"
+  - description: "второй эмбеддер Qwen3-Embedding-0.6B — только по остаточному времени, не часть вердикта"
+
+mechanism: UNTESTED     # 'отравление -> делокализация' не заявляется
