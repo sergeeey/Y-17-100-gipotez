@@ -1,0 +1,131 @@
+{
+  "seed": 20261014,
+  "N": 400,
+  "reference_spectra": {
+    "poisson": {
+      "mean": 0.3871118875710842,
+      "sd": 0.01709710086119672,
+      "n": 100
+    },
+    "goe": {
+      "mean": 0.5285308663908186,
+      "sd": 0.017649715259012752,
+      "n": 100
+    },
+    "gue": {
+      "mean": 0.5983806684464732,
+      "sd": 0.014341285058888674,
+      "n": 100
+    }
+  },
+  "reference_constants": {
+    "poisson": 0.3862943611198906,
+    "goe_large_n": 0.5307,
+    "gue_large_n": 0.5996
+  },
+  "er_p0.08": {
+    "mean": 0.5289333593259379,
+    "sd": 0.01228018415960057,
+    "n": 30
+  },
+  "er_fit_ok": true,
+  "blocks_m4_pout0": {
+    "mean": 0.393587417942874,
+    "sd": 0.017471142280491108,
+    "n": 30,
+    "n_components_mean": 4.0
+  },
+  "blocks_fit_ok": true,
+  "instrument_fit": true,
+  "pasted_sbm_weak_coupling": {
+    "mean": 0.5316335635264352,
+    "sd": 0.015018282885507085,
+    "n": 30,
+    "n_components_mean": 1.0
+  },
+  "regular_structures": {
+    "grid20x20_open": {
+      "r_mean": NaN,
+      "n_ratios": 12,
+      "frac_degenerate": 0.5097493036211699,
+      "excluded": true,
+      "n_components": 1,
+      "lambda2": 0.006645713622590292,
+      "frac_degenerate_tol1e-12": 0.5097493036211699,
+      "frac_degenerate_tol1e-9": 0.5097493036211699,
+      "r_pasted_style_filter": 0.4005800029206657
+    },
+    "torus20x20": {
+      "r_mean": NaN,
+      "n_ratios": 0,
+      "frac_degenerate": 0.8551532033426184,
+      "excluded": true,
+      "n_components": 1,
+      "lambda2": 0.02447174185242136,
+      "frac_degenerate_tol1e-12": 0.8551532033426184,
+      "frac_degenerate_tol1e-9": 0.8551532033426184,
+      "r_pasted_style_filter": 0.5905356500461683
+    },
+    "random_6_regular": {
+      "mean": 0.5309108266258448,
+      "sd": 0.015126691939604595,
+      "n": 30
+    }
+  },
+  "bulk_cut_sensitivity": {
+    "0.0": {
+      "er": 0.5282628151661548,
+      "blocks_m4": 0.3948526758025514
+    },
+    "0.05": {
+      "er": 0.5280488722802812,
+      "blocks_m4": 0.3927326045855724
+    },
+    "0.1": {
+      "er": 0.5334542446484776,
+      "blocks_m4": 0.39966500135369126
+    },
+    "0.2": {
+      "er": 0.5364180055282969,
+      "blocks_m4": 0.39253986395910095
+    }
+  },
+  "rewired_blocks_negative_control": {
+    "mean": 0.5301455813373669,
+    "sd": 0.017520307474907043,
+    "n": 20,
+    "n_components_mean": 1.0
+  },
+  "pseudo_replication": {
+    "mwu_on_r_i_false_positive_rate_nominal_0.05": 0.10666666666666667,
+    "n_null_pairs_mwu": 300,
+    "mean_lag1_autocorr_r_i": 0.23868732387292876,
+    "graph_level_permutation_false_positive_rate_10v10": 0.0,
+    "n_null_pairs_perm": 30
+  },
+  "oracle_adequacy": {
+    "G_positive_control_auc_ER_vs_blocks": 1.0,
+    "B_negative_control_auc_ER_vs_ER": 0.5747222222222222,
+    "B_negative_control_ci": [
+      0.46470833333333333,
+      0.6877777777777778
+    ],
+    "mutation_sign_flip_auc": 0.0,
+    "mutation_label_shuffle_auc": 0.5391666666666667,
+    "checks": {
+      "G": true,
+      "B": true,
+      "sign_flip": true,
+      "shuffle": true
+    },
+    "ok": true
+  },
+  "mde_check": {
+    "hanley_mcneil_se_A0.75_n100": 0.0344316092317178,
+    "mde_single_auc_n100": 0.0964630874594226,
+    "mde_delta_auc_independent_n100": 0.13641940655349746,
+    "mde_single_auc_n30": 0.17731959412209536,
+    "note": "paired comparison of correlated detectors lies between single-AUC and independent values"
+  },
+  "elapsed_s": 92.47373080253601
+}

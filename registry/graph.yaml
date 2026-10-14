@@ -2690,9 +2690,10 @@ nodes:
   - id: H-SYN1-RSTAT-MEM-001
     type: hypothesis
     title: "Syn-H1 (narrowed): the level-spacing ratio <r~> of the kNN-graph Laplacian of an agent-memory embedding graph detects 0.5-5% poisoned insertions with AUROC at least 0.05 above the best cheap structural baseline, and not on benign bridging/growth insertions"
-    status: running               # 2026-10-14: pre-registered (claim.md) before any real-data run; S0 done
-    evidence: UNVERIFIED          # синтетический пилот только; реальные данные не запускались
-    verification_strength: none
+    status: killed                # 2026-10-14 decision.md: REJECT as pre-registered (C1 premise failed). S4 exploratory
+    evidence: VERIFIED-REAL       # тексты и эмбеддинги реальные (3 локальных корпуса); яд синтетический (шаблонный), заявлено в caveats.md
+    verification_strength: medium # Agent(reviewer) + Agent(skeptic, opus, контекст-асимметрия, WEAKENED); скрипты скептика прогнаны мной (audit/)
+    verdict_note: "Clean kNN memory graphs (k=5/10/20, N=400, nomic-embed-text) of 3 markdown corpora: <r~> 0.529-0.533 = GOE, equals Gaussian-noise kNN null 0.5299; not Poisson 0.386 (S3). S4 (exploratory): <r~> not detected at MDE~0.10 AUROC; lambda2/modularity/centroid-cos see structural bridges (AUROC 0.81-0.93 at 5 %) but equally for benign bridges and not for stealth poison; <r~> responds only to forced disconnection (AUROC 0.72-0.99) and is dominated by #components/lambda2 (1.0). Scope: kNN/eps graphs, one embedder, markdown corpora of one author. Revival: knowledge-graph memory where #components is unavailable (parked, practically unlikely)."
     l0_type: predictive           # 'отравление -> делокализация' = mechanism UNTESTED, не заявляется
     fl_tier: full
     kill_criterion: "Pre-registered in experiments/20261014-syn-h1-rstat-memory-graph/claim.md (Pre-registered protocol): KILLED if premise fails (S3: clean <r~> within 0.05 of Poisson 0.386 AND spread over kNN k<=0.05, on >=2 of 3 corpora) OR signal only at 20% poison OR upper CI(dAUC)<0.05 at <=5% poison on >=2 corpora; CONFIRMED only if C1-C4 all hold; everything exploratory capped at LEAD. MDE(~0.10) > MCID(0.05) -> null is reported as 'not detected at MDE', never 'falsified'."

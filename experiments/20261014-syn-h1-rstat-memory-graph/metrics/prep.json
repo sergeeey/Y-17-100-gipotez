@@ -1,0 +1,65 @@
+{
+  "C1": {
+    "corpus": "C1",
+    "n_sampled": 4000,
+    "n_after_dedup": 2734,
+    "n_dedup_removed": 1266,
+    "n_files": 482,
+    "n_base": 2051,
+    "n_held": 683,
+    "cluster_sizes": [
+      109,
+      439,
+      184,
+      310,
+      359,
+      212,
+      194,
+      244
+    ],
+    "embedding_dim": 768,
+    "elapsed_s": 72.59599208831787
+  },
+  "C2": {
+    "corpus": "C2",
+    "n_sampled": 4000,
+    "n_after_dedup": 3750,
+    "n_dedup_removed": 250,
+    "n_files": 631,
+    "n_base": 2813,
+    "n_held": 937,
+    "cluster_sizes": [
+      295,
+      544,
+      636,
+      240,
+      118,
+      503,
+      204,
+      273
+    ],
+    "embedding_dim": 768,
+    "elapsed_s": 89.51495265960693
+  },
+  "C3": {
+    "corpus": "C3",
+    "n_sampled": 4000,
+    "n_after_dedup": 2863,
+    "n_dedup_removed": 1137,
+    "n_files": 718,
+    "n_base": 2148,
+    "n_held": 715,
+    "cluster_sizes": [
+      414,
+      96,
+      204,
+      446,
+      290,
+      179,
+      394,
+      125
+    ],
+    "embedding_dim": 768,
+    "elapsed_s": 83.3964912891388
+  }
+}
