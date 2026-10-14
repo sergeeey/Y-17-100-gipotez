@@ -1,0 +1,4105 @@
+{
+ "replay_summary": {
+  "n_inputs": 98,
+  "prod": {
+   "retention_pooled": 0.8836,
+   "retention_mean": 0.8494,
+   "verdict_retention_pooled": 0.9521,
+   "bytes_mean": 26878
+  },
+  "alt_a": {
+   "retention_pooled": 0.9936,
+   "retention_mean": 0.9966,
+   "verdict_retention_pooled": 1.0,
+   "bytes_mean": 27822
+  },
+  "alt_b": {
+   "retention_pooled": 0.9916,
+   "retention_mean": 0.9918,
+   "verdict_retention_pooled": 1.0,
+   "bytes_mean": 28309
+  },
+  "prod_pass2_retention_mean_vs_original": 0.8355,
+  "alt_b_pass2_retention_mean_vs_original": 0.9918,
+  "prod_second_pass_changes_file_share": 1.0,
+  "prod_second_pass_mean_growth_bytes": -861.4,
+  "bytes_old_mean": 32462,
+  "alt_b_over_prod_bytes": 1.053,
+  "alt_b_idempotent_all": true
+ },
+ "replay_rows": [
+  {
+   "commit": "c166b46",
+   "date": "2026-09-06",
+   "bytes_old": 13388,
+   "prod": {
+    "bytes": 10060,
+    "retention": 0.6032,
+    "n_old": 63,
+    "lost": 25,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 10503,
+    "retention": 1.0,
+    "n_old": 63,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 13388,
+    "retention": 1.0,
+    "n_old": 63,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.6032,
+   "prod_pass2_bytes": 9635,
+   "prod_summary_lines": 4,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "bbd1496",
+   "date": "2026-09-06",
+   "bytes_old": 17228,
+   "prod": {
+    "bytes": 11262,
+    "retention": 0.5067,
+    "n_old": 75,
+    "lost": 37,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 11965,
+    "retention": 1.0,
+    "n_old": 75,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 16918,
+    "retention": 1.0,
+    "n_old": 75,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.5067,
+   "prod_pass2_bytes": 10416,
+   "prod_summary_lines": 7,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "527f6e1",
+   "date": "2026-09-06",
+   "bytes_old": 17174,
+   "prod": {
+    "bytes": 12237,
+    "retention": 0.8462,
+    "n_old": 52,
+    "lost": 8,
+    "verdict_lost": 1,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 13311,
+    "retention": 1.0,
+    "n_old": 52,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 17169,
+    "retention": 1.0,
+    "n_old": 52,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.8462,
+   "prod_pass2_bytes": 11740,
+   "prod_summary_lines": 4,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "0ec53c5",
+   "date": "2026-09-06",
+   "bytes_old": 22815,
+   "prod": {
+    "bytes": 13590,
+    "retention": 0.746,
+    "n_old": 63,
+    "lost": 16,
+    "verdict_lost": 1,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 14878,
+    "retention": 1.0,
+    "n_old": 63,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 18601,
+    "retention": 1.0,
+    "n_old": 63,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.746,
+   "prod_pass2_bytes": 12745,
+   "prod_summary_lines": 6,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "01d6d9d",
+   "date": "2026-09-06",
+   "bytes_old": 26069,
+   "prod": {
+    "bytes": 12628,
+    "retention": 0.5942,
+    "n_old": 69,
+    "lost": 28,
+    "verdict_lost": 1,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 14371,
+    "retention": 1.0,
+    "n_old": 69,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 18832,
+    "retention": 1.0,
+    "n_old": 69,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.5942,
+   "prod_pass2_bytes": 11604,
+   "prod_summary_lines": 7,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "9da2cdc",
+   "date": "2026-09-06",
+   "bytes_old": 29496,
+   "prod": {
+    "bytes": 13442,
+    "retention": 0.6125,
+    "n_old": 80,
+    "lost": 31,
+    "verdict_lost": 1,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 15301,
+    "retention": 1.0,
+    "n_old": 80,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 19815,
+    "retention": 1.0,
+    "n_old": 80,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.6,
+   "prod_pass2_bytes": 12276,
+   "prod_summary_lines": 8,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "492eea1",
+   "date": "2026-09-06",
+   "bytes_old": 32904,
+   "prod": {
+    "bytes": 13582,
+    "retention": 0.5778,
+    "n_old": 90,
+    "lost": 38,
+    "verdict_lost": 2,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 15527,
+    "retention": 1.0,
+    "n_old": 90,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 20604,
+    "retention": 1.0,
+    "n_old": 90,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.5444,
+   "prod_pass2_bytes": 12083,
+   "prod_summary_lines": 10,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "afa3234",
+   "date": "2026-09-06",
+   "bytes_old": 35527,
+   "prod": {
+    "bytes": 12908,
+    "retention": 0.51,
+    "n_old": 100,
+    "lost": 49,
+    "verdict_lost": 2,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 14992,
+    "retention": 1.0,
+    "n_old": 100,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 21332,
+    "retention": 1.0,
+    "n_old": 100,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.47,
+   "prod_pass2_bytes": 11093,
+   "prod_summary_lines": 12,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "6519e03",
+   "date": "2026-09-06",
+   "bytes_old": 37142,
+   "prod": {
+    "bytes": 13091,
+    "retention": 0.4851,
+    "n_old": 101,
+    "lost": 52,
+    "verdict_lost": 2,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 15233,
+    "retention": 1.0,
+    "n_old": 101,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 21118,
+    "retention": 1.0,
+    "n_old": 101,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.4455,
+   "prod_pass2_bytes": 11110,
+   "prod_summary_lines": 13,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "a236655",
+   "date": "2026-09-06",
+   "bytes_old": 13396,
+   "prod": {
+    "bytes": 11269,
+    "retention": 0.8936,
+    "n_old": 47,
+    "lost": 5,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 13386,
+    "retention": 1.0,
+    "n_old": 47,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 13386,
+    "retention": 1.0,
+    "n_old": 47,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.8936,
+   "prod_pass2_bytes": 11274,
+   "prod_summary_lines": 1,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "ddf4df9",
+   "date": "2026-09-06",
+   "bytes_old": 14033,
+   "prod": {
+    "bytes": 10691,
+    "retention": 0.7,
+    "n_old": 50,
+    "lost": 15,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 12872,
+    "retention": 1.0,
+    "n_old": 50,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 14023,
+    "retention": 1.0,
+    "n_old": 50,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.68,
+   "prod_pass2_bytes": 10388,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "442931f",
+   "date": "2026-09-06",
+   "bytes_old": 16514,
+   "prod": {
+    "bytes": 9577,
+    "retention": 0.6415,
+    "n_old": 53,
+    "lost": 19,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 11806,
+    "retention": 1.0,
+    "n_old": 53,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 16504,
+    "retention": 1.0,
+    "n_old": 53,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.6038,
+   "prod_pass2_bytes": 9118,
+   "prod_summary_lines": 4,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "00a6637",
+   "date": "2026-09-06",
+   "bytes_old": 19105,
+   "prod": {
+    "bytes": 9574,
+    "retention": 0.6271,
+    "n_old": 59,
+    "lost": 22,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 11858,
+    "retention": 1.0,
+    "n_old": 59,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 19095,
+    "retention": 1.0,
+    "n_old": 59,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.5763,
+   "prod_pass2_bytes": 8986,
+   "prod_summary_lines": 5,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "5c61761",
+   "date": "2026-09-06",
+   "bytes_old": 21548,
+   "prod": {
+    "bytes": 9994,
+    "retention": 0.5645,
+    "n_old": 62,
+    "lost": 27,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 12322,
+    "retention": 1.0,
+    "n_old": 62,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 20385,
+    "retention": 1.0,
+    "n_old": 62,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.5161,
+   "prod_pass2_bytes": 9268,
+   "prod_summary_lines": 6,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "e45a14e",
+   "date": "2026-09-06",
+   "bytes_old": 25198,
+   "prod": {
+    "bytes": 10267,
+    "retention": 0.5538,
+    "n_old": 65,
+    "lost": 29,
+    "verdict_lost": 1,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 12674,
+    "retention": 1.0,
+    "n_old": 65,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 19655,
+    "retention": 1.0,
+    "n_old": 65,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.5077,
+   "prod_pass2_bytes": 9291,
+   "prod_summary_lines": 8,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "0f92f1c",
+   "date": "2026-09-06",
+   "bytes_old": 28503,
+   "prod": {
+    "bytes": 10663,
+    "retention": 0.5735,
+    "n_old": 68,
+    "lost": 29,
+    "verdict_lost": 1,
+    "verdict_total": 6
+   },
+   "alt_a": {
+    "bytes": 13131,
+    "retention": 1.0,
+    "n_old": 68,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 6
+   },
+   "alt_b": {
+    "bytes": 20639,
+    "retention": 1.0,
+    "n_old": 68,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 6
+   },
+   "prod_pass2_retention_vs_original": 0.5147,
+   "prod_pass2_bytes": 9416,
+   "prod_summary_lines": 10,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "e9ce2d2",
+   "date": "2026-09-06",
+   "bytes_old": 10916,
+   "prod": {
+    "bytes": 9168,
+    "retention": 1.0,
+    "n_old": 37,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 9601,
+    "retention": 1.0,
+    "n_old": 37,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 10901,
+    "retention": 1.0,
+    "n_old": 37,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 8942,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "f8c36d2",
+   "date": "2026-09-06",
+   "bytes_old": 12625,
+   "prod": {
+    "bytes": 9617,
+    "retention": 1.0,
+    "n_old": 36,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 10080,
+    "retention": 1.0,
+    "n_old": 36,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 12610,
+    "retention": 1.0,
+    "n_old": 36,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 9257,
+   "prod_summary_lines": 4,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "f2460d2",
+   "date": "2026-09-07",
+   "bytes_old": 16133,
+   "prod": {
+    "bytes": 9778,
+    "retention": 0.973,
+    "n_old": 37,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 10290,
+    "retention": 1.0,
+    "n_old": 37,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 16118,
+    "retention": 1.0,
+    "n_old": 37,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.973,
+   "prod_pass2_bytes": 9155,
+   "prod_summary_lines": 6,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "6788722",
+   "date": "2026-09-07",
+   "bytes_old": 14742,
+   "prod": {
+    "bytes": 9549,
+    "retention": 0.925,
+    "n_old": 40,
+    "lost": 3,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 9813,
+    "retention": 1.0,
+    "n_old": 40,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 14727,
+    "retention": 1.0,
+    "n_old": 40,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.925,
+   "prod_pass2_bytes": 9182,
+   "prod_summary_lines": 4,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "fbb382b",
+   "date": "2026-09-07",
+   "bytes_old": 17918,
+   "prod": {
+    "bytes": 9474,
+    "retention": 0.9268,
+    "n_old": 41,
+    "lost": 3,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 9788,
+    "retention": 1.0,
+    "n_old": 41,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 17903,
+    "retention": 1.0,
+    "n_old": 41,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.9268,
+   "prod_pass2_bytes": 8874,
+   "prod_summary_lines": 6,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "c49c0a2",
+   "date": "2026-09-07",
+   "bytes_old": 10605,
+   "prod": {
+    "bytes": 9667,
+    "retention": 0.907,
+    "n_old": 43,
+    "lost": 4,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 9965,
+    "retention": 1.0,
+    "n_old": 43,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 10590,
+    "retention": 1.0,
+    "n_old": 43,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.907,
+   "prod_pass2_bytes": 9475,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "9d5a9bc",
+   "date": "2026-09-07",
+   "bytes_old": 11163,
+   "prod": {
+    "bytes": 9653,
+    "retention": 0.898,
+    "n_old": 49,
+    "lost": 5,
+    "verdict_lost": 1,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 9868,
+    "retention": 1.0,
+    "n_old": 49,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 11143,
+    "retention": 1.0,
+    "n_old": 49,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.898,
+   "prod_pass2_bytes": 9514,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "cc4932d",
+   "date": "2026-09-07",
+   "bytes_old": 14232,
+   "prod": {
+    "bytes": 11092,
+    "retention": 0.7581,
+    "n_old": 62,
+    "lost": 15,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 11537,
+    "retention": 1.0,
+    "n_old": 62,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 14212,
+    "retention": 1.0,
+    "n_old": 62,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.7581,
+   "prod_pass2_bytes": 10681,
+   "prod_summary_lines": 4,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "8a7aef4",
+   "date": "2026-09-07",
+   "bytes_old": 11985,
+   "prod": {
+    "bytes": 10753,
+    "retention": 0.8214,
+    "n_old": 56,
+    "lost": 10,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 11100,
+    "retention": 1.0,
+    "n_old": 56,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 11965,
+    "retention": 1.0,
+    "n_old": 56,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.8214,
+   "prod_pass2_bytes": 10632,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "36ad740",
+   "date": "2026-09-07",
+   "bytes_old": 11518,
+   "prod": {
+    "bytes": 11152,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 11493,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 11493,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 11157,
+   "prod_summary_lines": 1,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "435a7f2",
+   "date": "2026-09-07",
+   "bytes_old": 12917,
+   "prod": {
+    "bytes": 11452,
+    "retention": 0.9574,
+    "n_old": 47,
+    "lost": 2,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 11836,
+    "retention": 1.0,
+    "n_old": 47,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 12892,
+    "retention": 1.0,
+    "n_old": 47,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.9574,
+   "prod_pass2_bytes": 11150,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "be76b4b",
+   "date": "2026-09-07",
+   "bytes_old": 16871,
+   "prod": {
+    "bytes": 12455,
+    "retention": 0.8039,
+    "n_old": 51,
+    "lost": 10,
+    "verdict_lost": 0,
+    "verdict_total": 6
+   },
+   "alt_a": {
+    "bytes": 12928,
+    "retention": 1.0,
+    "n_old": 51,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 6
+   },
+   "alt_b": {
+    "bytes": 16846,
+    "retention": 1.0,
+    "n_old": 51,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 6
+   },
+   "prod_pass2_retention_vs_original": 0.8039,
+   "prod_pass2_bytes": 11881,
+   "prod_summary_lines": 5,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "6974b5e",
+   "date": "2026-09-07",
+   "bytes_old": 13510,
+   "prod": {
+    "bytes": 12159,
+    "retention": 0.9024,
+    "n_old": 41,
+    "lost": 4,
+    "verdict_lost": 1,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 12688,
+    "retention": 1.0,
+    "n_old": 41,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 13485,
+    "retention": 1.0,
+    "n_old": 41,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.9024,
+   "prod_pass2_bytes": 11908,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "82b5f25",
+   "date": "2026-09-07",
+   "bytes_old": 14703,
+   "prod": {
+    "bytes": 12182,
+    "retention": 0.8696,
+    "n_old": 46,
+    "lost": 6,
+    "verdict_lost": 1,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 12785,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 14678,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.8696,
+   "prod_pass2_bytes": 11931,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "af3125a",
+   "date": "2026-09-07",
+   "bytes_old": 13850,
+   "prod": {
+    "bytes": 12116,
+    "retention": 0.8696,
+    "n_old": 46,
+    "lost": 6,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 12693,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 13820,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.8696,
+   "prod_pass2_bytes": 11821,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "757312c",
+   "date": "2026-09-07",
+   "bytes_old": 13870,
+   "prod": {
+    "bytes": 12136,
+    "retention": 0.8444,
+    "n_old": 45,
+    "lost": 7,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 12713,
+    "retention": 1.0,
+    "n_old": 45,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 13840,
+    "retention": 1.0,
+    "n_old": 45,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.8444,
+   "prod_pass2_bytes": 11841,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "68f1371",
+   "date": "2026-09-07",
+   "bytes_old": 15040,
+   "prod": {
+    "bytes": 12213,
+    "retention": 0.86,
+    "n_old": 50,
+    "lost": 7,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 12829,
+    "retention": 1.0,
+    "n_old": 50,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 15010,
+    "retention": 1.0,
+    "n_old": 50,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.86,
+   "prod_pass2_bytes": 11745,
+   "prod_summary_lines": 4,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "e00608a",
+   "date": "2026-09-07",
+   "bytes_old": 12989,
+   "prod": {
+    "bytes": 12233,
+    "retention": 0.9167,
+    "n_old": 48,
+    "lost": 4,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 12835,
+    "retention": 1.0,
+    "n_old": 48,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 12959,
+    "retention": 1.0,
+    "n_old": 48,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.9167,
+   "prod_pass2_bytes": 11937,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "53081a1",
+   "date": "2026-09-07",
+   "bytes_old": 16097,
+   "prod": {
+    "bytes": 12825,
+    "retention": 0.7407,
+    "n_old": 54,
+    "lost": 14,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 13548,
+    "retention": 1.0,
+    "n_old": 54,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 16067,
+    "retention": 1.0,
+    "n_old": 54,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.7222,
+   "prod_pass2_bytes": 12234,
+   "prod_summary_lines": 5,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "9fafed1",
+   "date": "2026-09-08",
+   "bytes_old": 13049,
+   "prod": {
+    "bytes": 12135,
+    "retention": 0.9111,
+    "n_old": 45,
+    "lost": 4,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 12737,
+    "retention": 1.0,
+    "n_old": 45,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 13019,
+    "retention": 1.0,
+    "n_old": 45,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.8667,
+   "prod_pass2_bytes": 11839,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "35c0f9d",
+   "date": "2026-09-08",
+   "bytes_old": 13783,
+   "prod": {
+    "bytes": 9883,
+    "retention": 0.6744,
+    "n_old": 43,
+    "lost": 14,
+    "verdict_lost": 1,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 10403,
+    "retention": 1.0,
+    "n_old": 43,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 13748,
+    "retention": 1.0,
+    "n_old": 43,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.6279,
+   "prod_pass2_bytes": 9150,
+   "prod_summary_lines": 6,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "98375d1",
+   "date": "2026-09-08",
+   "bytes_old": 12264,
+   "prod": {
+    "bytes": 10748,
+    "retention": 0.7727,
+    "n_old": 44,
+    "lost": 10,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 11192,
+    "retention": 1.0,
+    "n_old": 44,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 12229,
+    "retention": 1.0,
+    "n_old": 44,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.7273,
+   "prod_pass2_bytes": 10338,
+   "prod_summary_lines": 4,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "ac6b74b",
+   "date": "2026-09-08",
+   "bytes_old": 14143,
+   "prod": {
+    "bytes": 11943,
+    "retention": 0.8913,
+    "n_old": 46,
+    "lost": 5,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 12461,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 14103,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.8913,
+   "prod_pass2_bytes": 11670,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "dc6eac6",
+   "date": "2026-09-08",
+   "bytes_old": 17933,
+   "prod": {
+    "bytes": 12555,
+    "retention": 0.8095,
+    "n_old": 63,
+    "lost": 12,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_a": {
+    "bytes": 13189,
+    "retention": 1.0,
+    "n_old": 63,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "alt_b": {
+    "bytes": 17893,
+    "retention": 1.0,
+    "n_old": 63,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 3
+   },
+   "prod_pass2_retention_vs_original": 0.8095,
+   "prod_pass2_bytes": 11957,
+   "prod_summary_lines": 5,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "a123ea8",
+   "date": "2026-09-08",
+   "bytes_old": 21105,
+   "prod": {
+    "bytes": 13519,
+    "retention": 0.6269,
+    "n_old": 67,
+    "lost": 25,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 14296,
+    "retention": 1.0,
+    "n_old": 67,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 21065,
+    "retention": 1.0,
+    "n_old": 67,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.6269,
+   "prod_pass2_bytes": 12579,
+   "prod_summary_lines": 7,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "f6cb8af",
+   "date": "2026-09-09",
+   "bytes_old": 14309,
+   "prod": {
+    "bytes": 14186,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 14131,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 14259,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 14022,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "b93dec6",
+   "date": "2026-09-09",
+   "bytes_old": 15337,
+   "prod": {
+    "bytes": 15024,
+    "retention": 1.0,
+    "n_old": 43,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 14969,
+    "retention": 1.0,
+    "n_old": 43,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 15287,
+    "retention": 1.0,
+    "n_old": 43,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 14860,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "96027e2",
+   "date": "2026-09-09",
+   "bytes_old": 19753,
+   "prod": {
+    "bytes": 19174,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 19150,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 19703,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 18851,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "6b6e8af",
+   "date": "2026-09-09",
+   "bytes_old": 23117,
+   "prod": {
+    "bytes": 21991,
+    "retention": 0.9783,
+    "n_old": 46,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 21997,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 21183,
+    "retention": 1.0,
+    "n_old": 46,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.9783,
+   "prod_pass2_bytes": 21668,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "1debe23",
+   "date": "2026-09-09",
+   "bytes_old": 28254,
+   "prod": {
+    "bytes": 26532,
+    "retention": 0.9412,
+    "n_old": 51,
+    "lost": 3,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 26561,
+    "retention": 1.0,
+    "n_old": 51,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 20151,
+    "retention": 1.0,
+    "n_old": 51,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.902,
+   "prod_pass2_bytes": 26209,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "883cbc6",
+   "date": "2026-09-09",
+   "bytes_old": 31794,
+   "prod": {
+    "bytes": 29774,
+    "retention": 0.9464,
+    "n_old": 56,
+    "lost": 3,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 29825,
+    "retention": 1.0,
+    "n_old": 56,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 23127,
+    "retention": 1.0,
+    "n_old": 56,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.8929,
+   "prod_pass2_bytes": 29265,
+   "prod_summary_lines": 4,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "d58b79e",
+   "date": "2026-09-09",
+   "bytes_old": 32900,
+   "prod": {
+    "bytes": 31246,
+    "retention": 0.9492,
+    "n_old": 59,
+    "lost": 3,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 31920,
+    "retention": 1.0,
+    "n_old": 59,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 21761,
+    "retention": 1.0,
+    "n_old": 59,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.9492,
+   "prod_pass2_bytes": 31078,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "b015224",
+   "date": "2026-09-09",
+   "bytes_old": 35896,
+   "prod": {
+    "bytes": 29693,
+    "retention": 0.9048,
+    "n_old": 63,
+    "lost": 6,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 30416,
+    "retention": 1.0,
+    "n_old": 63,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 24757,
+    "retention": 1.0,
+    "n_old": 63,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.9048,
+   "prod_pass2_bytes": 29128,
+   "prod_summary_lines": 4,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "d847b44",
+   "date": "2026-09-09",
+   "bytes_old": 38682,
+   "prod": {
+    "bytes": 29685,
+    "retention": 0.8209,
+    "n_old": 67,
+    "lost": 12,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 30536,
+    "retention": 1.0,
+    "n_old": 67,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 24641,
+    "retention": 1.0,
+    "n_old": 67,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.8209,
+   "prod_pass2_bytes": 28787,
+   "prod_summary_lines": 6,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "f81dec2",
+   "date": "2026-09-09",
+   "bytes_old": 41749,
+   "prod": {
+    "bytes": 28083,
+    "retention": 0.8571,
+    "n_old": 77,
+    "lost": 11,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 28996,
+    "retention": 1.0,
+    "n_old": 77,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 24705,
+    "retention": 1.0,
+    "n_old": 77,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.8442,
+   "prod_pass2_bytes": 26836,
+   "prod_summary_lines": 8,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "e30178f",
+   "date": "2026-09-09",
+   "bytes_old": 42947,
+   "prod": {
+    "bytes": 28007,
+    "retention": 0.859,
+    "n_old": 78,
+    "lost": 11,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 28941,
+    "retention": 1.0,
+    "n_old": 78,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 24650,
+    "retention": 1.0,
+    "n_old": 78,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.8462,
+   "prod_pass2_bytes": 26591,
+   "prod_summary_lines": 9,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "dbd26de",
+   "date": "2026-09-09",
+   "bytes_old": 30938,
+   "prod": {
+    "bytes": 22659,
+    "retention": 0.7857,
+    "n_old": 70,
+    "lost": 15,
+    "verdict_lost": 1,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 22829,
+    "retention": 0.9857,
+    "n_old": 70,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 22838,
+    "retention": 0.9857,
+    "n_old": 70,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.7857,
+   "prod_pass2_bytes": 21805,
+   "prod_summary_lines": 16,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 0.9857
+  },
+  {
+   "commit": "fd8cf50",
+   "date": "2026-09-09",
+   "bytes_old": 35507,
+   "prod": {
+    "bytes": 25068,
+    "retention": 0.7662,
+    "n_old": 77,
+    "lost": 18,
+    "verdict_lost": 1,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 25297,
+    "retention": 0.987,
+    "n_old": 77,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 23918,
+    "retention": 0.987,
+    "n_old": 77,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.7662,
+   "prod_pass2_bytes": 24042,
+   "prod_summary_lines": 17,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 0.987
+  },
+  {
+   "commit": "611583e",
+   "date": "2026-09-09",
+   "bytes_old": 40113,
+   "prod": {
+    "bytes": 28243,
+    "retention": 0.7436,
+    "n_old": 78,
+    "lost": 20,
+    "verdict_lost": 1,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 28515,
+    "retention": 0.9872,
+    "n_old": 78,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 25612,
+    "retention": 0.9872,
+    "n_old": 78,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.7308,
+   "prod_pass2_bytes": 27068,
+   "prod_summary_lines": 18,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 0.9872
+  },
+  {
+   "commit": "07cd882",
+   "date": "2026-09-09",
+   "bytes_old": 43700,
+   "prod": {
+    "bytes": 30597,
+    "retention": 0.759,
+    "n_old": 83,
+    "lost": 20,
+    "verdict_lost": 1,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 30885,
+    "retention": 0.988,
+    "n_old": 83,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 29199,
+    "retention": 0.988,
+    "n_old": 83,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.7349,
+   "prod_pass2_bytes": 29265,
+   "prod_summary_lines": 19,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 0.988
+  },
+  {
+   "commit": "5d45d60",
+   "date": "2026-09-09",
+   "bytes_old": 47947,
+   "prod": {
+    "bytes": 33125,
+    "retention": 0.7528,
+    "n_old": 89,
+    "lost": 22,
+    "verdict_lost": 1,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 33447,
+    "retention": 0.9888,
+    "n_old": 89,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 33446,
+    "retention": 0.9888,
+    "n_old": 89,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.7303,
+   "prod_pass2_bytes": 31620,
+   "prod_summary_lines": 20,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 0.9888
+  },
+  {
+   "commit": "2c2e6b8",
+   "date": "2026-09-09",
+   "bytes_old": 40253,
+   "prod": {
+    "bytes": 38747,
+    "retention": 0.9737,
+    "n_old": 76,
+    "lost": 2,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 40187,
+    "retention": 1.0,
+    "n_old": 76,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 40187,
+    "retention": 1.0,
+    "n_old": 76,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.8421,
+   "prod_pass2_bytes": 30017,
+   "prod_summary_lines": 11,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "35ffeaf",
+   "date": "2026-09-09",
+   "bytes_old": 44178,
+   "prod": {
+    "bytes": 42352,
+    "retention": 0.9744,
+    "n_old": 78,
+    "lost": 2,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 44112,
+    "retention": 1.0,
+    "n_old": 78,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 44112,
+    "retention": 1.0,
+    "n_old": 78,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.9744,
+   "prod_pass2_bytes": 35062,
+   "prod_summary_lines": 9,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "b297623",
+   "date": "2026-09-09",
+   "bytes_old": 49041,
+   "prod": {
+    "bytes": 46851,
+    "retention": 0.9659,
+    "n_old": 88,
+    "lost": 3,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 48975,
+    "retention": 1.0,
+    "n_old": 88,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 48975,
+    "retention": 1.0,
+    "n_old": 88,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.875,
+   "prod_pass2_bytes": 39921,
+   "prod_summary_lines": 7,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "1d407de",
+   "date": "2026-09-10",
+   "bytes_old": 54728,
+   "prod": {
+    "bytes": 52205,
+    "retention": 0.9703,
+    "n_old": 101,
+    "lost": 3,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 54662,
+    "retention": 1.0,
+    "n_old": 101,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 54662,
+    "retention": 1.0,
+    "n_old": 101,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.8515,
+   "prod_pass2_bytes": 45166,
+   "prod_summary_lines": 5,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "8d7da96",
+   "date": "2026-09-10",
+   "bytes_old": 57309,
+   "prod": {
+    "bytes": 54591,
+    "retention": 0.9712,
+    "n_old": 104,
+    "lost": 3,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 57243,
+    "retention": 1.0,
+    "n_old": 104,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 57243,
+    "retention": 1.0,
+    "n_old": 104,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.8654,
+   "prod_pass2_bytes": 47965,
+   "prod_summary_lines": 4,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "05a952f",
+   "date": "2026-09-10",
+   "bytes_old": 55522,
+   "prod": {
+    "bytes": 48896,
+    "retention": 0.8911,
+    "n_old": 101,
+    "lost": 11,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 49123,
+    "retention": 1.0,
+    "n_old": 101,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 13619,
+    "retention": 0.7228,
+    "n_old": 101,
+    "lost": 28,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.8911,
+   "prod_pass2_bytes": 48901,
+   "prod_summary_lines": 5,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 0.7228
+  },
+  {
+   "commit": "587ff3c",
+   "date": "2026-09-10",
+   "bytes_old": 60209,
+   "prod": {
+    "bytes": 53583,
+    "retention": 0.9009,
+    "n_old": 111,
+    "lost": 11,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 53810,
+    "retention": 1.0,
+    "n_old": 111,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 18306,
+    "retention": 0.7477,
+    "n_old": 111,
+    "lost": 28,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.9009,
+   "prod_pass2_bytes": 53588,
+   "prod_summary_lines": 5,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 0.7477
+  },
+  {
+   "commit": "070f12f",
+   "date": "2026-09-11",
+   "bytes_old": 56359,
+   "prod": {
+    "bytes": 56364,
+    "retention": 1.0,
+    "n_old": 107,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 56284,
+    "retention": 1.0,
+    "n_old": 107,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 21276,
+    "retention": 0.8879,
+    "n_old": 107,
+    "lost": 12,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 56369,
+   "prod_summary_lines": 5,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 0.8879
+  },
+  {
+   "commit": "04baf1c",
+   "date": "2026-09-11",
+   "bytes_old": 59755,
+   "prod": {
+    "bytes": 22517,
+    "retention": 0.5508,
+    "n_old": 118,
+    "lost": 53,
+    "verdict_lost": 2,
+    "verdict_total": 6
+   },
+   "alt_a": {
+    "bytes": 23596,
+    "retention": 0.8983,
+    "n_old": 118,
+    "lost": 12,
+    "verdict_lost": 0,
+    "verdict_total": 6
+   },
+   "alt_b": {
+    "bytes": 24670,
+    "retention": 0.8983,
+    "n_old": 118,
+    "lost": 12,
+    "verdict_lost": 0,
+    "verdict_total": 6
+   },
+   "prod_pass2_retention_vs_original": 0.5508,
+   "prod_pass2_bytes": 22127,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 0.8983
+  },
+  {
+   "commit": "ec7437c",
+   "date": "2026-09-11",
+   "bytes_old": 34052,
+   "prod": {
+    "bytes": 22673,
+    "retention": 0.6238,
+    "n_old": 101,
+    "lost": 38,
+    "verdict_lost": 1,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 24977,
+    "retention": 1.0,
+    "n_old": 101,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 33977,
+    "retention": 1.0,
+    "n_old": 101,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.6139,
+   "prod_pass2_bytes": 22347,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "d52029b",
+   "date": "2026-09-11",
+   "bytes_old": 26712,
+   "prod": {
+    "bytes": 22717,
+    "retention": 0.7412,
+    "n_old": 85,
+    "lost": 22,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 25619,
+    "retention": 1.0,
+    "n_old": 85,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 26637,
+    "retention": 1.0,
+    "n_old": 85,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.7294,
+   "prod_pass2_bytes": 22391,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "f6113a1",
+   "date": "2026-09-11",
+   "bytes_old": 28823,
+   "prod": {
+    "bytes": 22788,
+    "retention": 0.7416,
+    "n_old": 89,
+    "lost": 23,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 25784,
+    "retention": 1.0,
+    "n_old": 89,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 28748,
+    "retention": 1.0,
+    "n_old": 89,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.7303,
+   "prod_pass2_bytes": 22462,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "2de1011",
+   "date": "2026-09-11",
+   "bytes_old": 26831,
+   "prod": {
+    "bytes": 22876,
+    "retention": 0.7907,
+    "n_old": 86,
+    "lost": 18,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 26581,
+    "retention": 1.0,
+    "n_old": 86,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 26756,
+    "retention": 1.0,
+    "n_old": 86,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.7791,
+   "prod_pass2_bytes": 22550,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "df2525b",
+   "date": "2026-09-11",
+   "bytes_old": 29427,
+   "prod": {
+    "bytes": 22791,
+    "retention": 0.6701,
+    "n_old": 97,
+    "lost": 32,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 26608,
+    "retention": 1.0,
+    "n_old": 97,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 29352,
+    "retention": 1.0,
+    "n_old": 97,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.6598,
+   "prod_pass2_bytes": 22465,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "5fddbe3",
+   "date": "2026-09-11",
+   "bytes_old": 26340,
+   "prod": {
+    "bytes": 26197,
+    "retention": 0.9888,
+    "n_old": 89,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 26266,
+    "retention": 1.0,
+    "n_old": 89,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 26265,
+    "retention": 1.0,
+    "n_old": 89,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.9888,
+   "prod_pass2_bytes": 26202,
+   "prod_summary_lines": 9,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "08f36a2",
+   "date": "2026-09-11",
+   "bytes_old": 27880,
+   "prod": {
+    "bytes": 22725,
+    "retention": 0.75,
+    "n_old": 88,
+    "lost": 22,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 27173,
+    "retention": 1.0,
+    "n_old": 88,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 27800,
+    "retention": 1.0,
+    "n_old": 88,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.7386,
+   "prod_pass2_bytes": 22399,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "5a9aaa6",
+   "date": "2026-09-11",
+   "bytes_old": 28407,
+   "prod": {
+    "bytes": 23090,
+    "retention": 0.7368,
+    "n_old": 95,
+    "lost": 25,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 27690,
+    "retention": 1.0,
+    "n_old": 95,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 28327,
+    "retention": 1.0,
+    "n_old": 95,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.7263,
+   "prod_pass2_bytes": 22655,
+   "prod_summary_lines": 4,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "b3fba87",
+   "date": "2026-09-12",
+   "bytes_old": 28814,
+   "prod": {
+    "bytes": 22988,
+    "retention": 0.7596,
+    "n_old": 104,
+    "lost": 25,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 27567,
+    "retention": 1.0,
+    "n_old": 104,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 28734,
+    "retention": 1.0,
+    "n_old": 104,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.75,
+   "prod_pass2_bytes": 22553,
+   "prod_summary_lines": 5,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "a716009",
+   "date": "2026-09-12",
+   "bytes_old": 23204,
+   "prod": {
+    "bytes": 22578,
+    "retention": 0.9855,
+    "n_old": 69,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_a": {
+    "bytes": 23119,
+    "retention": 1.0,
+    "n_old": 69,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "alt_b": {
+    "bytes": 23119,
+    "retention": 1.0,
+    "n_old": 69,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 4
+   },
+   "prod_pass2_retention_vs_original": 0.9855,
+   "prod_pass2_bytes": 22499,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "be61f21",
+   "date": "2026-09-12",
+   "bytes_old": 23109,
+   "prod": {
+    "bytes": 22483,
+    "retention": 0.9855,
+    "n_old": 69,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 23024,
+    "retention": 1.0,
+    "n_old": 69,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 23024,
+    "retention": 1.0,
+    "n_old": 69,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.9855,
+   "prod_pass2_bytes": 22404,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "506386e",
+   "date": "2026-09-12",
+   "bytes_old": 22997,
+   "prod": {
+    "bytes": 22371,
+    "retention": 0.971,
+    "n_old": 69,
+    "lost": 2,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_a": {
+    "bytes": 22912,
+    "retention": 1.0,
+    "n_old": 69,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "alt_b": {
+    "bytes": 22912,
+    "retention": 1.0,
+    "n_old": 69,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 5
+   },
+   "prod_pass2_retention_vs_original": 0.971,
+   "prod_pass2_bytes": 22292,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "4c5c6fb",
+   "date": "2026-09-17",
+   "bytes_old": 43704,
+   "prod": {
+    "bytes": 43076,
+    "retention": 1.0,
+    "n_old": 190,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 6
+   },
+   "alt_a": {
+    "bytes": 43070,
+    "retention": 1.0,
+    "n_old": 190,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 6
+   },
+   "alt_b": {
+    "bytes": 43669,
+    "retention": 1.0,
+    "n_old": 190,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 6
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 43081,
+   "prod_summary_lines": 1,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "59790c1",
+   "date": "2026-09-17",
+   "bytes_old": 45897,
+   "prod": {
+    "bytes": 45913,
+    "retention": 1.0,
+    "n_old": 197,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 7
+   },
+   "alt_a": {
+    "bytes": 45868,
+    "retention": 1.0,
+    "n_old": 197,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 7
+   },
+   "alt_b": {
+    "bytes": 45857,
+    "retention": 1.0,
+    "n_old": 197,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 7
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 45817,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "8de505d",
+   "date": "2026-09-17",
+   "bytes_old": 46046,
+   "prod": {
+    "bytes": 46062,
+    "retention": 1.0,
+    "n_old": 195,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 7
+   },
+   "alt_a": {
+    "bytes": 46017,
+    "retention": 1.0,
+    "n_old": 195,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 7
+   },
+   "alt_b": {
+    "bytes": 46006,
+    "retention": 1.0,
+    "n_old": 195,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 7
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 45966,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "d2b93cb",
+   "date": "2026-09-17",
+   "bytes_old": 46371,
+   "prod": {
+    "bytes": 46387,
+    "retention": 1.0,
+    "n_old": 194,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_a": {
+    "bytes": 46342,
+    "retention": 1.0,
+    "n_old": 194,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_b": {
+    "bytes": 46331,
+    "retention": 1.0,
+    "n_old": 194,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 46291,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "3ededd3",
+   "date": "2026-09-18",
+   "bytes_old": 46887,
+   "prod": {
+    "bytes": 46903,
+    "retention": 1.0,
+    "n_old": 203,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_a": {
+    "bytes": 46858,
+    "retention": 1.0,
+    "n_old": 203,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_b": {
+    "bytes": 46847,
+    "retention": 1.0,
+    "n_old": 203,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 46807,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "108d4c5",
+   "date": "2026-09-18",
+   "bytes_old": 46716,
+   "prod": {
+    "bytes": 46636,
+    "retention": 1.0,
+    "n_old": 202,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_a": {
+    "bytes": 46591,
+    "retention": 1.0,
+    "n_old": 202,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_b": {
+    "bytes": 45489,
+    "retention": 1.0,
+    "n_old": 202,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 46540,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "78a43d2",
+   "date": "2026-09-18",
+   "bytes_old": 48210,
+   "prod": {
+    "bytes": 48036,
+    "retention": 1.0,
+    "n_old": 209,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_a": {
+    "bytes": 47991,
+    "retention": 1.0,
+    "n_old": 209,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_b": {
+    "bytes": 46983,
+    "retention": 1.0,
+    "n_old": 209,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 47940,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "b1ed6a6",
+   "date": "2026-09-18",
+   "bytes_old": 49305,
+   "prod": {
+    "bytes": 49034,
+    "retention": 1.0,
+    "n_old": 216,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_a": {
+    "bytes": 48989,
+    "retention": 1.0,
+    "n_old": 216,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_b": {
+    "bytes": 48078,
+    "retention": 1.0,
+    "n_old": 216,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 48938,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "57e3ca8",
+   "date": "2026-09-18",
+   "bytes_old": 52553,
+   "prod": {
+    "bytes": 52102,
+    "retention": 1.0,
+    "n_old": 225,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_a": {
+    "bytes": 52057,
+    "retention": 1.0,
+    "n_old": 225,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_b": {
+    "bytes": 51326,
+    "retention": 1.0,
+    "n_old": 225,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 52006,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "c5e2d85",
+   "date": "2026-09-18",
+   "bytes_old": 54613,
+   "prod": {
+    "bytes": 54351,
+    "retention": 0.9958,
+    "n_old": 240,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_a": {
+    "bytes": 54422,
+    "retention": 1.0,
+    "n_old": 240,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "alt_b": {
+    "bytes": 53762,
+    "retention": 1.0,
+    "n_old": 240,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8
+   },
+   "prod_pass2_retention_vs_original": 0.9958,
+   "prod_pass2_bytes": 54251,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "e6b1360",
+   "date": "2026-09-18",
+   "bytes_old": 59314,
+   "prod": {
+    "bytes": 59143,
+    "retention": 1.0,
+    "n_old": 262,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_a": {
+    "bytes": 59193,
+    "retention": 1.0,
+    "n_old": 262,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_b": {
+    "bytes": 59192,
+    "retention": 1.0,
+    "n_old": 262,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "prod_pass2_retention_vs_original": 0.9962,
+   "prod_pass2_bytes": 59087,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "7ff7273",
+   "date": "2026-09-18",
+   "bytes_old": 61053,
+   "prod": {
+    "bytes": 58667,
+    "retention": 0.9962,
+    "n_old": 265,
+    "lost": 1,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_a": {
+    "bytes": 58783,
+    "retention": 1.0,
+    "n_old": 265,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_b": {
+    "bytes": 60931,
+    "retention": 1.0,
+    "n_old": 265,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "prod_pass2_retention_vs_original": 0.9925,
+   "prod_pass2_bytes": 58480,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "95d9d0f",
+   "date": "2026-09-18",
+   "bytes_old": 64150,
+   "prod": {
+    "bytes": 58536,
+    "retention": 0.9603,
+    "n_old": 277,
+    "lost": 11,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_a": {
+    "bytes": 58851,
+    "retention": 1.0,
+    "n_old": 277,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_b": {
+    "bytes": 64028,
+    "retention": 1.0,
+    "n_old": 277,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "prod_pass2_retention_vs_original": 0.9567,
+   "prod_pass2_bytes": 58349,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "9dcca67",
+   "date": "2026-09-18",
+   "bytes_old": 67891,
+   "prod": {
+    "bytes": 58382,
+    "retention": 0.9172,
+    "n_old": 290,
+    "lost": 24,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_a": {
+    "bytes": 58831,
+    "retention": 0.9621,
+    "n_old": 290,
+    "lost": 11,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_b": {
+    "bytes": 67769,
+    "retention": 1.0,
+    "n_old": 290,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "prod_pass2_retention_vs_original": 0.9138,
+   "prod_pass2_bytes": 58195,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "c31e4aa",
+   "date": "2026-09-19",
+   "bytes_old": 71825,
+   "prod": {
+    "bytes": 58403,
+    "retention": 0.9175,
+    "n_old": 291,
+    "lost": 24,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_a": {
+    "bytes": 58851,
+    "retention": 0.945,
+    "n_old": 291,
+    "lost": 16,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_b": {
+    "bytes": 71703,
+    "retention": 1.0,
+    "n_old": 291,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "prod_pass2_retention_vs_original": 0.9141,
+   "prod_pass2_bytes": 58216,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "9383254",
+   "date": "2026-09-19",
+   "bytes_old": 75499,
+   "prod": {
+    "bytes": 58363,
+    "retention": 0.9048,
+    "n_old": 294,
+    "lost": 28,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_a": {
+    "bytes": 58812,
+    "retention": 0.9286,
+    "n_old": 294,
+    "lost": 21,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_b": {
+    "bytes": 75377,
+    "retention": 1.0,
+    "n_old": 294,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "prod_pass2_retention_vs_original": 0.9014,
+   "prod_pass2_bytes": 58176,
+   "prod_summary_lines": 3,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "27e8aa5",
+   "date": "2026-09-19",
+   "bytes_old": 62729,
+   "prod": {
+    "bytes": 58118,
+    "retention": 0.96,
+    "n_old": 275,
+    "lost": 11,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_a": {
+    "bytes": 58564,
+    "retention": 1.0,
+    "n_old": 275,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_b": {
+    "bytes": 58564,
+    "retention": 1.0,
+    "n_old": 275,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "prod_pass2_retention_vs_original": 0.9164,
+   "prod_pass2_bytes": 54958,
+   "prod_summary_lines": 1,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "20736e5",
+   "date": "2026-09-19",
+   "bytes_old": 66559,
+   "prod": {
+    "bytes": 58077,
+    "retention": 0.9204,
+    "n_old": 289,
+    "lost": 23,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_a": {
+    "bytes": 58740,
+    "retention": 1.0,
+    "n_old": 289,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_b": {
+    "bytes": 58740,
+    "retention": 1.0,
+    "n_old": 289,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "prod_pass2_retention_vs_original": 0.8789,
+   "prod_pass2_bytes": 54917,
+   "prod_summary_lines": 1,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "4c11d96",
+   "date": "2026-09-22",
+   "bytes_old": 58926,
+   "prod": {
+    "bytes": 58099,
+    "retention": 1.0,
+    "n_old": 272,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_a": {
+    "bytes": 58034,
+    "retention": 1.0,
+    "n_old": 272,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_b": {
+    "bytes": 58866,
+    "retention": 1.0,
+    "n_old": 272,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "prod_pass2_retention_vs_original": 1.0,
+   "prod_pass2_bytes": 57995,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  },
+  {
+   "commit": "33a4612",
+   "date": "2026-09-23",
+   "bytes_old": 62114,
+   "prod": {
+    "bytes": 58995,
+    "retention": 0.9706,
+    "n_old": 272,
+    "lost": 8,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_a": {
+    "bytes": 59198,
+    "retention": 1.0,
+    "n_old": 272,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "alt_b": {
+    "bytes": 62054,
+    "retention": 1.0,
+    "n_old": 272,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 9
+   },
+   "prod_pass2_retention_vs_original": 0.9669,
+   "prod_pass2_bytes": 58891,
+   "prod_summary_lines": 2,
+   "alt_b_idem": {
+    "grew": false,
+    "extra_lost": 0
+   },
+   "alt_b_pass2_retention_vs_original": 1.0
+  }
+ ],
+ "observed_events": {
+  "n_events": 23,
+  "events": [
+   {
+    "commit": "c8f5e5f",
+    "date": "2026-09-06",
+    "retention": 0.5067,
+    "n_old": 75,
+    "lost": 37,
+    "verdict_lost": 0,
+    "verdict_total": 4,
+    "bytes_old": 17228,
+    "bytes_new": 13750,
+    "lost_sample": [
+     "arxiv:1506.06531",
+     "arxiv:2507.10193",
+     "hash:8c76a73",
+     "num:-3.081",
+     "num:0.00054",
+     "num:0.00086",
+     "num:0.0017",
+     "num:0.01"
+    ]
+   },
+   {
+    "commit": "7210aad",
+    "date": "2026-09-06",
+    "retention": 0.4455,
+    "n_old": 101,
+    "lost": 56,
+    "verdict_lost": 2,
+    "verdict_total": 5,
+    "bytes_old": 37378,
+    "bytes_new": 13197,
+    "lost_sample": [
+     "arxiv:2104.01249",
+     "hash:51c1c3f",
+     "hash:d06942a",
+     "hid:H-B1-1a",
+     "hid:H-B1-1c",
+     "hid:H-B2-1-chernoff-neuralode-1d-decay",
+     "hid:H-B3-1b",
+     "hid:H-B3-1c-lakes-tda-ews-surrogate-null-v1"
+    ]
+   },
+   {
+    "commit": "e9ce2d2",
+    "date": "2026-09-06",
+    "retention": 0.8974,
+    "n_old": 39,
+    "lost": 4,
+    "verdict_lost": 0,
+    "verdict_total": 5,
+    "bytes_old": 14052,
+    "bytes_new": 10916,
+    "lost_sample": [
+     "hash:00a6637",
+     "num:100%",
+     "path:.claude/memory/history/activeContext-archive-20260906-b1b2b3.md",
+     "path:registry/graph.yaml"
+    ]
+   },
+   {
+    "commit": "b44f9b2",
+    "date": "2026-09-07",
+    "retention": 0.9268,
+    "n_old": 41,
+    "lost": 3,
+    "verdict_lost": 0,
+    "verdict_total": 4,
+    "bytes_old": 17918,
+    "bytes_new": 9535,
+    "lost_sample": [
+     "hash:5fbe68f",
+     "hash:e9ce2d2",
+     "hid:H-B7-2"
+    ]
+   },
+   {
+    "commit": "8a7aef4",
+    "date": "2026-09-07",
+    "retention": 0.8125,
+    "n_old": 64,
+    "lost": 12,
+    "verdict_lost": 0,
+    "verdict_total": 4,
+    "bytes_old": 17875,
+    "bytes_new": 11985,
+    "lost_sample": [
+     "hash:c49c0a2",
+     "hid:H-B2-1f",
+     "num:0.0005",
+     "num:0.012",
+     "num:0.453",
+     "num:0.917",
+     "num:0.9983",
+     "num:0.999994"
+    ]
+   },
+   {
+    "commit": "c09f7e1",
+    "date": "2026-09-07",
+    "retention": 0.7347,
+    "n_old": 49,
+    "lost": 13,
+    "verdict_lost": 1,
+    "verdict_total": 5,
+    "bytes_old": 16902,
+    "bytes_new": 13487,
+    "lost_sample": [
+     "hid:H-B2-1i",
+     "hid:H-B3-1b",
+     "num:1.80",
+     "num:1999.25",
+     "num:3.76",
+     "num:33.3%",
+     "num:41.6%",
+     "num:42.8%"
+    ]
+   },
+   {
+    "commit": "866627e",
+    "date": "2026-09-08",
+    "retention": 0.7778,
+    "n_old": 45,
+    "lost": 10,
+    "verdict_lost": 0,
+    "verdict_total": 3,
+    "bytes_old": 12501,
+    "bytes_new": 12905,
+    "lost_sample": [
+     "hid:H-B2-1m",
+     "hid:H-B2-1n",
+     "hid:H-B2-1q",
+     "hid:H-B2-1s",
+     "hid:H-B2-1t",
+     "num:0.73",
+     "num:0.731",
+     "num:0.82"
+    ]
+   },
+   {
+    "commit": "d581df6",
+    "date": "2026-09-08",
+    "retention": 0.6866,
+    "n_old": 67,
+    "lost": 21,
+    "verdict_lost": 0,
+    "verdict_total": 4,
+    "bytes_old": 21105,
+    "bytes_new": 15078,
+    "lost_sample": [
+     "num:0.01",
+     "num:0.015",
+     "num:0.02",
+     "num:0.365",
+     "num:0.522",
+     "num:0.62",
+     "num:0.622",
+     "num:0.637"
+    ]
+   },
+   {
+    "commit": "d58b79e",
+    "date": "2026-09-09",
+    "retention": 0.9322,
+    "n_old": 59,
+    "lost": 4,
+    "verdict_lost": 0,
+    "verdict_total": 4,
+    "bytes_old": 33491,
+    "bytes_new": 32900,
+    "lost_sample": [
+     "hid:H-B2-1l",
+     "hid:H-B3-1n",
+     "num:1999.25",
+     "path:null_results/INDEX.md"
+    ]
+   },
+   {
+    "commit": "3468d81",
+    "date": "2026-09-09",
+    "retention": 0.8481,
+    "n_old": 79,
+    "lost": 12,
+    "verdict_lost": 0,
+    "verdict_total": 5,
+    "bytes_old": 44231,
+    "bytes_new": 30903,
+    "lost_sample": [
+     "arxiv:2602.05394",
+     "arxiv:2603.29571",
+     "hash:883cbc6",
+     "hid:H-B1-1b",
+     "hid:H-B3-1l",
+     "hid:H-B3-1p",
+     "num:-0.035",
+     "num:1.02"
+    ]
+   },
+   {
+    "commit": "158831b",
+    "date": "2026-09-09",
+    "retention": 0.764,
+    "n_old": 89,
+    "lost": 21,
+    "verdict_lost": 0,
+    "verdict_total": 5,
+    "bytes_old": 47947,
+    "bytes_new": 36448,
+    "lost_sample": [
+     "arxiv:2609.04659",
+     "hid:H-B7-1",
+     "hid:H-B7-3",
+     "num:0.97",
+     "num:1.00",
+     "num:100%",
+     "num:2.25",
+     "num:2609.04659"
+    ]
+   },
+   {
+    "commit": "070f12f",
+    "date": "2026-09-11",
+    "retention": 0.8983,
+    "n_old": 118,
+    "lost": 12,
+    "verdict_lost": 0,
+    "verdict_total": 5,
+    "bytes_old": 63009,
+    "bytes_new": 56359,
+    "lost_sample": [
+     "arxiv:1203.3395",
+     "arxiv:2303.16361",
+     "hash:c9086a6",
+     "hid:H-B3-1r-crossvar-coherence-season-robustness",
+     "num:-0.91",
+     "num:0.62",
+     "num:0.71",
+     "num:0.84"
+    ]
+   },
+   {
+    "commit": "5ef1e0f",
+    "date": "2026-09-11",
+    "retention": 0.8136,
+    "n_old": 118,
+    "lost": 22,
+    "verdict_lost": 1,
+    "verdict_total": 6,
+    "bytes_old": 59755,
+    "bytes_new": 36387,
+    "lost_sample": [
+     "hash:45fc709",
+     "hid:H-B2-1j",
+     "hid:H-B2-1k",
+     "hid:H-B2-3",
+     "hid:H-B7-12",
+     "hid:H-B7-16",
+     "hid:H-B7-9",
+     "num:0.0016"
+    ]
+   },
+   {
+    "commit": "72a5afa",
+    "date": "2026-09-11",
+    "retention": 0.9615,
+    "n_old": 104,
+    "lost": 4,
+    "verdict_lost": 0,
+    "verdict_total": 5,
+    "bytes_old": 36389,
+    "bytes_new": 33797,
+    "lost_sample": [
+     "hash:50ab41b",
+     "num:13.5%",
+     "num:50%",
+     "path:reports/2026-09-09-breakthrough-routes.md"
+    ]
+   },
+   {
+    "commit": "aefb1ea",
+    "date": "2026-09-11",
+    "retention": 0.8571,
+    "n_old": 98,
+    "lost": 14,
+    "verdict_lost": 1,
+    "verdict_total": 5,
+    "bytes_old": 29896,
+    "bytes_new": 26697,
+    "lost_sample": [
+     "hash:0f55ec9",
+     "num:-0.91",
+     "num:-2.433",
+     "num:-2.471",
+     "num:-2.892",
+     "num:-2.901",
+     "num:0.132",
+     "num:0.231"
+    ]
+   },
+   {
+    "commit": "3122f0f",
+    "date": "2026-09-11",
+    "retention": 0.8989,
+    "n_old": 89,
+    "lost": 9,
+    "verdict_lost": 0,
+    "verdict_total": 4,
+    "bytes_old": 28823,
+    "bytes_new": 25584,
+    "lost_sample": [
+     "hash:14312da",
+     "num:0.05",
+     "num:0.926",
+     "num:10.40",
+     "num:7.55",
+     "num:7.58",
+     "num:93%",
+     "path:audit-verification-gate.md/skeptic-triggers.md"
+    ]
+   },
+   {
+    "commit": "c3331ea",
+    "date": "2026-09-11",
+    "retention": 0.8144,
+    "n_old": 97,
+    "lost": 18,
+    "verdict_lost": 0,
+    "verdict_total": 4,
+    "bytes_old": 29427,
+    "bytes_new": 26616,
+    "lost_sample": [
+     "hash:6f9064a",
+     "num:0.001",
+     "num:0.008",
+     "num:0.19",
+     "num:0.258",
+     "num:0.333",
+     "num:0.55",
+     "num:2.15"
+    ]
+   },
+   {
+    "commit": "6890d14",
+    "date": "2026-09-11",
+    "retention": 0.9659,
+    "n_old": 88,
+    "lost": 3,
+    "verdict_lost": 0,
+    "verdict_total": 4,
+    "bytes_old": 27880,
+    "bytes_new": 27686,
+    "lost_sample": [
+     "hash:3122f0f",
+     "num:20%",
+     "path:experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md"
+    ]
+   },
+   {
+    "commit": "e1d7839",
+    "date": "2026-09-12",
+    "retention": 0.9789,
+    "n_old": 95,
+    "lost": 2,
+    "verdict_lost": 0,
+    "verdict_total": 4,
+    "bytes_old": 28407,
+    "bytes_new": 28145,
+    "lost_sample": [
+     "hash:393f855",
+     "point:Point 15"
+    ]
+   },
+   {
+    "commit": "59790c1",
+    "date": "2026-09-17",
+    "retention": 1.0,
+    "n_old": 194,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 7,
+    "bytes_old": 45224,
+    "bytes_new": 45897,
+    "lost_sample": []
+   },
+   {
+    "commit": "d6bb9e0",
+    "date": "2026-09-18",
+    "retention": 1.0,
+    "n_old": 225,
+    "lost": 0,
+    "verdict_lost": 0,
+    "verdict_total": 8,
+    "bytes_old": 52483,
+    "bytes_new": 52212,
+    "lost_sample": []
+   },
+   {
+    "commit": "f7fca4e",
+    "date": "2026-09-19",
+    "retention": 0.9113,
+    "n_old": 293,
+    "lost": 26,
+    "verdict_lost": 0,
+    "verdict_total": 9,
+    "bytes_old": 75499,
+    "bytes_new": 62241,
+    "lost_sample": [
+     "arxiv:2411.17668",
+     "arxiv:2601.21801",
+     "arxiv:2607.02053",
+     "hid:H-CAT7-1-gd-anytime-finite-prefix",
+     "num:-0.219",
+     "num:-1.118",
+     "num:-1.119",
+     "num:-1.1601"
+    ]
+   },
+   {
+    "commit": "de046fb",
+    "date": "2026-09-27",
+    "retention": 0.8676,
+    "n_old": 272,
+    "lost": 36,
+    "verdict_lost": 1,
+    "verdict_total": 9,
+    "bytes_old": 62114,
+    "bytes_new": 59029,
+    "lost_sample": [
+     "date:2026-07-19",
+     "date:2026-09-19",
+     "hash:08fce7c",
+     "hash:155f3dd",
+     "hash:2a50aac",
+     "hash:3d0a632",
+     "hash:4c11d96",
+     "hash:57ba287"
+    ]
+   }
+  ]
+ },
+ "crash_scan": {
+  "n_versions": 404,
+  "n_would_crash": 0,
+  "sample": []
+ }
+}
