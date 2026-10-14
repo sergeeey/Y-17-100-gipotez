@@ -41,7 +41,7 @@ def run(cmd: list[str], cwd: Path | None = None, timeout: int = 30) -> tuple[str
             timeout=timeout,
         )
         return r.stdout.strip(), r.returncode
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         return f"ERR {e}", 1
 
 
@@ -50,10 +50,12 @@ def git(*a: str, cwd: Path = REPO) -> tuple[str, int]:
 
 
 # ------------------------------------------------------------------ stores
-def load_stores() -> dict[str, str]:
-    s = {"activeContext.md": ACTIVE.read_text(encoding="utf-8")}
-    if AUTO_DIR.exists():
-        for p in sorted(AUTO_DIR.glob("*.md")):
+def load_stores(snapshot: Path | None = None) -> dict[str, str]:
+    act = (snapshot / "activeContext.md") if snapshot else ACTIVE
+    auto = (snapshot / "auto") if snapshot else AUTO_DIR
+    s = {"activeContext.md": act.read_text(encoding="utf-8")}
+    if auto.exists():
+        for p in sorted(auto.glob("*.md")):
             s[f"auto/{p.name}"] = p.read_text(encoding="utf-8")
     return s
 
@@ -77,23 +79,29 @@ def truth_repo_visibility() -> str:
 
 def truth_pushed(h: str) -> str:
     out, rc = git("branch", "-r", "--contains", h)
-    return "pushed" if rc == 0 and out.strip() else "not pushed"
+    if rc != 0:
+        return "unknown"
+    return "pushed" if out.strip() else "not pushed"
 
 
 def truth_mo_published() -> str:
     out, rc = run(["curl", "-s", "-o", os.devnull, "-w", "%{http_code}", "-I", "-m", "8", MO_URL])
     if out.strip() in {"200", "301", "302"}:
         return "published"
-    return "unknown" if rc else "not published"
+    if out.strip() in {"404", "410"}:
+        return "not published"
+    return "unknown"
 
 
 def truth_hooks_fix_committed() -> str:
-    out, _ = git(
+    out, rc = git(
         "log",
         "--oneline",
         "--grep=guard post_commit_memory against its own auto-log commit loop",
         cwd=CLAUDE,
     )
+    if rc != 0:
+        return "unknown"
     return "committed" if out.strip() else "uncommitted"
 
 
@@ -116,6 +124,8 @@ def truth_u2_reply() -> str:
     txt = p.read_text(encoding="utf-8") if p.exists() else ""
     rows = [r for r in txt.splitlines() if r.startswith("| 20")]
     classes = [r.strip().strip("|").split("|")[-1].strip() for r in rows]
+    if not classes:  # all([]) is vacuously true: an empty log proves nothing
+        return "unknown"
     return "no reply" if all(c in {"SENT", "no-answer so far"} for c in classes) else "reply"
 
 
@@ -159,6 +169,8 @@ def gold_claims(stores: dict[str, str]) -> list[dict]:
         claims = [c for c in claims if c]
         if not claims:
             verdict = "ABSENT"
+        elif truth == "unknown":
+            verdict = "UNVERIFIED"
         else:
             ok = [c == truth for c in claims]
             verdict = "CORRECT" if all(ok) else ("CONFLICT" if any(ok) else "STALE")
@@ -177,20 +189,21 @@ def gold_claims(stores: dict[str, str]) -> list[dict]:
         c2.append("published")
     add("G2", "MathOverflow question published?", c2, truth_mo_published())
     c3 = []
-    if re.search(r"left UNCOMMITTED in hooks repo", allm):
+    plain = re.sub(r"[*`]", "", allm)  # markdown emphasis must not hide a claim
+    if re.search(r"left UNCOMMITTED in hooks repo", plain):
         c3.append("uncommitted")
-    if re.search(r"committed (?:in|to) (?:the )?hooks repo|hooks repo[^.\n]{0,60}committed", allm):
+    if re.search(
+        r"committed (?:in|to) (?:the )?(?:~/\.claude )?hooks repo|hooks repo[^.\n]{0,60}committed",
+        plain,
+    ):
         c3.append("committed")
     add("G3", "post_commit_memory self-log-loop fix committed?", c3, truth_hooks_fix_committed())
     c4 = []
-    for m in re.finditer(r"Email NOT SENT[^\n]{0,60}|EMAIL: SENT|EMAIL SENT", act):
-        s = m.group(0)
-        if "NOT SENT" in s:
-            if "[SUPERSEDED" in s:
-                continue  # explicitly neutralised historical statement
-            c4.append("NOT SENT")
-        else:
-            c4.append("SENT")
+    for m in re.finditer(r"Email NOT SENT", act):
+        if "[SUPERSEDED" in act[m.end() : m.end() + 60]:
+            continue  # explicitly neutralised historical statement
+        c4.append("NOT SENT")
+    c4 += ["SENT" for _ in re.finditer(r"EMAIL: SENT|EMAIL SENT", act)]
     add("G4", "author email sent?", c4, truth_email_sent())
     add(
         "G5",
@@ -207,7 +220,12 @@ def gold_claims(stores: dict[str, str]) -> list[dict]:
     add(
         "G7",
         "U2 window end date",
-        every(r"(?:until|~|window to)\s*~?(20\d\d-\d\d-\d\d)", act),
+        [
+            c
+            for ln in act.splitlines()
+            if re.search(r"U2|Silence|window", ln)
+            for c in every(r"(?:until|~|window to)\s*~?(20\d\d-\d\d-\d\d)", ln)
+        ],
         truth_u2_window_end(),
     )
     add(
@@ -263,6 +281,7 @@ def gold_claims(stores: dict[str, str]) -> list[dict]:
     ents = set(re.findall(r"\bH-[A-Z0-9]+(?:-[A-Za-z0-9]+)*\b", log)) | set(
         re.findall(r"\b[A-Z][a-z]+(?:-[A-Z][a-z]+)+\b", log)
     )
+    ents = {e for e in ents if not e.startswith("Co-Authored")}
     found = [e for e in ents if e in allm]
     cov = round(len(found) / len(ents), 3) if ents else 1.0
     rows.append(
@@ -408,6 +427,13 @@ def index_flags(stores: dict[str, str]) -> tuple[list[dict], dict]:
         {"store": f"auto/{f}", "type": "ORPHAN_FILE", "value": f}
         for f in sorted(present - set(linked))
     ]
+    for ln in idx.splitlines():
+        if ln.startswith("- [") and re.search(
+            r"UNCOMMITTED|pending|not yet|T[O]DO|left (?:un|in)", ln, re.I
+        ):
+            flags.append(
+                {"store": "auto/MEMORY.md", "type": "INDEX_PENDING_MARKER", "value": ln[:90]}
+            )
     return flags, {"index_entries": len(linked), "files": len(present)}
 
 
@@ -432,8 +458,10 @@ def layout_metrics(stores: dict[str, str]) -> dict:
         "lines": len(lines),
         "longest_line_bytes": max((len(x.encode("utf-8")) for x in lines), default=0),
         "byte_offset_of_first_current_marker": first_current,
-        "read_this_first_markers": len(
-            re.findall(r"READ THIS FIRST|читать первым|read first", act, re.I)
+        "read_this_first_markers": sum(
+            1
+            for m in re.finditer(r"READ THIS FIRST|читать первым|read first", act, re.I)
+            if not re.search(r"demoted|superseded", act[m.start() - 120 : m.end() + 120], re.I)
         ),
         "max_consecutive_newlines": runs,
         "summarized_lines": act.count("[summarized]"),
@@ -551,6 +579,24 @@ def mutate(stores: dict[str, str], seed: int = 7, n: int = 12) -> dict:
             missed.append(gid)
     rec("claim_flip_gold", inj, det, missed)
 
+    # review P1-2: paraphrased distortions (the realistic miss). The claim leaves the extractor's vocabulary, so the
+    # verdict degrades to ABSENT, not STALE: recall is expected to be 0 and is reported as such.
+    para = [
+        ("G5", r"Repo:\*\*[^\n]*?\b(PUBLIC|PRIVATE)\b", "visible to anyone"),
+        ("G8", r"lemma_blind_packet\.md` v(\d+)", "the third draft"),
+        ("G7", r"(?:until|~|window to)\s*~?(2026-10-23)", "late October"),
+    ]
+    inj = det = 0
+    for gid, rx, rep in para:
+        txt0 = stores["activeContext.md"]
+        m0 = re.search(rx, txt0)
+        if not m0 or pristine.get(gid) != "CORRECT":
+            continue
+        st = dict(stores)
+        st["activeContext.md"] = txt0[: m0.start(1)] + rep + txt0[m0.end(1) :]
+        inj += 1
+        det += {r["id"]: r for r in gold_claims(st)}[gid]["verdict"] in {"STALE", "CONFLICT"}
+    rec("claim_paraphrase (control: expected undetectable)", inj, det, [])
     inj = det = 0
     txt = stores["activeContext.md"]
     m = re.search(r"node stays `lead`", txt)
@@ -569,8 +615,9 @@ def main() -> None:
     ap.add_argument("--label", required=True)
     ap.add_argument("--out")
     ap.add_argument("--no-mutation", action="store_true")
+    ap.add_argument("--snapshot", help="read stores from a frozen snapshot dir")
     a = ap.parse_args()
-    stores = load_stores()
+    stores = load_stores(Path(a.snapshot) if a.snapshot else None)
     rows = gold_claims(stores)
     items = all_flags(stores)
     by: dict[str, int] = {}

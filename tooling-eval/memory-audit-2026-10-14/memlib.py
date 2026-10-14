@@ -49,8 +49,12 @@ def _typed_matches(text: str) -> list[tuple[str, str]]:
     return out
 
 
-_COMMIT_CTX_RE = re.compile(r"commit|branch|pushed|squash|rebase|merge|cherry|revert|HEAD|\(local", re.I)
-_NOT_COMMIT_CTX_RE = re.compile(r"sha-?256|sha-?1\b|md5|checksum|uuid|session|agentid|agent id", re.I)
+_COMMIT_CTX_RE = re.compile(
+    r"commit|branch|pushed|squash|rebase|merge|cherry|revert|HEAD|\(local", re.I
+)
+_NOT_COMMIT_CTX_RE = re.compile(
+    r"sha-?256|sha-?1\b|md5|checksum|uuid|session|agentid|agent id", re.I
+)
 
 
 def commit_refs(text: str) -> set[str]:
@@ -59,13 +63,15 @@ def commit_refs(text: str) -> set[str]:
     for m in HASH_RE.finditer(text):
         s, e = m.start(), m.end()
         after = text[e : e + 40]
-        near = text[max(0, s - 60) : e + 40]
         if _NOT_COMMIT_CTX_RE.search(text[max(0, s - 24) : s]):
             continue
-        if after.startswith(("...", "\u2026")) or text[max(0, s - 1) : s] == "-" or re.match(r"-[0-9a-f]", after):
+        if (
+            after.startswith(("...", "\u2026"))
+            or text[max(0, s - 1) : s] == "-"
+            or re.match(r"-[0-9a-f]", after)
+        ):
             continue
-        if _COMMIT_CTX_RE.search(near):
-            out.add(m.group(0))
+        out.add(m.group(0))
     return out
 
 
@@ -122,7 +128,7 @@ def _is_summary_line(ln: str) -> bool:
 
 
 def split_chunks(lines: list[str]) -> list[list[str]]:
-    """Blank-line-separated chunks; every '[summarized]' line is its own chunk.
+    """Entry chunks: blank-line separated, one per top-level bullet, every '[summarized]' line its own chunk.
 
     WHY (found by this audit's idempotency test): production keeps a block of consecutive
     '[summarized]' lines as ONE chunk, so a later pass reduces the whole block to its first line.
@@ -135,6 +141,12 @@ def split_chunks(lines: list[str]) -> list[list[str]]:
                 chunks.append(cur)
                 cur = []
             chunks.append([ln])
+        elif re.match(r"[-*] ", ln):
+            # a top-level bullet starts a new entry: production (blank-line chunking only) folds N consecutive
+            # bullets into ONE summary line, which is the dominant loss mechanism in this project's file format
+            if cur:
+                chunks.append(cur)
+            cur = [ln]
         elif ln.strip():
             cur.append(ln)
         elif cur:

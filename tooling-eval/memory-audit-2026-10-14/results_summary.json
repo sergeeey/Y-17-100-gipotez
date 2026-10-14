@@ -1,0 +1,201 @@
+{
+ "M1": {
+  "inputs": 98,
+  "prod": {
+   "retention_pooled": 0.8836,
+   "retention_mean": 0.8494,
+   "verdict_retention_pooled": 0.9521,
+   "bytes_mean": 26878
+  },
+  "alt_a": {
+   "retention_pooled": 0.9952,
+   "retention_mean": 0.9968,
+   "verdict_retention_pooled": 1.0,
+   "bytes_mean": 28712
+  },
+  "alt_b": {
+   "retention_pooled": 0.9681,
+   "retention_mean": 0.983,
+   "verdict_retention_pooled": 1.0,
+   "bytes_mean": 24733
+  },
+  "prod_lost_share": 0.1164,
+  "alt_a_lost_share": 0.0048,
+  "alt_b_lost_share": 0.0319,
+  "alt_a_loss_reduction": 0.959,
+  "alt_b_loss_reduction": 0.726,
+  "alt_a_bytes_vs_prod": 1.068,
+  "alt_b_bytes_vs_prod": 0.92,
+  "prod_pass2_retention": 0.8355,
+  "alt_b_pass2_retention": 0.983,
+  "prod_second_pass_changes_file_share": 1.0,
+  "alt_b_idempotent_all": true,
+  "observed_events": {
+   "n": 23,
+   "mean_retention": 0.839,
+   "min_retention": 0.4455,
+   "verdict_tokens_lost": 6,
+   "verdict_tokens_total": 118
+  },
+  "crash_scan": {
+   "n_versions": 404,
+   "n_would_crash": 0,
+   "sample": []
+  }
+ },
+ "M2": {
+  "hook_outputs": 36,
+  "bytes_min_median_max": [
+   41761,
+   64186,
+   72716
+  ],
+  "activeContext_offsets": [
+   1974,
+   2054,
+   2146
+  ],
+  "activeContext_bytes_visible_max": 26,
+  "facts": 8,
+  "digest_bytes": 956,
+  "before_window": 0.0,
+  "before_full_output": 0.177,
+  "after_A_digest_first_window": 1.0,
+  "after_B_digest_after_banner_window": 0.0
+ },
+ "M3_before": {
+  "counts": {
+   "STALE": 2,
+   "CONFLICT": 2,
+   "CORRECT": 6,
+   "RISK": 1
+  },
+  "accuracy": 0.6,
+  "wilson95": [
+   0.313,
+   0.832
+  ],
+  "n": 10,
+  "flags": {
+   "DANGLING_PATH": 1,
+   "INDEX_PENDING_MARKER": 1
+  },
+  "layout": {
+   "bytes": 52727,
+   "lines": 179,
+   "longest_line_bytes": 6892,
+   "byte_offset_of_first_current_marker": 24521,
+   "read_this_first_markers": 3,
+   "max_consecutive_newlines": 17,
+   "summarized_lines": 2
+  },
+  "mutation": {
+   "hash_flip": [
+    12,
+    12
+   ],
+   "path_rename": [
+    12,
+    12
+   ],
+   "future_date": [
+    12,
+    12
+   ],
+   "index_link_removed": [
+    9,
+    9
+   ],
+   "frontmatter_description_deleted": [
+    9,
+    9
+   ],
+   "claim_flip_gold": [
+    3,
+    3
+   ],
+   "claim_paraphrase": [
+    3,
+    0
+   ],
+   "free_text_semantic_flip": [
+    1,
+    0
+   ]
+  }
+ },
+ "M3_after": {
+  "counts": {
+   "CORRECT": 10,
+   "RISK": 1
+  },
+  "accuracy": 1.0,
+  "wilson95": [
+   0.722,
+   1.0
+  ],
+  "n": 10,
+  "flags": {},
+  "layout": {
+   "bytes": 41427,
+   "lines": 95,
+   "longest_line_bytes": 6892,
+   "byte_offset_of_first_current_marker": 41,
+   "read_this_first_markers": 1,
+   "max_consecutive_newlines": 0,
+   "summarized_lines": 2
+  },
+  "mutation": {
+   "hash_flip": [
+    12,
+    12
+   ],
+   "path_rename": [
+    12,
+    12
+   ],
+   "future_date": [
+    12,
+    12
+   ],
+   "index_link_removed": [
+    10,
+    10
+   ],
+   "frontmatter_description_deleted": [
+    10,
+    10
+   ],
+   "claim_flip_gold": [
+    3,
+    3
+   ],
+   "claim_paraphrase": [
+    3,
+    0
+   ],
+   "free_text_semantic_flip": [
+    1,
+    0
+   ]
+  }
+ },
+ "pointers_before": {
+  "commit_refs": 21,
+  "commit_dangling": 0,
+  "paths": 30,
+  "path_dangling": 1,
+  "pointer_accuracy": 0.9804,
+  "dangling": [
+   "scratchpad/check_qbar.py"
+  ]
+ },
+ "pointers_after": {
+  "commit_refs": 21,
+  "commit_dangling": 0,
+  "paths": 26,
+  "path_dangling": 0,
+  "pointer_accuracy": 1.0,
+  "dangling": []
+ }
+}

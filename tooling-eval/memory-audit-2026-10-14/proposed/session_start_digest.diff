@@ -1,0 +1,42 @@
+--- hooks/session_start.py (production)
++++ hooks/session_start.py (proposed)
+@@ -589,11 +589,39 @@
+     return True
+ 
+ 
++def _print_project_digest() -> None:
++    """Print the project's generated digest FIRST.
++
++    WHY (memory audit 2026-10-14): the harness shows only the first ~2 KB of a large hook output; the banner and
++    lessons alone take ~2.1 KB, so project state never reached the model (0/8 true facts in 36 real outputs,
++    8/8 when a <=1.5 KB generated digest comes first, 0/8 again when it comes after the banner).
++    SECURITY: this runs a project file at session start. Opt-in only (`.claude/memory/digest.enabled` marker),
++    because an untrusted repo could otherwise execute code just by being opened.
++    """
++    mem_dir = find_project_claude_dir()
++    if mem_dir is None or not (mem_dir / "digest.enabled").exists():
++        return
++    script = mem_dir / "digest.py"
++    if not script.exists():
++        return
++    try:
++        r = subprocess.run([sys.executable, str(script)], capture_output=True, text=True, timeout=15, encoding="utf-8")
++        out = r.stdout.strip()
++        if out:
++            print(out[:1500])
++            print()
++    except Exception:  # noqa: BLE001  - a digest failure must never break session start
++        pass
++
++
+ def main():
+     # WHY: prevent recursion when this hook fires inside a subagent's
+     # SessionStart/etc — see hooks/CLAUDE.md "Recursion guard" section.
+     if os.environ.get("CLAUDE_INVOKED_BY"):
+         sys.exit(0)
++
++    # Generated project digest first (see _print_project_digest)
++    _print_project_digest()
+ 
+     # First-run welcome (fires once after install)
+     check_first_run()

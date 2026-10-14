@@ -1,0 +1,81 @@
+{
+ "today": "2026-10-14",
+ "sections": [
+  "## Current Focus",
+  "## Scope Fence",
+  "## Project State",
+  "## Architecture (файлы этой папки)",
+  "## Quick Commands",
+  "## Open Questions (для пользователя)",
+  "## Auto-commit log"
+ ],
+ "schedule": {
+  "2026-10-14": {
+   "days_ahead": 0,
+   "sections_removed": 0,
+   "headings_removed": [],
+   "bytes_removed": 0
+  },
+  "2026-11-13": {
+   "days_ahead": 30,
+   "sections_removed": 0,
+   "headings_removed": [],
+   "bytes_removed": 0
+  },
+  "2026-12-06": {
+   "days_ahead": 53,
+   "sections_removed": 1,
+   "headings_removed": [
+    "## Open Questions (для пользователя)"
+   ],
+   "bytes_removed": 1086
+  },
+  "2026-12-13": {
+   "days_ahead": 60,
+   "sections_removed": 2,
+   "headings_removed": [
+    "## Project State",
+    "## Open Questions (для пользователя)"
+   ],
+   "bytes_removed": 3116
+  },
+  "2026-12-19": {
+   "days_ahead": 66,
+   "sections_removed": 2,
+   "headings_removed": [
+    "## Project State",
+    "## Open Questions (для пользователя)"
+   ],
+   "bytes_removed": 3116
+  },
+  "2026-12-28": {
+   "days_ahead": 75,
+   "sections_removed": 2,
+   "headings_removed": [
+    "## Project State",
+    "## Open Questions (для пользователя)"
+   ],
+   "bytes_removed": 3116
+  },
+  "2027-01-12": {
+   "days_ahead": 90,
+   "sections_removed": 2,
+   "headings_removed": [
+    "## Project State",
+    "## Open Questions (для пользователя)"
+   ],
+   "bytes_removed": 3116
+  },
+  "2027-02-11": {
+   "days_ahead": 120,
+   "sections_removed": 2,
+   "headings_removed": [
+    "## Project State",
+    "## Open Questions (для пользователя)"
+   ],
+   "bytes_removed": 3116
+  }
+ },
+ "trim_archive_files": [],
+ "hook_has_archive_write": false
+}

@@ -8,23 +8,23 @@
    "bytes_mean": 26878
   },
   "alt_a": {
-   "retention_pooled": 0.9936,
-   "retention_mean": 0.9966,
+   "retention_pooled": 0.9952,
+   "retention_mean": 0.9968,
    "verdict_retention_pooled": 1.0,
-   "bytes_mean": 27822
+   "bytes_mean": 28712
   },
   "alt_b": {
-   "retention_pooled": 0.9916,
-   "retention_mean": 0.9918,
+   "retention_pooled": 0.9681,
+   "retention_mean": 0.983,
    "verdict_retention_pooled": 1.0,
-   "bytes_mean": 28309
+   "bytes_mean": 24733
   },
   "prod_pass2_retention_mean_vs_original": 0.8355,
-  "alt_b_pass2_retention_mean_vs_original": 0.9918,
+  "alt_b_pass2_retention_mean_vs_original": 0.983,
   "prod_second_pass_changes_file_share": 1.0,
   "prod_second_pass_mean_growth_bytes": -861.4,
   "bytes_old_mean": 32462,
-  "alt_b_over_prod_bytes": 1.053,
+  "alt_b_over_prod_bytes": 0.92,
   "alt_b_idempotent_all": true
  },
  "replay_rows": [
@@ -41,7 +41,7 @@
     "verdict_total": 4
    },
    "alt_a": {
-    "bytes": 10503,
+    "bytes": 11640,
     "retention": 1.0,
     "n_old": 63,
     "lost": 0,
@@ -78,7 +78,7 @@
     "verdict_total": 4
    },
    "alt_a": {
-    "bytes": 11965,
+    "bytes": 14274,
     "retention": 1.0,
     "n_old": 75,
     "lost": 0,
@@ -86,7 +86,7 @@
     "verdict_total": 4
    },
    "alt_b": {
-    "bytes": 16918,
+    "bytes": 16948,
     "retention": 1.0,
     "n_old": 75,
     "lost": 0,
@@ -115,7 +115,7 @@
     "verdict_total": 4
    },
    "alt_a": {
-    "bytes": 13311,
+    "bytes": 15282,
     "retention": 1.0,
     "n_old": 52,
     "lost": 0,
@@ -152,7 +152,7 @@
     "verdict_total": 4
    },
    "alt_a": {
-    "bytes": 14878,
+    "bytes": 19114,
     "retention": 1.0,
     "n_old": 63,
     "lost": 0,
@@ -160,7 +160,7 @@
     "verdict_total": 4
    },
    "alt_b": {
-    "bytes": 18601,
+    "bytes": 21377,
     "retention": 1.0,
     "n_old": 63,
     "lost": 0,
@@ -189,15 +189,15 @@
     "verdict_total": 5
    },
    "alt_a": {
-    "bytes": 14371,
-    "retention": 1.0,
+    "bytes": 19746,
+    "retention": 0.9855,
     "n_old": 69,
-    "lost": 0,
+    "lost": 1,
     "verdict_lost": 0,
     "verdict_total": 5
    },
    "alt_b": {
-    "bytes": 18832,
+    "bytes": 23091,
     "retention": 1.0,
     "n_old": 69,
     "lost": 0,
@@ -226,15 +226,15 @@
     "verdict_total": 5
    },
    "alt_a": {
-    "bytes": 15301,
-    "retention": 1.0,
+    "bytes": 22197,
+    "retention": 0.9875,
     "n_old": 80,
-    "lost": 0,
+    "lost": 1,
     "verdict_lost": 0,
     "verdict_total": 5
    },
    "alt_b": {
-    "bytes": 19815,
+    "bytes": 25275,
     "retention": 1.0,
     "n_old": 80,
     "lost": 0,
@@ -263,18 +263,18 @@
     "verdict_total": 5
    },
    "alt_a": {
-    "bytes": 15527,
-    "retention": 1.0,
+    "bytes": 24241,
+    "retention": 0.9889,
     "n_old": 90,
-    "lost": 0,
+    "lost": 1,
     "verdict_lost": 0,
     "verdict_total": 5
    },
    "alt_b": {
-    "bytes": 20604,
-    "retention": 1.0,
+    "bytes": 26610,
+    "retention": 0.9889,
     "n_old": 90,
-    "lost": 0,
+    "lost": 1,
     "verdict_lost": 0,
     "verdict_total": 5
    },
@@ -285,7 +285,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.9889
   },
   {
    "commit": "afa3234",
@@ -300,18 +300,18 @@
     "verdict_total": 5
    },
    "alt_a": {
-    "bytes": 14992,
-    "retention": 1.0,
+    "bytes": 25265,
+    "retention": 0.99,
     "n_old": 100,
-    "lost": 0,
+    "lost": 1,
     "verdict_lost": 0,
     "verdict_total": 5
    },
    "alt_b": {
-    "bytes": 21332,
-    "retention": 1.0,
+    "bytes": 28258,
+    "retention": 0.99,
     "n_old": 100,
-    "lost": 0,
+    "lost": 1,
     "verdict_lost": 0,
     "verdict_total": 5
    },
@@ -322,7 +322,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.99
   },
   {
    "commit": "6519e03",
@@ -337,18 +337,18 @@
     "verdict_total": 5
    },
    "alt_a": {
-    "bytes": 15233,
-    "retention": 1.0,
+    "bytes": 26204,
+    "retention": 0.9901,
     "n_old": 101,
-    "lost": 0,
+    "lost": 1,
     "verdict_lost": 0,
     "verdict_total": 5
    },
    "alt_b": {
-    "bytes": 21118,
-    "retention": 1.0,
+    "bytes": 29386,
+    "retention": 0.9901,
     "n_old": 101,
-    "lost": 0,
+    "lost": 1,
     "verdict_lost": 0,
     "verdict_total": 5
    },
@@ -359,7 +359,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.9901
   },
   {
    "commit": "a236655",
@@ -411,7 +411,7 @@
     "verdict_total": 3
    },
    "alt_a": {
-    "bytes": 12872,
+    "bytes": 13602,
     "retention": 1.0,
     "n_old": 50,
     "lost": 0,
@@ -448,7 +448,7 @@
     "verdict_total": 3
    },
    "alt_a": {
-    "bytes": 11806,
+    "bytes": 14188,
     "retention": 1.0,
     "n_old": 53,
     "lost": 0,
@@ -485,7 +485,7 @@
     "verdict_total": 3
    },
    "alt_a": {
-    "bytes": 11858,
+    "bytes": 15161,
     "retention": 1.0,
     "n_old": 59,
     "lost": 0,
@@ -522,7 +522,7 @@
     "verdict_total": 4
    },
    "alt_a": {
-    "bytes": 12322,
+    "bytes": 16276,
     "retention": 1.0,
     "n_old": 62,
     "lost": 0,
@@ -530,7 +530,7 @@
     "verdict_total": 4
    },
    "alt_b": {
-    "bytes": 20385,
+    "bytes": 21310,
     "retention": 1.0,
     "n_old": 62,
     "lost": 0,
@@ -559,7 +559,7 @@
     "verdict_total": 5
    },
    "alt_a": {
-    "bytes": 12674,
+    "bytes": 17946,
     "retention": 1.0,
     "n_old": 65,
     "lost": 0,
@@ -567,7 +567,7 @@
     "verdict_total": 5
    },
    "alt_b": {
-    "bytes": 19655,
+    "bytes": 23641,
     "retention": 1.0,
     "n_old": 65,
     "lost": 0,
@@ -596,7 +596,7 @@
     "verdict_total": 6
    },
    "alt_a": {
-    "bytes": 13131,
+    "bytes": 19642,
     "retention": 1.0,
     "n_old": 68,
     "lost": 0,
@@ -604,7 +604,7 @@
     "verdict_total": 6
    },
    "alt_b": {
-    "bytes": 20639,
+    "bytes": 24830,
     "retention": 1.0,
     "n_old": 68,
     "lost": 0,
@@ -633,7 +633,7 @@
     "verdict_total": 5
    },
    "alt_a": {
-    "bytes": 9601,
+    "bytes": 10382,
     "retention": 1.0,
     "n_old": 37,
     "lost": 0,
@@ -670,7 +670,7 @@
     "verdict_total": 5
    },
    "alt_a": {
-    "bytes": 10080,
+    "bytes": 11645,
     "retention": 1.0,
     "n_old": 36,
     "lost": 0,
@@ -707,7 +707,7 @@
     "verdict_total": 4
    },
    "alt_a": {
-    "bytes": 10290,
+    "bytes": 13383,
     "retention": 1.0,
     "n_old": 37,
     "lost": 0,
@@ -744,7 +744,7 @@
     "verdict_total": 4
    },
    "alt_a": {
-    "bytes": 9813,
+    "bytes": 12087,
     "retention": 1.0,
     "n_old": 40,
     "lost": 0,
@@ -781,7 +781,7 @@
     "verdict_total": 4
    },
    "alt_a": {
-    "bytes": 9788,
+    "bytes": 13385,
     "retention": 1.0,
     "n_old": 41,
     "lost": 0,
@@ -855,7 +855,7 @@
     "verdict_total": 4
    },
    "alt_a": {
-    "bytes": 9868,
+    "bytes": 10485,
     "retention": 1.0,
     "n_old": 49,
     "lost": 0,
@@ -2935,7 +2935,7 @@
     "verdict_total": 6
    },
    "alt_b": {
-    "bytes": 43669,
+    "bytes": 33013,
     "retention": 1.0,
     "n_old": 190,
     "lost": 0,
@@ -2972,7 +2972,7 @@
     "verdict_total": 7
    },
    "alt_b": {
-    "bytes": 45857,
+    "bytes": 35201,
     "retention": 1.0,
     "n_old": 197,
     "lost": 0,
@@ -3009,7 +3009,7 @@
     "verdict_total": 7
    },
    "alt_b": {
-    "bytes": 46006,
+    "bytes": 35350,
     "retention": 1.0,
     "n_old": 195,
     "lost": 0,
@@ -3046,7 +3046,7 @@
     "verdict_total": 8
    },
    "alt_b": {
-    "bytes": 46331,
+    "bytes": 35675,
     "retention": 1.0,
     "n_old": 194,
     "lost": 0,
@@ -3083,7 +3083,7 @@
     "verdict_total": 8
    },
    "alt_b": {
-    "bytes": 46847,
+    "bytes": 36191,
     "retention": 1.0,
     "n_old": 203,
     "lost": 0,
@@ -3120,7 +3120,7 @@
     "verdict_total": 8
    },
    "alt_b": {
-    "bytes": 45489,
+    "bytes": 34839,
     "retention": 1.0,
     "n_old": 202,
     "lost": 0,
@@ -3157,7 +3157,7 @@
     "verdict_total": 8
    },
    "alt_b": {
-    "bytes": 46983,
+    "bytes": 36334,
     "retention": 1.0,
     "n_old": 209,
     "lost": 0,
@@ -3194,7 +3194,7 @@
     "verdict_total": 8
    },
    "alt_b": {
-    "bytes": 48078,
+    "bytes": 35281,
     "retention": 1.0,
     "n_old": 216,
     "lost": 0,
@@ -3231,7 +3231,7 @@
     "verdict_total": 8
    },
    "alt_b": {
-    "bytes": 51326,
+    "bytes": 35536,
     "retention": 1.0,
     "n_old": 225,
     "lost": 0,
@@ -3268,10 +3268,10 @@
     "verdict_total": 8
    },
    "alt_b": {
-    "bytes": 53762,
-    "retention": 1.0,
+    "bytes": 36011,
+    "retention": 0.9958,
     "n_old": 240,
-    "lost": 0,
+    "lost": 1,
     "verdict_lost": 0,
     "verdict_total": 8
    },
@@ -3282,7 +3282,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.9958
   },
   {
    "commit": "e6b1360",
@@ -3305,10 +3305,10 @@
     "verdict_total": 9
    },
    "alt_b": {
-    "bytes": 59192,
-    "retention": 1.0,
+    "bytes": 36547,
+    "retention": 0.9504,
     "n_old": 262,
-    "lost": 0,
+    "lost": 13,
     "verdict_lost": 0,
     "verdict_total": 9
    },
@@ -3319,7 +3319,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.9504
   },
   {
    "commit": "7ff7273",
@@ -3342,10 +3342,10 @@
     "verdict_total": 9
    },
    "alt_b": {
-    "bytes": 60931,
-    "retention": 1.0,
+    "bytes": 36482,
+    "retention": 0.9509,
     "n_old": 265,
-    "lost": 0,
+    "lost": 13,
     "verdict_lost": 0,
     "verdict_total": 9
    },
@@ -3356,7 +3356,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.9509
   },
   {
    "commit": "95d9d0f",
@@ -3371,7 +3371,7 @@
     "verdict_total": 9
    },
    "alt_a": {
-    "bytes": 58851,
+    "bytes": 58956,
     "retention": 1.0,
     "n_old": 277,
     "lost": 0,
@@ -3379,10 +3379,10 @@
     "verdict_total": 9
    },
    "alt_b": {
-    "bytes": 64028,
-    "retention": 1.0,
+    "bytes": 36338,
+    "retention": 0.9097,
     "n_old": 277,
-    "lost": 0,
+    "lost": 25,
     "verdict_lost": 0,
     "verdict_total": 9
    },
@@ -3393,7 +3393,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.9097
   },
   {
    "commit": "9dcca67",
@@ -3408,18 +3408,18 @@
     "verdict_total": 9
    },
    "alt_a": {
-    "bytes": 58831,
-    "retention": 0.9621,
+    "bytes": 59008,
+    "retention": 0.9862,
     "n_old": 290,
-    "lost": 11,
+    "lost": 4,
     "verdict_lost": 0,
     "verdict_total": 9
    },
    "alt_b": {
-    "bytes": 67769,
-    "retention": 1.0,
+    "bytes": 36183,
+    "retention": 0.8621,
     "n_old": 290,
-    "lost": 0,
+    "lost": 40,
     "verdict_lost": 0,
     "verdict_total": 9
    },
@@ -3430,7 +3430,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.8621
   },
   {
    "commit": "c31e4aa",
@@ -3445,18 +3445,18 @@
     "verdict_total": 9
    },
    "alt_a": {
-    "bytes": 58851,
-    "retention": 0.945,
+    "bytes": 59035,
+    "retention": 0.9725,
     "n_old": 291,
-    "lost": 16,
+    "lost": 8,
     "verdict_lost": 0,
     "verdict_total": 9
    },
    "alt_b": {
-    "bytes": 71703,
-    "retention": 1.0,
+    "bytes": 36204,
+    "retention": 0.8591,
     "n_old": 291,
-    "lost": 0,
+    "lost": 41,
     "verdict_lost": 0,
     "verdict_total": 9
    },
@@ -3467,7 +3467,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.8591
   },
   {
    "commit": "9383254",
@@ -3482,18 +3482,18 @@
     "verdict_total": 9
    },
    "alt_a": {
-    "bytes": 58812,
-    "retention": 0.9286,
+    "bytes": 58992,
+    "retention": 0.9524,
     "n_old": 294,
-    "lost": 21,
+    "lost": 14,
     "verdict_lost": 0,
     "verdict_total": 9
    },
    "alt_b": {
-    "bytes": 75377,
-    "retention": 1.0,
+    "bytes": 36162,
+    "retention": 0.8469,
     "n_old": 294,
-    "lost": 0,
+    "lost": 45,
     "verdict_lost": 0,
     "verdict_total": 9
    },
@@ -3504,7 +3504,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.8469
   },
   {
    "commit": "27e8aa5",
@@ -3519,7 +3519,7 @@
     "verdict_total": 9
    },
    "alt_a": {
-    "bytes": 58564,
+    "bytes": 58681,
     "retention": 1.0,
     "n_old": 275,
     "lost": 0,
@@ -3527,10 +3527,10 @@
     "verdict_total": 9
    },
    "alt_b": {
-    "bytes": 58564,
-    "retention": 1.0,
+    "bytes": 36380,
+    "retention": 0.9636,
     "n_old": 275,
-    "lost": 0,
+    "lost": 10,
     "verdict_lost": 0,
     "verdict_total": 9
    },
@@ -3541,7 +3541,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.9636
   },
   {
    "commit": "20736e5",
@@ -3556,7 +3556,7 @@
     "verdict_total": 9
    },
    "alt_a": {
-    "bytes": 58740,
+    "bytes": 59254,
     "retention": 1.0,
     "n_old": 289,
     "lost": 0,
@@ -3564,10 +3564,10 @@
     "verdict_total": 9
    },
    "alt_b": {
-    "bytes": 58740,
-    "retention": 1.0,
+    "bytes": 36953,
+    "retention": 0.9516,
     "n_old": 289,
-    "lost": 0,
+    "lost": 14,
     "verdict_lost": 0,
     "verdict_total": 9
    },
@@ -3578,7 +3578,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.9516
   },
   {
    "commit": "4c11d96",
@@ -3601,10 +3601,10 @@
     "verdict_total": 9
    },
    "alt_b": {
-    "bytes": 58866,
-    "retention": 1.0,
+    "bytes": 36566,
+    "retention": 0.9412,
     "n_old": 272,
-    "lost": 0,
+    "lost": 16,
     "verdict_lost": 0,
     "verdict_total": 9
    },
@@ -3615,7 +3615,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.9412
   },
   {
    "commit": "33a4612",
@@ -3638,10 +3638,10 @@
     "verdict_total": 9
    },
    "alt_b": {
-    "bytes": 62054,
-    "retention": 1.0,
+    "bytes": 36998,
+    "retention": 0.9412,
     "n_old": 272,
-    "lost": 0,
+    "lost": 16,
     "verdict_lost": 0,
     "verdict_total": 9
    },
@@ -3652,7 +3652,7 @@
     "grew": false,
     "extra_lost": 0
    },
-   "alt_b_pass2_retention_vs_original": 1.0
+   "alt_b_pass2_retention_vs_original": 0.9412
   }
  ],
  "observed_events": {

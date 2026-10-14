@@ -38,12 +38,24 @@ def load_prod():
     return mod
 
 
-def prod_compact(mod, text: str) -> str:
+def prod_compact_with_archive(mod, text: str) -> tuple[str, str]:
+    """Run the hook on a temp copy; return (active text, text of everything it archived under history/)."""
     with tempfile.TemporaryDirectory() as d:
         p = Path(d) / "activeContext.md"
         p.write_text(text, encoding="utf-8")
         changed = mod._create_progressive_summary(p)
-        return p.read_text(encoding="utf-8") if changed else text
+        arch = (
+            "".join(
+                x.read_text(encoding="utf-8") for x in sorted((Path(d) / "history").glob("*.md"))
+            )
+            if (Path(d) / "history").exists()
+            else ""
+        )
+        return (p.read_text(encoding="utf-8") if changed else text), arch
+
+
+def prod_compact(mod, text: str) -> str:
+    return prod_compact_with_archive(mod, text)[0]
 
 
 def versions() -> list[tuple[str, str]]:
@@ -124,7 +136,7 @@ def crash_scan() -> dict:
     mod = load_prod()
     n_versions = n_crash = 0
     crash_commits = []
-    for h, d in versions():
+    for h, _d in versions():
         text = show(h)
         if not text:
             continue
@@ -201,10 +213,23 @@ def summarize(res: dict) -> dict:
             "verdict_retention_pooled": round(vpool(name), 4),
             "bytes_mean": round(agg(name, "bytes")),
         }
-    out["prod_pass2_retention_mean_vs_original"] = round(st.mean(r["prod_pass2_retention_vs_original"] for r in rows), 4)
-    out["alt_b_pass2_retention_mean_vs_original"] = round(st.mean(r["alt_b_pass2_retention_vs_original"] for r in rows), 4)
-    out["prod_second_pass_changes_file_share"] = round(sum(r["prod_pass2_bytes"] != r["bytes_old"] and r["prod_pass2_bytes"] != r["prod"]["bytes"] for r in rows) / len(rows), 3)
-    out["prod_second_pass_mean_growth_bytes"] = round(st.mean(r["prod_pass2_bytes"] - r["prod"]["bytes"] for r in rows), 1)
+    out["prod_pass2_retention_mean_vs_original"] = round(
+        st.mean(r["prod_pass2_retention_vs_original"] for r in rows), 4
+    )
+    out["alt_b_pass2_retention_mean_vs_original"] = round(
+        st.mean(r["alt_b_pass2_retention_vs_original"] for r in rows), 4
+    )
+    out["prod_second_pass_changes_file_share"] = round(
+        sum(
+            r["prod_pass2_bytes"] != r["bytes_old"] and r["prod_pass2_bytes"] != r["prod"]["bytes"]
+            for r in rows
+        )
+        / len(rows),
+        3,
+    )
+    out["prod_second_pass_mean_growth_bytes"] = round(
+        st.mean(r["prod_pass2_bytes"] - r["prod"]["bytes"] for r in rows), 1
+    )
     out["bytes_old_mean"] = round(st.mean(r["bytes_old"] for r in rows))
     out["alt_b_over_prod_bytes"] = round(out["alt_b"]["bytes_mean"] / out["prod"]["bytes_mean"], 3)
     out["alt_b_idempotent_all"] = all(
@@ -222,7 +247,12 @@ def main() -> None:
     summ = summarize(res)
     ev = observed_events()
     cs = crash_scan()
-    full = {"replay_summary": summ, "replay_rows": res["rows"], "observed_events": ev, "crash_scan": cs}
+    full = {
+        "replay_summary": summ,
+        "replay_rows": res["rows"],
+        "observed_events": ev,
+        "crash_scan": cs,
+    }
     print("crash_scan:", cs)
     Path(a.out).write_text(json.dumps(full, indent=1, ensure_ascii=False), encoding="utf-8")
     print(json.dumps(summ, indent=1))

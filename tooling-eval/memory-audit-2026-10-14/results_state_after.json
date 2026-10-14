@@ -1,0 +1,261 @@
+{
+ "label": "after",
+ "date": "2026-10-14",
+ "head": "c703c93",
+ "gold_claims": [
+  {
+   "id": "G1",
+   "desc": "pushed-status of commit 25776d4",
+   "claims": [
+    "pushed"
+   ],
+   "truth": "pushed",
+   "verdict": "CORRECT"
+  },
+  {
+   "id": "G2",
+   "desc": "MathOverflow question published?",
+   "claims": [
+    "published"
+   ],
+   "truth": "published",
+   "verdict": "CORRECT"
+  },
+  {
+   "id": "G3",
+   "desc": "post_commit_memory self-log-loop fix committed?",
+   "claims": [
+    "committed"
+   ],
+   "truth": "committed",
+   "verdict": "CORRECT"
+  },
+  {
+   "id": "G4",
+   "desc": "author email sent?",
+   "claims": [
+    "SENT",
+    "SENT"
+   ],
+   "truth": "SENT",
+   "verdict": "CORRECT"
+  },
+  {
+   "id": "G5",
+   "desc": "repo visibility",
+   "claims": [
+    "PUBLIC"
+   ],
+   "truth": "PUBLIC",
+   "verdict": "CORRECT"
+  },
+  {
+   "id": "G6",
+   "desc": "U2 reply status",
+   "claims": [
+    "no reply"
+   ],
+   "truth": "no reply",
+   "verdict": "CORRECT"
+  },
+  {
+   "id": "G7",
+   "desc": "U2 window end date",
+   "claims": [
+    "2026-10-23"
+   ],
+   "truth": "2026-10-23",
+   "verdict": "CORRECT"
+  },
+  {
+   "id": "G8",
+   "desc": "lemma packet version",
+   "claims": [
+    "v3"
+   ],
+   "truth": "v3",
+   "verdict": "CORRECT"
+  },
+  {
+   "id": "G9",
+   "desc": "canonical plan file exists+tracked",
+   "claims": [
+    "outreach/CURRENT_PLAN_2026-09-27.md"
+   ],
+   "truth": "untracked",
+   "verdict": "RISK"
+  },
+  {
+   "id": "G10",
+   "desc": "commits between newest logged hash and HEAD",
+   "claims": [
+    "c703c93"
+   ],
+   "truth": 0,
+   "verdict": "CORRECT"
+  },
+  {
+   "id": "G11",
+   "desc": "entities of 8 newest commits present in memory",
+   "claims": [
+    "H-CARPET-1",
+    "H-CAT31-3",
+    "H-CAT56-2",
+    "H-COXETER-1",
+    "H-CYBE",
+    "H-CYBE-002",
+    "H-DDEQ-1",
+    "H-LUMCHUA-1",
+    "H-YBE-1",
+    "H-YBE-C3-TWIN-001",
+    "Huan-Yang",
+    "Lum-Chua",
+    "Ma-Zheng",
+    "Yang-Baxter"
+   ],
+   "truth": [
+    "Erdos-Renyi",
+    "H-B7-19",
+    "H-CARPET-1",
+    "H-CAT31-3",
+    "H-CAT56-2",
+    "H-COXETER-1",
+    "H-CYBE",
+    "H-CYBE-002",
+    "H-DDEQ-1",
+    "H-LUMCHUA-1",
+    "H-YBE-1",
+    "H-YBE-C3-TWIN-001",
+    "Huan-Yang",
+    "Lum-Chua",
+    "Ma-Zheng",
+    "Yang-Baxter"
+   ],
+   "coverage": 0.875,
+   "verdict": "CORRECT"
+  }
+ ],
+ "gold_accuracy": {
+  "counts": {
+   "CORRECT": 10,
+   "RISK": 1
+  },
+  "accuracy_present": 1.0
+ },
+ "integrity": {
+  "flags_by_type": {},
+  "total_flags": 0,
+  "index": {
+   "index_entries": 10,
+   "files": 10
+  },
+  "dangling_paths_deleted_in_history": 0,
+  "dangling_paths_never_existed": 0,
+  "items": []
+ },
+ "layout": {
+  "bytes": 41427,
+  "lines": 95,
+  "longest_line_bytes": 6892,
+  "byte_offset_of_first_current_marker": 41,
+  "read_this_first_markers": 1,
+  "max_consecutive_newlines": 0,
+  "summarized_lines": 2
+ },
+ "ages": {
+  "7-of-7-means-generator-failure-not-skeptic-success.md": {
+   "age_days": 37,
+   "type": "memory"
+  },
+  "do-not-commit-downloaded-papers-guard-crash.md": {
+   "age_days": 0,
+   "type": "memory"
+  },
+  "memory-audit-2026-10-14-findings.md": {
+   "age_days": 0,
+   "type": "memory"
+  },
+  "MEMORY.md": {
+   "age_days": 0,
+   "type": null
+  },
+  "post-commit-memory-self-log-loop-fixed.md": {
+   "age_days": 36,
+   "type": "memory"
+  },
+  "respond-in-russian-in-chat.md": {
+   "age_days": 37,
+   "type": "memory"
+  },
+  "resume-stalled-agent-with-sendmessage.md": {
+   "age_days": 35,
+   "type": "memory"
+  },
+  "skeptic-pass-caught-degenerate-sample.md": {
+   "age_days": 37,
+   "type": "memory"
+  },
+  "y17-lab-repo-and-variant-c.md": {
+   "age_days": 38,
+   "type": "memory"
+  },
+  "y17-scientific-output-honest-assessment.md": {
+   "age_days": 33,
+   "type": "memory"
+  },
+  "ybe-c3-audit-orchestration-state.md": {
+   "age_days": 0,
+   "type": "memory"
+  }
+ },
+ "mutation": {
+  "hash_flip": {
+   "injected": 12,
+   "detected": 12,
+   "recall": 1.0,
+   "missed": []
+  },
+  "path_rename": {
+   "injected": 12,
+   "detected": 12,
+   "recall": 1.0,
+   "missed": []
+  },
+  "future_date": {
+   "injected": 12,
+   "detected": 12,
+   "recall": 1.0,
+   "missed": []
+  },
+  "index_link_removed": {
+   "injected": 10,
+   "detected": 10,
+   "recall": 1.0,
+   "missed": []
+  },
+  "frontmatter_description_deleted": {
+   "injected": 10,
+   "detected": 10,
+   "recall": 1.0,
+   "missed": []
+  },
+  "claim_flip_gold": {
+   "injected": 3,
+   "detected": 3,
+   "recall": 1.0,
+   "missed": []
+  },
+  "claim_paraphrase (control: expected undetectable)": {
+   "injected": 3,
+   "detected": 0,
+   "recall": 0.0,
+   "missed": []
+  },
+  "free_text_semantic_flip (control: expected undetectable)": {
+   "injected": 1,
+   "detected": 0,
+   "recall": 0.0,
+   "missed": []
+  }
+ }
+}

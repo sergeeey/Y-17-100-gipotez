@@ -1,7 +1,7 @@
 {
  "label": "before",
  "date": "2026-10-14",
- "head": "5ddba97",
+ "head": "c703c93",
  "gold_claims": [
   {
    "id": "G1",
@@ -25,10 +25,11 @@
    "id": "G3",
    "desc": "post_commit_memory self-log-loop fix committed?",
    "claims": [
-    "uncommitted"
+    "uncommitted",
+    "committed"
    ],
    "truth": "committed",
-   "verdict": "STALE"
+   "verdict": "CONFLICT"
   },
   {
    "id": "G4",
@@ -92,7 +93,7 @@
    "claims": [
     "5ddba97"
    ],
-   "truth": 0,
+   "truth": 1,
    "verdict": "CORRECT"
   },
   {
@@ -115,7 +116,6 @@
     "Yang-Baxter"
    ],
    "truth": [
-    "Co-Authored-By",
     "Erdos-Renyi",
     "H-B7-19",
     "H-CARPET-1",
@@ -133,14 +133,14 @@
     "Ma-Zheng",
     "Yang-Baxter"
    ],
-   "coverage": 0.824,
+   "coverage": 0.875,
    "verdict": "CORRECT"
   }
  ],
  "gold_accuracy": {
   "counts": {
-   "STALE": 3,
-   "CONFLICT": 1,
+   "STALE": 2,
+   "CONFLICT": 2,
    "CORRECT": 6,
    "RISK": 1
   },
@@ -148,9 +148,10 @@
  },
  "integrity": {
   "flags_by_type": {
-   "DANGLING_PATH": 1
+   "DANGLING_PATH": 1,
+   "INDEX_PENDING_MARKER": 1
   },
-  "total_flags": 1,
+  "total_flags": 2,
   "index": {
    "index_entries": 9,
    "files": 9
@@ -163,6 +164,11 @@
     "type": "DANGLING_PATH",
     "value": "scratchpad/check_qbar.py",
     "ever_existed": false
+   },
+   {
+    "store": "auto/MEMORY.md",
+    "type": "INDEX_PENDING_MARKER",
+    "value": "- [post_commit_memory self-log loop fixed](post-commit-memory-self-log-loop-fixed.md) — gl"
    }
   ]
  },
@@ -184,12 +190,16 @@
    "age_days": 0,
    "type": "memory"
   },
+  "memory-audit-2026-10-14-findings.md": {
+   "age_days": 0,
+   "type": "memory"
+  },
   "MEMORY.md": {
    "age_days": 0,
    "type": null
   },
   "post-commit-memory-self-log-loop-fixed.md": {
-   "age_days": 35,
+   "age_days": 36,
    "type": "memory"
   },
   "respond-in-russian-in-chat.md": {
@@ -213,7 +223,7 @@
    "type": "memory"
   },
   "ybe-c3-audit-orchestration-state.md": {
-   "age_days": 9,
+   "age_days": 0,
    "type": "memory"
   }
  },
@@ -252,6 +262,12 @@
    "injected": 3,
    "detected": 3,
    "recall": 1.0,
+   "missed": []
+  },
+  "claim_paraphrase (control: expected undetectable)": {
+   "injected": 3,
+   "detected": 0,
+   "recall": 0.0,
    "missed": []
   },
   "free_text_semantic_flip (control: expected undetectable)": {

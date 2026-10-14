@@ -1,0 +1,256 @@
+--- hooks/pre_compact.py (production)
++++ hooks/pre_compact.py (proposed)
+@@ -111,11 +111,25 @@
+ 
+ 
+ def _split_into_chunks(lines: list[str]) -> list[list[str]]:
+-    """Split `lines` into blank-line-separated chunks (paragraphs/entries)."""
++    """Split `lines` into entries: blank-line separated, one per top-level bullet, '[summarized]' lines alone.
++
++    WHY (memory audit 2026-10-14): blank-line chunking folded N consecutive bullets (this file format has no
++    blank lines between entries) into ONE summary line; and a block of '[summarized]' lines was re-collapsed
++    to its first line on the next pass.
++    """
+     chunks: list[list[str]] = []
+     current: list[str] = []
+     for line in lines:
+-        if line.strip():
++        if line.strip().startswith("[summarized]"):
++            if current:
++                chunks.append(current)
++                current = []
++            chunks.append([line])
++        elif re.match(r"[-*] ", line):
++            if current:
++                chunks.append(current)
++            current = [line]
++        elif line.strip():
+             current.append(line)
+         elif current:
+             chunks.append(current)
+@@ -134,20 +148,62 @@
+     return None
+ 
+ 
++_ANCHOR_RES = (
++    ("verdict", re.compile(r"\b(FALSIFIED|KILLED|CONFIRMED|REJECTED|WITHDRAWN|RETRACTED|PARKED|SUPERSEDED|"
++                           r"PARTIALLY_SUPPORTED|PROMOTE|VALIDATED|INCONCLUSIVE|NEEDS_WORK|BLOCKED|CORRECTED)\b")),
++    ("id", re.compile(r"\bH-[A-Z0-9]+(?:-[A-Za-z0-9]+)*\b")),
++    ("hash", re.compile(r"\b(?=[0-9a-f]*\d)(?=[0-9a-f]*[a-f])[0-9a-f]{7,12}\b")),
++    ("date", re.compile(r"\b20\d\d-\d\d-\d\d(?!\d)")),
++    ("path", re.compile(r"(?<![\w/.-])[\w.-]+(?:/[\w.-]+)+\.[A-Za-z]\w{0,4}\b")),
++    ("point", re.compile(r"\bPoints? \d+\b")),
++    ("num", re.compile(r"(?<![\w.])-?\d+\.\d{2,}(?![\w.])|\b\d+(?:\.\d+)?%")),
++    ("arxiv", re.compile(r"\b\d{4}\.\d{4,5}\b")),
++)
++_URL_RE = re.compile(r"https?://[^\s)`\]>]+")
++_ANCHOR_CAP = 520
++
++
+ def _summarize_chunk(chunk: list[str]) -> str:
+-    """Produce one "[summarized] ..." line representing a single chunk.
+-
+-    WHY not re-prefix an already-summarized line: repeated compaction over
+-    many sessions previously stacked "[summarized] [summarized] ..." tokens
+-    (observed up to 7 deep) because a prior summary line was itself picked as
+-    "the first content line" of the next round's chunk and prefixed again.
++    """One "[summarized] ..." line per entry: the first <=117 chars plus every anchor not already shown.
++
++    WHY (memory audit 2026-10-14): head-only summaries dropped 11.6% of all hashes/dates/ids/numbers/verdicts per
++    compaction when replayed on this project's real history, and in 5 real compaction events 6 of 118 verdict
++    tokens (FALSIFIED/KILLED/...) vanished, leaving the claim without its refutation. An already-summarized line
++    is kept as is: re-truncating it at 160 chars erased anchors on a later pass.
+     """
+     line = _first_content_line(chunk)
+     if line is None:
+         return "[summarized] (empty entry)"
+     if line.startswith("[summarized]"):
+-        return _truncate_at_word_boundary(line, limit=160)
+-    return f"[summarized] {_truncate_at_word_boundary(line)}"
++        return line
++    head = _truncate_at_word_boundary(line)
++    body = " ".join(s.strip() for s in chunk)
++    seen: set[str] = set()
++    extra: list[str] = []
++    for u in _URL_RE.findall(body):
++        u = u.rstrip(".,;")
++        if u not in seen and u not in head:
++            seen.add(u)
++            extra.append(u)
++    body = _URL_RE.sub(" ", body)
++    for _, rx in _ANCHOR_RES:
++        for m in rx.finditer(body):
++            val = m.group(0)
++            if val not in seen and val not in head:
++                seen.add(val)
++                extra.append(val)
++    budget = _ANCHOR_CAP - len(head) - 28
++    kept: list[str] = []
++    used = 0
++    for val in extra:
++        if used + len(val) + 2 <= budget:
++            kept.append(val)
++            used += len(val) + 2
++    dropped = len(extra) - len(kept)
++    tail = ""
++    if kept or dropped:
++        tail = " {anchors: " + "; ".join(kept) + (f"; +{dropped} more" if dropped else "") + "}"
++    return f"[summarized] {head}{tail}"
+ 
+ 
+ def _summarize_chunks(lines: list[str]) -> list[str]:
+@@ -187,9 +243,58 @@
+     dates = _DATE_RE.findall("\n".join(lines))
+     if len(dates) < 2:
+         return False
+-    first = datetime.strptime(dates[0], "%Y-%m-%d")
+-    last = datetime.strptime(dates[-1], "%Y-%m-%d")
++    try:
++        first = datetime.strptime(dates[0], "%Y-%m-%d")
++        last = datetime.strptime(dates[-1], "%Y-%m-%d")
++    except ValueError:  # malformed date (typo): unknown order, must never crash the hook
++        return False
+     return first > last
++
++
++def _rstrip_blank(lines: list[str]) -> list[str]:
++    """Drop trailing blank lines: every rewrite re-joins sections with a blank line, so keeping the original
++    trailing blanks added two blank lines per section per pass (17 consecutive newlines seen in the real file)."""
++    out = list(lines)
++    while out and not out[-1].strip():
++        out.pop()
++    return out
++
++
++_SUMMARY_CAP = 12000  # bytes of summary lines kept active per section; the rest moves, verbatim, to history/
++
++
++def _cap_summaries(lines: list[str], active_path: Path, oldest_at_end: bool) -> list[str]:
++    """Keep the newest summary lines up to _SUMMARY_CAP bytes; move older ones VERBATIM to history/compacted-<date>.md.
++
++    WHY (memory audit 2026-10-14): anchored summaries keep up to ~520 B per entry; without a bound the active file
++    grew ~2x faster than the original in a synthetic long run. Moving (not dropping) keeps every anchor retrievable.
++    An I/O failure keeps everything in place (never lose, never crash).
++    """
++    sizes = [len(x.encode("utf-8")) + 1 for x in lines]
++    if sum(sizes) <= _SUMMARY_CAP:
++        return lines
++    newest_first = list(range(len(lines))) if oldest_at_end else list(range(len(lines) - 1, -1, -1))
++    kept_idx: list[int] = []
++    used = 0
++    for i in newest_first:
++        if kept_idx and used + sizes[i] > _SUMMARY_CAP - 160:  # reserve room for the pointer line (idempotency)
++            break
++        kept_idx.append(i)
++        used += sizes[i]
++    moved_idx = sorted(set(range(len(lines))) - set(kept_idx))
++    if not moved_idx:
++        return lines
++    try:
++        arch = active_path.parent / "history"
++        arch.mkdir(parents=True, exist_ok=True)
++        stamp = datetime.now(UTC).strftime("%Y-%m-%d")
++        with open(arch / f"compacted-{stamp}.md", "a", encoding="utf-8") as fh:
++            fh.write("\n".join(lines[i] for i in moved_idx) + "\n\n")
++    except OSError:
++        return lines
++    kept = [lines[i] for i in sorted(kept_idx)]
++    pointer = f"[summarized] [{len(moved_idx)} older summary lines moved verbatim to history/compacted-{stamp}.md]"
++    return kept + [pointer] if oldest_at_end else [pointer] + kept
+ 
+ 
+ def _create_progressive_summary(active_path: Path) -> bool:
+@@ -227,7 +332,7 @@
+ 
+         if is_protected:
+             # Keep verbatim — join heading + original body
+-            block = "\n".join([section.heading] + section.lines)
++            block = "\n".join([section.heading] + _rstrip_blank(section.lines))
+             compressed_sections.append(block)
+             continue
+ 
+@@ -238,7 +343,7 @@
+ 
+         if len(body) <= VERBATIM_TAIL:
+             # Short enough — no compression needed
+-            block = "\n".join([section.heading] + section.lines)
++            block = "\n".join([section.heading] + _rstrip_blank(section.lines))
+             compressed_sections.append(block)
+             continue
+ 
+@@ -248,12 +353,14 @@
+             verbatim = body[:VERBATIM_TAIL]
+             to_compress = body[VERBATIM_TAIL:]
+             summary_lines = _summarize_chunks(to_compress)
++            summary_lines = _cap_summaries(summary_lines, active_path, oldest_at_end=True)
+             block = "\n".join([section.heading] + verbatim + [""] + summary_lines)
+         else:
+             # Default convention: recent entries are at the END of the body.
+             head = body[: len(body) - VERBATIM_TAIL]
+             tail = body[len(body) - VERBATIM_TAIL :]
+             summary_lines = _summarize_chunks(head)
++            summary_lines = _cap_summaries(summary_lines, active_path, oldest_at_end=False)
+             block = "\n".join([section.heading] + summary_lines + [""] + tail)
+         compressed_sections.append(block)
+ 
+@@ -407,6 +514,7 @@
+ 
+     cutoff = datetime.now(UTC).replace(tzinfo=None) - timedelta(days=max_age_days)
+     kept_sections: list[_Section] = []
++    removed_sections: list[_Section] = []
+     removed = 0
+ 
+     for section in sections:
+@@ -439,14 +547,31 @@
+             kept_sections.append(section)
+             continue
+ 
+-        newest_date = max(datetime.strptime(d, "%Y-%m-%d") for d in date_strings)
++        try:
++            newest_date = max(datetime.strptime(d, "%Y-%m-%d") for d in date_strings)
++        except ValueError:  # a malformed date must not crash the hook or delete the section
++            kept_sections.append(section)
++            continue
+ 
+         if newest_date < cutoff:
+             removed += 1
++            removed_sections.append(section)
+         else:
+             kept_sections.append(section)
+ 
+     if removed == 0:
++        return 0
++
++    # WHY (memory audit 2026-10-14): the 90-day rule deleted whole sections (Scope Fence, Project State, Open
++    # Questions on this project) with no copy anywhere. Archive them verbatim first.
++    try:
++        archive_dir = context_path.parent / "history"
++        archive_dir.mkdir(parents=True, exist_ok=True)
++        stamp = datetime.now(UTC).strftime("%Y-%m-%d")
++        with open(archive_dir / f"trimmed-{stamp}.md", "a", encoding="utf-8") as fh:
++            for s in removed_sections:
++                fh.write("\n".join([s.heading] + s.lines).rstrip("\n") + "\n\n")
++    except OSError:  # cannot archive -> do not delete anything, do not crash the hook (review P2-1)
+         return 0
+ 
+     # ── Rebuild file ──
+@@ -535,6 +660,9 @@
+         #    the rewrite does not clobber the freshly written timestamp line.
+         #    WHY: compression must happen first; updating the timestamp after
+         #    means the final file always reflects the compaction moment.
++        trimmed = _trim_old_entries(active)  # archive-then-trim first (verbatim archive)
++        if trimmed:
++            print(f"[PreCompact] Trimmed {trimmed} stale section(s) from {active.name}")
+         compressed = _create_progressive_summary(active)
+         if compressed:
+             print(f"[PreCompact] Progressive summary written to {active}")
+@@ -549,9 +677,6 @@
+         if deduped:
+             print(f"[PreCompact] Removed {deduped} duplicate pattern(s) from {patterns_path.name}")
+ 
+-        trimmed = _trim_old_entries(active)
+-        if trimmed:
+-            print(f"[PreCompact] Trimmed {trimmed} stale section(s) from {active.name}")
+ 
+         # 4. Update the "Updated:" line (re-read after potential compression)
+         lines = active.read_text(encoding="utf-8").split("\n")
