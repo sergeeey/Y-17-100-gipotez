@@ -352,3 +352,24 @@ def test_patched_trim_first_archives_original_text_not_summaries():
     assert body.index("_trim_old_entries(active)") < body.index(
         "_create_progressive_summary(active)"
     )
+
+
+# ------------------------------------------------------------------ group 7: findings of the independent review (iteration 2)
+@pytest.mark.parametrize("newest_first", [True, False])
+def test_cap_pointer_does_not_flip_order_detection_and_second_pass_is_stable(newest_first):
+    """Review N1 (P1): a dated pointer line made the next pass compact the newest verbatim entries."""
+    m = _patched()
+    days = list(range(1, 29)) * 8
+    days = sorted(days, reverse=newest_first)[:200]
+    entries = [
+        f"- 2026-09-{d:02d} entry{i} abcdef{i % 9}1 experiments/x{i}/decision.md " + "x" * 400
+        for i, d in enumerate(days)
+    ]
+    src = "# T\n\n## S\n" + "\n".join(entries) + "\n"
+    p1 = _prod_compact(m, src)
+    assert "moved verbatim to history/compacted-" in p1, "cap must trigger for this test to mean anything"
+    assert m._section_is_newest_first(p1.splitlines()) == newest_first
+    p2 = _prod_compact(m, p1)
+    assert p2 == p1
+    verbatim = [x for x in p1.splitlines() if x.startswith("- 2026") and "x" * 400 in x]
+    assert len(verbatim) >= 15

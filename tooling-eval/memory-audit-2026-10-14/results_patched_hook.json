@@ -1,35 +1,35 @@
 {
  "summary": {
-  "inputs": 98,
+  "inputs": 99,
   "retention_pooled": {
-   "orig": 0.8836,
-   "patched": 0.9923,
-   "patched_active_plus_archive": 0.9946
+   "orig": 0.8852,
+   "patched": 0.9924,
+   "patched_active_plus_archive": 0.9947
   },
   "retention_first_half": {
    "orig": 0.7706,
    "patched": 0.9892
   },
   "retention_second_half": {
-   "orig": 0.9246,
-   "patched": 0.9934
+   "orig": 0.926,
+   "patched": 0.9935
   },
   "bytes_mean": {
-   "orig": 26878,
-   "patched": 28644,
-   "input": 32462
+   "orig": 26993,
+   "patched": 28741,
+   "input": 32520
   },
   "verdict_tokens_lost": {
    "orig": 24,
    "patched": 3,
-   "of": 501
+   "of": 511
   },
   "second_pass_leaves_file_unchanged_share": {
    "orig": 0.0,
-   "patched": 0.969
+   "patched": 1.0
   },
   "pass2_retention_mean_vs_original": {
-   "orig": 0.8355,
+   "orig": 0.8372,
    "patched": 0.9939
   },
   "malformed_date": {
@@ -163,7 +163,7 @@
    "date": "2026-09-06",
    "bytes_old": 32904,
    "orig_bytes": 13582,
-   "pat_bytes": 23765,
+   "pat_bytes": 23756,
    "orig_n_old": 90,
    "orig_lost": 38,
    "pat_lost": 5,
@@ -172,7 +172,7 @@
    "pat_verdict_lost": 1,
    "verdict_total": 5,
    "orig_idempotent": false,
-   "pat_idempotent": false,
+   "pat_idempotent": true,
    "pat_pass2_retention": 0.9444,
    "orig_pass2_retention": 0.5444
   },
@@ -181,7 +181,7 @@
    "date": "2026-09-06",
    "bytes_old": 35527,
    "orig_bytes": 12908,
-   "pat_bytes": 22805,
+   "pat_bytes": 22796,
    "orig_n_old": 100,
    "orig_lost": 49,
    "pat_lost": 8,
@@ -190,7 +190,7 @@
    "pat_verdict_lost": 1,
    "verdict_total": 5,
    "orig_idempotent": false,
-   "pat_idempotent": false,
+   "pat_idempotent": true,
    "pat_pass2_retention": 0.92,
    "orig_pass2_retention": 0.47
   },
@@ -199,7 +199,7 @@
    "date": "2026-09-06",
    "bytes_old": 37142,
    "orig_bytes": 13091,
-   "pat_bytes": 22811,
+   "pat_bytes": 22802,
    "orig_n_old": 101,
    "orig_lost": 52,
    "pat_lost": 14,
@@ -208,7 +208,7 @@
    "pat_verdict_lost": 1,
    "verdict_total": 5,
    "orig_idempotent": false,
-   "pat_idempotent": false,
+   "pat_idempotent": true,
    "pat_pass2_retention": 0.8614,
    "orig_pass2_retention": 0.4455
   },
@@ -1813,6 +1813,24 @@
    "pat_idempotent": true,
    "pat_pass2_retention": 1.0,
    "orig_pass2_retention": 0.9669
+  },
+  {
+   "commit": "b69d318",
+   "date": "2026-10-14",
+   "bytes_old": 38268,
+   "orig_bytes": 38273,
+   "pat_bytes": 38263,
+   "orig_n_old": 141,
+   "orig_lost": 0,
+   "pat_lost": 0,
+   "pat_lost_total": 0,
+   "orig_verdict_lost": 0,
+   "pat_verdict_lost": 0,
+   "verdict_total": 10,
+   "orig_idempotent": false,
+   "pat_idempotent": true,
+   "pat_pass2_retention": 1.0,
+   "orig_pass2_retention": 1.0
   }
  ]
 }

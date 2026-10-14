@@ -293,7 +293,9 @@ def _cap_summaries(lines: list[str], active_path: Path, oldest_at_end: bool) -> 
     except OSError:
         return lines
     kept = [lines[i] for i in sorted(kept_idx)]
-    pointer = f"[summarized] [{len(moved_idx)} older summary lines moved verbatim to history/compacted-{stamp}.md]"
+    # WHY no ISO date in the pointer: _section_is_newest_first compares the first/last date in the section,
+    # a compaction-day stamp at the oldest end would flip the detected order on the next pass (review N1)
+    pointer = f"[summarized] [{len(moved_idx)} older summary lines moved verbatim to history/compacted-*.md]"
     return kept + [pointer] if oldest_at_end else [pointer] + kept
 
 

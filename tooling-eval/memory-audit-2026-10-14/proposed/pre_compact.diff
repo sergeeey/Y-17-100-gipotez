@@ -99,7 +99,7 @@
  
  
  def _summarize_chunks(lines: list[str]) -> list[str]:
-@@ -187,9 +243,58 @@
+@@ -187,9 +243,60 @@
      dates = _DATE_RE.findall("\n".join(lines))
      if len(dates) < 2:
          return False
@@ -155,12 +155,14 @@
 +    except OSError:
 +        return lines
 +    kept = [lines[i] for i in sorted(kept_idx)]
-+    pointer = f"[summarized] [{len(moved_idx)} older summary lines moved verbatim to history/compacted-{stamp}.md]"
++    # WHY no ISO date in the pointer: _section_is_newest_first compares the first/last date in the section,
++    # a compaction-day stamp at the oldest end would flip the detected order on the next pass (review N1)
++    pointer = f"[summarized] [{len(moved_idx)} older summary lines moved verbatim to history/compacted-*.md]"
 +    return kept + [pointer] if oldest_at_end else [pointer] + kept
  
  
  def _create_progressive_summary(active_path: Path) -> bool:
-@@ -227,7 +332,7 @@
+@@ -227,7 +334,7 @@
  
          if is_protected:
              # Keep verbatim — join heading + original body
@@ -169,7 +171,7 @@
              compressed_sections.append(block)
              continue
  
-@@ -238,7 +343,7 @@
+@@ -238,7 +345,7 @@
  
          if len(body) <= VERBATIM_TAIL:
              # Short enough — no compression needed
@@ -178,7 +180,7 @@
              compressed_sections.append(block)
              continue
  
-@@ -248,12 +353,14 @@
+@@ -248,12 +355,14 @@
              verbatim = body[:VERBATIM_TAIL]
              to_compress = body[VERBATIM_TAIL:]
              summary_lines = _summarize_chunks(to_compress)
@@ -193,7 +195,7 @@
              block = "\n".join([section.heading] + summary_lines + [""] + tail)
          compressed_sections.append(block)
  
-@@ -407,6 +514,7 @@
+@@ -407,6 +516,7 @@
  
      cutoff = datetime.now(UTC).replace(tzinfo=None) - timedelta(days=max_age_days)
      kept_sections: list[_Section] = []
@@ -201,7 +203,7 @@
      removed = 0
  
      for section in sections:
-@@ -439,14 +547,31 @@
+@@ -439,14 +549,31 @@
              kept_sections.append(section)
              continue
  
@@ -234,7 +236,7 @@
          return 0
  
      # ── Rebuild file ──
-@@ -535,6 +660,9 @@
+@@ -535,6 +662,9 @@
          #    the rewrite does not clobber the freshly written timestamp line.
          #    WHY: compression must happen first; updating the timestamp after
          #    means the final file always reflects the compaction moment.
@@ -244,7 +246,7 @@
          compressed = _create_progressive_summary(active)
          if compressed:
              print(f"[PreCompact] Progressive summary written to {active}")
-@@ -549,9 +677,6 @@
+@@ -549,9 +679,6 @@
          if deduped:
              print(f"[PreCompact] Removed {deduped} duplicate pattern(s) from {patterns_path.name}")
  
