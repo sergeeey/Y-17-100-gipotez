@@ -1,0 +1,23 @@
+{
+  "C1": {
+    "mean_r": 0.3927618280590312,
+    "sd_r": 0.01791425797014069,
+    "n_used": 30,
+    "mean_n_components": 4.0,
+    "near_poisson_pm_0.05": true
+  },
+  "C2": {
+    "mean_r": 0.39772225042415943,
+    "sd_r": 0.017507726495553346,
+    "n_used": 30,
+    "mean_n_components": 4.0,
+    "near_poisson_pm_0.05": true
+  },
+  "C3": {
+    "mean_r": 0.39703271160838244,
+    "sd_r": 0.018109342603698075,
+    "n_used": 30,
+    "mean_n_components": 4.0,
+    "near_poisson_pm_0.05": true
+  }
+}
