@@ -6,6 +6,7 @@ Protocol and decision rules are frozen in claim.md (commit 62660d1). Deviations 
 from __future__ import annotations
 
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -16,7 +17,7 @@ import rstat_lib as L
 from scipy.stats import mannwhitneyu
 
 HERE = Path(__file__).resolve().parent
-METRICS = HERE / "metrics"
+METRICS = Path(os.environ.get("SYNH1_METRICS", HERE / "metrics"))  # A3: separate dir for the Qwen run
 SEED = 20261014
 N = 400
 CORPUS_NAMES = ("C1", "C2", "C3")
