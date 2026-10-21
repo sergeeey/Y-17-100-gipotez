@@ -1,0 +1,102 @@
+{
+  "G1": [
+    {
+      "p": 2,
+      "agree": 120,
+      "tested": 120,
+      "skipped": 0,
+      "regular_pos_tested": 40,
+      "regular_pos_agree": 40,
+      "regular_neg_tested": 40,
+      "regular_neg_agree": 40,
+      "null_vectors_tested": 40,
+      "null_agree": 40
+    },
+    {
+      "p": 3,
+      "agree": 120,
+      "tested": 120,
+      "skipped": 0,
+      "regular_pos_tested": 40,
+      "regular_pos_agree": 40,
+      "regular_neg_tested": 40,
+      "regular_neg_agree": 40,
+      "null_vectors_tested": 40,
+      "null_agree": 40
+    }
+  ],
+  "G1_null": [
+    {
+      "p": 2,
+      "positive_tested": 30,
+      "positive_agree": 30,
+      "negative_tested": 30,
+      "negative_agree": 30
+    },
+    {
+      "p": 3,
+      "positive_tested": 30,
+      "positive_agree": 30,
+      "negative_tested": 30,
+      "negative_agree": 30
+    }
+  ],
+  "G2": [
+    {
+      "p": 2,
+      "agree": 100,
+      "tested": 100,
+      "skipped": 0,
+      "members_tested": 25,
+      "members_agree": 25,
+      "non_members_tested": 25,
+      "non_members_agree": 25,
+      "null_members_tested": 25,
+      "null_members_agree": 25,
+      "null_non_members_tested": 25,
+      "null_non_members_agree": 25
+    },
+    {
+      "p": 3,
+      "agree": 100,
+      "tested": 100,
+      "skipped": 0,
+      "members_tested": 25,
+      "members_agree": 25,
+      "non_members_tested": 25,
+      "non_members_agree": 25,
+      "null_members_tested": 25,
+      "null_members_agree": 25,
+      "null_non_members_tested": 25,
+      "null_non_members_agree": 25
+    }
+  ],
+  "identity": [
+    {
+      "p": 2,
+      "random_basis": {
+        "worst_abs": 3.552713678800501e-15,
+        "regular_outcomes": 100,
+        "null_outcomes": 0
+      },
+      "block_basis": {
+        "worst_abs": 3.552713678800501e-15,
+        "regular_outcomes": 40,
+        "null_outcomes": 60
+      }
+    },
+    {
+      "p": 3,
+      "random_basis": {
+        "worst_abs": 2.220446049250313e-15,
+        "regular_outcomes": 100,
+        "null_outcomes": 0
+      },
+      "block_basis": {
+        "worst_abs": 1.7763568394002505e-15,
+        "regular_outcomes": 40,
+        "null_outcomes": 60
+      }
+    }
+  ]
+}

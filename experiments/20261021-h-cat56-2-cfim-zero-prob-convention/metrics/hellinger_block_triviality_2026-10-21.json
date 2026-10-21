@@ -1,0 +1,42 @@
+[
+  {
+    "trial": 0,
+    "d": 5,
+    "p": 2,
+    "max_abs_F_pos": 0.0,
+    "max_abs_sum_null_minus_F_Q": 1.1102230246251565e-16,
+    "max_abs_hellinger_minus_FQ_over_4": 2.7755575615628914e-17
+  },
+  {
+    "trial": 1,
+    "d": 6,
+    "p": 3,
+    "max_abs_F_pos": 0.0,
+    "max_abs_sum_null_minus_F_Q": 8.881784197001252e-16,
+    "max_abs_hellinger_minus_FQ_over_4": 2.220446049250313e-16
+  },
+  {
+    "trial": 2,
+    "d": 5,
+    "p": 4,
+    "max_abs_F_pos": 0.0,
+    "max_abs_sum_null_minus_F_Q": 4.440892098500626e-16,
+    "max_abs_hellinger_minus_FQ_over_4": 1.1102230246251565e-16
+  },
+  {
+    "trial": 3,
+    "d": 6,
+    "p": 2,
+    "max_abs_F_pos": 0.0,
+    "max_abs_sum_null_minus_F_Q": 0.0,
+    "max_abs_hellinger_minus_FQ_over_4": 0.0
+  },
+  {
+    "trial": 4,
+    "d": 5,
+    "p": 3,
+    "max_abs_F_pos": 0.0,
+    "max_abs_sum_null_minus_F_Q": 2.220446049250313e-16,
+    "max_abs_hellinger_minus_FQ_over_4": 5.551115123125783e-17
+  }
+]
