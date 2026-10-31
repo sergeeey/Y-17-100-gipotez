@@ -87,18 +87,22 @@ Other open items:
 - **Git (local commit, no push):** text sources, documents, journals, logs, JSON results, manifests — 288 files under `experiments/20261028-h-cat56-2-phase4/`, plus this file and `ARCHIVE_SHA256SUMS.txt`. Excluded from git: `.claude/` and `__pycache__/` (tool state), and binary or large files (see archive).
 - **Archive (outside the repo, local disk):** `H-CAT56-2_milestone_archive_2026-10-31/H-CAT56-2_large_artifacts_2026-10-31.tar.gz`. Contents: all 7 912 O3 v3 record files `o3_v3/records/chunk_XXXXX.jsonl.gz`; `leaves.npy` (two copies); the 3.08 GB JSON and other `.npy`, `.npz`, `.pkl`, `.bak-*` files in phase4; and five external inputs (discovery `s8_admissible_span.py`, the R and prefix `.npz` files, the instance `.jsonl`, the phase3 R copy). Paths inside the archive are relative to the repo root, so it extracts into a repo copy.
 - **Per-file manifest:** `experiments/20261028-h-cat56-2-phase4/ARCHIVE_SHA256SUMS.txt` (SHA-256 of every archived file, committed to git so the hashes are in history).
+- **Byte-exact text snapshot:** `H-CAT56-2_text_original_bytes_2026-11-01.tar.gz` (SHA-256 `96105b63e2f6da1be0fe527523c8d227b1703135d694063d7a8f256ad7c7ebfa`) with `TEXT_ORIGINAL_BYTES_SHA256SUMS.txt` (305 files). Needed because git normalised CRLF to LF in 135 of the 305 committed text files; see `RESTORATION_TEST_2026-11-01.md` F2.
+- **Git commit:** `f0c6df5ccef9a5c7612f7436b4e64eed7f8c4a32` (local, not pushed).
 - **Restoration:** see §6.
 
 ## 6. Restoration
 
 ```bash
-git clone <local-repo-path> H-CAT56-2-restore
+git -c core.autocrlf=false clone <local-repo-path> H-CAT56-2-restore
 cd H-CAT56-2-restore
 tar -xzf <path-to>/H-CAT56-2_large_artifacts_2026-10-31.tar.gz
 sha256sum -c experiments/20261028-h-cat56-2-phase4/ARCHIVE_SHA256SUMS.txt
 ```
 
-The restoration test result is recorded separately (`RESTORATION_TEST.md`) and lists what was checked and what was not.
+`core.autocrlf=false` is required on Windows: with the default, every manifest line gets a trailing `\r` and verification fails. For byte-exact text files (certificates, manifests) use the byte-exact snapshot in §5, not the git checkout.
+
+The restoration test was performed on 2026-11-01 (`RESTORATION_TEST_2026-11-01.md`): the large archive verified 7 938/7 938 in a byte-exact clone, the audit of chunks 0–9 on the restored tree gave COMPLETE_STRICT; 37 manifest files differ from the git checkout by CR bytes only. The audit of all 7 912 chunks on the restored tree was not rerun.
 
 ## 7. Backup status
 

@@ -1,6 +1,6 @@
 # Final consistency and preservation check, H-CAT56-2 (2026-11-01)
 
-**Verdicts.** O3 v3: **PASS** (internal; not externally reviewed). NOVELTY: **PARTIAL** (central subset-dependence claim NOT ESTABLISHED as new). PRESERVATION: **INCOMPLETE**.
+**Verdicts.** O3 v3: **PASS** (internal; not externally reviewed). NOVELTY: **PARTIAL** (central subset-dependence claim NOT ESTABLISHED as new). PRESERVATION: **VERIFIED LOCALLY, NO REMOTE COPY** (commit `f0c6df5`; archive 7 938/7 938 OK; restoration tested; git normalised CRLF in 135 text files, byte-exact snapshot added). Everything exists on one machine only.
 
 Historical documents are unchanged. `STAGE_C_FINAL_PROOF.md` SHA-256 = 682eaad1…f56f4e (before and after). Errors are corrected in `ERRATA_STAGE_C_FINAL_PROOF.md`.
 
@@ -74,7 +74,7 @@ Matrix: `NOVELTY_MATRIX.md`. Summary:
 | ARCHIVE_SHA256SUMS.txt (7 938 entries) | written, committed to git only after commit | pending |
 | Commit | **not made** (the goal forbids commit) | held |
 | Push / remote backup | **none** (origin is a GitHub remote; nothing pushed) | local only |
-| Restoration test | **not performed** (needs a commit, then a clone plus archive extraction) | pending |
+| Restoration test | performed 2026-11-01 after commit `f0c6df5`: archive 7 938/7 938 OK in a byte-exact clone; audit of chunks 0–9 COMPLETE_STRICT; 37 manifest files differ from the git checkout by CR only (git normalised CRLF in 135 of 305 text files). Byte-exact snapshot added (305/305 OK). See `RESTORATION_TEST_2026-11-01.md` | done, with that finding |
 
 **PRESERVATION verdict: INCOMPLETE.** The data is on local disk; the commit, the restoration test and the remote copy are missing.
 
