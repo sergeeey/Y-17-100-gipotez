@@ -57,9 +57,9 @@ Line 73 (and lines 71–72) claim that R is exactly Hermitian. Line 103 of the s
 
 Matrix: `NOVELTY_MATRIX.md`. Summary:
 - Full text read: Suzuki–Yang–Hayashi (1911.02790v3), sections 4.1 and 5.4 (text 4.4). Their D-invariance and asymptotic-classicality conditions (eqs. 102–104) are the closest prior framework for the central subset-dependence claim. Their text says these results are "not reported in literature" (their claim).
-- Abstract read: Nurdin 2402.11567v5; Nurdin 2405.01471v2 (projective optimal measurements; general POVMs); Yang–Pang–Zhou–Jordan 1806.07337v3 (Lemma 3 excerpt).
+- Abstract read: Nurdin 2402.11567v5; Nurdin 2405.01471 is **withdrawn** (arXiv v2, 22 Dec 2024: irreparable error in Lemma 2 §4; Corollaries 2, 3 and Theorem 3 incorrect), so it is not used; Yang–Pang–Zhou–Jordan 1806.07337v3 (Lemma 3 excerpt).
 - **Not accessible:** the IEEE correction (DOI 10.1109/LCSYS.2024.3451468) — **UNKNOWN**. Any statement depending on what it changed is UNKNOWN.
-- Not done: test of S₊ and S₋ against D-invariance (Suzuki eq. 102) and against the conditions of 2402.11567 / 2405.01471. Until done, the subset-dependence claim is **NOT ESTABLISHED** as new.
+- Not done: test of S₊ and S₋ against D-invariance (Suzuki eq. 102) and against the conditions of 2402.11567 (2405.01471 is withdrawn). Until done, the subset-dependence claim is **NOT ESTABLISHED** as new.
 
 **NOVELTY verdict: PARTIAL.** Supported: the instance-level S₊ certificate, the uniform trace-gap no-go for S₋ (under the conventions and the audited separator), and the rank-jump counterexample. Not supported: the subset dependence as a new phenomenon.
 
@@ -91,5 +91,5 @@ Result: **7 938 OK, 0 FAILED** (`sha256sum -c ARCHIVE_SHA256SUMS.txt` run in the
 
 - C-O3-3: the driver does not enforce input hashes. A code change; not started.
 - Nurdin IEEE correction [S4]: UNKNOWN.
-- Test of S₊ and S₋ against Suzuki D-invariance (eq. 102) and the conditions of 2402.11567 / 2405.01471: not performed.
+- Test of S₊ and S₋ against Suzuki D-invariance (eq. 102) and the conditions of 2402.11567: not performed.
 - Independent review by a mathematician or a model from another family for the proof chain: not performed.

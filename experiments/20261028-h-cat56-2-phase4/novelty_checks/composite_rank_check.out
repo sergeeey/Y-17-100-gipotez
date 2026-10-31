@@ -1,0 +1,5 @@
+traceless Hermitian 20x20 dim = 399  Hermitian 20x20 dim = 400
+S+ {0..11}: rows=264 (= pairs*4), numerical rank=261
+S- {4..15}: rows=264 (= pairs*4), numerical rank=264
+all 16: rows=480 (= pairs*4), numerical rank=399
+max |trace| of any generator = 0.0

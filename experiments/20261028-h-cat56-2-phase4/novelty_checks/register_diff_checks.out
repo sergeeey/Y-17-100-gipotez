@@ -1,0 +1,10 @@
+A_14^H A_15 =
+[[ 136.  +0.j    0.+144.j]
+ [   0.-144.j -132.  +0.j]]
+Hermitian defect: 0.0
+Claimed [[136,144j],[-144j,-132]]: True
+N_E[I2+0]: trace = 0.000000, |N - FQ|max = 5.956e+04, |N|max = 0.000e+00
+N_E[0+I20]: trace = 60152.000000, |N - FQ|max = 1.455e-11, |N|max = 5.956e+04
+tr F^Q (16x16) = 60152.000000
+with random Hermitian L_kk: |N2 - N(L_kk=0)|max = 0.000e+00; |N2 - FQ|max = 1.455e-11 (float residual of the formula)
+note: F^Q above is the formula Re tr(Q A_a^H A_b); the N08 identity is therefore partly definitional
