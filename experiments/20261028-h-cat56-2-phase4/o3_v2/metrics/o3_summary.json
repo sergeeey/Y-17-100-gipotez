@@ -1,0 +1,21 @@
+{
+ "leaves_total": 3955841,
+ "chunks_total": 7912,
+ "chunk_lines_in_progress": 7912,
+ "chunks_unique_in_progress": 7912,
+ "duplicate_chunk_lines": 0,
+ "all_chunks_covered_once": true,
+ "leaves_counted_in_progress": 3955841,
+ "leaves_match_total": true,
+ "ok_this_run": 2245341,
+ "failed_this_run": 0,
+ "final_gap_trR_minus_20s": 0.030405245308261095,
+ "final_gap_positive": true,
+ "s_target": 0.01368236038871751,
+ "min_slack_this_run": 8.404538385450303e-09,
+ "max_B_up_this_run": 0.013682351984179126,
+ "leaves_sha256": "29ab7b1454b5fd82ef639930dfd0a85c830a7fd8488e6526d8a2c72f5a3a8d90",
+ "prec_bits": 192,
+ "seconds_this_run": 21925.4,
+ "note": "failures listed in o3_failures.jsonl; a failure is never a reason to widen a tolerance"
+}

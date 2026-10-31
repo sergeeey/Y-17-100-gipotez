@@ -1,0 +1,13 @@
+{
+ "prec_bits": 192,
+ "item3_pairs": 3360,
+ "item3_pairs_zero_certified": 24,
+ "item3_im_lambda_zero_certified": 24,
+ "item3_cert_max_residual_upper": 4.5269291521972634e-10,
+ "item4_entries_zero_certified": 0,
+ "item4_cert_max_D_upper": 3.815589412930386e-08,
+ "item4_gershgorin_D_upper": 8.474731681428309e-08,
+ "item4_max_FQ_upper": 114.66666666666667,
+ "crosscheck_float_FQ_vs_direct": 1.4210854715202004e-14,
+ "crosscheck_float_FC_vs_direct": 2.1316282072803006e-13
+}

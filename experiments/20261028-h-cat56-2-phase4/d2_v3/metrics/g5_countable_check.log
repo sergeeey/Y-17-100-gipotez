@@ -1,0 +1,14 @@
+POVM outcomes: K = 3000 (regular 2400, null 600); sum-to-I checked (atol 1e-10)
+SLD kernel-kernel check at theta=0: max |D_kk| = 0.00e+00; max|N_k(0)| = 3.949e+03
+G1 identity sum_k N_k(0) = F^Q(0): rel err 2.70e-15 -> PASS
+regular k: 2400; null k: 600; null with h^T N_k h > 0: 600
+t=1e-02  G2 min_k lambda_min(N_k - F_k) = -9.686e-08 (relative -2.45e-11)
+        G4 rel |sum_k F_k(th) - sum_k F_lim_k| = 1.024e-02
+t=1e-03  G2 min_k lambda_min(N_k - F_k) = -9.750e-08 (relative -2.47e-11)
+        G4 rel |sum_k F_k(th) - sum_k F_lim_k| = 1.399e-03
+t=1e-04  G2 min_k lambda_min(N_k - F_k) = -9.750e-08 (relative -2.47e-11)
+        G4 rel |sum_k F_k(th) - sum_k F_lim_k| = 1.432e-04
+G2 per-outcome bound F_k <= N_k (relative tol 1e-6): PASS
+G4 sums converge (t=1e-4 error < t=1e-2 error and < 1e-3): PASS
+G3 regular k vs F_k(0) (t=1e-4): median rel err 1.948e-03, max 7.563e-02
+G3 null k vs null formula (t=1e-4): median rel err 3.862e-07, max 1.737e-06

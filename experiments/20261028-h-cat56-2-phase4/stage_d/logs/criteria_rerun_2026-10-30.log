@@ -1,0 +1,13 @@
+item 3: pairs (k,i) = 3360
+item 3: pairs with 0 in ALL residual and Im(x^dag w) balls: 24
+item 3: pairs with Im(x^dag w) ball containing 0: 24
+item 3: certified max |component of w_i - lambda_i x| upper bound: 4.5269291521972634e-10
+item 3: worst pair (k, i, j, Re, Im of residual midpoint): (22, 7, 0, -2.2147332954441012e-17, -4.5269291521972634e-10)
+item 4: entries of F^Q - F^C whose ball contains 0: 0 of 144
+item 4: certified max |F^Q - F^C| entry upper bound: 3.815589412930386e-08
+item 4: Gershgorin bound on ||F^Q - F^C||_2: 8.474731681428309e-08
+item 4: max |F^Q| upper: 114.66666666666667  relative: 3.3275489066253365e-10
+cross-check: max|FC_arb_mid - FC_direct_float| = 2.1316282072803006e-13
+cross-check: max|FQ_arb_mid - FQ_direct_float| = 1.4210854715202004e-14
+cross-check: max|FQ_direct - FC_direct| / max|FQ| = 3.327568298425112e-10
+written E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4\stage_d\metrics_criteria.json

@@ -1,0 +1,7 @@
+A built: 484 x 6566 in 3.3 s
+G built in 13.2 s
+Traceback (most recent call last):
+  File "E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4\stage_e_v1\code\cert.py", line 108, in <module>
+    y = G.solve(r)
+  File "flint/types/arb_mat.pyx", line 436, in flint.types.arb_mat.arb_mat.solve
+ZeroDivisionError: singular matrix in solve()

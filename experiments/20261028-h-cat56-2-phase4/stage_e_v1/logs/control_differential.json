@@ -1,0 +1,53 @@
+{
+ "POS_splus_params_splus_povm": {
+  "completeness_max_err": 1.7952417330491244e-11,
+  "trace_QFIM": 225.33333333333334,
+  "trace_classical_FI": 225.33333333278625,
+  "deficit": 5.470894848258467e-10,
+  "relative_deficit": 2.427911914907604e-12,
+  "matrix_max_abs_err_QFIM_minus_CFI": 1.468691834816127e-10,
+  "n_outcomes": 1764
+ },
+ "NEG_sminus_params_splus_povm": {
+  "completeness_max_err": 1.7952417330491244e-11,
+  "trace_QFIM": 60005.33333333333,
+  "trace_classical_FI": 33725.984337956346,
+  "deficit": 26279.348995376982,
+  "relative_deficit": 0.4379502210144151,
+  "matrix_max_abs_err_QFIM_minus_CFI": 26081.614786375365,
+  "n_outcomes": 1764
+ },
+ "SENS_eps_0.001_splus_params": {
+  "completeness_max_err": 4.662936708115535e-15,
+  "trace_QFIM": 225.33333333333334,
+  "trace_classical_FI": 225.33332532235715,
+  "deficit": 8.010976188188579e-06,
+  "relative_deficit": 3.5551669474209665e-08,
+  "matrix_max_abs_err_QFIM_minus_CFI": 3.1021991873103616e-06,
+  "n_outcomes": 1764
+ },
+ "SENS_eps_0.01_splus_params": {
+  "completeness_max_err": 4.773959018672089e-15,
+  "trace_QFIM": 225.33333333333334,
+  "trace_classical_FI": 225.33253307666612,
+  "deficit": 0.000800256667218946,
+  "relative_deficit": 3.551434913693547e-06,
+  "matrix_max_abs_err_QFIM_minus_CFI": 0.00030964651783449426,
+  "n_outcomes": 1764
+ },
+ "SENS_eps_0.03_splus_params": {
+  "completeness_max_err": 3.552713690013538e-15,
+  "trace_QFIM": 225.33333333333334,
+  "trace_classical_FI": 225.32614748584714,
+  "deficit": 0.007185847486198327,
+  "relative_deficit": 3.188985570798074e-05,
+  "matrix_max_abs_err_QFIM_minus_CFI": 0.002775548990555876,
+  "n_outcomes": 1764
+ },
+ "notes": [
+  "POS must give relative deficit ~ 0 (saturation at theta=0 by the S+ construction).",
+  "NEG: S+ POVM evaluated on S- parameters: deficit must be clearly positive.",
+  "SENS: 1e-3 relative perturbation of moments must produce a visible deficit (harness is sensitive).",
+  "Numerical harness check only; not a proof."
+ ]
+}

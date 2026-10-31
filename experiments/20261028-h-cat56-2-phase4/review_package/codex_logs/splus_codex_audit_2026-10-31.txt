@@ -1,0 +1,2317 @@
+Reading prompt from stdin...
+2026-10-31T11:11:06.621382Z ERROR codex_core::session::session: failed to load skill C:\Users\serge\.agents\skills\sci-hypothesis\SKILL.md: missing YAML frontmatter delimited by ---
+2026-10-31T11:11:06.621495Z ERROR codex_core::session::session: failed to load skill C:\Users\serge\.agents\skills\snr\SKILL.md: missing YAML frontmatter delimited by ---
+OpenAI Codex v0.153.4
+--------
+workdir: E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: auto
+session id: 01a191a7-f69a-7c02-8e6e-0027ef92ad20
+--------
+user
+INDEPENDENT CERTIFICATE AUDIT of the S+ chain (context-blind). You have no prior conversation and no prior verdicts; judge only the primary artifacts. Read-only. Do NOT re-run the 81-minute integer verification, the 3.2-hour rational run, or any command longer than a few minutes. Reading and reasoning is the job.
+
+Folder: E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4 (paths below are relative to it unless absolute).
+Primary artifacts:
+- S_PLUS_CERTIFICATE_FINAL_v2.md (chain description, inputs, limitations)
+- THEOREM_S_PLUS_EXISTENCE_v6.md in stage_e_v1/ (statement and proof of the existence theorem: lemmas 1-3, YPZJ reduction, lemma D)
+- stage_e_v1/code/exact_cert.py (rational certificate), stage_e_v1/code/verify_exact_integer_v3.py (integer re-verification, independent construction of A from the lift definition)
+- stage_e_v1/logs/exact_cert_result.json, stage_e_v1/logs/verify_exact_integer_v3.json, verify_exact_integer_v3.log
+- stage_e_v1/code/control_differential.py and stage_e_v1/logs/control_differential.json (float reference only)
+- stage_e_v1/code/audit_ys_exact.py and logs/audit_ys_exact.json
+- inputs: stage_e_v1/logs/exact_bases2.pkl, stage_e_v1/logs/exact_povm_y_checkpoint.pkl, stage_e_v1/logs/indep_rows.npy (state whether these were regenerated: they were NOT)
+- instance: ../20261027-h-cat56-2-submission-package-v1/data/instance_d22_r2_s16.jsonl
+- direction source: ../20261027-h-cat56-2-discovery/metrics/s14_povm_prefix12.npz
+
+Claims to test:
+(a) The 484 real equations A·M = b hold exactly for the stored rational moments; (b) the 280 blocks M_j are positive definite; (c) each block M_j = omega * sum c c^T with last coordinate 1 (lemma D) gives a rank-one regular outcome E_j = omega u u^H, u = (x_j; sum_a c_a B_{j,a}), with Tr(rho E_j) > 0; (d) sum_j E_j = I_22 (completeness equals A·M = b); (e) at theta = 0 the CFIM of the resulting POVM equals the QFIM for the 12 parameters (YPZJ thm:reg saturation).
+
+For each, answer CONFIRMED / REFUTED / UNCHECKED with file and line references. Specifically check:
+1. Is the integer script's independent construction of A truly independent of exact_cert.py (different code path, same instance file)? Does it check the 484 rows against the lift definition, and does the 'rows_violated_exactly = 0' claim follow from the code and not from a print?
+2. Is positivity of the 280 blocks certified exactly (Sylvester minors over Z, or LDL over Q), with the sign convention right and no float decision on the critical path?
+3. Is the step from blocks to outcomes sound: lemma D (Cholesky + Householder) gives c with last coordinate 1 and omega = ||w||^2/N > 0; does a block with the last coordinate of the vector c not equal to 1 cause any problem?
+4. Completeness: does sum_j omega_j u_j u_j^H = I_22 follow from A·M = b with the lift convention? Check the identity linking the 484 coordinates of Herm(22) to the moments, including the factor conventions.
+5. YPZJ thm:reg application: regular outcomes with Tr(rho E)>0 at theta=0: confirm that for these outcomes the saturation condition A_a^H y = xi_a x (real xi) is what the construction enforces, and that the claim CFIM=QFIM follows for the full 12x12 matrix.
+6. Shared inputs: state exactly what the two exact runs share (bases, y, row list, direction source) and what a reviewer would need to regenerate them independently. Do not claim independence where it is absent.
+7. The numeric control: is 2.4e-12 a reference check only, and is it correctly labelled?
+
+Finish with: the single most likely error in the S+ chain; whether the shared-input dependence is a proof gap or a documentation/provenance gap; verdict PASS / PASS WITH CONDITIONS / FAIL with confidence 0-10. Do not invent results; say UNCHECKED when you did not read something.
+
+2026-10-31T11:11:09.002766Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer resource_metadata=\"https://mcp.consensus.app/.well-known/oauth-protected-resource\", scope=\"search\"" })
+warning: Skill descriptions were shortened to fit the skills context budget. Codex can still see every skill, but some descriptions are shorter. Disable unused skills or plugins to leave more room for the rest.
+**Planning detailed independent audit**
+**Preparing file inspection strategy**
+codex
+I’ll conduct this as a context-blind, read-only certificate audit, using the `skeptic` skill because the request is a claim-by-claim falsification review. I’ll trace every conclusion to primary artifact lines, inspect code paths and logged evidence, and avoid all long verification runs.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'C:\\Users\\serge\\AGENTS.md' -Raw; \""'`n---SKILL---`n"; Get-Content -LiteralPath '"'C:\\Users\\serge\\.agents\\skills\\skeptic\\SKILL.md' -Raw" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4
+ succeeded in 915ms:
+profile.ps1: ���������� �믮����� ������� � ������� dot-source, ��᪮��� ��� ��।����� � ��㣮� �몮��� ०���. �⮡� �믮����� ��� ������� ��� ������ �� ᮤ�ন����, ������ ������ ".".
+Microsoft.PowerShell_profile.ps1: ���������� �믮����� ������� � ������� dot-source, ��᪮��� ��� ��।����� � ��㣮� �몮��� ०���. �⮡� �믮����� ��� ������� ��� ������ �� ᮤ�ন����, ������ ������ ".".
+# AGENT OPERATING PROFILE (Auto-Generated)
+
+<!-- AUTO-GENERATED from .agents/rules/*.md. Do not edit AGENTS.md directly. -->
+<!-- Run: .\\.agents\\scripts\\sync-tools.ps1 -->
+
+# Context Memory Rules
+
+## Purpose
+Keep long-running work coherent across compaction, restarts, and multi-step implementation without adding heavy process to small tasks.
+
+## Preferred Files
+Use these files when present in a project or workspace:
+- `activeContext.md`: current task, constraints, recent decisions, current verification status.
+- `decisions.md`: architecture decisions and tradeoffs already accepted.
+- `patterns.md`: recurring mistakes, avoided approaches, project conventions.
+- `goals.md`: sprint/project goals that bound scope.
+
+## Read Protocol
+- Before substantial or multi-file work, check for the files above in the current project, `.agents/`, `.claude/memory/`, or documented project memory location.
+- If a memory file is missing, proceed from the prompt and codebase; do not fabricate it and do not block normal work.
+- Use memory as context, not authority. Verify code behavior with source and commands.
+
+## Write Protocol
+- Persist only durable facts: decisions, recurring mistake rules, verification notes, and task state that future sessions need.
+- Keep entries short and dated when useful.
+- Date decisions and task-state notes when they may become stale.
+- Do not store secrets, tokens, credentials, private personal data, or noisy logs.
+- Avoid concurrent or speculative memory writes; write only after the fact is confirmed or the user explicitly asks for a note.
+- Mark stale assumptions explicitly instead of silently relying on old memory.
+
+## Handoff Protocol
+- For multi-agent or multi-step work, prefer file-based handoffs for durable intermediate outputs.
+- A handoff should state scope, changed files, open risks, and verification status.
+- If a handoff file is missing or empty, report the gap instead of guessing.
+
+---
+
+# Integrity Rules (Anti-Hallucination)
+
+## Prime Directive
+`Verify-Before-Claim`: verify factual assertions before using them in code, configs, or recommendations.
+
+## Hard Constraints
+- `HC-1 NO PHANTOM SOURCES`: no unverified URLs/packages/CLI flags/options.
+- `HC-2 NO INVISIBLE SYNTHETIC`: clearly mark mock/synthetic/demo data.
+- `HC-3 NO UNGROUNDED RECOMMENDATIONS`: explain source and context fit.
+- `HC-4 NO CONFIDENCE WITHOUT EVIDENCE`: no certainty without tests/diagnostics.
+
+## Source Grounding Markers
+Use when stating versions, URLs, options, numbers, architecture/security recommendations:
+- `[VERIFIED]` tool-checked
+- `[VERIFIED-REAL]` checked against real data, production-like inputs, external sources, or pre-existing project artifacts.
+- `[VERIFIED-SYNTHETIC]` checked only with mock/demo/generated data. Valid for unit behavior, not for production validation claims.
+- `[NEEDS-REAL-DATA]` synthetic or incomplete evidence exists, but real-world validation is still missing.
+- `[DOCS]` official docs
+- `[CODE]` read from codebase
+- `[INFERRED]` reasoned from context
+- `[HYPOTHESIS]` plausible but not confirmed; requires a decisive check before being treated as a finding.
+- `[CONFLICTING]` sources disagree; state both sides and the current safest interpretation.
+- `[MEMORY]` from experience (may be outdated)
+- `[UNCERTAIN]` needs verification
+- `[UNVERIFIED]` not verified
+
+## Validation Theater Guard
+- Never present a result as production-validated when the test data, validator, or expected answers were created in the same session.
+- Perfect scores (`100%`, `F1=1.000`, `all tests passed`) on newly generated or synthetic data must be labeled `[VERIFIED-SYNTHETIC]` and, for real-world claims, downgraded to `[NEEDS-REAL-DATA]`.
+- Validation claims about accuracy, reliability, extraction quality, ranking, or model behavior require `[VERIFIED-REAL]` evidence from real data, pre-existing tests, cited datasets, logs, or independent sources.
+- If evidence is synthetic, say exactly that. Do not use synthetic checks to imply deployment readiness.
+
+## Audit Verification Gate
+- A subagent/tool claim is not final evidence by itself. Treat another agent's `[VERIFIED]` as this agent's `[INFERRED]` until locally checked.
+- Before surfacing HIGH/MEDIUM findings, verify with a direct artifact: file read, search, test, build, log, browser check, or command output.
+- For 10+ factual claims, spot-check at least 3 with tools. If any spot-check fails, re-verify the claim set before finalizing.
+- Use `[HYPOTHESIS]` for plausible but unconfirmed issues. Never present `[HYPOTHESIS]` as a confirmed bug.
+
+## Recurring Mistake Rule
+- If the same mistake pattern appears 3 times, promote it to a hard local rule in the relevant project or workspace notes.
+- Track the pattern as `[xN]`, including the trigger, consequence, and prevention rule.
+- Do not rely on memory alone for recurring mistakes; persist the rule where future sessions can read it.
+
+## Workspace Reference
+Detailed protocol: `C:\Users\serge\.claude\memory\integrity_protocol.md`.
+
+---
+
+# PR Gate Rules
+
+## Principle
+No evidence -> no merge for meaningful changes.
+
+## Classification Timing
+Classify the change before implementing when the task is more than a micro-change. The class determines planning depth, verification depth, and final reporting.
+
+## Change Classification
+- `CRITICAL`: business logic, security, API contracts, financial logic.
+- `MAJOR`: architecture changes, migrations, cross-module refactors.
+- `MINOR`: bounded bug fixes, local improvements.
+- `TRIVIAL`: typos/docs/no logic impact.
+
+## Required Depth
+- CRITICAL/MAJOR: full checklist with artifacts.
+- MINOR: focused checklist + relevant tests.
+- TRIVIAL: smoke-level verification.
+
+## Gate Checklist (CRITICAL/MAJOR)
+- Correctness and invariants validated.
+- Regression protection present.
+- Failure modes reviewed.
+- Rollback path documented.
+- Monitoring/observability impact noted.
+- Reviewer verdict explicit: PASS/REWORK/REJECT.
+
+## Reporting Constraint
+Do not claim readiness/quality without command output or measurable artifacts.
+
+---
+
+# Project Rules (Global Workspace: C:\Users\serge)
+
+## Scope
+These rules apply to work performed under `C:\Users\serge` unless a project-level `AGENTS.md` overrides with stricter requirements.
+
+## Execution Flow
+1. Do a brief context and risk check.
+2. Classify the change as `TRIVIAL`, `MINOR`, `MAJOR`, or `CRITICAL` when it is more than a micro-change.
+3. For normal local work, execute without waiting for approval.
+4. Keep the plan short unless the task is risky, architectural, or cross-cutting.
+5. Verify with the smallest sufficient command artifacts for the change class.
+6. Report `Implemented` and `Verified` separately.
+
+## Rule Precedence
+- User instructions narrow the task, but do not bypass safety, security, or verification gates.
+- Project-level `AGENTS.md` files override this global profile when they are stricter or more specific.
+- Skill-specific workflows apply only when the skill is triggered, and stricter skill approval gates override default autonomy.
+- When rules conflict, follow the safer and more evidence-heavy rule, then call out the conflict briefly.
+
+## Approval Boundary
+Ask before proceeding only when one of these is true:
+- destructive commands or destructive cleanup
+- production deploys or production infrastructure changes
+- database/schema migrations or irreversible data operations
+- secret creation, replacement, or exposure risk
+- force push, hard reset, history rewrite
+- external side effects that contact or mutate third-party systems: sending email or chat messages, creating/updating/deleting issues or tickets, changing CRM/Notion/Sheets records, resolving incidents, purchasing domains, payments, or customer-visible actions
+- installing or upgrading external tools/packages globally, or changing pinned tool versions, unless the user explicitly asked for that installation/update
+- browser automation that reuses the user's logged-in browser/session, creates persistent profiles, solves captchas, bypasses anti-bot systems, or performs account actions
+- edits outside the intended workspace or to user/system files unrelated to the task
+
+## Safe Lane (Default)
+- Map dependencies (imports in/out where applicable).
+- Read related files before edits.
+- List risks (API contracts, schemas, types, security).
+- Keep rollback strategy explicit.
+- Use available tools proactively when they reduce uncertainty or speed execution.
+- If the worktree is dirty, do not revert unrelated changes. Work only in the intended files and report unexpected overlap.
+
+## Fast Lane (Micro-change)
+Allowed only when all are true:
+- 1-2 files touched.
+- No public API contract change.
+- No DB schema/migration change.
+- No auth/security policy change.
+
+Fast Lane flow:
+1. 3-line micro-plan.
+2. Execute immediately.
+3. Report `Implemented` and `Verified` separately.
+
+## Fast Track Trigger
+If the user writes `[FAST]`, move after a minimal context check straight to execution unless the task crosses the Approval Boundary.
+
+## Output Contract
+Always separate:
+- `Implemented`: exact file/config/code changes.
+- `Verified`: exact commands run and outcomes.
+
+---
+
+# Security Rules
+
+## Secret Hygiene
+- Never commit real secrets, keys, or tokens.
+- Use env vars and `.env.example` placeholders.
+- If secret-like strings are detected, stop and ask before proceeding.
+
+## Sensitive Data
+- Do not expose PII in logs or examples.
+- Use synthetic/mock values with explicit markers.
+
+## Forbidden Without Explicit Request
+- Destructive operations (`rm -rf`, hard reset, force push).
+- Permission changes outside task scope.
+- Unbounded destructive cleanup.
+- Sending messages, resolving issues/incidents, changing third-party records, payments, purchases, or other external side effects.
+- Reusing logged-in browser sessions, solving captchas, or bypassing anti-bot controls for account actions.
+- Global tool/package upgrades or unpinned installs that change the agent environment.
+
+## Safe Defaults
+- Prefer parameterized queries.
+- Validate external input at boundaries.
+- Keep security-sensitive behavior explicit in plan and verification.
+- For suspected secrets, report only the file/path and secret type. Do not quote the secret value.
+
+---
+
+# Standards Rules
+
+## Command Style
+- Environment is PowerShell-first on Windows.
+- Prefer `Get-ChildItem`, `Select-String`, `Get-Content`, `Set-Content`.
+- Prefer `rg` for fast search when available.
+- Avoid bash-only executable command examples in this workspace.
+
+## Change Discipline
+- Keep edits minimal and scoped to task intent.
+- Avoid large blind replacements.
+- Do not claim KPI/coverage/quality without artifacts.
+- For reviews, prioritize findings (bugs, regressions, risks, missing tests).
+
+## Verification Baseline
+Before finalizing changes:
+1. Run smoke check.
+2. Run stack-specific checks if applicable:
+   - JS/TS: lint, test, typecheck.
+   - Python: lint, test, typecheck.
+   - .NET: restore, build, test.
+3. Confirm changed file set is expected.
+
+## Reporting
+- If checks cannot run, state what is missing and why.
+- Keep production path behavior unified; call out bypasses explicitly.
+
+---
+
+# Verification Gate Rules
+
+## Principle
+Evidence must match the claim strength.
+
+## Evidence Marker Mapping
+Use the source markers from `Integrity Rules` in final reports. Internally, map claim levels this way:
+- `FACT` -> `[VERIFIED]`, `[VERIFIED-REAL]`, `[VERIFIED-SYNTHETIC]`, `[DOCS]`, or `[CODE]`.
+- `INFERENCE` -> `[INFERRED]`, with the verified facts that support it.
+- `HYPOTHESIS` -> `[HYPOTHESIS]`, never as a confirmed finding.
+- `SYNTHETIC RESULT` -> `[VERIFIED-SYNTHETIC]`, and downgrade real-world readiness to `[NEEDS-REAL-DATA]`.
+
+## Claim Levels
+- `FACT`: directly verified by code, docs, command output, test output, logs, or browser/UI observation.
+- `INFERENCE`: reasoned from verified facts; include the chain.
+- `HYPOTHESIS`: plausible but not verified; requires more checking before action or user-facing certainty.
+- `SYNTHETIC RESULT`: checked only on mock/generated/demo data; useful for mechanics, not production validation.
+
+## Required Verification
+- Bug claims: reproduce with an error, failing test, log, trace, or concrete code path.
+- Security claims: identify trust boundary, input source, sink, and exploitability or mitigation.
+- API/CLI/config claims: verify against local code, installed help output, or official docs.
+- UI claims: verify with browser/screenshot when the UI can run.
+- Performance/accuracy claims: use real or pre-existing benchmark data; synthetic data must be labeled.
+
+## Downgrade Rules
+- If tests pass against the relevant existing suite, downgrade unproven bug claims to `[HYPOTHESIS]`.
+- If only synthetic checks were run, downgrade production-readiness claims to `[NEEDS-REAL-DATA]`.
+- If sources conflict, label `[CONFLICTING]` and state both sides.
+- If verification cannot run, state why and report the safest remaining evidence.
+
+## Output Rule
+Final reports must keep `Implemented` separate from `Verified`, and must not claim readiness, correctness, coverage, or safety beyond the verification actually performed.
+
+
+---SKILL---
+
+---
+name: skeptic
+description: "Skeptic Engine v2.1 - falsification-first ������ � 4 ०����. �ਣ����: 'skeptic:', '᫮��� ����', '�⮨� �� ������', '�஢��� ����', '�㤨� ���⥪����', '�஢��� �襭��', 'red-team ���⥪����', 'ࠧ��� ��ᯥਬ���', '�஢��� ���ਪ�', '�� ࠡ�⠥�?', '�஢��� claim', '�����', '�� ��諮 �� ⠪', 'ࠧ��� ��樤���', '��祬� ᫮������'. �� �ᯮ�짮���� ���: �믮������ ����� - ⮫쪮 ��� ������� � falsification."
+allowed-tools: WebSearch, WebFetch, Read, Bash(git log:*), Bash(git diff:*), Bash(pytest:*)
+---
+
+# Skeptic Engine v2.1 - 4 ०���
+
+���� ����� - **�� ���⢥ত���, � ������� ᫮����**.
+�᫨ �������� - �����뢠��� ������訩 �����ᯮᮡ�� fallback.
+�㤨��� - �孨�᪨� ��ᯥ���. ��� ��墠��, ��� ���� ᫮�.
+
+## ����⥬��᪨� ��થ�� (��易⥫��)
+
+- **[����]** - ���⢥ত��� ���筨���, ���� �������� ��� �஢�મ�
+- **[�����]** - �����᪨ ᫥��� �� 䠪⮢
+- **[��������]** - �ࠢ���������, �� ��������
+- **[����������]** - ������ �������筮
+
+---
+
+## ����� 1 - ������ ����
+
+**�ਣ����:** `skeptic:`, `᫮��� ����`, `�⮨� �� ������`, `�஢��� ����`, `/skeptic`
+
+**�����:** ����� ����, ��, MVP, ���⥣�� - �� ⮣� ��� ����祭� �६�.
+
+**������:**
+
+### ���� ����
+���� �।�������.
+
+### �� ������ ���� �ࠢ���
+- [��થ�] assumption 1
+- [��થ�] assumption 2
+
+### Strongest objection
+���� ������ ࠧ����騩 ��㬥��.
+
+### Cheapest falsification
+- **����:** �� �����⭮ ᤥ����
+- **�஢�� �룫廊� ⠪:** ...
+- **������:** ...
+
+### Kill criteria
+- ���ਪ� + �६�/ᮡ�⨥ �� ������ ��⠭����������
+
+### Baseline
+���⥩�� ����ୠ⨢�: ��筮� ����� / rule-based / off-the-shelf / "��祣� �� ������".
+
+### Fallback
+�� �릨���� ��᫥ ��⨪�.
+
+### Next step + Confidence (High/Medium/Low)
+
+---
+
+## ����� 2 - �㤨� ���⥪����
+
+**�ਣ����:** `�㤨� ���⥪����`, `�஢��� �襭��`, `red-team ���⥪����`, `�央��`
+
+**�����:** 㦥 �ਭ�⮥ �襭�� ��� ��������� ���⥪���.
+
+**������:**
+
+### �஢��塞� claims
+- Claim 1: ...
+- Claim 2: ...
+
+### �஢�ઠ �������
+**Claim:** ...
+- �����: **[������]** / **[���������]** / **[������������ ������]**
+- ��� �஢��﫮��: ...
+- �᭮�����: ...
+
+### ������ failure mode
+�� ����� 㡨�� �� �襭�� � production.
+
+### Second-order effects
+�� ��������� �१ 6 ����楢 ��᫥ ����७��.
+
+### Hidden coupling
+�� ��� ������ �� �⮣� �襭��.
+
+### Irreversibility
+�� ����� �⪠���.
+
+### Baseline / safer alternative
+
+### Next step + Confidence
+
+---
+
+## ����� 3 - ������ ��ᯥਬ��⮢ � claims
+
+**�ਣ����:** `ࠧ��� ��ᯥਬ���`, `�஢��� ���ਪ�`, `�� ࠡ�⠥�?`, `�஢��� claim`, `A/B ���`
+
+**�����:** ���� ����� ��ᯥਬ���, ���ਪ�, ������ � १�����.
+
+**������:**
+
+### Claim
+�� ������ �⢥ত�����.
+
+### �� ������ ���� �ࠢ��� ��� �⮣� claim
+- [��થ�] ...
+
+### ����ୠ⨢�� ����᭥���
+��㣨� ��稭� ��������� १���� (confounds, selection bias, p-hacking, etc).
+
+### Strongest objection � ������樨
+��祬� ��� �뢮� ����� ���� �����.
+
+### �� �㦭� �⮡� claim �� �������
+- ������ �롮ન: ...
+- ����஫쭠� ��㯯�: ...
+- ���⥫쭮���: ...
+- �� �����﫮�� vs �� �⥫� �������: ...
+
+### Kill criteria ��� �⮣� claim
+�� ����� १���� ����ਬ "�� ࠡ�⠥�".
+
+### Next step + Confidence
+
+---
+
+## ����� 4 - ����� ��� �����᪮�� ��諥���
+
+**�ਣ����:** `�����`, `�� ��諮 �� ⠪`, `ࠧ��� ��樤���`, `��祬� ᫮������`, `���⬮�⥬`
+
+**�����:** ��樤���, ���, ���ࠤ���, ����������� ���������.
+
+**������:**
+
+### �������
+�� �����⭮ �ந��諮 (䠪��, �� ������樨).
+
+### 5 ����ᮢ (��易⥫쭮 �⢥��� �� ��)
+1. **�� ����������?** - ��᫥���� ࠡ�祥 ���ﭨ� vs ᥩ��
+2. **�� �訡�� ������ �㪢��쭮?** - ����� traceback, �� ��᫥���� ��ப�
+3. **����� assumptions � �����?** - ᯨ᮪ 3 ����饭�� + �஢�ઠ �������
+4. **�� ������� �訡�� ��� ᨬ�⮬?** - ����஢�� upstream
+5. **�� �� � ᪠��� ��㣮�� ࠧࠡ��稪�?** - rubber duck
+
+### Competing hypotheses
+- ����⥧� A: ... | Cheapest test: ...
+- ����⥧� B: ... | Cheapest test: ...
+
+### Cheapest discriminating test
+���� ��� ����� �⫨砥� A �� B.
+
+### Rollback threshold
+�� ����� �᫮��� �⪠�뢠�� ����������.
+
+### Next check + Confidence
+
+---
+
+## �⮯-�᫮���
+
+- ������ failure mode ������� ��� �뢮��  ��⠭����������
+- Baseline � ���������  ����ਬ ��אַ
+- ������ �������筮  䨪��㥬 [����������], �� ᨬ㫨�㥬 㢥७�����
+
+**���砫� ᫮���. ��⮬ �।���� �� �릨����.**
+
+
+**Listing AGENTS files with stats**
+codex
+The audit is high-risk for overclaiming but has no mutation risk. I’m treating it as a critical evidence review: code and logs can establish what was checked, while the theorem-to-construction steps require separate mathematical scrutiny. I will not consult project memory or prior verdicts, preserving the requested context blindness.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$paths = @(
+'"'S_PLUS_CERTIFICATE_FINAL_v2.md',
+'stage_e_v1\\THEOREM_S_PLUS_EXISTENCE_v6.md',
+'stage_e_v1\\code\\exact_cert.py',
+'stage_e_v1\\code\\verify_exact_integer_v3.py',
+'stage_e_v1\\logs\\exact_cert_result.json',
+'stage_e_v1\\logs\\verify_exact_integer_v3.json',
+'stage_e_v1\\logs\\verify_exact_integer_v3.log',
+'stage_e_v1\\code\\control_differential.py',
+'stage_e_v1\\logs\\control_differential.json',
+'stage_e_v1\\code\\audit_ys_exact.py',
+'stage_e_v1\\logs\\audit_ys_exact.json',
+'stage_e_v1\\logs\\exact_bases2.pkl',
+'stage_e_v1\\logs\\exact_povm_y_checkpoint.pkl',
+'stage_e_v1\\logs\\indep_rows.npy',
+'..\\20261027-h-cat56-2-submission-package-v1\\data\\instance_d22_r2_s16.jsonl',
+'..\\20261027-h-cat56-2-discovery\\metrics\\s14_povm_prefix12.npz'
+)
+"'$paths | ForEach-Object { $f = Get-Item -LiteralPath $_ -ErrorAction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Modified=$f.LastWriteTime.ToString('"'s')} } | Format-Table -AutoSize
+\""'`nAGENTS files under audit root:"
+rg --files -g '"'AGENTS.md' ." in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4
+ exited 1 in 1097ms:
+profile.ps1: ���������� �믮����� ������� � ������� dot-source, ��᪮��� ��� ��।����� � ��㣮� �몮��� ०���. �⮡� �믮����� ��� ������� ��� ������ �� ᮤ�ন����, ������ ������ ".".
+Microsoft.PowerShell_profile.ps1: ���������� �믮����� ������� � ������� dot-source, ��᪮��� ��� ��।����� � ��㣮� �몮��� ०���. �⮡� �믮����� ��� ������� ��� ������ �� ᮤ�ন����, ������ ������ ".".
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+InvalidArgument: 
+Line |
+  20 |  : ction Stop; [pscustomobject]@{Path=$_.ToString(); Bytes=$f.Length; Mo :
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | ���������� �८�ࠧ����� ���祭�� � ⨯ "System.Management.Automation.LanguagePrimitives+InternalPSCustomObject". � �⮬ �몮��� ०��� �����ন������ ⮫쪮 �᭮��� ⨯�.
+
+AGENTS files under audit root:
+
+**Avoiding profile variables in shell environment**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command '$paths = @(
+'"'S_PLUS_CERTIFICATE_FINAL_v2.md','stage_e_v1\\THEOREM_S_PLUS_EXISTENCE_v6.md','stage_e_v1\\code\\exact_cert.py','stage_e_v1\\code\\verify_exact_integer_v3.py','stage_e_v1\\logs\\exact_cert_result.json','stage_e_v1\\logs\\verify_exact_integer_v3.json','stage_e_v1\\logs\\verify_exact_integer_v3.log','stage_e_v1\\code\\control_differential.py','stage_e_v1\\logs\\control_differential.json','stage_e_v1\\code\\audit_ys_exact.py','stage_e_v1\\logs\\audit_ys_exact.json','stage_e_v1\\logs\\exact_bases2.pkl','stage_e_v1\\logs\\exact_povm_y_checkpoint.pkl','stage_e_v1\\logs\\indep_rows.npy','..\\20261027-h-cat56-2-submission-package-v1\\data\\instance_d22_r2_s16.jsonl','..\\20261027-h-cat56-2-discovery\\metrics\\s14_povm_prefix12.npz'
+)
+foreach ("'$p in $paths) { $f = Get-Item -LiteralPath $p -ErrorAction Stop; Write-Output ("{0}`t{1}`t{2}" -f $p,$f.Length,$f.LastWriteTime.ToString('"'s')) }" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4
+ succeeded in 437ms:
+S_PLUS_CERTIFICATE_FINAL_v2.md	9047	2026-10-31T14:02:36
+stage_e_v1\THEOREM_S_PLUS_EXISTENCE_v6.md	14249	2026-10-31T11:26:46
+stage_e_v1\code\exact_cert.py	5546	2026-10-30T23:05:58
+stage_e_v1\code\verify_exact_integer_v3.py	7148	2026-10-31T12:35:18
+stage_e_v1\logs\exact_cert_result.json	223	2026-10-31T02:15:46
+stage_e_v1\logs\verify_exact_integer_v3.json	377	2026-10-31T13:56:04
+stage_e_v1\logs\verify_exact_integer_v3.log	741	2026-10-31T13:56:04
+stage_e_v1\code\control_differential.py	6047	2026-10-31T13:20:13
+stage_e_v1\logs\control_differential.json	2035	2026-10-31T13:20:16
+stage_e_v1\code\audit_ys_exact.py	4049	2026-10-31T10:52:29
+stage_e_v1\logs\audit_ys_exact.json	400	2026-10-31T10:52:39
+stage_e_v1\logs\exact_bases2.pkl	3634629	2026-10-30T22:56:03
+stage_e_v1\logs\exact_povm_y_checkpoint.pkl	52777394	2026-10-31T03:19:53
+stage_e_v1\logs\indep_rows.npy	828	2026-10-30T23:04:42
+..\20261027-h-cat56-2-submission-package-v1\data\instance_d22_r2_s16.jsonl	4181	2026-10-27T17:53:51
+..\20261027-h-cat56-2-discovery\metrics\s14_povm_prefix12.npz	101314	2026-10-27T22:30:49
+
+**Planning file reading strategy**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command 'rg -n "''^" '"'S_PLUS_CERTIFICATE_FINAL_v2.md'; rg -n \""'^" '"'stage_e_v1/THEOREM_S_PLUS_EXISTENCE_v6.md'" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4
+ succeeded in 265ms:
+1:# S+ = {0..11}: финальный сертификат существования POVM на сетке Ξ (v2, 2026-10-31)
+2:
+3:Заменяет `S_PLUS_FINAL_v1.md` в части воспроизводимости. Логика — `THEOREM_S_PLUS_EXISTENCE_v6.md`. Этот документ фиксирует, что проверено, как связано с предыдущими вычислениями и какие входы общие.
+4:
+5:## 1. Утверждение
+6:
+7:**Теорема S+.** Пусть Ξ = {x_j}_{j=1}^{280} ⊂ ℂ² \ {0} и базисы B_{j,·} ⊂ ℂ²⁰ действительных ядер Y_{S+}(x_j), m_j ∈ {6,4}, N_j = m_j+1. Пусть M_j ∈ S^{N_j}_{++} (вещественные, положительно определённые) удовлетворяют точным равенствам A·M = b, где A — 484×6566 матрица координат Σ_{a,b} M_j[a,b] v_{j,a}v_{j,b}ᴴ (v_{j,N_j} = (x_j;0), v_{j,a} = (0;B_{j,a})) и b — координаты I₂₂. Тогда существует конечный POVM из Σ_j N_j = 1764 рангоодномерных регулярных элементов E = ω·uuᴴ, u = (x_j ; Σ_a ĉ_a B_{j,a}), ĉ ∈ ℝ^{N_j} с последней координатой 1, такой что ΣE = I₂₂, все элементы регулярны при θ = 0 (Tr ρ E > 0), и 12×12 классическая информация при θ = 0 равна QFIM S+.
+8:
+9:*Логическое доказательство:* `THEOREM_S_PLUS_EXISTENCE_v6.md` §2–§4 (лемма 2 — YPZJ thm:reg, текст проверен в LaTeX; лемма 3 — 484 координаты = Herm(22); лемма D — разложение M = ω Σĉĉᵀ).
+10:
+11:*Статус логики:* **PROVED** (внутренний аудит, та же модель: CONFIRMED по всем пунктам).
+12:
+13:## 2. Входы (точные) и их статус
+14:
+15:| Вход | Способ получения | Проверка |
+16:|---|---|---|
+17:| Направления x_j, базисы B_{j,·} | `build_exact_dirs.py` (из `s14_povm_prefix12.npz`), `exact_kernel.py`, `exact_bases.py`, `transform_bases.py` (точная рациональная арифметика, из целочисленного инстанса) | точная принадлежность Y_{S+}(x_j) (1484 вектора × 12, Fraction): 0 нарушений (`audit_ys_exact.py`) |
+18:| Моменты M_j* (точные) | `exact_cert.py`: точная коррекция m + A_Iᵀy по 175 независимым строкам | см. §3 |
+19:| 484 равенства A·M* = b | точная арифметика | **два независимых прогона**: `exact_cert.py` (fmpq) и `verify_exact_integer_v3.py` (целые) |
+20:| Положительность 280 блоков | LDLᵀ над ℚ (`exact_cert.py`) и главные миноры Сильвестра над ℤ (integer) | оба прогона: все блоки положительны |
+21:
+22:## 3. Результаты проверок
+23:
+24:**Прогон A (исходный, `exact_cert.py`, рациональная арифметика, ≈3.2 ч):** `rows_violated_exactly: 0` (все 484 строки), `independent_rows: 175`, `G_I_invertible_exact: true`, `all_M_positive_definite_exact: true`, `min_pivot_float ≈ 1.09·10⁻³`. Файлы: `stage_e_v1/logs/exact_cert_result.json` (SHA 53a1f6d7…), `exact_cert.log` (SHA 3f59a0b6…).
+25:
+26:**Прогон B (`verify_exact_integer_v3.py`, целые числа, 4839 с ≈ 81 мин):** `rows_checked: 484`, `rows_violated_exactly: 0`, `blocks_checked_PD: 280`, `all_blocks_positive_definite_exact: true`. Файлы: `stage_e_v1/logs/verify_exact_integer_v3.json` (SHA f255dec4…), `.log` (SHA a2e178db…), скрипт `verify_exact_integer_v3.py` (SHA 826d2408…).
+27:
+28:**Отличия прогона B:** матрица A построена заново из определения лифта (собственный код, не `exact_cert.py`); арифметика — с общими знаменателями DA, Dn, Dm и целочисленными произведениями; положительность — через главные миноры W (положительный масштаб не меняет знаков миноров).
+29:
+30:## 4. Общие входы двух прогонов (важно для независимости)
+31:
+32:Оба прогона используют одни и те же:
+33:- базисы `exact_bases2.pkl` (SHA fbca57fa…), построенные из direction-файла `s14_povm_prefix12.npz` (SHA 8ab6f458…) и инстанса `instance_d22_r2_s16.jsonl` (SHA 05289920…);
+34:- контрольную точку y `exact_povm_y_checkpoint.pkl` (SHA 1d6cdf94…) — точное решение системы G_I y = r_I, полученное в прогоне `exact_povm.py` (прерванном после сохранения y и M*); прогон B **не** пересчитывает y;
+35:- список независимых строк `indep_rows.npy` (SHA 0b0f3a4f…), построенный численно `rank_check.py` из `A_float.npy`.
+36:
+37:**Что независимо:** построение A (разный код и арифметика), сами 484 равенства и 280 положительностей. **Что общее:** базисы, направления, список строк I и точка y. Ошибка в базисах или в y обнаружилась бы только процедурой, которая их независимо восстанавливает; такой проверки нет.
+38:
+39:## 5. Цепочка от сертификата к POVM
+40:
+41:1. Инстанс → целые блоки A_a = −2iB_a (`ys_space.load_A`, декодирование по FORMAT.md).
+42:2. Направления и базисы: `exact_kernel` (точное ядро 36×40 системы Y_S(x)) → `exact_bases.pkl` → `transform_bases.py` (точное K·T, cond ≈ 1) → `exact_bases2.pkl`.
+43:3. Моменты: `run_exact_sdp2.py` (float SDP) — стартовая точка m; точная коррекция m + δ, δ = A_Iᵀy → M*.
+44:4. M* ≻ 0 и A·M* = b (прогоны A и B).
+45:5. Лемма D (Cholesky + Householder) на каждом M_j* → ĉ, ω → 1764 элементов E = ωuuᴴ (физически: в float-версии `control_differential.py`, с ошибкой полноты 1.8·10⁻¹¹ и относительным дефицитом 2.4·10⁻¹² при θ = 0).
+46:6. **Точные элементы POVM не выписаны.** Существование следует из теоремы; выписывание требует иррациональных ĉ (Cholesky), а не рационального разложения. Это не препятствие для теоремы (см. `THEOREM_S_PLUS_EXISTENCE_v6.md` §3).
+47:
+48:## 6. Что не выполнено (явно)
+49:
+50:- Прогон `exact_povm.py` с LDL-разложением M* в рациональные элементы не завершён (остановлен; файла результата нет) — это не требуется для существования.
+51:- Полный перезапуск `exact_cert.py` (≈3.2 ч) и генерации y не выполнялся.
+52:- Независимой генерации базисов из инстанса (второй путь от инстанса до базисов) не выполнено.
+53:- Внешнего рецензирования нет.
+54:
+55:## 7. Статусы
+56:
+57:| Утверждение | Статус |
+58:|---|---|
+59:| Теорема S+ (логика) | PROVED-hand (внутренний аудит) |
+60:| 484 равенства над ℤ (прогон B) | VERIFIED-exact, независимое построение A |
+61:| 484 равенства над ℚ (прогон A) | VERIFIED-exact, исходный |
+62:| Положительность 280 блоков (A и B) | VERIFIED-exact |
+63:| Общность входов (базисы, y, I) | документирована; независимой регенерации нет → **CONDITIONAL** на корректность входов |
+64:| 1764 регулярных исхода, ΣE = I, CFIM = QFIM (float-эталон) | VERIFIED-NUMERIC (эталон реализации) |
+65:| Внешнее рецензирование | **не проведено** |
+66:
+67:**Итог S+:** существование оптимального (насыщающего) POVM на сетке Ξ доказано логически при точных моментах; точные моменты проверены двумя независимыми арифметиками на общих базисах и точке y. Остаточное условие — корректность базисов и y, которые не регенерировались независимо (CONDITIONAL).
+1:# S+ = {0..11}: существование конечного насыщающего POVM на сетке Ξ (v6, 2026-10-31)
+2:
+3:Заменяет v5. Исправления по аудиту субагента (п. 9): обозначения (символы n, d, Q_j заняты), вывод леммы 2 для произвольного Q ≻ 0, провенанс входов (SHA в `logs/SHA256SUMS_inputs_stageE_v5_2026-10-31.txt`), явная трактовка D1/D2.
+4:
+5:## 0. Постановка и обозначения
+6:
+7:- d_H := 22 = 2 + 20; ℋ = ℋ₊ ⊕ ℋ₀, ℋ₊ = C², ℋ₀ = C²⁰.
+8:- Состояние ρ = Q ⊕ 0, Q ≻ 0 на ℋ₊ с Tr Q = 1. Для инстанса (diag(1,2), Tr = 3) нормированный вариант Q = diag(1/3, 2/3). В доказательстве Q произвольна (§2, §4).
+9:- Блоки A_i ∈ C^{20×2}, i ∈ S+ = {0..11}, A_i = −2i·B_i, B_i ∈ Z[i]^{20×2} (конвенция инстанса, `TECHNICAL_NOTE_A0_EN_v1.2.md` §1). SLD-блоки L_i = [[0, A_iᴴ],[A_i, 0]]; L_{i,00} нигде не используется.
+10:- Сетка Ξ = {x_j}_{j=1}^{280} ⊂ C² \ {0}. Для каждого j — вещественный базис B_{j,1..m_j} ⊂ C²⁰ пространства Y_S(x_j) = {y : A_iᴴy ∈ R·x_j ∀ i ∈ S+}. m_j ∈ {6, 4} (182 и 98 направлений).
+11:- Размер блока N_j := m_j + 1; индекс N_j — x-часть. Векторы v_{j,a} := (0; B_{j,a}) для a ≤ m_j и v_{j,N_j} := (x_j; 0) ∈ C²².
+12:- Блочная матрица моментов: M_j — вещественная симметричная N_j × N_j, с элементами M_j[a,b].
+13:
+14:## 1. SLD и QFIM (лемма 1)
+15:
+16:X_i := [[0, −A_iᴴ/2],[A_i/2, 0]] антиэрмитова; ρ(θ) = e^{X(θ)} ρ e^{−X(θ)}, ∂_iρ = X_iρ − ρX_i = [[0, QA_iᴴ/2],[A_iQ/2, 0]]. Для L = [[0, Bᴴ],[B, 0]]: (ρL+Lρ)/2 = [[0, QBᴴ/2],[BQ/2, 0]], и ∂ρ = (ρL+Lρ)/2 даёт B = A_i. Значит L_i — SLD параметра i в θ = 0. **QFIM:** F_ij = Re Tr(ρL_iL_j) = Re Tr(QA_iᴴA_j).
+17:
+18:**Конвенция (C2).** Соответствие «инстанс ↔ модель» (A_i = −2iB_i, семейство ρ(θ) с этим X_i) — конвенция пакета, не выведена из первоисточника (§5).
+19:
+20:## 2. Насыщение для одного элемента (лемма 2, произвольный Q ≻ 0)
+21:
+22:Пусть Π = d·uuᴴ, u = (α; y), d > 0.
+23:
+24:- Элемент регулярен, если Tr(ρΠ) ≠ 0; здесь Tr(ρΠ) = d·αᴴQα, и при Q ≻ 0 это > 0 ⇔ α ≠ 0.
+25:- Теорема YPZJ (arXiv:1806.07337, §4.1, thm:reg): регулярный Π насыщает матричную границу CFIM ⇔ Π L_i ρ = ξ_i Π ρ для всех i с вещественными ξ_i (в доказательстве — равенство Π L_i ρ = ξ Π ρ; эквивалентно Π L_i ψ_r = ξ Π ψ_r для собственных векторов ψ_r ρ с p_r > 0, поскольку ρ ≻ 0 на ℋ₊).
+26:- Условие Π L_i ρ = ξ Π ρ при Π = d uuᴴ сводится (d > 0) к uᴴL_iρ = ξ uᴴρ. Здесь L_iρ = [[0, 0],[A_iQ, 0]], поэтому uᴴL_iρ = (yᴴA_iQ, 0) и uᴴρ = (αᴴQ, 0). Сокращая Q (обратима на ℋ₊): yᴴA_i = ξ αᴴ, то есть **A_iᴴy = ξ̄ α = ξ α** (ξ вещественно).
+27:
+28:**Лемма 2.** Регулярный элемент u = (α; y), α ≠ 0, насыщает CFIM-границу ⇔ A_iᴴy = ξ_i α для всех i ∈ S+ с вещественными ξ_i. Условие не зависит от Q (при Q ≻ 0). Для α = x_j и y ∈ Y_S(x_j) оно выполнено по определению Y_S.
+29:
+30:## 3. Лифт и полнота (лемма 3)
+31:
+32:**Лемма 3.** Отображение H ↦ координаты (R-линейный изоморфизм Herm(22) → R^484):
+33:- E1 (H₊₊, 2×2): Re H₁₁, Re H₁₂, Re H₂₂, Im H₁₂ — 4 числа;
+34:- E2 (H₊₀, 2×20 комплексный): Re и Im всех 40 элементов — 80 чисел;
+35:- E3 (H₀₀, 20×20 эрмитов): Re H_{rs} при r ≤ s (210) и Im H_{rs} при r < s (190) — 400 чисел.
+36:4 + 80 + 400 = 484 = 22² = dim_R Herm(22). Нижний треугольник восстанавливается эрмитовостью.
+37:
+38:**Следствие.** Для элемента E = d·uuᴴ с u = Σ_a c_a v_{j,a} (вещественные c_a) имеем E = Σ_{a,b} d c_a c_b v_a v_bᴴ. Сумма по всем элементам равна Σ_j Σ_{a,b} M_j[a,b] v_{j,a}v_{j,b}ᴴ с M_j := Σ_p d_{j,p}c_{j,p}c_{j,p}ᵀ (вещественная симметричная). Координаты этой суммы — линейная функция вектора M = (M_j[a,b])_{a≤b} с матрицей A (484 × 6566). Итог: **Σ E = I₂₂ ⇔ A·M = b**, где b_{E1} = (1,0,1,0), b_{E2} = 0, b_{E3} = (единицы на диагонали, нули иначе).
+39:
+40:**Блоки:**
+41:- support-блок H₊₊ = Σ_j M_j[N_j,N_j] x_jx_jᴴ — это E1;
+42:- перекрёстный блок H₊₀ = Σ_j Σ_{a} M_j[a,N_j] x_j B_{j,a}ᴴ — это E2; равенство H₊₀ = 0 входит в b;
+43:- kernel-блок H₀₀ = Σ_j Σ_{a,b} M_j[a,b] B_{j,a}B_{j,b}ᴴ — это E3.
+44:
+45:Проверка по определению (float): `code/audit_lift_rows.py`, max |A_direct − A_float| = 3.3·10⁻¹⁶.
+46:
+47:## 4. Разложение PD-матрицы и теорема
+48:
+49:**Лемма D.** Пусть M ∈ S^N, M ≻ 0, N ≥ 1. Существуют N вещественных векторов ĉ_1..ĉ_N ∈ R^N с (ĉ_k)_N = 1 и ω > 0 такие, что M = ω·Σ_k ĉ_kĉ_kᵀ.
+50:
+51:*Доказательство.* Пусть C — вещественная обратимая матрица с M = CCᵀ (например, Холецкий). Пусть g := Cᵀe_N ≠ 0 (последняя строка C, транспонированная). Пусть u := g/‖g‖, h := (1,…,1)ᵀ/√N. Если u ≠ h, пусть v := u − h и O := I − 2vvᵀ/‖v‖² (отражение Хаусхолдера; O симметрична, ортогональна, Ou = h); если u = h, O := I. Тогда C' := CO, C'C'ᵀ = M. Для k-го столбца c'_k = C o_k (o_k = Oe_k): (c'_k)_N = eNᵀ C o_k = gᵀo_k = ‖g‖·uᵀOe_k = ‖g‖·(Ou)_k = ‖g‖/√N =: s > 0 для всех k. Значит c'_k = s·ĉ_k с (ĉ_k)_N = 1, и M = s²·Σ_k ĉ_kĉ_kᵀ; ω := s² = ‖g‖²/N = M_NN/N. ∎
+52:
+53:*Численная проверка* (`code/check_decomposition_v5.py`, 200 случайных PD-матриц размера 2–7): относительная ошибка реконструкции ≤ 10⁻¹⁵. Пример diag(1,2): ω = 1, ĉ_1 = (−1/√2, 1), ĉ_2 = (1/√2, 1). Ограничение «последняя координата = 1» не накладывает условий на первую координату; diag(1,2) не противоречит лемме D.
+54:
+55:**Теорема 3 (конечный POVM на Ξ).** Пусть для каждого j блок M_j ≻ 0 вещественный симметричный и A·M = b (точно). Положим, для каждого j, (ĉ_{j,k})_{k=1}^{N_j}, ω_j из леммы D и
+56:u_{j,k} := (x_j ; Σ_{a=1}^{m_j} (ĉ_{j,k})_a B_{j,a}), E_{j,k} := ω_j · u_{j,k}u_{j,k}ᴴ.
+57:Тогда:
+58:(i) Σ_{j,k} E_{j,k} = I₂₂ (в R, по лемме 3 и A·M = b);
+59:(ii) каждый E_{j,k} регулярен: Tr(ρE_{j,k}) = ω_j·x_jᴴQx_j > 0;
+60:(iii) каждый E_{j,k} насыщает CFIM-границу (лемма 2; y = Σ_a (ĉ)_a B_{j,a} ∈ Y_S(x_j), так как Y_S(x_j) — вещественное подпространство);
+61:(iv) Σ_{j,k} CFIM-вклады = QFIM на 12×12: по YPZJ матричная граница для каждого элемента равна Re Tr(ρL_iE L_j) (симметризовано), суммирование по элементам даёт Re Tr(ρL_iL_j) = F_ij, потому что Σ E = I₂₂ по (i); насыщение элементарное, поэтому CFIM = QFIM;
+62:(v) число исходов N_out = Σ_j N_j = 182·7 + 98·5 = 1764.
+63:
+64:*Доказательство* — из (i)–(iv) выше. (iv) использует только ΣE = I и поэлементное равенство; ненулевые p не нужны отдельно, так как (ii) даёт Tr(ρE) > 0.
+65:
+66:## 5. Нормировка, D1/D2, точность
+67:
+68:- **Нормировка.** Q входит только в (ii) и в значение QFIM/CFIM. Условие насыщения (лемма 2) и существование POVM от Q не зависят. Для diag(1,2) (Tr = 3) CFIM и QFIM умножаются на 3 (аудит, численно); Q = diag(1/3,2/3) — правильная нормировка для Tr ρ = 1.
+69:- **D1/D2.** Нулевых исходов нет (ii), поэтому конвенция для нулевых исходов не применяется; D1 (нулевые исходы дают 0) и D2 (направленный предел) совпадают. Стандартная D2 не заменяется слабой D1.
+70:- **Точность.** Лемма D использует вещественные Холецкий и отражение (иррациональные числа). Поэтому веса ω_j и векторы ĉ — вещественные алгебраические, а не рациональные. Для существования это достаточно; явный POVM рационально не выписан.
+71:
+72:## 6. Что опирается на что (провенанс)
+73:
+74:- **Точные равенства A·M* = b над Q и M* ≻ 0** — `code/exact_cert.py`, рациональная арифметика (fmpq). Результат: `logs/exact_cert_result.json`: `rows_violated_exactly: 0` (все 484 строки, range(NR)), `independent_rows: 175`, `all_M_positive_definite_exact: true` (Sylvester: ведущие опорные элементы Гаусса > 0 для всех 280 блоков). SHA записаны в `logs/SHA256SUMS_inputs_stageE_v5_2026-10-31.txt`.
+75:- **Входы сертификата:** `logs/exact_bases2.pkl`, `logs/exact_sdp2_M.pkl`, `logs/indep_rows.npy`, файл инстанса — SHA в том же файле. Временные метки согласованы (pkl 22:56 и 23:03, indep 23:04, сертификат 02:15 на следующий день). **Связь «сертификат сделан из этих входов» подтверждена метками и хешами, но не перезапуском.** Полный перезапуск (~3.2 ч) не выполнялся по указанию пользователя.
+76:- **Y_S-принадлежность:** `code/audit_ys_exact.py`, Fraction, 1484 вектора × 12 условий, 0 нарушений (`logs/audit_ys_exact.json`).
+77:- **Линеаризация A:** `code/audit_lift_rows.py`, float, 3.3·10⁻¹⁶ (`logs/audit_lift_rows.log`).
+78:- **Сквозной float-тест** (субагент аудита, в его scratchpad): |ΣE − I| = 1.8·10⁻¹¹ при float-моментах; |CFIM − QFIM| = 1.5·10⁻¹⁰ на S+ для Q = diag(1/3,2/3), diag(1,2) и недиагонального Q; для параметров 12–15 (вне S+) |CFIM − QFIM| = 2.6·10⁴ — тест способен провалиться. Это float-проверка, не доказательство.
+79:- **Не используется как доказательство:** mod-p остатки (`logs/verify_cert_compact.log`, три простых модуля) — только отпечаток; без границы рациональной реконструкции они не доказывают равенство над Q. Decimal-проверка положительности (prec 200) не завершилась и не контролирует округление.
+80:
+81:## 7. Вердикт
+82:
+83:| Утверждение | Статус | Основание |
+84:|---|---|---|
+85:| Лемма 1 (SLD, QFIM = Re Tr(QAᴴA)) | PROVED | §1 |
+86:| Лемма 2 (насыщение ⇔ A_iᴴy = ξα, ξ ∈ R, для любого Q ≻ 0) | PROVED (по YPZJ thm:reg, текст проверен) | §2 |
+87:| Лемма 3 (484 координаты = Herm(22); ΣE = I ⇔ A·M = b) | PROVED | §3 |
+88:| Лемма D (разложение PD, N исходов с (ĉ)_N = 1) | PROVED | §4 |
+89:| Теорема 3 (1764 регулярных насыщающих элемента, ΣE = I, CFIM = QFIM на 12×12) | PROVED при условиях C2 и провенанса | §4–§6 |
+90:| Точные равенства A·M* = b и M* ≻ 0 над Q | PROVED (`exact_cert.py`), входы захешированы, перезапуск не выполнялся | §6 |
+91:| Соответствие инстанса физической модели (A = −2iB; Tr Q = 1) | CONDITIONAL | §0, C2 |
+92:| Непрерывный случай (все x) | UNKNOWN | не требуется |
+93:
+94:**Итоговый вердикт: CONDITIONAL.** Математическая часть (леммы 1–3, D, теорема 3) PROVED. Статус S+ на сетке Ξ (280 направлений) остаётся CONDITIONAL по двум условиям: (1) владелец должен подтвердить конвенцию C2 (A = −2iB, семейство ρ(θ)); (2) вычислительные входы сертификата подтверждены хешами и метками времени, но не воспроизведены заново. После подтверждения (1) и принятия (2) статус — PROVED на Ξ. S−, непрерывный случай и сверка с первоисточниками (Nurdin null-часть — не используется) вне этого документа.
+
+**Inspecting code for theorem references**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command 'rg -n "''^" '"'stage_e_v1/code/exact_cert.py'; rg -n \""'^" '"'stage_e_v1/code/verify_exact_integer_v3.py'; rg -n \""'^" '"'stage_e_v1/logs/exact_cert_result.json'; rg -n \""'^" '"'stage_e_v1/logs/verify_exact_integer_v3.json'; rg -n \""'^" '"'stage_e_v1/logs/verify_exact_integer_v3.log'" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4
+ succeeded in 337ms:
+1:# WHY: EXACT (rational) existence certificate for the S+ POVM moments on exact directions.
+2:#  1. Build the exact rational constraint matrix A (484 x N) and RHS b from exact bases B_j and directions x_j.
+3:#  2. Take 175 independent rows I (numerical pivoted QR; exactness of independence is tested below).
+4:#  3. Exact rational y = G_I^{-1} r_I with G_I = A_I A_I^T, r = b - A m (m = float moments, exact dyadic).
+5:#  4. delta = A_I^T y.  Check A delta == r for ALL 484 rows EXACTLY.  If yes, M* = m + delta solves all equations.
+6:#  5. Exact positivity: LDL^T of each M_j* over Q (leading pivots > 0  <=>  M_j* positive definite).
+7:import pickle, json, time
+8:from fractions import Fraction
+9:import numpy as np
+10:import flint
+11:from flint import fmpq, fmpq_mat
+12:
+13:t0 = time.time()
+14:D = pickle.load(open("../logs/exact_bases2.pkl", "rb"))
+15:S = pickle.load(open("../logs/exact_sdp2_M.pkl", "rb"))
+16:Mf = S["M"]
+17:J = len(Mf)
+18:dims = [Mf[j].shape[0] - 1 for j in range(J)]
+19:
+20:
+21:def fq(s):
+22:    f = Fraction(s)
+23:    return fmpq(f.numerator, f.denominator)
+24:
+25:
+26:def cmul(a, b):
+27:    return (a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0])
+28:
+29:
+30:def cconj(a):
+31:    return (a[0], -a[1])
+32:
+33:
+34:X, B = [], []
+35:for j, dr in enumerate(D["dirs"]):
+36:    (a0r, a0i), (a1r, a1i) = dr
+37:    X.append([(fq(a0r), fq(a0i)), (fq(a1r), fq(a1i))])
+38:    bj = D["bases_exact"][j]
+39:    m = dims[j]
+40:    B.append([[(fq(bj[v][r][0]), fq(bj[v][r][1])) for v in range(m)] for r in range(20)])
+41:ZERO = fmpq(0)
+42:
+43:UP = [(r, s) for r in range(20) for s in range(r, 20)]
+44:SU = [(r, s) for r in range(20) for s in range(r + 1, 20)]
+45:upos = {p: k for k, p in enumerate(UP)}
+46:spos = {p: k for k, p in enumerate(SU)}
+47:U = []
+48:for j in range(J):
+49:    m = dims[j]
+50:    for a in range(m + 1):
+51:        for b in range(a, m + 1):
+52:            U.append((j, a, b))
+53:N = len(U)
+54:NR = 484
+55:Arows = [dict() for _ in range(NR)]
+56:b = [ZERO] * NR
+57:b[0] = fmpq(1); b[2] = fmpq(1)
+58:for rho in range(20):
+59:    b[84 + upos[(rho, rho)]] = fmpq(1)
+60:
+61:
+62:def put(i, k, v):
+63:    if v != 0:
+64:        Arows[i][k] = v
+65:
+66:
+67:for k, (j, a, bb) in enumerate(U):
+68:    m = dims[j]
+69:    xj = X[j]
+70:    if (a, bb) == (m, m):
+71:        for p in range(2):
+72:            for q in range(p, 2):
+73:                P = cmul(xj[p], cconj(xj[q]))
+74:                row_re = {(0, 0): 0, (0, 1): 1, (1, 1): 2}[(p, q)]
+75:                put(row_re, k, P[0])
+76:                if p < q:
+77:                    put(3, k, P[1])
+78:    elif bb == m:
+79:        for al in range(2):
+80:            for rho in range(20):
+81:                c = cmul(xj[al], cconj(B[j][rho][a]))
+82:                put(4 + al * 20 + rho, k, c[0])
+83:                put(4 + 40 + al * 20 + rho, k, c[1])
+84:    else:
+85:        for rho in range(20):
+86:            for sig in range(rho, 20):
+87:                if a == bb:
+88:                    c = cmul(B[j][rho][a], cconj(B[j][sig][a]))
+89:                else:
+90:                    c1 = cmul(B[j][rho][a], cconj(B[j][sig][bb]))
+91:                    c2 = cmul(B[j][rho][bb], cconj(B[j][sig][a]))
+92:                    c = (c1[0] + c2[0], c1[1] + c2[1])
+93:                put(84 + upos[(rho, sig)], k, c[0])
+94:                if rho < sig:
+95:                    put(84 + len(UP) + spos[(rho, sig)], k, c[1])
+96:print("A built (rows", NR, "cols", N, ") in", round(time.time() - t0, 1), "s", flush=True)
+97:
+98:mvec = [fq(0)] * N
+99:for k, (j, a, bb) in enumerate(U):
+100:    mvec[k] = fq(float(Mf[j][a, bb]))
+101:Afull = fmpq_mat(NR, N, [Arows[i].get(k, ZERO) for i in range(NR) for k in range(N)])
+102:Mcol = fmpq_mat(N, 1, mvec)
+103:bcol = fmpq_mat(NR, 1, b)
+104:r = bcol - Afull * Mcol
+105:print("residual r built; nonzero rows:", sum(1 for i in range(NR) if r[i, 0] != 0), flush=True)
+106:
+107:I = [int(x) for x in np.load("../logs/indep_rows.npy")]
+108:AI = fmpq_mat(len(I), N, [Arows[i].get(k, ZERO) for i in I for k in range(N)])
+109:G = AI * AI.transpose()
+110:rI = fmpq_mat(len(I), 1, [r[i, 0] for i in I])
+111:try:
+112:    y = G.solve(rI)
+113:    solved = True
+114:except Exception as e:
+115:    solved = False
+116:    print("G_I solve failed:", type(e).__name__, str(e)[:200], flush=True)
+117:out = {"independent_rows": len(I), "G_I_invertible_exact": solved}
+118:if solved:
+119:    delta = AI.transpose() * y
+120:    check = Afull * delta - r
+121:    viol = [i for i in range(NR) if check[i, 0] != 0]
+122:    out["rows_violated_exactly"] = len(viol)
+123:    out["first_violated"] = viol[:10]
+124:    if not viol:
+125:        Ms = []
+126:        for j in range(J):
+127:            ks = [k for k, (jj, a, bb) in enumerate(U) if jj == j]
+128:            m = dims[j]
+129:            Mx = [[fmpq(0)] * (m + 1) for _ in range(m + 1)]
+130:            for k in ks:
+131:                _, a, bb = U[k]
+132:                val = mvec[k] + delta[k, 0]
+133:                Mx[a][bb] = val; Mx[bb][a] = val
+134:            Ms.append(Mx)
+135:        # exact LDL^T positivity: leading principal minors > 0 (Sylvester) for every M_j*
+136:        pos_ok, min_piv = True, None
+137:        for Mx in Ms:
+138:            n = len(Mx)
+139:            Mt = [row[:] for row in Mx]
+140:            for p in range(n):
+141:                piv = Mt[p][p]
+142:                if piv <= 0:
+143:                    pos_ok = False; break
+144:                min_piv = piv if min_piv is None or piv < min_piv else min_piv
+145:                for q in range(p + 1, n):
+146:                    f = Mt[q][p] / piv
+147:                    for c in range(p, n):
+148:                        Mt[q][c] = Mt[q][c] - f * Mt[p][c]
+149:            if not pos_ok:
+150:                break
+151:        out["all_M_positive_definite_exact"] = pos_ok
+152:        out["min_pivot_float"] = float(min_piv) if min_piv is not None else None
+153:out["seconds"] = round(time.time() - t0, 1)
+154:json.dump(out, open("../logs/exact_cert_result.json", "w"), indent=1)
+155:print(json.dumps(out, indent=1), flush=True)
+1:# WHY: exact rational re-verification of the S+ certificate by CLEARING DENOMINATORS, i.e. integer arithmetic
+2:# (flint fmpz_mat).  v2 (fmpq_mat residual) did not finish in 27 min: every addition of huge fractions triggers a gcd.
+3:# Here all data are scaled to integers, so no gcd is needed in the big products.
+4:#
+5:# Checks, exactly over Z (hence over Q):
+6:#   (1) A_full * M = b for all 484 rows, where M = m + A_I^T y, A rebuilt here from the lift DEFINITION;
+7:#   (2) every corrected block M_j is positive definite: all leading principal minors > 0 (Sylvester), computed
+8:#       on the integer matrix W-block (a positive rescaling does not change the signs of minors).
+9:#
+10:# Scaling:  A_full = Aint / DA,  y = Yint / Dn,  m = mint / Dm  (all integers).
+11:#           W := DA*Dn*mint + Dm*(Aint_I^T Yint)  satisfies  M = W / (DA*Dn*Dm).
+12:#           Hence  A_full M = b  <=>  Aint * W = DA^2 * Dn * Dm * b   (integers).
+13:import json
+14:import os
+15:import pickle
+16:import sys
+17:import time
+18:from fractions import Fraction
+19:
+20:from flint import fmpq, fmpz, fmpz_mat
+21:
+22:sys.set_int_max_str_digits(0)
+23:t0 = time.time()
+24:HERE = os.path.dirname(os.path.abspath(__file__))
+25:STAGE = os.path.dirname(HERE)
+26:
+27:D = pickle.load(open(os.path.join(STAGE, "logs", "exact_bases2.pkl"), "rb"))
+28:S = pickle.load(open(os.path.join(STAGE, "logs", "exact_sdp2_M.pkl"), "rb"))
+29:CK = pickle.load(open(os.path.join(STAGE, "logs", "exact_povm_y_checkpoint.pkl"), "rb"))
+30:dirs, bases = D["dirs"], D["bases_exact"]
+31:Mf = S["M"]
+32:J = len(dirs)
+33:dims = [len(bases[j]) for j in range(J)]
+34:I = [int(v) for v in CK["I"]]
+35:NI = len(I)
+36:assert NI == 175
+37:
+38:
+39:def fq_str(s):
+40:    f = Fraction(str(s))
+41:    return fmpq(f.numerator, f.denominator)
+42:
+43:
+44:def fq_float(v):
+45:    f = Fraction(float(v))
+46:    return fmpq(f.numerator, f.denominator)
+47:
+48:
+49:def cm(a, b):
+50:    return (a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0])
+51:
+52:
+53:def ca(a, b):
+54:    return (a[0] + b[0], a[1] + b[1])
+55:
+56:
+57:def cc(a):
+58:    return (a[0], -a[1])
+59:
+60:
+61:X, B = [], []
+62:for j in range(J):
+63:    (a0r, a0i), (a1r, a1i) = dirs[j]
+64:    X.append([(fq_str(a0r), fq_str(a0i)), (fq_str(a1r), fq_str(a1i))])
+65:    B.append(
+66:        [
+67:            [(fq_str(bases[j][v][r][0]), fq_str(bases[j][v][r][1])) for r in range(20)]
+68:            for v in range(dims[j])
+69:        ]
+70:    )
+71:
+72:UP = [(r, s) for r in range(20) for s in range(r, 20)]
+73:SU = [(r, s) for r in range(20) for s in range(r + 1, 20)]
+74:upos = {p: k for k, p in enumerate(UP)}
+75:NR = 484
+76:ZERO = fmpq(0)
+77:
+78:
+79:def block_columns(j):
+80:    m = dims[j]
+81:    n = m + 1
+82:    V = [[(ZERO, ZERO)] * 22 for _ in range(n)]
+83:    for c in range(m):
+84:        for r in range(20):
+85:            V[c][2 + r] = B[j][c][r]
+86:    V[m][0], V[m][1] = X[j][0], X[j][1]
+87:    out = []
+88:    for a in range(n):
+89:        for b in range(a, n):
+90:
+91:            def S_(i, k):
+92:                if a == b:
+93:                    return cm(V[a][i], cc(V[a][k]))
+94:                return ca(cm(V[a][i], cc(V[b][k])), cm(V[b][i], cc(V[a][k])))
+95:
+96:            col = {}
+97:
+98:            def put(row, val):
+99:                if val != 0:
+100:                    col[row] = val
+101:
+102:            e = S_(0, 0)
+103:            put(0, e[0])
+104:            e = S_(0, 1)
+105:            put(1, e[0])
+106:            put(3, e[1])
+107:            e = S_(1, 1)
+108:            put(2, e[0])
+109:            for al in range(2):
+110:                for rho in range(20):
+111:                    e = S_(al, 2 + rho)
+112:                    put(4 + al * 20 + rho, e[0])
+113:                    put(44 + al * 20 + rho, e[1])
+114:            for k, (r, s) in enumerate(UP):
+115:                put(84 + k, S_(2 + r, 2 + s)[0])
+116:            for k, (r, s) in enumerate(SU):
+117:                put(294 + k, S_(2 + r, 2 + s)[1])
+118:            out.append((a, b, col))
+119:    return out
+120:
+121:
+122:col_meta, col_entries = [], []
+123:for j in range(J):
+124:    for a, b, col in block_columns(j):
+125:        col_meta.append((j, a, b))
+126:        col_entries.append(col)
+127:NCOL = len(col_entries)
+128:assert NCOL == 6566
+129:print("columns", NCOL, round(time.time() - t0, 1), "s", flush=True)
+130:
+131:# ---- common denominators ----
+132:DA = fmpz(1)
+133:for col in col_entries:
+134:    for val in col.values():
+135:        DA = DA.lcm(val.q)
+136:print("DA digits", len(str(DA)), round(time.time() - t0, 1), "s", flush=True)
+137:
+138:yq = [fq_str(s) for s in CK["y"]]
+139:Dn = fmpz(1)
+140:for v in yq:
+141:    Dn = Dn.lcm(v.q)
+142:Yint = [int(v * Dn) for v in yq]  # exact integers
+143:print("Dn digits", len(str(Dn)), round(time.time() - t0, 1), "s", flush=True)
+144:
+145:mq = [fq_float(Mf[j][a, b]) for (j, a, b) in col_meta]
+146:Dm = fmpz(1)
+147:for v in mq:
+148:    Dm = Dm.lcm(v.q)
+149:mint = [int(v * Dm) for v in mq]
+150:print("Dm bits", Dm.bit_length(), round(time.time() - t0, 1), "s", flush=True)
+151:
+152:# ---- integer matrices ----
+153:pos_in_I = {row: t for t, row in enumerate(I)}
+154:Aint = fmpz_mat(NR, NCOL)
+155:AIT = fmpz_mat(NCOL, NI)
+156:for k, col in enumerate(col_entries):
+157:    for row, val in col.items():
+158:        iv = int(val * DA)  # exact integer (DA is a common multiple of all denominators)
+159:        Aint[row, k] = iv
+160:        if row in pos_in_I:
+161:            AIT[k, pos_in_I[row]] = iv
+162:print("integer A filled", round(time.time() - t0, 1), "s", flush=True)
+163:
+164:Yvec = fmpz_mat(NI, 1, Yint)
+165:T = AIT * Yvec  # 6566 x 1 integers: Aint_I^T * Yint
+166:print("T computed", round(time.time() - t0, 1), "s", flush=True)
+167:mvec = fmpz_mat(NCOL, 1, mint)
+168:Wvec = (DA * Dn) * mvec + Dm * T  # integers, M = W / (DA*Dn*Dm)
+169:print("W computed", round(time.time() - t0, 1), "s", flush=True)
+170:
+171:# ---- residual check: Aint * W == DA^2 * Dn * Dm * b ----
+172:bvec = [0] * NR
+173:bvec[0] = 1
+174:bvec[2] = 1
+175:for rho in range(20):
+176:    bvec[84 + upos[(rho, rho)]] = 1
+177:scale_b = DA * DA * Dn * Dm
+178:lhs = Aint * Wvec
+179:violated = [r for r in range(NR) if lhs[r, 0] != scale_b * bvec[r]]
+180:print("rows checked; violated =", len(violated), round(time.time() - t0, 1), "s", flush=True)
+181:
+182:# ---- positive definiteness: leading principal minors of each block (Sylvester) ----
+183:k0 = 0
+184:pd_ok = True
+185:blocks_checked = 0
+186:for j in range(J):
+187:    m = dims[j]
+188:    n = m + 1
+189:    cnt = n * (n + 1) // 2
+190:    Mx = [[0] * n for _ in range(n)]
+191:    for kk in range(k0, k0 + cnt):
+192:        _, a, b = col_meta[kk]
+193:        Mx[a][b] = int(Wvec[kk, 0])
+194:        Mx[b][a] = int(Wvec[kk, 0])
+195:    k0 += cnt
+196:    # leading principal minors (exact integer determinants)
+197:    for p in range(1, n + 1):
+198:        sub = fmpz_mat(p, p, [Mx[a][b] for a in range(p) for b in range(p)])
+199:        if sub.det() <= 0:
+200:            pd_ok = False
+201:            break
+202:    blocks_checked += 1
+203:    if not pd_ok:
+204:        print("block", j, "NOT positive definite", flush=True)
+205:        break
+206:    if (j + 1) % 40 == 0:
+207:        print("PD blocks", j + 1, round(time.time() - t0, 1), "s", flush=True)
+208:
+209:out = {
+210:    "method": "exact integer re-verification (common denominators; flint fmpz_mat); y from checkpoint; A rebuilt from lift definition",
+211:    "independent_rows": NI,
+212:    "blocks": J,
+213:    "columns": NCOL,
+214:    "rows_checked": NR,
+215:    "rows_violated_exactly": len(violated),
+216:    "first_violated_rows": violated[:10],
+217:    "blocks_checked_PD": blocks_checked,
+218:    "all_blocks_positive_definite_exact": bool(pd_ok and blocks_checked == J),
+219:    "seconds": round(time.time() - t0, 1),
+220:}
+221:json.dump(out, open(os.path.join(STAGE, "logs", "verify_exact_integer_v3.json"), "w"), indent=1)
+222:print(json.dumps(out, indent=1), flush=True)
+1:{
+2: "independent_rows": 175,
+3: "G_I_invertible_exact": true,
+4: "rows_violated_exactly": 0,
+5: "first_violated": [],
+6: "all_M_positive_definite_exact": true,
+7: "min_pivot_float": 0.0010907170406273098,
+8: "seconds": 11387.1
+9:}
+1:{
+2: "method": "exact integer re-verification (common denominators; flint fmpz_mat); y from checkpoint; A rebuilt from lift definition",
+3: "independent_rows": 175,
+4: "blocks": 280,
+5: "columns": 6566,
+6: "rows_checked": 484,
+7: "rows_violated_exactly": 0,
+8: "first_violated_rows": [],
+9: "blocks_checked_PD": 280,
+10: "all_blocks_positive_definite_exact": true,
+11: "seconds": 4838.9
+12:}
+1:columns 6566 16.0 s
+2:DA digits 18239 31.0 s
+3:Dn digits 190030 136.9 s
+4:Dm bits 74 136.9 s
+5:integer A filled 247.5 s
+6:T computed 1101.8 s
+7:W computed 1103.0 s
+8:rows checked; violated = 0 2941.3 s
+9:PD blocks 40 3263.6 s
+10:PD blocks 80 3555.6 s
+11:PD blocks 120 3778.3 s
+12:PD blocks 160 4059.5 s
+13:PD blocks 200 4347.4 s
+14:PD blocks 240 4641.5 s
+15:PD blocks 280 4838.9 s
+16:{
+17: "method": "exact integer re-verification (common denominators; flint fmpz_mat); y from checkpoint; A rebuilt from lift definition",
+18: "independent_rows": 175,
+19: "blocks": 280,
+20: "columns": 6566,
+21: "rows_checked": 484,
+22: "rows_violated_exactly": 0,
+23: "first_violated_rows": [],
+24: "blocks_checked_PD": 280,
+25: "all_blocks_positive_definite_exact": true,
+26: "seconds": 4838.9
+27:}
+
+**Reviewing exact_cert LDL elimination logic**
+**Verifying shared data between exact runs**
+**Confirming row list source consistency**
+codex
+One important independence distinction is already visible: the integer verifier rebuilds the lift matrix through a generic 22-vector outer-product routine, while the rational verifier uses hand-specialized support/cross/kernel formulas. However, both still consume the same stored bases and floating starting moments; the integer run also consumes a stored `y` checkpoint rather than resolving it. I’m now checking whether the stored row list and checkpoint actually match the rational run’s inputs, plus the exact positivity and numerical-control paths.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command 'rg -n "''^" '"'stage_e_v1/code/control_differential.py'; rg -n \""'^" '"'stage_e_v1/logs/control_differential.json'; rg -n \""'^" '"'stage_e_v1/code/audit_ys_exact.py'; rg -n \""'^" '"'stage_e_v1/logs/audit_ys_exact.json'" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4
+ succeeded in 354ms:
+1:# WHY: differential numerical control with a POSITIVE reference (S+ at theta = 0, many outcomes) and a sensitivity test.
+2:# Harness:  given a finite POVM {E_k} on C^22 and a parameter set S, compute
+3:#           F_E(0) = sum_k dp_k dp_k^T / p_k  (regular outcomes) and  F^Q(0) = Re tr(rho0 L_a L_b),
+4:#           with rho0 = Q (+) 0, L_a = [[0, A_a^H],[A_a,0]], d_a rho = [X_a, rho0], X_a = [[0,-G^H],[G,0]], G = A/2.
+5:# POVM:     the S+ certificate's moments M_j (float, from exact_sdp2_M.pkl) are turned into rank-one elements by
+6:#           lemma D (Cholesky + Householder), u = (x_j ; sum_a chat_a B_{j,a}), E = omega u u^H  (1764 outcomes).
+7:# Controls:
+8:#   POS:  S+ parameters, the S+ POVM -> deficit must be ~ 0 (saturation known to exist).
+9:#   NEG:  S- parameters, the SAME S+ POVM -> deficit must be clearly > 0 (it is a different parameter set).
+10:#   SENS: S+ POVM perturbed by relative 1e-3 -> deficit must become visibly > 0 (harness sensitivity).
+11:# This is a numerical harness check, not a proof.  Output: logs/control_differential.json.
+12:import json
+13:import os
+14:import pickle
+15:import sys
+16:from fractions import Fraction
+17:
+18:import numpy as np
+19:
+20:HERE = os.path.dirname(os.path.abspath(__file__))
+21:STAGE = os.path.dirname(HERE)
+22:sys.path.insert(0, HERE)
+23:from ys_space import load_A  # noqa: E402
+24:
+25:D = pickle.load(open(os.path.join(STAGE, "logs", "exact_bases2.pkl"), "rb"))
+26:S = pickle.load(open(os.path.join(STAGE, "logs", "exact_sdp2_M.pkl"), "rb"))
+27:dirs, bases = D["dirs"], D["bases_exact"]
+28:Mf = S["M"]
+29:J = len(dirs)
+30:
+31:
+32:def cf(s):
+33:    return float(Fraction(str(s)))
+34:
+35:
+36:X = np.array(
+37:    [[complex(cf(a0r), cf(a0i)), complex(cf(a1r), cf(a1i))] for (a0r, a0i), (a1r, a1i) in dirs]
+38:)
+39:B = []
+40:for j in range(J):
+41:    m = len(bases[j])
+42:    Bj = np.zeros((20, m), complex)
+43:    for v in range(m):
+44:        for r in range(20):
+45:            Bj[r, v] = complex(cf(bases[j][v][r][0]), cf(bases[j][v][r][1]))
+46:    B.append(Bj)
+47:
+48:
+49:def lemmaD_elements(M, x, Bj):
+50:    """Rank-one elements (22-vectors) and weights from a PD moment matrix M (n x n, n = m+1), via lemma D."""
+51:    n = M.shape[0]
+52:    C = np.linalg.cholesky(M)
+53:    w = C.T[:, n - 1]
+54:    nw = np.linalg.norm(w)
+55:    u = w / nw
+56:    h = np.ones(n) / np.sqrt(n)
+57:    if np.allclose(u, h):
+58:        O = np.eye(n)
+59:    else:
+60:        v = u - h
+61:        O = np.eye(n) - 2.0 * np.outer(v, v) / (v @ v)
+62:    Cp = C @ O
+63:    s = nw / np.sqrt(n)
+64:    omega = s * s
+65:    out = []
+66:    for k in range(n):
+67:        chat = Cp[:, k] / s  # last coordinate 1
+68:        y = Bj @ chat[: n - 1]  # 20-vector
+69:        uvec = np.concatenate(
+70:            [x * chat[n - 1], y]
+71:        )  # (x ; y), x-part with coefficient 1 (scaling absorbed)
+72:        out.append((omega, uvec))
+73:    return out
+74:
+75:
+76:def povm_splus(eps=0.0, rng=None):
+77:    els = []
+78:    for j in range(J):
+79:        M = Mf[j].real
+80:        if eps and rng is not None:
+81:            M = M * (1 + eps * rng.standard_normal(M.shape))
+82:            M = 0.5 * (M + M.T)
+83:        for omega, uvec in lemmaD_elements(M, X[j], B[j]):
+84:            els.append((omega, uvec))
+85:    return els
+86:
+87:
+88:def family_data(Aset):
+89:    n = len(Aset)
+90:    Q = np.diag([1 / 3, 2 / 3])
+91:    rho0 = np.zeros((22, 22), complex)
+92:    rho0[:2, :2] = Q
+93:    Ls, drho = [], []
+94:    for Ai in Aset:
+95:        G = Ai / 2
+96:        Xa = np.zeros((22, 22), complex)
+97:        Xa[:2, 2:] = -G.conj().T
+98:        Xa[2:, :2] = G
+99:        L = np.zeros((22, 22), complex)
+100:        L[:2, 2:] = Ai.conj().T
+101:        L[2:, :2] = Ai
+102:        Ls.append(L)
+103:        drho.append(Xa @ rho0 - rho0 @ Xa)
+104:    FQ = np.zeros((n, n))
+105:    for a in range(n):
+106:        for b in range(n):
+107:            FQ[a, b] = np.trace(rho0 @ (Ls[a] @ Ls[b] + Ls[b] @ Ls[a]) / 2).real
+108:    return rho0, drho, FQ
+109:
+110:
+111:def harness(els, Aset):
+112:    rho0, drho, FQ = family_data(Aset)
+113:    n = len(Aset)
+114:    Fm = np.zeros((n, n))
+115:    tot_w = 0.0
+116:    I22 = np.zeros((22, 22), complex)
+117:    for omega, uvec in els:
+118:        E = omega * np.outer(uvec, uvec.conj())
+119:        I22 += E
+120:        p = np.trace(rho0 @ E).real
+121:        if p <= 1e-14:
+122:            continue
+123:        g = np.array([np.trace(E @ drho[a]).real for a in range(n)])
+124:        Fm += np.outer(g, g) / p
+125:    compl = float(np.abs(I22 - np.eye(22)).max())
+126:    tF = float(np.trace(FQ))
+127:    tFm = float(np.trace(Fm))
+128:    return {
+129:        "completeness_max_err": compl,
+130:        "trace_QFIM": tF,
+131:        "trace_classical_FI": tFm,
+132:        "deficit": tF - tFm,
+133:        "relative_deficit": (tF - tFm) / tF,
+134:        "matrix_max_abs_err_QFIM_minus_CFI": float(np.abs(FQ - Fm).max()),
+135:        "n_outcomes": len(els),
+136:    }
+137:
+138:
+139:A_plus = load_A(list(range(0, 12)))
+140:A_minus = load_A(list(range(4, 16)))
+141:Aplus = [A_plus[i] for i in range(0, 12)]
+142:Aminus = [A_minus[i] for i in range(4, 16)]
+143:els_plus = povm_splus()
+144:res = {}
+145:res["POS_splus_params_splus_povm"] = harness(els_plus, Aplus)
+146:res["NEG_sminus_params_splus_povm"] = harness(els_plus, Aminus)
+147:rng = np.random.default_rng(1)
+148:
+149:
+150:def recomplete(els):
+151:    # E_k -> S^{-1/2} E_k S^{-1/2}, S = sum_k E_k : keeps a valid complete POVM
+152:    Ssum = sum(om * np.outer(u, u.conj()) for om, u in els)
+153:    w_, U_ = np.linalg.eigh((Ssum + Ssum.conj().T) / 2)
+154:    Sih_ = U_ @ np.diag(1 / np.sqrt(w_)) @ U_.conj().T
+155:    return [(om, Sih_ @ u) for om, u in els]
+156:
+157:
+158:# sensitivity curve: the harness must detect growing perturbations (deficit grows with the size of the break)
+159:for eps_s in (1e-3, 1e-2, 3e-2):
+160:    # 0.1 breaks positive definiteness of the moments (Cholesky fails), so the curve stops at 3e-2
+161:    els_pert = recomplete(povm_splus(eps=eps_s, rng=np.random.default_rng(1)))
+162:    res[f"SENS_eps_{eps_s:g}_splus_params"] = harness(els_pert, Aplus)
+163:res["notes"] = [
+164:    "POS must give relative deficit ~ 0 (saturation at theta=0 by the S+ construction).",
+165:    "NEG: S+ POVM evaluated on S- parameters: deficit must be clearly positive.",
+166:    "SENS: 1e-3 relative perturbation of moments must produce a visible deficit (harness is sensitive).",
+167:    "Numerical harness check only; not a proof.",
+168:]
+169:json.dump(res, open(os.path.join(STAGE, "logs", "control_differential.json"), "w"), indent=1)
+170:print(json.dumps(res, indent=1))
+1:{
+2: "POS_splus_params_splus_povm": {
+3:  "completeness_max_err": 1.7952417330491244e-11,
+4:  "trace_QFIM": 225.33333333333334,
+5:  "trace_classical_FI": 225.33333333278625,
+6:  "deficit": 5.470894848258467e-10,
+7:  "relative_deficit": 2.427911914907604e-12,
+8:  "matrix_max_abs_err_QFIM_minus_CFI": 1.468691834816127e-10,
+9:  "n_outcomes": 1764
+10: },
+11: "NEG_sminus_params_splus_povm": {
+12:  "completeness_max_err": 1.7952417330491244e-11,
+13:  "trace_QFIM": 60005.33333333333,
+14:  "trace_classical_FI": 33725.984337956346,
+15:  "deficit": 26279.348995376982,
+16:  "relative_deficit": 0.4379502210144151,
+17:  "matrix_max_abs_err_QFIM_minus_CFI": 26081.614786375365,
+18:  "n_outcomes": 1764
+19: },
+20: "SENS_eps_0.001_splus_params": {
+21:  "completeness_max_err": 4.662936708115535e-15,
+22:  "trace_QFIM": 225.33333333333334,
+23:  "trace_classical_FI": 225.33332532235715,
+24:  "deficit": 8.010976188188579e-06,
+25:  "relative_deficit": 3.5551669474209665e-08,
+26:  "matrix_max_abs_err_QFIM_minus_CFI": 3.1021991873103616e-06,
+27:  "n_outcomes": 1764
+28: },
+29: "SENS_eps_0.01_splus_params": {
+30:  "completeness_max_err": 4.773959018672089e-15,
+31:  "trace_QFIM": 225.33333333333334,
+32:  "trace_classical_FI": 225.33253307666612,
+33:  "deficit": 0.000800256667218946,
+34:  "relative_deficit": 3.551434913693547e-06,
+35:  "matrix_max_abs_err_QFIM_minus_CFI": 0.00030964651783449426,
+36:  "n_outcomes": 1764
+37: },
+38: "SENS_eps_0.03_splus_params": {
+39:  "completeness_max_err": 3.552713690013538e-15,
+40:  "trace_QFIM": 225.33333333333334,
+41:  "trace_classical_FI": 225.32614748584714,
+42:  "deficit": 0.007185847486198327,
+43:  "relative_deficit": 3.188985570798074e-05,
+44:  "matrix_max_abs_err_QFIM_minus_CFI": 0.002775548990555876,
+45:  "n_outcomes": 1764
+46: },
+47: "notes": [
+48:  "POS must give relative deficit ~ 0 (saturation at theta=0 by the S+ construction).",
+49:  "NEG: S+ POVM evaluated on S- parameters: deficit must be clearly positive.",
+50:  "SENS: 1e-3 relative perturbation of moments must produce a visible deficit (harness is sensitive).",
+51:  "Numerical harness check only; not a proof."
+52: ]
+53:}
+1:# WHY: independent exact audit of the POVM-vector subspace Y_S+(x_j) used by the S+ certificate.
+2:# Re-derives the membership condition from its definition, NOT from ys_space.py / exact_cert.py:
+3:#   y in Y_S(x)  <=>  for every i in S: A_i^dagger y = lambda_i * x  with lambda_i real.
+4:# Exact arithmetic (fractions.Fraction) throughout. Reads:
+5:#   - instance blocks (floats converted exactly via Fraction(float)), same A_i convention as ys_space.py
+6:#   - exact basis vectors and directions from logs/exact_bases2.pkl
+7:# Also records whether each direction is an exact unit vector (informational; the membership test
+8:# below does not depend on normalisation, since {x, x_perp} is orthogonal for any nonzero x).
+9:import json
+10:import os
+11:import pickle
+12:import sys
+13:from fractions import Fraction
+14:
+15:HERE = os.path.dirname(os.path.abspath(__file__))
+16:STAGE = os.path.dirname(HERE)
+17:INST = (
+18:    r"E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments"
+19:    r"\20261027-h-cat56-2-submission-package-v1\data\instance_d22_r2_s16.jsonl"
+20:)
+21:S_PLUS = list(range(12))
+22:
+23:
+24:def F(v):
+25:    if isinstance(v, Fraction):
+26:        return v
+27:    if isinstance(v, float):
+28:        return Fraction(v)  # exact binary value
+29:    return Fraction(str(v))
+30:
+31:
+32:def cmul(a, b):
+33:    return (a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0])
+34:
+35:
+36:def cadd(a, b):
+37:    return (a[0] + b[0], a[1] + b[1])
+38:
+39:
+40:def cconj(a):
+41:    return (a[0], -a[1])
+42:
+43:
+44:# --- instance: A_i = 2*im - 2i*re, re/im read as in ys_space.load_A (flat[2r+a], flat[40+2r+a]) ---
+45:rec = json.loads(open(INST, encoding="utf-8").readline())
+46:A = {}
+47:for i in S_PLUS:
+48:    flat = [F(v) for v in rec["blocks"][i]]
+49:    assert len(flat) == 80, len(flat)
+50:    Ai = [[None, None] for _ in range(20)]
+51:    for r in range(20):
+52:        for a in range(2):
+53:            re_ = flat[2 * r + a]
+54:            im_ = flat[40 + 2 * r + a]
+55:            Ai[r][a] = (2 * im_, -2 * re_)  # 2*im - 2i*re
+56:    A[i] = Ai
+57:
+58:# --- exact directions and bases ---
+59:D = pickle.load(open(os.path.join(STAGE, "logs", "exact_bases2.pkl"), "rb"))
+60:dirs = D["dirs"]
+61:bases = D["bases_exact"]
+62:J = len(dirs)
+63:
+64:report = {
+65:    "instance_file_used": INST,
+66:    "n_directions": J,
+67:    "n_basis_vectors_total": 0,
+68:    "membership_failures": 0,
+69:    "unit_norm_directions": 0,
+70:    "first_failure": None,
+71:}
+72:
+73:for j in range(J):
+74:    (a0r, a0i), (a1r, a1i) = dirs[j]
+75:    x = [(F(a0r), F(a0i)), (F(a1r), F(a1i))]
+76:    nx = cadd(cmul(x[0], cconj(x[0])), cmul(x[1], cconj(x[1])))[0]
+77:    if nx == 1:
+78:        report["unit_norm_directions"] += 1
+79:    m = len(bases[j])
+80:    for v in range(m):
+81:        report["n_basis_vectors_total"] += 1
+82:        # y[r] = (re, im) of component r of basis vector v; bases[j][v][r] = (re, im)
+83:        y = [(F(bases[j][v][r][0]), F(bases[j][v][r][1])) for r in range(20)]
+84:        for i in S_PLUS:
+85:            # u_alpha = sum_r conj(A_i[r][alpha]) * y_r   (A_i^dagger y)
+86:            u = []
+87:            for al in range(2):
+88:                acc = (Fraction(0), Fraction(0))
+89:                for r in range(20):
+90:                    acc = cadd(acc, cmul(cconj(A[i][r][al]), y[r]))
+91:                u.append(acc)
+92:            # parallel to x:  u0*x1 - u1*x0 = 0
+93:            cross = cadd(cmul(u[0], x[1]), (-cmul(u[1], x[0])[0], -cmul(u[1], x[0])[1]))
+94:            # real lambda:  Im(x^dagger u) = 0
+95:            xh_u = cadd(cmul(cconj(x[0]), u[0]), cmul(cconj(x[1]), u[1]))
+96:            ok = cross == (0, 0) and xh_u[1] == 0
+97:            if not ok:
+98:                report["membership_failures"] += 1
+99:                if report["first_failure"] is None:
+100:                    report["first_failure"] = {"direction": j, "basis": v, "constraint_i": i}
+101:                break
+102:
+103:report["membership_exact_pass"] = report["membership_failures"] == 0
+104:out_path = os.path.join(STAGE, "logs", "audit_ys_exact.json")
+105:with open(out_path, "w", encoding="utf-8") as fh:
+106:    json.dump(report, fh, indent=1, ensure_ascii=False)
+107:print(json.dumps(report, indent=1, ensure_ascii=False), flush=True)
+108:sys.exit(0 if report["membership_exact_pass"] else 1)
+1:{
+2: "instance_file_used": "E:\\Проверка Гипотез\\работаю над проверкой гипотез\\Y-17 100 gipotez\\experiments\\20261027-h-cat56-2-submission-package-v1\\data\\instance_d22_r2_s16.jsonl",
+3: "n_directions": 280,
+4: "n_basis_vectors_total": 1484,
+5: "membership_failures": 0,
+6: "unit_norm_directions": 0,
+7: "first_failure": null,
+8: "membership_exact_pass": true
+9:}
+
+**Verifying direction data types and hashes**
+**Planning detailed file inspection and hash comparison**
+**Comparing direction arrays and verifying hashes**
+**Inspecting npz keys and computing input hashes**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command '$paths = @(
+'"'stage_e_v1\\logs\\exact_bases2.pkl','stage_e_v1\\logs\\exact_sdp2_M.pkl','stage_e_v1\\logs\\exact_povm_y_checkpoint.pkl','stage_e_v1\\logs\\indep_rows.npy','..\\20261027-h-cat56-2-submission-package-v1\\data\\instance_d22_r2_s16.jsonl','..\\20261027-h-cat56-2-discovery\\metrics\\s14_povm_prefix12.npz','stage_e_v1\\code\\exact_cert.py','stage_e_v1\\code\\verify_exact_integer_v3.py','stage_e_v1\\logs\\exact_cert_result.json','stage_e_v1\\logs\\verify_exact_integer_v3.json','stage_e_v1\\logs\\verify_exact_integer_v3.log'
+)
+foreach ("'$p in $paths) { $h = Get-FileHash -Algorithm SHA256 -LiteralPath $p; Write-Output ("{0}`t{1}" -f $p,$h.Hash.ToLower()) }
+python -c "import pickle,numpy as np,json; D=pickle.load(open(r'"'stage_e_v1/logs/exact_bases2.pkl','rb')); S=pickle.load(open(r'stage_e_v1/logs/exact_sdp2_M.pkl','rb')); C=pickle.load(open(r'stage_e_v1/logs/exact_povm_y_checkpoint.pkl','rb')); I=np.load(r'stage_e_v1/logs/indep_rows.npy'); Z=np.load(r'../20261027-h-cat56-2-discovery/metrics/s14_povm_prefix12.npz'); print('D keys',list(D.keys())); print('S keys',list(S.keys())); print('CK keys',list(C.keys())); print('I shape/dtype',I.shape,I.dtype,'firstlast',I[:5].tolist(),I[-5:].tolist()); print('CK I matches npy',np.array_equal(np.array(C['I'],dtype=int),I)); print('CK I len',len(C['I']),'y len',len(C['y']),'y type',type(C['y'][0]).__name__); print('dirs',len(D['dirs']),'bases',len(D['bases_exact']),'basis dims counts',{n:sum(len(b)==n for b in D['bases_exact']) for n in set(map(len,D['bases_exact']))}); print('M blocks',len(S['M']),'M shapes counts',{str(m.shape):sum(x.shape==m.shape for x in S['M']) for m in S['M'][:2]}); print('npz keys',Z.files); [print('npz',k,Z[k].shape,Z[k].dtype) for k in Z.files]\"" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4
+ succeeded in 746ms:
+stage_e_v1\logs\exact_bases2.pkl	fbca57faa2b926abb8c8ab38580ed8d4f9c24b9c67b6c379f1053d2d7e69b5b8
+stage_e_v1\logs\exact_sdp2_M.pkl	90537f11069730c59ccb5263001eb4253ff9a7e4c424e2719a6f3a8b23880dae
+stage_e_v1\logs\exact_povm_y_checkpoint.pkl	1d6cdf940dd098987c4cfd884560e0d1ccd2c48985df49f22765abdd74fa58c2
+stage_e_v1\logs\indep_rows.npy	0b0f3a4f2e6271f1d7cb63759fc076e15f24a58e6d1bbc2c0ea11f870410b17b
+..\20261027-h-cat56-2-submission-package-v1\data\instance_d22_r2_s16.jsonl	0528992095d033d948b16777d1ded8f87c975741073df9496c3080b59ebb0044
+..\20261027-h-cat56-2-discovery\metrics\s14_povm_prefix12.npz	8ab6f458c143c31d19d6bcb9fa9c3e60b8567678c6298f91898bfbf7be17a54d
+stage_e_v1\code\exact_cert.py	a5121b75d1fb0898638ad40cf957fb6d0a68b32f2cea47917c00c5aa970ca338
+stage_e_v1\code\verify_exact_integer_v3.py	826d2408b0d8060eafd6f178aff3b87caf65318e558d2538a38291fb5bc3f8ae
+stage_e_v1\logs\exact_cert_result.json	53a1f6d7e3d1b2a916bc9142af0bc2ddabc9dffeb052623520f6d6582737805a
+stage_e_v1\logs\verify_exact_integer_v3.json	f255dec4dd64b3a757e4d7cd7435a1ee6d5ad4dedfce7be90480c1f13d944bda
+stage_e_v1\logs\verify_exact_integer_v3.log	a2e178dbc03faba69ad491f1d1540f55d58c3adaed751680a31a8c430c5629a6
+D keys ['dirs', 'dims', 'bases_exact']
+S keys ['M']
+CK keys ['I', 'y']
+I shape/dtype (175,) int32 firstlast [0, 1, 2, 3, 4] [466, 470, 471, 481, 482]
+CK I matches npy True
+CK I len 175 y len 175 y type str
+dirs 280 bases 280 basis dims counts {4: 98, 6: 182}
+M blocks 280 M shapes counts {'(5, 5)': 98}
+npz keys ['weights', 'vectors']
+npz weights (280,) float64
+npz vectors (280, 22) complex128
+
+**Verifying certificate line references and positivity checks**
+**Confirming positivity and block reconstruction correctness**
+**Clarifying stored rational moments meaning**
+**Evaluating moment verification feasibility**
+**Analyzing theorem application in quantum estimation**
+**Verifying saturation conditions for Fisher information**
+**Analyzing operator derivative conditions**
+**Verifying Hermitian matrix off-diagonal handling**
+**Verifying Householder reflection properties**
+**Clarifying Cholesky normalization and nonzero directions**
+**Confirming theorem application via algebraic reasoning**
+**Auditing theorem application and basis membership**
+**Investigating direction vectors in npz file**
+**Planning independent build chain regeneration**
+**Identifying critical input type mismatch risk**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "python -c \"import pickle,numpy as np; from fractions import Fraction; D=pickle.load(open(r'stage_e_v1/logs/exact_bases2.pkl','rb')); S=pickle.load(open(r'stage_e_v1/logs/exact_sdp2_M.pkl','rb')); C=pickle.load(open(r'stage_e_v1/logs/exact_povm_y_checkpoint.pkl','rb')); vals=[D['dirs'][0][0][0],D['dirs'][0][0][1],D['bases_exact'][0][0][0][0],D['bases_exact'][0][0][0][1]]; print([(repr(v),type(v).__name__, Fraction(v)==Fraction(str(v))) for v in vals]); print('M dtype',S['M'][0].dtype,'sample type',type(S['M'][0][0,0]).__name__); norms=[]; zeros=[]; unit=[]; from fractions import Fraction as F; 
+for j,d in enumerate(D['dirs']):
+ n=sum(F(str(z[0]))**2+F(str(z[1]))**2 for z in d); norms.append(n); zeros.append(n==0); unit.append(n==1)
+print('zero directions',sum(zeros),'unit',sum(unit),'norm min/max float',float(min(norms)),float(max(norms)))\" " in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4
+ succeeded in 423ms:
+[("'117932410739/549755813888'", 'str', True), ("'0'", 'str', True), ("'-825988143960166198574468867239018436624079781529359963533789603/128977666298398125979223283639470040893188036322542136020632076288'", 'str', True), ("'0'", 'str', True)]
+M dtype float64 sample type float64
+zero directions 0 unit 0 norm min/max float 0.047216727070441326 1.000000000000803
+
+**Verifying exact_cert elimination correctness**
+**Analyzing lemma 2 rank-one condition implications**
+**Assessing verifier A construction independence**
+**Clarifying basis provenance requirements**
+**Investigating type handling in basis audit**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "python -c \"import json; p=r'../20261027-h-cat56-2-submission-package-v1/data/instance_d22_r2_s16.jsonl'; rec=json.loads(open(p,encoding='utf-8').readline()); print('keys',list(rec.keys())); print('blocks',len(rec['blocks']),'block0len',len(rec['blocks'][0])); print('value types',sorted({type(v).__name__ for b in rec['blocks'] for v in b})); print('sample',rec['blocks'][0][:8]); print('top metadata',{k:v for k,v in rec.items() if k"'!='"'blocks'})\" " in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4
+ succeeded in 250ms:
+keys ['seed', 'note', 'blocks']
+blocks 16 block0len 80
+value types ['int']
+sample [0, -1, 0, 0, 1, -1, -1, -1]
+top metadata {'seed': 701082, 'note': 'explicit Gaussian-integer instance, d=22 r=2 s=16, blocks = 16 vectors of 80 ints each (re part then im part of a 20x2 matrix, row-major)'}
+
+**Inspecting vector and direction components**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "python -c \"import pickle,numpy as np; from fractions import Fraction as F; D=pickle.load(open(r'stage_e_v1/logs/exact_bases2.pkl','rb')); Z=np.load(r'../20261027-h-cat56-2-discovery/metrics/s14_povm_prefix12.npz'); X=np.array([[complex(float(F(a)),float(F(b))) for a,b in d] for d in D['dirs']]); V=Z['vectors']; print('first stored dirs',X[:3]); print('npz first2',V[:3,:2]); print('max abs direct',np.max(np.abs(X-V[:,:2]))); print('max abs up-to-row phase',max(np.min([np.max(np.abs(X[j]-s*V[j,:2])) for s in [1,-1,1j,-1j]]) for j in range(280)))\" " in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4
+ succeeded in 393ms:
+first stored dirs [[ 2.14517805e-01+0.j         -2.92625141e-02-0.01850793j]
+ [ 2.14517805e-01+0.j         -2.92625141e-02-0.01850793j]
+ [-8.54925020e-11+0.j          2.17294103e-01+0.j        ]]
+npz first2 [[ 2.14517805e-01+0.j         -2.92625141e-02-0.01850793j]
+ [-2.14517805e-01+0.j          2.92625141e-02+0.01850793j]
+ [ 1.70727496e-10+0.j         -1.08647052e-01-0.18818221j]]
+max abs direct 1.6574280206673593
+max abs up-to-row phase 0.528233015532628
+
+**Analyzing direction source mapping ambiguity**
+**Examining vector phase rotation effects**
+**Calculating normalized phase and residual**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "python -c \"import pickle,numpy as np; from fractions import Fraction as F; D=pickle.load(open(r'stage_e_v1/logs/exact_bases2.pkl','rb')); Z=np.load(r'../20261027-h-cat56-2-discovery/metrics/s14_povm_prefix12.npz'); X=np.array([[complex(float(F(a)),float(F(b))) for a,b in d] for d in D['dirs']]); V=Z['vectors'][:,:2]; errs=[]; ratios=[]
+for x,v in zip(X,V):
+ q=np.vdot(v,x)/np.vdot(v,v) if np.vdot(v,v)"'!=0 else 0; errs.append(np.max(np.abs(x-q*v))); ratios.append(q)
+print('"'max line-fit residual',max(errs),'median',np.median(errs)); print('scale abs min/max',min(abs(q) for q in ratios),max(abs(q) for q in ratios)); print('count residual <=1e-9',sum(e<=1e-9 for e in errs),'of',len(errs))\" " in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4
+ succeeded in 406ms:
+max line-fit residual 1.5221989150249618e-10 median 7.196912853741343e-11
+scale abs min/max 0.9999999999972263 1.0000000000028535
+count residual <=1e-9 280 of 280
+
+**Verifying numeric moment approximations**
+**Confirming exact_cert result authenticity**
+**Deriving QFIM matrix elements**
+**Verifying matrix symmetrization and data consistency**
+**Identifying documentation inaccuracy in checkpoint handling**
+**Clarifying shared inputs and candidate reconstruction nuances**
+**Assessing candidate uniqueness and equation verification**
+**Specifying reviewer JSON decoding and SDP requirements**
+**Planning exact feasibility and provenance verification**
+**Identifying provenance mismatch in certificate runs**
+**Confirming mathematical pivot correctness**
+**Verifying factor conventions and conditional theorem**
+**Confirming model saturation conditionally**
+**Assigning pass with conditions rating**
+**Verifying data integrity and code correctness**
+**Confirming timestamp consistency and algorithm equivalence**
+**Assessing pivot conditions and completeness implications**
+**Clarifying normalization and numeric certificate labeling**
+**Planning documentation with linked file references**
+**Designing labeled clickable file line references**
+**Defining evidence markers and summarizing verification scope**
+**Deriving quantum bound contribution formula**
+**Confirming QFIM matrix equality and audit checks**
+**Noting exact_cert code hash presence**
+**Assessing independence of A construction**
+**Finalizing conditional proof verdict**
+**Clarifying external theorem verification status**
+codex
+## Audit verdict
+
+**PASS WITH CONDITIONS — confidence 8/10.**
+
+[VERIFIED] The primary artifacts support the existence of a complete 1,764-outcome rank-one POVM saturating the 12-parameter QFIM at \(\theta=0\), conditional on:
+
+- the YPZJ regular-outcome theorem being correctly quoted;
+- the documented model convention \(A_i=-2iB_i\);
+- treating the stored exact directions and bases as the grid being certified.
+
+The principal weakness is provenance/independence language, not the internal mathematical implication from the stored artifacts.
+
+## Claim-by-claim results
+
+| Claim | Verdict | Audit conclusion |
+|---|---|---|
+| (a) \(A M=b\), all 484 real equations | **CONFIRMED** | Both recorded runs compute exact residuals over \(\mathbb Q\) or cleared-denominator \(\mathbb Z\); the integer result is derived from exact comparisons, not hardcoded output. |
+| (b) All 280 \(M_j\succ0\) | **CONFIRMED** | Rational elimination pivots and integer leading principal minors use exact sign comparisons. Floats are diagnostic only. |
+| (c) Lemma D produces regular rank-one outcomes | **CONFIRMED** | The Householder rotation makes all final last coordinates equal and positive before normalization; \(\omega=M_{NN}/N>0\). Exact \(Y_S\)-membership is separately recorded. |
+| (d) Completeness follows from \(AM=b\) | **CONFIRMED** | The 484 coordinates are exactly a real coordinate system for \(\mathrm{Herm}(22)\), and the upper-triangle moment convention has the correct off-diagonal symmetrization. |
+| (e) CFIM equals QFIM on the full \(12\times12\) matrix | **CONFIRMED, conditional on quoted YPZJ theorem** | The reduction to \(A_i^\dagger y=\xi_i x\), \(\xi_i\in\mathbb R\), is correct, and outcome-wise matrix equality sums to the complete QFIM. The external YPZJ paper itself was not among the primary artifacts and is therefore **UNCHECKED**. |
+
+### (a) Exact 484 equations
+
+**CONFIRMED.**
+
+The rational verifier:
+
+- builds its specialized lift matrix in [exact_cert.py, lines 43–96](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:43>);
+- solves \(G_Iy=r_I\) exactly in [lines 107–119](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:107>);
+- evaluates every row of `Afull * delta - r` and forms the violation list in [lines 120–124](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:120>).
+
+Its result records zero violations in [exact_cert_result.json, lines 2–6](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/exact_cert_result.json:2>).
+
+The integer verifier independently constructs lift columns from complete 22-dimensional vectors \(V_a\) and the generic formula
+
+\[
+V_aV_b^\dagger+V_bV_a^\dagger
+\]
+
+for \(a<b\), rather than reusing the specialized formulas. See [verify_exact_integer_v3.py, lines 79–119](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:79>). It does not import or call `exact_cert.py`.
+
+The denominator-clearing identity is also correct:
+
+\[
+M=\frac{W}{D_A D_n D_m},\qquad
+A=\frac{A_{\rm int}}{D_A},
+\]
+
+so \(AM=b\) is equivalent to
+
+\[
+A_{\rm int}W=D_A^2D_nD_m\,b.
+\]
+
+This is documented at [lines 10–12](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:10>) and implemented at [lines 164–180](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:164>).
+
+`rows_violated_exactly` is therefore not merely printed text: it is `len(violated)`, where `violated` comes from 484 exact integer equality comparisons. The JSON serialization uses that computed value at [lines 209–221](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:209>). The result and log record 484 checked and zero violated at [verify_exact_integer_v3.json, lines 4–10](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/verify_exact_integer_v3.json:4>) and [verify_exact_integer_v3.log, lines 8–25](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/verify_exact_integer_v3.log:8>).
+
+Important qualification: the exact corrected moments are not stored as a standalone common `M*` artifact. Each run reconstructs a candidate from the common floating starting moments plus an exact correction.
+
+### Is the integer construction truly independent?
+
+**Code-path independent: yes. Input independent: no.**
+
+- `exact_cert.py` uses specialized support/cross/kernel formulas: [lines 67–95](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:67>).
+- `verify_exact_integer_v3.py` first forms complete 22-vectors and applies a generic outer-product lift: [lines 79–119](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:79>).
+
+But the phrase “same instance file” is not literally accurate for these two \(A\)-builders: **neither exact verifier reads the instance JSON.** Completeness \(A\) is built from the stored directions and bases. The instance is read by the separate \(Y_S\)-membership audit at [audit_ys_exact.py, lines 17–20 and 44–61](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/audit_ys_exact.py:17>).
+
+### (b) Exact positivity
+
+**CONFIRMED.**
+
+The rational verifier uses exact `fmpq` row elimination. Each successive pivot is an exact rational LU/LDL-type pivot; with earlier pivots nonzero, it equals the ratio of successive leading principal determinants. Requiring every pivot to be positive is therefore Sylvester’s criterion. The decision is made by `piv <= 0` on exact rationals at [exact_cert.py, lines 135–151](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:135>).
+
+`min_pivot_float` is computed only after the exact decisions, at [lines 151–152](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:151>). It is not on the critical path.
+
+The integer verifier reconstructs each symmetric \(W_j\), computes all leading principal determinants as exact `fmpz` integers, and rejects any determinant \(\le0\): [verify_exact_integer_v3.py, lines 182–205](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:182>).
+
+The sign convention is correct. Since
+
+\[
+M_j=\frac{W_j}{D_A D_n D_m}
+\]
+
+and all three common denominators are positive LCMs of positive rational denominators, this is a positive scalar rescaling. A \(p\times p\) leading minor is rescaled by a positive \(p\)-th power, preserving its sign.
+
+The result records 280 blocks checked and all exact-PD at [verify_exact_integer_v3.json, lines 9–10](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/verify_exact_integer_v3.json:9>).
+
+### (c) Lemma D and regular outcomes
+
+**CONFIRMED.**
+
+The proof in [THEOREM_S_PLUS_EXISTENCE_v6.md, lines 49–51](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/THEOREM_S_PLUS_EXISTENCE_v6.md:49>) is sound:
+
+1. \(M=CC^T\), with \(C\) invertible.
+2. \(g=C^Te_N\ne0\).
+3. A Householder orthogonal matrix sends \(g/\|g\|\) to \(h=(1,\ldots,1)/\sqrt N\).
+4. Hence every rotated column \(c'_k\) has the same last coordinate
+   \[
+   s=\|g\|/\sqrt N>0.
+   \]
+5. Dividing every \(c'_k\) by \(s\) gives \((\hat c_k)_N=1\), while placing \(s^2\) in the weight gives
+   \[
+   \omega=s^2=\frac{\|g\|^2}{N}=\frac{M_{NN}}N>0.
+   \]
+
+A raw Cholesky column having last coordinate different from 1 is therefore harmless. The column rotation makes the final last coordinates equal to the same positive \(s\); normalization makes them exactly 1. More generally, a nonzero real last coordinate could be absorbed into the weight, but a zero last coordinate would create an irregular support-free outcome. Lemma D specifically prevents that case.
+
+The exact membership audit checks each stored basis vector against
+
+\[
+A_i^\dagger y=\lambda_i x,\qquad \lambda_i\in\mathbb R
+\]
+
+using an independently coded cross-product and reality test at [audit_ys_exact.py, lines 73–103](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/audit_ys_exact.py:73>). It records 1,484 basis vectors, zero failures at [audit_ys_exact.json, lines 3–8](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/audit_ys_exact.json:3>).
+
+[VERIFIED] A lightweight read of the stored direction artifact found zero zero directions. None is exactly unit-normalized—also recorded in the audit JSON—but normalization is unnecessary. The theorem only requires \(x_j\ne0\), and
+
+\[
+\operatorname{Tr}(\rho E)
+=\omega\,x_j^\dagger Qx_j>0
+\]
+
+because \(Q\succ0\), \(\omega>0\), and \(x_j\ne0\). See [theorem lines 55–60](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/THEOREM_S_PLUS_EXISTENCE_v6.md:55>).
+
+### (d) Completeness and factor conventions
+
+**CONFIRMED.**
+
+The coordinate map in [theorem lines 32–38](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/THEOREM_S_PLUS_EXISTENCE_v6.md:32>) has:
+
+- 4 coordinates for \(\mathrm{Herm}(2)\);
+- 80 real coordinates for a \(2\times20\) complex cross block;
+- 400 coordinates for \(\mathrm{Herm}(20)\).
+
+Thus \(4+80+400=484=22^2\), and equality of all coordinates is equality in \(\mathrm{Herm}(22)\).
+
+The exact row convention is:
+
+- rows 0–3: \(\Re H_{00},\Re H_{01},\Re H_{11},\Im H_{01}\);
+- rows 4–83: real and imaginary parts of all 40 entries of \(H_{+0}\);
+- rows 84–293: real parts of the upper triangle of \(H_{00}\);
+- rows 294–483: imaginary parts of its strict upper triangle.
+
+This is implemented generically at [integer verifier, lines 102–117](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:102>). The identity right-hand side is placed in support and kernel diagonal rows at [lines 171–177](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:171>).
+
+There is no missing factor of two:
+
+- for \(a=b\), the column is \(v_av_a^\dagger\);
+- for \(a<b\), the stored upper-triangle moment \(M_{ab}\) multiplies
+  \[
+  v_av_b^\dagger+v_bv_a^\dagger.
+  \]
+
+That convention is explicit in `S_` at [lines 91–95](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:91>) and matches expansion of the full symmetric sum \(\sum_{a,b}M_{ab}v_av_b^\dagger\).
+
+For a cross moment \(a<m,b=m\), the upper-right block receives \(xB_a^\dagger\); its Hermitian conjugate automatically occupies the lower-left block. It must not be doubled in the stored upper-right coordinate. The specialized rational implementation does exactly this at [exact_cert.py, lines 78–83](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:78>).
+
+Therefore
+
+\[
+AM=b
+\iff
+\sum_{j,k}\omega_j u_{j,k}u_{j,k}^\dagger=I_{22}.
+\]
+
+### (e) YPZJ regular saturation and the full matrix
+
+**CONFIRMED as an application; external theorem source UNCHECKED.**
+
+The theorem artifact quotes the regular-outcome condition
+
+\[
+\Pi L_i\rho=\xi_i\Pi\rho,\qquad \xi_i\in\mathbb R
+\]
+
+at [lines 22–26](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/THEOREM_S_PLUS_EXISTENCE_v6.md:22>).
+
+For \(\Pi=d\,uu^\dagger\), \(u=(\alpha;y)\), the reduction is correct:
+
+\[
+u^\dagger L_i\rho=\xi_i u^\dagger\rho
+\iff y^\dagger A_iQ=\xi_i\alpha^\dagger Q
+\iff A_i^\dagger y=\xi_i\alpha,
+\]
+
+because \(Q\succ0\) is invertible and \(\xi_i\) is real. This is stated at [lines 25–28](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/THEOREM_S_PLUS_EXISTENCE_v6.md:25>).
+
+With \(\alpha=x_j\) and \(y\) a real linear combination of the stored \(B_{j,a}\), exact \(Y_S\)-membership supplies precisely that condition.
+
+It also gives equality as a full matrix, not merely equality of traces. For one outcome:
+
+\[
+\partial_i p_k=\xi_{k,i}p_k,
+\]
+
+so its CFI contribution is
+
+\[
+\frac{\partial_i p_k\,\partial_j p_k}{p_k}
+=p_k\xi_{k,i}\xi_{k,j}.
+\]
+
+The same saturation condition makes the corresponding quantum-bound contribution equal to that expression for every pair \(i,j\). Summing over outcomes and using completeness gives
+
+\[
+\sum_k\Re\operatorname{Tr}(\rho L_iE_kL_j)
+=\Re\operatorname{Tr}(\rho L_iL_j)
+=F^Q_{ij}.
+\]
+
+This is the argument at [theorem lines 57–64](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/THEOREM_S_PLUS_EXISTENCE_v6.md:57>).
+
+[UNCHECKED] I did not independently inspect arXiv:1806.07337; it was not included among the primary artifacts. Thus I confirm the application of the theorem as quoted, not the external citation’s exact wording or hypotheses.
+
+## Shared inputs and actual independence
+
+The main certificate documents common inputs at [S_PLUS_CERTIFICATE_FINAL_v2.md, lines 30–37](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/S_PLUS_CERTIFICATE_FINAL_v2.md:30>), but the exact code reveals a more precise picture.
+
+### Literally shared by both exact scripts
+
+- `exact_bases2.pkl`, including both the 280 exact directions and all exact basis vectors.
+- `exact_sdp2_M.pkl`, the floating starting moment blocks. This shared input is omitted from the certificate’s “both runs use” list, even though both scripts load it:
+  - [exact_cert.py, lines 14–18](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:14>);
+  - [integer verifier, lines 27–33](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:27>).
+- The same 175 row indices in value:
+  - rational run loads `indep_rows.npy` at [exact_cert.py, line 107](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:107>);
+  - integer run loads `CK["I"]` at [integer verifier, lines 29–36](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:29>).
+
+[VERIFIED] A read-only comparison showed `CK["I"]` is exactly identical to `indep_rows.npy`.
+
+### Not literally a shared input
+
+The certificate says both runs share `y`, but that is imprecise:
+
+- the rational run does **not** read the checkpoint; it solves \(G_Iy=r_I\) itself at [exact_cert.py, lines 107–119](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:107>);
+- the integer run reads the stored checkpoint \(y\) at [integer verifier, lines 138–143](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:138>).
+
+The primary artifacts do not compare the checkpoint \(y\) to the \(y\) computed during the rational run. Consequently, “the identical exact \(M^*\) was checked twice” is **UNCHECKED**. What is confirmed is stronger enough for existence but slightly different: each recorded run verifies an exact feasible PD candidate reconstructed through its own \(y\) path.
+
+### Direction source and instance
+
+Neither exact verifier directly reads:
+
+- `s14_povm_prefix12.npz`;
+- `instance_d22_r2_s16.jsonl`.
+
+Those are upstream provenance sources for `exact_bases2.pkl`, not direct verifier inputs.
+
+[VERIFIED] The recorded SHA-256 prefixes in the certificate match the files inspected:
+
+- bases: `fbca57fa…`;
+- checkpoint: `1d6cdf94…`;
+- row list: `0b0f3a4f…`;
+- direction source: `8ab6f458…`;
+- instance: `05289920…`;
+- integer script/result/log: `826d2408…`, `f255dec4…`, `a2e178d…`.
+
+[VERIFIED] The stored directions lie on the same complex lines as the first two components of the direction-source vectors to about \(1.6\times10^{-10}\) maximum residual after optimal complex rescaling. That is only a provenance consistency check, not an exact regeneration.
+
+As instructed, `exact_bases2.pkl`, `exact_povm_y_checkpoint.pkl`, and `indep_rows.npy` were **not regenerated**.
+
+### What independent regeneration would require
+
+A reviewer seeking end-to-end independence should:
+
+1. Independently decode the integer instance into \(A_i\), explicitly confirming \(A_i=-2iB_i\).
+2. Starting from `s14_povm_prefix12.npz`, independently reproduce the phase/scale convention and deterministic rationalization that creates the exact \(x_j\).
+3. Independently solve the exact \(Y_{S+}(x_j)\) systems and generate basis vectors, rather than loading `exact_bases2.pkl`.
+4. Recheck every basis vector’s exact membership.
+5. Independently obtain starting moments or construct another candidate; `exact_sdp2_M.pkl` is currently shared.
+6. Select independent rows through exact rank computation—or avoid a stored row subset entirely.
+7. Recompute \(y\), the corrected moment blocks, all 484 residuals, and all 280 exact positivity decisions.
+8. Independently inspect the YPZJ theorem and the model convention C2.
+
+The source-to-bases build scripts were not among the requested primary artifacts and were not audited here.
+
+## Numerical control
+
+**CONFIRMED as reference-only and correctly labelled.**
+
+The reported \(2.4279\times10^{-12}\) is the **relative trace deficit**, not the matrix error. The same result gives:
+
+- completeness max error: \(1.7952\times10^{-11}\);
+- relative trace deficit: \(2.4279\times10^{-12}\);
+- matrix max error: \(1.4687\times10^{-10}\).
+
+See [control_differential.json, lines 2–9](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/control_differential.json:2>).
+
+It uses the floating `exact_sdp2_M.pkl` blocks directly, not the exact corrected integer-run moments: [control_differential.py, lines 5–11 and 25–28](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/control_differential.py:5>). The code explicitly says “not a proof” at lines 11 and 167, and the output repeats that qualification at [JSON lines 47–51](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/control_differential.json:47>).
+
+The main certificate also labels it a float implementation/reference at [lines 45–46](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/S_PLUS_CERTIFICATE_FINAL_v2.md:45>). That labeling is appropriate.
+
+## Most likely error and final assessment
+
+**Single most likely error:** the certificate overstates the relationship between the two exact runs by saying they share \(y\) and implying that the same exact \(M^*\) was reverified twice. The code shows that the rational run computes \(y\), while the integer run loads a later checkpoint \(y\); their equality is not established. Conversely, the genuinely shared floating starting moments `exact_sdp2_M.pkl` are omitted from the shared-input list.
+
+This does **not** refute existence: the integer path independently verifies all 484 equations and positivity for the candidate it reconstructs, and the rational path records the same properties for its candidate. It does weaken the narrower claim “two checks of one identical stored rational certificate.”
+
+**Shared-input dependence:** primarily a **documentation/provenance gap, not a proof gap**, for existence on the stored exact grid. Candidate-generation inputs may be shared without invalidating an exact property verifier. It becomes a proof-scope issue only if the claim is strengthened from “existence for these stored exact \(x_j,B_{j,a}\)” to “independently reproduced from the raw discovery source and original physical instance.”
+
+**Final verdict: PASS WITH CONDITIONS, confidence 8/10.**
+
+Implemented: none; this was read-only.
+
+Verified: all listed text/code/JSON primary artifacts were read; binary inputs were inspected read-only for structure, equality of row lists, hashes, nonzero directions, and source-line consistency. The 81-minute and 3.2-hour computations were not rerun.
+tokens used
+70 541
+## Audit verdict
+
+**PASS WITH CONDITIONS — confidence 8/10.**
+
+[VERIFIED] The primary artifacts support the existence of a complete 1,764-outcome rank-one POVM saturating the 12-parameter QFIM at \(\theta=0\), conditional on:
+
+- the YPZJ regular-outcome theorem being correctly quoted;
+- the documented model convention \(A_i=-2iB_i\);
+- treating the stored exact directions and bases as the grid being certified.
+
+The principal weakness is provenance/independence language, not the internal mathematical implication from the stored artifacts.
+
+## Claim-by-claim results
+
+| Claim | Verdict | Audit conclusion |
+|---|---|---|
+| (a) \(A M=b\), all 484 real equations | **CONFIRMED** | Both recorded runs compute exact residuals over \(\mathbb Q\) or cleared-denominator \(\mathbb Z\); the integer result is derived from exact comparisons, not hardcoded output. |
+| (b) All 280 \(M_j\succ0\) | **CONFIRMED** | Rational elimination pivots and integer leading principal minors use exact sign comparisons. Floats are diagnostic only. |
+| (c) Lemma D produces regular rank-one outcomes | **CONFIRMED** | The Householder rotation makes all final last coordinates equal and positive before normalization; \(\omega=M_{NN}/N>0\). Exact \(Y_S\)-membership is separately recorded. |
+| (d) Completeness follows from \(AM=b\) | **CONFIRMED** | The 484 coordinates are exactly a real coordinate system for \(\mathrm{Herm}(22)\), and the upper-triangle moment convention has the correct off-diagonal symmetrization. |
+| (e) CFIM equals QFIM on the full \(12\times12\) matrix | **CONFIRMED, conditional on quoted YPZJ theorem** | The reduction to \(A_i^\dagger y=\xi_i x\), \(\xi_i\in\mathbb R\), is correct, and outcome-wise matrix equality sums to the complete QFIM. The external YPZJ paper itself was not among the primary artifacts and is therefore **UNCHECKED**. |
+
+### (a) Exact 484 equations
+
+**CONFIRMED.**
+
+The rational verifier:
+
+- builds its specialized lift matrix in [exact_cert.py, lines 43–96](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:43>);
+- solves \(G_Iy=r_I\) exactly in [lines 107–119](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:107>);
+- evaluates every row of `Afull * delta - r` and forms the violation list in [lines 120–124](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:120>).
+
+Its result records zero violations in [exact_cert_result.json, lines 2–6](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/exact_cert_result.json:2>).
+
+The integer verifier independently constructs lift columns from complete 22-dimensional vectors \(V_a\) and the generic formula
+
+\[
+V_aV_b^\dagger+V_bV_a^\dagger
+\]
+
+for \(a<b\), rather than reusing the specialized formulas. See [verify_exact_integer_v3.py, lines 79–119](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:79>). It does not import or call `exact_cert.py`.
+
+The denominator-clearing identity is also correct:
+
+\[
+M=\frac{W}{D_A D_n D_m},\qquad
+A=\frac{A_{\rm int}}{D_A},
+\]
+
+so \(AM=b\) is equivalent to
+
+\[
+A_{\rm int}W=D_A^2D_nD_m\,b.
+\]
+
+This is documented at [lines 10–12](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:10>) and implemented at [lines 164–180](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:164>).
+
+`rows_violated_exactly` is therefore not merely printed text: it is `len(violated)`, where `violated` comes from 484 exact integer equality comparisons. The JSON serialization uses that computed value at [lines 209–221](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:209>). The result and log record 484 checked and zero violated at [verify_exact_integer_v3.json, lines 4–10](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/verify_exact_integer_v3.json:4>) and [verify_exact_integer_v3.log, lines 8–25](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/verify_exact_integer_v3.log:8>).
+
+Important qualification: the exact corrected moments are not stored as a standalone common `M*` artifact. Each run reconstructs a candidate from the common floating starting moments plus an exact correction.
+
+### Is the integer construction truly independent?
+
+**Code-path independent: yes. Input independent: no.**
+
+- `exact_cert.py` uses specialized support/cross/kernel formulas: [lines 67–95](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:67>).
+- `verify_exact_integer_v3.py` first forms complete 22-vectors and applies a generic outer-product lift: [lines 79–119](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:79>).
+
+But the phrase “same instance file” is not literally accurate for these two \(A\)-builders: **neither exact verifier reads the instance JSON.** Completeness \(A\) is built from the stored directions and bases. The instance is read by the separate \(Y_S\)-membership audit at [audit_ys_exact.py, lines 17–20 and 44–61](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/audit_ys_exact.py:17>).
+
+### (b) Exact positivity
+
+**CONFIRMED.**
+
+The rational verifier uses exact `fmpq` row elimination. Each successive pivot is an exact rational LU/LDL-type pivot; with earlier pivots nonzero, it equals the ratio of successive leading principal determinants. Requiring every pivot to be positive is therefore Sylvester’s criterion. The decision is made by `piv <= 0` on exact rationals at [exact_cert.py, lines 135–151](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:135>).
+
+`min_pivot_float` is computed only after the exact decisions, at [lines 151–152](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:151>). It is not on the critical path.
+
+The integer verifier reconstructs each symmetric \(W_j\), computes all leading principal determinants as exact `fmpz` integers, and rejects any determinant \(\le0\): [verify_exact_integer_v3.py, lines 182–205](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:182>).
+
+The sign convention is correct. Since
+
+\[
+M_j=\frac{W_j}{D_A D_n D_m}
+\]
+
+and all three common denominators are positive LCMs of positive rational denominators, this is a positive scalar rescaling. A \(p\times p\) leading minor is rescaled by a positive \(p\)-th power, preserving its sign.
+
+The result records 280 blocks checked and all exact-PD at [verify_exact_integer_v3.json, lines 9–10](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/verify_exact_integer_v3.json:9>).
+
+### (c) Lemma D and regular outcomes
+
+**CONFIRMED.**
+
+The proof in [THEOREM_S_PLUS_EXISTENCE_v6.md, lines 49–51](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/THEOREM_S_PLUS_EXISTENCE_v6.md:49>) is sound:
+
+1. \(M=CC^T\), with \(C\) invertible.
+2. \(g=C^Te_N\ne0\).
+3. A Householder orthogonal matrix sends \(g/\|g\|\) to \(h=(1,\ldots,1)/\sqrt N\).
+4. Hence every rotated column \(c'_k\) has the same last coordinate
+   \[
+   s=\|g\|/\sqrt N>0.
+   \]
+5. Dividing every \(c'_k\) by \(s\) gives \((\hat c_k)_N=1\), while placing \(s^2\) in the weight gives
+   \[
+   \omega=s^2=\frac{\|g\|^2}{N}=\frac{M_{NN}}N>0.
+   \]
+
+A raw Cholesky column having last coordinate different from 1 is therefore harmless. The column rotation makes the final last coordinates equal to the same positive \(s\); normalization makes them exactly 1. More generally, a nonzero real last coordinate could be absorbed into the weight, but a zero last coordinate would create an irregular support-free outcome. Lemma D specifically prevents that case.
+
+The exact membership audit checks each stored basis vector against
+
+\[
+A_i^\dagger y=\lambda_i x,\qquad \lambda_i\in\mathbb R
+\]
+
+using an independently coded cross-product and reality test at [audit_ys_exact.py, lines 73–103](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/audit_ys_exact.py:73>). It records 1,484 basis vectors, zero failures at [audit_ys_exact.json, lines 3–8](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/audit_ys_exact.json:3>).
+
+[VERIFIED] A lightweight read of the stored direction artifact found zero zero directions. None is exactly unit-normalized—also recorded in the audit JSON—but normalization is unnecessary. The theorem only requires \(x_j\ne0\), and
+
+\[
+\operatorname{Tr}(\rho E)
+=\omega\,x_j^\dagger Qx_j>0
+\]
+
+because \(Q\succ0\), \(\omega>0\), and \(x_j\ne0\). See [theorem lines 55–60](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/THEOREM_S_PLUS_EXISTENCE_v6.md:55>).
+
+### (d) Completeness and factor conventions
+
+**CONFIRMED.**
+
+The coordinate map in [theorem lines 32–38](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/THEOREM_S_PLUS_EXISTENCE_v6.md:32>) has:
+
+- 4 coordinates for \(\mathrm{Herm}(2)\);
+- 80 real coordinates for a \(2\times20\) complex cross block;
+- 400 coordinates for \(\mathrm{Herm}(20)\).
+
+Thus \(4+80+400=484=22^2\), and equality of all coordinates is equality in \(\mathrm{Herm}(22)\).
+
+The exact row convention is:
+
+- rows 0–3: \(\Re H_{00},\Re H_{01},\Re H_{11},\Im H_{01}\);
+- rows 4–83: real and imaginary parts of all 40 entries of \(H_{+0}\);
+- rows 84–293: real parts of the upper triangle of \(H_{00}\);
+- rows 294–483: imaginary parts of its strict upper triangle.
+
+This is implemented generically at [integer verifier, lines 102–117](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:102>). The identity right-hand side is placed in support and kernel diagonal rows at [lines 171–177](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:171>).
+
+There is no missing factor of two:
+
+- for \(a=b\), the column is \(v_av_a^\dagger\);
+- for \(a<b\), the stored upper-triangle moment \(M_{ab}\) multiplies
+  \[
+  v_av_b^\dagger+v_bv_a^\dagger.
+  \]
+
+That convention is explicit in `S_` at [lines 91–95](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:91>) and matches expansion of the full symmetric sum \(\sum_{a,b}M_{ab}v_av_b^\dagger\).
+
+For a cross moment \(a<m,b=m\), the upper-right block receives \(xB_a^\dagger\); its Hermitian conjugate automatically occupies the lower-left block. It must not be doubled in the stored upper-right coordinate. The specialized rational implementation does exactly this at [exact_cert.py, lines 78–83](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:78>).
+
+Therefore
+
+\[
+AM=b
+\iff
+\sum_{j,k}\omega_j u_{j,k}u_{j,k}^\dagger=I_{22}.
+\]
+
+### (e) YPZJ regular saturation and the full matrix
+
+**CONFIRMED as an application; external theorem source UNCHECKED.**
+
+The theorem artifact quotes the regular-outcome condition
+
+\[
+\Pi L_i\rho=\xi_i\Pi\rho,\qquad \xi_i\in\mathbb R
+\]
+
+at [lines 22–26](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/THEOREM_S_PLUS_EXISTENCE_v6.md:22>).
+
+For \(\Pi=d\,uu^\dagger\), \(u=(\alpha;y)\), the reduction is correct:
+
+\[
+u^\dagger L_i\rho=\xi_i u^\dagger\rho
+\iff y^\dagger A_iQ=\xi_i\alpha^\dagger Q
+\iff A_i^\dagger y=\xi_i\alpha,
+\]
+
+because \(Q\succ0\) is invertible and \(\xi_i\) is real. This is stated at [lines 25–28](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/THEOREM_S_PLUS_EXISTENCE_v6.md:25>).
+
+With \(\alpha=x_j\) and \(y\) a real linear combination of the stored \(B_{j,a}\), exact \(Y_S\)-membership supplies precisely that condition.
+
+It also gives equality as a full matrix, not merely equality of traces. For one outcome:
+
+\[
+\partial_i p_k=\xi_{k,i}p_k,
+\]
+
+so its CFI contribution is
+
+\[
+\frac{\partial_i p_k\,\partial_j p_k}{p_k}
+=p_k\xi_{k,i}\xi_{k,j}.
+\]
+
+The same saturation condition makes the corresponding quantum-bound contribution equal to that expression for every pair \(i,j\). Summing over outcomes and using completeness gives
+
+\[
+\sum_k\Re\operatorname{Tr}(\rho L_iE_kL_j)
+=\Re\operatorname{Tr}(\rho L_iL_j)
+=F^Q_{ij}.
+\]
+
+This is the argument at [theorem lines 57–64](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/THEOREM_S_PLUS_EXISTENCE_v6.md:57>).
+
+[UNCHECKED] I did not independently inspect arXiv:1806.07337; it was not included among the primary artifacts. Thus I confirm the application of the theorem as quoted, not the external citation’s exact wording or hypotheses.
+
+## Shared inputs and actual independence
+
+The main certificate documents common inputs at [S_PLUS_CERTIFICATE_FINAL_v2.md, lines 30–37](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/S_PLUS_CERTIFICATE_FINAL_v2.md:30>), but the exact code reveals a more precise picture.
+
+### Literally shared by both exact scripts
+
+- `exact_bases2.pkl`, including both the 280 exact directions and all exact basis vectors.
+- `exact_sdp2_M.pkl`, the floating starting moment blocks. This shared input is omitted from the certificate’s “both runs use” list, even though both scripts load it:
+  - [exact_cert.py, lines 14–18](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:14>);
+  - [integer verifier, lines 27–33](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:27>).
+- The same 175 row indices in value:
+  - rational run loads `indep_rows.npy` at [exact_cert.py, line 107](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:107>);
+  - integer run loads `CK["I"]` at [integer verifier, lines 29–36](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:29>).
+
+[VERIFIED] A read-only comparison showed `CK["I"]` is exactly identical to `indep_rows.npy`.
+
+### Not literally a shared input
+
+The certificate says both runs share `y`, but that is imprecise:
+
+- the rational run does **not** read the checkpoint; it solves \(G_Iy=r_I\) itself at [exact_cert.py, lines 107–119](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/exact_cert.py:107>);
+- the integer run reads the stored checkpoint \(y\) at [integer verifier, lines 138–143](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/verify_exact_integer_v3.py:138>).
+
+The primary artifacts do not compare the checkpoint \(y\) to the \(y\) computed during the rational run. Consequently, “the identical exact \(M^*\) was checked twice” is **UNCHECKED**. What is confirmed is stronger enough for existence but slightly different: each recorded run verifies an exact feasible PD candidate reconstructed through its own \(y\) path.
+
+### Direction source and instance
+
+Neither exact verifier directly reads:
+
+- `s14_povm_prefix12.npz`;
+- `instance_d22_r2_s16.jsonl`.
+
+Those are upstream provenance sources for `exact_bases2.pkl`, not direct verifier inputs.
+
+[VERIFIED] The recorded SHA-256 prefixes in the certificate match the files inspected:
+
+- bases: `fbca57fa…`;
+- checkpoint: `1d6cdf94…`;
+- row list: `0b0f3a4f…`;
+- direction source: `8ab6f458…`;
+- instance: `05289920…`;
+- integer script/result/log: `826d2408…`, `f255dec4…`, `a2e178d…`.
+
+[VERIFIED] The stored directions lie on the same complex lines as the first two components of the direction-source vectors to about \(1.6\times10^{-10}\) maximum residual after optimal complex rescaling. That is only a provenance consistency check, not an exact regeneration.
+
+As instructed, `exact_bases2.pkl`, `exact_povm_y_checkpoint.pkl`, and `indep_rows.npy` were **not regenerated**.
+
+### What independent regeneration would require
+
+A reviewer seeking end-to-end independence should:
+
+1. Independently decode the integer instance into \(A_i\), explicitly confirming \(A_i=-2iB_i\).
+2. Starting from `s14_povm_prefix12.npz`, independently reproduce the phase/scale convention and deterministic rationalization that creates the exact \(x_j\).
+3. Independently solve the exact \(Y_{S+}(x_j)\) systems and generate basis vectors, rather than loading `exact_bases2.pkl`.
+4. Recheck every basis vector’s exact membership.
+5. Independently obtain starting moments or construct another candidate; `exact_sdp2_M.pkl` is currently shared.
+6. Select independent rows through exact rank computation—or avoid a stored row subset entirely.
+7. Recompute \(y\), the corrected moment blocks, all 484 residuals, and all 280 exact positivity decisions.
+8. Independently inspect the YPZJ theorem and the model convention C2.
+
+The source-to-bases build scripts were not among the requested primary artifacts and were not audited here.
+
+## Numerical control
+
+**CONFIRMED as reference-only and correctly labelled.**
+
+The reported \(2.4279\times10^{-12}\) is the **relative trace deficit**, not the matrix error. The same result gives:
+
+- completeness max error: \(1.7952\times10^{-11}\);
+- relative trace deficit: \(2.4279\times10^{-12}\);
+- matrix max error: \(1.4687\times10^{-10}\).
+
+See [control_differential.json, lines 2–9](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/control_differential.json:2>).
+
+It uses the floating `exact_sdp2_M.pkl` blocks directly, not the exact corrected integer-run moments: [control_differential.py, lines 5–11 and 25–28](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/code/control_differential.py:5>). The code explicitly says “not a proof” at lines 11 and 167, and the output repeats that qualification at [JSON lines 47–51](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/stage_e_v1/logs/control_differential.json:47>).
+
+The main certificate also labels it a float implementation/reference at [lines 45–46](<E:/Проверка Гипотез/работаю над проверкой гипотез/Y-17 100 gipotez/experiments/20261028-h-cat56-2-phase4/S_PLUS_CERTIFICATE_FINAL_v2.md:45>). That labeling is appropriate.
+
+## Most likely error and final assessment
+
+**Single most likely error:** the certificate overstates the relationship between the two exact runs by saying they share \(y\) and implying that the same exact \(M^*\) was reverified twice. The code shows that the rational run computes \(y\), while the integer run loads a later checkpoint \(y\); their equality is not established. Conversely, the genuinely shared floating starting moments `exact_sdp2_M.pkl` are omitted from the shared-input list.
+
+This does **not** refute existence: the integer path independently verifies all 484 equations and positivity for the candidate it reconstructs, and the rational path records the same properties for its candidate. It does weaken the narrower claim “two checks of one identical stored rational certificate.”
+
+**Shared-input dependence:** primarily a **documentation/provenance gap, not a proof gap**, for existence on the stored exact grid. Candidate-generation inputs may be shared without invalidating an exact property verifier. It becomes a proof-scope issue only if the claim is strengthened from “existence for these stored exact \(x_j,B_{j,a}\)” to “independently reproduced from the raw discovery source and original physical instance.”
+
+**Final verdict: PASS WITH CONDITIONS, confidence 8/10.**
+
+Implemented: none; this was read-only.
+
+Verified: all listed text/code/JSON primary artifacts were read; binary inputs were inspected read-only for structure, equality of row lists, hashes, nonzero directions, and source-line consistency. The 81-minute and 3.2-hour computations were not rerun.

@@ -1,0 +1,22 @@
+leaves 3955841, chunks total 7912, to do 722, workers 8, final gap trR-20s > 0: True
+50000/360841 remaining done, ok 50000, fails 0, 543s
+100000/360841 remaining done, ok 100000, fails 0, 966s
+150000/360841 remaining done, ok 150000, fails 0, 1393s
+200000/360841 remaining done, ok 200000, fails 0, 1939s
+250000/360841 remaining done, ok 250000, fails 0, 2653s
+300000/360841 remaining done, ok 300000, fails 0, 3206s
+350000/360841 remaining done, ok 350000, fails 0, 3749s
+{
+ "chunks_processed_this_run": 722,
+ "chunks_total": 7912,
+ "covered_by_both_progress_files": true,
+ "rigorous_ok_this_run": 360841,
+ "rigorous_fail_this_run": 0,
+ "final_gap_trR_minus_20s": 0.030405245308261095,
+ "s_target": 0.01368236038871751,
+ "min_slack_abs_this_run": 0.006141902934143858,
+ "max_B_up_this_run": 0.007540457454573653,
+ "prec_bits": 192,
+ "seconds": 3902.9,
+ "note": "resume of chunks missing from interval_full_progress.jsonl; per-leaf exceptions recorded as failures"
+}

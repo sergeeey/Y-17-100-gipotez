@@ -1,0 +1,9 @@
+{
+ "instance_file_used": "E:\\Проверка Гипотез\\работаю над проверкой гипотез\\Y-17 100 gipotez\\experiments\\20261027-h-cat56-2-submission-package-v1\\data\\instance_d22_r2_s16.jsonl",
+ "n_directions": 280,
+ "n_basis_vectors_total": 1484,
+ "membership_failures": 0,
+ "unit_norm_directions": 0,
+ "first_failure": null,
+ "membership_exact_pass": true
+}

@@ -1,0 +1,22 @@
+{
+ "leaves_in_file": 3955841,
+ "distinct_leaves": 3955841,
+ "tree_leaves_matched": 3955841,
+ "tree_nodes_visited": 5274284,
+ "stop_depth": 10,
+ "uncovered_cells_at_max_depth": 0,
+ "accepted_by_depth": [
+  0,
+  0,
+  0,
+  0,
+  14320,
+  250251,
+  672220,
+  559450,
+  505151,
+  1343061,
+  611388
+ ],
+ "verdict": "TILING_EXACT"
+}

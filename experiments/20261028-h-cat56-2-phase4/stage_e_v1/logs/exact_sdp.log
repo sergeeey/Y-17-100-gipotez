@@ -1,0 +1,10 @@
+E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4\stage_e_v1\code\sdp_feas.py:74: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  prob.solve(solver=solver, verbose=verbose, **kw)
+{
+ "status": "optimal_inaccurate",
+ "seconds": 1339.6,
+ "res_I2": 9.99252507563225e-16,
+ "res_cross": 0.0,
+ "res_I20": 0.027569916592627974,
+ "min_eig_M": -1.6256690378473944e-05
+}

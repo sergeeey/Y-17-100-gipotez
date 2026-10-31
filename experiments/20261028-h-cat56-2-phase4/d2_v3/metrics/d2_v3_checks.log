@@ -1,0 +1,12 @@
+E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4\d2_v3\code\d2_v3_checks.py:75: LinAlgWarning: Matrix is singular. The result might be inaccurate or the array might not have a square root.
+  Ph = sqrtm(P)  # complex-valued sqrtm of a Hermitian PSD matrix: keep it
+E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4\d2_v3\code\d2_v3_checks.py:104: LinAlgWarning: Matrix is singular. The result might be inaccurate or the array might not have a square root.
+  B = sqrtm(P) @ Z
+PASS C1 block identity, P>0 and rank(P)=1 (pinv) | max rel err 5.46e-16 (identity is algebraic; the nonnegativity is checked in C1b)
+PASS C1b Schur equivalence: E PSD <=> R PSD on random trials (both signs occur) | agreements 200/200; E PSD in 85, E not PSD in 115
+PASS C2a equality bracket vanishes for c = mu P Q, mu in {0.7,-0.7,-3.2} | values -4.4e-16, -4.4e-16, 1.4e-14
+PASS C2b necessity probe: bracket/eps^2 stays positive and finite as eps -> 0 | bracket/eps^2 at eps=1e-2,1e-3,1e-4: 4.145108e+01, 4.145108e+01, 4.145108e+01
+PASS C3 F_U: null outcome with h^T N h = 0 gives p(t h) = 0 | h^T N h = -8.04e-15; max |p(t h)| over t in {0.1,0.3,1} = 3.40e-17
+PASS C4 F_U: null outcome, h^T N h > 0: CFIM(t h) -> (Nh)(Nh)^T/(hNh) | relative error at t = 1e-2, 1e-3, 1e-4: 6.86e-01, 9.48e-03, 9.51e-05
+INFO C5 existence of B with B A_a = mu_a P (random real mu, P = I): relative residual 6.14e-01; rank 40 of 40 unknowns
+ALL PASS

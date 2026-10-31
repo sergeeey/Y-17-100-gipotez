@@ -1,0 +1,9 @@
+{
+ "independent_rows": 175,
+ "G_I_invertible_exact": true,
+ "rows_violated_exactly": 0,
+ "first_violated": [],
+ "all_M_positive_definite_exact": true,
+ "min_pivot_float": 0.0010907170406273098,
+ "seconds": 11387.1
+}

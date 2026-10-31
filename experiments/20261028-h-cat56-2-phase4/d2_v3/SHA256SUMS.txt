@@ -1,0 +1,8 @@
+4d7e50f0879c20aca8676de8feb603650138e137f24cdf1d2463f4dafccb53a0 *experiments/20261028-h-cat56-2-phase4/D2_CONE_TRANSFER_v3.md
+22313adf69df5752521438fc4d7be06442e5b0dcdc7ecf888e76ec092a9e719e *experiments/20261028-h-cat56-2-phase4/d2_v3/code/d2_v3_checks.py
+633f00fb36bd929b42c5efda1f51db7aab47795fd92682e9c497ec92b6a50411 *experiments/20261028-h-cat56-2-phase4/d2_v3/metrics/d2_v3_checks.log
+8261a3f8aa8d6cd065e0fc2b523dbd989d02a85195ae1795faf6514db7f04f84 *experiments/20261028-h-cat56-2-phase4/d2_v3/code/d2_v3_S_checks.py
+97b8f56da56f126ad1ae095efec66cc1be519cc43ef3a0866155c9907cce564a *experiments/20261028-h-cat56-2-phase4/d2_v3/metrics/d2_v3_S_checks.log
+ae33120561f787aa04ff3e5628bc039bb09e192da848df8fe05313993a3a3ca7 *experiments/20261028-h-cat56-2-phase4/D2_G5_TAIL_v1.md
+e7fa800b650a185b813f91b1b3d577538c9b067905bd801d752d9c5bdb673cef *experiments/20261028-h-cat56-2-phase4/d2_v3/code/g5_countable_check.py
+30069211e2a4aba74b48e499439ff4ad7fcb377eebe9df7fde5eba475694144b *experiments/20261028-h-cat56-2-phase4/d2_v3/metrics/g5_countable_check.log

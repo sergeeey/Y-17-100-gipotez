@@ -1,0 +1,4 @@
+direct A shape (484, 6566) stored A shape (484, 6566)
+max |A_direct - A_float| = 3.3306690738754696e-16 relative to max|A| = 3.3306690738754696e-16
+max |b_direct - rhs_float| = 0.0
+LIFT_ROWS_AGREE

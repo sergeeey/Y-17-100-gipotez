@@ -1,0 +1,6 @@
+s=0.1 jump=False: trFE=38.2469 trFQ(s)=60.8011 trFQ(0)=61.5137 hFEh=12.1001 hFQ0h=12.3991
+s=0.1 jump=True: trFE=37.2051 trFQ(s)=63.2301 trFQ(0)=61.5137 hFEh=15.8075 hFQ0h=12.3991
+s=0.01 jump=False: trFE=39.1722 trFQ(s)=61.5064 trFQ(0)=61.5137 hFEh=12.3962 hFQ0h=12.3991
+s=0.01 jump=True: trFE=38.7616 trFQ(s)=65.4904 trFQ(0)=61.5137 hFEh=16.3933 hFQ0h=12.3991
+s=0.001 jump=False: trFE=39.1814 trFQ(s)=61.5136 trFQ(0)=61.5137 hFEh=12.3991 hFQ0h=12.3991
+s=0.001 jump=True: trFE=38.7773 trFQ(s)=65.5134 trFQ(0)=61.5137 hFEh=16.3991 hFQ0h=12.3991

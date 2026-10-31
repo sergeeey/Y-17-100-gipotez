@@ -1,0 +1,65 @@
+You are an independent mathematical and software auditor. Work READ-ONLY. Do not write, modify, or delete any file. Do not run any command that writes into the directory tree. When you run Python, use `python -I` and read-only operations only. Do not run the scripts under `20261028-h-cat56-2-phase4/o3_v3/audit_tests/` (they write files); read them only.
+
+You have no prior verdicts. Do not assume that any claim in any document is correct. Derive each result yourself from the primary files listed below. Your job is to find defects, including by trying to construct counterexamples. Report honestly even if you find no defect.
+
+Working directory: the `experiments` folder. All paths below are relative to it.
+
+## Setting (stated neutrally)
+
+1. Instance: `20261027-h-cat56-2-submission-package-v1/data/instance_d22_r2_s16.jsonl`. The loader `load_A` in `20261027-h-cat56-2-discovery/code/s8_admissible_span.py` builds 16 complex matrices A_a in C^{20x2}, a = 0..15, as A = -2i (B_re + i B_im).
+
+2. For x in C^2 \ {0} and a subset S of block indices, define
+   Y_S(x) = { y in C^20 : A_a^dagger y = lambda_a x for all a in S, with real lambda_a }.
+   Real form: y -> (Re y, Im y) in R^40. `phi_rows(As, S, x)` returns a real matrix Phi_x of size 3|S| x 40 with three real rows per block a in S (see the function body).
+   For S = {4,...,15}: 36 rows.
+
+3. Separator: a fixed Hermitian 20x20 matrix R, stored under key "R" in `20261028-h-cat56-2-phase3/metrics/inputs/s14_R_4-5-6-7-8-9-10-11-12-13-14-15_nx250.npz`. Claimed statement: for every unit vector y in the union over x of Y_S(x),
+   y^dagger R y <= s*, where s* = fl(0.9 * tr R / 20) (binary64), and gamma := tr R - 20 s* > 0.
+
+4. Phase reduction: Y_S(e^{ia} x) = e^{ia} Y_S(x), so it suffices to take x = (cos(t/2), sin(t/2) e^{ip}), t in [0, pi], p in [0, 2 pi).
+
+5. Cells: `20261028-h-cat56-2-phase4/o3_v3/inputs/leaves.npy` is an array of 3,955,841 rows, each a cell [th_lo, th_hi, ph_lo, ph_hi] (verify the shape and the column meaning from the code). Leaves are grouped in chunks of 500 (chunk c = rows 500c .. 500c+499, last chunk 341 rows). The per-leaf certified bound is computed by `cell_bound` in `o3_v3/code/interval_cells_v3.py`.
+
+## What the code claims (check each item; do not take the code's comments as proof)
+
+The code claims that for every cell and every x in it, sup over unit y in ker Phi_x of y^T H y <= B_cert, where H is the real 40x40 form of R, and that B_cert < s* for every leaf. Functions and variables: build_cell (du, Phi0, G, Pinv, P, Z0), kernel_certificate, gram_defect, cell_bound (kappa, kappa_K, rho, lamK, mz, B, delta, B_cert), lam_max_upper (Gershgorin on V^-1 B V with arb), real_form_of_hermitian_part_arb, mn_up, final_gap.
+
+## Audit tasks. For each, give PASS / CONDITIONAL / FAIL, with file:line evidence, and a reproduction command with its output where relevant.
+
+1. Lemma behind cell_bound. Write the statement that cell_bound certifies, and prove or refute each step: (a) the displacement bound du on u(t,p) - u(t_c,p_c) in R^4; (b) Phi0 = sum_j u0_j PHI_j and the real-linearity of Phi_x in the real coordinates of x; (c) the decomposition y = P y + (I - P) y, with P the orthogonal projector onto ker Phi0, and the identity (I - P) y = -sum_j Delta u_j A_j y with A_j = Pinv PHI_j; (d) the bound ||(I-P) y|| <= kappa ||y|| and the restricted bound ||(I-P) y|| <= rho ||c|| for y = Z0 c + w; (e) yHy <= (lamK + 2 mz rho + mn_up rho^2) ||c||^2; (f) division by 1 - delta when ||y||^2 >= (1 - delta)||c||^2; (g) the sign handling of lamK. Identify any step that is wrong or unjustified.
+
+2. Real form. Verify, for R = A + iB, that y^dagger R y = [Re y; Im y]^T [[A, -B], [B, A]] [Re y; Im y] (or find the correct form). Compare with `real_form_of_hermitian_part_arb` in the code.
+
+3. phi_rows. Verify that the three real rows per block a encode exactly A_a^dagger y in R x, and that Phi_x is real-linear in the real 4-vector (Re x_0, Im x_0, Re x_1, Im x_1). Check that the code's basis PHI (built from x = [1,0], [1j,0], [0,1], [0,1j]) and coefficients u0 match this.
+
+4. Arb soundness. Check every decision and every bound on the path from the leaf to B_cert: which operations are arb, which are float, and whether any float conversion affects a bound (not only reporting). Check that comparisons are used as certain predicates (e.g. `one_minus > 0`, `s.upper() < 1`) and that every `.upper()` or `.lower()` is taken in the right direction. Check that `lam_max_upper` is a valid upper bound for the largest eigenvalue of a symmetric matrix, for any invertible similarity V.
+
+5. Threshold. Recompute tr R and s* from the npz with exact rational arithmetic (fractions). Verify the stored value 0.01368236038871751, and gamma >= 0.0304.
+
+6. Coverage. Check that the cells cover the parameter domain [0, pi] x [0, 2 pi) without gaps or overlaps, using leaves.npy. Report what you verified (for example: total area, min and max of the bounds, adjacency). A full exact tiling proof is not required; say what was and was not checked.
+
+7. Integrity. Compare the SHA-256 of `o3_v3/code/interval_cells_v3.py` and `o3_v3/code/o3_run_v3.py` with the entries in `o3_v3/metrics/run_manifest_runC.json` and `run_manifest_runD.json`. Compare the SHA-256 of `o3_v3/inputs/leaves.npy` and the input files with the same manifests. Decode 5 random record files `o3_v3/records/chunk_XXXXX.jsonl.gz`, check their SHA-256 against `o3_v3/metrics/o3v3_progress.jsonl`, and check that the leaf indices are consecutive.
+
+8. Counterexample search. Try to find (a) a cell and an x in it, and a unit y in ker Phi_x, such that y^T H y exceeds the B_cert of the containing cell; (b) a cell where the certificate passes but a step of the lemma is violated; (c) a leaf with B_cert >= s*. If you find a candidate, verify it numerically (with a short `python -I` script that writes nothing, using only standard library and numpy/flint if present) and report the exact numbers. Note: the cell parametrisation and the kernel are as described above.
+
+9. Final verdict on the O3 v3 certificate: PASS / CONDITIONAL / FAIL, with (i) the list of defects, each with its evidence and reproduction, (ii) the list of residual risks, (iii) the commands you ran.
+
+## Primary files to read
+
+- 20261028-h-cat56-2-phase4/o3_v3/code/interval_cells_v3.py
+- 20261028-h-cat56-2-phase4/o3_v3/code/o3_run_v3.py
+- 20261028-h-cat56-2-phase4/o3_v3/code/preflight_v3.py
+- 20261028-h-cat56-2-phase4/o3_v3/code/audit_v3_coverage.py
+- 20261027-h-cat56-2-discovery/code/s8_admissible_span.py
+- 20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md (cell lemmas and separator statement)
+- 20261028-h-cat56-2-phase4/THEOREM_NATURAL_D2_NOGO_v8.md (statement of the separator and of Theorem N)
+- 20261028-h-cat56-2-phase3/metrics/inputs/s14_R_4-5-6-7-8-9-10-11-12-13-14-15_nx250.npz (key R)
+- 20261027-h-cat56-2-submission-package-v1/data/instance_d22_r2_s16.jsonl
+- 20261028-h-cat56-2-phase4/o3_v3/inputs/leaves.npy
+- 20261028-h-cat56-2-phase4/o3_v3/metrics/o3v3_progress.jsonl
+- 20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runC.json and run_manifest_runD.json
+- 20261028-h-cat56-2-phase4/o3_v3/records/chunk_XXXXX.jsonl.gz (sample)
+
+Do NOT read these, because they contain earlier verdicts: anything under `20261028-h-cat56-2-phase4/review_package/`, `O3_AUDIT_RECORD.md`, `EVIDENCE_LEDGER*`, `O3_CLOSURE*`, `o3_v3/metrics/audit_run*.json`, `o3_v3/metrics/preflight_v3.json`, `o3_v2/`.
+
+Output: Markdown with sections 1 to 9. Be concrete: file:line, equations, commands with their output. Keep it under 3000 words.

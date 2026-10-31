@@ -1,0 +1,22 @@
+{
+ "arb_identities": {
+  "random_pairs": 2000,
+  "enclosure_failures": 0
+ },
+ "negative_controls": {
+  "broken_projector_rejected": true,
+  "broken_projector_reasons": [
+   "d: Phi0*P does not contain 0"
+  ],
+  "lowered_threshold_rejected": true
+ },
+ "positive_1000_closest": {
+  "cells": 1000,
+  "certified_with_arb_positive_slack": 1000,
+  "failed": [],
+  "early_cells_in_list": 248,
+  "stored_vs_v3_max_abs_deviation_reporting_only": 2.0816681711721685e-17,
+  "note": "slack and bup strings are arb enclosures; the deviation above is a float report, not a decision"
+ },
+ "PREFLIGHT_V3": "PASS"
+}

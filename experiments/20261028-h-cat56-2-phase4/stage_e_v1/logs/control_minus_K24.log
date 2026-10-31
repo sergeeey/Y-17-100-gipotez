@@ -1,0 +1,25 @@
+{
+ "set": "minus",
+ "S": [
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15
+ ],
+ "K_outcomes": 24,
+ "s": 0.02,
+ "direction": "uniform (1/sqrt(12) each)",
+ "sld_equation_max_err": 1.5847455075522194e-08,
+ "trace_QFIM": 59875.34487404406,
+ "best_trace_classical_FI_found": 59589.32405443971,
+ "deficit_found": 286.0208196043459,
+ "note": "numerical control, lower bound on the achievable classical FI only; not a proof"
+}

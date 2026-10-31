@@ -1,0 +1,9 @@
+grid points: 280  kernel dims: [4, 5, 6]
+{
+ "directions": "candidate x_k (280)",
+ "status": "optimal",
+ "seconds": 11653.0,
+ "t_min": 0.02979013129996705,
+ "n_t_positive": 280,
+ "sum_t": 11.5248722171476
+}

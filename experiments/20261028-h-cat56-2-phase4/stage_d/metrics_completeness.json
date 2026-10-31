@@ -1,0 +1,10 @@
+{
+ "K": 280,
+ "d": 22,
+ "prec_bits": 192,
+ "covers_zero": false,
+ "cert_upper_max_abs_residual": 8.613688890176334e-10,
+ "w_min": 2.3779849596265564e-08,
+ "weights_all_positive": true,
+ "criterion_residual_lt_wmin": true
+}

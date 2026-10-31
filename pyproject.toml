@@ -20,6 +20,11 @@ select = ["E", "F", "I", "UP", "RUF"]
 # them now would change what was verified. Scoped to these dated folders, not to experiments/**.
 "experiments/20261003-*/**" = ["E", "F", "I", "UP", "RUF"]
 "experiments/20261013-*/**" = ["E", "F", "I", "UP", "RUF"]
+# WHY: H-CAT56-2 phase 4 (2026-10-28 to 2026-11-01). Its scripts are the certified code: their
+# SHA-256 are pinned in run manifests and exact-arithmetic certificates (o3_v3/, stage_e_v1/), and
+# an independent audit read them as they are. Restyling would change what was verified. Scoped to
+# this one folder, not to experiments/**. Owner decision, 2026-11-01.
+"experiments/20261028-h-cat56-2-phase4/**" = ["E", "F", "I", "UP", "RUF"]
 # WHY: memory-audit 2026-10-14 harness; proposed/*_patched.py are generated copies of the live
 # global hooks (must stay byte-identical to what was tested), snapshots/ are frozen inputs.
 "tooling-eval/memory-audit-2026-10-14/**" = ["E501", "RUF001", "RUF002", "RUF003", "RUF005", "RUF012", "RUF015", "RUF059", "RUF100", "UP031"]

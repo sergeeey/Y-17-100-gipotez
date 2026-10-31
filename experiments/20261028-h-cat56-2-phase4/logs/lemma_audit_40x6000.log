@@ -1,0 +1,53 @@
+sig36=0.0118 B_up=1.368235e-02 g_max=1.086890e-03 slack=1.260e-02 du_r=0.745 w/rho=0.711 sliver=0.000
+sig36=0.0118 B_up=1.368235e-02 g_max=1.078411e-03 slack=1.260e-02 du_r=0.745 w/rho=0.729 sliver=0.000
+sig36=0.0116 B_up=1.368234e-02 g_max=1.007854e-03 slack=1.267e-02 du_r=0.745 w/rho=0.733 sliver=0.000
+sig36=0.0487 B_up=1.368233e-02 g_max=-4.642766e-03 slack=1.833e-02 du_r=0.745 w/rho=0.641 sliver=0.000
+sig36=0.0532 B_up=1.368233e-02 g_max=-8.547269e-03 slack=2.223e-02 du_r=0.713 w/rho=0.644 sliver=0.000
+sig36=0.0118 B_up=1.368233e-02 g_max=1.044329e-03 slack=1.264e-02 du_r=0.745 w/rho=0.776 sliver=0.000
+sig36=0.0158 B_up=1.368232e-02 g_max=-2.663366e-05 slack=1.371e-02 du_r=0.745 w/rho=0.687 sliver=0.000
+sig36=0.0114 B_up=1.368232e-02 g_max=7.937375e-04 slack=1.289e-02 du_r=0.745 w/rho=0.752 sliver=0.000
+sig36=0.0118 B_up=1.368232e-02 g_max=1.471109e-03 slack=1.221e-02 du_r=0.745 w/rho=0.721 sliver=0.000
+sig36=0.0113 B_up=1.368231e-02 g_max=1.475039e-03 slack=1.221e-02 du_r=0.745 w/rho=0.733 sliver=0.000
+sig36=0.0118 B_up=1.368231e-02 g_max=1.066847e-03 slack=1.262e-02 du_r=0.745 w/rho=0.773 sliver=0.000
+sig36=0.0104 B_up=1.368230e-02 g_max=-9.415629e-05 slack=1.378e-02 du_r=0.745 w/rho=0.745 sliver=0.000
+sig36=0.0510 B_up=1.368229e-02 g_max=-5.707107e-03 slack=1.939e-02 du_r=0.910 w/rho=0.701 sliver=0.000
+sig36=0.0115 B_up=1.368229e-02 g_max=1.515370e-03 slack=1.217e-02 du_r=0.745 w/rho=0.786 sliver=0.000
+sig36=0.0108 B_up=1.368229e-02 g_max=-3.085939e-04 slack=1.399e-02 du_r=0.745 w/rho=0.782 sliver=0.000
+sig36=0.0119 B_up=1.368228e-02 g_max=1.097275e-03 slack=1.259e-02 du_r=0.745 w/rho=0.724 sliver=0.000
+sig36=0.0118 B_up=1.368228e-02 g_max=1.044211e-03 slack=1.264e-02 du_r=0.745 w/rho=0.763 sliver=0.000
+sig36=0.0119 B_up=1.368228e-02 g_max=1.153590e-03 slack=1.253e-02 du_r=0.745 w/rho=0.776 sliver=0.000
+sig36=0.0210 B_up=1.368227e-02 g_max=-1.011124e-03 slack=1.469e-02 du_r=0.745 w/rho=0.719 sliver=0.000
+sig36=0.0118 B_up=1.368227e-02 g_max=1.077389e-03 slack=1.260e-02 du_r=0.745 w/rho=0.802 sliver=0.000
+sig36=0.0110 B_up=1.367932e-02 g_max=1.345848e-03 slack=1.233e-02 du_r=0.745 w/rho=0.825 sliver=0.000
+sig36=0.0795 B_up=1.368090e-02 g_max=-6.726982e-03 slack=2.041e-02 du_r=0.732 w/rho=0.560 sliver=0.000
+sig36=0.0118 B_up=1.368118e-02 g_max=1.085764e-03 slack=1.260e-02 du_r=0.745 w/rho=0.748 sliver=0.000
+sig36=0.0915 B_up=1.367952e-02 g_max=-1.018925e-02 slack=2.387e-02 du_r=0.744 w/rho=0.478 sliver=0.000
+sig36=0.0219 B_up=1.368064e-02 g_max=-6.913622e-03 slack=2.059e-02 du_r=0.745 w/rho=0.760 sliver=0.000
+sig36=0.0117 B_up=1.368034e-02 g_max=1.036118e-03 slack=1.264e-02 du_r=0.745 w/rho=0.738 sliver=0.000
+sig36=0.0118 B_up=1.368131e-02 g_max=1.043562e-03 slack=1.264e-02 du_r=0.745 w/rho=0.736 sliver=0.000
+sig36=0.0458 B_up=1.367961e-02 g_max=-5.251604e-03 slack=1.893e-02 du_r=0.742 w/rho=0.579 sliver=0.000
+sig36=0.0112 B_up=1.367896e-02 g_max=1.454071e-03 slack=1.222e-02 du_r=0.745 w/rho=0.743 sliver=0.000
+sig36=0.0181 B_up=1.368102e-02 g_max=-5.152538e-04 slack=1.420e-02 du_r=0.745 w/rho=0.664 sliver=0.000
+sig36=0.0118 B_up=1.368138e-02 g_max=1.454316e-03 slack=1.223e-02 du_r=0.745 w/rho=0.828 sliver=0.000
+sig36=0.0118 B_up=1.367901e-02 g_max=1.454170e-03 slack=1.222e-02 du_r=0.745 w/rho=0.655 sliver=0.000
+sig36=0.0106 B_up=1.368153e-02 g_max=-6.490292e-04 slack=1.433e-02 du_r=0.745 w/rho=0.753 sliver=0.000
+sig36=0.0114 B_up=1.367895e-02 g_max=1.500285e-03 slack=1.218e-02 du_r=0.745 w/rho=0.803 sliver=0.000
+sig36=0.0167 B_up=1.367934e-02 g_max=4.395217e-04 slack=1.324e-02 du_r=0.745 w/rho=0.667 sliver=0.000
+sig36=0.0116 B_up=1.368171e-02 g_max=1.514490e-03 slack=1.217e-02 du_r=0.745 w/rho=0.765 sliver=0.000
+sig36=0.0111 B_up=1.368167e-02 g_max=1.357443e-03 slack=1.232e-02 du_r=0.745 w/rho=0.707 sliver=0.000
+sig36=0.0110 B_up=1.368081e-02 g_max=1.293949e-03 slack=1.239e-02 du_r=0.745 w/rho=0.705 sliver=0.000
+sig36=0.0116 B_up=1.368169e-02 g_max=1.008447e-03 slack=1.267e-02 du_r=0.745 w/rho=0.714 sliver=0.000
+sig36=0.0105 B_up=1.368038e-02 g_max=-1.217751e-04 slack=1.380e-02 du_r=0.745 w/rho=0.760 sliver=0.000
+{
+ "n_cells": 40,
+ "n_samples_per_cell": 6000,
+ "worst": {
+  "g_over_B": 0.1107540884062695,
+  "w_over_rho": 0.8278695102962906,
+  "du_ratio": 0.9104179922019914,
+  "sliver_ratio": 0.0,
+  "min_slack": 0.012166920667295949
+ },
+ "verdict": "NO_COUNTEREXAMPLE_IN_SAMPLES",
+ "note": "sampling audit (float evaluation of g and norms); rigorous B_up from interval_top1000.json; not a proof"
+}

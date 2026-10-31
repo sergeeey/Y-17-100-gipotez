@@ -1,0 +1,15 @@
+{
+ "chunks_processed_this_run": 722,
+ "chunks_total": 7912,
+ "covered_by_both_progress_files": true,
+ "rigorous_ok_this_run": 360841,
+ "rigorous_fail_this_run": 0,
+ "final_gap_trR_minus_20s": 0.030405245308261095,
+ "s_target": 0.01368236038871751,
+ "min_slack_abs_this_run": 0.006141902934143858,
+ "max_B_up_this_run": 0.007540457454573653,
+ "prec_bits": 192,
+ "seconds": 3902.9,
+ "fails_sample": [],
+ "note": "resume of chunks missing from interval_full_progress.jsonl; per-leaf exceptions recorded as failures"
+}

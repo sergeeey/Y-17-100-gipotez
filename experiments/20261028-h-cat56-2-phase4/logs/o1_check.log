@@ -1,0 +1,12 @@
+random12 min normalized G over 20000 random PSD m: 0.00670651690086392
+random12 null dim (y,lam): 4 expected >=  4
+random12 admissible rank-one: max |G|/(q p) over 200 c: 1.4286962475383325e-12  |y|= 0.926643644028634
+random12 imaginary-lambda rank-one: min G/(q p): 1.0
+random12 two admissible pieces summed: max G/(q p) = 0.999995771422254 (pieces each 0; Lemma 2 inequality held on all 200 c)
+random12 null nonpure: q_c = 2648.543075450485
+file S- min normalized G over 20000 random PSD m: 0.008782723944416208
+file S- null dim (y,lam): 4 expected >=  4
+file S- admissible rank-one: max |G|/(q p) over 200 c: 2.966181040941693e-09  |y|= 0.45432328432401564
+file S- imaginary-lambda rank-one: min G/(q p): 1.0
+file S- two admissible pieces summed: max G/(q p) = 0.9999713164061944 (pieces each 0; Lemma 2 inequality held on all 200 c)
+file S- null nonpure: q_c = 58178.25709559659

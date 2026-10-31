@@ -1,0 +1,7 @@
+rho(0) == rho on A0: True
+max |d_i rho - (L_i rho + rho L_i)/2| over i=1..16: 2.5121479338940403e-15
+trial 0: |N_E - Re tr(E00 A Q A^dag)| = 8.53e-14; p/(t^2 hNh/4) at t=1e-4 = 1.000000
+trial 1: |N_E - Re tr(E00 A Q A^dag)| = 7.28e-12; p/(t^2 hNh/4) at t=1e-4 = 1.000000
+trial 2: |N_E - Re tr(E00 A Q A^dag)| = 7.28e-12; p/(t^2 hNh/4) at t=1e-4 = 1.000000
+worst identity error: 7.275957614183426e-12
+worst relative error of D2 limit vs (N_E h)(N_E h)^T/(h N_E h), S-block: 1.6040711002025919e-12

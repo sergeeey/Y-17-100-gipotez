@@ -1,0 +1,13 @@
+S- n=12 a=0 b=2: monomials=6552, W-params=312, h-params=5376, Gram=240 (28920 tri)
+{
+ "set": "S-",
+ "n": 12,
+ "a": 0,
+ "b": 2,
+ "status": "optimal",
+ "tau": -2.383675252239291,
+ "pair_scale": 116340.0,
+ "seconds": 5853.6329510211945,
+ "gram": 240,
+ "monomials": 6552
+}

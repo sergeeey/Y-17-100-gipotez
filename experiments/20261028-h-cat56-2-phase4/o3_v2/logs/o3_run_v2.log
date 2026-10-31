@@ -1,0 +1,63 @@
+leaves 3955841 sha256 29ab7b1454b5fd82ef639930dfd0a85c830a7fd8488e6526d8a2c72f5a3a8d90; chunks total 7912, done 0, to do 7912, workers 8; final gap trR-20s > 0: True
+processed 100000 leaves this run, ok 100000, fails 0, 1229s
+processed 200000 leaves this run, ok 200000, fails 0, 2392s
+processed 300000 leaves this run, ok 300000, fails 0, 3599s
+processed 400000 leaves this run, ok 400000, fails 0, 4614s
+processed 500000 leaves this run, ok 500000, fails 0, 5903s
+processed 600000 leaves this run, ok 600000, fails 0, 7021s
+processed 700000 leaves this run, ok 700000, fails 0, 8195s
+processed 800000 leaves this run, ok 800000, fails 0, 9207s
+processed 900000 leaves this run, ok 900000, fails 0, 10288s
+processed 1000000 leaves this run, ok 1000000, fails 0, 11354s
+processed 1100000 leaves this run, ok 1100000, fails 0, 12339s
+processed 1200000 leaves this run, ok 1200000, fails 0, 13527s
+processed 1300000 leaves this run, ok 1300000, fails 0, 14896s
+processed 1400000 leaves this run, ok 1400000, fails 0, 16205s
+processed 1500000 leaves this run, ok 1500000, fails 0, 17442s
+processed 1600000 leaves this run, ok 1600000, fails 0, 18841s
+processed 1700000 leaves this run, ok 1700000, fails 0, 20244s
+=== RESUME Thu Oct 29 20:39:16     2026 ===
+leaves 3955841 sha256 29ab7b1454b5fd82ef639930dfd0a85c830a7fd8488e6526d8a2c72f5a3a8d90; chunks total 7912, done 3421, to do 4491, workers 8; final gap trR-20s > 0: True
+processed 100000 leaves this run, ok 100000, fails 0, 1505s
+processed 200000 leaves this run, ok 200000, fails 0, 2857s
+processed 300000 leaves this run, ok 300000, fails 0, 4075s
+processed 400000 leaves this run, ok 400000, fails 0, 4956s
+processed 500000 leaves this run, ok 500000, fails 0, 5853s
+processed 600000 leaves this run, ok 600000, fails 0, 6839s
+processed 700000 leaves this run, ok 700000, fails 0, 7773s
+processed 800000 leaves this run, ok 800000, fails 0, 8796s
+processed 900000 leaves this run, ok 900000, fails 0, 9671s
+processed 1000000 leaves this run, ok 1000000, fails 0, 10606s
+processed 1100000 leaves this run, ok 1100000, fails 0, 11737s
+processed 1200000 leaves this run, ok 1200000, fails 0, 12773s
+processed 1300000 leaves this run, ok 1300000, fails 0, 13652s
+processed 1400000 leaves this run, ok 1400000, fails 0, 14549s
+processed 1500000 leaves this run, ok 1500000, fails 0, 15419s
+processed 1600000 leaves this run, ok 1600000, fails 0, 16294s
+processed 1700000 leaves this run, ok 1700000, fails 0, 17167s
+processed 1800000 leaves this run, ok 1800000, fails 0, 18040s
+processed 1900000 leaves this run, ok 1900000, fails 0, 18910s
+processed 2000000 leaves this run, ok 2000000, fails 0, 19782s
+processed 2100000 leaves this run, ok 2100000, fails 0, 20659s
+processed 2200000 leaves this run, ok 2200000, fails 0, 21533s
+{
+ "leaves_total": 3955841,
+ "chunks_total": 7912,
+ "chunk_lines_in_progress": 7912,
+ "chunks_unique_in_progress": 7912,
+ "duplicate_chunk_lines": 0,
+ "all_chunks_covered_once": true,
+ "leaves_counted_in_progress": 3955841,
+ "leaves_match_total": true,
+ "ok_this_run": 2245341,
+ "failed_this_run": 0,
+ "final_gap_trR_minus_20s": 0.030405245308261095,
+ "final_gap_positive": true,
+ "s_target": 0.01368236038871751,
+ "min_slack_this_run": 8.404538385450303e-09,
+ "max_B_up_this_run": 0.013682351984179126,
+ "leaves_sha256": "29ab7b1454b5fd82ef639930dfd0a85c830a7fd8488e6526d8a2c72f5a3a8d90",
+ "prec_bits": 192,
+ "seconds_this_run": 21925.4,
+ "note": "failures listed in o3_failures.jsonl; a failure is never a reason to widen a tolerance"
+}

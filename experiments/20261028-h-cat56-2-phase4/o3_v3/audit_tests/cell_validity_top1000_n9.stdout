@@ -1,0 +1,9 @@
+{
+ "cells_tested": 1000,
+ "grid_per_axis": 9,
+ "violations_sampled_M_gt_Bup": 0,
+ "worst_ratio_sup_over_Bup": 0.15920055464863253,
+ "worst_row": 616,
+ "max_grid_sup": 0.0021778996761223283,
+ "max_B_up": 0.013682351984179119
+}

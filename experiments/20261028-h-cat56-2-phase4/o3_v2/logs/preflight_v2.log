@@ -1,0 +1,54 @@
+{
+ "R_hermitian_exact": false,
+ "final_gap_positive": true,
+ "final_gap": 0.030405245308261095,
+ "s_target": 0.01368236038871751,
+ "positive_control": {
+  "cells": 300,
+  "certified": 300,
+  "slack_positive": 300,
+  "cert_fail_sample": [],
+  "min_slack": 8.404538385450303e-09,
+  "max_abs_diff_B_up_vs_v1_top200": 2.0816681711721685e-17
+ },
+ "negative_tests": {
+  "N0_genuine_control": {
+   "rejected": false,
+   "reasons": []
+  },
+  "N1_column_not_in_kernel": {
+   "rejected": true,
+   "reasons": [
+    "b: Phi0*Z0 does not contain 0 (columns not certified in kernel)"
+   ]
+  },
+  "N2_dependent_columns": {
+   "rejected": true,
+   "reasons": [
+    "c: Gram Z0^T Z0 - I not certified < 1 (columns not certified independent)"
+   ]
+  },
+  "N3_not_orthonormal_scaled": {
+   "rejected": true,
+   "reasons": [
+    "c: Gram Z0^T Z0 - I not certified < 1 (columns not certified independent)"
+   ]
+  },
+  "N4_rank_deficient_Phi0": {
+   "rejected": true,
+   "reasons": [
+    "exception while building projector: ZeroDivisionError: matrix is singular"
+   ],
+   "det_lower": -1.2698529073829892e-12
+  },
+  "N5_zero_column": {
+   "rejected": true,
+   "reasons": [
+    "c: Gram Z0^T Z0 - I not certified < 1 (columns not certified independent)"
+   ]
+  }
+ },
+ "negatives_all_rejected_and_control_passes": true,
+ "positive_control_all_pass": true,
+ "verdict": "PREFLIGHT_OK"
+}

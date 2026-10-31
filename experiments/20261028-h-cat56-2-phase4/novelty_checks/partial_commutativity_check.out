@@ -1,0 +1,8 @@
+block shape (20, 2) entries are complex128
+S+ = {0..11}: pairs=66  max|P[L_a,L_b]P|=0.000e+00  violating pairs (>1e-9)=0  max|tr(rho[L_a,L_b])|=0.000e+00
+S- = {4..15}: pairs=66  max|P[L_a,L_b]P|=0.000e+00  violating pairs (>1e-9)=0  max|tr(rho[L_a,L_b])|=0.000e+00
+all 16: pairs=120  max|P[L_a,L_b]P|=0.000e+00  violating pairs (>1e-9)=0  max|tr(rho[L_a,L_b])|=0.000e+00
+(0, 1) A_a^H A_b = [[(8+0j), 0j], [0j, 0j]]
+(4, 5) A_a^H A_b = [[0j, 0j], [0j, 0j]]
+(14, 15) A_a^H A_b = [[(136+0j), 144j], [-144j, (-132+0j)]]
+(0, 15) A_a^H A_b = [[(-772+0j), (108+332j)], [(108-332j), (-400+0j)]]

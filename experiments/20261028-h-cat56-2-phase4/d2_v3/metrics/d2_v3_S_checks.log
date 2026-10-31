@@ -1,0 +1,9 @@
+E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4\d2_v3\code\d2_v3_S_checks.py:103: LinAlgWarning: Matrix is singular. The result might be inaccurate or the array might not have a square root.
+  B = sqrtm(P) @ (Pi @ rand_c(2, 20))
+PASS S1 Lemma-1 identity with x in R^S (12 directions) | max rel err 4.96e-16
+PASS S2 Schur equivalence (S-type setting) | agreements 200/200; E PSD 89, not PSD 111
+PASS S3 Lemma 4 on S (rank-one <=> Y_S) | constructed y in Y_S(z): rank N^S = 1 (kernel dim 4); generic y: rank N^S = 4
+PASS S4 F_U, S-directions, h^T N h = 0 => p(t h) = 0 | h^T N h = -8.09e-15; max |p(t h)| = 3.42e-17
+PASS S5 F_U, S-directions, h^T N h > 0: CFIM -> (Nh)(Nh)^T/(hNh) | relative error at t = 1e-2, 1e-3, 1e-4: 1.08e-02, 1.09e-04, 1.09e-06
+PASS S6 S x S block of N (16 params) equals N computed with S-parameters only | max abs diff 0.00e+00
+ALL PASS

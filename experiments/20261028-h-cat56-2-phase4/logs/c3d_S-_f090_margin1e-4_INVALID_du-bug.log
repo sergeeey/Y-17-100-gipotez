@@ -1,0 +1,31 @@
+S-: rows=36, L_phi=506.2151, ||M||=0.28978, trR=0.30405, s_target=0.013682, lin_dev=5.68e-14
+{'depth': 0, 'cells': 512, 'failed': 512, 'elapsed_s': 0.4190335273742676}
+{'depth': 1, 'cells': 2048, 'failed': 2048, 'elapsed_s': 2.079829692840576}
+{'depth': 2, 'cells': 8192, 'failed': 8192, 'elapsed_s': 8.730951070785522}
+{'depth': 3, 'cells': 32768, 'failed': 32768, 'elapsed_s': 35.14780807495117}
+{'depth': 4, 'cells': 131072, 'failed': 93078, 'elapsed_s': 139.67607760429382}
+{'depth': 5, 'cells': 372312, 'failed': 111939, 'elapsed_s': 436.5824246406555}
+{'depth': 6, 'cells': 447756, 'failed': 110007, 'elapsed_s': 796.8031210899353}
+{'depth': 7, 'cells': 440028, 'failed': 139162, 'elapsed_s': 1158.5491454601288}
+{'depth': 8, 'cells': 556648, 'failed': 189597, 'elapsed_s': 1617.6386938095093}
+{'depth': 9, 'cells': 758388, 'failed': 0, 'elapsed_s': 2254.2980864048004}
+{
+ "set": "S-",
+ "instance": "experiments/20261027-h-cat56-2-submission-package-v1/data/instance_d22_r2_s16.jsonl",
+ "s_target": 0.01368236038871751,
+ "s_target_frac_of_trR_over_20": 0.9,
+ "tr_R": 0.3040524530826113,
+ "tr_R_minus_20_s_target": 0.03040524530826111,
+ "L_phi": 506.21510695674704,
+ "norm_M": 0.2897777934619033,
+ "worst_certified_cell_bound": 0.013682348890644633,
+ "min_sigma_certified": 0.010074911765332924,
+ "cells_certified": 2062421,
+ "cells_uncertified": 0,
+ "uncertified_area_theta_phi": 0.0,
+ "margins": {
+  "rel": 0.0001,
+  "abs": 1e-10
+ },
+ "verdict": "CERTIFIED_all_cells"
+}

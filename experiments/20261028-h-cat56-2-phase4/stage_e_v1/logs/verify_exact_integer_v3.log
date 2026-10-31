@@ -1,0 +1,27 @@
+columns 6566 16.0 s
+DA digits 18239 31.0 s
+Dn digits 190030 136.9 s
+Dm bits 74 136.9 s
+integer A filled 247.5 s
+T computed 1101.8 s
+W computed 1103.0 s
+rows checked; violated = 0 2941.3 s
+PD blocks 40 3263.6 s
+PD blocks 80 3555.6 s
+PD blocks 120 3778.3 s
+PD blocks 160 4059.5 s
+PD blocks 200 4347.4 s
+PD blocks 240 4641.5 s
+PD blocks 280 4838.9 s
+{
+ "method": "exact integer re-verification (common denominators; flint fmpz_mat); y from checkpoint; A rebuilt from lift definition",
+ "independent_rows": 175,
+ "blocks": 280,
+ "columns": 6566,
+ "rows_checked": 484,
+ "rows_violated_exactly": 0,
+ "first_violated_rows": [],
+ "blocks_checked_PD": 280,
+ "all_blocks_positive_definite_exact": true,
+ "seconds": 4838.9
+}

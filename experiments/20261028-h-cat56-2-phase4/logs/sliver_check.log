@@ -1,0 +1,4 @@
+leaves per family: 20000, seed 20261029
+max |u(pi,phi)-u0|/du  (polar seam, theta=pi):   0.999999991078
+max |u(theta,0)-u0|/du (phi seam, phi=2pi=0):    0.999999993247
+covered by L2 (ratio < 1): True

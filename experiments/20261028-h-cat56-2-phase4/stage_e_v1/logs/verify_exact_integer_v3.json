@@ -1,0 +1,12 @@
+{
+ "method": "exact integer re-verification (common denominators; flint fmpz_mat); y from checkpoint; A rebuilt from lift definition",
+ "independent_rows": 175,
+ "blocks": 280,
+ "columns": 6566,
+ "rows_checked": 484,
+ "rows_violated_exactly": 0,
+ "first_violated_rows": [],
+ "blocks_checked_PD": 280,
+ "all_blocks_positive_definite_exact": true,
+ "seconds": 4838.9
+}

@@ -1,0 +1,9 @@
+{
+ "cells_rechecked": 200,
+ "still_below_s_target": 200,
+ "max_increase_of_B_up": 0.0,
+ "max_abs_change_of_B_up": 0.0,
+ "min_stored_slack": 8.404538392196646e-09,
+ "s_target": 0.01368236038871751,
+ "verdict": "UNCHANGED"
+}

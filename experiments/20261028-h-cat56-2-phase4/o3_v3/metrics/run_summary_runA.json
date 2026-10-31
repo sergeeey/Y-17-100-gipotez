@@ -1,0 +1,9 @@
+{
+ "run": "runA",
+ "chunks_processed": 1711,
+ "leaves_processed": 855500,
+ "ok": 855500,
+ "fails": 0,
+ "seconds": 5945.9,
+ "note": "per-chunk certified min-slack enclosures are in metrics/o3v3_progress.jsonl (arb strings); no float selection is made in the driver"
+}

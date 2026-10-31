@@ -1,0 +1,23 @@
+{
+ "expected_chunks": [
+  0,
+  1710
+ ],
+ "problems": [],
+ "journal_duplicate_lines": 0,
+ "chunks_expected": 1711,
+ "chunks_present": 1711,
+ "missing_chunks": [],
+ "n_missing": 0,
+ "extra_chunks_outside_range": [],
+ "leaves_read": 855500,
+ "leaves_expected_in_range": 855500,
+ "ok_lines": 855500,
+ "failed_leaves": 0,
+ "first_failures": [],
+ "min_slack_enclosure": "[3.1338e-8 +/- 6.74e-13]",
+ "min_slack_certainly_positive": true,
+ "max_bup_enclosure": "[0.01368232905 +/- 2.33e-12]",
+ "max_bup_below_threshold_certain": null,
+ "verdict": "COMPLETE_STRICT"
+}

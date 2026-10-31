@@ -1,0 +1,19 @@
+{
+ "samples": 8608,
+ "dim_Y_S(c)_histogram": {
+  "4": 8608
+ },
+ "kappa_max_over_samples": 84.08176375467126,
+ "kappa_median": 14.2628733531043,
+ "kappa_worst_direction_real_imag": [
+  [
+   -6.123233995736766e-17,
+   7.498798913309288e-33
+  ],
+  [
+   0.984807753012208,
+   0.17364817766693033
+  ]
+ ],
+ "note": "kappa(c) = 1/sigma_min of Pi_{V_c^perp} T restricted to ker^perp. Large kappa = non-uniform robust constant."
+}

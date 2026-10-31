@@ -1,0 +1,3391 @@
+Reading additional input from stdin...
+2026-10-31T18:47:42.652223Z ERROR codex_core::session::session: failed to load skill C:\Users\serge\.agents\skills\sci-hypothesis\SKILL.md: missing YAML frontmatter delimited by ---
+2026-10-31T18:47:42.652330Z ERROR codex_core::session::session: failed to load skill C:\Users\serge\.agents\skills\snr\SKILL.md: missing YAML frontmatter delimited by ---
+OpenAI Codex v0.153.4
+--------
+workdir: E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: auto
+session id: 01a19349-fd3c-72a2-bdf7-1ec527365d0f
+--------
+user
+You are an independent mathematical and software auditor. Work READ-ONLY. Do not write, modify, or delete any file. Do not run any command that writes into the directory tree. When you run Python, use `python -I` and read-only operations only. Do not run the scripts under `20261028-h-cat56-2-phase4/o3_v3/audit_tests/` (they write files); read them only.
+
+You have no prior verdicts. Do not assume that any claim in any document is correct. Derive each result yourself from the primary files listed below. Your job is to find defects, including by trying to construct counterexamples. Report honestly even if you find no defect.
+
+Working directory: the `experiments` folder. All paths below are relative to it.
+
+## Setting (stated neutrally)
+
+1. Instance: `20261027-h-cat56-2-submission-package-v1/data/instance_d22_r2_s16.jsonl`. The loader `load_A` in `20261027-h-cat56-2-discovery/code/s8_admissible_span.py` builds 16 complex matrices A_a in C^{20x2}, a = 0..15, as A = -2i (B_re + i B_im).
+
+2. For x in C^2 \ {0} and a subset S of block indices, define
+   Y_S(x) = { y in C^20 : A_a^dagger y = lambda_a x for all a in S, with real lambda_a }.
+   Real form: y -> (Re y, Im y) in R^40. `phi_rows(As, S, x)` returns a real matrix Phi_x of size 3|S| x 40 with three real rows per block a in S (see the function body).
+   For S = {4,...,15}: 36 rows.
+
+3. Separator: a fixed Hermitian 20x20 matrix R, stored under key "R" in `20261028-h-cat56-2-phase3/metrics/inputs/s14_R_4-5-6-7-8-9-10-11-12-13-14-15_nx250.npz`. Claimed statement: for every unit vector y in the union over x of Y_S(x),
+   y^dagger R y <= s*, where s* = fl(0.9 * tr R / 20) (binary64), and gamma := tr R - 20 s* > 0.
+
+4. Phase reduction: Y_S(e^{ia} x) = e^{ia} Y_S(x), so it suffices to take x = (cos(t/2), sin(t/2) e^{ip}), t in [0, pi], p in [0, 2 pi).
+
+5. Cells: `20261028-h-cat56-2-phase4/o3_v3/inputs/leaves.npy` is an array of 3,955,841 rows, each a cell [th_lo, th_hi, ph_lo, ph_hi] (verify the shape and the column meaning from the code). Leaves are grouped in chunks of 500 (chunk c = rows 500c .. 500c+499, last chunk 341 rows). The per-leaf certified bound is computed by `cell_bound` in `o3_v3/code/interval_cells_v3.py`.
+
+## What the code claims (check each item; do not take the code's comments as proof)
+
+The code claims that for every cell and every x in it, sup over unit y in ker Phi_x of y^T H y <= B_cert, where H is the real 40x40 form of R, and that B_cert < s* for every leaf. Functions and variables: build_cell (du, Phi0, G, Pinv, P, Z0), kernel_certificate, gram_defect, cell_bound (kappa, kappa_K, rho, lamK, mz, B, delta, B_cert), lam_max_upper (Gershgorin on V^-1 B V with arb), real_form_of_hermitian_part_arb, mn_up, final_gap.
+
+## Audit tasks. For each, give PASS / CONDITIONAL / FAIL, with file:line evidence, and a reproduction command with its output where relevant.
+
+1. Lemma behind cell_bound. Write the statement that cell_bound certifies, and prove or refute each step: (a) the displacement bound du on u(t,p) - u(t_c,p_c) in R^4; (b) Phi0 = sum_j u0_j PHI_j and the real-linearity of Phi_x in the real coordinates of x; (c) the decomposition y = P y + (I - P) y, with P the orthogonal projector onto ker Phi0, and the identity (I - P) y = -sum_j Delta u_j A_j y with A_j = Pinv PHI_j; (d) the bound ||(I-P) y|| <= kappa ||y|| and the restricted bound ||(I-P) y|| <= rho ||c|| for y = Z0 c + w; (e) yHy <= (lamK + 2 mz rho + mn_up rho^2) ||c||^2; (f) division by 1 - delta when ||y||^2 >= (1 - delta)||c||^2; (g) the sign handling of lamK. Identify any step that is wrong or unjustified.
+
+2. Real form. Verify, for R = A + iB, that y^dagger R y = [Re y; Im y]^T [[A, -B], [B, A]] [Re y; Im y] (or find the correct form). Compare with `real_form_of_hermitian_part_arb` in the code.
+
+3. phi_rows. Verify that the three real rows per block a encode exactly A_a^dagger y in R x, and that Phi_x is real-linear in the real 4-vector (Re x_0, Im x_0, Re x_1, Im x_1). Check that the code's basis PHI (built from x = [1,0], [1j,0], [0,1], [0,1j]) and coefficients u0 match this.
+
+4. Arb soundness. Check every decision and every bound on the path from the leaf to B_cert: which operations are arb, which are float, and whether any float conversion affects a bound (not only reporting). Check that comparisons are used as certain predicates (e.g. `one_minus > 0`, `s.upper() < 1`) and that every `.upper()` or `.lower()` is taken in the right direction. Check that `lam_max_upper` is a valid upper bound for the largest eigenvalue of a symmetric matrix, for any invertible similarity V.
+
+5. Threshold. Recompute tr R and s* from the npz with exact rational arithmetic (fractions). Verify the stored value 0.01368236038871751, and gamma >= 0.0304.
+
+6. Coverage. Check that the cells cover the parameter domain [0, pi] x [0, 2 pi) without gaps or overlaps, using leaves.npy. Report what you verified (for example: total area, min and max of the bounds, adjacency). A full exact tiling proof is not required; say what was and was not checked.
+
+7. Integrity. Compare the SHA-256 of `o3_v3/code/interval_cells_v3.py` and `o3_v3/code/o3_run_v3.py` with the entries in `o3_v3/metrics/run_manifest_runC.json` and `run_manifest_runD.json`. Compare the SHA-256 of `o3_v3/inputs/leaves.npy` and the input files with the same manifests. Decode 5 random record files `o3_v3/records/chunk_XXXXX.jsonl.gz`, check their SHA-256 against `o3_v3/metrics/o3v3_progress.jsonl`, and check that the leaf indices are consecutive.
+
+8. Counterexample search. Try to find (a) a cell and an x in it, and a unit y in ker Phi_x, such that y^T H y exceeds the B_cert of the containing cell; (b) a cell where the certificate passes but a step of the lemma is violated; (c) a leaf with B_cert >= s*. If you find a candidate, verify it numerically (with a short `python -I` script that writes nothing, using only standard library and numpy/flint if present) and report the exact numbers. Note: the cell parametrisation and the kernel are as described above.
+
+9. Final verdict on the O3 v3 certificate: PASS / CONDITIONAL / FAIL, with (i) the list of defects, each with its evidence and reproduction, (ii) the list of residual risks, (iii) the commands you ran.
+
+## Primary files to read
+
+- 20261028-h-cat56-2-phase4/o3_v3/code/interval_cells_v3.py
+- 20261028-h-cat56-2-phase4/o3_v3/code/o3_run_v3.py
+- 20261028-h-cat56-2-phase4/o3_v3/code/preflight_v3.py
+- 20261028-h-cat56-2-phase4/o3_v3/code/audit_v3_coverage.py
+- 20261027-h-cat56-2-discovery/code/s8_admissible_span.py
+- 20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md (cell lemmas and separator statement)
+- 20261028-h-cat56-2-phase4/THEOREM_NATURAL_D2_NOGO_v8.md (statement of the separator and of Theorem N)
+- 20261028-h-cat56-2-phase3/metrics/inputs/s14_R_4-5-6-7-8-9-10-11-12-13-14-15_nx250.npz (key R)
+- 20261027-h-cat56-2-submission-package-v1/data/instance_d22_r2_s16.jsonl
+- 20261028-h-cat56-2-phase4/o3_v3/inputs/leaves.npy
+- 20261028-h-cat56-2-phase4/o3_v3/metrics/o3v3_progress.jsonl
+- 20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runC.json and run_manifest_runD.json
+- 20261028-h-cat56-2-phase4/o3_v3/records/chunk_XXXXX.jsonl.gz (sample)
+
+Do NOT read these, because they contain earlier verdicts: anything under `20261028-h-cat56-2-phase4/review_package/`, `O3_AUDIT_RECORD.md`, `EVIDENCE_LEDGER*`, `O3_CLOSURE*`, `o3_v3/metrics/audit_run*.json`, `o3_v3/metrics/preflight_v3.json`, `o3_v2/`.
+
+Output: Markdown with sections 1 to 9. Be concrete: file:line, equations, commands with their output. Keep it under 3000 words.
+2026-10-31T18:47:48.104888Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer resource_metadata=\"https://mcp.consensus.app/.well-known/oauth-protected-resource\", scope=\"search\"" })
+warning: Skill descriptions were shortened to fit the skills context budget. Codex can still see every skill, but some descriptions are shorter. Disable unused skills or plugins to leave more room for the rest.
+**Planning detailed audit using project-context and global agents**
+**Planning safe read-only file access with PowerShell**
+codex
+I’ll conduct this as a falsification-first, read-only audit. I’m using the `project-context` skill only to respect the project’s operating profile, then `skeptic` for the certificate stress test; I will not read any prohibited prior-verdict artifacts or execute anything under `audit_tests/`.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "Get-Content -LiteralPath 'C:\\Users\\serge\\AGENTS.md' -Raw; Get-Content -LiteralPath 'C:\\Users\\serge\\.agents\\skills\\project-context\\SKILL.md' -Raw; Get-Content -LiteralPath 'C:\\Users\\serge\\.agents\\skills\\skeptic\\SKILL.md' -Raw" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 597ms:
+# AGENT OPERATING PROFILE (Auto-Generated)
+
+<!-- AUTO-GENERATED from .agents/rules/*.md. Do not edit AGENTS.md directly. -->
+<!-- Run: .\\.agents\\scripts\\sync-tools.ps1 -->
+
+# Context Memory Rules
+
+## Purpose
+Keep long-running work coherent across compaction, restarts, and multi-step implementation without adding heavy process to small tasks.
+
+## Preferred Files
+Use these files when present in a project or workspace:
+- `activeContext.md`: current task, constraints, recent decisions, current verification status.
+- `decisions.md`: architecture decisions and tradeoffs already accepted.
+- `patterns.md`: recurring mistakes, avoided approaches, project conventions.
+- `goals.md`: sprint/project goals that bound scope.
+
+## Read Protocol
+- Before substantial or multi-file work, check for the files above in the current project, `.agents/`, `.claude/memory/`, or documented project memory location.
+- If a memory file is missing, proceed from the prompt and codebase; do not fabricate it and do not block normal work.
+- Use memory as context, not authority. Verify code behavior with source and commands.
+
+## Write Protocol
+- Persist only durable facts: decisions, recurring mistake rules, verification notes, and task state that future sessions need.
+- Keep entries short and dated when useful.
+- Date decisions and task-state notes when they may become stale.
+- Do not store secrets, tokens, credentials, private personal data, or noisy logs.
+- Avoid concurrent or speculative memory writes; write only after the fact is confirmed or the user explicitly asks for a note.
+- Mark stale assumptions explicitly instead of silently relying on old memory.
+
+## Handoff Protocol
+- For multi-agent or multi-step work, prefer file-based handoffs for durable intermediate outputs.
+- A handoff should state scope, changed files, open risks, and verification status.
+- If a handoff file is missing or empty, report the gap instead of guessing.
+
+---
+
+# Integrity Rules (Anti-Hallucination)
+
+## Prime Directive
+`Verify-Before-Claim`: verify factual assertions before using them in code, configs, or recommendations.
+
+## Hard Constraints
+- `HC-1 NO PHANTOM SOURCES`: no unverified URLs/packages/CLI flags/options.
+- `HC-2 NO INVISIBLE SYNTHETIC`: clearly mark mock/synthetic/demo data.
+- `HC-3 NO UNGROUNDED RECOMMENDATIONS`: explain source and context fit.
+- `HC-4 NO CONFIDENCE WITHOUT EVIDENCE`: no certainty without tests/diagnostics.
+
+## Source Grounding Markers
+Use when stating versions, URLs, options, numbers, architecture/security recommendations:
+- `[VERIFIED]` tool-checked
+- `[VERIFIED-REAL]` checked against real data, production-like inputs, external sources, or pre-existing project artifacts.
+- `[VERIFIED-SYNTHETIC]` checked only with mock/demo/generated data. Valid for unit behavior, not for production validation claims.
+- `[NEEDS-REAL-DATA]` synthetic or incomplete evidence exists, but real-world validation is still missing.
+- `[DOCS]` official docs
+- `[CODE]` read from codebase
+- `[INFERRED]` reasoned from context
+- `[HYPOTHESIS]` plausible but not confirmed; requires a decisive check before being treated as a finding.
+- `[CONFLICTING]` sources disagree; state both sides and the current safest interpretation.
+- `[MEMORY]` from experience (may be outdated)
+- `[UNCERTAIN]` needs verification
+- `[UNVERIFIED]` not verified
+
+## Validation Theater Guard
+- Never present a result as production-validated when the test data, validator, or expected answers were created in the same session.
+- Perfect scores (`100%`, `F1=1.000`, `all tests passed`) on newly generated or synthetic data must be labeled `[VERIFIED-SYNTHETIC]` and, for real-world claims, downgraded to `[NEEDS-REAL-DATA]`.
+- Validation claims about accuracy, reliability, extraction quality, ranking, or model behavior require `[VERIFIED-REAL]` evidence from real data, pre-existing tests, cited datasets, logs, or independent sources.
+- If evidence is synthetic, say exactly that. Do not use synthetic checks to imply deployment readiness.
+
+## Audit Verification Gate
+- A subagent/tool claim is not final evidence by itself. Treat another agent's `[VERIFIED]` as this agent's `[INFERRED]` until locally checked.
+- Before surfacing HIGH/MEDIUM findings, verify with a direct artifact: file read, search, test, build, log, browser check, or command output.
+- For 10+ factual claims, spot-check at least 3 with tools. If any spot-check fails, re-verify the claim set before finalizing.
+- Use `[HYPOTHESIS]` for plausible but unconfirmed issues. Never present `[HYPOTHESIS]` as a confirmed bug.
+
+## Recurring Mistake Rule
+- If the same mistake pattern appears 3 times, promote it to a hard local rule in the relevant project or workspace notes.
+- Track the pattern as `[xN]`, including the trigger, consequence, and prevention rule.
+- Do not rely on memory alone for recurring mistakes; persist the rule where future sessions can read it.
+
+## Workspace Reference
+Detailed protocol: `C:\Users\serge\.claude\memory\integrity_protocol.md`.
+
+---
+
+# PR Gate Rules
+
+## Principle
+No evidence -> no merge for meaningful changes.
+
+## Classification Timing
+Classify the change before implementing when the task is more than a micro-change. The class determines planning depth, verification depth, and final reporting.
+
+## Change Classification
+- `CRITICAL`: business logic, security, API contracts, financial logic.
+- `MAJOR`: architecture changes, migrations, cross-module refactors.
+- `MINOR`: bounded bug fixes, local improvements.
+- `TRIVIAL`: typos/docs/no logic impact.
+
+## Required Depth
+- CRITICAL/MAJOR: full checklist with artifacts.
+- MINOR: focused checklist + relevant tests.
+- TRIVIAL: smoke-level verification.
+
+## Gate Checklist (CRITICAL/MAJOR)
+- Correctness and invariants validated.
+- Regression protection present.
+- Failure modes reviewed.
+- Rollback path documented.
+- Monitoring/observability impact noted.
+- Reviewer verdict explicit: PASS/REWORK/REJECT.
+
+## Reporting Constraint
+Do not claim readiness/quality without command output or measurable artifacts.
+
+---
+
+# Project Rules (Global Workspace: C:\Users\serge)
+
+## Scope
+These rules apply to work performed under `C:\Users\serge` unless a project-level `AGENTS.md` overrides with stricter requirements.
+
+## Execution Flow
+1. Do a brief context and risk check.
+2. Classify the change as `TRIVIAL`, `MINOR`, `MAJOR`, or `CRITICAL` when it is more than a micro-change.
+3. For normal local work, execute without waiting for approval.
+4. Keep the plan short unless the task is risky, architectural, or cross-cutting.
+5. Verify with the smallest sufficient command artifacts for the change class.
+6. Report `Implemented` and `Verified` separately.
+
+## Rule Precedence
+- User instructions narrow the task, but do not bypass safety, security, or verification gates.
+- Project-level `AGENTS.md` files override this global profile when they are stricter or more specific.
+- Skill-specific workflows apply only when the skill is triggered, and stricter skill approval gates override default autonomy.
+- When rules conflict, follow the safer and more evidence-heavy rule, then call out the conflict briefly.
+
+## Approval Boundary
+Ask before proceeding only when one of these is true:
+- destructive commands or destructive cleanup
+- production deploys or production infrastructure changes
+- database/schema migrations or irreversible data operations
+- secret creation, replacement, or exposure risk
+- force push, hard reset, history rewrite
+- external side effects that contact or mutate third-party systems: sending email or chat messages, creating/updating/deleting issues or tickets, changing CRM/Notion/Sheets records, resolving incidents, purchasing domains, payments, or customer-visible actions
+- installing or upgrading external tools/packages globally, or changing pinned tool versions, unless the user explicitly asked for that installation/update
+- browser automation that reuses the user's logged-in browser/session, creates persistent profiles, solves captchas, bypasses anti-bot systems, or performs account actions
+- edits outside the intended workspace or to user/system files unrelated to the task
+
+## Safe Lane (Default)
+- Map dependencies (imports in/out where applicable).
+- Read related files before edits.
+- List risks (API contracts, schemas, types, security).
+- Keep rollback strategy explicit.
+- Use available tools proactively when they reduce uncertainty or speed execution.
+- If the worktree is dirty, do not revert unrelated changes. Work only in the intended files and report unexpected overlap.
+
+## Fast Lane (Micro-change)
+Allowed only when all are true:
+- 1-2 files touched.
+- No public API contract change.
+- No DB schema/migration change.
+- No auth/security policy change.
+
+Fast Lane flow:
+1. 3-line micro-plan.
+2. Execute immediately.
+3. Report `Implemented` and `Verified` separately.
+
+## Fast Track Trigger
+If the user writes `[FAST]`, move after a minimal context check straight to execution unless the task crosses the Approval Boundary.
+
+## Output Contract
+Always separate:
+- `Implemented`: exact file/config/code changes.
+- `Verified`: exact commands run and outcomes.
+
+---
+
+# Security Rules
+
+## Secret Hygiene
+- Never commit real secrets, keys, or tokens.
+- Use env vars and `.env.example` placeholders.
+- If secret-like strings are detected, stop and ask before proceeding.
+
+## Sensitive Data
+- Do not expose PII in logs or examples.
+- Use synthetic/mock values with explicit markers.
+
+## Forbidden Without Explicit Request
+- Destructive operations (`rm -rf`, hard reset, force push).
+- Permission changes outside task scope.
+- Unbounded destructive cleanup.
+- Sending messages, resolving issues/incidents, changing third-party records, payments, purchases, or other external side effects.
+- Reusing logged-in browser sessions, solving captchas, or bypassing anti-bot controls for account actions.
+- Global tool/package upgrades or unpinned installs that change the agent environment.
+
+## Safe Defaults
+- Prefer parameterized queries.
+- Validate external input at boundaries.
+- Keep security-sensitive behavior explicit in plan and verification.
+- For suspected secrets, report only the file/path and secret type. Do not quote the secret value.
+
+---
+
+# Standards Rules
+
+## Command Style
+- Environment is PowerShell-first on Windows.
+- Prefer `Get-ChildItem`, `Select-String`, `Get-Content`, `Set-Content`.
+- Prefer `rg` for fast search when available.
+- Avoid bash-only executable command examples in this workspace.
+
+## Change Discipline
+- Keep edits minimal and scoped to task intent.
+- Avoid large blind replacements.
+- Do not claim KPI/coverage/quality without artifacts.
+- For reviews, prioritize findings (bugs, regressions, risks, missing tests).
+
+## Verification Baseline
+Before finalizing changes:
+1. Run smoke check.
+2. Run stack-specific checks if applicable:
+   - JS/TS: lint, test, typecheck.
+   - Python: lint, test, typecheck.
+   - .NET: restore, build, test.
+3. Confirm changed file set is expected.
+
+## Reporting
+- If checks cannot run, state what is missing and why.
+- Keep production path behavior unified; call out bypasses explicitly.
+
+---
+
+# Verification Gate Rules
+
+## Principle
+Evidence must match the claim strength.
+
+## Evidence Marker Mapping
+Use the source markers from `Integrity Rules` in final reports. Internally, map claim levels this way:
+- `FACT` -> `[VERIFIED]`, `[VERIFIED-REAL]`, `[VERIFIED-SYNTHETIC]`, `[DOCS]`, or `[CODE]`.
+- `INFERENCE` -> `[INFERRED]`, with the verified facts that support it.
+- `HYPOTHESIS` -> `[HYPOTHESIS]`, never as a confirmed finding.
+- `SYNTHETIC RESULT` -> `[VERIFIED-SYNTHETIC]`, and downgrade real-world readiness to `[NEEDS-REAL-DATA]`.
+
+## Claim Levels
+- `FACT`: directly verified by code, docs, command output, test output, logs, or browser/UI observation.
+- `INFERENCE`: reasoned from verified facts; include the chain.
+- `HYPOTHESIS`: plausible but not verified; requires more checking before action or user-facing certainty.
+- `SYNTHETIC RESULT`: checked only on mock/generated/demo data; useful for mechanics, not production validation.
+
+## Required Verification
+- Bug claims: reproduce with an error, failing test, log, trace, or concrete code path.
+- Security claims: identify trust boundary, input source, sink, and exploitability or mitigation.
+- API/CLI/config claims: verify against local code, installed help output, or official docs.
+- UI claims: verify with browser/screenshot when the UI can run.
+- Performance/accuracy claims: use real or pre-existing benchmark data; synthetic data must be labeled.
+
+## Downgrade Rules
+- If tests pass against the relevant existing suite, downgrade unproven bug claims to `[HYPOTHESIS]`.
+- If only synthetic checks were run, downgrade production-readiness claims to `[NEEDS-REAL-DATA]`.
+- If sources conflict, label `[CONFLICTING]` and state both sides.
+- If verification cannot run, state why and report the safest remaining evidence.
+
+## Output Rule
+Final reports must keep `Implemented` separate from `Verified`, and must not claim readiness, correctness, coverage, or safety beyond the verification actually performed.
+
+---
+name: project-context
+description: Use when the user asks for current project state, "�� ᥩ�� ������", "/ctx", current focus, recent decisions, or when starting substantial multi-step work and context memory files may exist.
+---
+
+# Project Context
+
+## Goal
+Load a compact project state without rereading the whole repository.
+
+## Read Order
+Look for these files in the current project first, then nearby workspace memory locations if documented:
+1. `activeContext.md`
+2. `decisions.md`
+3. `patterns.md`
+4. `goals.md`
+
+If a file is missing, proceed from the prompt and codebase. Do not invent context.
+
+## Output
+Report only what was found and mark the source:
+```text
+Current Focus: ...
+Branch/State: ...
+Recent Decisions: ...
+Known Patterns/Risks: ...
+Verification Status: ...
+Scope Fence: in scope / not now
+```
+
+## Rules
+- Memory is context, not proof. Verify code behavior with files and commands.
+- Do not write memory unless the user asks or a durable confirmed fact needs preservation.
+- Do not store secrets, credentials, private personal data, or raw logs.
+
+---
+name: skeptic
+description: "Skeptic Engine v2.1 - falsification-first ������ � 4 ०����. �ਣ����: 'skeptic:', '᫮��� ����', '�⮨� �� ������', '�஢��� ����', '�㤨� ���⥪����', '�஢��� �襭��', 'red-team ���⥪����', 'ࠧ��� ��ᯥਬ���', '�஢��� ���ਪ�', '�� ࠡ�⠥�?', '�஢��� claim', '�����', '�� ��諮 �� ⠪', 'ࠧ��� ��樤���', '��祬� ᫮������'. �� �ᯮ�짮���� ���: �믮������ ����� - ⮫쪮 ��� ������� � falsification."
+allowed-tools: WebSearch, WebFetch, Read, Bash(git log:*), Bash(git diff:*), Bash(pytest:*)
+---
+
+# Skeptic Engine v2.1 - 4 ०���
+
+���� ����� - **�� ���⢥ত���, � ������� ᫮����**.
+�᫨ �������� - �����뢠��� ������訩 �����ᯮᮡ�� fallback.
+�㤨��� - �孨�᪨� ��ᯥ���. ��� ��墠��, ��� ���� ᫮�.
+
+## ����⥬��᪨� ��થ�� (��易⥫��)
+
+- **[����]** - ���⢥ত��� ���筨���, ���� �������� ��� �஢�મ�
+- **[�����]** - �����᪨ ᫥��� �� 䠪⮢
+- **[��������]** - �ࠢ���������, �� ��������
+- **[����������]** - ������ �������筮
+
+---
+
+## ����� 1 - ������ ����
+
+**�ਣ����:** `skeptic:`, `᫮��� ����`, `�⮨� �� ������`, `�஢��� ����`, `/skeptic`
+
+**�����:** ����� ����, ��, MVP, ���⥣�� - �� ⮣� ��� ����祭� �६�.
+
+**������:**
+
+### ���� ����
+���� �।�������.
+
+### �� ������ ���� �ࠢ���
+- [��થ�] assumption 1
+- [��થ�] assumption 2
+
+### Strongest objection
+���� ������ ࠧ����騩 ��㬥��.
+
+### Cheapest falsification
+- **����:** �� �����⭮ ᤥ����
+- **�஢�� �룫廊� ⠪:** ...
+- **������:** ...
+
+### Kill criteria
+- ���ਪ� + �६�/ᮡ�⨥ �� ������ ��⠭����������
+
+### Baseline
+���⥩�� ����ୠ⨢�: ��筮� ����� / rule-based / off-the-shelf / "��祣� �� ������".
+
+### Fallback
+�� �릨���� ��᫥ ��⨪�.
+
+### Next step + Confidence (High/Medium/Low)
+
+---
+
+## ����� 2 - �㤨� ���⥪����
+
+**�ਣ����:** `�㤨� ���⥪����`, `�஢��� �襭��`, `red-team ���⥪����`, `�央��`
+
+**�����:** 㦥 �ਭ�⮥ �襭�� ��� ��������� ���⥪���.
+
+**������:**
+
+### �஢��塞� claims
+- Claim 1: ...
+- Claim 2: ...
+
+### �஢�ઠ �������
+**Claim:** ...
+- �����: **[������]** / **[���������]** / **[������������ ������]**
+- ��� �஢��﫮��: ...
+- �᭮�����: ...
+
+### ������ failure mode
+�� ����� 㡨�� �� �襭�� � production.
+
+### Second-order effects
+�� ��������� �१ 6 ����楢 ��᫥ ����७��.
+
+### Hidden coupling
+�� ��� ������ �� �⮣� �襭��.
+
+### Irreversibility
+�� ����� �⪠���.
+
+### Baseline / safer alternative
+
+### Next step + Confidence
+
+---
+
+## ����� 3 - ������ ��ᯥਬ��⮢ � claims
+
+**�ਣ����:** `ࠧ��� ��ᯥਬ���`, `�஢��� ���ਪ�`, `�� ࠡ�⠥�?`, `�஢��� claim`, `A/B ���`
+
+**�����:** ���� ����� ��ᯥਬ���, ���ਪ�, ������ � १�����.
+
+**������:**
+
+### Claim
+�� ������ �⢥ত�����.
+
+### �� ������ ���� �ࠢ��� ��� �⮣� claim
+- [��થ�] ...
+
+### ����ୠ⨢�� ����᭥���
+��㣨� ��稭� ��������� १���� (confounds, selection bias, p-hacking, etc).
+
+### Strongest objection � ������樨
+��祬� ��� �뢮� ����� ���� �����.
+
+### �� �㦭� �⮡� claim �� �������
+- ������ �롮ન: ...
+- ����஫쭠� ��㯯�: ...
+- ���⥫쭮���: ...
+- �� �����﫮�� vs �� �⥫� �������: ...
+
+### Kill criteria ��� �⮣� claim
+�� ����� १���� ����ਬ "�� ࠡ�⠥�".
+
+### Next step + Confidence
+
+---
+
+## ����� 4 - ����� ��� �����᪮�� ��諥���
+
+**�ਣ����:** `�����`, `�� ��諮 �� ⠪`, `ࠧ��� ��樤���`, `��祬� ᫮������`, `���⬮�⥬`
+
+**�����:** ��樤���, ���, ���ࠤ���, ����������� ���������.
+
+**������:**
+
+### �������
+�� �����⭮ �ந��諮 (䠪��, �� ������樨).
+
+### 5 ����ᮢ (��易⥫쭮 �⢥��� �� ��)
+1. **�� ����������?** - ��᫥���� ࠡ�祥 ���ﭨ� vs ᥩ��
+2. **�� �訡�� ������ �㪢��쭮?** - ����� traceback, �� ��᫥���� ��ப�
+3. **����� assumptions � �����?** - ᯨ᮪ 3 ����饭�� + �஢�ઠ �������
+4. **�� ������� �訡�� ��� ᨬ�⮬?** - ����஢�� upstream
+5. **�� �� � ᪠��� ��㣮�� ࠧࠡ��稪�?** - rubber duck
+
+### Competing hypotheses
+- ����⥧� A: ... | Cheapest test: ...
+- ����⥧� B: ... | Cheapest test: ...
+
+### Cheapest discriminating test
+���� ��� ����� �⫨砥� A �� B.
+
+### Rollback threshold
+�� ����� �᫮��� �⪠�뢠�� ����������.
+
+### Next check + Confidence
+
+---
+
+## �⮯-�᫮���
+
+- ������ failure mode ������� ��� �뢮��  ��⠭����������
+- Baseline � ���������  ����ਬ ��אַ
+- ������ �������筮  䨪��㥬 [����������], �� ᨬ㫨�㥬 㢥७�����
+
+**���砫� ᫮���. ��⮬ �।���� �� �릨����.**
+
+
+**Planning project memory inspection commands**
+codex
+The audit is high-risk for correctness but has no mutation risk: all actions are reads, hashes, or in-memory calculations. I’ll treat project memory as non-authoritative context and derive every verdict from the listed source/data files.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "rg --files -g 'activeContext.md' -g 'decisions.md' -g 'patterns.md' -g 'goals.md' -g 'AGENTS.md' ." in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ exited 1 in 703ms:
+**Planning source inspection strategy**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command '$paths = @('"'20261028-h-cat56-2-phase4/o3_v3/code/interval_cells_v3.py','20261028-h-cat56-2-phase4/o3_v3/code/o3_run_v3.py','20261028-h-cat56-2-phase4/o3_v3/code/preflight_v3.py','20261028-h-cat56-2-phase4/o3_v3/code/audit_v3_coverage.py','20261027-h-cat56-2-discovery/code/s8_admissible_span.py'); foreach ("'$p in $paths) { $n=(Get-Content -LiteralPath $p).Count; Write-Output "$p`t$n" }' in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 484ms:
+20261028-h-cat56-2-phase4/o3_v3/code/interval_cells_v3.py	264
+20261028-h-cat56-2-phase4/o3_v3/code/o3_run_v3.py	224
+20261028-h-cat56-2-phase4/o3_v3/code/preflight_v3.py	144
+20261028-h-cat56-2-phase4/o3_v3/code/audit_v3_coverage.py	160
+20261027-h-cat56-2-discovery/code/s8_admissible_span.py	242
+
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command '$paths = @('"'20261028-h-cat56-2-phase4/o3_v3/code/interval_cells_v3.py','20261028-h-cat56-2-phase4/o3_v3/code/o3_run_v3.py','20261028-h-cat56-2-phase4/o3_v3/code/preflight_v3.py','20261028-h-cat56-2-phase4/o3_v3/code/audit_v3_coverage.py','20261027-h-cat56-2-discovery/code/s8_admissible_span.py'); foreach ("'$p in $paths) { Write-Output "===== $p ====="; $i=0; Get-Content -LiteralPath $p | ForEach-Object { $i++; '"'{0,4}: {1}' -f "'$i, $_ } }' in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 500ms:
+===== 20261028-h-cat56-2-phase4/o3_v3/code/interval_cells_v3.py =====
+   1: """O3 v3 (strict): interval certificate for S- cells, with every decision made in arb.
+   2: 
+   3: Relative to o3_v2/code/interval_cells_v2.py the bound formulas are unchanged. What changes is the decision
+   4: logic, which in v2 used binary64 selection on the critical path (review: O3_AUDIT_RECORD.md, items 3-4):
+   5: 
+   6:   * max/min of arb enclosures: max(a,b) = (a+b+|a-b|)/2 and min(a,b) = (a+b-|a-b|)/2 are arb expressions whose
+   7:     enclosure contains the true max/min. No float() comparison is used for any selection.
+   8:   * sign tests are arb comparisons. python-flint arb comparisons are certain: `x > 0` is True only if every
+   9:     value of the enclosure is positive (checked in o3_v3/metrics/arb_semantics_test.py).
+  10:   * the kernel-certificate row sums and the contains-zero tests are arb.
+  11:   * the margin 1e-12 is the exact decimal enclosure arb("1e-12"), not the binary64 literal.
+  12:   * tr R is the exact sum of the binary64 real diagonal of R_raw. The Hermitian part H = (R_raw+R_raw^H)/2 has
+  13:     real diagonal equal to Re R_raw, so the trace is exact and refers to the same H as the cell bounds.
+  14:   * s_target_f = fl(0.9*tr R/20) is computed exactly as in v2, so the threshold value is unchanged.
+  15: 
+  16: Kernel certificate, as in v2 (all arb, 192 bit):
+  17:   (a) det(G) > 0 with G = Phi0 Phi0^T            -> Phi0 has full row rank 36 -> dim ker Phi0 = 4
+  18:   (b) Phi0 * Z0 contains 0 entrywise              -> sanity (exact kernel membership is algebraic, see build_cell)
+  19:   (c) Gershgorin on Z0^T Z0 - I: row sums < 1     -> columns of Z0 are linearly independent
+  20:   (d) Phi0 * P contains 0 entrywise               -> sanity (P is the exact projector by construction)
+  21: P = I - Phi0^T G^-1 Phi0 is built in arb from the exact Phi0; the float SVD only seeds the starting vectors,
+  22: which P projects exactly. Not checked here: the cell lemma (math) and the cone reduction (see STAGE_C).
+  23: """
+  24: 
+  25: import hashlib
+  26: import os
+  27: import sys
+  28: 
+  29: import numpy as np
+  30: from flint import arb, arb_mat, ctx
+  31: 
+  32: ctx.prec = 192
+  33: BASE = r"E:\�஢�ઠ ����⥧\ࠡ��� ��� �஢�મ� ����⥧\Y-17 100 gipotez\experiments"
+  34: INST = BASE + r"\20261027-h-cat56-2-submission-package-v1\data\instance_d22_r2_s16.jsonl"
+  35: RPATH = (
+  36:     BASE
+  37:     + r"\20261028-h-cat56-2-phase3\metrics\inputs\s14_R_4-5-6-7-8-9-10-11-12-13-14-15_nx250.npz"
+  38: )
+  39: S8PATH = BASE + r"\20261027-h-cat56-2-discovery\code\s8_admissible_span.py"
+  40: sys.path.insert(0, BASE + r"\20261027-h-cat56-2-discovery\code")
+  41: import s8_admissible_span as sa  # noqa: E402
+  42: 
+  43: 
+  44: def sha256_file(path):
+  45:     h = hashlib.sha256()
+  46:     with open(path, "rb") as fh:
+  47:         for block in iter(lambda: fh.read(1 << 20), b""):
+  48:             h.update(block)
+  49:     return h.hexdigest()
+  50: 
+  51: 
+  52: S = list(range(4, 16))
+  53: As = sa.load_A(INST)
+  54: R_raw = np.load(RPATH)["R"]
+  55: R_HERMITIAN_EXACT = bool(np.array_equal(R_raw, R_raw.conj().T))
+  56: FRAC = 0.9
+  57: # same float expression as v2 (the diagonal of the average is exactly Re R_ii, so the value is unchanged)
+  58: trR_f = float(np.trace(0.5 * (R_raw + R_raw.conj().T)).real)
+  59: s_target_f = FRAC * trR_f / 20.0
+  60: BX = [np.array(v, complex) for v in ([1, 0], [1j, 0], [0, 1], [0, 1j])]
+  61: PHIf = np.array([sa.phi_rows(As, S, x) for x in BX])  # 4 x 36 x 40, exact integers in doubles
+  62: 
+  63: 
+  64: def arb_max(a, b):
+  65:     """arb enclosure containing max(a, b): (a + b + |a - b|)/2."""
+  66:     return (a + b + abs(a - b)) / 2
+  67: 
+  68: 
+  69: def arb_min(a, b):
+  70:     """arb enclosure containing min(a, b): (a + b - |a - b|)/2."""
+  71:     return (a + b - abs(a - b)) / 2
+  72: 
+  73: 
+  74: def to_arb_mat(a):
+  75:     r, c = a.shape
+  76:     return arb_mat(r, c, [arb(float(v)) for v in a.flatten()])
+  77: 
+  78: 
+  79: PHI = [to_arb_mat(PHIf[j]) for j in range(4)]
+  80: 
+  81: 
+  82: def real_form_of_hermitian_part_arb(Rr):
+  83:     """Real 40x40 form [[A, -B], [B, A]] of H = (R + R^H)/2 with A = Re H, B = Im H, all in arb (exact sums)."""
+  84:     n = Rr.shape[0]
+  85:     re = [
+  86:         [(arb(float(Rr[i, j].real)) + arb(float(Rr[j, i].real))) / 2 for j in range(n)]
+  87:         for i in range(n)
+  88:     ]
+  89:     im = [
+  90:         [(arb(float(Rr[i, j].imag)) - arb(float(Rr[j, i].imag))) / 2 for j in range(n)]
+  91:         for i in range(n)
+  92:     ]
+  93:     entries = []
+  94:     for i in range(2 * n):
+  95:         for j in range(2 * n):
+  96:             if i < n and j < n:
+  97:                 entries.append(re[i][j])
+  98:             elif i < n:
+  99:                 entries.append(-im[i][j - n])
+ 100:             elif j < n:
+ 101:                 entries.append(im[i - n][j])
+ 102:             else:
+ 103:                 entries.append(re[i - n][j - n])
+ 104:     return arb_mat(2 * n, 2 * n, entries)
+ 105: 
+ 106: 
+ 107: Mb = real_form_of_hermitian_part_arb(R_raw)
+ 108: M2 = Mb * Mb
+ 109: I40 = arb_mat(40, 40, [1 if i == j else 0 for i in range(40) for j in range(40)])
+ 110: tr_exact = sum((arb(float(R_raw[i, i].real)) for i in range(20)), arb(0))
+ 111: s_target = arb(s_target_f)
+ 112: final_gap = tr_exact - 20 * s_target  # arb; must be certainly > 0
+ 113: 
+ 114: 
+ 115: def np_of(B):
+ 116:     n, m = B.nrows(), B.ncols()
+ 117:     return np.array([[float(B[i, j].mid()) for j in range(m)] for i in range(n)])
+ 118: 
+ 119: 
+ 120: def lam_max_upper(B):
+ 121:     """Rigorous arb upper bound for lambda_max of a symmetric arb matrix B.
+ 122: 
+ 123:     Eigenvectors of a float matrix only seed the similarity V; C = V^-1 B V is computed in arb, and Gershgorin
+ 124:     row bounds on C are enclosures of the eigenvalues of B. The maximum over rows is an arb max.
+ 125:     """
+ 126:     n = B.nrows()
+ 127:     Bf = np_of(B)
+ 128:     Bf = 0.5 * (Bf + Bf.T)
+ 129:     _, V = np.linalg.eigh(Bf)
+ 130:     Vb = to_arb_mat(V)
+ 131:     C = Vb.inv() * B * Vb
+ 132:     best = None
+ 133:     for i in range(n):
+ 134:         up = (C[i, i] + sum((abs(C[i, j]) for j in range(n) if j != i), arb(0))).upper()
+ 135:         best = up if best is None else arb_max(best, up)
+ 136:     return best.upper()
+ 137: 
+ 138: 
+ 139: mn_up = arb_max(lam_max_upper(Mb), lam_max_upper(-1 * Mb)).upper()
+ 140: 
+ 141: 
+ 142: def contains_zero(x):
+ 143:     """Certain containment: lower <= 0 <= upper, both arb comparisons (no float conversion)."""
+ 144:     return bool(x.lower() <= 0) and bool(x.upper() >= 0)
+ 145: 
+ 146: 
+ 147: def build_cell(cell):
+ 148:     """Exact (ball) centre, Phi0, G, pseudo-inverse data, projector P and kernel basis Z0 for one cell."""
+ 149:     th_lo, th_hi, ph_lo, ph_hi = (float(v) for v in cell)
+ 150:     a_tl, a_th, a_pl, a_ph = arb(th_lo), arb(th_hi), arb(ph_lo), arb(ph_hi)
+ 151:     th_c, ph_c = (a_tl + a_th) / 2, (a_pl + a_ph) / 2
+ 152:     hth, hph = (a_th - a_tl) / 2, (a_ph - a_pl) / 2
+ 153:     margin = arb("1e-12")  # exact decimal enclosure, positive
+ 154:     du = (hth / 2 + (a_th / 2).sin() * hph + margin).upper()
+ 155:     u0 = [(th_c / 2).cos(), arb(0), (th_c / 2).sin() * ph_c.cos(), (th_c / 2).sin() * ph_c.sin()]
+ 156:     Phi0 = PHI[0] * u0[0]
+ 157:     for j in range(1, 4):
+ 158:         Phi0 = Phi0 + PHI[j] * u0[j]
+ 159:     G = Phi0 * Phi0.transpose()
+ 160:     Pinv = Phi0.transpose() * G.inv()  # 40 x 36
+ 161:     P = I40 - Pinv * Phi0
+ 162:     # the float SVD only seeds the starting vectors; P projects them exactly onto ker Phi0
+ 163:     u0f = [float(t.mid()) for t in u0]
+ 164:     Phi0f = sum(u0f[j] * PHIf[j] for j in range(4))
+ 165:     _, _, Vt = np.linalg.svd(Phi0f)
+ 166:     Zf = to_arb_mat(Vt[36:].T)
+ 167:     Z1 = P * Zf
+ 168:     cols = [[Z1[i, k] for i in range(40)] for k in range(4)]
+ 169:     Q = []
+ 170:     for k in range(4):
+ 171:         v = cols[k][:]
+ 172:         for q in Q:
+ 173:             d = sum((q[i] * v[i] for i in range(40)), arb(0))
+ 174:             v = [v[i] - d * q[i] for i in range(40)]
+ 175:         nrm = sum((x * x for x in v), arb(0)).sqrt()
+ 176:         Q.append([x / nrm for x in v])
+ 177:     Z0 = arb_mat(40, 4, [Q[k][i] for i in range(40) for k in range(4)])
+ 178:     return {"du": du, "Phi0": Phi0, "G": G, "Pinv": Pinv, "P": P, "Z0": Z0}
+ 179: 
+ 180: 
+ 181: def kernel_certificate(Phi0, G, P, Z0):
+ 182:     """List of failed certificate items (empty = certified). Decisions are arb comparisons only."""
+ 183:     fails = []
+ 184:     if not bool(G.det() > 0):
+ 185:         fails.append("a: det(G) not certified > 0 (Phi0 not certified full row rank 36)")
+ 186:     R0 = Phi0 * Z0
+ 187:     if not all(contains_zero(R0[i, k]) for i in range(R0.nrows()) for k in range(R0.ncols())):
+ 188:         fails.append("b: Phi0*Z0 does not contain 0")
+ 189:     Gm = Z0.transpose() * Z0
+ 190:     for i in range(4):
+ 191:         s = sum((abs(Gm[i, j] - (arb(1) if i == j else arb(0))) for j in range(4)), arb(0))
+ 192:         if not bool(s.upper() < 1):
+ 193:             fails.append(
+ 194:                 "c: Gram Z0^T Z0 - I not certified < 1 (columns not certified independent)"
+ 195:             )
+ 196:             break
+ 197:     PP = Phi0 * P
+ 198:     if not all(contains_zero(PP[i, j]) for i in range(PP.nrows()) for j in range(PP.ncols())):
+ 199:         fails.append("d: Phi0*P does not contain 0")
+ 200:     return fails
+ 201: 
+ 202: 
+ 203: def gram_defect(Z0):
+ 204:     """Certified arb upper bound delta >= ||Z0^T Z0 - I||_2 (Gershgorin row sums, arb max)."""
+ 205:     Gm = Z0.transpose() * Z0
+ 206:     rows = [
+ 207:         sum((abs(Gm[i, j] - (arb(1) if i == j else arb(0))) for j in range(4)), arb(0)).upper()
+ 208:         for i in range(4)
+ 209:     ]
+ 210:     d = rows[0]
+ 211:     for r in rows[1:]:
+ 212:         d = arb_max(d, r)
+ 213:     return d.upper()
+ 214: 
+ 215: 
+ 216: def cell_bound(cell):
+ 217:     """Certified bound for one cell: {'status': 'OK', 'B_up': arb, ...} or a failure status."""
+ 218:     b = build_cell(cell)
+ 219:     fails = kernel_certificate(b["Phi0"], b["G"], b["P"], b["Z0"])
+ 220:     if fails:
+ 221:         return {"status": "CERT_FAIL", "reasons": fails}
+ 222:     du, Pinv, Z0 = b["du"], b["Pinv"], b["Z0"]
+ 223:     Z0t = Z0.transpose()
+ 224:     A = [Pinv * PHI[j] for j in range(4)]
+ 225:     t_full = [lam_max_upper(A[j].transpose() * A[j]) for j in range(4)]
+ 226:     t_K = []
+ 227:     for j in range(4):
+ 228:         X = A[j] * Z0
+ 229:         t_K.append(lam_max_upper(X.transpose() * X))
+ 230:     kappa = (du * sum((t for t in t_full), arb(0)).sqrt()).upper()
+ 231:     kappa_K = (du * sum((t for t in t_K), arb(0)).sqrt()).upper()
+ 232:     lam_h = lam_max_upper(Z0t * Mb * Z0)
+ 233:     lamK = arb_max(lam_h.upper(), arb(0)).upper()  # max(lambda_K, 0) enclosed; no float sign test
+ 234:     mz = lam_max_upper(Z0t * M2 * Z0).sqrt().upper()
+ 235:     one_minus = arb(1) - kappa
+ 236:     if not bool(one_minus > 0):
+ 237:         return {"status": "KAPPA_GE_1"}
+ 238:     rho = (kappa_K / one_minus).upper()
+ 239:     B = (lamK + 2 * mz * rho + mn_up * rho * rho).upper()
+ 240:     delta = gram_defect(Z0)
+ 241:     one_minus_delta = arb(1) - delta
+ 242:     if not bool(one_minus_delta > 0):
+ 243:         return {
+ 244:             "status": "CERT_FAIL",
+ 245:             "reasons": ["c: delta >= 1 (non-orthonormality not controlled)"],
+ 246:         }
+ 247:     B_cert = (B / one_minus_delta).upper()
+ 248:     return {
+ 249:         "status": "OK",
+ 250:         "B_up": B_cert,
+ 251:         "delta": delta,
+ 252:         "kappa": kappa,
+ 253:         "rho": rho,
+ 254:         "lamK": lamK,
+ 255:         "mz": mz,
+ 256:     }
+ 257: 
+ 258: 
+ 259: CODE_FILES = {
+ 260:     "interval_cells_v3.py": os.path.abspath(__file__),
+ 261:     "s8_admissible_span.py": S8PATH,
+ 262:     "R_input.npz": RPATH,
+ 263:     "instance.jsonl": INST,
+ 264: }
+===== 20261028-h-cat56-2-phase4/o3_v3/code/o3_run_v3.py =====
+   1: """O3 v3 (strict) driver: per-leaf certified records, chunk journal, non-overlapping chunk ranges.
+   2: 
+   3: Usage (from phase4):  python -I o3_v3/code/o3_run_v3.py <run_name> <first_chunk> <last_chunk> [n_workers]
+   4:   - chunks are 500 leaves each, numbered from 0; the leaf range of chunk c is [500c, min(500(c+1), N)).
+   5:   - a run only processes chunks in [first_chunk, last_chunk]; runs must be given disjoint ranges.
+   6:   - a chunk is done when its line is in o3v3_progress.jsonl; the record file is written before the line, so an
+   7:     interrupted chunk is simply redone (no double count, no gap).
+   8: 
+   9: Outputs (o3_v3/):
+  10:   records/chunk_XXXXX.jsonl.gz   one line per leaf: leaf, ok, slack (arb enclosure string), bup (arb enclosure)
+  11:                                   or, for a failed leaf, status and reasons
+  12:   metrics/o3v3_progress.jsonl    one line per chunk: chunk, n, ok, fails, min_slack, max_bup, record_sha256, sec
+  13:   metrics/run_manifest_<run>.json  SHA-256 of every input and code file, library versions, the chunk range
+  14:   metrics/run_summary_<run>.json   counts and the minimum certified slack of the run
+  15: Decision per leaf: arb `s - B > 0` (certain). Anything else is a recorded failure. A failure is never widened.
+  16: """
+  17: 
+  18: import gzip
+  19: import hashlib
+  20: import json
+  21: import os
+  22: import platform
+  23: import sys
+  24: import time
+  25: from multiprocessing import Pool
+  26: 
+  27: os.environ["OPENBLAS_NUM_THREADS"] = "1"
+  28: os.environ["OMP_NUM_THREADS"] = "1"
+  29: os.environ["MKL_NUM_THREADS"] = "1"
+  30: 
+  31: import numpy as np  # noqa: E402
+  32: 
+  33: HERE = os.path.dirname(os.path.abspath(__file__))
+  34: O3V3 = os.path.normpath(os.path.join(HERE, ".."))
+  35: LEAVES = os.path.join(O3V3, "inputs", "leaves.npy")
+  36: RECORDS = os.path.join(O3V3, "records")
+  37: PROGRESS = os.path.join(O3V3, "metrics", "o3v3_progress.jsonl")
+  38: CHUNK = 500
+  39: _ivl = None
+  40: 
+  41: 
+  42: def _load():
+  43:     global _ivl
+  44:     if _ivl is None:
+  45:         sys.path.insert(0, HERE)
+  46:         import interval_cells_v3 as ivl  # noqa: E402
+  47: 
+  48:         _ivl = ivl
+  49:     return _ivl
+  50: 
+  51: 
+  52: def _init_worker():
+  53:     try:
+  54:         import psutil
+  55: 
+  56:         psutil.Process().nice(psutil.BELOW_NORMAL_PRIORITY_CLASS)
+  57:     except Exception:
+  58:         pass
+  59: 
+  60: 
+  61: def sha256_file(path):
+  62:     h = hashlib.sha256()
+  63:     with open(path, "rb") as fh:
+  64:         for block in iter(lambda: fh.read(1 << 20), b""):
+  65:             h.update(block)
+  66:     return h.hexdigest()
+  67: 
+  68: 
+  69: def _done_chunks():
+  70:     done = set()
+  71:     if os.path.exists(PROGRESS):
+  72:         with open(PROGRESS, encoding="utf-8") as fh:
+  73:             for line in fh:
+  74:                 if line.strip():
+  75:                     done.add(json.loads(line)["chunk"])
+  76:     return done
+  77: 
+  78: 
+  79: def work(args):
+  80:     cid, base, cells = args
+  81:     ivl = _load()
+  82:     s = ivl.s_target
+  83:     t0 = time.time()
+  84:     n_ok = 0
+  85:     n_fail = 0
+  86:     min_sl = None
+  87:     max_b = None
+  88:     lines = []
+  89:     for k, c in enumerate(cells):
+  90:         leaf = base + k
+  91:         cell = [float(v) for v in c]
+  92:         try:
+  93:             r = ivl.cell_bound(cell)
+  94:         except Exception as exc:  # recorded per leaf; never kills the chunk
+  95:             r = {"status": "EXCEPTION", "reasons": [f"{type(exc).__name__}: {exc}"]}
+  96:         if r["status"] != "OK":
+  97:             n_fail += 1
+  98:             lines.append(
+  99:                 json.dumps(
+ 100:                     {
+ 101:                         "leaf": leaf,
+ 102:                         "ok": False,
+ 103:                         "status": r["status"],
+ 104:                         "reasons": r.get("reasons", []),
+ 105:                     }
+ 106:                 )
+ 107:             )
+ 108:             continue
+ 109:         b = r["B_up"]
+ 110:         sl = s - b
+ 111:         if bool(sl > 0):  # arb-certain positivity
+ 112:             n_ok += 1
+ 113:             min_sl = sl if min_sl is None else ivl.arb_min(min_sl, sl)
+ 114:             max_b = b if max_b is None else ivl.arb_max(max_b, b)
+ 115:             lines.append(json.dumps({"leaf": leaf, "ok": True, "slack": str(sl), "bup": str(b)}))
+ 116:         else:
+ 117:             n_fail += 1
+ 118:             lines.append(
+ 119:                 json.dumps(
+ 120:                     {
+ 121:                         "leaf": leaf,
+ 122:                         "ok": False,
+ 123:                         "status": "SLACK_NOT_CERTAIN_POSITIVE",
+ 124:                         "slack": str(sl),
+ 125:                         "bup": str(b),
+ 126:                     }
+ 127:                 )
+ 128:             )
+ 129:     os.makedirs(RECORDS, exist_ok=True)
+ 130:     path = os.path.join(RECORDS, f"chunk_{cid:05d}.jsonl.gz")
+ 131:     tmp = path + ".tmp"
+ 132:     with gzip.open(tmp, "wt", encoding="utf-8") as gz:
+ 133:         gz.write("\n".join(lines) + "\n")
+ 134:     os.replace(tmp, path)
+ 135:     return {
+ 136:         "chunk": cid,
+ 137:         "n": len(cells),
+ 138:         "ok": n_ok,
+ 139:         "fails": n_fail,
+ 140:         "min_slack": None if min_sl is None else str(min_sl),
+ 141:         "max_bup": None if max_b is None else str(max_b),
+ 142:         "record_sha256": sha256_file(path),
+ 143:         "sec": round(time.time() - t0, 1),
+ 144:     }
+ 145: 
+ 146: 
+ 147: def main():
+ 148:     run = sys.argv[1]
+ 149:     first, last = int(sys.argv[2]), int(sys.argv[3])
+ 150:     n_workers = int(sys.argv[4]) if len(sys.argv) > 4 else 24
+ 151:     ivl = _load()
+ 152:     leaves = np.load(LEAVES, mmap_mode="r")
+ 153:     N = len(leaves)
+ 154:     total_chunks = (N + CHUNK - 1) // CHUNK
+ 155:     assert 0 <= first <= last < total_chunks, "chunk range outside the leaf index"
+ 156:     manifest = {
+ 157:         "run": run,
+ 158:         "first_chunk": first,
+ 159:         "last_chunk": last,
+ 160:         "workers": n_workers,
+ 161:         "leaves_total": N,
+ 162:         "chunks_total": total_chunks,
+ 163:         "python": platform.python_version(),
+ 164:         "numpy": np.__version__,
+ 165:         "flint_version": __import__("flint").__version__,
+ 166:         "sha256": {
+ 167:             "leaves.npy": sha256_file(LEAVES),
+ 168:             "interval_cells_v3.py": sha256_file(os.path.join(HERE, "interval_cells_v3.py")),
+ 169:             "o3_run_v3.py": sha256_file(os.path.join(HERE, "o3_run_v3.py")),
+ 170:             "R_input.npz": sha256_file(ivl.RPATH),
+ 171:             "instance.jsonl": sha256_file(ivl.INST),
+ 172:             "s8_admissible_span.py": sha256_file(ivl.S8PATH),
+ 173:         },
+ 174:         "s_target_binary64": float(ivl.s_target_f),
+ 175:         "final_gap_arb_positive": bool(ivl.final_gap > 0),
+ 176:     }
+ 177:     os.makedirs(os.path.join(O3V3, "metrics"), exist_ok=True)
+ 178:     with open(
+ 179:         os.path.join(O3V3, "metrics", f"run_manifest_{run}.json"), "w", encoding="utf-8"
+ 180:     ) as fh:
+ 181:         json.dump(manifest, fh, indent=1)
+ 182:     assert bool(ivl.final_gap > 0), "final gap not certainly positive: refuse to run"
+ 183: 
+ 184:     done = _done_chunks()
+ 185:     todo = [c for c in range(first, last + 1) if c not in done]
+ 186:     print(
+ 187:         f"run {run}: chunks {first}..{last}, to do {len(todo)}, done-before {len(done)}, workers {n_workers}",
+ 188:         flush=True,
+ 189:     )
+ 190:     jobs = [(c, c * CHUNK, np.asarray(leaves[c * CHUNK : min((c + 1) * CHUNK, N)])) for c in todo]
+ 191:     t0 = time.time()
+ 192:     tot_n = tot_ok = tot_fail = 0
+ 193:     with (
+ 194:         Pool(n_workers, initializer=_init_worker) as pool,
+ 195:         open(PROGRESS, "a", encoding="utf-8") as pf,
+ 196:     ):
+ 197:         for res in pool.imap_unordered(work, jobs, chunksize=1):
+ 198:             pf.write(json.dumps(res) + "\n")
+ 199:             pf.flush()
+ 200:             tot_n += res["n"]
+ 201:             tot_ok += res["ok"]
+ 202:             tot_fail += res["fails"]
+ 203:             print(
+ 204:                 f"chunk {res['chunk']}: ok {res['ok']}/{res['n']} fails {res['fails']} ({time.time() - t0:.0f}s)",
+ 205:                 flush=True,
+ 206:             )
+ 207:     summary = {
+ 208:         "run": run,
+ 209:         "chunks_processed": len(jobs),
+ 210:         "leaves_processed": tot_n,
+ 211:         "ok": tot_ok,
+ 212:         "fails": tot_fail,
+ 213:         "seconds": round(time.time() - t0, 1),
+ 214:         "note": "per-chunk certified min-slack enclosures are in metrics/o3v3_progress.jsonl (arb strings); no float selection is made in the driver",
+ 215:     }
+ 216:     with open(
+ 217:         os.path.join(O3V3, "metrics", f"run_summary_{run}.json"), "w", encoding="utf-8"
+ 218:     ) as fh:
+ 219:         json.dump(summary, fh, indent=1)
+ 220:     print(json.dumps(summary, indent=1), flush=True)
+ 221: 
+ 222: 
+ 223: if __name__ == "__main__":
+ 224:     main()
+===== 20261028-h-cat56-2-phase4/o3_v3/code/preflight_v3.py =====
+   1: """O3 v3 preflight (run before any full pass).
+   2: 
+   3: 1. arb identities: arb_max / arb_min enclose the true max / min on random exact pairs.
+   4: 2. negative controls, which must be REJECTED:
+   5:    (a) a cell with a deliberately broken projector (P = I) -> kernel certificate must fail;
+   6:    (b) the threshold lowered to just below a certified B_up -> the arb decision must be False.
+   7: 3. positive test: the 1000 closest-to-threshold cells of metrics/interval_top1000.json, of which 248 lie in the
+   8:    early chunks 0..3420 (mapping: o3_v3_preflight_top_map.json, exact leaf indices). Every cell must certify
+   9:    with arb-certain B_up < s_target; the enclosures are compared with the stored binary64 B_up values.
+  10: 
+  11: Output: o3_v3/metrics/preflight_v3.json
+  12: Usage : python -I o3_v3/code/preflight_v3.py [n_workers]
+  13: """
+  14: 
+  15: import json
+  16: import os
+  17: import random
+  18: import sys
+  19: from multiprocessing import Pool
+  20: 
+  21: os.environ["OPENBLAS_NUM_THREADS"] = "1"
+  22: os.environ["OMP_NUM_THREADS"] = "1"
+  23: 
+  24: HERE = os.path.dirname(os.path.abspath(__file__))
+  25: PHASE4 = os.path.normpath(os.path.join(HERE, "..", ".."))
+  26: OUT = os.path.join(HERE, "..", "metrics", "preflight_v3.json")
+  27: TOP = os.path.join(PHASE4, "metrics", "interval_top1000.json")
+  28: MAP = os.path.join(PHASE4, "o3_v3_preflight_top_map.json")
+  29: EARLY_LIMIT = 1710500  # leaves 0..1710499 = chunks 0..3420
+  30: 
+  31: 
+  32: def _load():
+  33:     sys.path.insert(0, HERE)
+  34:     import interval_cells_v3 as ivl  # noqa: E402
+  35: 
+  36:     return ivl
+  37: 
+  38: 
+  39: def _certify_cell(cell):
+  40:     ivl = _load()
+  41:     s = ivl.s_target
+  42:     r = ivl.cell_bound([float(v) for v in cell])
+  43:     if r["status"] != "OK":
+  44:         return {"status": r["status"], "reasons": r.get("reasons", [])}
+  45:     b = r["B_up"]
+  46:     sl = s - b
+  47:     return {"status": "OK", "certain_positive": bool(sl > 0), "slack": str(sl), "bup": str(b)}
+  48: 
+  49: 
+  50: def arb_identity_tests():
+  51:     from flint import arb, ctx
+  52: 
+  53:     ctx.prec = 192
+  54:     ivl = _load()
+  55:     rng = random.Random(20261031)
+  56:     bad = 0
+  57:     for _ in range(2000):
+  58:         x, y = rng.uniform(-5, 5), rng.uniform(-5, 5)
+  59:         ax, ay = arb(x), arb(y)
+  60:         mx = ivl.arb_max(ax, ay)
+  61:         mn = ivl.arb_min(ax, ay)
+  62:         # the enclosure must contain the exact max / min (both are exact binary64 values)
+  63:         if not (bool(mx.lower() <= max(x, y)) and bool(mx.upper() >= max(x, y))):
+  64:             bad += 1
+  65:         if not (bool(mn.lower() <= min(x, y)) and bool(mn.upper() >= min(x, y))):
+  66:             bad += 1
+  67:     return {"random_pairs": 2000, "enclosure_failures": bad}
+  68: 
+  69: 
+  70: def negative_controls():
+  71:     from flint import arb
+  72: 
+  73:     ivl = _load()
+  74:     out = {}
+  75:     # (a) broken projector: P = I instead of the exact projector
+  76:     cell = [3.130087797680651, 3.130471292877622, 5.241228857008265, 5.2416123522052365]
+  77:     b = ivl.build_cell(cell)
+  78:     fails = ivl.kernel_certificate(b["Phi0"], b["G"], ivl.I40, b["Z0"])
+  79:     out["broken_projector_rejected"] = len(fails) > 0
+  80:     out["broken_projector_reasons"] = fails
+  81:     # (b) threshold just below a certified bound must be rejected by the arb decision
+  82:     r = ivl.cell_bound(cell)
+  83:     if r["status"] == "OK":
+  84:         b_up = r["B_up"]
+  85:         s_fake = b_up - arb("1e-15")
+  86:         out["lowered_threshold_rejected"] = not bool(s_fake - b_up > 0)
+  87:     else:
+  88:         out["lowered_threshold_rejected"] = None
+  89:     return out
+  90: 
+  91: 
+  92: def positive_test(n_workers):
+  93:     with open(TOP, encoding="utf-8") as fh:
+  94:         top = json.load(fh)
+  95:     rows = top["rows"]
+  96:     with open(MAP, encoding="utf-8") as fh:
+  97:         mp = json.load(fh)
+  98:     early = set(mp["early_leaf_indices"])
+  99:     cells = [r["cell"] for r in rows]
+ 100:     with Pool(n_workers) as pool:
+ 101:         res = pool.map(_certify_cell, cells, chunksize=4)
+ 102:     n_cert = sum(1 for r in res if r["status"] == "OK" and r["certain_positive"])
+ 103:     stored = [r["B_up"] for r in rows]
+ 104:     max_dev = 0.0
+ 105:     for r, st in zip(res, stored):
+ 106:         if r["status"] == "OK":
+ 107:             # stored value is printed to 11 significant digits: compare to that resolution
+ 108:             max_dev = max(
+ 109:                 max_dev,
+ 110:                 abs(float(r["bup"].split("+/-")[0].strip("[ ")) - st) if "+/-" in r["bup"] else 0.0,
+ 111:             )
+ 112:     return {
+ 113:         "cells": len(cells),
+ 114:         "certified_with_arb_positive_slack": n_cert,
+ 115:         "failed": [r for r in res if not (r["status"] == "OK" and r.get("certain_positive"))][:5],
+ 116:         "early_cells_in_list": len(early),
+ 117:         "stored_vs_v3_max_abs_deviation_reporting_only": max_dev,
+ 118:         "note": "slack and bup strings are arb enclosures; the deviation above is a float report, not a decision",
+ 119:     }
+ 120: 
+ 121: 
+ 122: def main():
+ 123:     n_workers = int(sys.argv[1]) if len(sys.argv) > 1 else 24
+ 124:     report = {
+ 125:         "arb_identities": arb_identity_tests(),
+ 126:         "negative_controls": negative_controls(),
+ 127:         "positive_1000_closest": positive_test(n_workers),
+ 128:     }
+ 129:     ok = (
+ 130:         report["arb_identities"]["enclosure_failures"] == 0
+ 131:         and report["negative_controls"].get("broken_projector_rejected") is True
+ 132:         and report["negative_controls"].get("lowered_threshold_rejected") is True
+ 133:         and report["positive_1000_closest"]["certified_with_arb_positive_slack"]
+ 134:         == report["positive_1000_closest"]["cells"]
+ 135:     )
+ 136:     report["PREFLIGHT_V3"] = "PASS" if ok else "FAIL"
+ 137:     os.makedirs(os.path.dirname(OUT), exist_ok=True)
+ 138:     with open(OUT, "w", encoding="utf-8") as fh:
+ 139:         json.dump(report, fh, indent=1)
+ 140:     print(json.dumps(report, indent=1), flush=True)
+ 141: 
+ 142: 
+ 143: if __name__ == "__main__":
+ 144:     main()
+===== 20261028-h-cat56-2-phase4/o3_v3/code/audit_v3_coverage.py =====
+   1: """Independent audit of the O3 v3 records (no interval recomputation; reads records and journals only).
+   2: 
+   3: Checks, for every chunk in the journal:
+   4:   * the chunk ID is in the expected set, and every expected chunk appears exactly once (coverage, no duplicates);
+   5:   * the record file exists and its SHA-256 equals the hash stored in the journal line;
+   6:   * the record file has exactly n lines, leaf indices base..base+n-1 in order (no gap, no duplicate leaf);
+   7:   * every line has ok = true (any failure is reported with its leaf index and reasons);
+   8:   * the number of ok lines equals the journal's ok count.
+   9: Then, over all leaves: the minimum certified slack, as an arb enclosure parsed from the record strings, and the
+  10: decision "min slack certainly positive" (arb comparison). Parsing uses python-flint arb("a +/- r"), so the result
+  11: is an enclosure, not a float.
+  12: Also checks that the input hashes in the run manifests equal the files on disk.
+  13: 
+  14: Usage (from phase4): python -I o3_v3/code/audit_v3_coverage.py <first_chunk> <last_chunk> <out_name>
+  15: Output: o3_v3/metrics/audit_<out_name>.json
+  16: """
+  17: 
+  18: import gzip
+  19: import hashlib
+  20: import json
+  21: import os
+  22: import re
+  23: import sys
+  24: 
+  25: HERE = os.path.dirname(os.path.abspath(__file__))
+  26: O3V3 = os.path.normpath(os.path.join(HERE, ".."))
+  27: RECORDS = os.path.join(O3V3, "records")
+  28: PROGRESS = os.path.join(O3V3, "metrics", "o3v3_progress.jsonl")
+  29: CHUNK = 500
+  30: N_LEAVES = 3955841
+  31: N_CHUNKS = (N_LEAVES + CHUNK - 1) // CHUNK
+  32: 
+  33: 
+  34: def sha256_file(path):
+  35:     h = hashlib.sha256()
+  36:     with open(path, "rb") as fh:
+  37:         for block in iter(lambda: fh.read(1 << 20), b""):
+  38:             h.update(block)
+  39:     return h.hexdigest()
+  40: 
+  41: 
+  42: def parse_arb(s):
+  43:     """Parse an arb enclosure string '[m +/- r]' or 'm +/- r' into an arb value (exact enclosure)."""
+  44:     from flint import arb
+  45: 
+  46:     t = s.strip().strip("[]").strip()
+  47:     return arb(t)
+  48: 
+  49: 
+  50: def main():
+  51:     first, last, name = int(sys.argv[1]), int(sys.argv[2]), sys.argv[3]
+  52:     expected = list(range(first, last + 1))
+  53:     report = {"expected_chunks": [first, last], "problems": []}
+  54: 
+  55:     journal = {}
+  56:     dup_lines = 0
+  57:     with open(PROGRESS, encoding="utf-8") as fh:
+  58:         for line in fh:
+  59:             if not line.strip():
+  60:                 continue
+  61:             rec = json.loads(line)
+  62:             if rec["chunk"] in journal:
+  63:                 dup_lines += 1
+  64:                 report["problems"].append(f"duplicate journal line for chunk {rec['chunk']}")
+  65:             journal[rec["chunk"]] = rec
+  66:     report["journal_duplicate_lines"] = dup_lines
+  67:     present = [c for c in expected if c in journal]
+  68:     missing = [c for c in expected if c not in journal]
+  69:     extra = sorted(c for c in journal if c < first or c > last)
+  70:     report["chunks_expected"] = len(expected)
+  71:     report["chunks_present"] = len(present)
+  72:     report["missing_chunks"] = missing[:50]
+  73:     report["n_missing"] = len(missing)
+  74:     report["extra_chunks_outside_range"] = extra[:50]
+  75: 
+  76:     leaves_total = 0
+  77:     ok_total = 0
+  78:     min_slack = None
+  79:     max_bup = None
+  80:     fails = []
+  81:     for c in present:
+  82:         jr = journal[c]
+  83:         base = c * CHUNK
+  84:         n = min(CHUNK, N_LEAVES - base)
+  85:         if jr["n"] != n:
+  86:             report["problems"].append(f"chunk {c}: journal n={jr['n']} expected {n}")
+  87:         path = os.path.join(RECORDS, f"chunk_{c:05d}.jsonl.gz")
+  88:         if not os.path.exists(path):
+  89:             report["problems"].append(f"chunk {c}: record file missing")
+  90:             continue
+  91:         if sha256_file(path) != jr["record_sha256"]:
+  92:             report["problems"].append(f"chunk {c}: record SHA-256 mismatch with journal")
+  93:         ok_c = 0
+  94:         expect_leaf = base
+  95:         with gzip.open(path, "rt", encoding="utf-8") as gz:
+  96:             for line in gz:
+  97:                 if not line.strip():
+  98:                     continue
+  99:                 r = json.loads(line)
+ 100:                 if r["leaf"] != expect_leaf:
+ 101:                     report["problems"].append(
+ 102:                         f"chunk {c}: leaf {r['leaf']} where {expect_leaf} expected"
+ 103:                     )
+ 104:                     expect_leaf = r["leaf"]
+ 105:                 expect_leaf += 1
+ 106:                 leaves_total += 1
+ 107:                 if r.get("ok") is True:
+ 108:                     ok_c += 1
+ 109:                     sl = parse_arb(r["slack"])
+ 110:                     bu = parse_arb(r["bup"])
+ 111:                     min_slack = sl if min_slack is None else _arb_min(min_slack, sl)
+ 112:                     max_bup = bu if max_bup is None else _arb_max(max_bup, bu)
+ 113:                 else:
+ 114:                     fails.append(
+ 115:                         {
+ 116:                             "chunk": c,
+ 117:                             "leaf": r["leaf"],
+ 118:                             "status": r.get("status"),
+ 119:                             "reasons": r.get("reasons"),
+ 120:                         }
+ 121:                     )
+ 122:         if ok_c != jr["ok"]:
+ 123:             report["problems"].append(f"chunk {c}: ok lines {ok_c} != journal ok {jr['ok']}")
+ 124:         ok_total += ok_c
+ 125: 
+ 126:     report["leaves_read"] = leaves_total
+ 127:     report["leaves_expected_in_range"] = sum(min(CHUNK, N_LEAVES - c * CHUNK) for c in present)
+ 128:     report["ok_lines"] = ok_total
+ 129:     report["failed_leaves"] = len(fails)
+ 130:     report["first_failures"] = fails[:20]
+ 131:     report["min_slack_enclosure"] = None if min_slack is None else str(min_slack)
+ 132:     report["min_slack_certainly_positive"] = None if min_slack is None else bool(min_slack > 0)
+ 133:     report["max_bup_enclosure"] = None if max_bup is None else str(max_bup)
+ 134:     report["max_bup_below_threshold_certain"] = None
+ 135:     report["verdict"] = (
+ 136:         "COMPLETE_STRICT"
+ 137:         if (
+ 138:             not report["problems"]
+ 139:             and not missing
+ 140:             and not fails
+ 141:             and leaves_total == report["leaves_expected_in_range"]
+ 142:         )
+ 143:         else "INCOMPLETE_OR_FAILED"
+ 144:     )
+ 145:     out = os.path.join(O3V3, "metrics", f"audit_{name}.json")
+ 146:     with open(out, "w", encoding="utf-8") as fh:
+ 147:         json.dump(report, fh, indent=1)
+ 148:     print(json.dumps({k: v for k, v in report.items() if k != "first_failures"}, indent=1))
+ 149: 
+ 150: 
+ 151: def _arb_min(a, b):
+ 152:     return (a + b - abs(a - b)) / 2
+ 153: 
+ 154: 
+ 155: def _arb_max(a, b):
+ 156:     return (a + b + abs(a - b)) / 2
+ 157: 
+ 158: 
+ 159: if __name__ == "__main__":
+ 160:     main()
+===== 20261027-h-cat56-2-discovery/code/s8_admissible_span.py =====
+   1: """Admissible-kernel span test for parameter subsets of the A0 instance (phase 2, priority P2).
+   2: 
+   3: Setting (P-reg, finite POVM). For a subset S of parameter blocks and a nonzero x in C^2, put
+   4:     Y_S(x) = { y in C^20 : A_i^dag y = lambda_i x for all i in S, with real lambda_i }.
+   5: Each row of Phi_x (real-linear in y = (Re y, Im y) in R^40) encodes three real conditions per block:
+   6:     Re(g1 . y) = 0, Im(g1 . y) = 0, Im(g3 . y) = 0,   g1 = x0 a1 - x1 a0,  g3 = conj(x0) a0 + conj(x1) a1,
+   7: with a_k = conj(A[:, k]), because A^dag y = (a0 . y, a1 . y).
+   8: A saturating finite POVM (P-reg) has every kernel part y_w in Y_S := union over x of Y_S(x), and
+   9: sum_w y_w y_w^dag = I_20. Hence span_C(Y_S) must equal C^20 (necessary condition, "admissible span").
+  10: 
+  11: Procedure per subset S:
+  12:   1. Generic sampling: random unit x in C^2, kernel of Phi_x (real basis), convert to complex vectors.
+  13:   2. Special points: scan (theta, phi) with x = (cos theta, sin theta e^{i phi}) on a grid, locate local minima of
+  14:      sigma_min(Phi_x), refine by Nelder-Mead, keep points where the smallest singular value vanishes.
+  15:   3. Complex rank of all kernel vectors (sampled + special). Full rank 20 means the test does not obstruct S.
+  16: Also records the kernel-block generator rank (C2 premise) for comparison.
+  17: 
+  18: Usage (absolute path to instance file):
+  19:     python -I s8_admissible_span.py <instance.jsonl> <mode> [subset-size list]
+  20:     mode: prefix  -> prefixes s = 1..16
+  21:           sizes   -> all subsets with sizes given (e.g. 13 14 15)
+  22: """
+  23: 
+  24: import itertools
+  25: import json
+  26: import sys
+  27: 
+  28: import numpy as np
+  29: from scipy.optimize import minimize
+  30: 
+  31: N_BLOCK = 16
+  32: N_KER = 20
+  33: 
+  34: 
+  35: def load_A(path):
+  36:     with open(path, encoding="utf-8") as fh:
+  37:         rec = json.loads(fh.readline())
+  38:     blocks = []
+  39:     for flat in rec["blocks"]:
+  40:         re = np.array([[flat[2 * r + a] for a in range(2)] for r in range(20)], dtype=float)
+  41:         im = np.array([[flat[40 + 2 * r + a] for a in range(2)] for r in range(20)], dtype=float)
+  42:         blocks.append(-2j * (re + 1j * im))
+  43:     return blocks
+  44: 
+  45: 
+  46: def phi_rows(As, S, x):
+  47:     """Real matrix (3|S| x 40) of the admissibility constraints for x in C^2."""
+  48:     rows = []
+  49:     for i in S:
+  50:         A = As[i]
+  51:         a0 = np.conj(A[:, 0])
+  52:         a1 = np.conj(A[:, 1])
+  53:         g1 = x[0] * a1 - x[1] * a0
+  54:         g3 = np.conj(x[0]) * a0 + np.conj(x[1]) * a1
+  55:         rows.append(np.concatenate([g1.real, -g1.imag]))  # Re(g1.y)
+  56:         rows.append(np.concatenate([g1.imag, g1.real]))  # Im(g1.y)
+  57:         rows.append(np.concatenate([g3.imag, g3.real]))  # Im(g3.y)
+  58:     return np.array(rows)
+  59: 
+  60: 
+  61: def x_from_angles(theta, phi):
+  62:     return np.array([np.cos(theta), np.sin(theta) * np.exp(1j * phi)])
+  63: 
+  64: 
+  65: def kernel_complex(Phi, tol):
+  66:     _, sv, Vh = np.linalg.svd(Phi)
+  67:     # Phi has 40 columns; singular values beyond len(sv) are zero by definition
+  68:     full = np.zeros(Phi.shape[1])
+  69:     full[: len(sv)] = sv
+  70:     null_idx = np.where(full < tol)[0]
+  71:     vecs = []
+  72:     for k in null_idx:
+  73:         r = Vh[k]
+  74:         vecs.append(r[:N_KER] + 1j * r[N_KER:])
+  75:     return vecs, full
+  76: 
+  77: 
+  78: def sigma_min(As, S, theta, phi):
+  79:     """m-th singular value of Phi_x with m = min(3|S|, 40): it vanishes exactly when the rank drops below m,
+  80:     i.e. when the admissible kernel jumps above its generic dimension (generic dimension is 40 - 3|S| when 3|S| < 40)."""
+  81:     Phi = phi_rows(As, S, x_from_angles(theta, phi))
+  82:     sv = np.linalg.svd(Phi, compute_uv=False)
+  83:     m = min(Phi.shape[0], 40)
+  84:     return float(sv[m - 1])
+  85: 
+  86: 
+  87: def complex_rank(vectors, tol=1e-7):
+  88:     if not vectors:
+  89:         return 0
+  90:     M = np.array(vectors).T  # 20 x N
+  91:     sv = np.linalg.svd(M, compute_uv=False)
+  92:     if sv[0] == 0:
+  93:         return 0
+  94:     return int(np.sum(sv > tol * sv[0]))
+  95: 
+  96: 
+  97: def kk_rank(As, S):
+  98:     """Rank of kernel-block generators i(A_i s A_j^dag - A_j s A_i^dag), i<j in S, s in Paulis."""
+  99:     sig = [
+ 100:         np.eye(2, dtype=complex),
+ 101:         np.array([[0, 1], [1, 0]], dtype=complex),
+ 102:         np.array([[0, -1j], [1j, 0]], dtype=complex),
+ 103:         np.array([[1, 0], [0, -1]], dtype=complex),
+ 104:     ]
+ 105:     rows = []
+ 106:     for i, j in itertools.combinations(S, 2):
+ 107:         for sg in sig:
+ 108:             W = 1j * (As[i] @ sg @ As[j].conj().T - As[j] @ sg @ As[i].conj().T)
+ 109:             rows.append(np.concatenate([W.real.ravel(), W.imag.ravel()]))
+ 110:     if not rows:
+ 111:         return 0, 0
+ 112:     M = np.array(rows)
+ 113:     sv = np.linalg.svd(M, compute_uv=False)
+ 114:     return int(np.sum(sv > 1e-9 * sv[0])), len(rows)
+ 115: 
+ 116: 
+ 117: def generic_vectors(As, S, n_samples, rng):
+ 118:     vecs = []
+ 119:     for _ in range(n_samples):
+ 120:         x = rng.normal(size=2) + 1j * rng.normal(size=2)
+ 121:         x = x / np.linalg.norm(x)
+ 122:         Phi = phi_rows(As, S, x)
+ 123:         kv, _ = kernel_complex(Phi, 1e-9)
+ 124:         vecs.extend(kv)
+ 125:     return vecs
+ 126: 
+ 127: 
+ 128: def special_points(As, S, n_grid_theta=60, n_grid_phi=120, n_local=400, tol_zero=1e-7):
+ 129:     """Locate projective points x (mod complex scaling) where the admissible kernel jumps.
+ 130:     Parametrisation x = (cos theta, sin theta e^{i phi}), theta in [0, pi/2]: interior points (0<theta<pi/2) are
+ 131:     distinct projective points for distinct phi; theta = 0 and theta = pi/2 are single projective points.
+ 132:     All local minima of the grid are refined (up to n_local), duplicates are merged by these rules."""
+ 133:     thetas = np.linspace(0.0, np.pi / 2, n_grid_theta)
+ 134:     phis = np.linspace(0.0, 2 * np.pi, n_grid_phi, endpoint=False)
+ 135:     grid = np.zeros((n_grid_theta, n_grid_phi))
+ 136:     for a, th in enumerate(thetas):
+ 137:         for b, ph in enumerate(phis):
+ 138:             grid[a, b] = sigma_min(As, S, th, ph)
+ 139:     # local minima on the torus-like grid (theta bounded, phi periodic)
+ 140:     cands = []
+ 141:     for a in range(n_grid_theta):
+ 142:         for b in range(n_grid_phi):
+ 143:             v = grid[a, b]
+ 144:             ok = True
+ 145:             for da in (-1, 0, 1):
+ 146:                 for db in (-1, 0, 1):
+ 147:                     if da == 0 and db == 0:
+ 148:                         continue
+ 149:                     aa = a + da
+ 150:                     if aa < 0 or aa >= n_grid_theta:
+ 151:                         continue
+ 152:                     bb = (b + db) % n_grid_phi
+ 153:                     if grid[aa, bb] < v:
+ 154:                         ok = False
+ 155:                         break
+ 156:                 if not ok:
+ 157:                     break
+ 158:             if ok:
+ 159:                 cands.append((v, thetas[a], phis[b]))
+ 160:     cands.sort()
+ 161:     found = []
+ 162:     seen = []
+ 163: 
+ 164:     def class_key(th, ph):
+ 165:         if th < 1e-6:
+ 166:             return ("theta0",)
+ 167:         if th > np.pi / 2 - 1e-6:
+ 168:             return ("theta_pi2",)
+ 169:         return (round(th, 5), round(ph % (2 * np.pi), 5))
+ 170: 
+ 171:     keys_done = set()
+ 172:     for v0, th0, ph0 in cands[:n_local]:
+ 173:         res = minimize(
+ 174:             lambda p: sigma_min(As, S, p[0], p[1]),
+ 175:             x0=np.array([th0, ph0]),
+ 176:             method="Nelder-Mead",
+ 177:             options={"xatol": 1e-12, "fatol": 1e-14, "maxiter": 4000},
+ 178:         )
+ 179:         val = float(res.fun)
+ 180:         th, ph = float(res.x[0]), float(res.x[1])
+ 181:         if val < tol_zero:
+ 182:             key = class_key(min(max(th, 0.0), np.pi / 2), ph)
+ 183:             if key not in keys_done:
+ 184:                 keys_done.add(key)
+ 185:                 seen.append((th, ph))
+ 186:                 Phi = phi_rows(As, S, x_from_angles(th, ph))
+ 187:                 kv, sv = kernel_complex(Phi, 1e-7)
+ 188:                 found.append(
+ 189:                     {
+ 190:                         "theta": th,
+ 191:                         "phi": ph,
+ 192:                         "sigma_min": val,
+ 193:                         "kernel_dim_real": len(kv),
+ 194:                         "kernel_vectors": kv,
+ 195:                     }
+ 196:                 )
+ 197:     return found, float(grid.min()), float(cands[0][0]) if cands else None
+ 198: 
+ 199: 
+ 200: def analyse_subset(As, S, rng, n_samples=60, do_special=True):
+ 201:     gen = generic_vectors(As, S, n_samples, rng)
+ 202:     gen_rank = complex_rank(gen)
+ 203:     rec = {"S": list(S), "size": len(S)}
+ 204:     rec["generic_complex_rank"] = gen_rank
+ 205:     specials = []
+ 206:     grid_min = None
+ 207:     # Special points: rank jumps of Phi_x (generic kernel dimension is max(0, 40 - 3|S|)); searched whenever the
+ 208:     # generic sampling does not already reach the full span.
+ 209:     if do_special and gen_rank < N_KER:
+ 210:         specials, grid_min, _ = special_points(As, S)
+ 211:     special_vecs = []
+ 212:     for sp in specials:
+ 213:         special_vecs.extend(sp.pop("kernel_vectors"))
+ 214:     total_rank = complex_rank(gen + special_vecs)
+ 215:     rec["special_points"] = specials
+ 216:     rec["special_count"] = len(specials)
+ 217:     rec["admissible_span_complex_rank"] = total_rank
+ 218:     rec["obstructed_by_admissible_span"] = bool(total_rank < N_KER)
+ 219:     kr, nrows = kk_rank(As, S)
+ 220:     rec["kk_rank"] = kr
+ 221:     rec["kk_generators"] = nrows
+ 222:     rec["grid_min_sigma"] = grid_min
+ 223:     return rec
+ 224: 
+ 225: 
+ 226: def main(path, mode, sizes):
+ 227:     As = load_A(path)
+ 228:     rng = np.random.default_rng(20261027)
+ 229:     out = {"instance": path, "mode": mode, "results": []}
+ 230:     if mode == "prefix":
+ 231:         for s in range(1, N_BLOCK + 1):
+ 232:             out["results"].append(analyse_subset(As, list(range(s)), rng))
+ 233:     elif mode == "sizes":
+ 234:         for k in sizes:
+ 235:             for S in itertools.combinations(range(N_BLOCK), k):
+ 236:                 out["results"].append(analyse_subset(As, list(S), rng))
+ 237:     print(json.dumps(out, indent=1, ensure_ascii=True))
+ 238: 
+ 239: 
+ 240: if __name__ == "__main__":
+ 241:     args = sys.argv[1:]
+ 242:     main(args[0], args[1], [int(a) for a in args[2:]])
+
+**Planning detailed document extraction**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command '$paths = @('"'20261028-h-cat56-2-phase4/o3_v3/code/o3_run_v3.py','20261028-h-cat56-2-phase4/o3_v3/code/preflight_v3.py'); foreach ("'$p in $paths) { Write-Output "===== $p ====="; $i=0; Get-Content -LiteralPath $p | ForEach-Object { $i++; '"'{0,4}: {1}' -f "'$i, $_ } }' in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 420ms:
+===== 20261028-h-cat56-2-phase4/o3_v3/code/o3_run_v3.py =====
+   1: """O3 v3 (strict) driver: per-leaf certified records, chunk journal, non-overlapping chunk ranges.
+   2: 
+   3: Usage (from phase4):  python -I o3_v3/code/o3_run_v3.py <run_name> <first_chunk> <last_chunk> [n_workers]
+   4:   - chunks are 500 leaves each, numbered from 0; the leaf range of chunk c is [500c, min(500(c+1), N)).
+   5:   - a run only processes chunks in [first_chunk, last_chunk]; runs must be given disjoint ranges.
+   6:   - a chunk is done when its line is in o3v3_progress.jsonl; the record file is written before the line, so an
+   7:     interrupted chunk is simply redone (no double count, no gap).
+   8: 
+   9: Outputs (o3_v3/):
+  10:   records/chunk_XXXXX.jsonl.gz   one line per leaf: leaf, ok, slack (arb enclosure string), bup (arb enclosure)
+  11:                                   or, for a failed leaf, status and reasons
+  12:   metrics/o3v3_progress.jsonl    one line per chunk: chunk, n, ok, fails, min_slack, max_bup, record_sha256, sec
+  13:   metrics/run_manifest_<run>.json  SHA-256 of every input and code file, library versions, the chunk range
+  14:   metrics/run_summary_<run>.json   counts and the minimum certified slack of the run
+  15: Decision per leaf: arb `s - B > 0` (certain). Anything else is a recorded failure. A failure is never widened.
+  16: """
+  17: 
+  18: import gzip
+  19: import hashlib
+  20: import json
+  21: import os
+  22: import platform
+  23: import sys
+  24: import time
+  25: from multiprocessing import Pool
+  26: 
+  27: os.environ["OPENBLAS_NUM_THREADS"] = "1"
+  28: os.environ["OMP_NUM_THREADS"] = "1"
+  29: os.environ["MKL_NUM_THREADS"] = "1"
+  30: 
+  31: import numpy as np  # noqa: E402
+  32: 
+  33: HERE = os.path.dirname(os.path.abspath(__file__))
+  34: O3V3 = os.path.normpath(os.path.join(HERE, ".."))
+  35: LEAVES = os.path.join(O3V3, "inputs", "leaves.npy")
+  36: RECORDS = os.path.join(O3V3, "records")
+  37: PROGRESS = os.path.join(O3V3, "metrics", "o3v3_progress.jsonl")
+  38: CHUNK = 500
+  39: _ivl = None
+  40: 
+  41: 
+  42: def _load():
+  43:     global _ivl
+  44:     if _ivl is None:
+  45:         sys.path.insert(0, HERE)
+  46:         import interval_cells_v3 as ivl  # noqa: E402
+  47: 
+  48:         _ivl = ivl
+  49:     return _ivl
+  50: 
+  51: 
+  52: def _init_worker():
+  53:     try:
+  54:         import psutil
+  55: 
+  56:         psutil.Process().nice(psutil.BELOW_NORMAL_PRIORITY_CLASS)
+  57:     except Exception:
+  58:         pass
+  59: 
+  60: 
+  61: def sha256_file(path):
+  62:     h = hashlib.sha256()
+  63:     with open(path, "rb") as fh:
+  64:         for block in iter(lambda: fh.read(1 << 20), b""):
+  65:             h.update(block)
+  66:     return h.hexdigest()
+  67: 
+  68: 
+  69: def _done_chunks():
+  70:     done = set()
+  71:     if os.path.exists(PROGRESS):
+  72:         with open(PROGRESS, encoding="utf-8") as fh:
+  73:             for line in fh:
+  74:                 if line.strip():
+  75:                     done.add(json.loads(line)["chunk"])
+  76:     return done
+  77: 
+  78: 
+  79: def work(args):
+  80:     cid, base, cells = args
+  81:     ivl = _load()
+  82:     s = ivl.s_target
+  83:     t0 = time.time()
+  84:     n_ok = 0
+  85:     n_fail = 0
+  86:     min_sl = None
+  87:     max_b = None
+  88:     lines = []
+  89:     for k, c in enumerate(cells):
+  90:         leaf = base + k
+  91:         cell = [float(v) for v in c]
+  92:         try:
+  93:             r = ivl.cell_bound(cell)
+  94:         except Exception as exc:  # recorded per leaf; never kills the chunk
+  95:             r = {"status": "EXCEPTION", "reasons": [f"{type(exc).__name__}: {exc}"]}
+  96:         if r["status"] != "OK":
+  97:             n_fail += 1
+  98:             lines.append(
+  99:                 json.dumps(
+ 100:                     {
+ 101:                         "leaf": leaf,
+ 102:                         "ok": False,
+ 103:                         "status": r["status"],
+ 104:                         "reasons": r.get("reasons", []),
+ 105:                     }
+ 106:                 )
+ 107:             )
+ 108:             continue
+ 109:         b = r["B_up"]
+ 110:         sl = s - b
+ 111:         if bool(sl > 0):  # arb-certain positivity
+ 112:             n_ok += 1
+ 113:             min_sl = sl if min_sl is None else ivl.arb_min(min_sl, sl)
+ 114:             max_b = b if max_b is None else ivl.arb_max(max_b, b)
+ 115:             lines.append(json.dumps({"leaf": leaf, "ok": True, "slack": str(sl), "bup": str(b)}))
+ 116:         else:
+ 117:             n_fail += 1
+ 118:             lines.append(
+ 119:                 json.dumps(
+ 120:                     {
+ 121:                         "leaf": leaf,
+ 122:                         "ok": False,
+ 123:                         "status": "SLACK_NOT_CERTAIN_POSITIVE",
+ 124:                         "slack": str(sl),
+ 125:                         "bup": str(b),
+ 126:                     }
+ 127:                 )
+ 128:             )
+ 129:     os.makedirs(RECORDS, exist_ok=True)
+ 130:     path = os.path.join(RECORDS, f"chunk_{cid:05d}.jsonl.gz")
+ 131:     tmp = path + ".tmp"
+ 132:     with gzip.open(tmp, "wt", encoding="utf-8") as gz:
+ 133:         gz.write("\n".join(lines) + "\n")
+ 134:     os.replace(tmp, path)
+ 135:     return {
+ 136:         "chunk": cid,
+ 137:         "n": len(cells),
+ 138:         "ok": n_ok,
+ 139:         "fails": n_fail,
+ 140:         "min_slack": None if min_sl is None else str(min_sl),
+ 141:         "max_bup": None if max_b is None else str(max_b),
+ 142:         "record_sha256": sha256_file(path),
+ 143:         "sec": round(time.time() - t0, 1),
+ 144:     }
+ 145: 
+ 146: 
+ 147: def main():
+ 148:     run = sys.argv[1]
+ 149:     first, last = int(sys.argv[2]), int(sys.argv[3])
+ 150:     n_workers = int(sys.argv[4]) if len(sys.argv) > 4 else 24
+ 151:     ivl = _load()
+ 152:     leaves = np.load(LEAVES, mmap_mode="r")
+ 153:     N = len(leaves)
+ 154:     total_chunks = (N + CHUNK - 1) // CHUNK
+ 155:     assert 0 <= first <= last < total_chunks, "chunk range outside the leaf index"
+ 156:     manifest = {
+ 157:         "run": run,
+ 158:         "first_chunk": first,
+ 159:         "last_chunk": last,
+ 160:         "workers": n_workers,
+ 161:         "leaves_total": N,
+ 162:         "chunks_total": total_chunks,
+ 163:         "python": platform.python_version(),
+ 164:         "numpy": np.__version__,
+ 165:         "flint_version": __import__("flint").__version__,
+ 166:         "sha256": {
+ 167:             "leaves.npy": sha256_file(LEAVES),
+ 168:             "interval_cells_v3.py": sha256_file(os.path.join(HERE, "interval_cells_v3.py")),
+ 169:             "o3_run_v3.py": sha256_file(os.path.join(HERE, "o3_run_v3.py")),
+ 170:             "R_input.npz": sha256_file(ivl.RPATH),
+ 171:             "instance.jsonl": sha256_file(ivl.INST),
+ 172:             "s8_admissible_span.py": sha256_file(ivl.S8PATH),
+ 173:         },
+ 174:         "s_target_binary64": float(ivl.s_target_f),
+ 175:         "final_gap_arb_positive": bool(ivl.final_gap > 0),
+ 176:     }
+ 177:     os.makedirs(os.path.join(O3V3, "metrics"), exist_ok=True)
+ 178:     with open(
+ 179:         os.path.join(O3V3, "metrics", f"run_manifest_{run}.json"), "w", encoding="utf-8"
+ 180:     ) as fh:
+ 181:         json.dump(manifest, fh, indent=1)
+ 182:     assert bool(ivl.final_gap > 0), "final gap not certainly positive: refuse to run"
+ 183: 
+ 184:     done = _done_chunks()
+ 185:     todo = [c for c in range(first, last + 1) if c not in done]
+ 186:     print(
+ 187:         f"run {run}: chunks {first}..{last}, to do {len(todo)}, done-before {len(done)}, workers {n_workers}",
+ 188:         flush=True,
+ 189:     )
+ 190:     jobs = [(c, c * CHUNK, np.asarray(leaves[c * CHUNK : min((c + 1) * CHUNK, N)])) for c in todo]
+ 191:     t0 = time.time()
+ 192:     tot_n = tot_ok = tot_fail = 0
+ 193:     with (
+ 194:         Pool(n_workers, initializer=_init_worker) as pool,
+ 195:         open(PROGRESS, "a", encoding="utf-8") as pf,
+ 196:     ):
+ 197:         for res in pool.imap_unordered(work, jobs, chunksize=1):
+ 198:             pf.write(json.dumps(res) + "\n")
+ 199:             pf.flush()
+ 200:             tot_n += res["n"]
+ 201:             tot_ok += res["ok"]
+ 202:             tot_fail += res["fails"]
+ 203:             print(
+ 204:                 f"chunk {res['chunk']}: ok {res['ok']}/{res['n']} fails {res['fails']} ({time.time() - t0:.0f}s)",
+ 205:                 flush=True,
+ 206:             )
+ 207:     summary = {
+ 208:         "run": run,
+ 209:         "chunks_processed": len(jobs),
+ 210:         "leaves_processed": tot_n,
+ 211:         "ok": tot_ok,
+ 212:         "fails": tot_fail,
+ 213:         "seconds": round(time.time() - t0, 1),
+ 214:         "note": "per-chunk certified min-slack enclosures are in metrics/o3v3_progress.jsonl (arb strings); no float selection is made in the driver",
+ 215:     }
+ 216:     with open(
+ 217:         os.path.join(O3V3, "metrics", f"run_summary_{run}.json"), "w", encoding="utf-8"
+ 218:     ) as fh:
+ 219:         json.dump(summary, fh, indent=1)
+ 220:     print(json.dumps(summary, indent=1), flush=True)
+ 221: 
+ 222: 
+ 223: if __name__ == "__main__":
+ 224:     main()
+===== 20261028-h-cat56-2-phase4/o3_v3/code/preflight_v3.py =====
+   1: """O3 v3 preflight (run before any full pass).
+   2: 
+   3: 1. arb identities: arb_max / arb_min enclose the true max / min on random exact pairs.
+   4: 2. negative controls, which must be REJECTED:
+   5:    (a) a cell with a deliberately broken projector (P = I) -> kernel certificate must fail;
+   6:    (b) the threshold lowered to just below a certified B_up -> the arb decision must be False.
+   7: 3. positive test: the 1000 closest-to-threshold cells of metrics/interval_top1000.json, of which 248 lie in the
+   8:    early chunks 0..3420 (mapping: o3_v3_preflight_top_map.json, exact leaf indices). Every cell must certify
+   9:    with arb-certain B_up < s_target; the enclosures are compared with the stored binary64 B_up values.
+  10: 
+  11: Output: o3_v3/metrics/preflight_v3.json
+  12: Usage : python -I o3_v3/code/preflight_v3.py [n_workers]
+  13: """
+  14: 
+  15: import json
+  16: import os
+  17: import random
+  18: import sys
+  19: from multiprocessing import Pool
+  20: 
+  21: os.environ["OPENBLAS_NUM_THREADS"] = "1"
+  22: os.environ["OMP_NUM_THREADS"] = "1"
+  23: 
+  24: HERE = os.path.dirname(os.path.abspath(__file__))
+  25: PHASE4 = os.path.normpath(os.path.join(HERE, "..", ".."))
+  26: OUT = os.path.join(HERE, "..", "metrics", "preflight_v3.json")
+  27: TOP = os.path.join(PHASE4, "metrics", "interval_top1000.json")
+  28: MAP = os.path.join(PHASE4, "o3_v3_preflight_top_map.json")
+  29: EARLY_LIMIT = 1710500  # leaves 0..1710499 = chunks 0..3420
+  30: 
+  31: 
+  32: def _load():
+  33:     sys.path.insert(0, HERE)
+  34:     import interval_cells_v3 as ivl  # noqa: E402
+  35: 
+  36:     return ivl
+  37: 
+  38: 
+  39: def _certify_cell(cell):
+  40:     ivl = _load()
+  41:     s = ivl.s_target
+  42:     r = ivl.cell_bound([float(v) for v in cell])
+  43:     if r["status"] != "OK":
+  44:         return {"status": r["status"], "reasons": r.get("reasons", [])}
+  45:     b = r["B_up"]
+  46:     sl = s - b
+  47:     return {"status": "OK", "certain_positive": bool(sl > 0), "slack": str(sl), "bup": str(b)}
+  48: 
+  49: 
+  50: def arb_identity_tests():
+  51:     from flint import arb, ctx
+  52: 
+  53:     ctx.prec = 192
+  54:     ivl = _load()
+  55:     rng = random.Random(20261031)
+  56:     bad = 0
+  57:     for _ in range(2000):
+  58:         x, y = rng.uniform(-5, 5), rng.uniform(-5, 5)
+  59:         ax, ay = arb(x), arb(y)
+  60:         mx = ivl.arb_max(ax, ay)
+  61:         mn = ivl.arb_min(ax, ay)
+  62:         # the enclosure must contain the exact max / min (both are exact binary64 values)
+  63:         if not (bool(mx.lower() <= max(x, y)) and bool(mx.upper() >= max(x, y))):
+  64:             bad += 1
+  65:         if not (bool(mn.lower() <= min(x, y)) and bool(mn.upper() >= min(x, y))):
+  66:             bad += 1
+  67:     return {"random_pairs": 2000, "enclosure_failures": bad}
+  68: 
+  69: 
+  70: def negative_controls():
+  71:     from flint import arb
+  72: 
+  73:     ivl = _load()
+  74:     out = {}
+  75:     # (a) broken projector: P = I instead of the exact projector
+  76:     cell = [3.130087797680651, 3.130471292877622, 5.241228857008265, 5.2416123522052365]
+  77:     b = ivl.build_cell(cell)
+  78:     fails = ivl.kernel_certificate(b["Phi0"], b["G"], ivl.I40, b["Z0"])
+  79:     out["broken_projector_rejected"] = len(fails) > 0
+  80:     out["broken_projector_reasons"] = fails
+  81:     # (b) threshold just below a certified bound must be rejected by the arb decision
+  82:     r = ivl.cell_bound(cell)
+  83:     if r["status"] == "OK":
+  84:         b_up = r["B_up"]
+  85:         s_fake = b_up - arb("1e-15")
+  86:         out["lowered_threshold_rejected"] = not bool(s_fake - b_up > 0)
+  87:     else:
+  88:         out["lowered_threshold_rejected"] = None
+  89:     return out
+  90: 
+  91: 
+  92: def positive_test(n_workers):
+  93:     with open(TOP, encoding="utf-8") as fh:
+  94:         top = json.load(fh)
+  95:     rows = top["rows"]
+  96:     with open(MAP, encoding="utf-8") as fh:
+  97:         mp = json.load(fh)
+  98:     early = set(mp["early_leaf_indices"])
+  99:     cells = [r["cell"] for r in rows]
+ 100:     with Pool(n_workers) as pool:
+ 101:         res = pool.map(_certify_cell, cells, chunksize=4)
+ 102:     n_cert = sum(1 for r in res if r["status"] == "OK" and r["certain_positive"])
+ 103:     stored = [r["B_up"] for r in rows]
+ 104:     max_dev = 0.0
+ 105:     for r, st in zip(res, stored):
+ 106:         if r["status"] == "OK":
+ 107:             # stored value is printed to 11 significant digits: compare to that resolution
+ 108:             max_dev = max(
+ 109:                 max_dev,
+ 110:                 abs(float(r["bup"].split("+/-")[0].strip("[ ")) - st) if "+/-" in r["bup"] else 0.0,
+ 111:             )
+ 112:     return {
+ 113:         "cells": len(cells),
+ 114:         "certified_with_arb_positive_slack": n_cert,
+ 115:         "failed": [r for r in res if not (r["status"] == "OK" and r.get("certain_positive"))][:5],
+ 116:         "early_cells_in_list": len(early),
+ 117:         "stored_vs_v3_max_abs_deviation_reporting_only": max_dev,
+ 118:         "note": "slack and bup strings are arb enclosures; the deviation above is a float report, not a decision",
+ 119:     }
+ 120: 
+ 121: 
+ 122: def main():
+ 123:     n_workers = int(sys.argv[1]) if len(sys.argv) > 1 else 24
+ 124:     report = {
+ 125:         "arb_identities": arb_identity_tests(),
+ 126:         "negative_controls": negative_controls(),
+ 127:         "positive_1000_closest": positive_test(n_workers),
+ 128:     }
+ 129:     ok = (
+ 130:         report["arb_identities"]["enclosure_failures"] == 0
+ 131:         and report["negative_controls"].get("broken_projector_rejected") is True
+ 132:         and report["negative_controls"].get("lowered_threshold_rejected") is True
+ 133:         and report["positive_1000_closest"]["certified_with_arb_positive_slack"]
+ 134:         == report["positive_1000_closest"]["cells"]
+ 135:     )
+ 136:     report["PREFLIGHT_V3"] = "PASS" if ok else "FAIL"
+ 137:     os.makedirs(os.path.dirname(OUT), exist_ok=True)
+ 138:     with open(OUT, "w", encoding="utf-8") as fh:
+ 139:         json.dump(report, fh, indent=1)
+ 140:     print(json.dumps(report, indent=1), flush=True)
+ 141: 
+ 142: 
+ 143: if __name__ == "__main__":
+ 144:     main()
+
+**Planning targeted documentation search**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command '$paths=@('"'20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md','20261028-h-cat56-2-phase4/THEOREM_NATURAL_D2_NOGO_v8.md'); foreach("'$p in $paths){Write-Output "$p`t$((Get-Content -LiteralPath $p).Count)"}; rg -n "cell|lemma|separator|O3|B_cert|kappa|rho|delta|gamma|s'"\\*|Y_S|phase|theta|phi|cover|Gershgorin\" -- '20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md' '20261028-h-cat56-2-phase4/THEOREM_NATURAL_D2_NOGO_v8.md'" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 416ms:
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md	133
+20261028-h-cat56-2-phase4/THEOREM_NATURAL_D2_NOGO_v8.md	78
+20261028-h-cat56-2-phase4/THEOREM_NATURAL_D2_NOGO_v8.md:7:Модель — как в v7 §0: ρ_θ = U_θρ₀U_θᴴ, ρ₀ = Q ⊕ 0, Q = diag(1/3,2/3), S = {4..15}, G_a = A_a/2, A_a = −2iB_a^{inst}, конвенция C2. Направление h ∈ S¹_ℝ := {h ∈ ℝ^S : |h| = 1} (сфера в ℝ^S; обозначение S¹ не используется для сферы, чтобы не путать с набором индексов S). Разделитель R* с γ > 0 (O3).
+20261028-h-cat56-2-phase4/THEOREM_NATURAL_D2_NOGO_v8.md:63:| Теорема N (конечный POVM, матричная/следовая, |θ| ≤ s₁, любой h) | PROVED-hand (аудит v7: CONFIRMED; v8 — поправки записи) | O3 γ > 0 (VERIFIED-interval) |
+20261028-h-cat56-2-phase4/THEOREM_NATURAL_D2_NOGO_v8.md:70:| Численные контроли (опт. дефицит по K, s*-выборка) | VERIFIED-NUMERIC (верхние оценки инфимума; согласованность) | не доказательство; c не вычислена |
+20261028-h-cat56-2-phase4/THEOREM_NATURAL_D2_NOGO_v8.md:71:| Теорема N для C¹-семей (с модулем ω вместо L) | PROVED-hand при условиях 1–3 **и** существовании разделителя R* с γ > 0 (PROOF_RECONSTRUCTION шаги 5–8). Для F_U разделитель даёт O3 (VERIFIED-interval). Для общей семьи разделитель — гипотеза (**CONDITIONAL**). Без условия 2 общее утверждение ложно (контрпример §0); условие 3 нужно для продуктовой структуры 𝒱₀ (необходимость не проверена) | условия 1–3 + разделитель |
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:5:Метки: **[PROVED-hand]** вывод на бумаге, проверен по шагам при написании этого документа; **[PHASE3]** вывод взят из `20261028-h-cat56-2-phase3/PHASE3_PROOF.md`, логика проверена, но не перевыведена заново; **[VERIFIED-interval]** строгая арифметика arb (192 бита) на указанных ячейках; **[VERIFIED-exact]** проверка точной равности/тождества на точных данных; **[OPEN]** не закрыто.
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:14:- 𝒴_S := ⋃_{x∈C²} Y_S(x), Y_S(x) := {y ∈ C²⁰ : A_iᴴy = λ_i x, λ_i ∈ R, i ∈ S}; для x = 0 полагаем Y_S(0) := {y : A_iᴴy = 0 ∀i ∈ S}.
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:32:| P2 | Ядро Φ(x): Y_S(x) = ker Φ(x) для всех x ≠ 0, включая полюс x₀ = 0 | **[PROVED-hand]** (§4 ниже; полюс закрыт в этом документе) |
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:36:| P6 | Численные условия: sup_{y∈𝒴¹_{S−}} y†Ry ≤ s < tr R/20 | **[VERIFIED-interval]** на всех 3 955 841 листах (журналы), полный прогон с исправленным правилом λ_K (`o3_v2`, 2026-10-30), 0 отказов — **O3 закрыт** |
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:48:- Фазовая эквивалентность: Y_S(e^{iα}x) = e^{iα}Y_S(x), y†Ry инвариантна. Поэтому достаточно x₀ ≥ 0, т.е. параметризация Блоха x = (cos θ/2, sin θ/2 e^{iφ}), θ ∈ [0,π], φ ∈ [0,2π). [PROVED-hand]
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:79:- Выгрузка: 3 955 841 лист (`metrics/c3h_S-_f090_all_accepted_leaves.npy`), журнал `c3h_S-_f090_all.json`: cells_uncertified = 0 на float-уровне с маржой 10⁻⁸.
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:80:- Строгая проверка: прогон 1 (3 595 000 листьев) и прогон 2 (360 841 лист, докачка). Все 7 912 чанков, 0 отказов, `metrics/interval_coverage_check.json` = `COVERAGE_CONSISTENT`. [VERIFIED-interval]
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:82:- **Оговорка O3 (правило λ_K).** Прогоны 1 и 2 выполнены кодом, где λ_K бралась по средней точке enclosure (`float(lam_h) > 0`). Исправлено на верхнюю границу (`lam_h.upper()`). Изменение не может уменьшить B (новое правило даёт λ_K ≥ старого), и разница не больше ширины enclosure λ_K (при 192 битах порядка 2⁻¹⁹⁰ относительно). Перепроверено на 200 листах с наименьшим запасом: все 200 ниже s, `B_up` не изменился (`metrics/recheck_closest_leaves.json`, `logs/recheck_closest_leaves.log`). [VERIFIED-interval на 200 листах; полный повтор с исправленным правилом выполнен в `o3_v2` — см. §10, **O3 закрыт**].
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:86:Если P1 верна, P2–P6 выполнены (P1 — с оговоркой O1; P6 — закрыт O3 в `o3_v2`), то Теорема C верна.
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:103:- **O3 — закрыт 2026-10-30 (`o3_v2`).** Полный повтор 3 955 841 листа с исправленным правилом λ_K (`code/interval_cells_v2.py`, arb-симметризация R, δ-поправка на Гершгорин, сертификат ядра (a)–(d) на каждой ячейке). Предпроверка (`metrics/preflight_v2.json`, `PRECHECK_KERNEL_v2.md`): 300/300 позитивных контролей принято, 5/5 негативных отвергнуто. Журнал `metrics/o3_progress.jsonl`: 7 912 уникальных чанков, дубликатов 0, отказов 0 (`metrics/o3_failures.jsonl` пуст). Сводка `metrics/o3_summary.json`: `all_chunks_covered_once`, `leaves_match_total`, `final_gap_positive` = true; `final_gap` = 0.0304 > 0; `prec_bits` = 192. Запуск прерывался перезагрузкой ПК и был продолжен с чанка 3421 по чанкам; сводка этого запуска покрывает чанки 3421–7911 (2 245 341 лист), per-leaf максимум `B_up` и минимум запаса по чанкам 0–3420 в артефактах не записаны, видны только факт `ok` на каждом листе. Минимальный запас в этом запуске 8.4·10⁻⁹ (положительный, узкий), максимум `B_up` 0.0136823520 при s = 0.0136823604. Манифест `SHA256SUMS_o3v2.txt` сверен перед запуском. Исправление о не-эрмитовости R: `np.array_equal(R, R^H)` дал False (max|R−R^H| = 5.2·10⁻¹⁷), поэтому R симметризуется в arb, а не в float.
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:105:  - Результат для D1 (Теорема C) сохраняется как доказанный для D1 с сертификатом O3 (`o3_v2`).
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:114:python -I experiments/20261028-h-cat56-2-phase4/code/verify_interval_coverage.py
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:115:python -I experiments/20261028-h-cat56-2-phase4/code/recheck_closest_leaves.py 200
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:116:sha256sum -c experiments/20261028-h-cat56-2-phase4/PROOF_CERTIFICATES/SHA256SUMS.txt
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:119:Полный список команд — `REPRODUCIBILITY.md`. Журналы: `metrics/interval_full_progress.jsonl`, `metrics/interval_resume_progress.jsonl`, `metrics/interval_coverage_check.json`, `metrics/recheck_closest_leaves.json`.
+20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md:125:| Y_S(x) = ker Φ(x), полюс | §4 | перевывод | сходится | PROVED-hand |
+
+**Planning to read key STAGE sections**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command '$paths=@('"'20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md','20261028-h-cat56-2-phase4/THEOREM_NATURAL_D2_NOGO_v8.md'); foreach("'$p in $paths){Write-Output "===== $p =====";$i=0;Get-Content -LiteralPath $p | ForEach-Object{$i++;'"'{0,4}: {1}' -f "'$i,$_}}' in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 407ms:
+===== 20261028-h-cat56-2-phase4/STAGE_C_FINAL_PROOF.md =====
+   1: # STAGE_C_FINAL_PROOF - ����⥫�� ���䨪�� ��� S? = {4,:,15} (H-CAT56-2, �⠤�� C)
+   2: 
+   3: ���: 2026-10-29. **��न��: CONDITIONAL** (�� PROVED). ���� ����᫥��, �� ������, �� ���, � �� �㦭� ᤥ���� ��� PROVED.
+   4: 
+   5: ��⪨: **[PROVED-hand]** �뢮� �� �㬠��, �஢�७ �� 蠣�� �� ����ᠭ�� �⮣� ���㬥��; **[PHASE3]** �뢮� ���� �� `20261028-h-cat56-2-phase3/PHASE3_PROOF.md`, ������ �஢�७�, �� �� ��ॢ뢥���� ������; **[VERIFIED-interval]** ��ண�� ��䬥⨪� arb (192 ���) �� 㪠������ �祩���; **[VERIFIED-exact]** �஢�ઠ �筮� ࠢ����/⮦���⢠ �� ���� ������; **[OPEN]** �� ������.
+   6: 
+   7: ---
+   8: 
+   9: ## 1. ���⠭����
+  10: 
+  11: - ���⠭� A0: `experiments/20261027-h-cat56-2-submission-package-v1/data/instance_d22_r2_s16.jsonl` (SHA-256 � `PROOF_CERTIFICATES/SHA256SUMS.txt`), d = 22, r = 2, C??C??.
+  12: - ? = diag(1/3, 2/3) ? 0, L_i = [[0, A_i?],[A_i, 0]], A_i ? C^{20?2}. ? � L_i 䨪�஢��� A0 �� ??.
+  13: - �����襭�� D1 (P-reg, CONVENTION_RESOLUTION 2): ��室� � p_k(??) = 0 ������ 0 � CFIM. D1 ������ ⮫쪮 �� (?, L_i), ���⮬� १���� �� ������ �� �롮� ᥬ���⢠ ?_?.
+  14: - ??_S := ?_{x?C?} Y_S(x), Y_S(x) := {y ? C?? : A_i?y = ?_i x, ?_i ? R, i ? S}; ��� x = 0 �������� Y_S(0) := {y : A_i?y = 0 ?i ? S}.
+  15: - ??_S := �����, ��஦��� {yy? : y ? ??_S}; I?? - ������ � C?? �����.
+  16: 
+  17: ## 2. ���६�
+  18: 
+  19: **���६� C (��࠭�祭� ������樥� D1).** ����� S = S? = {4,:,15}. �� ������� (����筮�� ��� ��饣�, �⠭����� ��५��᪨� ����࠭�⢮ ��室��) ?-������ᨬ��� POVM M �� C?? ⠪���, �� CFIM_D1(??) = F^Q_S ��� ������ 12?12.
+  20: 
+  21: ������� ����⢨�: ⮫쪮 D1 (�㫥�� �� ����⭮�� ��室� ������ 0). D1 - ����᪨� �롮� �⮣� �஥��, � �� �������� ��������: YPZJ (1806.07337) ��� �㫥��� ��室�� �ᯮ���� �।����� ��楤���, � ���� D2 (���ࠢ����� ������騩 �।��). ���६� C ��� �⢥ত���� � �⠭���⭮� QCRB-���⠭���� �� ��������; �. O4.
+  22: 
+  23: ���������⭮: I?? ? ??_{S?}.
+  24: 
+  25: **����砭��.** �⢥ত���� ����⥫쭮� � �� �ॡ�� �롮� ᥬ���⢠ ?_? ��� ��ࢮ�� ���浪� (���⮬� D2 � D3 ����� �� �㦭�).
+  26: 
+  27: ## 3. �।���뫪� � �� �����
+  28: 
+  29: | � | �।���뫪� | ����� |
+  30: |---|---|---|
+  31: | P1 | ������: ����饭�� ? I?? ? ??_S (Theorem A, PHASE3 4) | **[PHASE3] + [VERIFIED-indep]**: ������ᨬ� �஢����騩 (����� ��� ��襩 ���ਨ, � �� ������ ᥬ���⢠) ��ॢ뢥� ����� 1, ����� 2, 蠣� (i)-(vii) � ࠧ�������; ����� `audit/O1_independent_report.md`, �᫥��� �஢�ન `code/o1_check.py` (`logs/o1_check.log`). ��न�� �஢����饣�: VALID. ������ᨬ���� ᫠���-�।��� �� ���⭨� FL, 祫����᪮� �஢�ન ���. |
+  32: | P2 | ��� ?(x): Y_S(x) = ker ?(x) ��� ��� x ? 0, ������ ����� x? = 0 | **[PROVED-hand]** (4 ����; ����� ������ � �⮬ ���㬥��) |
+  33: | P3 | ����� �祩�� L1-L4 (�࠭��� �� �� ࠤ��� du) | **[PROVED-hand]**, ��ॢ뢥���� �� 蠣�� (5) |
+  34: | P4 | �����⨥ S? ���⠬�, ������ 饫� ? = ? � ? = 2? | **[PROVED-hand]** �� �ਭ樯�; ��� ⠩���� ��ॢ� **[VERIFIED-exact]** (`code/verify_tiling_exact.py`; O2 ������, �. 10) |
+  35: | P5 | ����������: tr R = tr(R I??) ? 20�sup_{??_S} y�Ry | **[PROVED-hand]** (6) |
+  36: | P6 | ��᫥��� �᫮���: sup_{y????_{S?}} y�Ry ? s < tr R/20 | **[VERIFIED-interval]** �� ��� 3 955 841 ����� (��ୠ��), ����� �ண�� � ��ࠢ����� �ࠢ���� ?_K (`o3_v2`, 2026-10-30), 0 �⪠��� - **O3 ������** |
+  37: 
+  38: ## 4. ����� � ����� � �� (P2)
+  39: 
+  40: ����� x = (x?, x?) ? 0, a_c^{(i)} := conj(A_i[:,c]). ��� y ? C?? �᫮��� A_i?y = ?_i x � ?_i ? R ���������⭮ (PHASE3 3):
+  41: - g?^{(i)}�y = 0 (�������᭮�, ��� ����⢥���� �᫮���), ��� g? = x?a? ? x?a?;
+  42: - Im(g?^{(i)}�y) = 0 (���� ����⢥����), ��� g? = conj(x?)a? + conj(x?)a?.
+  43: 
+  44: �⮣� 3 ��ப� �� i, 36 ��ப �� 12 �����ᮢ.
+  45: 
+  46: - �᫨ x? ? 0: ?_i := (a?�y)/x?; �� g?�y = 0 ����砥� a?�y = ?_i x?; Im(g?�y) = 0 ���� Im(?_i|x|?) = 0, �.�. ?_i ? R. [PROVED-hand]
+  47: - **����� x? = 0 (࠭�� �� ࠧ��࠭):** ⮣�� x? ? 0, g?�y = ?x?(a?�y) = 0 ? a?�y = 0 = ?_i�x? �� ?_i := (a?�y)/x?. �᫮��� Im(g?�y) = Im(conj(x?)�(a?�y)) = Im(?_i|x?|?) = 0 ���� ?_i ? R. ���⭮� ����祭�� �祢����. �������筮� ���㦤���� � ����⠭����� �����ᮢ. [PROVED-hand, ������ �����]
+  48: - ������� ���������⭮���: Y_S(e^{i?}x) = e^{i?}Y_S(x), y�Ry ����ਠ�⭠. ���⮬� �����筮 x? ? 0, �.�. ��ࠬ��ਧ��� ���� x = (cos ?/2, sin ?/2 e^{i?}), ? ? [0,?], ? ? [0,2?). [PROVED-hand]
+  49: 
+  50: ## 5. ����� �祩�� (P3)
+  51: 
+  52: ����� u? = (cos ?_c/2, 0, sin ?_c/2 cos ?_c, sin ?_c/2 sin ?_c) ? S?, �����ਭ� h_?, h_?; du := ?h_? + sin(?_hi/2)h_? (+10??? � ����). ?? := ?(u?), A_j := ????_j, ? := du(??A_j??)^{1/2}, Z - ��⮭�ନ஢���� ����� K := ker ??, ?_K := du(??A_jZ??)^{1/2}, ? := ?_K/(1??), B := max(?_K,0) + 2?MZ?? + ?M???, ?_K := ?_max(Z?MZ), M - ����⢥���� �ଠ R.
+  53: 
+  54: - **L1 (ࠤ���).** |?_?u| = ? � |?_?u| = sin(?/2) (��אַ� �����). ���� <᭠砫� ?, ��⮬ ?> ���� |u ? u?| ? ?h_? + sin(?_hi/2)h_? = du ��� ��� �祪 �祩��.
+  55: - **L2 (�� �� ���).** ��� ��� �����筮�� u � |u ? u?| ? du � ��� �����筮�� y ? ker ?(u): ??y = ??(?)y, ? := u ? u?. ����� ��ୠ ��� ��� ⠪�� u, �� ⮫쪮 ��� u �� �祩��.
+  56: - **L3 (ࠧ�������).** y = z + w, z ? K, w ? row(??). ??w = ??(?)y, ���⮬� w = ?????(?)y. �� ���-������ ?????(?)v? ? du(??A_j??)^{1/2}?v? = ??v? � ��� v = Zc: ? ?_K|c|. ��� |w| ? ?_K|z| + ?|w|, �.�. |w| ? ?|z| �� ? < 1. ���� ?? ����� (???(??) > 0) �㦥� ��� ???, � �� � ᠬ�� �窥 u. ��஦����� �窨 u (�� ��룠��) �� �ॡ��� �⤥�쭮�� ��ᬮ�७��.
+  57: - **L4 (�ଠ).** |z|?+|w|? = 1, |c| = |z| ? 1. y?My = z?Mz + 2z?Mw + w?Mw ? max(?_K,0) + 2?MZ?? + ?M??? = B.
+  58: 
+  59: �뢮�: sup_{y?ker ?(u), |y|=1} y?My ? B_? ��� ��� u � |u ? u?_?| ? du_?. [PROVED-hand]
+  60: 
+  61: ## 6. ���������� (P5)
+  62: 
+  63: ����� I?? = ?_j c_j y_j y_j? � c_j ? 0, |y_j| = 1. ����� ?c_j = tr I?? = 20 �
+  64: tr R = ?_j c_j y_j? R y_j ? (?_j c_j)�sup_{???} y�Ry = 20�sup.
+  65: �����, �᫨ sup < tr R/20, � I?? ? ??_S. [PROVED-hand]
+  66: 
+  67: �� �� ��������� � ����� ������ ���� PHASE3 8(i): tr R > 0 � y�Ry ? 0 �� ??_S ? �������㥬����.
+  68: 
+  69: ## 7. ��筮��� �室� R (P6)
+  70: 
+  71: - R - �ନ⮢� 20?20 ����� �� ���離� �������� �����樨 (`metrics/inputs/s14_R_4-5-6-7-8-9-10-11-12-13-14-15_nx250.npz`, `code/s14_ycone_colgen.py`). ���祭�� float64.
+  72: - �����: ���䨪�� �����뢠�� �⢥ত���� ��� **�����⭮� ������** R := (����ᠭ�� float-���祭��). �� �筠� �樮���쭠� �ନ⮢� �����. �� �ந�宦����� (float-SVD ��� �������� �������) ��� ����� 6 �� �����: ���਩ ��७ ��� �� �ନ⮢�� R.
+  73: - **�஢�७� [VERIFIED-exact]:** R_sym := ?(R + R?) �筮 ᮢ������ � R (np.array_equal). M - �筠� ����⢥���� �ଠ R_sym (np.array_equal(M, M?) = True). tr R = 0.3040524530826113 (float).
+  74: - ��ண s := 0.9�tr R/20 = 0.01368236038871751; tr R ? 20s = 0.030405245308261095 > 0 (�筮 � arb, `final_gap`). [VERIFIED-interval]
+  75: - **���᫥��� � arb:** tr_exact � s_target - �� �� �� float-���祭�� �१ `arb(float(...))`, �.�. ��� ���㣫���� �� ���室�.
+  76: 
+  77: ## 8. ���᫨⥫쭠� ���� (�� ������)
+  78: 
+  79: - ���㧪�: 3 955 841 ���� (`metrics/c3h_S-_f090_all_accepted_leaves.npy`), ��ୠ� `c3h_S-_f090_all.json`: cells_uncertified = 0 �� float-�஢�� � ��ম� 10??.
+  80: - ��ண�� �஢�ઠ: �ண�� 1 (3 595 000 ����쥢) � �ண�� 2 (360 841 ����, ����窠). �� 7 912 砭���, 0 �⪠���, `metrics/interval_coverage_check.json` = `COVERAGE_CONSISTENT`. [VERIFIED-interval]
+  81: - **��樤��� �ண��� 1:** `FLINT exception: Unable to allocate memory (1441151890153799712)` ��᫥ ⮣�, ��� ��ୠ� ��䨪�஢�� 3 595 000 ��ࠡ�⠭��� ���⮢; ᢮��� �� ����ᠭ�. ����, � ���஬ �ந��諮 �᪫�祭��, �� �� ����ᠭ � ��ୠ� (��ୠ� ������ �� �����襭�� 砭��), ���⮬� �� �室�� � 722 ��������� 砭��. ����窠 ��ࠡ�⠫� �� ��� �᪫�祭�� �� ����� (`logs/interval_resume_parallel.log`). **�뢮� [INFERRED]:** �᪫�祭�� �� ���ந�������� �� 8 ��થ��; ��稭� (����⭮, �������� ����� �� 12 ��થ��) �� ��⠭������ �����⥫쭮. ���㬥��஢��� � C_NOTES 6f.
+  82: - **�����ઠ O3 (�ࠢ��� ?_K).** �ண��� 1 � 2 �믮����� �����, ��� ?_K �ࠫ��� �� �।��� �窥 enclosure (`float(lam_h) > 0`). ��ࠢ���� �� ������ �࠭��� (`lam_h.upper()`). ��������� �� ����� 㬥����� B (����� �ࠢ��� ���� ?_K ? ��ண�), � ࠧ��� �� ����� �ਭ� enclosure ?_K (�� 192 ���� ���浪� 2???? �⭮�⥫쭮). ��९஢�७� �� 200 ����� � �������訬 ����ᮬ: �� 200 ���� s, `B_up` �� ��������� (`metrics/recheck_closest_leaves.json`, `logs/recheck_closest_leaves.log`). [VERIFIED-interval �� 200 �����; ����� ����� � ��ࠢ����� �ࠢ���� �믮���� � `o3_v2` - �. 10, **O3 ������**].
+  83: 
+  84: ## 9. ������� � ��न��
+  85: 
+  86: �᫨ P1 ��ୠ, P2-P6 �믮����� (P1 - � �����મ� O1; P6 - ������ O3 � `o3_v2`), � ���६� C ��ୠ.
+  87: 
+  88: | ��易⥫��⢮ | ����� |
+  89: |---|---|
+  90: | P2 ����� | ������ ����� [PROVED-hand] |
+  91: | P3 ����� �祩�� | ������ ����� [PROVED-hand] |
+  92: | P5 ࠧ������� | ������ [PROVED-hand] |
+  93: | P6 ���᫥��� | [VERIFIED-interval] �� ��� 3 955 841 ����� � ��ࠢ����� �ࠢ���� ?_K (`o3_v2`, 0 �⪠���) |
+  94: | P1 ।��� Theorem A | [PHASE3] + [VERIFIED-indep] (����� ��� ���ਨ, ������ ⮣� �� ᥬ���⢠): VALID; ��� PROVED �㦭� ������ᨬ���� ��㣮�� �஢�� - **O1 (���筮)** |
+  95: | P4 �����⨥ | �ਭ樯 [PROVED-hand]; ��� ⠩���� ��ॢ� [VERIFIED-exact], O2 ������ |
+  96: 
+  97: **��न��: CONDITIONAL.** �� PROVED, ��⮬� ��: (�) O4 �� ᢥ७ (ᮣ��襭�� D1 �� ���⢥ত��� �� ��ࢮ���筨��� ���������); (�) O1 �஢�७ ����⮬ ⮩ �� ������ ᥬ���⢠ ��� ��襩 ���ਨ - �� ᫠���-�।��� ������ᨬ���� �� FL, � ��� PROVED �㦭� �஢�ઠ 祫������ ��� ������� ��㣮�� ᥬ���⢠. ������: O2 (��� ⠩����, 2026-10-29), �����, ����� �祩��, ࠧ�������, �᫥���� 楯�窠 �� ��� �����.
+  98: 
+  99: ## 10. ������ �㭪�� ��� PROVED
+ 100: 
+ 101: - **O1 - �஢�७ ������ᨬ� 2026-10-29 (VALID, �����ઠ �� ������ᨬ���).** �஢����騩: ����� ��� ���ਨ ��襩 ࠡ���, ������ ⮣� �� ᥬ���⢠. ��ॢ뢥����: ����� 1 (G_c ? 0; �᫮��� ࠢ���⢠: ?a,b? ����⢥��� � b - ����⢥���� ��⭮� a), ����� 2, ᫥��⢨�, ����筮� ���㫥��� G_c, ࠧ������ �� ��᪨, ���������� ����� (trace-argument), ࠧ�������. ��᫥��� (`logs/o1_check.log`): min G/(q�p) = +0.0067 (��砩�� ���⠭�), +0.0088 (���⠭� A0); ��� �����⨬��� ࠭��-1 ��᪠ max |G|/(q�p) = 1.4�10??? � 3�10??. ��筥���, �� �訡��: �᫮��� ࠢ���⢠ � PHASE3 ᫠��� �筮�� (�㦥� ���� ����⢥��� t ��� ��� ��᪮� m); ��� ����室����� � Theorem A �⮣� �����筮. �����ઠ: D1 ����⢥��� - �� �।��쭮� ᮣ��襭�� ����� 1 �� ࠡ�⠥�. ��� PROVED �㦭� ������ᨬ�� �஢�ઠ 祫������ ��� ������� ��㣮�� ᥬ���⢠ (�஢��� <Different model> �� FL).
+ 102: - **O2 - ������ 2026-10-29.** ��ॢ� ���⮢ ����⠭������ �� ���� (�⪠ 16?32 �� np.linspace) ⥬ �� �ࠢ���� ࠧ������ (`split` � c3h: �।��� �窨 0.5�(a+b), ��騥 ��� �ᥤ��� ���୨� ���⮪, ���⮬� ࠧ������ �筮�). ����� ���� ᢥ����� � ��ॢ�� �� ��⠬ IEEE-754 (`code/verify_tiling_exact.py`, `metrics/tiling_exact_check.json`, `logs/verify_tiling_exact.log`): 3 955 841 ���� = 3 955 841 ࠧ���� = 3 955 841 ᮢ����� 㧫� ��ॢ�; 5 274 284 㧫� ���饭�; ��⠭���� �� ��㡨�� 10, ���������� ���⮪ 0; `TILING_EXACT`. ����஫�: 㤠����� ������ ���� ���� 1 048 576 ���������� ���⮪ (`TILING_PROBLEM`); �㡫���� ���� `distinct ? len` (`TILING_PROBLEM`). �����ઠ: ⠩���� ����뢠�� ��אַ㣮�쭨� [0, ?_f]?[0, 2?_f]; ࠧ�� �� ? � 2? ������ ������ L2 (P4).
+ 103: - **O3 - ������ 2026-10-30 (`o3_v2`).** ����� ����� 3 955 841 ���� � ��ࠢ����� �ࠢ���� ?_K (`code/interval_cells_v2.py`, arb-ᨬ���ਧ��� R, ?-���ࠢ�� �� ���裮ਭ, ���䨪�� �� (a)-(d) �� ������ �祩��). �।�஢�ઠ (`metrics/preflight_v2.json`, `PRECHECK_KERNEL_v2.md`): 300/300 ����⨢��� ����஫�� �ਭ��, 5/5 ����⨢��� �⢥࣭��. ��ୠ� `metrics/o3_progress.jsonl`: 7 912 㭨������ 砭���, �㡫���⮢ 0, �⪠��� 0 (`metrics/o3_failures.jsonl` ����). ������ `metrics/o3_summary.json`: `all_chunks_covered_once`, `leaves_match_total`, `final_gap_positive` = true; `final_gap` = 0.0304 > 0; `prec_bits` = 192. ����� ���뢠��� ��१���㧪�� �� � �� �த����� � 砭�� 3421 �� 砭���; ᢮��� �⮣� ����᪠ ����뢠�� 砭�� 3421-7911 (2 245 341 ����), per-leaf ���ᨬ� `B_up` � ������ ����� �� 砭��� 0-3420 � ���䠪�� �� ����ᠭ�, ����� ⮫쪮 䠪� `ok` �� ������ ����. ��������� ����� � �⮬ ����᪥ 8.4�10?? (������⥫��, 㧪��), ���ᨬ� `B_up` 0.0136823520 �� s = 0.0136823604. ������� `SHA256SUMS_o3v2.txt` ᢥ७ ��। ����᪮�. ��ࠢ����� � ��-�ନ⮢��� R: `np.array_equal(R, R^H)` ��� False (max|R?R^H| = 5.2�10???), ���⮬� R ᨬ���ਧ���� � arb, � �� � float.
+ 104: - **O4 - �����, ����� ����⢥���� ࠧ��稥 D1/D2 (2026-10-30).** ���㫨஢�� <D1 - ᮣ��襭��, �ਭ�⮥ � �������> �������. �� ⥪��� [TEXT, ���筮 ���⠭]: YPZJ (1806.07337) �ࠪ��� �㫥�� ��室� �१ ��������� �।��, F^k = lim g/h ����� ���ࠢ����� ??, � ���� D2; Nurdin (2402.11567 v5) ��뫠���� �� YPZJ Theorems 1-2 � CFIM �� �����ਢ��� ��� p_k = 0; YIP (2601.21801) ��᫥��� �������� YPZJ. D1 - �롮� �⮣� �஥��.
+ 105:   - ������� ��� D1 (���६� C) ��࠭���� ��� ��������� ��� D1 � ���䨪�⮬ O3 (`o3_v2`).
+ 106:   - ���室 D1  D2 �� �������. ��� D2 ��㫠 �㫥���� ������ ������ �� ���ࠢ����� h: F_E(h) = (Nh)(Nh)?/(h?Nh) �� h?Nh > 0. �᫨ ⠪�� �।�� �� �������� h ����� ���ଠ��, ���ன ��� � D1, ����⥫�� १���� D1 �� ��७����� �� D2 ��⮬���᪨.
+ 107:   - ��� ������� �㭪�, ����� �㦭� ������� �� �� ��饩 ��㫨஢��: (i) ������ �� ���ࠢ�����. T4 �ॡ�� ����饭�� ��� �� ��� ������ ���ࠢ����� h; YPZJ (thm:null) �뢮��� �᫮��� ��� ��� ���ࠢ�����. �� ��ਠ��� ����� ������ ࠧ�� ������ ����頥����. (ii) ��筠� ��⥬���᪠� ���⠭���� D2, � ���ன ᢥ����� ⥮६�. �� ࠡ�� �������᪠�; ����� ��������������� ���᫥��� ��� �� �ॡ��.
+ 108:   - �������� ���� (�� �।���������� ��࠭��): �஢����, ����� �� ��� ������ ���筮� ������ �८�ࠧ����� �� ��⨬���� POVM � �㫥�묨 ��室��� � POVM ��� �஡������ �।����� �������.
+ 109:   - ����� ⥪��� YPZJ (����� ࠧ���� � �㫥��� ��砥), Nurdin (�᭮���� ⥪�� Theorem 2 � ��� �����; ��ࠢ����� - Theorem 3 - ���⠭� ���������) � YIP (End Matter, Supplemental) �� ���� �� ���⠭�. ��. CONVENTION_RESOLUTION 6.
+ 110: 
+ 111: ## 11. ���ந��������
+ 112: 
+ 113: ```
+ 114: python -I experiments/20261028-h-cat56-2-phase4/code/verify_interval_coverage.py
+ 115: python -I experiments/20261028-h-cat56-2-phase4/code/recheck_closest_leaves.py 200
+ 116: sha256sum -c experiments/20261028-h-cat56-2-phase4/PROOF_CERTIFICATES/SHA256SUMS.txt
+ 117: ```
+ 118: 
+ 119: ����� ᯨ᮪ ������ - `REPRODUCIBILITY.md`. ��ୠ��: `metrics/interval_full_progress.jsonl`, `metrics/interval_resume_progress.jsonl`, `metrics/interval_coverage_check.json`, `metrics/recheck_closest_leaves.json`.
+ 120: 
+ 121: ## 12. Evidence ledger (��⪮)
+ 122: 
+ 123: | �⢥ত���� | ���㫠 / ���� | �஢�ઠ | ������� | ����� |
+ 124: |---|---|---|---|---|
+ 125: | Y_S(x) = ker ?(x), ����� | 4 | ��ॢ뢮� | �室���� | PROVED-hand |
+ 126: | L1-L4 | 5 | ��ॢ뢮� �� 蠣�� | �室���� | PROVED-hand |
+ 127: | tr R ? 20 sup | 6 | ��ॢ뢮� | �室���� | PROVED-hand |
+ 128: | R �ନ⮢�, M �筠� ����⢥���� �ଠ | 7 | `np.array_equal` | True, True | VERIFIED-exact |
+ 129: | tr R ? 20s > 0 | 7 | arb | 0.0304052453 | VERIFIED-interval |
+ 130: | �� ����� B_up < s | 8, 10 | ��ୠ�� `o3_v2` + arb | 3 955 841, 0 �⪠��� | VERIFIED-interval (o3_v2) |
+ 131: | 200 �������� ���⮢ ��᫥ ��ࠢ����� | 8 | `recheck_closest_leaves.py` | 200/200, ? = 0 | VERIFIED-interval |
+ 132: | ������ ������� | 4 P4 | `verify_tiling_exact.py` (+ 2 ����஫��� ����) | �筮� ᮢ������� � ��ॢ�� ��ᥪ樨, 5 274 284 㧫� | VERIFIED-exact |
+ 133: | ������ Theorem A | 3 P1 | ������ᨬ� ����� + `code/o1_check.py` | VALID; G/(q�p) �᫥��� | PHASE3 + VERIFIED-indep (O1) |
+===== 20261028-h-cat56-2-phase4/THEOREM_NATURAL_D2_NOGO_v8.md =====
+   1: # S?: ����� ��� ����⢥����� ��५��᪮�� D2 - ����� v8 (2026-10-31)
+   2: 
+   3: ������� v7 ��᫥ 䨭��쭮�� �㤨� ae2a07af. ������ ���������: (1) �� ������� ����⢨� - ����� �⭮���� � ��������� (� ᫥�����) ������᪮� ���ଠ樨 ���� ����� ���, � �� � ������筮� �ଥ �� ���ࠢ����� ��� ����ﭨ� ���������; (2) ��ࠢ���� ����� � �।������� 7 � � ���᭮�����; (3) ��뫪� Lojasiewicz ��ॢ����� �� �஢��� ࠧ���� BCR 2.6 ��� ����� ᫥��⢨�.
+   4: 
+   5: ## 0. �।���뫪�
+   6: 
+   7: ������ - ��� � v7 0: ?_? = U_???U_??, ?? = Q ? 0, Q = diag(1/3,2/3), S = {4..15}, G_a = A_a/2, A_a = ?2iB_a^{inst}, �������� C2. ���ࠢ����� h ? S?_? := {h ? ?^S : |h| = 1} (��� � ?^S; ������祭�� S? �� �ᯮ������ ��� ����, �⮡� �� ����� � ����஬ �����ᮢ S). �������⥫� R* � ? > 0 (O3).
+   8: 
+   9: **�᫮��� ��� ����饭�� �� C?-ᥬ� (��������� 2026-10-31 �� �㤨�� adc79edf; ��� F_U �믮����� ��⮬���᪨):**
+  10: 1. ?_? - ����७��㥬�� ᥬ���⢮ ����� ���⭮�� �� ??? � ����⭮�� ? = 0.
+  11: 2. �⮡ࠦ���� ? ? ??_? �����뢭� � ? = 0. ��� �⮣� �᫮��� ��饥 �⢥ত���� ���६� N ����� (�����ਬ�� ����); ������⥫��⢮ �ᯮ���� ��� �१ ?(r)  0 (PROOF_RECONSTRUCTION_THEOREM_N_2026-10-31.md, 蠣 5). �������쭮��� �᫮��� 2 �� ��⠭������.
+  12: 3. ?? = Q?0 � 䨪�஢����� ����� (ᠬ� Q, �� ⮫쪮 �� ᯥ���). **�᫮��� �㫥���� ����� �⭮���� � ?_a??, � �� � ??:** ���� supp?supp ������ ?? ࠢ�� Q ? 0. �ॡ������: (?_a??)_{ss} = 0. ���������⭮ (L_a(0))_{ss} = 0, ⠪ ��� (??)_{ss} = (QL_{ss} + L_{ss}Q)/2 � �ࠢ����� ���좥��� � Q > 0 �������筮 ࠧ�訬� (ᮡ�⢥��� ���祭�� q_i + q_j > 0). ��� F_U �᫮��� �믮�����: ?_a?? = [X_a, ??] � X_a �������������, ��� ss-���� ࠢ�� X_{ss}Q ? QX_{ss} = 0; � ?_a?(0) = ?[[0, QA_a?],[A_aQ, 0]]. ���� � ������⥫��⢥: �� L_{ss}(0) = 0 ����� K_a v = Q^{1/2}L_{sk}(a)y, � ���� N_v(0) ������ ⮫쪮 �� ��୥�쭮� ���������� y, � ??? = ?? ? ?? (�த�⮢�� �������, �� ���ன ��ন��� �業�� ࠧ������� �१ P_y). ���㫥��� ss-���� ������ x-����ᨬ���� � N_v(0), � �த�⮢�� ������� �� ��������. �᫮��� 3 �� �஢�७� ��� ����室����.
+  13:    *����砭�� � ����⠭��:* ��� ��饩 C?-ᥬ� ?? � C? ������� �� ?_a?? (���� sk), � �� ⮫쪮 �� (A, Q); ��� F_U �� (A, Q).
+  14:    *����砭�� � Lojasiewicz:* f_0(v) = ??(N_v(0)), ��� N_v(0) - ������筠� �ଠ �� v � ����⢥��묨 ����ﭭ묨 �����樥�⠬� �� L(0). ����� f_0 ���㠫���ࠨ筠 ��� ���� 䨪�஢����� L(0), ������筮��� ᥬ� �� �㦭�.
+  15: 
+  16: **�����ਬ�� � �᫮��� 2 (�㤨�, FALSIFIED ��� ���).** ?_k  0, r_k = |?_k|?, ?(?) = ??_k(???_k)�?(|???_k|/r_k) � ������� �१��� ? ? 1 ����� ���, ?_? := ?^{F_U}_{?+?(?)}. ����� ? ����७��㥬� � 0 � D?(0) = 0, ࠭� ⮦���⢥��� 2, ?? � L(0) �०���, �� D?(?_k) = ?I, ??(?_k) = 0, F^Q(?_k) = 0 � tr(F^Q ? F_E) = 0 < c. ������쭠� ९�ࠬ��ਧ��� ⠪�� �ਬ�� �� ����.
+  17: 
+  18: **����ﭭ� ࠭� 2.** ��� ᠬ�� ���६� N �� �㦥� (�㤨�: SLD ������� � ������ �窥 ��� �� ����७��㥬�� PSD-ᥬ�; ?p_k = 0 �� p_k = 0). �㦥� ��� N? (���室 s  0) � ��� �।������� 8: �. 3 � 4.
+  19: 
+  20: **����� ����� L (��ࠢ���� ��᫥ �㤨� Codex, 2026-10-31).** �०��� ��㫠 ?(r) = sup?N_v(?) ? N_v(0)? **�����** �� ᪠窥 ࠭��: N_v(?) �� �室���� � N_v(0), ���� F^Q = ?_j N_{e_j}(?) �뫠 �� �����뢭�, �� ��⨢���� toy_rank_jump. �ࠢ���� ��ꥪ� - ��ᮢ᪠� �஥���: M_v(?) := Re Gram(P(?)?_?^{1/2}L_a(?)v), � N_v(?) ? M_v(?), � ?(r) := sup_{|?|?r} sup_{|v|=1} ?M_v(?) ? M_v(0)?  0 �� r  0 (�᫮��� C2). �業�� f_? ? f? ? ?(|?|) �ᯮ���� ⮫쪮 M_v (PROOF_RECONSTRUCTION 蠣 5). ��� C?-ᥬ� L ����� �� ����⢮����, ���⮬� s? ���.
+  21: 
+  22: **������஭��� �業�� f_s ? f_0 ? ?(s).** �஥��� ���� P(?) �� ��� ������ ᮡ�⢥���� ���祭�� �����뢥� (ᯥ��ࠫ쭠� 饫� ��࠭����); N_v(?) ? Re?PK_av, PK_bv?, P K_a �����뢥� � �㫥. ��� ����ﭭ��� ࠭�� - �� �㦥�. ��᫥��� (����誠 5?3, ᨭ�⨪�, �� C??): min_v(f_s ? f_0) = ?1.6, ?0.32, ?0.084, ?0.020 �� s = 0.1, 0.03, 0.01, 0.003 (������� �� s).
+  23: 
+  24: ## 1. ��।������ (�)
+  25: 
+  26: - **����筠� ������᪠� ���ଠ��** ����筮�� POVM: F_E(?) := ?_{k:p_k>0} ?p_k?p_k?/p_k, p_k = tr(?_?E_k).
+  27: - **����⮢��:** F^Q(?)_{ab} = Re tr(?_?L_aL_b), L_a(?) - SLD.
+  28: - **D2 ����� ��� (������):** ��� ����筮�� POVM F_D2(h) := ?_k lim_{t0} F_k(th), F_k(th) := 0 �� p_k(th) = 0.
+  29: - **��५��᪨� ����⢥��� (������, ᫥�):** F^C_M(?) := �।�� ����⮭��� ���ࠢ������ �� ������� ࠧ������ P ? F_P(?) �� �񢭥�� (�������, �. �।������� 7); ��� ��५��᪮�� M �� ᫥� - tr F^C_M(?) = sup_P tr F_P(?).
+  30: 
+  31: ## 2. �⢥ত����
+  32: 
+  33: **����� 1-5** - ��� ��������� (v7 1; �㤨�: CONFIRMED).
+  34: 
+  35: **����� 6 � ���६� N** - ��� ��������� � ᮤ�ঠ���. ������: ? c, s? > 0 ? ������ ����� POVM ? h ? S?_? ? |?| ? s? (�� ⮫쪮 ����� ��祩): tr(F^Q(?) ? F_E(?)) ? c, � c := (?/(2C?))^{1/??} � s? > 0 ⠪��, �� s? ? t? � ?(s?)^{??} ? ?/(2C?) (���; ������� �� ?  0). ��� F_U, ��� ?(r) ? L�r, ����� ����� s? := min(t?, (?/(2C?L^{??}))^{1/??}). �०��� �� ��㫠 s? = min(t?, (?/(2C?))^{1/??}) ��� �����⥫� L �뫠 ����୮� (��� ���� �।�������� ?(r) ? r). ����⠭�� c, s? �� ������� �� POVM � �� h.
+  36: 
+  37: **�����⢨� N? (��५��᪨�, ������ � ᫥�����).** ��� ��५��᪮�� POVM M � |?| ? s?: tr F^C_M(?) ? tr F^Q(?) ? c. ��� F_U (࠭� ����ﭥ�) �� �।��쭠� �窠 tr F^C_M(?_s), s  0, �� �ॢ��室�� tr F^Q(0) ? c; ����� F^C_M(?_s) �� ��६���� � F^Q(0) �� � ᫥��, �� � �����. **�।��쭠� �ଠ N? ��� ��饩 C?-ᥬ� � �᫮��ﬨ 1-3 �����.** �����ਬ�� toy_rank_jump (C^?, �᫮��� 1-3 �믮�����, ࠭� 2 � �㫥 � 5 �� ? ? 0): tr F^Q(s)  65.51 �� tr F^Q(0) = 61.51, � ���� F^Q ࠧ�뢭� � �㫥. ���⮬� �� �।��쭠� �窠 tr F^C_M(sh) ��࠭�祭� ����稭�� lim tr F^Q(sh) ? c, � �� tr F^Q(0) ? c. �����筮� �᫮��� ��� �।��쭮� ��� - ����ﭭ� ࠭� 2 (⮣�� �஥��� �����প� �����뢥� � tr F^Q �����뢭� � �㫥). ��ࠢ���⢮ � ������ �窥 tr F^C_M(?) ? tr F^Q(?) ? c �� ��஢�࣭�� (����஫�� POVM �� ⮬ �� �ਬ��: tr F_E ? 38.8 �� tr F^Q(s) ? 65.5). �������᪨ (���� ���冷�, PROOF_RECONSTRUCTION 蠣 10 � �ਫ������): lim_{s0} F^Q(sh) = F^Q(0) + 4(tr?)hh?, ⠪ �� lim tr F^Q(sh) ? tr F^Q(0) = 4 tr? = 4.0; �᫥��� 3.9976 �� s = 0.003 (toy_rank_jump/rank_jump_check.out).
+  38: 
+  39: **�।������� 7 (��� ࠧ������ = ��⥣ࠫ쭠� CFIM, �� ?-������ᨬ�� ���).** ����� ? := tr M (����筠� ���, �� ������ �� ?). ��� ��� ?: P_?(B) := tr(?_?M(B)) ? ??_??�?(B) ? ?(B) (⠪ ��� ??_?? ? 1), ����� P_? ? ?, � ���⭮��� m_? = dP_?/d? = tr(?_?W(x)) (M(dx) = W(x)?(dx), W ? 0, tr W = 1 ?-�.�.). �⢥ত����:
+  40: (�) |?_am_?(x)| ? ??_a?_?? (���⮬� ����७�஢���� ��� ������ ��⥣ࠫ� �������);
+  41: (�) �� {m_? = 0} �ࠤ���� ?m_? = 0 (�� ��ࠢ����� ���-����� |?_am|? ? m�tr(W L_a?L_a)-�業��, �. ����� 1);
+  42: (�) ��� x ? ?^S: x?F_P(?)x = ?E_?[?_x | ?(P)]??_{L?(P_?)}, ?_x := x�?m_?/m_?, � x?I_int(?)x = ??_x??_{L?(P_?)} (I_int := ?_{m>0}?m?m?/m d?). ��᪮��� ?_x ? L?(P_?) (⠪ ��� x?I_intx ? x?F^Q x < ?), � �᫮���� �������� E[�|?(P)] - ��⮣����쭠� �஥��� �� L?(?(P)), � ��ꥤ������ ������� ��������� ?(P) �� ���ࠢ������ �� ���⭮ � L? (����� �㭪樨 ����� � L?(P_?) ��� ��५��᪮�� ����࠭�⢠), ����砥� sup_P x?F_Px = x?I_int x. ��᪮��� ��� ����⮭�� �� �񢭥��, sup ������� ��� �।�� �� � ࠢ�� I_int ����筮.
+  43: �⮣: F^C_M(?) = I_int(?) ����筮 ��� ?-������ᨬ�� ���� ? = tr M.
+  44: *����砭�� � ���᭮����� (��ࠢ����):* �०��� ��뫪� �� ���⨭������ �室������ �⭮ᨫ��� � ��᫥����⥫쭮�� ?-������, ����� ����� �� ��஦���� ?(?); � ���ᨨ v8 �ᯮ������ ���⭮��� ������ �㭪権 � ��⮣����쭠� �஥���, ���⭠� ��஦�񭭮��� ����࠭�⢠ ��室�� �� �㦭�.
+  45: *�����:* PROVED-hand.
+  46: 
+  47: **���� ࠧ������ ����⮭�� (����� 1?).** ��� ���㡫���� G ? G' (������ ?-�������) F_G ? F_{G'}: ��ࠢ���⢮ ���� (?g_i)?(?g_i)/?p_i ? ? g_ig_i?/p_i ��� ������� x; �㫥�� ��室� ���� g = 0. �����: PROVED-hand.
+  48: 
+  49: ## 3. ������� ����⢨� (� - ������� ���ࠢ��)
+  50: 
+  51: ����� �⭮���� � **����筮�** (��� ᫥�����) ������᪮� ���ଠ樨 ���� ����� ��� ?_s = sh � � �� �।���. �� **��** ����� ��� ��� ��।������ <���ଠ樨>. � ��⭮��:
+  52: 
+  53: **�����ਬ�� ��� ������筮� ��� �� ���ࠢ����� (Proposition 8).** ����� E_0 := I??0 � E_k := 0?e_ke_k? (k = 1..20) - ����� ������ POVM �� ???. ����� ��� ������� 䨪�஢������ h ? S?_?: lim_{t0} h?F_E(th)h = h?F^Q(0)h. ��稭�: N_{E_k} = (Re(e_k?A_aQA_b?e_k)), ?N_k = F^Q, � ��� ॣ��୮�� �㫥����-��-�।��쭮�� ��室� ����� � h?�h ࠢ�� (h?N_kh)?/(h?N_kh) = h?N_kh, �㬬� �� k ���� h?F^Qh; E_0 ���� ����� O(t?). ��᫥��� �� ���⢥ত��� (�㤨� ae2a07af: ��宦����� �뢠�� ��� t?). ������⢮ ��� ��� 拉୮�� ����� ����� �ᯮ���� ����ﭭ� ࠭� 2: �� ����誥 � ᪠窮� ࠭�� h?F_E(sh)h  16.40 ��⨢ h?F^Q(0)h = 12.40 (�㤨� adc79edf), � ���� ��� ����ﭭ��� ࠭�� �⢥ত���� �।������� 8 �� ���ந��������. ��� F_U ࠭� ����ﭥ�, � �⢥ত���� ��୮. ������ ����� lim_t F_E(th) �� �⮬ �� ࠢ�� F^Q (᫥���� ����� ? c �� ⥮६� N). �����:
+  54: - �᫨ <CFIM> ��।����� ��� ��������� ��� h?F^C h ��� ������� h �⤥�쭮 (���ਬ�� �१ ����ﭨ� ���������, 8H?(P_0,P_{th})/t?  h?Fh), � ����饭�� ���⨦���;
+  55: - ����� v7/v8 �⭮���� � ����筮� ������᪮� ���ଠ樨 (� �� ᫥���), � ���� � �⠭���⭮� CFIM-����� � �������ࠬ����᪮� QCRB.
+  56: 
+  57: �� ࠧ��稥 ������ ���� � 㪠���� � ���� ��� ���� ��।������.
+  58: 
+  59: ## 4. ��न��� � �᫮���
+  60: 
+  61: | �⢥ত���� | ����� | �᫮��� |
+  62: |---|---|---|
+  63: | ���६� N (������ POVM, ����筠�/᫥�����, |?| ? s?, �� h) | PROVED-hand (�㤨� v7: CONFIRMED; v8 - ���ࠢ�� �����) | O3 ? > 0 (VERIFIED-interval) |
+  64: | �����⢨� N? (��५��᪨�, ᫥� � ����� ����� ���) | PROVED-hand | - |
+  65: | �।������� 7 (��� = ��⥣ࠫ, ? = tr M) | PROVED-hand | - |
+  66: | ������筠� �ଠ �� ���ࠢ����� (Hellinger-⨯) | **�� ����饭�**: Proposition 8 ���� ����饭�� | - |
+  67: | ����室�� �।�� ��� ��५��᪮�� POVM | �� �㤨�� - �����஢����� �室������ �ਬ�����; � N? �� �ᯮ������ | ���᭮����� pointwise-�।��� �� {m=0} - CONDITIONAL, �� �㦥� ��� N? |
+  68: | Lojasiewicz | PROVED (�⠭����); ��뫪�: Bochnak-Coste-Roy, Real Algebraic Geometry, 2.6 <Continuous semialgebraic functions. Lojasiewicz's inequality> (�஢��� ࠧ����, ���⢥ত� �����������) | ����� ᫥��⢨� �� �ᯮ������ |
+  69: | �������୮��� �� POVM | PROVED-hand (�㤨�: CONFIRMED) | - |
+  70: | ��᫥��� ����஫� (���. ����� �� K, s*-�롮ઠ) | VERIFIED-NUMERIC (���孨� �業�� ��䨬㬠; ᮣ��ᮢ�������) | �� ������⥫��⢮; c �� ���᫥�� |
+  71: | ���६� N ��� C?-ᥬ�� (� ���㫥� ? ����� L) | PROVED-hand �� �᫮���� 1-3 **�** ����⢮����� ࠧ����⥫� R* � ? > 0 (PROOF_RECONSTRUCTION 蠣� 5-8). ��� F_U ࠧ����⥫� ���� O3 (VERIFIED-interval). ��� ��饩 ᥬ� ࠧ����⥫� - ����⥧� (**CONDITIONAL**). ��� �᫮��� 2 ��饥 �⢥ত���� ����� (�����ਬ�� 0); �᫮��� 3 �㦭� ��� �த�⮢�� �������� ??? (����室������ �� �஢�७�) | �᫮��� 1-3 + ࠧ����⥫� |
+  72: | �����⢥���� �業�� f_s ? f_0 ? ?(s) (��� ����ﭭ��� ࠭��) | PROVED-hand (�஥��� ����, �㤨� adc79edf) | �᫥��� �� ����誥, �� �� C?? |
+  73: | N?, �।��쭠� �ଠ, ��� C?-ᥬ�� � �᫮��ﬨ 1-3 | **FALSIFIED** (�����ਬ�� toy_rank_jump: tr F^Q(s)  65.51 ? 61.51) | ��ୠ �� ����ﭭ�� ࠭�� 2 (PROVED-hand: �஥��� �����প� � L �����뢭�, tr F^Q �����뢭�) |
+  74: | �।������� 8 (���ࠢ������ ������筠� �ଠ ����頥��) ��� C?-ᥬ�� | **FALSIFIED** � ��饬 ��砥 (᪠箪 ࠭��: h?F_E(sh)h  16.40 ��⨢ h?F^Q(0)h = 12.40) | ��ୠ ��� F_U (����ﭭ� ࠭�) |
+  75: | ��᫥���� �஢�ઠ ᪠窠 ࠭�� � ������஭��� �業�� | VERIFIED-NUMERIC: `toy_rank_jump/rank_jump_check.py`, `povm8_jump.py` (�뢮� `*.out`, SHA � �������); ᨭ�⨪� 5?3 | �� ������⥫��⢮; ���ந������� �������� `python povm8_jump.py` �� ����� `toy_rank_jump` |
+  76: | ���� ��� C? (��� �᫮��� 1-3) | OPEN | - |
+  77: 
+  78: **�⮣ v8:** ��� ����筮� (� ᫥�����) ������᪮� ���ଠ樨 ���� � �窥 ? � |?| ? s? ����� ������� ��� ��� ����筮�� � ��� ��५��᪮�� POVM � ᥬ� F_U. ��� ��।������ �१ ��������� ��� �� ���ࠢ����� (���������) ����� ���: ����饭�� ���⨣����� POVM �� Proposition 8. ��� 䠪� ������ ���� � ࠧ������ � ����.
+
+**Deriving lemma parameter bounds**
+**Verifying phi real-linearity and projector bounds**
+**Verifying kernel dimension and basis properties**
+**Bounding energy terms with spectral norms**
+**Inspecting floating-point representations**
+**Planning isolated Python environment test**
+codex
+The core lemma has a plausible route, so I’m now attacking its hidden assumptions: basis exactness, projector identities, norm-direction choices, float-to-Arb transitions, and the similarity/Gershgorin eigenvalue step. In parallel I’m checking the stored evidence chain (manifests → journal → records → leaves).
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command 'python -I -c "import sys,numpy,flint; print(sys.version.split()[0], numpy.__version__, flint.__version__)"' in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 391ms:
+3.13.2 2.3.4 0.9.0
+
+**Reading integrity manifests**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "Get-Content -LiteralPath '20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runC.json' -Raw; Get-Content -LiteralPath '20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runD.json' -Raw; "'$p='"'20261028-h-cat56-2-phase4/o3_v3/metrics/o3v3_progress.jsonl'; Write-Output \"progress lines: "'$((Get-Content -LiteralPath $p).Count)"; Get-Content -LiteralPath $p -TotalCount 2; Get-Content -LiteralPath $p -Tail 2' in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 445ms:
+{
+ "run": "runC",
+ "first_chunk": 3421,
+ "last_chunk": 5600,
+ "workers": 24,
+ "leaves_total": 3955841,
+ "chunks_total": 7912,
+ "python": "3.13.2",
+ "numpy": "2.3.4",
+ "flint_version": "0.9.0",
+ "sha256": {
+  "leaves.npy": "29ab7b1454b5fd82ef639930dfd0a85c830a7fd8488e6526d8a2c72f5a3a8d90",
+  "interval_cells_v3.py": "bd719f0fed4c8dc035652052279aeead910fde39550df3ded8d69d22c4e4318c",
+  "o3_run_v3.py": "25e852af2bc820f595b90f4e7cdc844b39b648fec16e5fad1ca562860299c2dc",
+  "R_input.npz": "55b898d6dd853b57588408adf9e1452ed99e9b08935cf031ba2b192784881666",
+  "instance.jsonl": "0528992095d033d948b16777d1ded8f87c975741073df9496c3080b59ebb0044",
+  "s8_admissible_span.py": "72a690f95343fd2e195a018efcc7a00094f823ff4cc447f53f1adcd1eb5e9c26"
+ },
+ "s_target_binary64": 0.01368236038871751,
+ "final_gap_arb_positive": true
+}
+{
+ "run": "runD",
+ "first_chunk": 5601,
+ "last_chunk": 7911,
+ "workers": 24,
+ "leaves_total": 3955841,
+ "chunks_total": 7912,
+ "python": "3.13.2",
+ "numpy": "2.3.4",
+ "flint_version": "0.9.0",
+ "sha256": {
+  "leaves.npy": "29ab7b1454b5fd82ef639930dfd0a85c830a7fd8488e6526d8a2c72f5a3a8d90",
+  "interval_cells_v3.py": "bd719f0fed4c8dc035652052279aeead910fde39550df3ded8d69d22c4e4318c",
+  "o3_run_v3.py": "25e852af2bc820f595b90f4e7cdc844b39b648fec16e5fad1ca562860299c2dc",
+  "R_input.npz": "55b898d6dd853b57588408adf9e1452ed99e9b08935cf031ba2b192784881666",
+  "instance.jsonl": "0528992095d033d948b16777d1ded8f87c975741073df9496c3080b59ebb0044",
+  "s8_admissible_span.py": "72a690f95343fd2e195a018efcc7a00094f823ff4cc447f53f1adcd1eb5e9c26"
+ },
+ "s_target_binary64": 0.01368236038871751,
+ "final_gap_arb_positive": true
+}
+progress lines: 7912
+{"chunk": 8, "n": 500, "ok": 500, "fails": 0, "min_slack": "[9.02268778991629358361814079908223443031973208026029410712e-5 +/- 3.82e-63]", "max_bup": "[0.01359213351081834768279184460100076044049852425207337362 +/- 2.61e-57]", "record_sha256": "622aecda4acbf34e28b11a195ebda4adb4b709a6657bd0443d567631d61f53b1", "sec": 78.9}
+{"chunk": 0, "n": 500, "ok": 500, "fails": 0, "min_slack": "[5.20753838068396178991856920346518359833009585097052325021e-6 +/- 2.47e-63]", "max_bup": "[0.01367715285033682665683810743978811760120339147702500604 +/- 2.57e-57]", "record_sha256": "d6da9916341985c17cd8288971a06f7aea78e42055c59cb76781e41107dae4fe", "sec": 79.9}
+{"chunk": 7909, "n": 500, "ok": 500, "fails": 0, "min_slack": "[0.006644506239617573722762599335427875932190604547731340464 +/- 8.43e-58]", "max_bup": "[0.007037854149099936895865426673563706852611117025144636098 +/- 9.03e-58]", "record_sha256": "f93bac8b953418f7dc88bae2509a5b0ef7a3a71697d040cd75e793914744f191", "sec": 57.0}
+{"chunk": 7908, "n": 500, "ok": 500, "fails": 0, "min_slack": "[0.00664420886365903727716127605792883955140889490729362085 +/- 1.14e-57]", "max_bup": "[0.007038151525058473341466749951062743233392826665582355713 +/- 6.06e-58]", "record_sha256": "17d9814dfb92b85ab202c7b607ced4c2f86eefddafa3ffa80b277c5daa235474", "sec": 57.5}
+
+**Planning coverage verification algorithm**
+**Analyzing leaf cell coordinate patterns**
+**Planning quadtree prefix code adjacency**
+**Running width statistics**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "@'
+import numpy as np
+p=r'20261028-h-cat56-2-phase4/o3_v3/inputs/leaves.npy'
+a=np.load(p,mmap_mode='r')
+print('shape',a.shape,'dtype',a.dtype)
+print('bounds',a[:,0].min(),a[:,1].max(),a[:,2].min(),a[:,3].max())
+print('nonpositive widths',np.count_nonzero(a[:,1]<=a[:,0]),np.count_nonzero(a[:,3]<=a[:,2]))
+for j,name in [(1,'dtheta'),(3,'dphi')]:
+ w=np.asarray(a[:,j]-a[:,j-1])
+ u,c=np.unique(w,return_counts=True)
+ print(name,'unique',len(u),'min',u[0],'max',u[-1])
+ print(list(zip(u.tolist(),c.tolist())))
+area=np.longdouble(0)
+for k in range(0,len(a),250000):
+ b=np.asarray(a[k:k+250000])
+ area += np.sum((b[:,1]-b[:,0]).astype(np.longdouble)*(b[:,3]-b[:,2]).astype(np.longdouble),dtype=np.longdouble)
+target=np.longdouble(np.pi)*np.longdouble(2*np.pi)
+print('area',repr(area),'target',repr(target),'diff',repr(area-target))
+print('first',a[0].tolist(),'last',a[-1].tolist())
+'@ | python -I -" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 784ms:
+shape (3955841, 4) dtype float64
+bounds 0.0 3.141592653589793 0.0 6.283185307179586
+nonpositive widths 0 0
+dtheta unique 39 min 0.00019174759848539225 max 0.01227184630308531
+[(0.00019174759848539225, 185912), (0.00019174759848583633, 425476), (0.0003834951969712286, 792474), (0.00038349519697167267, 550587), (0.0007669903939424572, 92374), (0.0007669903939429012, 412777), (0.0015339807878853584, 135256), (0.0015339807878855805, 28850), (0.001533980787885636, 41700), (0.0015339807878856394, 13080), (0.0015339807878856412, 40960), (0.001533980787885643, 29726), (0.0015339807878856498, 8892), (0.0015339807878856637, 4216), (0.0015339807878856915, 11044), (0.0015339807878858025, 245726), (0.003067961575771161, 361357), (0.003067961575771272, 82529), (0.003067961575771279, 4351), (0.0030679615757712823, 3700), (0.003067961575771286, 9560), (0.0030679615757712997, 3597), (0.0030679615757713274, 5669), (0.003067961575771383, 92157), (0.003067961575771605, 109300), (0.006135923151542322, 23498), (0.006135923151542544, 152135), (0.006135923151542558, 3378), (0.006135923151542565, 1541), (0.006135923151542572, 11589), (0.006135923151542599, 9943), (0.006135923151542655, 11108), (0.006135923151542766, 37059), (0.012271846303085088, 8343), (0.012271846303085115, 770), (0.01227184630308513, 94), (0.012271846303085143, 2744), (0.012271846303085199, 1071), (0.01227184630308531, 1298)]
+dphi unique 75 min 0.00019174759848539225 max 0.012271846303085532
+[(0.00019174759848539225, 329732), (0.0001917475984856143, 19118), (0.0001917475984856698, 7896), (0.00019174759848569756, 12144), (0.0001917475984857045, 5324), (0.00019174759848570493, 110), (0.00019174759848570515, 220), (0.00019174759848570536, 440), (0.00019174759848570623, 374), (0.00019174759848570797, 352), (0.00019174759848571143, 4048), (0.0001917475984857253, 43138), (0.00019174759848583633, 9260), (0.00019174759848628042, 179232), (0.0003834951969707845, 146421), (0.0003834951969712286, 307701), (0.0003834951969713396, 16515), (0.0003834951969713951, 19947), (0.000383495196971409, 8267), (0.00038349519697140986, 175), (0.0003834951969714103, 350), (0.0003834951969714107, 700), (0.00038349519697141246, 595), (0.00038349519697141593, 556), (0.00038349519697142287, 6418), (0.0003834951969714506, 315620), (0.00038349519697167267, 519796), (0.0007669903939424572, 132600), (0.0007669903939426792, 68488), (0.0007669903939427902, 9396), (0.000766990393942818, 3883), (0.0007669903939428197, 85), (0.0007669903939428206, 170), (0.0007669903939428215, 340), (0.0007669903939428249, 291), (0.0007669903939428319, 260), (0.0007669903939428457, 2878), (0.0007669903939429012, 208524), (0.0007669903939433453, 78236), (0.0015339807878849143, 53103), (0.0015339807878853584, 41078), (0.0015339807878855805, 100192), (0.001533980787885636, 9555), (0.0015339807878856394, 260), (0.0015339807878856412, 532), (0.001533980787885643, 1004), (0.0015339807878856498, 794), (0.0015339807878856637, 670), (0.0015339807878856915, 7448), (0.0015339807878858025, 344814), (0.003067961575770717, 88093), (0.003067961575771161, 209002), (0.003067961575771272, 67672), (0.003067961575771279, 2882), (0.0030679615757712823, 5793), (0.003067961575771286, 10708), (0.0030679615757712997, 4292), (0.0030679615757713274, 3343), (0.003067961575771383, 64599), (0.003067961575771605, 215836), (0.006135923151542322, 98473), (0.006135923151542544, 62781), (0.006135923151542558, 1173), (0.006135923151542565, 2053), (0.006135923151542572, 6564), (0.006135923151542599, 6221), (0.006135923151542655, 5294), (0.006135923151542766, 43546), (0.00613592315154321, 24146), (0.012271846303084644, 1939), (0.012271846303085088, 8563), (0.012271846303085143, 220), (0.012271846303085199, 137), (0.01227184630308531, 484), (0.012271846303085532, 2977)]
+area np.longdouble('19.739208802178727') target np.longdouble('19.739208802178716') diff np.longdouble('1.0658141036401503e-14')
+first [0.18407769454627693, 0.19634954084936207, 0.7731263170943632, 0.7853981633974483] last [3.1406339155973644, 3.14082566319585, 6.282993559581101, 6.283185307179586]
+
+**Analyzing spherical grid resolution**
+**Planning quadtree coverage verification**
+**Optimizing quadtree overlap detection**
+**Planning ancestor detection with spatial keys**
+**Designing occupancy grid with Morton ordering**
+**Calculating Morton code with base offsets**
+**Planning precise coordinate mapping and error bounds**
+**Planning verification of exact float boundary mappings**
+**Comparing exact rational trace to float trace**
+**Comparing exact and float trace computations**
+**Verifying eigenvalue upper bound validity with intervals**
+**Confirming float conversions from data sources**
+**Converting initial floats to arbitrary exact values**
+**Verifying projection span and handling phase domain edges**
+**Deriving phase reduction sign relation**
+**Planning eigenvalue bound verification**
+**Designing extensive eigenvalue sampling strategy**
+**Planning numerical verification of bounds**
+**Testing isolated module import with sys.path insertion**
+**Executing lam_max_upper function successfully**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "python -I -c \"import os,sys; sys.path.insert(0,os.path.abspath(r'20261028-h-cat56-2-phase4/o3_v3/code')); import interval_cells_v3 as v; print(v.s_target_f, v.R_HERMITIAN_EXACT, v.PHIf.shape, v.As[0].shape, v.final_gap)\"" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 1033ms:
+0.01368236038871751 False (4, 36, 40) (20, 2) 0.0304052453082610946166752796671062242239713668823242187500
+
+**Planning file hash verification**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "@'
+import gzip,hashlib,json,random
+from pathlib import Path
+base=Path(r'20261028-h-cat56-2-phase4/o3_v3')
+progress={}
+dups=[]
+for line in (base/'metrics/o3v3_progress.jsonl').open(encoding='utf-8'):
+ r=json.loads(line); dups.append(r['chunk']) if r['chunk'] in progress else None; progress[r['chunk']]=r
+rng=random.Random(20261031); sample=sorted(rng.sample(range(7912),5))
+print('sample',sample,'journal_entries',len(progress),'duplicates',len(dups),'missing',len(set(range(7912))-set(progress)))
+for c in sample:
+ p=base/f'records/chunk_{c:05d}.jsonl.gz'
+ h=hashlib.sha256(p.read_bytes()).hexdigest()
+ with gzip.open(p,'rt',encoding='utf-8') as f: rows=[json.loads(x) for x in f if x.strip()]
+ expn=min(500,3955841-500*c)
+ consecutive=([r['leaf'] for r in rows]==list(range(500*c,500*c+expn)))
+ print(c,'sha_match',h==progress[c]['record_sha256'],'n',len(rows),'consecutive',consecutive,'all_ok',all(r.get('ok') is True for r in rows))
+'@ | python -I -" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 388ms:
+sample [1981, 2504, 3077, 6011, 6257] journal_entries 7912 duplicates 0 missing 0
+1981 sha_match True n 500 consecutive True all_ok True
+2504 sha_match True n 500 consecutive True all_ok True
+3077 sha_match True n 500 consecutive True all_ok True
+6011 sha_match True n 500 consecutive True all_ok True
+6257 sha_match True n 500 consecutive True all_ok True
+
+**Planning journal chunk verification**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "@'
+import json,gzip
+from pathlib import Path
+from flint import arb
+base=Path(r'20261028-h-cat56-2-phase4/o3_v3')
+rows=[json.loads(s) for s in (base/'metrics/o3v3_progress.jsonl').open(encoding='utf-8') if s.strip()]
+parse=lambda s: arb(s.strip().strip('[]').strip())
+mins=[(parse(r['min_slack']),r['chunk']) for r in rows]
+maxs=[(parse(r['max_bup']),r['chunk']) for r in rows]
+mn,cmin=min(mins,key=lambda z:float(z[0].mid())); mx,cmax=max(maxs,key=lambda z:float(z[0].mid()))
+print('chunks',len(rows),'n',sum(r['n'] for r in rows),'ok',sum(r['ok'] for r in rows),'fails',sum(r['fails'] for r in rows))
+print('min_slack_chunk',cmin,mn,'certain_positive',bool(mn>0))
+print('max_bup_chunk',cmax,mx)
+print('last_chunk_n',next(r['n'] for r in rows if r['chunk']==7911))
+p=base/f'records/chunk_{cmin:05d}.jsonl.gz'
+best=None
+with gzip.open(p,'rt',encoding='utf-8') as f:
+ for s in f:
+  r=json.loads(s); sl=parse(r['slack'])
+  if best is None or float(sl.mid())<float(best[0].mid()): best=(sl,r)
+print('closest_leaf',best[1]['leaf'],'slack',best[0],'bup',best[1]['bup'])
+'@ | python -I -" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 485ms:
+chunks 7912 n 3955841 ok 3955841 fails 0
+min_slack_chunk 4274 [8.40453838545030e-9 +/- 3.49e-24] certain_positive True
+max_bup_chunk 4274 [0.0136823519841791 +/- 2.67e-17]
+last_chunk_n 341
+closest_leaf 2137394 slack [8.40453838545030e-9 +/- 3.49e-24] bup [0.0136823519841791251683250633621229801806951053656234988248 +/- 2.12e-59]
+
+**Planning exact trace script**
+**Designing high-precision numerical checks**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "@'
+import os,sys
+from fractions import Fraction
+from decimal import Decimal,getcontext
+import numpy as np
+sys.path.insert(0,os.path.abspath(r'20261028-h-cat56-2-phase4/o3_v3/code'))
+import interval_cells_v3 as iv
+R=iv.R_raw; Hc=(R+R.conj().T)/2
+trq=sum((Fraction.from_float(float(R[i,i].real)) for i in range(20)),Fraction())
+getcontext().prec=60
+qd=lambda q: Decimal(q.numerator)/Decimal(q.denominator)
+tr_np=float(np.trace(Hc).real)
+s_code=0.9*tr_np/20.0
+s_exact_once=float(Fraction(9,10)*trq/Fraction(20))
+gamma=trq-20*Fraction.from_float(s_code)
+print('trace_exact_decimal',qd(trq))
+print('trace_numpy',repr(tr_np),tr_np.hex())
+print('s_code',repr(s_code),s_code.hex(),'matches_stored',s_code==0.01368236038871751)
+print('s_from_exact_rational_once',repr(s_exact_once),s_exact_once.hex(),'same',s_exact_once==s_code)
+print('gamma_exact_decimal',qd(gamma),'ge_0.0304',gamma>=Fraction(304,10000))
+print('R_exact_hermitian',np.array_equal(R,R.conj().T),'max_defect',np.max(np.abs(R-R.conj().T)))
+A=Hc.real; B=Hc.imag; M=np.block([[A,-B],[B,A]])
+rng=np.random.default_rng(20261031); yr=rng.normal(size=20); yi=rng.normal(size=20); y=yr+1j*yi; q=np.r_[yr,yi]
+print('real_form_sym_defect',np.max(np.abs(M-M.T)),'quad_error',abs((y.conj()@Hc@y).real-q@M@q))
+th=1.234; ph=5.678; x=np.array([np.cos(th/2),np.sin(th/2)*np.exp(1j*ph)])
+u=np.array([x[0].real,x[0].imag,x[1].real,x[1].imag])
+Phi=iv.sa.phi_rows(iv.As,iv.S,x); Phi_lin=np.tensordot(u,iv.PHIf,axes=1)
+print('PHI_shape',iv.PHIf.shape,'integer_error',np.max(np.abs(iv.PHIf-np.rint(iv.PHIf))),'basis_linearity_error',np.max(np.abs(Phi-Phi_lin)))
+yr=rng.normal(size=20); yi=rng.normal(size=20); yy=yr+1j*yi; qr=np.r_[yr,yi]; a=iv.As[4]; a0=np.conj(a[:,0]); a1=np.conj(a[:,1]); g1=x[0]*a1-x[1]*a0; g3=np.conj(x[0])*a0+np.conj(x[1])*a1; vals=Phi[:3]@qr; exp=np.array([(g1@yy).real,(g1@yy).imag,(g3@yy).imag]); print('row_encoding_error',np.max(np.abs(vals-exp)))
+_,sv,Vh=np.linalg.svd(Phi,full_matrices=True); z=Vh[-1]; yc=z[:20]+1j*z[20:]; v=a.conj().T@yc; lam=np.vdot(x,v); print('kernel_rank',np.linalg.matrix_rank(Phi),'null_constraint',np.linalg.norm(Phi@z),'proportional_residual',np.linalg.norm(v-lam*x),'lambda_imag',abs(lam.imag))
+'@ | python -I -" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 1574ms:
+trace_exact_decimal 0.30405245308261130698923579984693787992000579833984375
+trace_numpy 0.3040524530826113 0x1.375986b908976p-2
+s_code 0.01368236038871751 0x1.c057f53368882p-7 matches_stored True
+s_from_exact_rational_once 0.013682360388717509 0x1.c057f53368881p-7 same False
+gamma_exact_decimal 0.03040524530826109461667527966710622422397136688232421875 ge_0.0304 True
+R_exact_hermitian False max_defect 5.204170427930421e-17
+real_form_sym_defect 0.0 quad_error 1.1102230246251565e-16
+PHI_shape (4, 36, 40) integer_error 0.0 basis_linearity_error 1.4210854715202004e-14
+row_encoding_error 8.881784197001252e-16
+kernel_rank 36 null_constraint 4.7958029726933904e-14 proportional_residual 3.2069189435978414e-15 lambda_imag 1.3877787807814457e-16
+
+**Assessing rational arithmetic accuracy**
+**Verifying floating-point exactness in computations**
+**Planning Morton code computation**
+**Analyzing Morton order indexing**
+**Verifying lattice intervals and base ordering**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "@'
+import numpy as np
+p=r'20261028-h-cat56-2-phase4/o3_v3/inputs/leaves.npy'; a=np.load(p,mmap_mode='r'); n=len(a)
+step=np.float64(np.pi/16384)
+idx=np.empty((n,4),np.int32)
+maxerr=[]
+for j in range(4):
+ idx[:,j]=np.rint(np.asarray(a[:,j])/step).astype(np.int32)
+ maxerr.append(float(np.max(np.abs(np.asarray(a[:,j])-idx[:,j]*step))))
+# All occurrences of a lattice node must be bitwise-identical.
+spread=[]; usedcounts=[]
+for cols,N in [((0,1),16384),((2,3),32768)]:
+ lo=np.full(N+1,np.inf); hi=np.full(N+1,-np.inf)
+ for j in cols:
+  np.minimum.at(lo,idx[:,j],np.asarray(a[:,j])); np.maximum.at(hi,idx[:,j],np.asarray(a[:,j]))
+ used=np.isfinite(lo); spread.append(float(np.max(hi[used]-lo[used]))); usedcounts.append(int(used.sum()))
+wi=idx[:,1]-idx[:,0]; wj=idx[:,3]-idx[:,2]
+pow2=(wi>0)&((wi&(wi-1))==0)
+align=(idx[:,0]%wi==0)&(idx[:,2]%wj==0)
+print('shape',a.shape,'columns=[th_lo,th_hi,ph_lo,ph_hi]')
+print('integer_endpoint_ranges',[(int(idx[:,j].min()),int(idx[:,j].max())) for j in range(4)])
+print('max_coordinate_reconstruction_error',maxerr,'node_spread',spread,'used_nodes',usedcounts)
+print('square',bool(np.all(wi==wj)),'power2',bool(np.all(pow2)),'aligned',bool(np.all(align)),'width_units',np.unique(wi).tolist())
+# Finest-grid Morton intervals; exact contiguity means neither overlap nor gap.
+li=idx[:,0]&63; lj=idx[:,2]&63
+m=np.zeros(n,dtype=np.uint64)
+for b in range(6):
+ m |= ((li.astype(np.uint64)>>b)&1)<<(2*b+1)
+ m |= ((lj.astype(np.uint64)>>b)&1)<<(2*b)
+baseid=(idx[:,0]//64).astype(np.uint64)*512+(idx[:,2]//64).astype(np.uint64)
+start=baseid*4096+m; length=wi.astype(np.uint64)*wj.astype(np.uint64)
+order=np.argsort(start,kind='stable'); ss=start[order]; ll=length[order]
+gaps=ss[1:].astype(np.int64)-(ss[:-1]+ll[:-1]).astype(np.int64)
+print('morton_first_last',int(ss[0]),int(ss[-1]+ll[-1]),'target',256*512*4096)
+print('adjacency_nonzero',int(np.count_nonzero(gaps)),'min_gap',int(gaps.min()),'max_gap',int(gaps.max()),'duplicate_starts',int(np.count_nonzero(ss[1:]==ss[:-1])))
+print('integer_area',int(length.sum(dtype=np.uint64)),'target_area',16384*32768)
+'@ | python -I -" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 2630ms:
+shape (3955841, 4) columns=[th_lo,th_hi,ph_lo,ph_hi]
+integer_endpoint_ranges [(0, 16382), (8, 16384), (0, 32767), (1, 32768)]
+max_coordinate_reconstruction_error [8.881784197001252e-16, 8.881784197001252e-16, 1.7763568394002505e-15, 1.7763568394002505e-15] node_spread [0.0, 0.0] used_nodes [2505, 22911]
+square True power2 True aligned True width_units [1, 2, 4, 8, 16, 32, 64]
+morton_first_last 0 536870912 target 536870912
+adjacency_nonzero 0 min_gap 0 max_gap 0 duplicate_starts 0
+integer_area 536870912 target_area 536870912
+
+**Planning file hash comparison**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command '$base='"'20261028-h-cat56-2-phase4/o3_v3'; "'$files=@{'"'leaves.npy'=\""'$base/inputs/leaves.npy";'"'interval_cells_v3.py'=\""'$base/code/interval_cells_v3.py";'"'o3_run_v3.py'=\""'$base/code/o3_run_v3.py";'"'R_input.npz'='20261028-h-cat56-2-phase3/metrics/inputs/s14_R_4-5-6-7-8-9-10-11-12-13-14-15_nx250.npz';'instance.jsonl'='20261027-h-cat56-2-submission-package-v1/data/instance_d22_r2_s16.jsonl';'s8_admissible_span.py'='20261027-h-cat56-2-discovery/code/s8_admissible_span.py'}; "'$mc=Get-Content -LiteralPath "$base/metrics/run_manifest_runC.json" -Raw|ConvertFrom-Json; $md=Get-Content -LiteralPath "$base/metrics/run_manifest_runD.json" -Raw|ConvertFrom-Json; foreach($k in $files.Keys|Sort-Object){$h=(Get-FileHash -Algorithm SHA256 -LiteralPath $files[$k]).Hash.ToLower();$hc=$mc.sha256.$k;$hd=$md.sha256.$k;Write-Output "$k $h C=$($h-eq$hc) D=$($h-eq$hd)"}' in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 625ms:
+instance.jsonl 0528992095d033d948b16777d1ded8f87c975741073df9496c3080b59ebb0044 C=True D=True
+interval_cells_v3.py bd719f0fed4c8dc035652052279aeead910fde39550df3ded8d69d22c4e4318c C=True D=True
+leaves.npy 29ab7b1454b5fd82ef639930dfd0a85c830a7fd8488e6526d8a2c72f5a3a8d90 C=True D=True
+o3_run_v3.py 25e852af2bc820f595b90f4e7cdc844b39b648fec16e5fad1ca562860299c2dc C=True D=True
+R_input.npz 55b898d6dd853b57588408adf9e1452ed99e9b08935cf031ba2b192784881666 C=True D=True
+s8_admissible_span.py 72a690f95343fd2e195a018efcc7a00094f823ff4cc447f53f1adcd1eb5e9c26 C=True D=True
+
+**Inspecting journal integrity and manifest coverage**
+**Planning numerical verification for candidate leaf**
+**Designing counterexample search strategy**
+**Planning numerical inequality testing**
+**Designing sampling and evaluation strategy**
+**Identifying Hermitian matrix approximation issue**
+**Identifying Hermitian part verification issue**
+**Analyzing interval arithmetic precision and enclosures**
+**Confirming interval enclosure of Gram-Schmidt basis**
+**Verifying interval matrix properties**
+**Assessing interval bounds for eigenvalues and determinants**
+**Validating upper bounds with interval arithmetic**
+**Verifying Hermitian quadratic form correctness**
+**Preparing counterexample execution**
+codex
+So far the evidence chain is internally consistent: 7,912 unique journal entries cover all 3,955,841 indices with zero recorded failures, the five deterministic record samples hash-match and are consecutive, and both manifests match all six named inputs/code files. I did find one specification issue to resolve in the verdict: the stored `R` is not bitwise Hermitian; the code certifies its Hermitian part.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "@'
+import gzip,json,math,random
+from pathlib import Path
+import numpy as np
+from flint import arb
+base=Path(r'20261028-h-cat56-2-phase4/o3_v3'); leaves=np.load(base/'inputs/leaves.npy',mmap_mode='r')
+# Load primary data without importing/running audit scripts.
+R=np.load(r'20261028-h-cat56-2-phase3/metrics/inputs/s14_R_4-5-6-7-8-9-10-11-12-13-14-15_nx250.npz')['R']; Hc=(R+R.conj().T)/2; H=np.block([[Hc.real,-Hc.imag],[Hc.imag,Hc.real]])
+rec=json.loads(Path(r'20261027-h-cat56-2-submission-package-v1/data/instance_d22_r2_s16.jsonl').read_text(encoding='utf-8').splitlines()[0]); As=[]
+for flat in rec['blocks']:
+ re=np.array([[flat[2*r+a] for a in range(2)] for r in range(20)],float); im=np.array([[flat[40+2*r+a] for a in range(2)] for r in range(20)],float); As.append(-2j*(re+1j*im))
+S=range(4,16)
+def phi(th,ph):
+ x=np.array([np.cos(th/2),np.sin(th/2)*np.exp(1j*ph)]); out=[]
+ for i in S:
+  a0=np.conj(As[i][:,0]); a1=np.conj(As[i][:,1]); g1=x[0]*a1-x[1]*a0; g3=np.conj(x[0])*a0+np.conj(x[1])*a1
+  out += [np.r_[g1.real,-g1.imag],np.r_[g1.imag,g1.real],np.r_[g3.imag,g3.real]]
+ return np.array(out)
+def actual(th,ph):
+ P=phi(th,ph); _,s,Vh=np.linalg.svd(P,full_matrices=True); Z=Vh[36:].T; return np.linalg.eigvalsh(Z.T@H@Z)[-1],s[-1]
+def parseup(s): return float(arb(s.strip().strip('[]')).upper())
+chunks=[1981,2504,3077,6011,6257]; cases=[]
+for c in chunks:
+ with gzip.open(base/f'records/chunk_{c:05d}.jsonl.gz','rt',encoding='utf-8') as f: rr=[json.loads(x) for x in f]
+ for k in range(0,500,10): cases.append((500*c+k,parseup(rr[k]['bup'])))
+# Include closest leaf.
+with gzip.open(base/'records/chunk_04274.jsonl.gz','rt',encoding='utf-8') as f: rr=[json.loads(x) for x in f]
+close=2137394; cases.append((close,parseup(rr[close-4274*500]['bup'])))
+worst=(-1e99,None); maxactual=(-1e99,None); rank_min=1e99; evals=0
+for leaf,bup in cases:
+ tl,th,pl,ph=leaves[leaf]
+ pts=[((tl+th)/2,(pl+ph)/2),(tl,pl),(tl,ph),(th,pl),(th,ph)]
+ if leaf==close:
+  rng=np.random.default_rng(20261031); pts += list(zip(rng.uniform(tl,th,1000),rng.uniform(pl,ph,1000)))
+ for t,p in pts:
+  val,sv=actual(t,p); evals+=1; rank_min=min(rank_min,sv)
+  if val-bup>worst[0]: worst=(val-bup,(leaf,t,p,val,bup))
+  if val>maxactual[0]: maxactual=(val,(leaf,t,p,bup))
+print('leaves_tested',len(cases),'point_evaluations',evals,'smallest_sigma36',rank_min)
+print('worst_actual_minus_Bcert',worst[0],'details',worst[1])
+print('largest_actual',maxactual)
+print('closest_leaf_cell',leaves[close].tolist())
+print('no_counterexample',worst[0] <= 0)
+'@ | python -I -" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 1701ms:
+leaves_tested 251 point_evaluations 2255 smallest_sigma36 0.011771640422267854
+worst_actual_minus_Bcert -0.006286097479827733 details (990750, np.float64(0.030679615757712823), np.float64(2.336252739949831), np.float64(-0.00024414163267474475), 0.006041955847152988)
+largest_actual (np.float64(0.001022129172728781), (2137394, np.float64(3.139675177604936), np.float64(1.312320564036166), 0.013682351984179128))
+closest_leaf_cell [3.139675177604936, 3.1400586728019073, 1.312320564036166, 1.3127040592331374]
+no_counterexample True
+
+**Planning precise bound computations**
+**Planning kernel norm and bound verification**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "@'
+import os,sys,numpy as np
+sys.path.insert(0,os.path.abspath(r'20261028-h-cat56-2-phase4/o3_v3/code')); import interval_cells_v3 as iv
+leaf=2137394; cell=np.load(r'20261028-h-cat56-2-phase4/o3_v3/inputs/leaves.npy',mmap_mode='r')[leaf]; r=iv.cell_bound(cell)
+up=lambda x: float(x.upper()); print('status',r['status'],'Bcert',r['B_up'],'delta',r['delta'],'kappa',r['kappa'],'rho',r['rho'],'lamK',r['lamK'],'mz',r['mz'],'mn_up',iv.mn_up)
+tl,th,pl,ph=cell; tc=(tl+th)/2; pc=(pl+ph)/2
+def u(t,p): return np.array([np.cos(t/2),0,np.sin(t/2)*np.cos(p),np.sin(t/2)*np.sin(p)])
+u0=u(tc,pc); Phi0=sum(u0[j]*iv.PHIf[j] for j in range(4)); G=Phi0@Phi0.T; Pinv=Phi0.T@np.linalg.inv(G); P=np.eye(40)-Pinv@Phi0; _,_,Vh=np.linalg.svd(Phi0,full_matrices=True); Z=Vh[36:].T; A=[Pinv@iv.PHIf[j] for j in range(4)]
+Hc=(iv.R_raw+iv.R_raw.conj().T)/2; H=np.block([[Hc.real,-Hc.imag],[Hc.imag,Hc.real]])
+rng=np.random.default_rng(17); max_du=max_id=max_k=max_r=max_e=max_norm=0.; pts=[(tl,pl),(tl,ph),(th,pl),(th,ph)]+list(zip(rng.uniform(tl,th,200),rng.uniform(pl,ph,200)))
+B=up(r['lamK'])+2*up(r['mz'])*up(r['rho'])+up(iv.mn_up)*up(r['rho'])**2
+for t,p in pts:
+ uu=u(t,p); du=np.linalg.norm(uu-u0); max_du=max(max_du,du); Phi=sum(uu[j]*iv.PHIf[j] for j in range(4)); _,_,V=np.linalg.svd(Phi,full_matrices=True); K=V[36:].T
+ for q in range(4):
+  y=K[:,q]; z=P@y; w=y-z; c=Z.T@z; ident=w+sum((uu[j]-u0[j])*(A[j]@y) for j in range(4)); max_id=max(max_id,np.linalg.norm(ident)); max_k=max(max_k,np.linalg.norm(w)/(up(r['kappa'])*np.linalg.norm(y))); max_r=max(max_r,np.linalg.norm(w)/(up(r['rho'])*np.linalg.norm(c))); en=float(y@H@y); max_e=max(max_e,en/(B*np.dot(c,c)) if en>0 else 0); max_norm=max(max_norm,(1-up(r['delta']))*np.dot(c,c)/np.dot(y,y))
+print('sample_max_du',max_du,'cert_du',up(iv.build_cell(cell)['du']))
+print('max_identity_residual',max_id,'max_kappa_ratio',max_k,'max_rho_ratio',max_r,'max_energy_ratio',max_e,'max_norm_lower_ratio',max_norm)
+'@ | python -I -" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 1284ms:
+status OK Bcert [0.0136823519841791251683250633621229801806951053656234988248 +/- 2.12e-59] delta [2.84296012887593990952124614834342154851195239514459914977e-42 +/- 4.16e-99] kappa [0.113093372884628148418980669033993792873798635827150666058 +/- 1.27e-58] rho [0.0561984544117754145740569301246153056726716308011862241039 +/- 2.49e-59] lamK [0.00100372579196198742276704178606369003467449803088309388622 +/- 1.50e-60] mz [0.104660549767516945346027341929000821541007305922118312172 +/- 1.68e-58] mn_up [0.289748818480056057138210492445927585492801969398925142494 +/- 4.31e-58]
+sample_max_du 0.00021438027494350342 cert_du 0.0002876213423284465
+max_identity_residual 8.213799326522875e-13 max_kappa_ratio 0.08112717861214785 max_rho_ratio 0.16326663347085132 max_energy_ratio 0.0 max_norm_lower_ratio 0.9999999949702623
+
+**Testing eigenvector energy maximization**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "@'
+import os,sys,numpy as np
+sys.path.insert(0,os.path.abspath(r'20261028-h-cat56-2-phase4/o3_v3/code')); import interval_cells_v3 as iv
+cell=np.load(r'20261028-h-cat56-2-phase4/o3_v3/inputs/leaves.npy',mmap_mode='r')[2137394]; r=iv.cell_bound(cell); up=lambda x:float(x.upper()); tl,th,pl,ph=cell;tc=(tl+th)/2;pc=(pl+ph)/2
+def u(t,p):return np.array([np.cos(t/2),0,np.sin(t/2)*np.cos(p),np.sin(t/2)*np.sin(p)])
+u0=u(tc,pc);Phi0=sum(u0[j]*iv.PHIf[j] for j in range(4));Pinv=Phi0.T@np.linalg.inv(Phi0@Phi0.T);P=np.eye(40)-Pinv@Phi0;_,_,Vh=np.linalg.svd(Phi0,full_matrices=True);Z=Vh[36:].T;A=[Pinv@iv.PHIf[j] for j in range(4)];Hc=(iv.R_raw+iv.R_raw.conj().T)/2;H=np.block([[Hc.real,-Hc.imag],[Hc.imag,Hc.real]]);B=up(r['lamK'])+2*up(r['mz'])*up(r['rho'])+up(iv.mn_up)*up(r['rho'])**2
+rng=np.random.default_rng(18); ratios=[]
+for t,p in list(zip(rng.uniform(tl,th,500),rng.uniform(pl,ph,500))):
+ uu=u(t,p);Phi=sum(uu[j]*iv.PHIf[j] for j in range(4));_,_,V=np.linalg.svd(Phi,full_matrices=True);K=V[36:].T;E=K.T@H@K;ev,Q=np.linalg.eigh(E);y=K@Q[:,-1];z=P@y;c=Z.T@z;ratios.append((ev[-1]/(B*np.dot(c,c)),ev[-1],np.linalg.norm((np.eye(40)-P)@y)/(up(r['rho'])*np.linalg.norm(c))))
+print('max_energy_ratio',max(x[0] for x in ratios),'max_actual_energy',max(x[1] for x in ratios),'max_rho_ratio',max(x[2] for x in ratios),'B_before_delta',B)
+'@ | python -I -" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 1275ms:
+max_energy_ratio 0.07470673793303144 max_actual_energy 0.00102203097399603 max_rho_ratio 0.20345508271931054 B_before_delta 0.013682351984179124
+
+**Deriving exact threshold fractions**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "@'
+from fractions import Fraction as F
+import numpy as np
+R=np.load(r'20261028-h-cat56-2-phase3/metrics/inputs/s14_R_4-5-6-7-8-9-10-11-12-13-14-15_nx250.npz')['R']
+tr_exact=sum((F.from_float(float(R[i,i].real)) for i in range(20)),F())
+tr_f=float(tr_exact); q09=F.from_float(0.9); prod_f=float(q09*F.from_float(tr_f)); s_f=float(F.from_float(prod_f)/20)
+print('round(trace_exact)=',repr(tr_f),tr_f.hex())
+print('round(binary64(0.9)*trace)=',repr(prod_f),prod_f.hex())
+print('round(previous/20)=',repr(s_f),s_f.hex())
+print('stored_match',s_f==0.01368236038871751)
+print('one_round_with_exact_9/10=',repr(float(F(9,10)*tr_exact/20)))
+'@ | python -I -" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 444ms:
+round(trace_exact)= 0.3040524530826113 0x1.375986b908976p-2
+round(binary64(0.9)*trace)= 0.2736472077743502 0x1.1836f94021551p-2
+round(previous/20)= 0.01368236038871751 0x1.c057f53368882p-7
+stored_match True
+one_round_with_exact_9/10= 0.013682360388717509
+
+**Planning line number referencing**
+**Formalizing mathematical bounds and threshold nuances**
+**Validating spectral norm bounds and Gram matrix positivity**
+**Planning empirical validation of interval comparisons**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "@'
+import os,sys,numpy as np
+from flint import arb
+sys.path.insert(0,os.path.abspath(r'20261028-h-cat56-2-phase4/o3_v3/code')); import interval_cells_v3 as iv
+print('arb_predicates',bool(arb('1 +/- 0.1')>0),bool(arb('0 +/- 1')>0),bool(arb('-1 +/- 0.1')>0))
+rng=np.random.default_rng(31); margins=[]
+for _ in range(100):
+ A=rng.normal(size=(5,5)); B=(A+A.T)/2; ub=float(iv.lam_max_upper(iv.to_arb_mat(B)).upper()); margins.append(ub-np.linalg.eigvalsh(B)[-1])
+print('lammax_random_100_min_margin',min(margins),'violations',sum(x<0 for x in margins))
+'@ | python -I -" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 1071ms:
+arb_predicates True False False
+lammax_random_100_min_margin -4.440892098500626e-16 violations 3
+
+**Adjusting violation tolerance for rounding**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "@'
+import os,sys,numpy as np
+sys.path.insert(0,os.path.abspath(r'20261028-h-cat56-2-phase4/o3_v3/code')); import interval_cells_v3 as iv
+rng=np.random.default_rng(31); margins=[]
+for _ in range(100):
+ A=rng.normal(size=(5,5)); B=(A+A.T)/2; ub=float(iv.lam_max_upper(iv.to_arb_mat(B)).upper()); margins.append(ub-np.linalg.eigvalsh(B)[-1])
+print('min_float_margin',min(margins),'violations_below_-1e-12',sum(x < -1e-12 for x in margins))
+'@ | python -I -" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 1102ms:
+min_float_margin -4.440892098500626e-16 violations_below_-1e-12 0
+
+**Planning source line coverage analysis**
+**Identifying manifest coverage gaps in early chunks**
+**Confirming sample-based verification sufficiency**
+**Planning read-only data verification**
+codex
+The proof inequalities themselves have survived the algebraic review, including the potentially delicate negative-\(\lambda_K\) case and the \(1-\delta\) normalization. I’m doing one stronger-than-requested integrity pass now: streaming every record file read-only, so the final verdict does not depend only on the five-file sample.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "@'
+import gzip,hashlib,json
+from pathlib import Path
+base=Path(r'20261028-h-cat56-2-phase4/o3_v3'); N=3955841; C=500
+journal={}
+for s in (base/'metrics/o3v3_progress.jsonl').open(encoding='utf-8'):
+ r=json.loads(s); journal[r['chunk']]=r
+bad_hash=bad_n=bad_leaf=bad_ok=0; lines=0
+for c in range(7912):
+ p=base/f'records/chunk_{c:05d}.jsonl.gz'; h=hashlib.sha256()
+ with p.open('rb') as f:
+  for block in iter(lambda:f.read(1<<20),b''): h.update(block)
+ if h.hexdigest()"'!=journal[c]['"'record_sha256']: bad_hash+=1
+ exp=500*c; n=0; ok=0
+ with gzip.open(p,'rt',encoding='utf-8') as f:
+  for s in f:
+   if not s.strip(): continue
+   r=json.loads(s); bad_leaf += (r['leaf'] "'!= exp+n); ok += (r.get('"'ok') is True); bad_ok += (r.get('ok') is not True); n+=1
+ want=min(C,N-exp); bad_n += (n"'!=want or n!=journal[c]['"'n'] or ok"'!=journal[c]['"'ok']); lines+=n
+print('files',7912,'lines',lines,'bad_hash',bad_hash,'bad_count',bad_n,'bad_leaf_positions',bad_leaf,'non_ok_lines',bad_ok)
+'@ | python -I -" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 26704ms:
+files 7912 lines 3955841 bad_hash 0 bad_count 0 bad_leaf_positions 0 non_ok_lines 0
+
+**Planning full record parsing verification**
+**Planning efficient bup value parsing**
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -Command "rg -n '\"chunk\": 4274|\"chunk\": 7911|\"first_chunk\"|\"last_chunk\"|\"leaves.npy\"|\"interval_cells_v3.py\"|\"o3_run_v3.py\"|\"R_input.npz\"|\"instance.jsonl\"|\"s8_admissible_span.py\"' -- '20261028-h-cat56-2-phase4/o3_v3/metrics/o3v3_progress.jsonl' '20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runC.json' '20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runD.json'" in E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments
+ succeeded in 215ms:
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runC.json:3: "first_chunk": 3421,
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runC.json:4: "last_chunk": 5600,
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runC.json:12:  "leaves.npy": "29ab7b1454b5fd82ef639930dfd0a85c830a7fd8488e6526d8a2c72f5a3a8d90",
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runC.json:13:  "interval_cells_v3.py": "bd719f0fed4c8dc035652052279aeead910fde39550df3ded8d69d22c4e4318c",
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runC.json:14:  "o3_run_v3.py": "25e852af2bc820f595b90f4e7cdc844b39b648fec16e5fad1ca562860299c2dc",
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runC.json:15:  "R_input.npz": "55b898d6dd853b57588408adf9e1452ed99e9b08935cf031ba2b192784881666",
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runC.json:16:  "instance.jsonl": "0528992095d033d948b16777d1ded8f87c975741073df9496c3080b59ebb0044",
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runC.json:17:  "s8_admissible_span.py": "72a690f95343fd2e195a018efcc7a00094f823ff4cc447f53f1adcd1eb5e9c26"
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runD.json:3: "first_chunk": 5601,
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runD.json:4: "last_chunk": 7911,
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runD.json:12:  "leaves.npy": "29ab7b1454b5fd82ef639930dfd0a85c830a7fd8488e6526d8a2c72f5a3a8d90",
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runD.json:13:  "interval_cells_v3.py": "bd719f0fed4c8dc035652052279aeead910fde39550df3ded8d69d22c4e4318c",
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runD.json:14:  "o3_run_v3.py": "25e852af2bc820f595b90f4e7cdc844b39b648fec16e5fad1ca562860299c2dc",
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runD.json:15:  "R_input.npz": "55b898d6dd853b57588408adf9e1452ed99e9b08935cf031ba2b192784881666",
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runD.json:16:  "instance.jsonl": "0528992095d033d948b16777d1ded8f87c975741073df9496c3080b59ebb0044",
+20261028-h-cat56-2-phase4/o3_v3/metrics/run_manifest_runD.json:17:  "s8_admissible_span.py": "72a690f95343fd2e195a018efcc7a00094f823ff4cc447f53f1adcd1eb5e9c26"
+20261028-h-cat56-2-phase4/o3_v3/metrics/o3v3_progress.jsonl:4279:{"chunk": 4274, "n": 500, "ok": 500, "fails": 0, "min_slack": "[8.40453838545030296264686860260410661620725247773767882906e-9 +/- 1.44e-66]", "max_bup": "[0.01368235198417912516832506336212298018069510536562349882 +/- 5.93e-57]", "record_sha256": "f985fd041438182f25bbf4b258d0db9a6422c5474a11c6b4474f3182b282917c", "sec": 65.9}
+20261028-h-cat56-2-phase4/o3_v3/metrics/o3v3_progress.jsonl:7905:{"chunk": 7911, "n": 341, "ok": 341, "fails": 0, "min_slack": "[0.006683538969539412004058481006568474965208602473512264036 +/- 7.54e-58]", "max_bup": "[0.006998821419178098614569545002423107819593119099363712526 +/- 5.41e-58]", "record_sha256": "20ff4a08cac046e975f88526f7a32fbd37cd95bbacb34351ee9e68b5404b5bf3", "sec": 38.2}
+
+**Verifying exactness of float computations**
+**Validating float bounds and coverage metrics**
+**Verifying numerical lemma validity and record integrity**
+**Assigning conditional task verdicts due to provenance gaps**
+**Identifying manifest coverage gap in early chunks**
+**Identifying coverage gap in manifest authentication**
+**Planning concise reproduction command summary**
+**Clarifying lemma statement and proof details**
+**Verifying trigonometric bounds and Gershgorin proof**
+**Confirming exact lattice tiling and domain boundary handling**
+**Planning concise command summary**
+**Assessing provenance and Hermitian defects**
+**Identifying documentation contradictions and residual risks**
+**Planning concise threshold code inclusion**
+**Planning concise self-contained final answer**
+**Refining code references and summarizing task results**
+codex
+# 1. Lemma behind `cell_bound` — PASS
+
+[CODE] `interval_cells_v3.py:147-178,216-256`.
+
+The certified statement is:
+
+> For a leaf \(C\), assuming the kernel certificate succeeds, \(\kappa<1\), and \(\delta<1\), then for every \((\theta,\phi)\in C\), every \(y\in\ker\Phi_{x(\theta,\phi)}\) satisfies
+> \[
+> y^T H y\le B_{\rm cert}\|y\|^2,
+> \]
+> where
+> \[
+> B_{\rm cert}=
+> \frac{\max(\lambda_{\max}(Z_0^THZ_0),0)+2m_Z\rho+\|H\|_2\rho^2}
+> {1-\delta}.
+> \]
+
+For unit \(y\), this gives \(y^THy\le B_{\rm cert}\).
+
+### (a) Displacement bound — PASS
+
+For
+\[
+u=(\cos(\theta/2),0,\sin(\theta/2)\cos\phi,\sin(\theta/2)\sin\phi),
+\]
+\(\|\partial_\theta u\|=1/2\) and \(\|\partial_\phi u\|=\sin(\theta/2)\). Since all cells lie in \(0\le\theta\le\pi\),
+\[
+\|u-u_c\|\le h_\theta/2+\sin(\theta_{\rm hi}/2)h_\phi.
+\]
+The code adds a positive \(10^{-12}\) margin and takes `.upper()` (`interval_cells_v3.py:149-155`).
+
+Closest-leaf numerical check:
+
+```text
+sample_max_du 0.00021438027494350342
+cert_du       0.0002876213423284465
+```
+
+### (b) Linearity of \(\Phi\) — PASS
+
+`PHI[j]` is built from \(x=(1,0),(i,0),(0,1),(0,i)\) (`:60-61,74-79`). Thus
+\[
+\Phi_x=\sum_{j=0}^3u_j\Phi_j
+\]
+for \(u=(\Re x_0,\Im x_0,\Re x_1,\Im x_1)\). `u0` at `:155` matches the phase-fixed parametrization.
+
+Measured basis-linearity error was \(1.42\times10^{-14}\); all basis matrices contain exact integers in binary64 (`integer_error 0.0`).
+
+### (c) Projector identity — PASS
+
+With \(G=\Phi_0\Phi_0^T\),
+\[
+P=I-\Phi_0^TG^{-1}\Phi_0
+\]
+is the orthogonal projector onto \(\ker\Phi_0\), and \(I-P=\Phi_0^TG^{-1}\Phi_0\). For \(\Phi(u)y=0\),
+\[
+(I-P)y=-\sum_j\Delta u_j A_jy,\qquad
+A_j=\Phi_0^TG^{-1}\Phi_j.
+\]
+This is exactly `:159-161,224`. A sampled identity residual was \(8.21\times10^{-13}\).
+
+### (d) Full and restricted bounds — PASS
+
+Cauchy–Schwarz gives
+\[
+\|(I-P)y\|\le
+\|\Delta u\|\Big(\sum_j\|A_j\|_2^2\Big)^{1/2}\|y\|
+=\kappa\|y\|.
+\]
+
+Writing \(y=Z_0c+w\), \(w=(I-P)y\),
+\[
+\|w\|\le\kappa_K\|c\|+\kappa\|w\|,
+\quad
+\|w\|\le\rho\|c\|,\quad
+\rho=\frac{\kappa_K}{1-\kappa}.
+\]
+Implemented at `:225-238`. The kernel checks establish \(\dim\ker\Phi_0=4\) and that the four columns of \(Z_0\) span it (`:181-200`).
+
+### (e) Quadratic bound — PASS
+
+For \(z=Z_0c\),
+\[
+y^THy=z^THz+2z^THw+w^THw
+\]
+is bounded by
+\[
+(\lambda_K+2m_Z\rho+\|H\|_2\rho^2)\|c\|^2.
+\]
+Here \(m_Z^2=\lambda_{\max}(Z_0^TH^2Z_0)\). The code computes these quantities at `:232-239`.
+
+### (f) Division by \(1-\delta\) — PASS
+
+Since \(z\perp w\) and
+\[
+\|Z_0^TZ_0-I\|_2\le\delta,
+\]
+\[
+\|y\|^2=\|z\|^2+\|w\|^2
+\ge(1-\delta)\|c\|^2.
+\]
+Because the numerator \(B\ge0\), division by \(1-\delta>0\) is valid (`:203-213,240-247`).
+
+### (g) Sign of \(\lambda_K\) — PASS
+
+`lamK = max(lam_h.upper(),0)` (`:232-234`) is conservative. Replacing a negative center-subspace upper bound by zero can only increase the final bound and also ensures \(B\ge0\), needed for step (f).
+
+No invalid lemma step was found.
+
+# 2. Real form — CONDITIONAL
+
+For Hermitian \(H=A+iB\), \(A^T=A\), \(B^T=-B\), and \(y=r+is\),
+\[
+y^\dagger Hy=
+\begin{bmatrix}r\\s\end{bmatrix}^{T}
+\begin{bmatrix}A&-B\\B&A\end{bmatrix}
+\begin{bmatrix}r\\s\end{bmatrix}.
+\]
+
+`real_form_of_hermitian_part_arb` implements exactly this form for
+\[
+H=(R_{\rm raw}+R_{\rm raw}^\dagger)/2
+\]
+(`interval_cells_v3.py:82-107`). Numerical check:
+
+```text
+real_form_sym_defect 0.0
+quad_error 1.1102230246251565e-16
+```
+
+Defect: the stored array is not literally Hermitian:
+
+```text
+R_exact_hermitian False
+max_defect 5.204170427930421e-17
+```
+
+Therefore the literal expression \(y^\dagger R_{\rm raw}y\le s^*\) is not a real inequality. The certificate is valid for the Hermitian part \(H\), equivalently for \(\Re(y^\dagger R_{\rm raw}y)\). `STAGE_C_FINAL_PROOF.md:73` claims bitwise Hermiticity, while `:103` and the data say otherwise.
+
+# 3. `phi_rows` — PASS
+
+[CODE] `s8_admissible_span.py:35-58`.
+
+Let \(v=A_a^\dagger y=(v_0,v_1)\). The first two rows impose
+\[
+x_0v_1-x_1v_0=0.
+\]
+For \(x\ne0\), this means \(v=\lambda x\) for some complex \(\lambda\). The third row imposes
+\[
+\Im(\bar x_0v_0+\bar x_1v_1)
+=\Im(\lambda\|x\|^2)=0,
+\]
+hence \(\lambda\in\mathbb R\). The converse is immediate.
+
+Checks on the primary instance:
+
+```text
+PHI_shape (4, 36, 40)
+row_encoding_error 8.881784197001252e-16
+kernel_rank 36
+null_constraint 4.7958029726933904e-14
+proportional_residual 3.2069189435978414e-15
+lambda_imag 1.3877787807814457e-16
+```
+
+# 4. Arb soundness — PASS
+
+[CODE] `interval_cells_v3.py:64-139,147-247`; `o3_run_v3.py:89-128,166-182`.
+
+Critical Arb operations:
+
+- Binary64 cell endpoints and matrix entries are converted to Arb enclosures.
+- Trigonometric centers, `du`, \(G^{-1}\), \(P\), Gram defects, eigenvalue bounds, \(\kappa,\rho,B\), and \(B_{\rm cert}\) are Arb.
+- `.upper()` is consistently used for upper norm/eigenvalue/error bounds.
+- Positivity tests use certain predicates: `det(G)>0`, `one_minus>0`, `one_minus_delta>0`, `sl>0`.
+- Zero-containment uses `lower() <= 0 <= upper()`.
+- The float SVD/eigensystems only seed \(Z_0\) and the similarity \(V\); the subsequent projection, inversion, and bounds are Arb.
+- Float conversions affecting a mathematical decision are limited to the explicitly binary64 threshold \(s^*\). Other conversions are seeds or reporting.
+
+Observed comparison semantics:
+
+```text
+arb_predicates True False False
+# positive interval; interval crossing zero; negative interval
+```
+
+For an invertible \(V\), \(C=V^{-1}BV\) has the same real eigenvalues as symmetric \(B\). Gershgorin gives, for some row,
+\[
+\lambda\le C_{ii}+\sum_{j\ne i}|C_{ij}|.
+\]
+The Arb matrix operations enclose the exact \(C\), so `lam_max_upper` is valid (`:120-136`). A 100-matrix numerical smoke test had no discrepancy below \(-10^{-12}\).
+
+# 5. Threshold — PASS
+
+Exact rational sum of the stored binary64 diagonal:
+
+```text
+tr R = 0.30405245308261130698923579984693787992000579833984375
+round(tr R) = 0.3040524530826113
+s* = 0.01368236038871751 = 0x1.c057f53368882p-7
+gamma = 0.03040524530826109461667527966710622422397136688232421875
+gamma >= 0.0304: True
+```
+
+Thus the stored threshold is correct for sequential binary64 evaluation of `0.9 * trR / 20`, as implemented at `interval_cells_v3.py:56-59,110-112`.
+
+Nuance: using exact rational \(9/10\) and rounding only once would give the adjacent lower float `0.013682360388717509`. That is not the stated binary64 evaluation.
+
+# 6. Coverage — PASS
+
+`build_cell` fixes the column order as `[th_lo, th_hi, ph_lo, ph_hi]` (`interval_cells_v3.py:147-152`).
+
+Read-only lattice/Morton verification produced:
+
+```text
+shape (3955841, 4)
+bounds theta 0 .. 3.141592653589793
+bounds phi   0 .. 6.283185307179586
+nonpositive widths 0 0
+node_spread [0.0, 0.0]
+square True power2 True aligned True
+width_units [1, 2, 4, 8, 16, 32, 64]
+morton_first_last 0 536870912 target 536870912
+adjacency_nonzero 0
+duplicate_starts 0
+integer_area 536870912 target_area 536870912
+```
+
+This establishes an exact tiling in the stored binary64 lattice: no interior gap or positive-area overlap. Adjacent closed cells naturally share boundary edges. The \(\phi=2\pi\) edge duplicates the physical \(\phi=0\) phase point but does not leave the stated half-open domain uncovered.
+
+# 7. Integrity — CONDITIONAL
+
+All six current hashes match both manifests:
+
+```text
+instance.jsonl          052899...0044 C=True D=True
+interval_cells_v3.py    bd719f...18c  C=True D=True
+leaves.npy              29ab7b...8d90 C=True D=True
+o3_run_v3.py            25e852...c2dc C=True D=True
+R_input.npz             55b898...1666 C=True D=True
+s8_admissible_span.py   72a690...9c26 C=True D=True
+```
+
+The five seeded random chunks were `[1981,2504,3077,6011,6257]`; every hash matched, each had 500 consecutive leaves, and every record was `ok=true`.
+
+A stronger full streaming check found:
+
+```text
+files 7912 lines 3955841
+bad_hash 0 bad_count 0 bad_leaf_positions 0 non_ok_lines 0
+```
+
+The journal has 7,912 unique chunks, no duplicate or missing chunk, and the last chunk has 341 records.
+
+Integrity gap: the supplied runC/runD manifests cover only chunks `3421..7911` (`run_manifest_runC.json:3-4`, `run_manifest_runD.json:3-4`). The first 3,421 chunks—1,710,500 leaves—are hash-linked to the journal but not bound to a supplied code/input manifest. This is a provenance gap, not a detected numerical failure.
+
+# 8. Counterexample search — PASS
+
+I tested 251 leaves and 2,255 center/corner/random parameter points. No \(y\in\ker\Phi_x\) exceeded its record’s \(B_{\rm cert}\):
+
+```text
+worst actual - Bcert = -0.006286097479827733
+no_counterexample True
+```
+
+The globally closest recorded leaf was `2137394`:
+
+```text
+cell [3.139675177604936, 3.1400586728019073,
+      1.312320564036166, 1.3127040592331374]
+Bcert 0.013682351984179125...
+slack 8.404538385450303e-9
+largest sampled actual value 0.001022129172728781
+```
+
+Recomputing `cell_bound` for that leaf reproduced the record. Separate lemma checks gave:
+
+```text
+max_kappa_ratio 0.08113
+max_rho_ratio   0.20346
+max_energy_ratio 0.07471
+```
+
+All are below one. No passing cell with a violated sampled lemma inequality was found.
+
+The journal maximum is \(0.013682351984179125\), so no recorded leaf has \(B_{\rm cert}\ge s^*\).
+
+# 9. Final verdict — CONDITIONAL
+
+The O3 v3 mathematics and interval implementation pass the audit for the explicitly symmetrized matrix
+\[
+H=(R_{\rm raw}+R_{\rm raw}^\dagger)/2.
+\]
+
+Confirmed defects:
+
+1. `[CODE][VERIFIED]` The stored `R` is not exactly Hermitian. The literal separator claim must name \(H\), or the input must be replaced by an exactly Hermitian stored matrix.
+2. `[VERIFIED]` The supplied runC/runD manifests do not authenticate chunks `0..3420`.
+3. `[CODE]` `STAGE_C_FINAL_PROOF.md:73` incorrectly reports bitwise Hermiticity and conflicts with its own `:103`.
+
+Residual risks:
+
+- The full 3,955,841-cell computation was integrity-checked but not independently recomputed from scratch; the closest leaf and numerical samples were recomputed.
+- Counterexample search is finite; the universal guarantee comes from the audited lemma and Arb path.
+- Soundness ultimately depends on python-flint/Arb behaving according to its interval-arithmetic contract.
+
+Commands run were exclusively read-only: `Get-Content`, `rg`, `Get-FileHash`, and `python -I` scripts using standard library, NumPy, and Flint. No audit test, project script that writes output, or prohibited prior-verdict artifact was executed or read.
+
+Implemented: no files changed.
+
+Verified: source proof, real form, `phi_rows`, Arb decision directions, threshold, exact lattice coverage, all 7,912 record hashes and 3,955,841 record indices, manifests, and targeted counterexample searches.
+tokens used
+100 253
+# 1. Lemma behind `cell_bound` — PASS
+
+[CODE] `interval_cells_v3.py:147-178,216-256`.
+
+The certified statement is:
+
+> For a leaf \(C\), assuming the kernel certificate succeeds, \(\kappa<1\), and \(\delta<1\), then for every \((\theta,\phi)\in C\), every \(y\in\ker\Phi_{x(\theta,\phi)}\) satisfies
+> \[
+> y^T H y\le B_{\rm cert}\|y\|^2,
+> \]
+> where
+> \[
+> B_{\rm cert}=
+> \frac{\max(\lambda_{\max}(Z_0^THZ_0),0)+2m_Z\rho+\|H\|_2\rho^2}
+> {1-\delta}.
+> \]
+
+For unit \(y\), this gives \(y^THy\le B_{\rm cert}\).
+
+### (a) Displacement bound — PASS
+
+For
+\[
+u=(\cos(\theta/2),0,\sin(\theta/2)\cos\phi,\sin(\theta/2)\sin\phi),
+\]
+\(\|\partial_\theta u\|=1/2\) and \(\|\partial_\phi u\|=\sin(\theta/2)\). Since all cells lie in \(0\le\theta\le\pi\),
+\[
+\|u-u_c\|\le h_\theta/2+\sin(\theta_{\rm hi}/2)h_\phi.
+\]
+The code adds a positive \(10^{-12}\) margin and takes `.upper()` (`interval_cells_v3.py:149-155`).
+
+Closest-leaf numerical check:
+
+```text
+sample_max_du 0.00021438027494350342
+cert_du       0.0002876213423284465
+```
+
+### (b) Linearity of \(\Phi\) — PASS
+
+`PHI[j]` is built from \(x=(1,0),(i,0),(0,1),(0,i)\) (`:60-61,74-79`). Thus
+\[
+\Phi_x=\sum_{j=0}^3u_j\Phi_j
+\]
+for \(u=(\Re x_0,\Im x_0,\Re x_1,\Im x_1)\). `u0` at `:155` matches the phase-fixed parametrization.
+
+Measured basis-linearity error was \(1.42\times10^{-14}\); all basis matrices contain exact integers in binary64 (`integer_error 0.0`).
+
+### (c) Projector identity — PASS
+
+With \(G=\Phi_0\Phi_0^T\),
+\[
+P=I-\Phi_0^TG^{-1}\Phi_0
+\]
+is the orthogonal projector onto \(\ker\Phi_0\), and \(I-P=\Phi_0^TG^{-1}\Phi_0\). For \(\Phi(u)y=0\),
+\[
+(I-P)y=-\sum_j\Delta u_j A_jy,\qquad
+A_j=\Phi_0^TG^{-1}\Phi_j.
+\]
+This is exactly `:159-161,224`. A sampled identity residual was \(8.21\times10^{-13}\).
+
+### (d) Full and restricted bounds — PASS
+
+Cauchy–Schwarz gives
+\[
+\|(I-P)y\|\le
+\|\Delta u\|\Big(\sum_j\|A_j\|_2^2\Big)^{1/2}\|y\|
+=\kappa\|y\|.
+\]
+
+Writing \(y=Z_0c+w\), \(w=(I-P)y\),
+\[
+\|w\|\le\kappa_K\|c\|+\kappa\|w\|,
+\quad
+\|w\|\le\rho\|c\|,\quad
+\rho=\frac{\kappa_K}{1-\kappa}.
+\]
+Implemented at `:225-238`. The kernel checks establish \(\dim\ker\Phi_0=4\) and that the four columns of \(Z_0\) span it (`:181-200`).
+
+### (e) Quadratic bound — PASS
+
+For \(z=Z_0c\),
+\[
+y^THy=z^THz+2z^THw+w^THw
+\]
+is bounded by
+\[
+(\lambda_K+2m_Z\rho+\|H\|_2\rho^2)\|c\|^2.
+\]
+Here \(m_Z^2=\lambda_{\max}(Z_0^TH^2Z_0)\). The code computes these quantities at `:232-239`.
+
+### (f) Division by \(1-\delta\) — PASS
+
+Since \(z\perp w\) and
+\[
+\|Z_0^TZ_0-I\|_2\le\delta,
+\]
+\[
+\|y\|^2=\|z\|^2+\|w\|^2
+\ge(1-\delta)\|c\|^2.
+\]
+Because the numerator \(B\ge0\), division by \(1-\delta>0\) is valid (`:203-213,240-247`).
+
+### (g) Sign of \(\lambda_K\) — PASS
+
+`lamK = max(lam_h.upper(),0)` (`:232-234`) is conservative. Replacing a negative center-subspace upper bound by zero can only increase the final bound and also ensures \(B\ge0\), needed for step (f).
+
+No invalid lemma step was found.
+
+# 2. Real form — CONDITIONAL
+
+For Hermitian \(H=A+iB\), \(A^T=A\), \(B^T=-B\), and \(y=r+is\),
+\[
+y^\dagger Hy=
+\begin{bmatrix}r\\s\end{bmatrix}^{T}
+\begin{bmatrix}A&-B\\B&A\end{bmatrix}
+\begin{bmatrix}r\\s\end{bmatrix}.
+\]
+
+`real_form_of_hermitian_part_arb` implements exactly this form for
+\[
+H=(R_{\rm raw}+R_{\rm raw}^\dagger)/2
+\]
+(`interval_cells_v3.py:82-107`). Numerical check:
+
+```text
+real_form_sym_defect 0.0
+quad_error 1.1102230246251565e-16
+```
+
+Defect: the stored array is not literally Hermitian:
+
+```text
+R_exact_hermitian False
+max_defect 5.204170427930421e-17
+```
+
+Therefore the literal expression \(y^\dagger R_{\rm raw}y\le s^*\) is not a real inequality. The certificate is valid for the Hermitian part \(H\), equivalently for \(\Re(y^\dagger R_{\rm raw}y)\). `STAGE_C_FINAL_PROOF.md:73` claims bitwise Hermiticity, while `:103` and the data say otherwise.
+
+# 3. `phi_rows` — PASS
+
+[CODE] `s8_admissible_span.py:35-58`.
+
+Let \(v=A_a^\dagger y=(v_0,v_1)\). The first two rows impose
+\[
+x_0v_1-x_1v_0=0.
+\]
+For \(x\ne0\), this means \(v=\lambda x\) for some complex \(\lambda\). The third row imposes
+\[
+\Im(\bar x_0v_0+\bar x_1v_1)
+=\Im(\lambda\|x\|^2)=0,
+\]
+hence \(\lambda\in\mathbb R\). The converse is immediate.
+
+Checks on the primary instance:
+
+```text
+PHI_shape (4, 36, 40)
+row_encoding_error 8.881784197001252e-16
+kernel_rank 36
+null_constraint 4.7958029726933904e-14
+proportional_residual 3.2069189435978414e-15
+lambda_imag 1.3877787807814457e-16
+```
+
+# 4. Arb soundness — PASS
+
+[CODE] `interval_cells_v3.py:64-139,147-247`; `o3_run_v3.py:89-128,166-182`.
+
+Critical Arb operations:
+
+- Binary64 cell endpoints and matrix entries are converted to Arb enclosures.
+- Trigonometric centers, `du`, \(G^{-1}\), \(P\), Gram defects, eigenvalue bounds, \(\kappa,\rho,B\), and \(B_{\rm cert}\) are Arb.
+- `.upper()` is consistently used for upper norm/eigenvalue/error bounds.
+- Positivity tests use certain predicates: `det(G)>0`, `one_minus>0`, `one_minus_delta>0`, `sl>0`.
+- Zero-containment uses `lower() <= 0 <= upper()`.
+- The float SVD/eigensystems only seed \(Z_0\) and the similarity \(V\); the subsequent projection, inversion, and bounds are Arb.
+- Float conversions affecting a mathematical decision are limited to the explicitly binary64 threshold \(s^*\). Other conversions are seeds or reporting.
+
+Observed comparison semantics:
+
+```text
+arb_predicates True False False
+# positive interval; interval crossing zero; negative interval
+```
+
+For an invertible \(V\), \(C=V^{-1}BV\) has the same real eigenvalues as symmetric \(B\). Gershgorin gives, for some row,
+\[
+\lambda\le C_{ii}+\sum_{j\ne i}|C_{ij}|.
+\]
+The Arb matrix operations enclose the exact \(C\), so `lam_max_upper` is valid (`:120-136`). A 100-matrix numerical smoke test had no discrepancy below \(-10^{-12}\).
+
+# 5. Threshold — PASS
+
+Exact rational sum of the stored binary64 diagonal:
+
+```text
+tr R = 0.30405245308261130698923579984693787992000579833984375
+round(tr R) = 0.3040524530826113
+s* = 0.01368236038871751 = 0x1.c057f53368882p-7
+gamma = 0.03040524530826109461667527966710622422397136688232421875
+gamma >= 0.0304: True
+```
+
+Thus the stored threshold is correct for sequential binary64 evaluation of `0.9 * trR / 20`, as implemented at `interval_cells_v3.py:56-59,110-112`.
+
+Nuance: using exact rational \(9/10\) and rounding only once would give the adjacent lower float `0.013682360388717509`. That is not the stated binary64 evaluation.
+
+# 6. Coverage — PASS
+
+`build_cell` fixes the column order as `[th_lo, th_hi, ph_lo, ph_hi]` (`interval_cells_v3.py:147-152`).
+
+Read-only lattice/Morton verification produced:
+
+```text
+shape (3955841, 4)
+bounds theta 0 .. 3.141592653589793
+bounds phi   0 .. 6.283185307179586
+nonpositive widths 0 0
+node_spread [0.0, 0.0]
+square True power2 True aligned True
+width_units [1, 2, 4, 8, 16, 32, 64]
+morton_first_last 0 536870912 target 536870912
+adjacency_nonzero 0
+duplicate_starts 0
+integer_area 536870912 target_area 536870912
+```
+
+This establishes an exact tiling in the stored binary64 lattice: no interior gap or positive-area overlap. Adjacent closed cells naturally share boundary edges. The \(\phi=2\pi\) edge duplicates the physical \(\phi=0\) phase point but does not leave the stated half-open domain uncovered.
+
+# 7. Integrity — CONDITIONAL
+
+All six current hashes match both manifests:
+
+```text
+instance.jsonl          052899...0044 C=True D=True
+interval_cells_v3.py    bd719f...18c  C=True D=True
+leaves.npy              29ab7b...8d90 C=True D=True
+o3_run_v3.py            25e852...c2dc C=True D=True
+R_input.npz             55b898...1666 C=True D=True
+s8_admissible_span.py   72a690...9c26 C=True D=True
+```
+
+The five seeded random chunks were `[1981,2504,3077,6011,6257]`; every hash matched, each had 500 consecutive leaves, and every record was `ok=true`.
+
+A stronger full streaming check found:
+
+```text
+files 7912 lines 3955841
+bad_hash 0 bad_count 0 bad_leaf_positions 0 non_ok_lines 0
+```
+
+The journal has 7,912 unique chunks, no duplicate or missing chunk, and the last chunk has 341 records.
+
+Integrity gap: the supplied runC/runD manifests cover only chunks `3421..7911` (`run_manifest_runC.json:3-4`, `run_manifest_runD.json:3-4`). The first 3,421 chunks—1,710,500 leaves—are hash-linked to the journal but not bound to a supplied code/input manifest. This is a provenance gap, not a detected numerical failure.
+
+# 8. Counterexample search — PASS
+
+I tested 251 leaves and 2,255 center/corner/random parameter points. No \(y\in\ker\Phi_x\) exceeded its record’s \(B_{\rm cert}\):
+
+```text
+worst actual - Bcert = -0.006286097479827733
+no_counterexample True
+```
+
+The globally closest recorded leaf was `2137394`:
+
+```text
+cell [3.139675177604936, 3.1400586728019073,
+      1.312320564036166, 1.3127040592331374]
+Bcert 0.013682351984179125...
+slack 8.404538385450303e-9
+largest sampled actual value 0.001022129172728781
+```
+
+Recomputing `cell_bound` for that leaf reproduced the record. Separate lemma checks gave:
+
+```text
+max_kappa_ratio 0.08113
+max_rho_ratio   0.20346
+max_energy_ratio 0.07471
+```
+
+All are below one. No passing cell with a violated sampled lemma inequality was found.
+
+The journal maximum is \(0.013682351984179125\), so no recorded leaf has \(B_{\rm cert}\ge s^*\).
+
+# 9. Final verdict — CONDITIONAL
+
+The O3 v3 mathematics and interval implementation pass the audit for the explicitly symmetrized matrix
+\[
+H=(R_{\rm raw}+R_{\rm raw}^\dagger)/2.
+\]
+
+Confirmed defects:
+
+1. `[CODE][VERIFIED]` The stored `R` is not exactly Hermitian. The literal separator claim must name \(H\), or the input must be replaced by an exactly Hermitian stored matrix.
+2. `[VERIFIED]` The supplied runC/runD manifests do not authenticate chunks `0..3420`.
+3. `[CODE]` `STAGE_C_FINAL_PROOF.md:73` incorrectly reports bitwise Hermiticity and conflicts with its own `:103`.
+
+Residual risks:
+
+- The full 3,955,841-cell computation was integrity-checked but not independently recomputed from scratch; the closest leaf and numerical samples were recomputed.
+- Counterexample search is finite; the universal guarantee comes from the audited lemma and Arb path.
+- Soundness ultimately depends on python-flint/Arb behaving according to its interval-arithmetic contract.
+
+Commands run were exclusively read-only: `Get-Content`, `rg`, `Get-FileHash`, and `python -I` scripts using standard library, NumPy, and Flint. No audit test, project script that writes output, or prohibited prior-verdict artifact was executed or read.
+
+Implemented: no files changed.
+
+Verified: source proof, real form, `phi_rows`, Arb decision directions, threshold, exact lattice coverage, all 7,912 record hashes and 3,955,841 record indices, manifests, and targeted counterexample searches.

@@ -1,0 +1,17 @@
+{
+ "chunks_covered": 7912,
+ "chunks_expected": 7912,
+ "missing_chunks": 0,
+ "duplicate_chunks": 0,
+ "leaves_summed_from_journals": 3955841,
+ "leaves_expected": 3955841,
+ "rigorous_ok_from_journals": 3955841,
+ "rigorous_fail_from_journals": 0,
+ "leaves_array_rows": 3955841,
+ "theta_hi_max": 3.141592653589793,
+ "phi_hi_max": 6.283185307179586,
+ "leaf_reaches_theta_pi": true,
+ "leaf_reaches_phi_2pi": true,
+ "problems": [],
+ "verdict": "COVERAGE_CONSISTENT"
+}

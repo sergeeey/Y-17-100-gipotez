@@ -1,0 +1,88 @@
+{
+ "set": "S-",
+ "instance": "experiments/20261027-h-cat56-2-submission-package-v1/data/instance_d22_r2_s16.jsonl",
+ "s_target": 0.014500000000000002,
+ "s_target_frac_of_trR_over_20": 0.9537827998421272,
+ "tr_R": 0.3040524530826113,
+ "tr_R_minus_20_s_target": 0.014052453082611271,
+ "L_phi": 506.1644955693411,
+ "norm_M": 0.2897488214775435,
+ "worst_certified_cell_bound": 0.01449999637290496,
+ "min_sigma_certified": 0.010075889725642256,
+ "cells_certified": 3413399,
+ "cells_uncertified": 0,
+ "uncertified_area_theta_phi": 0.0,
+ "levels": [
+  {
+   "depth": 0,
+   "cells": 512,
+   "failed": 512,
+   "elapsed_s": 0.4192492961883545
+  },
+  {
+   "depth": 1,
+   "cells": 2048,
+   "failed": 2048,
+   "elapsed_s": 2.060408353805542
+  },
+  {
+   "depth": 2,
+   "cells": 8192,
+   "failed": 8192,
+   "elapsed_s": 11.375620126724243
+  },
+  {
+   "depth": 3,
+   "cells": 32768,
+   "failed": 32768,
+   "elapsed_s": 38.090254068374634
+  },
+  {
+   "depth": 4,
+   "cells": 131072,
+   "failed": 113920,
+   "elapsed_s": 146.65560626983643
+  },
+  {
+   "depth": 5,
+   "cells": 455680,
+   "failed": 201951,
+   "elapsed_s": 509.29005670547485
+  },
+  {
+   "depth": 6,
+   "cells": 807804,
+   "failed": 178032,
+   "elapsed_s": 1150.399598121643
+  },
+  {
+   "depth": 7,
+   "cells": 712128,
+   "failed": 209352,
+   "elapsed_s": 1728.0524883270264
+  },
+  {
+   "depth": 8,
+   "cells": 837408,
+   "failed": 346634,
+   "elapsed_s": 2410.501492023468
+  },
+  {
+   "depth": 9,
+   "cells": 1386536,
+   "failed": 44220,
+   "elapsed_s": 3549.652203321457
+  },
+  {
+   "depth": 10,
+   "cells": 176880,
+   "failed": 0,
+   "elapsed_s": 3693.9299960136414
+  }
+ ],
+ "margins": {
+  "rel": 1e-08,
+  "abs": 1e-10
+ },
+ "verdict": "CERTIFIED_all_cells"
+}

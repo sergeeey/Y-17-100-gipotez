@@ -1,0 +1,21 @@
+{
+ "run": "runB",
+ "first_chunk": 1711,
+ "last_chunk": 3420,
+ "workers": 24,
+ "leaves_total": 3955841,
+ "chunks_total": 7912,
+ "python": "3.13.2",
+ "numpy": "2.3.4",
+ "flint_version": "0.9.0",
+ "sha256": {
+  "leaves.npy": "29ab7b1454b5fd82ef639930dfd0a85c830a7fd8488e6526d8a2c72f5a3a8d90",
+  "interval_cells_v3.py": "bd719f0fed4c8dc035652052279aeead910fde39550df3ded8d69d22c4e4318c",
+  "o3_run_v3.py": "25e852af2bc820f595b90f4e7cdc844b39b648fec16e5fad1ca562860299c2dc",
+  "R_input.npz": "55b898d6dd853b57588408adf9e1452ed99e9b08935cf031ba2b192784881666",
+  "instance.jsonl": "0528992095d033d948b16777d1ded8f87c975741073df9496c3080b59ebb0044",
+  "s8_admissible_span.py": "72a690f95343fd2e195a018efcc7a00094f823ff4cc447f53f1adcd1eb5e9c26"
+ },
+ "s_target_binary64": 0.01368236038871751,
+ "final_gap_arb_positive": true
+}

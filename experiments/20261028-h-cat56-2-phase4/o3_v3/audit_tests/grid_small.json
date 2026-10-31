@@ -1,0 +1,20 @@
+{
+ "instance_sha256": "0528992095d033d948b16777d1ded8f87c975741073df9496c3080b59ebb0044",
+ "R_sha256": "55b898d6dd853b57588408adf9e1452ed99e9b08935cf031ba2b192784881666",
+ "s_star": 0.01368236038871751,
+ "real_form_max_error_random_y": 1.7763568394002505e-15,
+ "hermitian_error_R": 5.204170427930421e-17,
+ "kernel_check_max_residual": 3.562127001440214e-14,
+ "grid": {
+  "n_theta": 31,
+  "n_phi": 61
+ },
+ "grid_sup": 0.002117618427481238,
+ "grid_sup_at_theta_phi": [
+  2.0943951023931953,
+  4.841142777662959
+ ],
+ "grid_sup_minus_s_star": -0.011564741961236273,
+ "min_sigma_36_over_grid": 0.011893185339415503,
+ "verdict_grid_below_s_star": true
+}

@@ -1,0 +1,21 @@
+{
+ "chunks_unique": 7912,
+ "chunks_expected": 7912,
+ "duplicate_lines": 0,
+ "leaves_journal_sum_n": 3955841,
+ "leaves_expected": 3955841,
+ "ok_journal_sum": 3955841,
+ "fails_journal_sum": 0,
+ "cover_complete": true,
+ "counts_match": true,
+ "input_sha256": {
+  "inputs\\R.npz": "55b898d6dd853b57588408adf9e1452ed99e9b08935cf031ba2b192784881666",
+  "inputs\\leaves.npy": "29ab7b1454b5fd82ef639930dfd0a85c830a7fd8488e6526d8a2c72f5a3a8d90",
+  "inputs\\instance.jsonl": "0528992095d033d948b16777d1ded8f87c975741073df9496c3080b59ebb0044"
+ },
+ "summary_leaves_sha256": "29ab7b1454b5fd82ef639930dfd0a85c830a7fd8488e6526d8a2c72f5a3a8d90",
+ "summary_final_gap": 0.030405245308261095,
+ "summary_s_target": 0.01368236038871751,
+ "note": "per-leaf B_up is NOT stored for chunks of the earlier run; only ok/fails per chunk. Interval verdict rests on arb ok flags.",
+ "AUDIT_PASS": true
+}

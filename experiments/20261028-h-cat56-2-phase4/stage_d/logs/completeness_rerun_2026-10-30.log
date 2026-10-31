@@ -1,0 +1,7 @@
+K = 280 d = 22
+covers zero (all entries of Re/Im residual): False
+certified upper bound on max |residual| entry: 8.613688890176334e-10
+w_min (exact double): 2.3779849596265564e-08
+all weights strictly positive as exact doubles: True
+criterion: certified residual < w_min -> True
+ratio cert_upper / w_min: 0.0362226382269846

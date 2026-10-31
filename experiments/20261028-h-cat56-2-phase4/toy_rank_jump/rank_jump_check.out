@@ -1,0 +1,4 @@
+s=0.1  min_v lmin(N_s-N_0)=-8.345e+00  min_v (f_s-f_0)=-1.598e+00  trFQ(s)-trFQ(0)=+1.3959  hFQh jump=+3.3873
+s=0.03  min_v lmin(N_s-N_0)=-2.346e+00  min_v (f_s-f_0)=-3.239e-01  trFQ(s)-trFQ(0)=+3.7599  hFQh jump=+3.9445
+s=0.01  min_v lmin(N_s-N_0)=-6.820e-01  min_v (f_s-f_0)=-8.356e-02  trFQ(s)-trFQ(0)=+3.9733  hFQh jump=+3.9938
+s=0.003  min_v lmin(N_s-N_0)=-1.714e-01  min_v (f_s-f_0)=-2.020e-02  trFQ(s)-trFQ(0)=+3.9976  hFQh jump=+3.9994
