@@ -1,0 +1,6 @@
+all 16: M rows 64 rank num/p1/p2 = 64/64/64;  W rows 480 rank num/p1/p2 = 399/399/399 (sv gap 4.39e+11)
+   dim V = 463, dim V_perp = 21, Observation 2 excludes saturation: True
+S+ = 0..11: M rows 48 rank num/p1/p2 = 48/48/48;  W rows 264 rank num/p1/p2 = 261/261/261 (sv gap 3.59e+13)
+   dim V = 309, dim V_perp = 175, Observation 2 excludes saturation: False
+S- = 4..15: M rows 48 rank num/p1/p2 = 48/48/48;  W rows 264 rank num/p1/p2 = 264/264/264 (sv gap inf)
+   dim V = 312, dim V_perp = 172, Observation 2 excludes saturation: False
