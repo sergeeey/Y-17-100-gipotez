@@ -39,3 +39,16 @@ Thumbs.db
 experiments/20260919-pcc-generic-quasipure-cat56-2/candidates/exact_blocks_d22_r2_s16_seed*.json
 /tmp/
 /tmp_swap/
+
+# --- Private material: letters, correspondence, secrets (global rule private-material-never-in-repo, 2026-11-01) ---
+private/
+outreach/*email*
+outreach/SEND_CHECKLIST*
+outreach/HANDOFF*
+outreach/CHECKPOINT_FREEZE*
+experiments/*/review_package/DRAFT_*
+experiments/*/review_package/TECHNICAL_NOTE_*DRAFT*
+.env
+.env.*
+*.pem
+*secret*
