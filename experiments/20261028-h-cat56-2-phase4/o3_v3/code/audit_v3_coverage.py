@@ -132,6 +132,39 @@ def main():
     report["min_slack_certainly_positive"] = None if min_slack is None else bool(min_slack > 0)
     report["max_bup_enclosure"] = None if max_bup is None else str(max_bup)
     report["max_bup_below_threshold_certain"] = None
+
+    # Input hashes: every run manifest overlapping this range must describe files that are on disk now.
+    # WHY "unlocated" is reported, not passed: inputs outside the repo (R_input.npz, instance.jsonl,
+    # s8_admissible_span.py) cannot be checked from here and must not count as verified.
+    checked, mismatch, unlocated = [], [], []
+    metrics_dir = os.path.join(O3V3, "metrics")
+    for fn in sorted(os.listdir(metrics_dir)):
+        if not (fn.startswith("run_manifest_") and fn.endswith(".json")):
+            continue
+        with open(os.path.join(metrics_dir, fn), encoding="utf-8") as fh:
+            man = json.load(fh)
+        if man["last_chunk"] < first or man["first_chunk"] > last:
+            continue
+        # WHY input_name/want_sha, not name: `name` is the output label used for audit_<name>.json below.
+        for input_name, want_sha in man["sha256"].items():
+            found = [
+                p
+                for p in (
+                    os.path.join(O3V3, "inputs", input_name),
+                    os.path.join(HERE, input_name),
+                )
+                if os.path.exists(p)
+            ]
+            if not found:
+                unlocated.append(f"{fn}:{input_name}")
+            elif sha256_file(found[0]) == want_sha:
+                checked.append(f"{fn}:{input_name}")
+            else:
+                mismatch.append(f"{fn}:{input_name}")
+    report["manifest_inputs_checked"] = sorted(set(checked))
+    report["manifest_inputs_mismatch"] = sorted(set(mismatch))
+    report["manifest_inputs_unlocated"] = sorted(set(unlocated))
+
     report["verdict"] = (
         "COMPLETE_STRICT"
         if (
@@ -139,6 +172,11 @@ def main():
             and not missing
             and not fails
             and leaves_total == report["leaves_expected_in_range"]
+            # WHY: the slack flag was computed but never gated the verdict, so a run with
+            # every record ok=true and a negative certified lower bound was still reported
+            # COMPLETE_STRICT (found 2026-11-05). None (no ok leaves) is not True -> fails closed.
+            and report["min_slack_certainly_positive"] is True
+            and not report["manifest_inputs_mismatch"]
         )
         else "INCOMPLETE_OR_FAILED"
     )
