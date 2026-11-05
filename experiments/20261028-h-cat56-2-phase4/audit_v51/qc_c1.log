@@ -1,0 +1,6 @@
+PASS  exact left null space of Op_N (chart 1)  [68 s]  | [64s] nullspace done in 58s: nullity 378 (expected 378); max digits of an entry: 735
+PASS  exact integer system R_int, rb_int (chart 1)  [7 s]  |   row magnitude (digits): min 722, max 732;  rb digits max 943
+PASS  ball-arithmetic verifier (PD of Y_q - eps I, residual, lambda_min bound)  [11 s]  | VERDICT: INDEPENDENT_EXACT_INTERIOR_POINT_CONFIRMED (chart 1, prec 700 bits, 10 s)
+PASS  exact chain (X*Op_N=0, X*Op_G==R_int, ranks)  [82 s]  | VERDICT: EXACT_CHAIN_CONFIRMED (chart 1, 82 s)
+PASS  independent re-derivation + 1170-equation residual  [77 s]  | VERDICT: INDEPENDENT_REDERIVATION_CONSISTENT (chart 1, prec 500 bits, 77 s)
+QUICK_CHECK: ALL_PASS (chart 1)

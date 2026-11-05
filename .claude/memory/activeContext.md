@@ -2,6 +2,8 @@
 
 ## Current Focus
 
+- **[2026-11-03] H-CAT56-2 phase4: independent audit of V5.1 finished, verdict VERIFIED-CONDITIONAL** (not human-refereed; no registry status changed). Record: `experiments/20261028-h-cat56-2-phase4/audit_v51/AUDIT_REPORT_V51.md`, ledger row 2026-11-03. Next step is an external human reader for lemma A1 (`A1_CHECK.md`) and PROOF_MAP rows 3-4, not a V5.2. Owner decisions open: freeze D as a rational file (would be V5.2), commit/push of the 24 modified + untracked files in this tree, whether to register phase4 as its own node. Push/commit status: use `digest.py`, not this line.
+
 - **[2026-10-14] Memory audit review state:** reviewer iteration 1 NEEDS_WORK (fixed), iteration 2 NEEDS_WORK (P1 N1 dated cap-pointer flipped newest-first detection; fixed in `2176d37`, regression test added), iteration 3 (final, cap 3) LGTM (P2 residual: pointer count includes old pointers; nothing lost). Full results: `tooling-eval/memory-audit-2026-10-14/REPORT.md`.
 - **[2026-10-14 RECONCILIATION — generated state beats written state.]** Push/publish/commit status and registry counts are no longer kept here as hand-written claims: 3 of them were false within 17 days (push status of `25776d4`, MathOverflow publication, the hooks-fix commit) and one superseded not-sent line survived next to the newer sent line. Current state = `python tooling-eval/memory-audit-2026-10-14/digest.py` (derived from git/gh/files). Work since 2026-09-27 (git log): `edc14e7` round 1 of the sequential autonomous run on five audited open problems (#30, #11, #1, #5, #17); `84950a6` round 2 on #30, #1, #11 (no LEAD); `1453996` protocol H-YBE-C3-TWIN-001. Evidence: `tooling-eval/memory-audit-2026-10-14/REPORT.md`.
 - **[2026-10-14] OPEN owner decisions from the memory audit** (nothing global was changed): apply `tooling-eval/memory-audit-2026-10-14/proposed/pre_compact.diff` (+ the same patch in `claude-cod-top-2026-src`), digest-first in `session_start.py` (opt-in), fix the two lost underscores in the live MO post, commit the canonical untracked `outreach/` files, push. Details and evidence: `tooling-eval/memory-audit-2026-10-14/REPORT.md`, `tooling-eval/memory-audit-2026-10-14/proposed/README.md`.
@@ -21,9 +23,8 @@
 - **[2026-09-17, H-CAT31-3 Points 77-89 — long proof-attempt + measurement window on `(POL)`/`F4rel` for `CV²(y*)`; PARKED active search — do not restart without revival condition.]** Context: `(POL): sup_n E‖x*‖²<∞`, reduced (Point 85, exact KKT identity `s=2Q+1` non-degenerate-vertex support size) to `E[CV²(y)]=O(1)`. Four proof ROUTES attempted this window, all genuinely tried (not just cited) and all KILLED with a precise, quantified reason, not vague failure: (1) direct Talagrand transfer from Arora-Bhaskara's i.i.d.-edge technique — killed Point 81, circulant graphs lack the `Θ(n²)`-independent-bits structure the technique needs (re-confirmed independently Point 87§4A by two research agents); (2) uncertainty-principle-on-supports — killed Point 85, saturated with zero slack; (3) Young's/sup-norm convolution bounds on `F4rel` — killed Point 86, one reproduces the trivial bound exactly, the other's gap widens with `n`; (4) KKT/argmin-stability via LP non-degeneracy margins (`boyko-specialist`'s suggestion) — killed Point 88 after finding its cited source (Escande arXiv:2304.00809) was misattributed (real paper, wrong technique) and finding zero correlation between vertex margins and `CV²`, a result that itself SURVIVED a real adversarial skeptic pass testing 3 alternative explanations.
 - **[VERIFIED-COMPUTATION, Point 87, the load-bearing measurement chain this window] `CV²(y*)` measured across 6 points, `n=127→8009`, up to 300 reps each (fewer at largest `n` — LP solve cost grew from `~0.07s`/instance at `n=509` to `~15-18min`/instance at `n=8009`, a canonical-code `45s` time-limit had to be worked around with a local no-timelimit wrapper, never touching Codex's read-only `CertificateLP`).** Two separable findings, corrected TWICE by real skeptic passes before reaching their final form (see `decision.md` Point 87 §4E-4I for the full, honest before/after): (a) **dispersion of `CV²` across independent instances shrinks as the ORDINARY, trivial `n^{-1/2}` CLT-type rate** — not a mysterious `-0.53` law as a first draft claimed; that apparent deviation from `-0.5` is entirely `mean(CV²)`'s own separate drift, confirmed via an exact algebraic decomposition (`slope(std)-slope(mean)=slope(CV_of_CV2)`, verified to 4 decimals); this dispersion law holds cleanly over about one decade (`n≈500-4000`) but is REJECTED (`p=0.0017`) across the full `127-8009` range once the endpoints are included. (b) **`mean(CV²)` is genuinely, significantly increasing with `n`** (`0.987→1.050` from `n=127→8009`, `9σ`+ from `1` at the largest `n`'s) — real, not noise — but whether it converges to a constant (`≥~1.09-1.13` at 1-2σ, no upper bound established) or grows without bound is **UNRESOLVED and likely UNRESOLVABLE within this `n`-range**: a 5-model comparison (Point 87§4I) found the candidate functional forms (log-linear, log-log, `n^{-1/4}`, `1/ln n`, `n^{-1/2}`) are nearly collinear over `n∈[127,8009]` (`|corr|` up to `0.996`), so model selection there is close to uninformative, and — critically — whichever model "wins" flips entirely depending on whether the single point `n=127` (already independently flagged, twice now, as the one point driving nearly all discrimination and a likely pre-asymptotic outlier) is included or excluded.
 - **[VERIFIED-COMPUTATION, Point 89] A second, independent attempt at explaining `mean(CV²)`'s drift — the "D2" pair-weight `Dirichlet(2,...,2)` heuristic (imported from an earlier, different project branch; the user explicitly disclosed the provenance gap mid-session per Gate 1 discipline, closed here) — does NOT explain it either, but MORE importantly turned out to be algebraically CIRCULAR with the already-open `mean(CV²)` question: `R=(2-μ_D2)+(CV²-1)` exactly, so this residual test is the SAME open question in different notation, not independent evidence. A first-draft "33σ, residual converges to ≈0.085" headline was WITHDRAWN (not merely caveated) after a real skeptic pass found the specific functional form fit (`1/Q`) actively contradicts D2's own algebra (`y0·√Q≈0.5` is empirically constant, meaning the model's own leading correction is `Q^{-1/2}`, not `Q^{-1}`) and that alternate, equally-natural forms give an asymptote CONSISTENT WITH ZERO. What survives: `R>0` significantly at every tested `n` (D2 alone doesn't fully explain the energy) — a real but narrow qualitative finding.
-- **[METHODOLOGY LESSON, `[REPEAT]`-worthy — happened ~9 times this window, not once]: every substantive numeric point sent to a REAL, context-asymmetric `Agent(skeptic)` (not self-review) got at least one genuine, load-bearing correction — never a rubber stamp.** Concrete catches: Point 87's first "deceleration" claim (falsified, replaced by a cleaner `~1/√n` finding); Point 87's "out-of-sample confirmation" framing at the 5th point (shown to be a low-power test); Point 87's 6th-point analysis (caught a real arithmetic error — comparing increments across intervals of different octave-width — and corrected an overclaimed "not evidence of leveling off"); Point 87§4I's entire "log-linear preferred" conclusion (shown structurally invalid — saturating models are a continuum converging to unbounded as `α→0`, and the ranking fully INVERTS without `n=127`); Point 89's "33σ" headline (withdrawn, shown to be a functional-form artifact plus algebraic circularity with already-known results). Every correction was ALSO independently re-derived by the primary session (not accepted from the skeptic's own arithmetic) before being written into `decision.md` — this dual discipline (real adversarial agent + independent re-verification of ITS claims too) is what caught issues neither self-review nor a single skeptic pass alone would likely have caught.
 
-[summarized] - **[FINAL 2026-09-18] Status at window close: `(POL)` proof-attempt line (Points 77-92) formally PARKED (Point 93)...
+[summarized] - **[METHODOLOGY LESSON, `[REPEAT]`-worthy — happened ~9 times this window, not once]: every substantive numeric...
 
 ## Scope Fence
 - **[archived 2026-10-14]** 11 verbose H-CAT31-3 entries (Points 57-64, 2026-09-14/15; status of that node unchanged) moved VERBATIM to `.claude/memory/history/activeContext-archive-2026-10-14.md`; full record also in `experiments/20260910-lovasz-theta-variance-scaling-cat31-3/decision.md`.
@@ -37,6 +38,66 @@
 - **NOT NOW:** Frontier R&D / TOFT / RAF — постоянно `unverified_source` (пользователь подтвердил 2026-09-07: возможно на другой машине, доступа нет); полный Hypothesis Portfolio (128+ гипотез из ARCHCODE и др.) — отдельный, не связанный проект
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Project State
 - **Repo:** https://github.com/sergeeey/Y-17-100-gipotez — PUBLIC, created 2026-09-06, commit d50597f (initial import). [VERIFIED]
 - **Excluded from public repo (.gitignore):** `H-7 GeoSpectra Lab (DIFFERENT project…).md` — third-party correspondence refs (Tom Lawrence). Local copy kept. User may override.
@@ -48,11 +109,131 @@
 - **Bridges permanently `unverified_source`** (answered 2026-09-07, not pending): 3 (Frontier R&D, TOFT/SMT, RAF Theory)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Architecture (файлы этой папки)
 - `00-catalog/` — источники задач (raw + verified subset + skeptic assessment)
 - `01-cross-domain-bridges/` — главный рабочий файл + H-7 контекст (два разных проекта!)
 - `02-related-projects-context/` — ChernoffPy, May 1972
 - `03-methodology-rules/` — переиспользуемые правила (execution rules, submission gate, ESV scoring)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Quick Commands
@@ -64,6 +245,66 @@ python -m ruff check scripts/ tests/ # lint (line-length=100 pinned in pyproject
 # LEDGER summary — count by grep, never by hand:
 grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ /,"",$6); print $6}' | sort | uniq -c
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Open Questions (для пользователя)
@@ -79,21 +320,86 @@ grep -E '^\| (2026-[0-9-]+|—) \|' tooling-eval/LEDGER.md | awk -F'|' '{gsub(/ 
 *Создан: 2026-09-06 при переносе из Obsidian vault.*
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Auto-commit log
+[summarized] - [2026-11-01 19:58] `ff8d01f` (local, branch `research/h-cat56-2-cfim-convention` -- may be replaced if this branch...
+
+- [2026-10-14 20:28] `ad0598c` (local, branch `research/syn-h1-rstat-memory` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs(syn-h1): state scope of inference and mark secondary findings as INFERRED
+- [2026-10-14 20:26] `b3b5c1d` (local, branch `research/syn-h1-rstat-memory` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): research(syn-h1): S1-S4 result for r-statistic memory-graph poisoning detector -> REJECT (C1 failed)
+- [2026-10-14 19:52] `730b778` (local, branch `research/syn-h1-rstat-memory` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs(syn-h1): addendum A1 to pre-registration (after S2 + review, before any S3/S4 run)
+- [2026-10-14 19:37] `62660d1` (local, branch `research/syn-h1-rstat-memory` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs(syn-h1): pre-register r-statistic memory-graph poisoning detector (S0, before any real-data run)
+- [2026-10-14 14:13] `854a257` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs(memory-audit): record review iteration 3 (LGTM) in report and activeContext
 - [2026-10-14 14:06] `b69d318` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): research(memory-audit): patch E1-E7, remediation, digest, final report (before/after)
 - [2026-10-14 13:27] `c703c93` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): research(memory-audit): measurement harness + BEFORE results (compaction replay, state claims, integrity, mutation control)
-- [2026-10-14 12:30] `5ddba97` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: memory-audit pre-registration (metrics, gold claims, thresholds) before any improvement code
-- [2026-10-14 00:11] `1453996` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): research: protocol H-YBE-C3-TWIN-001 (twin exclusion at R0, constant QYBE C^3), P12 pilot
-- [2026-10-13 18:49] `84950a6` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): research: round 2 on #30 Lum-Chua, #1 Coxeter, #11 Yang-Baxter dim 3 (no LEAD)
-- [2026-10-13 15:40] `edc14e7` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): research: round 1 of the sequential autonomous run on five audited open problems (#30, #11, #1, #5, #17)
-- [2026-09-27 22:29] `de046fb` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: activeContext.md -- log lifting-lemma packet v3 correction (commit 25776d4)
-- [2026-09-27 22:28] `25776d4` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): fix(H-CAT56-2): lifting-lemma packet v3 -- close a real gap in step 5 (simultaneous nonvanishing)
-- [2026-09-27 21:09] `8e818fb` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: dispose both remaining leads from the 2026-09-10 novelty audit; delta vs today's "no"
-- [2026-09-27 20:25] `13eae14` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): research: read arXiv:2502.16227 v1 in full; confirms no variance/concentration anchor exists
-- [2026-09-27 20:16] `a6e0914` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): research: Part B (s=2,3) is the mirror-image problem, not a necessity tool for s=4
-- [2026-09-27 00:32] `c74aaf5` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): research: read Forsythe sections C.3-C.5 (pp. 108-122); necessity of the seed's size is not proved there
-- [2026-09-27 00:20] `4b8d50c` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): research: information search for the top-3 lines; correct three statements in our own records
-- [2026-09-27 00:13] `d4363e2` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): docs: classification of the 45 confirmed hypothesis nodes (A/B/C/D), rubric fixed before reading
-- [2026-09-26 23:30] `d3f05c3` (local, branch `feature/small-exact-instance` -- may be replaced if this branch is later merged via squash or rebase; check that branch's PR/merge for the surviving hash if this one becomes unresolvable): research: r=6 F_p certificate (d=54, s=16) held as registered; below-crossing control held
 
 - 2026-10-14 [WS: ybe-c3-twin] Коммит 1453996: протокол `experiments/20261014-ybe-c3-twin-exclusion/PROTOCOL.md` + пилот P12 (ранг 18,18,18,18, класс A) + узел H-YBE-C3-TWIN-001 в graph.yaml + строки LEDGER. Блокер: нет списка 38 простых с подтверждённым происхождением; девять компонент в репозитории не подтверждены (LAB.md: шесть = нижняя оценка). Не закоммичено: этот файл.
+
+- 2026-11-01 [WS: h-cat56-2-phase4] Веха сохранена: коммиты f0c6df5, 7711489 (локально, без push). Не закоммичено: NOVELTY_MATRIX, FINAL_CONSISTENCY, review_package/SHA256SUMS, FULL_RESULTS_AUDIT/REGISTER_VERIFIED, composite_rank_check, письмо v3. Аудит 64 пунктов: 33/20/6/5, исходный реестр ChatGPT не найден (OB-1). Сводка: vault projects/Y-17/H-CAT56-2 — веха phase4 2026-11-01. Письмо Нурдину v3 не отправлено.
+
+- 2026-11-01 [WS: h-cat56-2-phase4] Коммит b7ed3a9 (локально, без push): OB-1 закрыт (сверка 44 пунктов реестра ChatGPT: 28/12/3/1/0), FULL_RESULTS_AUDIT и REGISTER_VERIFIED, поправки NOVELTY_MATRIX (2405.01471 отозвана; у Suzuki проверено только уравнение (104), лемма 4.4 и D-инвариантность нет, OB-8). Проверки: ruff чист, 258 тестов без Chernoff, ревьюер LGTM 3/3. Не вошло: черновики письма Нурдину v2/v3 (не отправлены), *.bak-*, o3_v3/records, pkl.
+
+- 2026-11-01 [WS: h-cat56-2-phase4] Владелец ОТПРАВИЛ Нурдину ответ (контраст S+/S-, 120 пар, ранги 261/264/399, признание, что недостаточность PCC известна). Текст дословно в vault correspondence/nurdin-2026-11-01-email-SENT.md. Обещана обновлённая записка (с оговорками: матричная CFIM, D1, F_U, θ=0, computer-assisted). Ждём ответа; контрольная дата 2026-11-08 [ПРЕДЛОЖЕНИЕ]. Открыто: OB-2 (PDF поправки), OB-3 (его условия (1),(2prime) к S+/S-). Черновики v2/v3 заменены отправленным текстом.
+
+- 2026-11-01 [WS: h-cat56-2-phase4] Черновик обновлённой записки Нурдину: review_package/TECHNICAL_NOTE_SUBSET_CONTRAST_DRAFT_2026-11-01.md (не отправлен, не в git; скептик без контекста: P1 нет, P2 исправлены). Новое: резюме поправки Нурдина прочитано (OpenAlex), dim V-perp для подмножеств 175 (S+) и 172 (S-), ранги 261/264 по модулю двух простых (нижняя оценка) и через SVD (novelty_checks/obs2_subset_dims.py). Не закоммичено: OB1 addendum, SHA256SUMS, obs2_subset_dims.*, черновик записки.
+
+- 2026-11-01 [WS: h-cat56-2-phase4] Коммит 995d03e (локально, без push): obs2_subset_dims (21/175/172), дополнение к OB1 (поправка Нурдина прочитана), черновик записки TECHNICAL_NOTE_SUBSET_CONTRAST_DRAFT (не отправлен). 258 тестов, ревьюер LGTM. В git теперь и черновик записки: при будущем push репозиторий публичный, решение владельца.
+- **[2026-11-01] Private material untracked** (commit d7722c8, local, no push): 10 letter/draft files removed from git index (files kept on disk), private patterns added to .gitignore. Old copies still in history and on origin/feature/small-exact-instance and origin/feature/outreach-drafts (owner decision pending on history rewrite). Rule: ~/.claude/rules/private-material-never-in-repo.md. No .py changed in this commit; commit-test-gate warning is generic.
