@@ -1,6 +1,6 @@
 """O3 v3 (strict) driver: per-leaf certified records, chunk journal, non-overlapping chunk ranges.
 
-Usage (from phase4):  python -I o3_v3/code/o3_run_v3.py <run_name> <first_chunk> <last_chunk> [n_workers]
+Usage (from phase4):  python -I o3_v3/code/o3_run_v3_resumeguard.py <run_name> <first_chunk> <last_chunk> [n_workers]
   - chunks are 500 leaves each, numbered from 0; the leaf range of chunk c is [500c, min(500(c+1), N)).
   - a run only processes chunks in [first_chunk, last_chunk]; runs must be given disjoint ranges.
   - a chunk is done when its line is in o3v3_progress.jsonl; the record file is written before the line, so an
@@ -178,7 +178,9 @@ def main():
         "sha256": {
             "leaves.npy": sha256_file(LEAVES),
             "interval_cells_v3.py": sha256_file(os.path.join(HERE, "interval_cells_v3.py")),
-            "o3_run_v3.py": sha256_file(os.path.join(HERE, "o3_run_v3.py")),
+            # WHY own file, not o3_run_v3.py: this copy is the code that actually runs. Recording the
+            # certified driver's hash here would let the auditor pass a run executed by different code.
+            os.path.basename(__file__): sha256_file(os.path.abspath(__file__)),
             "R_input.npz": sha256_file(ivl.RPATH),
             "instance.jsonl": sha256_file(ivl.INST),
             "s8_admissible_span.py": sha256_file(ivl.S8PATH),
@@ -186,17 +188,24 @@ def main():
         "s_target_binary64": float(ivl.s_target_f),
         "final_gap_arb_positive": bool(ivl.final_gap > 0),
     }
-    os.makedirs(os.path.join(O3V3, "metrics"), exist_ok=True)
-    with open(
-        os.path.join(O3V3, "metrics", f"run_manifest_{run}.json"), "w", encoding="utf-8"
-    ) as fh:
-        json.dump(manifest, fh, indent=1)
     assert bool(ivl.final_gap > 0), "final gap not certainly positive: refuse to run"
-
     inputs_digest = hashlib.sha256(
         json.dumps(manifest["sha256"], sort_keys=True).encode("utf-8")
     ).hexdigest()
+    # WHY this order (review of 6164265, P1-1): the resume check runs BEFORE the manifest is written,
+    # so a refused resume cannot overwrite the manifest that describes the journaled chunks.
     done = _done_chunks(inputs_digest)
+    manifest_path = os.path.join(O3V3, "metrics", f"run_manifest_{run}.json")
+    if os.path.exists(manifest_path):
+        with open(manifest_path, encoding="utf-8") as fh:
+            old = json.load(fh)
+        if old.get("sha256") != manifest["sha256"]:
+            raise RuntimeError(
+                f"refuse: {manifest_path} exists with different input hashes; use a new run name"
+            )
+    os.makedirs(os.path.join(O3V3, "metrics"), exist_ok=True)
+    with open(manifest_path, "w", encoding="utf-8") as fh:
+        json.dump(manifest, fh, indent=1)
     todo = [c for c in range(first, last + 1) if c not in done]
     print(
         f"run {run}: chunks {first}..{last}, to do {len(todo)}, done-before {len(done)}, workers {n_workers}",

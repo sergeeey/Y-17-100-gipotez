@@ -137,6 +137,8 @@ def main():
     # WHY "unlocated" is reported, not passed: inputs outside the repo (R_input.npz, instance.jsonl,
     # s8_admissible_span.py) cannot be checked from here and must not count as verified.
     checked, mismatch, unlocated = [], [], []
+    covered = set()
+    digests_of = {}  # chunk -> set of inputs digests of the manifests that cover it
     metrics_dir = os.path.join(O3V3, "metrics")
     for fn in sorted(os.listdir(metrics_dir)):
         if not (fn.startswith("run_manifest_") and fn.endswith(".json")):
@@ -145,6 +147,12 @@ def main():
             man = json.load(fh)
         if man["last_chunk"] < first or man["first_chunk"] > last:
             continue
+        man_digest = hashlib.sha256(
+            json.dumps(man["sha256"], sort_keys=True).encode("utf-8")
+        ).hexdigest()
+        for c in range(max(first, man["first_chunk"]), min(last, man["last_chunk"]) + 1):
+            covered.add(c)
+            digests_of.setdefault(c, set()).add(man_digest)
         # WHY input_name/want_sha, not name: `name` is the output label used for audit_<name>.json below.
         for input_name, want_sha in man["sha256"].items():
             found = [
@@ -164,6 +172,37 @@ def main():
     report["manifest_inputs_checked"] = sorted(set(checked))
     report["manifest_inputs_mismatch"] = sorted(set(mismatch))
     report["manifest_inputs_unlocated"] = sorted(set(unlocated))
+
+    # WHY coverage is a problem, not a note: a range with no manifest has no recorded inputs to check,
+    # so silence there must not read as a pass (review of 6164265, P1-2).
+    uncovered = [c for c in expected if c not in covered]
+    report["manifest_uncovered_chunks"] = len(uncovered)
+    if uncovered:
+        report["problems"].append(
+            f"no run manifest covers {len(uncovered)} chunk(s), first {uncovered[:5]}"
+        )
+
+    # Journal digests: a line written under other inputs must not be accepted. Lines without the field
+    # are older runs (before the resume guard) and are counted, not failed.
+    d_ok = d_bad = d_absent = 0
+    for c in present:
+        rec_digest = journal[c].get("inputs_digest")
+        if rec_digest is None:
+            d_absent += 1
+        elif digests_of.get(c) == {rec_digest}:
+            d_ok += 1
+        else:
+            d_bad += 1
+            report["problems"].append(
+                f"chunk {c}: journal inputs_digest does not match its run manifest"
+            )
+    report["journal_inputs_digest_ok"] = d_ok
+    report["journal_inputs_digest_bad"] = d_bad
+    report["journal_inputs_digest_absent"] = d_absent
+
+    # WHY a separate flag: inputs outside the repo are not checkable here, so COMPLETE_STRICT alone does
+    # not say the mathematical inputs were verified. Read this flag with the verdict.
+    report["inputs_fully_verified"] = bool(not unlocated and not mismatch and not uncovered)
 
     report["verdict"] = (
         "COMPLETE_STRICT"
