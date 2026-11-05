@@ -199,13 +199,23 @@ def main():
     if os.path.exists(manifest_path):
         with open(manifest_path, encoding="utf-8") as fh:
             old = json.load(fh)
-        if old.get("sha256") != manifest["sha256"]:
+        # WHY any difference, not only the hashes: a same-hash rerun over a different chunk range would
+        # erase the record of which range the first run covered (review of 32d6f26).
+        same = (
+            old.get("sha256") == manifest["sha256"]
+            and old.get("first_chunk") == first
+            and old.get("last_chunk") == last
+        )
+        if not same:
             raise RuntimeError(
-                f"refuse: {manifest_path} exists with different input hashes; use a new run name"
+                f"refuse: {manifest_path} exists with other inputs or chunk range; use a new run name"
             )
-    os.makedirs(os.path.join(O3V3, "metrics"), exist_ok=True)
-    with open(manifest_path, "w", encoding="utf-8") as fh:
-        json.dump(manifest, fh, indent=1)
+    else:
+        # WHY written only when absent: a same-hash rerun must not rewrite library versions or timings
+        # of chunks already journaled (review of 32d6f26, P2). The existing manifest is kept.
+        os.makedirs(os.path.join(O3V3, "metrics"), exist_ok=True)
+        with open(manifest_path, "w", encoding="utf-8") as fh:
+            json.dump(manifest, fh, indent=1)
     todo = [c for c in range(first, last + 1) if c not in done]
     print(
         f"run {run}: chunks {first}..{last}, to do {len(todo)}, done-before {len(done)}, workers {n_workers}",

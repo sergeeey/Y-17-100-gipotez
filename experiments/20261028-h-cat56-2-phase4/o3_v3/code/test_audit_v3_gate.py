@@ -127,6 +127,8 @@ class VerdictGateControls(unittest.TestCase):
         self.assertEqual(report["verdict"], "COMPLETE_STRICT")
         self.assertEqual(report["journal_inputs_digest_ok"], 1)
         self.assertEqual(report["problems"], [])
+        # Only positive control where every input is checkable and matched: the flag must be True.
+        self.assertIs(report["inputs_fully_verified"], True)
 
     def test_negative_control_negative_slack_is_not_complete(self):
         # Everything else consistent: only the sign of the certified bound differs.
@@ -150,14 +152,23 @@ class VerdictGateControls(unittest.TestCase):
 
     def test_negative_control_no_manifest_is_not_complete(self):
         # Review of 6164265 (P1-2): a range with no manifest must not read as a pass.
-        report = self._run_case(slack_mid="0.0068", write_manifest=False)
+        # journal_digest="absent" keeps the digest check silent, so only the coverage check can fail here.
+        report = self._run_case(slack_mid="0.0068", write_manifest=False, journal_digest="absent")
         self.assertGreater(report["manifest_uncovered_chunks"], 0)
+        self.assertTrue(any("no run manifest covers" in p for p in report["problems"]))
         self.assertNotEqual(report["verdict"], "COMPLETE_STRICT")
 
     def test_negative_control_manifest_for_other_range_is_not_complete(self):
-        report = self._run_case(slack_mid="0.0068", manifest_range=(0, 0))
+        report = self._run_case(slack_mid="0.0068", manifest_range=(0, 0), journal_digest="absent")
         self.assertGreater(report["manifest_uncovered_chunks"], 0)
+        self.assertTrue(any("no run manifest covers" in p for p in report["problems"]))
         self.assertNotEqual(report["verdict"], "COMPLETE_STRICT")
+
+    def test_legacy_journal_absent_digest_does_not_make_inputs_fully_verified(self):
+        # Digest absent means the line is not tied to any manifest: the flag must stay False even
+        # though the verdict itself is unaffected by absence alone.
+        report = self._run_case(slack_mid="0.0068", journal_digest="absent")
+        self.assertIs(report["inputs_fully_verified"], False)
 
     def test_negative_control_wrong_manifest_input_hash_is_not_complete(self):
         report = self._run_case(slack_mid="0.0068", manifest_sha="0" * 64)
@@ -187,6 +198,7 @@ class VerdictGateControls(unittest.TestCase):
     def test_negative_control_journal_digest_from_other_inputs_is_not_complete(self):
         report = self._run_case(slack_mid="0.0068", journal_digest="bad")
         self.assertEqual(report["journal_inputs_digest_bad"], 1)
+        self.assertIs(report["inputs_fully_verified"], False)
         self.assertNotEqual(report["verdict"], "COMPLETE_STRICT")
 
     def test_legacy_journal_without_digest_is_counted_not_failed(self):

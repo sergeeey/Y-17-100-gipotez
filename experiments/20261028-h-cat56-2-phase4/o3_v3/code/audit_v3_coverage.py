@@ -202,7 +202,11 @@ def main():
 
     # WHY a separate flag: inputs outside the repo are not checkable here, so COMPLETE_STRICT alone does
     # not say the mathematical inputs were verified. Read this flag with the verdict.
-    report["inputs_fully_verified"] = bool(not unlocated and not mismatch and not uncovered)
+    # WHY absent and bad count too: a journal line with no digest is not tied to any manifest, so it
+    # cannot be called verified (review of 32d6f26).
+    report["inputs_fully_verified"] = bool(
+        not unlocated and not mismatch and not uncovered and d_absent == 0 and d_bad == 0
+    )
 
     report["verdict"] = (
         "COMPLETE_STRICT"
