@@ -1,0 +1,115 @@
+"""Sampled re-computation of O3 v3 leaves against the stored records.
+
+Same code path as the driver (interval_cells_v3.cell_bound, same s-B decision, same str()).
+Read-only with respect to the repo: writes only the JSON result to the scratchpad.
+Run: python -I sample_recheck.py <N> <seed> <out.json>
+"""
+
+import gzip
+import json
+import os
+import random
+import sys
+import time
+
+CODE = r"E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments\20261028-h-cat56-2-phase4\o3_v3\code"
+O3V3 = os.path.normpath(os.path.join(CODE, ".."))
+RECORDS = os.path.join(O3V3, "records")
+LEAVES = os.path.join(O3V3, "inputs", "leaves.npy")
+CHUNK = 500
+N_LEAVES = 3955841
+N_CHUNKS = (N_LEAVES + CHUNK - 1) // CHUNK
+
+sys.path.insert(0, CODE)
+import numpy as np  # noqa: E402
+import interval_cells_v3 as ivl  # noqa: E402
+
+
+def main():
+    n_samp = int(sys.argv[1])
+    seed = int(sys.argv[2])
+    out = sys.argv[3]
+    rng = random.Random(seed)
+    picks = sorted({rng.randrange(N_LEAVES) for _ in range(n_samp)})
+    leaves = np.load(LEAVES, mmap_mode="r")
+    s = ivl.s_target
+
+    # group picks by chunk so each record file is read once
+    by_chunk = {}
+    for idx in picks:
+        by_chunk.setdefault(idx // CHUNK, []).append(idx)
+
+    rows = []
+    t0 = time.time()
+    for c in sorted(by_chunk):
+        want = set(by_chunk[c])
+        recs = {}
+        with gzip.open(
+            os.path.join(RECORDS, f"chunk_{c:05d}.jsonl.gz"), "rt", encoding="utf-8"
+        ) as gz:
+            for line in gz:
+                if not line.strip():
+                    continue
+                r = json.loads(line)
+                if r["leaf"] in want:
+                    recs[r["leaf"]] = r
+        for idx in by_chunk[c]:
+            rec = recs.get(idx)
+            cell = [float(v) for v in np.asarray(leaves[idx])]
+            res = ivl.cell_bound(cell)
+            if res["status"] != "OK":
+                rows.append(
+                    {
+                        "leaf": idx,
+                        "chunk": c,
+                        "match": False,
+                        "reason": "recompute status " + res["status"],
+                    }
+                )
+                continue
+            b = res["B_up"]
+            sl = s - b
+            certain = bool(sl > 0)
+            if rec is None:
+                rows.append(
+                    {"leaf": idx, "chunk": c, "match": False, "reason": "leaf missing in record"}
+                )
+                continue
+            same_slack = rec.get("slack") == str(sl)
+            same_bup = rec.get("bup") == str(b)
+            rows.append(
+                {
+                    "leaf": idx,
+                    "chunk": c,
+                    "record_ok": rec.get("ok"),
+                    "recomputed_certain_positive": certain,
+                    "slack_string_equal": same_slack,
+                    "bup_string_equal": same_bup,
+                    "match": bool(same_slack and same_bup and certain and rec.get("ok") is True),
+                }
+            )
+        print(f"chunk {c}: {len(by_chunk[c])} leaves, elapsed {time.time() - t0:.0f}s", flush=True)
+
+    n_match = sum(1 for r in rows if r["match"])
+    summary = {
+        "seed": seed,
+        "n_requested": n_samp,
+        "n_sampled_distinct": len(picks),
+        "chunks_touched": len(by_chunk),
+        "n_match": n_match,
+        "n_mismatch": len(rows) - n_match,
+        "mismatches": [r for r in rows if not r["match"]][:50],
+        "seconds": round(time.time() - t0, 1),
+        "s_target_binary64": float(ivl.s_target_f),
+    }
+    with open(out, "w", encoding="utf-8") as fh:
+        json.dump(summary, fh, indent=1, ensure_ascii=False)
+    print(
+        json.dumps(
+            {k: v for k, v in summary.items() if k != "mismatches"}, indent=1, ensure_ascii=False
+        )
+    )
+
+
+if __name__ == "__main__":
+    main()

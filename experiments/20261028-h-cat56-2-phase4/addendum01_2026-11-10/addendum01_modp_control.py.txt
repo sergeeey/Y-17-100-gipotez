@@ -1,0 +1,26 @@
+"""Positive control for the mod-p path of addendum01_repro.py: zero block A_3, expect index 3 flagged everywhere."""
+
+import json
+import os
+import sys
+from fractions import Fraction
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import addendum01_repro as R  # noqa: E402
+
+A = R.load_A_all()
+A[3] = [[(Fraction(0), Fraction(0))] * 2 for _ in range(20)]
+res = R.indep_check(A)
+flag = res["directions_with_identically_zero_lambda"]
+ok = len(flag) == res["n_directions"] and all(d["zero_idx"] == [3] for d in flag)
+print(
+    json.dumps(
+        {
+            "flagged_directions": len(flag),
+            "all_flag_only_index_3": ok,
+            "membership_failures_mod_p": res["membership_failures_mod_p"],
+        },
+        indent=1,
+    )
+)
+sys.exit(0 if ok else 1)

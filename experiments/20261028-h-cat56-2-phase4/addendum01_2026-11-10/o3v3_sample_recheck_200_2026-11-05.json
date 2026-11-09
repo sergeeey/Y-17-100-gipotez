@@ -1,0 +1,11 @@
+{
+ "seed": 20261105,
+ "n_requested": 200,
+ "n_sampled_distinct": 200,
+ "chunks_touched": 196,
+ "n_match": 200,
+ "n_mismatch": 0,
+ "mismatches": [],
+ "seconds": 15.6,
+ "s_target_binary64": 0.01368236038871751
+}

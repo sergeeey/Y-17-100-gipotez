@@ -1,0 +1,21 @@
+{
+ "n_directions": 280,
+ "n_basis_vectors": 1484,
+ "class_counts": {
+  "GENERIC_OK": 280
+ },
+ "membership_failures": 0,
+ "mixed_directions": [],
+ "positive_control": {
+  "result": {
+   "j": 0,
+   "m": 4,
+   "zero_idx": [
+    3
+   ],
+   "class": "MIXED",
+   "member_fail": 0
+  },
+  "pass": true
+ }
+}

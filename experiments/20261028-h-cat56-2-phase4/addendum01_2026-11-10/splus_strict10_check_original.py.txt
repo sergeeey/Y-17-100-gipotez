@@ -1,0 +1,138 @@
+"""S+ certificate vs the literal pairwise form of Nurdin's condition (10), arXiv:2402.11567 v5 sec. 6.
+
+For each certificate direction x_j and each i in S+, lambda_i is the real coefficient in
+A_i^dagger y = lambda_i x_j, a real-linear function of y in Y_S+(x_j).
+Literal (10) for a rank-one kernel piece y y^dagger needs, for every ordered pair (l, m), a real c with
+A_l^dagger y = c A_m^dagger y. That fails if lambda_m(y) = 0 and lambda_l(y) != 0.
+Here: Z_j = {i : lambda_i == 0 on the whole basis of Y_S+(x_j)} (exact). Classes:
+  empty      -> generic y in the span satisfies the literal form
+  all of S+  -> span is pure (all lambda zero), literal form holds trivially
+  otherwise  -> MIXED: every y in the span violates the literal form unless all lambda vanish
+Exact arithmetic (Fraction). Read-only. Positive control: zero one block A_k, the detector must flag MIXED.
+Run: python -I splus_strict10_check.py <out.json>
+"""
+
+import json
+import os
+import pickle
+import sys
+from fractions import Fraction
+
+STAGE = (
+    r"E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments"
+    r"\20261028-h-cat56-2-phase4\stage_e_v1"
+)
+INST = (
+    r"E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments"
+    r"\20261027-h-cat56-2-submission-package-v1\data\instance_d22_r2_s16.jsonl"
+)
+S_PLUS = list(range(12))
+
+
+def F(v):
+    if isinstance(v, Fraction):
+        return v
+    if isinstance(v, float):
+        return Fraction(v)
+    return Fraction(str(v))
+
+
+def cmul(a, b):
+    return (a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0])
+
+
+def cadd(a, b):
+    return (a[0] + b[0], a[1] + b[1])
+
+
+def cconj(a):
+    return (a[0], -a[1])
+
+
+def load_A():
+    rec = json.loads(open(INST, encoding="utf-8").readline())
+    A = {}
+    for i in S_PLUS:
+        flat = [F(v) for v in rec["blocks"][i]]
+        Ai = [[None, None] for _ in range(20)]
+        for r in range(20):
+            for a in range(2):
+                Ai[r][a] = (2 * flat[40 + 2 * r + a], -2 * flat[2 * r + a])  # 2*im - 2i*re
+        A[i] = Ai
+    return A
+
+
+def lam(Ai, x, y):
+    """Return (lambda numerator real part, membership ok). lambda = x^dag u / |x|^2, u = A_i^dag y."""
+    u = []
+    for al in range(2):
+        acc = (Fraction(0), Fraction(0))
+        for r in range(20):
+            acc = cadd(acc, cmul(cconj(Ai[r][al]), y[r]))
+        u.append(acc)
+    cross = cadd(cmul(u[0], x[1]), (-cmul(u[1], x[0])[0], -cmul(u[1], x[0])[1]))
+    xh_u = cadd(cmul(cconj(x[0]), u[0]), cmul(cconj(x[1]), u[1]))
+    ok = cross == (0, 0) and xh_u[1] == 0
+    return xh_u[0], ok  # sign/zero of lambda equals that of Re(x^dag u) since |x|^2 > 0
+
+
+def classify(A, dirs, bases, js):
+    out = []
+    for j in js:
+        (a0r, a0i), (a1r, a1i) = dirs[j]
+        x = [(F(a0r), F(a0i)), (F(a1r), F(a1i))]
+        vecs = [[(F(c[0]), F(c[1])) for c in bases[j][v]] for v in range(len(bases[j]))]
+        zero_idx, member_fail = [], 0
+        for i in S_PLUS:
+            all_zero = True
+            for y in vecs:
+                val, ok = lam(A[i], x, y)
+                if not ok:
+                    member_fail += 1
+                if val != 0:
+                    all_zero = False
+            if all_zero:
+                zero_idx.append(i)
+        if not zero_idx:
+            cls = "GENERIC_OK"
+        elif len(zero_idx) == len(S_PLUS):
+            cls = "PURE"
+        else:
+            cls = "MIXED"
+        out.append({"j": j, "m": len(vecs), "zero_idx": zero_idx, "class": cls, "member_fail": member_fail})
+    return out
+
+
+def main():
+    out_path = sys.argv[1]
+    A = load_A()
+    D = pickle.load(open(os.path.join(STAGE, "logs", "exact_bases2.pkl"), "rb"))
+    dirs, bases = D["dirs"], D["bases_exact"]
+    J = len(dirs)
+
+    # positive control: zero block k=3 on direction 0 -> lambda_3 == 0 identically -> MIXED expected
+    A_ctrl = dict(A)
+    A_ctrl[3] = [[(Fraction(0), Fraction(0))] * 2 for _ in range(20)]
+    ctrl = classify(A_ctrl, dirs, bases, [0])[0]
+    ctrl_pass = ctrl["class"] == "MIXED" and ctrl["zero_idx"] == [3]
+    print(f"positive control (A_3 := 0, dir 0): {ctrl['class']} zero_idx={ctrl['zero_idx']} pass={ctrl_pass}", flush=True)
+
+    rows = classify(A, dirs, bases, range(J))
+    counts = {}
+    for r in rows:
+        counts[r["class"]] = counts.get(r["class"], 0) + 1
+    report = {
+        "n_directions": J,
+        "n_basis_vectors": sum(r["m"] for r in rows),
+        "class_counts": counts,
+        "membership_failures": sum(r["member_fail"] for r in rows),
+        "mixed_directions": [r for r in rows if r["class"] == "MIXED"][:50],
+        "positive_control": {"result": ctrl, "pass": ctrl_pass},
+    }
+    with open(out_path, "w", encoding="utf-8") as fh:
+        json.dump(report, fh, indent=1)
+    print(json.dumps({k: v for k, v in report.items() if k != "mixed_directions"}, indent=1), flush=True)
+
+
+if __name__ == "__main__":
+    main()

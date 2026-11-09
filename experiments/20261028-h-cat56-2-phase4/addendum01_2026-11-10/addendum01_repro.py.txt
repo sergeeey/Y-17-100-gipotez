@@ -1,0 +1,202 @@
+"""Addendum 01, priority D: reproducibility of the S+ strict-(10) check.
+
+1. AST equality of the byte-exact original (.py.txt) and the reformatted scratch copy.
+2. Re-run the original and compare its JSON with the 2026-11-10 output.
+3. Independent re-check of "no lambda_i vanishes identically on Y_S+(x_j)":
+   different formula (component ratio lambda_i = (A_i^dag y)_alpha / x_alpha for an alpha with x_alpha != 0)
+   and different arithmetic (integers modulo the prime p = 2^61 - 1). A residue != 0 mod p implies != 0 over Q
+   when no denominator is divisible by p (checked). Membership (cross product == 0) is also re-checked mod p.
+4. Pure vectors: exact real rank of the stacked maps y -> A_i^dag y, i in S, for S+ = {0..11}, S- = {4..15}.
+5. SHA256 of inputs, code and outputs.
+Run: python -I addendum01_repro.py <addendum_dir>
+"""
+
+import ast
+import hashlib
+import json
+import os
+import pickle
+import shutil
+import subprocess
+import sys
+from fractions import Fraction
+
+SCR = os.path.dirname(os.path.abspath(__file__))
+PH4 = (
+    r"E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments"
+    r"\20261028-h-cat56-2-phase4"
+)
+INST = (
+    r"E:\Проверка Гипотез\работаю над проверкой гипотез\Y-17 100 gipotez\experiments"
+    r"\20261027-h-cat56-2-submission-package-v1\data\instance_d22_r2_s16.jsonl"
+)
+BASES = os.path.join(PH4, "stage_e_v1", "logs", "exact_bases2.pkl")
+P = (1 << 61) - 1
+
+
+def sha(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for b in iter(lambda: fh.read(1 << 20), b""):
+            h.update(b)
+    return h.hexdigest()
+
+
+def F(v):
+    if isinstance(v, Fraction):
+        return v
+    if isinstance(v, float):
+        return Fraction(v)
+    return Fraction(str(v))
+
+
+def modq(fr):
+    if fr.denominator % P == 0:
+        raise ValueError("denominator divisible by p")
+    return (fr.numerator % P) * pow(fr.denominator % P, P - 2, P) % P
+
+
+def load_A_all():
+    rec = json.loads(open(INST, encoding="utf-8").readline())
+    A = {}
+    for i in range(16):
+        flat = [F(v) for v in rec["blocks"][i]]
+        A[i] = [
+            [(2 * flat[40 + 2 * r + a], -2 * flat[2 * r + a]) for a in range(2)] for r in range(20)
+        ]
+    return A
+
+
+def cm(a, b):  # complex mult mod p, a = (re, im)
+    return ((a[0] * b[0] - a[1] * b[1]) % P, (a[0] * b[1] + a[1] * b[0]) % P)
+
+
+def indep_check(A):
+    D = pickle.load(open(BASES, "rb"))
+    dirs, bases = D["dirs"], D["bases_exact"]
+    Am = {
+        i: [[(modq(A[i][r][a][0]), modq(A[i][r][a][1])) for a in range(2)] for r in range(20)]
+        for i in range(12)
+    }
+    bad_member, zero_dirs, n_vec = 0, [], 0
+    for j, d in enumerate(dirs):
+        x = [(modq(F(d[0][0])), modq(F(d[0][1]))), (modq(F(d[1][0])), modq(F(d[1][1])))]
+        alpha = 0 if x[0] != (0, 0) else 1
+        # inverse of complex x_alpha mod p: conj / |x|^2
+        nr = (x[alpha][0] * x[alpha][0] + x[alpha][1] * x[alpha][1]) % P
+        # WHY: |x_alpha|^2 = 0 mod p would make the inverse meaningless although x_alpha != 0 over Q
+        assert nr != 0, f"|x_alpha|^2 divisible by p at direction {j}"
+        inv_n = pow(nr, P - 2, P)
+        xinv = (x[alpha][0] * inv_n % P, (-x[alpha][1]) * inv_n % P)
+        nonzero = {i: False for i in range(12)}
+        for v in bases[j]:
+            n_vec += 1
+            y = [(modq(F(c[0])), modq(F(c[1]))) for c in v]
+            for i in range(12):
+                u = []
+                for a in range(2):
+                    acc = (0, 0)
+                    for r in range(20):
+                        ar, ai = Am[i][r][a]
+                        acc = (
+                            (acc[0] + cm((ar, (-ai) % P), y[r])[0]) % P,
+                            (acc[1] + cm((ar, (-ai) % P), y[r])[1]) % P,
+                        )
+                    u.append(acc)
+                cross = (
+                    (cm(u[0], x[1])[0] - cm(u[1], x[0])[0]) % P,
+                    (cm(u[0], x[1])[1] - cm(u[1], x[0])[1]) % P,
+                )
+                lam = cm(u[alpha], xinv)  # lambda as complex residue; must be "real": im == 0
+                if cross != (0, 0) or lam[1] != 0:
+                    bad_member += 1
+                if lam[0] != 0:
+                    nonzero[i] = True
+        if not all(nonzero.values()):
+            zero_dirs.append({"j": j, "zero_idx": [i for i in range(12) if not nonzero[i]]})
+    return {
+        "n_directions": len(dirs),
+        "n_basis_vectors": n_vec,
+        "membership_failures_mod_p": bad_member,
+        "directions_with_identically_zero_lambda": zero_dirs,
+        "prime": "2^61-1",
+    }
+
+
+def real_rank(rows):
+    rows = [r[:] for r in rows]
+    rank, ncol = 0, len(rows[0])
+    for c in range(ncol):
+        piv = next((k for k in range(rank, len(rows)) if rows[k][c] != 0), None)
+        if piv is None:
+            continue
+        rows[rank], rows[piv] = rows[piv], rows[rank]
+        pv = rows[rank][c]
+        for k in range(len(rows)):
+            if k != rank and rows[k][c] != 0:
+                f = rows[k][c] / pv
+                rows[k] = [rows[k][t] - f * rows[rank][t] for t in range(ncol)]
+        rank += 1
+    return rank
+
+
+def pure_check(A, S):
+    # real-linear map R^40 -> R^(4|S|): y = yr + i yi, u = A_i^dag y; rows: Re u_a, Im u_a
+    rows = []
+    for i in S:
+        for a in range(2):
+            re_row, im_row = [], []
+            # u_a = sum_r conj(A[r][a]) y_r ; conj(A) = (ar, -ai); (ar - i ai)(yr + i yi) = ar yr + ai yi + i(ar yi - ai yr)
+            for r in range(20):
+                ar, ai = A[i][r][a]
+                re_row.append(ar)
+            for r in range(20):
+                ar, ai = A[i][r][a]
+                re_row.append(ai)
+            for r in range(20):
+                ar, ai = A[i][r][a]
+                im_row.append(-ai)
+            for r in range(20):
+                ar, ai = A[i][r][a]
+                im_row.append(ar)
+            rows.append(re_row)
+            rows.append(im_row)
+    rk = real_rank(rows)
+    return {"subset": [min(S), max(S)], "real_rank": rk, "pure_subspace_real_dim": 40 - rk}
+
+
+def main():
+    out_dir = sys.argv[1]
+    res = {}
+    orig_txt = os.path.join(out_dir, "splus_strict10_check_original.py.txt")
+    reform = os.path.join(SCR, "splus_strict10_check.py")
+    res["ast_equal_original_vs_reformatted"] = ast.dump(
+        ast.parse(open(orig_txt, encoding="utf-8").read())
+    ) == ast.dump(ast.parse(open(reform, encoding="utf-8").read()))
+    run_py = os.path.join(SCR, "run_original_strict10.py")
+    shutil.copyfile(orig_txt, run_py)
+    rerun_json = os.path.join(out_dir, "splus_strict10_rerun.json")
+    proc = subprocess.run(
+        [sys.executable, "-I", run_py, rerun_json], capture_output=True, text=True
+    )
+    res["rerun_exit"] = proc.returncode
+    old = json.load(open(os.path.join(SCR, "splus_strict10_check.json"), encoding="utf-8"))
+    new = json.load(open(rerun_json, encoding="utf-8"))
+    res["rerun_equals_2026_11_10_output"] = old == new
+    A = load_A_all()
+    res["independent_mod_p"] = indep_check(A)
+    res["pure_S_plus"] = pure_check(A, list(range(12)))
+    res["pure_S_minus"] = pure_check(A, list(range(4, 16)))
+    res["pure_all16"] = pure_check(A, list(range(16)))
+    out = os.path.join(out_dir, "addendum01_repro.json")
+    with open(out, "w", encoding="utf-8") as fh:
+        json.dump(res, fh, indent=1)
+    files = [INST, BASES, orig_txt, run_py, rerun_json, os.path.abspath(__file__), out]
+    with open(os.path.join(out_dir, "SHA256SUMS.txt"), "w", encoding="utf-8") as fh:
+        for f in files:
+            fh.write(f"{sha(f)}  {f}\n")
+    print(json.dumps(res, indent=1))
+
+
+if __name__ == "__main__":
+    main()

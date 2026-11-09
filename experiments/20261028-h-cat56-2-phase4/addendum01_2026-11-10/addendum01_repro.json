@@ -1,0 +1,36 @@
+{
+ "ast_equal_original_vs_reformatted": true,
+ "rerun_exit": 0,
+ "rerun_equals_2026_11_10_output": true,
+ "independent_mod_p": {
+  "n_directions": 280,
+  "n_basis_vectors": 1484,
+  "membership_failures_mod_p": 0,
+  "directions_with_identically_zero_lambda": [],
+  "prime": "2^61-1"
+ },
+ "pure_S_plus": {
+  "subset": [
+   0,
+   11
+  ],
+  "real_rank": 40,
+  "pure_subspace_real_dim": 0
+ },
+ "pure_S_minus": {
+  "subset": [
+   4,
+   15
+  ],
+  "real_rank": 40,
+  "pure_subspace_real_dim": 0
+ },
+ "pure_all16": {
+  "subset": [
+   0,
+   15
+  ],
+  "real_rank": 40,
+  "pure_subspace_real_dim": 0
+ }
+}
