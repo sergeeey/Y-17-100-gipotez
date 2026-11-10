@@ -1,0 +1,125 @@
+"""Q0-B: how the S- separator H' depends on each of the 12 constraints (float64, descriptive).
+
+For each j in S- = {4..15}, T = S- minus {j}. On the fibre Y_T(x) (same scan grid as m2_subsets.py) find the
+point and vector y_j where y^H H' y / |y|^2 is smallest. Report:
+  * min value (should be negative: H' is not a separator for T);
+  * violation of the removed constraint j at y_j: |A_j^H y - lam x| / |A_j^H y|, lam the real least-squares fit
+    (1 = A_j^H y orthogonal to R x, 0 = constraint satisfied);
+  * share of |y_j|^2 in the negative eigenspace of H';
+  * pairwise overlaps |<y_i, y_j>| of the 12 witnesses (are they 12 different escape routes?).
+Control: for T = S- itself (nothing removed) the minimum must be >= 0 (H' is a separator there).
+Also prints the spectrum of H'.
+usage: python -I q0b_separator_support.py PKGDIR OUT.json
+"""
+
+import json
+import sys
+from fractions import Fraction as Fr
+from pathlib import Path
+
+import numpy as np
+
+pkg = Path(sys.argv[1])
+out = Path(sys.argv[2])
+blob = json.loads((pkg / "canonical" / "blob_09f545d8.json").read_text())
+A = []
+for b in blob["blocks"]:
+    b = np.array(b, dtype=float)
+    A.append(b[:40].reshape(20, 2) + 1j * b[40:].reshape(20, 2))
+h = json.loads((pkg / "branch_A" / "a2" / "H_rational.json").read_text())
+Hr = np.array([[float(Fr(s)) for s in r] for r in h["Hr"]])
+Hi = np.array([[float(Fr(s)) for s in r] for r in h["Hi"]])
+H = Hr + 1j * Hi
+Ht = np.block([[Hr, -Hi], [Hi, Hr]])
+SM = list(range(4, 16))
+
+evals, evecs = np.linalg.eigh(H)
+neg = evecs[:, evals < 0]
+
+
+def build(S):
+    Adag = np.vstack([A[i].conj().T for i in S])
+    m = Adag.shape[0]
+    Ar = np.block([[Adag.real, -Adag.imag], [Adag.imag, Adag.real]])
+    return Ar, m
+
+
+def Lx(x, ns, m):
+    L = np.zeros((2 * m, ns))
+    for i in range(ns):
+        for k in range(2):
+            L[2 * i + k, i] = x[k].real
+            L[m + 2 * i + k, i] = x[k].imag
+    return L
+
+
+def fibre_min(S, x):
+    Ar, m = build(S)
+    M = np.hstack([Ar, -Lx(x, len(S), m)])
+    _, s, vt = np.linalg.svd(M)
+    r = int((s > 1e-9 * s[0]).sum())
+    K = vt[r:].T[:40]
+    q, rr = np.linalg.qr(K)
+    rk = int((np.abs(np.diag(rr)) > 1e-12).sum())
+    Q = q[:, :rk]
+    w, v = np.linalg.eigh(Q.T @ Ht @ Q)
+    yr = Q @ v[:, 0]
+    y = yr[:20] + 1j * yr[20:]
+    return w[0], y / np.linalg.norm(y), rk
+
+
+def grid():
+    for ch in (1, 2):
+        for r in np.linspace(0, 1, 41):
+            for th in np.linspace(0, 2 * np.pi, 60, endpoint=False):
+                z = r * np.exp(1j * th)
+                yield np.array([1, z]) if ch == 1 else np.array([z, 1])
+
+
+def violation(j, x, y):
+    u = A[j].conj().T @ y
+    lam = np.real(np.vdot(x, u)) / np.real(np.vdot(x, x))
+    nu = np.linalg.norm(u)
+    return float(np.linalg.norm(u - lam * x) / nu) if nu > 0 else 0.0
+
+
+def main():
+    rep = {"H_spectrum": [float(e) for e in evals], "n_negative_eigs": int((evals < 0).sum())}
+    # control: full S- must give min >= 0 on the same grid
+    cmin = min(fibre_min(SM, x)[0] for x in grid())
+    rep["control_full_S_minus_min"] = float(cmin)
+    wit = []
+    rows = []
+    for j in SM:
+        T = [i for i in SM if i != j]
+        best = (1e9, None, None)
+        for x in grid():
+            val, y, _ = fibre_min(T, x)
+            if val < best[0]:
+                best = (val, y, x)
+        val, y, x = best
+        wit.append(y)
+        rows.append(
+            {
+                "removed": j,
+                "min_value": float(val),
+                "violation_of_removed_constraint": violation(j, x, y),
+                "max_violation_of_kept_constraints": max(violation(i, x, y) for i in T),
+                "share_in_negative_eigenspace": float(np.linalg.norm(neg.conj().T @ y) ** 2),
+            }
+        )
+        print(rows[-1], flush=True)
+    G = np.abs(np.array([[np.vdot(a, b) for b in wit] for a in wit]))
+    off = G[~np.eye(len(wit), dtype=bool)]
+    rep["witnesses"] = rows
+    rep["witness_overlap_offdiag_max"] = float(off.max())
+    rep["witness_overlap_offdiag_mean"] = float(off.mean())
+    rep["witness_gram_rank_1e-6"] = int(
+        (np.linalg.svd(np.array(wit).T, compute_uv=False) > 1e-6).sum()
+    )
+    out.write_text(json.dumps(rep, indent=1))
+    print(json.dumps({k: v for k, v in rep.items() if k != "witnesses"}, indent=1))
+
+
+if __name__ == "__main__":
+    main()

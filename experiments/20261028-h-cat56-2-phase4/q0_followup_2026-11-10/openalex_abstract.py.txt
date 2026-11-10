@@ -1,0 +1,13 @@
+"""Rebuild an abstract from an OpenAlex abstract_inverted_index (local file). usage: python -I openalex_abstract.py work.json"""
+
+import json
+import sys
+
+d = json.load(open(sys.argv[1], encoding="utf-8"))
+inv = d.get("abstract_inverted_index") or {}
+pos = {}
+for w, idx in inv.items():
+    for i in idx:
+        pos[i] = w
+print(d.get("publication_date"), d.get("type"))
+print(" ".join(pos[i] for i in sorted(pos)))

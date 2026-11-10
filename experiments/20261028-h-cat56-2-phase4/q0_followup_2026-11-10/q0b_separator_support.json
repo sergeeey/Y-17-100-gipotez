@@ -1,0 +1,115 @@
+{
+ "H_spectrum": [
+  -0.5159580136245411,
+  -0.33723726161458034,
+  -0.2534970239343497,
+  -0.19868102129808793,
+  -0.14858238374211838,
+  -0.12509462983012093,
+  -0.1156351224911855,
+  -0.07354038644428046,
+  -0.021729931162356976,
+  -0.002614214916326305,
+  0.006052427154586266,
+  0.020324373718376535,
+  0.03148487607555027,
+  0.046992175372013986,
+  0.06355702303708774,
+  0.09489639645149453,
+  0.15295677042870734,
+  0.21802642504355152,
+  0.31156292279166675,
+  0.5157755989849131
+ ],
+ "n_negative_eigs": 10,
+ "control_full_S_minus_min": 0.007011903256588681,
+ "witnesses": [
+  {
+   "removed": 4,
+   "min_value": -0.3985975454512114,
+   "violation_of_removed_constraint": 0.886041559060495,
+   "max_violation_of_kept_constraints": 8.00625246042719e-14,
+   "share_in_negative_eigenspace": 0.9080327787729293
+  },
+  {
+   "removed": 5,
+   "min_value": -0.3683311684701418,
+   "violation_of_removed_constraint": 0.41356923289021563,
+   "max_violation_of_kept_constraints": 2.928408394364186e-14,
+   "share_in_negative_eigenspace": 0.9622857976995782
+  },
+  {
+   "removed": 6,
+   "min_value": -0.3080916335682774,
+   "violation_of_removed_constraint": 0.9563514410041749,
+   "max_violation_of_kept_constraints": 4.696173256112403e-14,
+   "share_in_negative_eigenspace": 0.8871845594018027
+  },
+  {
+   "removed": 7,
+   "min_value": -0.3384006118744978,
+   "violation_of_removed_constraint": 0.8990698539801766,
+   "max_violation_of_kept_constraints": 5.547298020884936e-14,
+   "share_in_negative_eigenspace": 0.9062787875579973
+  },
+  {
+   "removed": 8,
+   "min_value": -0.3512758017739162,
+   "violation_of_removed_constraint": 0.6242105459664278,
+   "max_violation_of_kept_constraints": 4.098057397860594e-14,
+   "share_in_negative_eigenspace": 0.9436974404606905
+  },
+  {
+   "removed": 9,
+   "min_value": -0.2790668604232701,
+   "violation_of_removed_constraint": 0.9013989499116232,
+   "max_violation_of_kept_constraints": 5.88967445886151e-14,
+   "share_in_negative_eigenspace": 0.8378347666089946
+  },
+  {
+   "removed": 10,
+   "min_value": -0.3699647993996408,
+   "violation_of_removed_constraint": 0.5735639119053435,
+   "max_violation_of_kept_constraints": 1.4876954370453405e-12,
+   "share_in_negative_eigenspace": 0.9270771465375808
+  },
+  {
+   "removed": 11,
+   "min_value": -0.3472387486255696,
+   "violation_of_removed_constraint": 0.6997120178987128,
+   "max_violation_of_kept_constraints": 1.4948783341277926e-13,
+   "share_in_negative_eigenspace": 0.9258306481775687
+  },
+  {
+   "removed": 12,
+   "min_value": -0.3234727296830286,
+   "violation_of_removed_constraint": 0.9493852407176394,
+   "max_violation_of_kept_constraints": 5.520317317307938e-14,
+   "share_in_negative_eigenspace": 0.8797431350168345
+  },
+  {
+   "removed": 13,
+   "min_value": -0.32859525298270925,
+   "violation_of_removed_constraint": 0.8444670640124612,
+   "max_violation_of_kept_constraints": 9.51645199808694e-15,
+   "share_in_negative_eigenspace": 0.9084185346104047
+  },
+  {
+   "removed": 14,
+   "min_value": -0.3398767894798217,
+   "violation_of_removed_constraint": 0.7132533514173467,
+   "max_violation_of_kept_constraints": 5.202574957287787e-14,
+   "share_in_negative_eigenspace": 0.9465411363558187
+  },
+  {
+   "removed": 15,
+   "min_value": -0.36824352073067,
+   "violation_of_removed_constraint": 0.5519631865515697,
+   "max_violation_of_kept_constraints": 7.055981056645671e-15,
+   "share_in_negative_eigenspace": 0.9555895447272459
+  }
+ ],
+ "witness_overlap_offdiag_max": 0.9736185877276125,
+ "witness_overlap_offdiag_mean": 0.7052245725445215,
+ "witness_gram_rank_1e-6": 12
+}
